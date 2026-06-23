@@ -64,7 +64,7 @@ func _ready():
 		loadedModsLabel.bbcode_text = text
 		verticalModsStr = str(loadedMods.size())+" mod"+("s" if loadedMods.size() != 1 else "")
 	
-	if(OS.get_name() == "HTML5"):
+	if(OS.get_name() == "Web"):
 		auto_translator_button.disabled = true
 	
 	OPTIONS.onScreenOrientationChange.connect(updateSidePanelsVisibility)
@@ -73,7 +73,7 @@ func updateDonationData():
 	donations_label.bbcode_text = GlobalRegistry.getDonationDataString()
 
 func _on_NewGameButton_pressed():
-	var _ok = get_tree().change_scene("res://Game/MainScene.tscn")
+	var _ok = get_tree().change_scene_to_file("res://Game/MainScene.tscn")
 
 func hideAllMenus():
 	GlobalTooltip.resetTooltips()

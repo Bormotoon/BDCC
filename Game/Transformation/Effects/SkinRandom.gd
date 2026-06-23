@@ -20,7 +20,7 @@ func applyEffect(_data:Dictionary) -> Dictionary:
 		pickedSkin = TFUtil.getRandomSkinForSpecies(finalSpecies)
 		pickedColors = TFUtil.getRandomColorsForSpecies(finalSpecies)
 	
-	#Color.white.linear_interpolate(Color.red, 0.5)
+	#Color.white.lerp(Color.red, 0.5)
 	
 	_data["pickedSkin"] = pickedSkin
 	_data["pickedSkinRColor"] = pickedColors[0]

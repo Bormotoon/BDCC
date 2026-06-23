@@ -61,7 +61,7 @@ func updateSprites():
 func hydrateSize(sizeMult:float = 1.0):
 	if(texture == null):
 		return
-	var wantSizeW = rect_size.x * sizeMult
+	var wantSizeW = size.x * sizeMult
 	var aspect = float(texture.get_size().x) / float(texture.get_size().y)
 	if(aspect <= 0.0):
 		return

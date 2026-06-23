@@ -20,82 +20,82 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 20.0
+offset_right = 1280.0
+offset_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 1280.0
-margin_bottom = 64.0
+offset_top = 24.0
+offset_right = 1280.0
+offset_bottom = 64.0
 
 [node name="GameplayCatButton" type="Button" parent="VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
-margin_right = 334.0
-margin_bottom = 40.0
+offset_right = 334.0
+offset_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Gameplay"
 
 [node name="GameCatButton" type="Button" parent="VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
-margin_left = 338.0
-margin_right = 636.0
-margin_bottom = 40.0
+offset_left = 338.0
+offset_right = 636.0
+offset_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Game"
 
 [node name="DisplayCatButton" type="Button" parent="VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
-margin_left = 640.0
-margin_right = 951.0
-margin_bottom = 40.0
+offset_left = 640.0
+offset_right = 951.0
+offset_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Display"
 
 [node name="InterfaceCatButton" type="Button" parent="VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
-margin_left = 955.0
-margin_right = 1280.0
-margin_bottom = 40.0
+offset_left = 955.0
+offset_right = 1280.0
+offset_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Interface"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_top = 68.0
-margin_right = 1280.0
-margin_bottom = 616.0
+offset_top = 68.0
+offset_right = 1280.0
+offset_bottom = 616.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 5 )
 
 [node name="ScrollVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 1280.0
-margin_bottom = 548.0
+offset_right = 1280.0
+offset_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CategoryNameLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
 unique_name_in_owner = true
-margin_right = 1280.0
-margin_bottom = 21.0
+offset_right = 1280.0
+offset_bottom = 21.0
 bbcode_enabled = true
 bbcode_text = "Options screen"
 text = "Options screen"
 fit_content_height = true
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_top = 25.0
-margin_right = 1280.0
-margin_bottom = 29.0
+offset_top = 25.0
+offset_right = 1280.0
+offset_bottom = 29.0
 
 [node name="OptionsContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_top = 33.0
-margin_right = 1280.0
-margin_bottom = 143.0
+offset_top = 33.0
+offset_right = 1280.0
+offset_bottom = 143.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
@@ -104,36 +104,36 @@ custom_constants/separation = 10
 [node name="OptionUnknownType" parent="VBoxContainer/ScrollContainer/ScrollVBox/OptionsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 30.0
-margin_right = 1280.0
-margin_bottom = 50.0
+offset_top = 30.0
+offset_right = 1280.0
+offset_bottom = 50.0
 
 [node name="OptionUnknownType2" parent="VBoxContainer/ScrollContainer/ScrollVBox/OptionsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 60.0
-margin_right = 1280.0
-margin_bottom = 80.0
+offset_top = 60.0
+offset_right = 1280.0
+offset_bottom = 80.0
 
 [node name="OptionUnknownType3" parent="VBoxContainer/ScrollContainer/ScrollVBox/OptionsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 90.0
-margin_right = 1280.0
-margin_bottom = 110.0
+offset_top = 90.0
+offset_right = 1280.0
+offset_bottom = 110.0
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-margin_top = 620.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 620.0
+offset_right = 1280.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 255.0
-margin_bottom = 26.0
+offset_right = 255.0
+offset_bottom = 26.0
 text = "Save"
 myTooltipDesc = "Save the settings and close this menu"
 myShortcutKey = "1"
@@ -141,9 +141,9 @@ myShortcutKey = "1"
 [node name="RevertButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 259.0
-margin_right = 514.0
-margin_bottom = 26.0
+offset_left = 259.0
+offset_right = 514.0
+offset_bottom = 26.0
 text = "Defaults"
 myTooltipDesc = "Reset settings to their default values"
 myShortcutKey = "2"
@@ -151,9 +151,9 @@ myShortcutKey = "2"
 [node name="ResetRenderButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 518.0
-margin_right = 772.0
-margin_bottom = 26.0
+offset_left = 518.0
+offset_right = 772.0
+offset_bottom = 26.0
 text = "Reset Render"
 myTooltipDesc = "Hard-Reset render settings"
 myShortcutKey = "3"

@@ -42,7 +42,7 @@ func setSkeletonRecursive(childnode, skeleton):
 					material.params_depth_draw_mode = SpatialMaterial.DEPTH_DRAW_OPAQUE_ONLY
 					material.params_cull_mode = SpatialMaterial.CULL_DISABLED
 					# Fixes wrong colors on HTML5/Android builds, I dunno, something about Srgb and linear colors
-					if(OS.get_name() in ["Android", "HTML5"] && ProjectSettings.get_setting("rendering/quality/driver/driver_name") == "GLES3"):
+					if(OS.get_name() in ["Android", "Web"] && ProjectSettings.get_setting("rendering/quality/driver/driver_name") == "GLES3"):
 						material.flags_albedo_tex_force_srgb = true
 			for _i in range(childnode.get_surface_material_count()):
 				var material = childnode.get_surface_material(_i)
@@ -50,7 +50,7 @@ func setSkeletonRecursive(childnode, skeleton):
 					material.flags_unshaded = true
 					material.params_depth_draw_mode = SpatialMaterial.DEPTH_DRAW_OPAQUE_ONLY
 					material.params_cull_mode = SpatialMaterial.CULL_DISABLED
-					if(OS.get_name() in ["Android", "HTML5"] && ProjectSettings.get_setting("rendering/quality/driver/driver_name") == "GLES3"):
+					if(OS.get_name() in ["Android", "Web"] && ProjectSettings.get_setting("rendering/quality/driver/driver_name") == "GLES3"):
 						material.flags_albedo_tex_force_srgb = true
 				
 	if(childnode is MyBoneAttachment):

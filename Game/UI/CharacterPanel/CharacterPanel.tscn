@@ -48,8 +48,8 @@ size_flags_horizontal = 3
 script = ExtResource( 2 )
 
 [node name="NameLabel" type="Label" parent="."]
-margin_right = 1280.0
-margin_bottom = 28.0
+offset_right = 1280.0
+offset_bottom = 28.0
 custom_fonts/font = SubResource( 7 )
 text = "Character name"
 autowrap = true
@@ -57,9 +57,9 @@ autowrap = true
 [node name="LevelBar" parent="." instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 32.0
-margin_right = 1280.0
-margin_bottom = 48.0
+offset_top = 32.0
+offset_right = 1280.0
+offset_bottom = 48.0
 mouse_filter = 2
 colorGradient = SubResource( 10 )
 propertyName = "Level"
@@ -67,9 +67,9 @@ propertyName = "Level"
 [node name="PainBar" parent="." instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 52.0
-margin_right = 1280.0
-margin_bottom = 68.0
+offset_top = 52.0
+offset_right = 1280.0
+offset_bottom = 68.0
 mouse_filter = 2
 colorGradient = SubResource( 8 )
 propertyName = "Pain"
@@ -77,25 +77,25 @@ propertyName = "Pain"
 [node name="ConsciousnessBar" parent="." instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 72.0
-margin_right = 1280.0
-margin_bottom = 88.0
+offset_top = 72.0
+offset_right = 1280.0
+offset_bottom = 88.0
 mouse_filter = 2
 colorGradient = SubResource( 13 )
 propertyName = "Consciousness"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 92.0
-margin_right = 1280.0
-margin_bottom = 108.0
+offset_top = 92.0
+offset_right = 1280.0
+offset_bottom = 108.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="LustBar" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 638.0
-margin_bottom = 16.0
+offset_right = 638.0
+offset_bottom = 16.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -105,9 +105,9 @@ propertyName = "Lust"
 [node name="ArousalBar" parent="HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 642.0
-margin_right = 1280.0
-margin_bottom = 16.0
+offset_left = 642.0
+offset_right = 1280.0
+offset_bottom = 16.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -117,9 +117,9 @@ propertyName = "Arousal"
 [node name="StaminaBar" parent="." instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 112.0
-margin_right = 1280.0
-margin_bottom = 128.0
+offset_top = 112.0
+offset_right = 1280.0
+offset_bottom = 128.0
 mouse_filter = 2
 colorGradient = SubResource( 11 )
 propertyName = "Stamina"
@@ -127,9 +127,9 @@ propertyName = "Stamina"
 [node name="StatusEffectsPanel" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 132.0
-margin_right = 1280.0
-margin_bottom = 132.0
+offset_top = 132.0
+offset_right = 1280.0
+offset_bottom = 132.0
 rect_min_size = Vector2( 0, 0 )
 mouse_filter = 1
 showTooltipBelow = true

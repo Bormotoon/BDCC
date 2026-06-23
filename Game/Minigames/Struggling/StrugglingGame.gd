@@ -163,7 +163,7 @@ func _on_NextButtonTimer_timeout():
 		if(shouldFlipH):
 			pos.x = 1.0 - pos.x
 		
-		button.position = rect_size * pos
+		button.position = size * pos
 		button.setup(buttonTime, buttonDeadzone)
 		button.onHit.connect(onButtonHit)
 		$Buttons.add_child(button)

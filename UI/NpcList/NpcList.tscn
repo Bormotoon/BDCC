@@ -16,7 +16,7 @@ corner_radius_bottom_left = 30
 corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id=5]
-content_margin_left = 0.0
+content_offset_left = 0.0
 bg_color = Color( 0.207843, 0.133333, 0.364706, 1 )
 draw_center = false
 border_width_left = 2
@@ -71,45 +71,45 @@ shadow_size = 2
 [sub_resource type="StyleBoxEmpty" id=15]
 
 [node name="NpcList" type="MarginContainer"]
-margin_top = 5.0
-margin_right = 1280.0
-margin_bottom = 700.0
+offset_top = 5.0
+offset_right = 1280.0
+offset_bottom = 700.0
 rect_min_size = Vector2( 0, 5 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
-custom_constants/margin_top = 5
-custom_constants/margin_bottom = 20
+custom_constants/offset_top = 5
+custom_constants/offset_bottom = 20
 script = ExtResource( 3 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_top = 5.0
-margin_right = 1280.0
-margin_bottom = 675.0
+offset_top = 5.0
+offset_right = 1280.0
+offset_bottom = 675.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 custom_styles/panel = ExtResource( 5 )
 
 [node name="VBoxC" type="VBoxContainer" parent="PanelContainer"]
-margin_right = 1280.0
-margin_bottom = 670.0
+offset_right = 1280.0
+offset_bottom = 670.0
 custom_constants/separation = 0
 
 [node name="UpperPanel" type="VBoxContainer" parent="PanelContainer/VBoxC"]
-margin_right = 1280.0
-margin_bottom = 64.0
+offset_right = 1280.0
+offset_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 custom_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxC/UpperPanel"]
-margin_right = 1280.0
-margin_bottom = 60.0
+offset_right = 1280.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 0, 60 )
 custom_constants/separation = 0
 
 [node name="Name" type="Button" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_right = 192.0
-margin_bottom = 60.0
+offset_right = 192.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 110, 50 )
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -121,17 +121,17 @@ toggle_mode = true
 text = "Name:"
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 192.0
-margin_right = 200.0
-margin_bottom = 60.0
+offset_left = 192.0
+offset_right = 200.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 2, 0 )
 custom_constants/separation = 8
 custom_styles/separator = SubResource( 8 )
 
 [node name="Gender" type="Button" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 200.0
-margin_right = 392.0
-margin_bottom = 60.0
+offset_left = 200.0
+offset_right = 392.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 120, 50 )
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -143,17 +143,17 @@ toggle_mode = true
 text = "Gender:"
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 392.0
-margin_right = 400.0
-margin_bottom = 60.0
+offset_left = 392.0
+offset_right = 400.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 2, 0 )
 custom_constants/separation = 8
 custom_styles/separator = SubResource( 9 )
 
 [node name="Personality" type="Button" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 400.0
-margin_right = 592.0
-margin_bottom = 60.0
+offset_left = 400.0
+offset_right = 592.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 50, 50 )
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -165,17 +165,17 @@ toggle_mode = true
 text = "Personality:"
 
 [node name="VSeparator3" type="VSeparator" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 592.0
-margin_right = 600.0
-margin_bottom = 60.0
+offset_left = 592.0
+offset_right = 600.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 2, 0 )
 custom_constants/separation = 8
 custom_styles/separator = SubResource( 10 )
 
 [node name="ChildrenAmount" type="Button" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 600.0
-margin_right = 792.0
-margin_bottom = 60.0
+offset_left = 600.0
+offset_right = 792.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 50, 50 )
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -187,17 +187,17 @@ toggle_mode = true
 text = "Childs:"
 
 [node name="VSeparator4" type="VSeparator" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 792.0
-margin_right = 800.0
-margin_bottom = 60.0
+offset_left = 792.0
+offset_right = 800.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 2, 0 )
 custom_constants/separation = 8
 custom_styles/separator = SubResource( 10 )
 
 [node name="Relationship" type="Button" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 800.0
-margin_right = 992.0
-margin_bottom = 60.0
+offset_left = 800.0
+offset_right = 992.0
+offset_bottom = 60.0
 rect_min_size = Vector2( 140, 50 )
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -209,10 +209,10 @@ toggle_mode = true
 text = "Relationship:"
 
 [node name="dummy" type="Label" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 992.0
-margin_top = 5.0
-margin_right = 1088.0
-margin_bottom = 55.0
+offset_left = 992.0
+offset_top = 5.0
+offset_right = 1088.0
+offset_bottom = 55.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 11
 size_flags_stretch_ratio = 0.5
@@ -220,50 +220,50 @@ align = 1
 valign = 1
 
 [node name="dummy2" type="Label" parent="PanelContainer/VBoxC/UpperPanel/HBoxContainer"]
-margin_left = 1088.0
-margin_top = 5.0
-margin_right = 1280.0
-margin_bottom = 55.0
+offset_left = 1088.0
+offset_top = 5.0
+offset_right = 1280.0
+offset_bottom = 55.0
 rect_min_size = Vector2( 65, 50 )
 size_flags_horizontal = 11
 align = 1
 valign = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxC/UpperPanel"]
-margin_top = 60.0
-margin_right = 1280.0
-margin_bottom = 64.0
+offset_top = 60.0
+offset_right = 1280.0
+offset_bottom = 64.0
 rect_min_size = Vector2( 0, 4 )
 
 [node name="ScrollC" type="ScrollContainer" parent="PanelContainer/VBoxC"]
-margin_top = 64.0
-margin_right = 1280.0
-margin_bottom = 670.0
+offset_top = 64.0
+offset_right = 1280.0
+offset_bottom = 670.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource( 3 )
 
 [node name="VboxC2" type="VBoxContainer" parent="PanelContainer/VBoxC/ScrollC"]
-margin_right = 1280.0
-margin_bottom = 606.0
+offset_right = 1280.0
+offset_bottom = 606.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_top = 5.0
-margin_right = 1280.0
-margin_bottom = 675.0
+offset_top = 5.0
+offset_right = 1280.0
+offset_bottom = 675.0
 rect_min_size = Vector2( 300, 200 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Notification" type="PopupDialog" parent="CenterContainer"]
-margin_left = 440.0
-margin_top = 260.0
-margin_right = 840.0
-margin_bottom = 410.0
+offset_left = 440.0
+offset_top = 260.0
+offset_right = 840.0
+offset_bottom = 410.0
 rect_min_size = Vector2( 400, 150 )
 custom_styles/panel = SubResource( 11 )
 popup_exclusive = true
@@ -272,13 +272,13 @@ popup_exclusive = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -40.0
+offset_top = -40.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Forget" type="Button" parent="CenterContainer/Notification/HBoxC"]
 visible = false
-margin_right = 400.0
-margin_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 40.0
 rect_pivot_offset = Vector2( 200, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -290,9 +290,9 @@ text = "Forget"
 
 [node name="Ok" type="Button" parent="CenterContainer/Notification/HBoxC"]
 visible = false
-margin_left = 202.0
-margin_right = 400.0
-margin_bottom = 40.0
+offset_left = 202.0
+offset_right = 400.0
+offset_bottom = 40.0
 rect_pivot_offset = Vector2( 200, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -303,9 +303,9 @@ text = "OK"
 
 [node name="Cancel" type="Button" parent="CenterContainer/Notification/HBoxC"]
 visible = false
-margin_left = 269.0
-margin_right = 400.0
-margin_bottom = 40.0
+offset_left = 269.0
+offset_right = 400.0
+offset_bottom = 40.0
 rect_pivot_offset = Vector2( 200, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -317,10 +317,10 @@ text = "Cancel"
 
 [node name="NotificationLabel" type="Label" parent="CenterContainer/Notification"]
 anchor_right = 1.0
-margin_left = 15.0
-margin_top = 15.0
-margin_right = -15.0
-margin_bottom = 106.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 autowrap = true

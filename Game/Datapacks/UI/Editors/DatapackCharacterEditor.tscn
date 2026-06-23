@@ -20,27 +20,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 616.0
+offset_right = 1280.0
+offset_bottom = 616.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
-margin_right = 976.0
-margin_bottom = 616.0
+offset_right = 976.0
+offset_bottom = 616.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PackVariables" parent="VBoxContainer/HBoxContainer/ScrollContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 976.0
-margin_bottom = 20.0
+offset_right = 976.0
+offset_bottom = 20.0
 
 [node name="DollWrapper" type="Control" parent="VBoxContainer/HBoxContainer"]
-margin_left = 980.0
-margin_right = 1280.0
-margin_bottom = 616.0
+offset_left = 980.0
+offset_right = 1280.0
+offset_bottom = 616.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 
@@ -62,15 +62,15 @@ texture = SubResource( 2 )
 viewportPath = NodePath("../Viewport")
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-margin_top = 620.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 620.0
+offset_right = 1280.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/GridContainer"]
-margin_right = 256.0
-margin_bottom = 20.0
+offset_right = 256.0
+offset_bottom = 20.0
 size_flags_horizontal = 3
 text = "Save"
 

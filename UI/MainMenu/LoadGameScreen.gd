@@ -13,10 +13,10 @@ func _ready():
 	if(OS.get_name() == "Android"):
 		$VBoxContainer/GridContainer/SavesButton.visible = false
 	
-	if(OS.get_name() == "HTML5"):
+	if(OS.get_name() == "Web"):
 		$VBoxContainer/GridContainer/SavesButton.visible = false
 	
-	if OS.get_name() == "HTML5" and OS.has_feature("JavaScript"):
+	if OS.get_name() == "Web" and OS.has_feature("JavaScript"):
 		_define_js()
 
 func updateSaves():
@@ -55,13 +55,13 @@ func _on_DeleteButton_pressed():
 
 func onExportButtonClicked(savePath: String):
 	print("EXPORT: "+savePath)
-	if(OS.get_name() == "HTML5"):
+	if(OS.get_name() == "Web"):
 		var save_game = File.new()
 		if not save_game.file_exists(savePath):
 			return # Error! We don't have a save to load.
 		
 		save_game.open(savePath, File.READ)
-		#var saveData = parse_json(save_game.get_as_text())
+		#var saveData = JSON.parse_string(save_game.get_as_text())
 		
 		JavaScript.download_buffer(save_game.get_as_text().to_utf8(), savePath.get_file(), "text/plain")
 		save_game.close()
@@ -142,7 +142,7 @@ func _define_js():
 	)
 	
 func readSaveFileHTML5():
-	if OS.get_name() != "HTML5" or !OS.has_feature("JavaScript"):
+	if OS.get_name() != "Web" or !OS.has_feature("JavaScript"):
 		return
 
 	# Execute JS function
@@ -170,7 +170,7 @@ func readSaveFileHTML5():
 
 
 func _on_ImportButton_pressed():
-	if OS.get_name() == "HTML5":
+	if OS.get_name() == "Web":
 		var saveDataAndFileName = await readSaveFileHTML5()
 		if(saveDataAndFileName == null || saveDataAndFileName.size() != 2):
 			return

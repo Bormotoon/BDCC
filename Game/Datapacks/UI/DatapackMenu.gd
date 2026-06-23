@@ -15,7 +15,7 @@ func _ready():
 	#updateDatapackList()
 	reloadAndUpdatePacks()
 	
-	if(OS.get_name() != "HTML5"):
+	if(OS.get_name() != "Web"):
 		export_datapack_button.visible = false
 		import_pack_button.visible = false
 
@@ -209,14 +209,14 @@ func _on_ExportDatapackButton_pressed():
 	
 	var datapackToExport:Datapack = datapacksList[selectedIDs[0]]
 	
-	if(OS.get_name() == "HTML5"):
+	if(OS.get_name() == "Web"):
 		var datapackPath = datapackToExport.getLoadedPath()
 		var save_game = File.new()
 		if not save_game.file_exists(datapackPath):
 			return # Error! We don't have a save to load.
 		
 		save_game.open(datapackPath, File.READ)
-		#var saveData = parse_json(save_game.get_as_text())
+		#var saveData = JSON.parse_string(save_game.get_as_text())
 		
 		JavaScript.download_buffer(save_game.get_buffer(save_game.get_len()), datapackPath.get_file())
 		save_game.close()
@@ -224,7 +224,7 @@ func _on_ExportDatapackButton_pressed():
 
 
 #func _on_ImportPackButton_pressed():
-#	if OS.get_name() == "HTML5":
+#	if OS.get_name() == "Web":
 #		var saveDataAndFileName = await readSaveFileHTML5()
 #		if(saveDataAndFileName == null || saveDataAndFileName.size() != 2):
 #			return

@@ -7,16 +7,16 @@
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="." index="0"]
-margin_right = 26.0
-margin_bottom = 720.0
+offset_right = 26.0
+offset_bottom = 720.0
 size_flags_vertical = 7
 text = "asdf"
 valign = 1
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="." index="1"]
-margin_left = 30.0
-margin_right = 60.0
-margin_bottom = 720.0
+offset_left = 30.0
+offset_right = 60.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 30, 0 )
 
 [connection signal="color_changed" from="ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]

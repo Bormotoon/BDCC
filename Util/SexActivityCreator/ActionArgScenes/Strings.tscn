@@ -8,51 +8,51 @@ rect_min_size = Vector2( 0, 200 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="." index="0"]
-margin_right = 1280.0
-margin_bottom = 14.0
+offset_right = 1280.0
+offset_bottom = 14.0
 text = "Something something"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
-margin_top = 18.0
-margin_right = 1280.0
-margin_bottom = 66.0
+offset_top = 18.0
+offset_right = 1280.0
+offset_bottom = 66.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" index="0"]
-margin_right = 1280.0
-margin_bottom = 24.0
+offset_right = 1280.0
+offset_bottom = 24.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" index="0"]
-margin_top = 5.0
-margin_right = 68.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 68.0
+offset_bottom = 19.0
 text = "New string"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer2" index="1"]
-margin_left = 72.0
-margin_right = 1280.0
-margin_bottom = 24.0
+offset_left = 72.0
+offset_right = 1280.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" index="1"]
-margin_top = 28.0
-margin_right = 1280.0
-margin_bottom = 48.0
+offset_top = 28.0
+offset_right = 1280.0
+offset_bottom = 48.0
 
 [node name="AddFetishButton" type="Button" parent="VBoxContainer/HBoxContainer3" index="0"]
-margin_right = 37.0
-margin_bottom = 20.0
+offset_right = 37.0
+offset_bottom = 20.0
 text = "Add"
 
 [node name="RemoveFetishButton" type="Button" parent="VBoxContainer/HBoxContainer3" index="1"]
-margin_left = 41.0
-margin_right = 105.0
-margin_bottom = 20.0
+offset_left = 41.0
+offset_right = 105.0
+offset_bottom = 20.0
 text = "Remove"
 
 [node name="FetishList" type="ItemList" parent="." index="2"]
-margin_top = 70.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 70.0
+offset_right = 1280.0
+offset_bottom = 720.0
 size_flags_vertical = 3
 
 [connection signal="text_entered" from="VBoxContainer/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_entered"]

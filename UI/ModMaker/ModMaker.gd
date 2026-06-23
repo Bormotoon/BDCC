@@ -195,7 +195,7 @@ func useTar():
 	
 	Util.removeDirectory(newModFolder)
 	
-	if(!(OS.get_name() in ["Android", "iOS", "HTML5"])):
+	if(!(OS.get_name() in ["Android", "iOS", "Web"])):
 		var _ok2 = Util.fixed_shell_open(ProjectSettings.globalize_path("user://exported_mods/"))
 	
 func gatherFiles():
@@ -231,7 +231,7 @@ func gatherFiles():
 		directory.make_dir_recursive(newPath.get_base_dir())
 		directory.copy(file, newPath)
 	
-	if(!(OS.get_name() in ["Android", "iOS", "HTML5"])):
+	if(!(OS.get_name() in ["Android", "iOS", "Web"])):
 		var _ok = Util.fixed_shell_open(ProjectSettings.globalize_path(newModFolder))
 	
 func makePCKFile():
@@ -258,7 +258,7 @@ func makePCKFile():
 		packer.add_file(file, file)
 	packer.flush()
 
-	if(!(OS.get_name() in ["Android", "iOS", "HTML5"])):
+	if(!(OS.get_name() in ["Android", "iOS", "Web"])):
 		var _ok = Util.fixed_shell_open(ProjectSettings.globalize_path("user://exported_mods"))
 
 

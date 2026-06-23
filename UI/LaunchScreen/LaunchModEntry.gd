@@ -40,7 +40,7 @@ func _notification(what):
 		drop_data(rect_position,get_viewport().gui_get_drag_data())
 
 func get_drag_data(_position):
-	if !storedEntry or !Rect2(Vector2.ZERO,rect_size).has_point(_position) or get_viewport().gui_get_drag_data():
+	if !storedEntry or !Rect2(Vector2.ZERO,size).has_point(_position) or get_viewport().gui_get_drag_data():
 		return
 	var data = {"entry":storedEntry,"origin":self}
 	set_drag_preview(getPreview())
@@ -52,8 +52,8 @@ func getPreview():
 	var l = Label.new()
 	l.text = label.text
 	panel.add_stylebox_override("panel",preload("res://UI/LaunchScreen/LaunchModEntryPanel.tres"))
-	lp.rect_min_size = rect_size
-	panel.rect_min_size = rect_size
+	lp.rect_min_size = size
+	panel.rect_min_size = size
 	lp.add_child(panel)
 	l.add_color_override("font_color",label.get_color("font_color"))
 	panel.add_child(l)

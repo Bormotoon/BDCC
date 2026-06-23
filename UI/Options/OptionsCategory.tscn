@@ -6,8 +6,8 @@
 bg_color = Color( 0.211765, 0.184314, 0.372549, 1 )
 
 [node name="OptionsCategory" type="PanelContainer"]
-margin_right = 1280.0
-margin_bottom = 20.0
+offset_right = 1280.0
+offset_bottom = 20.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -15,7 +15,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_top = 3.0
-margin_right = 1280.0
-margin_bottom = 17.0
+offset_top = 3.0
+offset_right = 1280.0
+offset_bottom = 17.0
 text = "Test"

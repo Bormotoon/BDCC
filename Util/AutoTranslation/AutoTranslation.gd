@@ -235,7 +235,7 @@ func loadFromFile():
 		return
 	
 	save_game.open(configFilePath, File.READ)
-	#var saveData = parse_json(save_game.get_as_text())
+	#var saveData = JSON.parse_string(save_game.get_as_text())
 	var jsonResult = JSON.parse(save_game.get_as_text())
 	if(jsonResult.error != OK):
 		Log.printerr("AutoTranslation: Error while loading the options file, the file is not a valid json")

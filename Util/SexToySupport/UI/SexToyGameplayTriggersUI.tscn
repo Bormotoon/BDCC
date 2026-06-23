@@ -8,10 +8,10 @@
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+offset_bottom = -4.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 
@@ -20,101 +20,101 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Control" type="Control" parent="VBoxContainer"]
-margin_right = 1272.0
-margin_bottom = 10.0
+offset_right = 1272.0
+offset_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 14.0
-margin_right = 1272.0
-margin_bottom = 678.0
+offset_top = 14.0
+offset_right = 1272.0
+offset_bottom = 678.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-margin_right = 292.0
-margin_bottom = 664.0
+offset_right = 292.0
+offset_bottom = 664.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 292.0
-margin_bottom = 20.0
+offset_right = 292.0
+offset_bottom = 20.0
 text = "Triggers"
 align = 1
 
 [node name="TriggersItemList" type="ItemList" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 292.0
-margin_bottom = 634.0
+offset_top = 24.0
+offset_right = 292.0
+offset_bottom = 634.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 638.0
-margin_right = 292.0
-margin_bottom = 664.0
+offset_top = 638.0
+offset_right = 292.0
+offset_bottom = 664.0
 
 [node name="ExportConfigButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_right = 144.0
-margin_bottom = 26.0
+offset_right = 144.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Export config"
 
 [node name="LoadConfigButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 148.0
-margin_right = 292.0
-margin_bottom = 26.0
+offset_left = 148.0
+offset_right = 292.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Import"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 296.0
-margin_right = 1272.0
-margin_bottom = 664.0
+offset_left = 296.0
+offset_right = 1272.0
+offset_bottom = 664.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
-margin_right = 976.0
-margin_bottom = 368.0
+offset_right = 976.0
+offset_bottom = 368.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-margin_right = 976.0
-margin_bottom = 26.0
+offset_right = 976.0
+offset_bottom = 26.0
 
 [node name="TriggerNameLabel" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 3.0
-margin_right = 864.0
-margin_bottom = 23.0
+offset_top = 3.0
+offset_right = 864.0
+offset_bottom = 23.0
 size_flags_horizontal = 3
 text = "Some trigger"
 autowrap = true
 
 [node name="TestEffectButton" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 868.0
-margin_right = 976.0
-margin_bottom = 26.0
+offset_left = 868.0
+offset_right = 976.0
+offset_bottom = 26.0
 custom_colors/font_color = Color( 0.839216, 1, 0.980392, 1 )
 text = "Test trigger"
 
 [node name="PassiveHBox" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 30.0
-margin_right = 976.0
-margin_bottom = 50.0
+offset_top = 30.0
+offset_right = 976.0
+offset_bottom = 50.0
 
 [node name="StartFromLabel" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/PassiveHBox"]
 unique_name_in_owner = true
-margin_right = 103.0
-margin_bottom = 20.0
+offset_right = 103.0
+offset_bottom = 20.0
 text = "Start from %"
 
 [node name="StartFromHSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/PassiveHBox"]
 unique_name_in_owner = true
-margin_left = 107.0
-margin_right = 976.0
-margin_bottom = 20.0
+offset_left = 107.0
+offset_right = 976.0
+offset_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 1.0
@@ -122,54 +122,54 @@ step = 0.01
 
 [node name="ScaleWithValue" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 54.0
-margin_right = 976.0
-margin_bottom = 82.0
+offset_top = 54.0
+offset_right = 976.0
+offset_bottom = 82.0
 
 [node name="ScaleWithValueCheckbox" type="CheckBox" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ScaleWithValue"]
 unique_name_in_owner = true
-margin_right = 164.0
-margin_bottom = 28.0
+offset_right = 164.0
+offset_bottom = 28.0
 text = "Scale with value"
 
 [node name="ScaleWithValueLabel" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ScaleWithValue"]
 unique_name_in_owner = true
-margin_left = 168.0
-margin_top = 4.0
-margin_right = 296.0
-margin_bottom = 24.0
+offset_left = 168.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 24.0
 text = "Max at xxx pain"
 
 [node name="ScaleWithValueSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ScaleWithValue"]
 unique_name_in_owner = true
-margin_left = 300.0
-margin_right = 976.0
-margin_bottom = 28.0
+offset_left = 300.0
+offset_right = 976.0
+offset_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 1.0
 step = 0.01
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 86.0
-margin_right = 976.0
-margin_bottom = 106.0
+offset_top = 86.0
+offset_right = 976.0
+offset_bottom = 106.0
 text = "Trigger these effects:"
 align = 1
 
 [node name="EffectList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 110.0
-margin_right = 976.0
-margin_bottom = 314.0
+offset_top = 110.0
+offset_right = 976.0
+offset_bottom = 314.0
 
 [node name="SexToyEffectUIEntry" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/EffectList" instance=ExtResource( 3 )]
-margin_bottom = 204.0
+offset_bottom = 204.0
 
 [node name="AddNewEffectButton" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 318.0
-margin_right = 976.0
-margin_bottom = 368.0
+offset_top = 318.0
+offset_right = 976.0
+offset_bottom = 368.0
 rect_min_size = Vector2( 0, 50 )
 text = "Add new effect"
 
@@ -177,10 +177,10 @@ text = "Add new effect"
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 313.0
-margin_top = 40.0
-margin_right = -313.0
-margin_bottom = -40.0
+offset_left = 313.0
+offset_top = 40.0
+offset_right = -313.0
+offset_bottom = -40.0
 window_title = "Trigger Config Export"
 dialog_autowrap = true
 
@@ -188,10 +188,10 @@ dialog_autowrap = true
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -42.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -42.0
 wrap_enabled = true
 
 [node name="CopyExportTextButton" type="Button" parent="InfoAcceptDialog/ExportTextEdit"]
@@ -199,28 +199,28 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -100.0
-margin_top = -34.0
+offset_left = -100.0
+offset_top = -34.0
 text = "Copy"
 
 [node name="ConfigImportDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 313.0
-margin_top = 42.0
-margin_right = -313.0
-margin_bottom = -42.0
+offset_left = 313.0
+offset_top = 42.0
+offset_right = -313.0
+offset_bottom = -42.0
 window_title = "Import Config"
 
 [node name="ImportTextEdit" type="TextEdit" parent="ConfigImportDialog"]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -42.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -42.0
 wrap_enabled = true
 
 [node name="PasteTextButton" type="Button" parent="ConfigImportDialog/ImportTextEdit"]
@@ -228,8 +228,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -100.0
-margin_top = -34.0
+offset_left = -100.0
+offset_top = -34.0
 text = "Paste"
 
 [node name="LoadDefaultConfigButton" type="Button" parent="ConfigImportDialog/ImportTextEdit"]
@@ -237,9 +237,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -205.0
-margin_top = -34.0
-margin_right = -105.0
+offset_left = -205.0
+offset_top = -34.0
+offset_right = -105.0
 text = "Default"
 
 [node name="InfoFinalAcceptDialog" type="AcceptDialog" parent="."]
@@ -248,10 +248,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -160.0
-margin_top = -35.0
-margin_right = 160.0
-margin_bottom = 35.0
+offset_left = -160.0
+offset_top = -35.0
+offset_right = 160.0
+offset_bottom = 35.0
 
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer/TriggersItemList" to="." method="_on_TriggersItemList_item_selected"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ExportConfigButton" to="." method="_on_ExportConfigButton_pressed"]

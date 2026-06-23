@@ -25,7 +25,7 @@ func setProgressBarValue(value):
 
 func updateBarValue(value):
 	$ProgressBar.value = value
-	#$ProgressBar.get("custom_styles/fg").set_bg_color(colorEmpty.linear_interpolate(colorFull, value))
+	#$ProgressBar.get("custom_styles/fg").set_bg_color(colorEmpty.lerp(colorFull, value))
 	$ProgressBar.get("custom_styles/fg").set_bg_color(colorGradient.interpolate(value))
 	currentBarValue = value
 

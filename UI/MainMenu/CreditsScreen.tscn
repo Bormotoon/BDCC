@@ -26,47 +26,47 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 616.0
+offset_right = 1280.0
+offset_bottom = 616.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
 
 [node name="ScrollVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 1268.0
-margin_bottom = 738.0
+offset_right = 1268.0
+offset_bottom = 738.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_right = 1268.0
-margin_bottom = 20.0
+offset_right = 1268.0
+offset_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_top = 24.0
-margin_right = 1268.0
-margin_bottom = 45.0
+offset_top = 24.0
+offset_right = 1268.0
+offset_bottom = 45.0
 bbcode_enabled = true
 bbcode_text = "Credits"
 text = "Credits"
 fit_content_height = true
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_top = 49.0
-margin_right = 1268.0
-margin_bottom = 53.0
+offset_top = 49.0
+offset_right = 1268.0
+offset_bottom = 53.0
 
 [node name="ContentContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ScrollVBox"]
-margin_top = 57.0
-margin_right = 1268.0
-margin_bottom = 738.0
+offset_top = 57.0
+offset_right = 1268.0
+offset_bottom = 738.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer"]
-margin_right = 1268.0
-margin_bottom = 504.0
+offset_right = 1268.0
+offset_bottom = 504.0
 custom_fonts/bold_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]This game is very early in its development. If you are reading this - thank you!
@@ -121,17 +121,17 @@ fit_content_height = true
 
 [node name="ContributorsLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer"]
 unique_name_in_owner = true
-margin_top = 514.0
-margin_right = 1268.0
-margin_bottom = 535.0
+offset_top = 514.0
+offset_right = 1268.0
+offset_bottom = 535.0
 custom_fonts/bold_font = SubResource( 1 )
 bbcode_enabled = true
 fit_content_height = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer"]
-margin_top = 545.0
-margin_right = 1268.0
-margin_bottom = 650.0
+offset_top = 545.0
+offset_right = 1268.0
+offset_bottom = 650.0
 custom_fonts/bold_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]
@@ -147,25 +147,25 @@ Thanks to everyone else who I probably forgot..
 fit_content_height = true
 
 [node name="DonationsLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer"]
-margin_top = 660.0
-margin_right = 1268.0
-margin_bottom = 681.0
+offset_top = 660.0
+offset_right = 1268.0
+offset_bottom = 681.0
 custom_fonts/bold_font = SubResource( 1 )
 bbcode_enabled = true
 fit_content_height = true
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-margin_top = 620.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 620.0
+offset_right = 1280.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 256.0
-margin_bottom = 26.0
+offset_right = 256.0
+offset_bottom = 26.0
 text = "Close"
 myTooltipDesc = "Close this screen"
 myShortcutKey = "1"
@@ -173,9 +173,9 @@ myShortcutKey = "1"
 [node name="SupportRahiButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 260.0
-margin_right = 515.0
-margin_bottom = 26.0
+offset_left = 260.0
+offset_right = 515.0
+offset_bottom = 26.0
 text = "Support Rahi"
 myTooltipDesc = "Open Rahi's subscribestar"
 myShortcutKey = "2"

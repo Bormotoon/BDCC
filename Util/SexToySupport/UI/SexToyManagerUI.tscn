@@ -19,109 +19,109 @@ anchor_bottom = 1.0
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Toy Settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Control" type="Control" parent="TabContainer/Toy Settings/VBoxContainer"]
-margin_right = 1272.0
-margin_bottom = 10.0
+offset_right = 1272.0
+offset_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer"]
-margin_top = 14.0
-margin_right = 1272.0
-margin_bottom = 42.0
+offset_top = 14.0
+offset_right = 1272.0
+offset_bottom = 42.0
 
 [node name="EnableManagerCheckbox" type="CheckBox" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 246.0
-margin_bottom = 28.0
+offset_right = 246.0
+offset_bottom = 28.0
 text = "Enable sex toy integration"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer"]
-margin_top = 46.0
-margin_right = 1272.0
-margin_bottom = 678.0
+offset_top = 46.0
+offset_right = 1272.0
+offset_bottom = 678.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer"]
-margin_right = 292.0
-margin_bottom = 632.0
+offset_right = 292.0
+offset_bottom = 632.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Label" type="Label" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 292.0
-margin_bottom = 20.0
+offset_right = 292.0
+offset_bottom = 20.0
 text = "Backends"
 
 [node name="BackendsItemList" type="ItemList" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 292.0
-margin_bottom = 119.0
+offset_top = 24.0
+offset_right = 292.0
+offset_bottom = 119.0
 size_flags_vertical = 3
 allow_reselect = true
 
 [node name="Label2" type="Label" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 123.0
-margin_right = 292.0
-margin_bottom = 143.0
+offset_top = 123.0
+offset_right = 292.0
+offset_bottom = 143.0
 text = "Found toy features"
 
 [node name="ToyItemList" type="ItemList" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 147.0
-margin_right = 292.0
-margin_bottom = 632.0
+offset_top = 147.0
+offset_right = 292.0
+offset_bottom = 632.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.05
 allow_reselect = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer"]
-margin_left = 296.0
-margin_right = 1272.0
-margin_bottom = 632.0
+offset_left = 296.0
+offset_right = 1272.0
+offset_bottom = 632.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer"]
-margin_right = 976.0
-margin_bottom = 632.0
+offset_right = 976.0
+offset_bottom = 632.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BackendPanel" type="VBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 976.0
-margin_bottom = 314.0
+offset_right = 976.0
+offset_bottom = 314.0
 size_flags_vertical = 3
 
 [node name="EnableBackEndCheckBox" type="CheckBox" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel"]
 unique_name_in_owner = true
-margin_right = 976.0
-margin_bottom = 28.0
+offset_right = 976.0
+offset_bottom = 28.0
 text = "Enabled"
 
 [node name="BackendPackVariables" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 32.0
-margin_right = 976.0
-margin_bottom = 58.0
+offset_top = 32.0
+offset_right = 976.0
+offset_bottom = 58.0
 addSeparators = false
 
 [node name="BackendDesc" type="RichTextLabel" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel"]
 unique_name_in_owner = true
-margin_top = 62.0
-margin_right = 976.0
-margin_bottom = 83.0
+offset_top = 62.0
+offset_right = 976.0
+offset_bottom = 83.0
 size_flags_stretch_ratio = 0.2
 bbcode_enabled = true
 bbcode_text = "Asd"
@@ -129,91 +129,91 @@ text = "Asd"
 fit_content_height = true
 
 [node name="PanelContainer" type="PanelContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel"]
-margin_top = 87.0
-margin_right = 976.0
-margin_bottom = 121.0
+offset_top = 87.0
+offset_right = 976.0
+offset_bottom = 121.0
 
 [node name="BackEndInfoLabel" type="Label" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel/PanelContainer"]
 unique_name_in_owner = true
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 969.0
-margin_bottom = 27.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 969.0
+offset_bottom = 27.0
 autowrap = true
 
 [node name="BackendActionsList" type="HFlowContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/BackendPanel"]
 unique_name_in_owner = true
-margin_top = 125.0
-margin_right = 976.0
-margin_bottom = 125.0
+offset_top = 125.0
+offset_right = 976.0
+offset_bottom = 125.0
 
 [node name="ToyPanel" type="VBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_top = 318.0
-margin_right = 976.0
-margin_bottom = 632.0
+offset_top = 318.0
+offset_right = 976.0
+offset_bottom = 632.0
 size_flags_vertical = 3
 
 [node name="ToyMissingLabel" type="Label" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel"]
 unique_name_in_owner = true
-margin_right = 976.0
-margin_bottom = 20.0
+offset_right = 976.0
+offset_bottom = 20.0
 text = "( This toy is reported as missing by the backend )"
 
 [node name="ToyPackVariables" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
-margin_right = 976.0
-margin_bottom = 50.0
+offset_top = 24.0
+offset_right = 976.0
+offset_bottom = 50.0
 addSeparators = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel"]
-margin_top = 54.0
-margin_right = 976.0
-margin_bottom = 80.0
+offset_top = 54.0
+offset_right = 976.0
+offset_bottom = 80.0
 
 [node name="Label" type="Label" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel/HBoxContainer"]
-margin_right = 69.0
-margin_bottom = 26.0
+offset_right = 69.0
+offset_bottom = 26.0
 size_flags_vertical = 5
 text = "Test toy"
 valign = 1
 
 [node name="TestToyButton" type="Button" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 73.0
-margin_right = 127.0
-margin_bottom = 26.0
+offset_left = 73.0
+offset_right = 127.0
+offset_bottom = 26.0
 text = "Start"
 
 [node name="TestToySlider" type="HSlider" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 131.0
-margin_right = 976.0
-margin_bottom = 26.0
+offset_left = 131.0
+offset_right = 976.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 1.0
 step = 0.01
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel"]
-margin_top = 84.0
-margin_right = 976.0
-margin_bottom = 110.0
+offset_top = 84.0
+offset_right = 976.0
+offset_bottom = 110.0
 
 [node name="ForgetToyButton" type="Button" parent="TabContainer/Toy Settings/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/ToyPanel/HBoxContainer2"]
-margin_right = 100.0
-margin_bottom = 26.0
+offset_right = 100.0
+offset_bottom = 26.0
 text = "Forget toy"
 
 [node name="Gameplay Triggers" parent="TabContainer" instance=ExtResource( 4 )]
 visible = false
 
 [node name="CloseButton" type="Button" parent="."]
-margin_right = 139.0
-margin_bottom = 36.0
+offset_right = 139.0
+offset_bottom = 36.0
 text = "Save & Close"
 
 [connection signal="pressed" from="TabContainer/Toy Settings/VBoxContainer/HBoxContainer2/EnableManagerCheckbox" to="." method="_on_EnableManagerCheckbox_pressed"]

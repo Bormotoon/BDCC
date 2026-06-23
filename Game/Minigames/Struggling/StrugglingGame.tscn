@@ -22,28 +22,28 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StartUI"]
-margin_left = 420.0
-margin_top = 332.0
-margin_right = 859.0
-margin_bottom = 387.0
+offset_left = 420.0
+offset_top = 332.0
+offset_right = 859.0
+offset_bottom = 387.0
 
 [node name="Label" type="Label" parent="StartUI/VBoxContainer"]
-margin_right = 439.0
-margin_bottom = 31.0
+offset_right = 439.0
+offset_bottom = 31.0
 text = "Click the circle when the approaching ring reaches its outer border
 The better your accuracy is the better your struggling attempt will be"
 
 [node name="StartButton" type="Button" parent="StartUI/VBoxContainer"]
-margin_top = 35.0
-margin_right = 439.0
-margin_bottom = 55.0
+offset_top = 35.0
+offset_right = 439.0
+offset_bottom = 55.0
 text = "Start"
 
 [node name="StartUI" type="Control" parent="StartUI"]
-margin_left = 640.0
-margin_top = 360.0
-margin_right = 640.0
-margin_bottom = 360.0
+offset_left = 640.0
+offset_top = 360.0
+offset_right = 640.0
+offset_bottom = 360.0
 
 [node name="Buttons" type="Control" parent="."]
 anchor_right = 1.0
@@ -62,10 +62,10 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="AccuracyLabel" type="Label" parent="GameUI"]
-margin_left = 5.34539
-margin_top = 8.01809
-margin_right = 66.3454
-margin_bottom = 22.0181
+offset_left = 5.34539
+offset_top = 8.01809
+offset_right = 66.3454
+offset_bottom = 22.0181
 
 [node name="WinTimer" type="Timer" parent="."]
 one_shot = true
@@ -76,20 +76,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WinUI"]
-margin_left = 605.0
-margin_top = 341.0
-margin_right = 675.0
-margin_bottom = 379.0
+offset_left = 605.0
+offset_top = 341.0
+offset_right = 675.0
+offset_bottom = 379.0
 
 [node name="Label" type="Label" parent="WinUI/VBoxContainer"]
-margin_right = 70.0
-margin_bottom = 14.0
+offset_right = 70.0
+offset_bottom = 14.0
 text = "Completed"
 
 [node name="ContinueButton" type="Button" parent="WinUI/VBoxContainer"]
-margin_top = 18.0
-margin_right = 70.0
-margin_bottom = 38.0
+offset_top = 18.0
+offset_right = 70.0
+offset_bottom = 38.0
 text = "Continue"
 
 [connection signal="pressed" from="StartUI/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]

@@ -4,44 +4,44 @@
 [ext_resource path="res://Game/Datapacks/UI/CrotchCode/UI/CharListEntry.gd" type="Script" id=2]
 
 [node name="CharListEntry" type="HBoxContainer"]
-margin_right = 1272.0
-margin_bottom = 24.0
+offset_right = 1272.0
+offset_bottom = 24.0
 script = ExtResource( 2 )
 
 [node name="AliasVarUI" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 300.0
-margin_bottom = 24.0
+offset_right = 300.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = 304.0
-margin_top = 5.0
-margin_right = 604.0
-margin_bottom = 19.0
+offset_left = 304.0
+offset_top = 5.0
+offset_right = 604.0
+offset_bottom = 19.0
 size_flags_horizontal = 3
 text = "rahi = Rahi"
 
 [node name="StartsCheckBox" type="CheckBox" parent="."]
-margin_left = 608.0
-margin_right = 908.0
-margin_bottom = 24.0
+offset_left = 608.0
+offset_right = 908.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 text = "Added on start"
 
 [node name="VariantVarUI" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 912.0
-margin_right = 1213.0
-margin_bottom = 24.0
+offset_left = 912.0
+offset_right = 1213.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="DeleteButton" type="Button" parent="."]
-margin_left = 1217.0
-margin_right = 1272.0
-margin_bottom = 24.0
+offset_left = 1217.0
+offset_right = 1272.0
+offset_bottom = 24.0
 text = "Delete"
 
 [connection signal="onValueChange" from="AliasVarUI" to="." method="_on_AliasVarUI_onValueChange"]

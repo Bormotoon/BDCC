@@ -19,8 +19,8 @@ rect_min_size = Vector2( 50, 0 )
 script = ExtResource( 2 )
 
 [node name="BlockCatcherPanel" parent="." instance=ExtResource( 1 )]
-margin_top = 0.0
-margin_bottom = 720.0
+offset_top = 0.0
+offset_bottom = 720.0
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
 

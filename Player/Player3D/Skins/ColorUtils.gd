@@ -74,7 +74,7 @@ static func generateGenericFurryColors():
 	elif(pickedStrategy == "WhiteBlackColor"):
 		var primaryColor = Color(RNG.randf_range(0.8, 1.0), RNG.randf_range(0.8, 1.0), RNG.randf_range(0.8, 1.0))
 		var secondaryColor = Color(RNG.randf_range(0.1, 0.25), RNG.randf_range(0.1, 0.25), RNG.randf_range(0.1, 0.25))
-		var tertiaryColor = generateRandomPleasingFurColor().linear_interpolate(Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0)), RNG.randf_range(0.0, 1.0))
+		var tertiaryColor = generateRandomPleasingFurColor().lerp(Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0)), RNG.randf_range(0.0, 1.0))
 		primaryColor.s /= 4.0
 		secondaryColor.s /= 4.0
 		if(RNG.chance(50)):
@@ -101,7 +101,7 @@ static func generateGenericFurryColors():
 		if(RNG.chance(30)):
 			secondaryColor = Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0))
 		primaryColor.h = secondaryColor.h
-		var tertiaryColor = primaryColor.linear_interpolate(secondaryColor, RNG.randf_rangeX2(0.2, 0.5))
+		var tertiaryColor = primaryColor.lerp(secondaryColor, RNG.randf_rangeX2(0.2, 0.5))
 		
 		return [primaryColor, secondaryColor, tertiaryColor]
 	elif(pickedStrategy == "BrownColorColor"):

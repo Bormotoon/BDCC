@@ -64,7 +64,7 @@ func setButtonText(_text:String):
 	updateButtonText()
 
 func updateButtonText():
-	if(rect_size.y < 45.0):
+	if(size.y < 45.0):
 		text = myButtonText
 		button_label.text = ""
 	else:

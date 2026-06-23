@@ -20,8 +20,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="DollWrapper" type="Control" parent="HBoxContainer"]
-margin_right = 638.0
-margin_bottom = 720.0
+offset_right = 638.0
+offset_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -43,31 +43,31 @@ texture = SubResource( 1 )
 viewportPath = NodePath("../Viewport")
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
-margin_left = 642.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_left = 642.0
+offset_right = 1280.0
+offset_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 631.0
-margin_bottom = 713.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 631.0
+offset_bottom = 713.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SlotList" type="ItemList" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-margin_right = 624.0
-margin_bottom = 223.0
+offset_right = 624.0
+offset_bottom = 223.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
 
 [node name="BodypartList" type="ItemList" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 227.0
-margin_right = 624.0
-margin_bottom = 366.0
+offset_top = 227.0
+offset_right = 624.0
+offset_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
@@ -75,21 +75,21 @@ size_flags_stretch_ratio = 0.5
 [node name="Thickness" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 370.0
-margin_right = 624.0
-margin_bottom = 394.0
+offset_top = 370.0
+offset_right = 624.0
+offset_bottom = 394.0
 
 [node name="Feminity" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 398.0
-margin_right = 624.0
-margin_bottom = 422.0
+offset_top = 398.0
+offset_right = 624.0
+offset_bottom = 422.0
 
 [node name="Control" type="Control" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 426.0
-margin_right = 624.0
-margin_bottom = 706.0
+offset_top = 426.0
+offset_right = 624.0
+offset_bottom = 706.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -98,15 +98,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="CurrentBodypartChoices" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer"]
-margin_right = 310.0
-margin_bottom = 280.0
+offset_right = 310.0
+offset_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="OutputText" type="TextEdit" parent="HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer"]
-margin_left = 314.0
-margin_right = 624.0
-margin_bottom = 280.0
+offset_left = 314.0
+offset_right = 624.0
+offset_bottom = 280.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

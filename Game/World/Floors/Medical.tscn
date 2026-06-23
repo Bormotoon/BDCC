@@ -100,7 +100,7 @@ roomID = "med_staffonly_door1"
 roomDescription = "You stand in a wide white corridor, it looks pretty long, every so often you see airlocks that lead to laboratories and other rooms. This part of the corridor seems to be safe for inmates to walk through but you better not go too far or the staff will start asking questions."
 gridColor = 3
 population = 2
-astarConnectedTo = PoolStringArray( "med_lobbynw" )
+astarConnectedTo = PackedStringArray( "med_lobbynw" )
 
 [node name="MedRoom8" parent="." index="8" instance=ExtResource( 2 )]
 position = Vector2( 128, -64 )
@@ -109,7 +109,7 @@ roomID = "med_staffonly_door2"
 roomDescription = "You stand in a wide white corridor, it looks pretty long, every so often you see airlocks that lead to laboratories and other rooms. This part of the corridor seems to be safe for inmates to walk through but you better not go too far or the staff will start asking questions."
 gridColor = 3
 population = 2
-astarConnectedTo = PoolStringArray( "med_lobbyne" )
+astarConnectedTo = PackedStringArray( "med_lobbyne" )
 
 [node name="MedRoom9" parent="." index="9" instance=ExtResource( 2 )]
 position = Vector2( 128, -128 )

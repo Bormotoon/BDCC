@@ -6,67 +6,67 @@
 [ext_resource path="res://Game/Datapacks/UI/CrotchCode/UI/ImageListEntry.gd" type="Script" id=4]
 
 [node name="ImageListEntry" type="HBoxContainer"]
-margin_right = 1272.0
-margin_bottom = 128.0
+offset_right = 1272.0
+offset_bottom = 128.0
 script = ExtResource( 4 )
 
 [node name="IDLabel" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 66.0
-margin_bottom = 128.0
+offset_right = 66.0
+offset_bottom = 128.0
 
 [node name="ArtistLabel" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 70.0
-margin_right = 136.0
-margin_bottom = 128.0
+offset_left = 70.0
+offset_right = 136.0
+offset_bottom = 128.0
 
 [node name="ImageScale" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 140.0
-margin_right = 206.0
-margin_bottom = 128.0
+offset_left = 140.0
+offset_right = 206.0
+offset_bottom = 128.0
 
 [node name="ImageVarUI" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 210.0
-margin_right = 1213.0
-margin_bottom = 128.0
+offset_left = 210.0
+offset_right = 1213.0
+offset_bottom = 128.0
 size_flags_horizontal = 3
 
 [node name="Label" parent="ImageVarUI" index="0"]
 visible = false
-margin_bottom = 128.0
+offset_bottom = 128.0
 
 [node name="TextureRect" parent="ImageVarUI" index="1"]
-margin_left = 0.0
-margin_right = 890.0
-margin_bottom = 128.0
+offset_left = 0.0
+offset_right = 890.0
+offset_bottom = 128.0
 size_flags_horizontal = 3
 
 [node name="UploadButton" parent="ImageVarUI" index="2"]
-margin_left = 894.0
-margin_right = 951.0
-margin_bottom = 128.0
+offset_left = 894.0
+offset_right = 951.0
+offset_bottom = 128.0
 
 [node name="ClearButton" parent="ImageVarUI" index="3"]
-margin_left = 955.0
-margin_right = 999.0
-margin_bottom = 128.0
+offset_left = 955.0
+offset_right = 999.0
+offset_bottom = 128.0
 
 [node name="Control" parent="ImageVarUI" index="4"]
-margin_left = 1003.0
-margin_right = 1003.0
-margin_bottom = 128.0
+offset_left = 1003.0
+offset_right = 1003.0
+offset_bottom = 128.0
 
 [node name="DeleteButton" type="Button" parent="."]
-margin_left = 1217.0
-margin_right = 1272.0
-margin_bottom = 128.0
+offset_left = 1217.0
+offset_right = 1272.0
+offset_bottom = 128.0
 text = "Delete"
 
 [connection signal="onValueChange" from="IDLabel" to="." method="_on_IDLabel_onValueChange"]

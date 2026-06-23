@@ -165,7 +165,7 @@ func is_rollback_enabled() -> bool:
 	return rollback_enabled
 
 func is_rollback_thread_enabled() -> bool:
-	if OS.get_name() == "HTML5":
+	if OS.get_name() == "Web":
 		return false
 	return rollback_thread
 

@@ -23,7 +23,7 @@ roomDescription = "These are the Stairs that lead up to the main hall above."
 roomSprite = 3
 roomColor = 7
 population = 1
-astarConnectedTo = PoolStringArray( "MainStairs1" )
+astarConnectedTo = PackedStringArray( "MainStairs1" )
 
 [node name="CBStairs2" parent="." index="2" instance=ExtResource( 2 )]
 self_modulate = Color( 0.5, 0.5, 0.5, 1 )

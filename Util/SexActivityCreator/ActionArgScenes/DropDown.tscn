@@ -7,17 +7,17 @@
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" type="HBoxContainer" parent="." index="0"]
-margin_right = 1280.0
-margin_bottom = 20.0
+offset_right = 1280.0
+offset_bottom = 20.0
 
 [node name="Label" type="Label" parent="VBoxContainer" index="0"]
-margin_top = 3.0
-margin_right = 68.0
-margin_bottom = 17.0
+offset_top = 3.0
+offset_right = 68.0
+offset_bottom = 17.0
 text = "Some stuff"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer" index="1"]
-margin_left = 72.0
-margin_right = 1280.0
-margin_bottom = 20.0
+offset_left = 72.0
+offset_right = 1280.0
+offset_bottom = 20.0
 size_flags_horizontal = 3

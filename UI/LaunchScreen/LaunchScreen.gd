@@ -58,13 +58,13 @@ func _ready():
 	else:
 		build_pck_button.visible = false
 	
-	if(OS.get_name() in ["Android", "HTML5"]):
+	if(OS.get_name() in ["Android", "Web"]):
 		open_mods_folder.visible = false
 	
 	if(!SHOW_THIS_SCREEN_ANYWAY && !OPTIONS.shouldShowModdedLauncher()):
 		if(!GlobalRegistry.hasModSupport() || rawModList.size() == 0):
 			#GlobalRegistry.registerEverything()
-			var _ok = get_tree().change_scene("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
+			var _ok = get_tree().change_scene_to_file("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
 
 	checkModOrderAndFillData(rawModList)
 
@@ -124,7 +124,7 @@ func loadOrderFromFile() -> Array:
 		return []
 	
 	save_game.open(modOrderPath, File.READ)
-	#var saveData = parse_json(save_game.get_as_text())
+	#var saveData = JSON.parse_string(save_game.get_as_text())
 	var jsonResult = JSON.parse(save_game.get_as_text())
 	if(jsonResult.error != OK):
 		Log.printerr("LaunchScreen: Error while loading the mod order file, the file is not a valid json")
@@ -211,7 +211,7 @@ func _on_WithModsButton_pressed():
 	
 	GlobalRegistry.loadModOrder(currentModOrder)
 	GlobalRegistry.tempCurrentModOrder = []
-	var _ok = get_tree().change_scene("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
+	var _ok = get_tree().change_scene_to_file("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
 
 func _on_NoModsButton_pressed():
 	if(startedPlaying):
@@ -220,7 +220,7 @@ func _on_NoModsButton_pressed():
 	saveOrderIntoFile(currentModOrder)
 	
 	GlobalRegistry.tempCurrentModOrder = []
-	var _ok = get_tree().change_scene("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
+	var _ok = get_tree().change_scene_to_file("res://UI/LoadingScreen.tscn")#"res://UI/MainMenu/MainMenu.tscn"
 
 func onModEntryClicked(entry):
 	selectedEntry = entry
@@ -581,7 +581,7 @@ func _on_BusyCloseButton_pressed():
 func _on_BusyLabel_meta_clicked(meta):
 	var _ok = Util.fixed_shell_open(meta)
 
-func _on_HTTPRequestMods_request_completed(_result: int, _response_code: int, _headers: PoolStringArray, _body: PoolByteArray):
+func _on_HTTPRequestMods_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PoolByteArray):
 	if _result != HTTPRequest.RESULT_SUCCESS:
 		setBusyPanel("[center]Couldn't download a broken mods list from github.[/center]", true)
 		return

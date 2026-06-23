@@ -67,7 +67,7 @@ func set_curve(curve: Curve):
 
 
 func _get_minimum_size() -> Vector2:
-	var size := rect_size
+	var size := size
 	return Vector2(64, max(35, size.x * ASPECT_RATIO) * 1.0)
 
 func roundi(_num) -> int:
@@ -298,7 +298,7 @@ func update_view_transform() -> void:
 
 	var world_rect: Rect2 = Rect2(MIN_X, min_y, MAX_X, max_y - min_y)
 	var view_margin: Vector2 = Vector2(margin, margin)
-	var view_size: Vector2 = rect_size - view_margin * 2
+	var view_size: Vector2 = size - view_margin * 2
 	var view_scale = view_size / world_rect.size
 	
 	var world_trans: Transform2D
@@ -511,8 +511,8 @@ func _draw():
 	# Draw Grid
 	draw_set_transform_matrix(_world_to_view)
 	
-	var min_edge: Vector2 = get_world_pos(Vector2(0, rect_size.y))
-	var max_edge: Vector2 = get_world_pos(Vector2(rect_size.x, 0))
+	var min_edge: Vector2 = get_world_pos(Vector2(0, size.y))
+	var max_edge: Vector2 = get_world_pos(Vector2(size.x, 0))
 	
 	# FIXME: Get editor theme colors, not GraphEdit, can't find how to get them
 	var grid_color_primary: Color = Color.whitesmoke*Color(1, 1, 1, 0.25)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.25)
@@ -654,7 +654,7 @@ func _draw():
 
 	# Draw Helper Text
 	if selected_index > 0 and selected_index < _curve.get_point_count() - 1 and selected_tangent_index == TangentIndex.NONE and hovered_tangent_index != TangentIndex.NONE and !is_shift_pressed:
-		#var width: float = rect_size.x - 50 * _editor_scale
+		#var width: float = size.x - 50 * _editor_scale
 		text_color.a *= 0.4;
 
 #		draw_multiline_string(
@@ -669,7 +669,7 @@ func _draw():
 #		)
 	elif selected_index != -1 and selected_tangent_index == TangentIndex.NONE:
 		var point_pos: Vector2 = _curve.get_point_position(selected_index)
-		#var width: float = rect_size.x - 50 * _editor_scale
+		#var width: float = size.x - 50 * _editor_scale
 		text_color.a *= 0.8;
 
 		draw_string(
@@ -682,7 +682,7 @@ func _draw():
 			text_color
 		)
 	elif selected_index != -1 and selected_tangent_index != TangentIndex.NONE:
-		#var width: float = rect_size.x - 50 * _editor_scale
+		#var width: float = size.x - 50 * _editor_scale
 		text_color.a *= 0.8
 		var theta = rad2deg(atan(-1 * _curve.get_point_left_tangent(selected_index) if selected_tangent_index == TangentIndex.LEFT else _curve.get_point_right_tangent(selected_index)))
 
@@ -747,12 +747,12 @@ func get_tangent_view_pos(index: int, tangent: int) -> Vector2:
 	if distance_from_point.x != 0.0:
 		fraction_inside = min(
 			fraction_inside,
-			((rect_size.x if distance_from_point.x > 0 else 0.0) - point_view_pos.x) / distance_from_point.x
+			((size.x if distance_from_point.x > 0 else 0.0) - point_view_pos.x) / distance_from_point.x
 		)
 	if distance_from_point.y != 0.0:
 		fraction_inside = min(
 			fraction_inside,
-			((rect_size.y if distance_from_point.y > 0 else 0.0) - point_view_pos.y) / distance_from_point.y
+			((size.y if distance_from_point.y > 0 else 0.0) - point_view_pos.y) / distance_from_point.y
 		)
 
 	if fraction_inside < 1.0 and fraction_inside > 0.5:

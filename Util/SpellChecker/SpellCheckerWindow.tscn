@@ -6,10 +6,10 @@
 [node name="SpellCheckerWindow" type="WindowDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 22.0
-margin_top = 27.0
-margin_right = -22.0
-margin_bottom = -27.0
+offset_left = 22.0
+offset_top = 27.0
+offset_right = -22.0
+offset_bottom = -27.0
 window_title = "Spell checker"
 script = ExtResource( 2 )
 

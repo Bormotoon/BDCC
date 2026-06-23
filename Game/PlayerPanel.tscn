@@ -42,8 +42,8 @@ colors = PoolColorArray( 0.172549, 0.345098, 0.545098, 1, 0.172549, 0.345098, 0.
 viewport_path = NodePath("ViewportWrapper/Viewport")
 
 [node name="PlayerPanel" type="VBoxContainer"]
-margin_right = 279.0
-margin_bottom = 720.0
+offset_right = 279.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
@@ -51,8 +51,8 @@ theme = ExtResource( 2 )
 script = ExtResource( 4 )
 
 [node name="NameLabel" type="Label" parent="."]
-margin_right = 354.0
-margin_bottom = 28.0
+offset_right = 354.0
+offset_bottom = 28.0
 custom_fonts/font = SubResource( 1 )
 text = "Player name"
 clip_text = true
@@ -60,41 +60,41 @@ clip_text = true
 [node name="LevelBar" parent="." instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 32.0
-margin_right = 354.0
-margin_bottom = 54.0
+offset_top = 32.0
+offset_right = 354.0
+offset_bottom = 54.0
 colorGradient = SubResource( 5 )
 propertyName = "Level"
 
 [node name="PainBar" parent="." instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 58.0
-margin_right = 354.0
-margin_bottom = 80.0
+offset_top = 58.0
+offset_right = 354.0
+offset_bottom = 80.0
 colorGradient = SubResource( 3 )
 propertyName = "Pain"
 
 [node name="ConsciousnessBar" parent="." instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 84.0
-margin_right = 354.0
-margin_bottom = 106.0
+offset_top = 84.0
+offset_right = 354.0
+offset_bottom = 106.0
 colorGradient = SubResource( 3 )
 propertyName = "Consciousness"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 110.0
-margin_right = 354.0
-margin_bottom = 132.0
+offset_top = 110.0
+offset_right = 354.0
+offset_bottom = 132.0
 size_flags_horizontal = 3
 
 [node name="LustBar" parent="HBoxContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 175.0
-margin_bottom = 22.0
+offset_right = 175.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 colorGradient = SubResource( 4 )
@@ -103,9 +103,9 @@ propertyName = "Lust"
 [node name="ArousalBar" parent="HBoxContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 179.0
-margin_right = 354.0
-margin_bottom = 22.0
+offset_left = 179.0
+offset_right = 354.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 colorGradient = SubResource( 4 )
@@ -114,22 +114,22 @@ propertyName = "Arousal"
 [node name="StaminaBar" parent="." instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 136.0
-margin_right = 354.0
-margin_bottom = 158.0
+offset_top = 136.0
+offset_right = 354.0
+offset_bottom = 158.0
 colorGradient = SubResource( 6 )
 propertyName = "Stamina"
 
 [node name="CreditsLabel" type="Label" parent="."]
-margin_top = 162.0
-margin_right = 354.0
-margin_bottom = 182.0
+offset_top = 162.0
+offset_right = 354.0
+offset_bottom = 182.0
 text = "Credits"
 
 [node name="ViewportWrapper" type="Control" parent="."]
-margin_top = 186.0
-margin_right = 354.0
-margin_bottom = 632.0
+offset_top = 186.0
+offset_right = 354.0
+offset_bottom = 632.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -155,17 +155,17 @@ texture = SubResource( 7 )
 viewportPath = NodePath("../Viewport")
 
 [node name="StatusEffectsLabel" type="Label" parent="."]
-margin_top = 636.0
-margin_right = 354.0
-margin_bottom = 656.0
+offset_top = 636.0
+offset_right = 354.0
+offset_bottom = 656.0
 text = "Status Effects"
 
 [node name="FlexGridContainer" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 660.0
-margin_right = 354.0
-margin_bottom = 720.0
+offset_top = 660.0
+offset_right = 354.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 0, 60 )
 
 [connection signal="gui_input" from="ViewportWrapper" to="." method="_on_ViewportWrapper_gui_input"]

@@ -6,10 +6,10 @@
 [node name="MapLocPickerWindow" type="WindowDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 54.0
-margin_top = 45.0
-margin_right = -54.0
-margin_bottom = -45.0
+offset_left = 54.0
+offset_top = 45.0
+offset_right = -54.0
+offset_bottom = -45.0
 script = ExtResource( 2 )
 
 [node name="MapLocPickerWidget" parent="." instance=ExtResource( 1 )]

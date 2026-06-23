@@ -15,15 +15,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if(showBelow):
-		rect_global_position = get_global_mouse_position() - Vector2(rect_size.x/2.0, 0) + rect_pivot_offset
+		rect_global_position = get_global_mouse_position() - Vector2(size.x/2.0, 0) + rect_pivot_offset
 	else:
-		rect_global_position = get_global_mouse_position() - Vector2(rect_size.x/2.0, rect_size.y) - rect_pivot_offset
+		rect_global_position = get_global_mouse_position() - Vector2(size.x/2.0, size.y) - rect_pivot_offset
 	rect_global_position.x = max(10, rect_global_position.x)
-	rect_global_position.x = min(get_viewport_rect().size.x - 10 - rect_size.x, rect_global_position.x)
+	rect_global_position.x = min(get_viewport_rect().size.x - 10 - size.x, rect_global_position.x)
 	rect_global_position.y = max(10, rect_global_position.y)
-	rect_global_position.y = min(get_viewport_rect().size.y - 10 - rect_size.y, rect_global_position.y)
-	#rect_global_position.x = clamp(rect_global_position.x, 0, ProjectSettings.get("display/window/size/width") - rect_size.x)
-	#rect_global_position.y = clamp(rect_global_position.y, 0, ProjectSettings.get("display/window/size/height") - rect_size.y)
+	rect_global_position.y = min(get_viewport_rect().size.y - 10 - size.y, rect_global_position.y)
+	#rect_global_position.x = clamp(rect_global_position.x, 0, ProjectSettings.get("display/window/size/width") - size.x)
+	#rect_global_position.y = clamp(rect_global_position.y, 0, ProjectSettings.get("display/window/size/height") - size.y)
 
 func setIsWide(newWide: bool):
 	if(newWide):
@@ -57,14 +57,14 @@ func set_text(title: String, body: String):
 	#await get_tree().process_frame
 	#_body.set_size(Vector2(_body.get_size().x, _body.get_v_scroll().get_max()))
 	await get_tree().process_frame
-	rect_size.y = 0
-	rect_size.x = 0
+	size.y = 0
+	size.x = 0
 	#_body.set_size(Vector2(_body.get_size().x, _body.get_v_scroll().get_max()))
 	#await get_tree().process_frame
 	
-	#rect_size = Vector2(0,0)
-	#_body.rect_size = Vector2(0,0)
-	#$VBoxContainer.rect_size = Vector2(250,0)
+	#size = Vector2(0,0)
+	#_body.size = Vector2(0,0)
+	#$VBoxContainer.size = Vector2(250,0)
 
 func setShowBelow(shbelow):
 	showBelow = shbelow

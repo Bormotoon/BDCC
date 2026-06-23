@@ -20,8 +20,8 @@ __meta__ = {
 }
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 343.0
+offset_right = 1280.0
+offset_bottom = 343.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "The idea of this tool is to use Google docs to write scenes because it's easier there
@@ -54,9 +54,9 @@ __meta__ = {
 }
 
 [node name="TextEdit2" type="TextEdit" parent="VBoxContainer"]
-margin_top = 347.0
-margin_right = 1280.0
-margin_bottom = 690.0
+offset_top = 347.0
+offset_right = 1280.0
+offset_bottom = 690.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Output will be here"
@@ -66,9 +66,9 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-margin_top = 694.0
-margin_right = 1280.0
-margin_bottom = 720.0
+offset_top = 694.0
+offset_right = 1280.0
+offset_bottom = 720.0
 text = "Convert"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]

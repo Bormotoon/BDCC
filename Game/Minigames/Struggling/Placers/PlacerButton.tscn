@@ -8,8 +8,8 @@ texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 22.5
-margin_top = 19.0
-margin_right = 62.5
-margin_bottom = 33.0
+offset_left = 22.5
+offset_top = 19.0
+offset_right = 62.5
+offset_bottom = 33.0
 text = "1"

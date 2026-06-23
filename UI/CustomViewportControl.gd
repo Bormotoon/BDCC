@@ -24,7 +24,7 @@ func init_texture():
 	viewport.size = getPixelSize()
 	#var camera:Camera2D = viewport.get_node("Camera2D")
 	#camera.custom_viewport = viewport
-	#viewport.size = rect_size
+	#viewport.size = size
 	#texture.viewport_path = get_path_to($Viewport)
 
 func getPixelSize():
@@ -57,7 +57,7 @@ func _notification(what):
 		return
 	
 	if what == NOTIFICATION_RESIZED:
-		viewport.size = getPixelSize()#rect_size
+		viewport.size = getPixelSize()#size
 
 func _input(event):
 	if(viewport != null):

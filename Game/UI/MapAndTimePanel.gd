@@ -115,7 +115,7 @@ func _handle_drag(event: InputEventScreenDrag):
 				return
 			pivot_point = touch_points[pivot_index]
 		else:
-			pivot_point = custom_viewport_control.rect_position + custom_viewport_control.rect_size*0.5 #Vector2(0.0, 0.0)
+			pivot_point = custom_viewport_control.rect_position + custom_viewport_control.size*0.5 #Vector2(0.0, 0.0)
 		
 		var old_point: Vector2 = touch_points[event.index]
 		var new_point: Vector2 = event.position

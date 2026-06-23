@@ -119,8 +119,8 @@ func reactToCommandCage(_command: String, _args:Array, _commandStringRaw:String)
 			return \
 				"Status: locked\n"+\
 				"Days locked: "+str(GM.main.getDays() + 47)+"\n"+\
-				"Electromagnet lock strength: "+str(stepify(rand_range(3200, 3600),0.1))+" N\n"+\
-				"Battery charge: "+str(stepify(rand_range(1400, 1500),0.1))+" mAh\n"+\
+				"Electromagnet lock strength: "+str(snapped(randf_range(3200, 3600),0.1))+" N\n"+\
+				"Battery charge: "+str(snapped(randf_range(1400, 1500),0.1))+" mAh\n"+\
 				"Bioreactor: Operating\n"+\
 				"Last memory access at: "+lastMem+" by '[color=#EE88FF]"+lastCmdStored+"[/color]'\n"+\
 				"Memory dump (first page): \n[b][font=res://Fonts/smallconsolefont.tres]"+\

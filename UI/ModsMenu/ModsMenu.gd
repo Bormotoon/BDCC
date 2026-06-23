@@ -6,7 +6,7 @@ signal in_focus
 var showedModDialog = false
 
 func _ready():
-	if(OS.get_name() in ["Android", "iOS", "HTML5"]):
+	if(OS.get_name() in ["Android", "iOS", "Web"]):
 		$VBoxContainer/GridContainer/ModsFolderButton.setIsDisabled(true)
 	else:
 		$VBoxContainer/GridContainer/RemoveModsButton.setIsDisabled(true)
@@ -15,7 +15,7 @@ func _ready():
 		$VBoxContainer/GridContainer/ModsFolderButton.setIsDisabled(true)
 		$VBoxContainer/GridContainer/RemoveModsButton.setIsDisabled(true)
 
-	if OS.get_name() == "HTML5" and OS.has_feature("JavaScript"):
+	if OS.get_name() == "Web" and OS.has_feature("JavaScript"):
 		_define_js()
 
 	var text = "[b][url=https://github.com/Alexofp/BDCC/wiki/How-to-install-BDCC-mods]How to install mods (click me)[/url][/b]\n\nTo install a mod drag it into the mods folder and restart the game. Mods are loaded in alphabetical order.\n\n"
@@ -101,7 +101,7 @@ func _notification(notification: int) -> void:
 		in_focus.emit()
 	
 func readModHTML5():
-	if OS.get_name() != "HTML5" or !OS.has_feature("JavaScript"):
+	if OS.get_name() != "Web" or !OS.has_feature("JavaScript"):
 		return
 
 	# Execute JS function
@@ -129,7 +129,7 @@ func readModHTML5():
 
 
 func _on_AddModButton_pressed():
-	if OS.get_name() == "HTML5":
+	if OS.get_name() == "Web":
 		var modDataAndFileName = await readModHTML5()
 		if(modDataAndFileName == null || modDataAndFileName.size() != 2):
 			return

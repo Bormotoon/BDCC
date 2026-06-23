@@ -49,7 +49,7 @@ func _on_LoadGameScreen_onClosePressed():
 
 
 func _on_MainMenuButton_pressed():
-	var _ok = get_tree().change_scene("res://UI/MainMenu/MainMenu.tscn")
+	var _ok = get_tree().change_scene_to_file("res://UI/MainMenu/MainMenu.tscn")
 
 func _on_ResumeButton_pressed():
 	onResumeButtonPressed.emit()

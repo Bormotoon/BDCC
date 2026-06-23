@@ -2,7 +2,7 @@ extends Control
 
 func _ready():
 	if(GlobalRegistry.isInitialized):
-		var _ok = get_tree().change_scene("res://UI/MainMenu/MainMenu.tscn")
+		var _ok = get_tree().change_scene_to_file("res://UI/MainMenu/MainMenu.tscn")
 		return
 	OPTIONS.setSupportsVertical(true)
 	var _ok = GlobalRegistry.loadingUpdate.connect(onGlobalRegistryUpdate)
@@ -14,5 +14,5 @@ func onGlobalRegistryUpdate(percent, whatnext):
 	$ProgressBar/Label.text = str(whatnext) #str(Util.roundF(percent*100.0, 1))+"% " + 
 
 func onGlobalRegistryFinishedUpdate():
-	var _ok = get_tree().change_scene("res://UI/MainMenu/MainMenu.tscn")
-	#var _ok = get_tree().change_scene("res://Game/Datapacks/UI/CrotchCode/UI/AnimPickerWidget.tscn")
+	var _ok = get_tree().change_scene_to_file("res://UI/MainMenu/MainMenu.tscn")
+	#var _ok = get_tree().change_scene_to_file("res://Game/Datapacks/UI/CrotchCode/UI/AnimPickerWidget.tscn")

@@ -115,7 +115,7 @@ func translate(_targetLanguage, _inputText):
 		if(chunk.length() == 0 || chunk[0] != "[" || chunk[3] == "e"):
 			continue
 		
-		var jsonChunk = parse_json(chunk)
+		var jsonChunk = JSON.parse_string(chunk)
 		for translation in jsonChunk:
 			if (translation[0] != 'wrb.fr'):
 				continue
@@ -126,7 +126,7 @@ func translate(_targetLanguage, _inputText):
 				theResult["success"] = true
 				theResult["resultText"] = ""
 				return theResult
-			translation = parse_json(translation[2])
+			translation = JSON.parse_string(translation[2])
 			#print(translation)
 			
 			var somestuff = translation[1][0][0][5]

@@ -60,7 +60,7 @@ func generateFatalZone(_difficulty = 1.0):
 	
 	for _i in range(annoyingThingsAmount):
 		var rectangle = ColorRect.new()
-		rectangle.rect_size.y = redZone.rect_size.y
+		rectangle.size.y = redZone.size.y
 		rectangle.color = Color("5900bd")
 		
 		failArea.add_child(rectangle)

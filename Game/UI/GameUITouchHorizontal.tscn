@@ -88,8 +88,8 @@ custom_constants/separation = 0
 
 [node name="LeftPanel" type="Panel" parent="MainLayout"]
 visible = false
-margin_right = 260.0
-margin_bottom = 720.0
+offset_right = 260.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 260, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
@@ -98,16 +98,16 @@ custom_styles/panel = SubResource( 1 )
 [node name="Margin" type="MarginContainer" parent="MainLayout/LeftPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = 12.0
-margin_right = -12.0
-margin_bottom = -12.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBox" type="VBoxContainer" parent="MainLayout/LeftPanel/Margin"]
-margin_right = 236.0
-margin_bottom = 696.0
+offset_right = 236.0
+offset_bottom = 696.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 __meta__ = {
@@ -115,8 +115,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MainLayout/LeftPanel/Margin/VBox"]
-margin_right = 236.0
-margin_bottom = 696.0
+offset_right = 236.0
+offset_bottom = 696.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -124,8 +124,8 @@ size_flags_stretch_ratio = 0.01
 
 [node name="RightPanel" type="Panel" parent="MainLayout"]
 unique_name_in_owner = true
-margin_right = 305.0
-margin_bottom = 720.0
+offset_right = 305.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
@@ -134,86 +134,86 @@ custom_styles/panel = SubResource( 36 )
 [node name="Margin" type="MarginContainer" parent="MainLayout/RightPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = 12.0
-margin_right = -12.0
-margin_bottom = -12.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PlayerPanel" parent="MainLayout/RightPanel/Margin" instance=ExtResource( 17 )]
 unique_name_in_owner = true
-margin_right = 354.0
-margin_bottom = 696.0
+offset_right = 354.0
+offset_bottom = 696.0
 rect_min_size = Vector2( 0, 0 )
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MainLayout"]
 visible = false
-margin_left = 363.0
-margin_right = 368.0
-margin_bottom = 720.0
+offset_left = 363.0
+offset_right = 368.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="MainScreenBoxContainer" type="VBoxContainer" parent="MainLayout"]
 unique_name_in_owner = true
-margin_left = 305.0
-margin_right = 1179.0
-margin_bottom = 720.0
+offset_left = 305.0
+offset_right = 1179.0
+offset_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer"]
-margin_right = 874.0
-margin_bottom = 30.0
+offset_right = 874.0
+offset_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="TranslateBox" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer/Panel"]
 unique_name_in_owner = true
-margin_right = 242.0
-margin_bottom = 30.0
+offset_right = 242.0
+offset_bottom = 30.0
 
 [node name="TranslateStatusLabel" type="Label" parent="MainLayout/MainScreenBoxContainer/Panel/TranslateBox"]
 unique_name_in_owner = true
-margin_top = 5.0
-margin_bottom = 25.0
+offset_top = 5.0
+offset_bottom = 25.0
 
 [node name="ShowOriginalCheckbox" type="CheckBox" parent="MainLayout/MainScreenBoxContainer/Panel/TranslateBox"]
 unique_name_in_owner = true
-margin_left = 4.0
-margin_right = 146.0
-margin_bottom = 30.0
+offset_left = 4.0
+offset_right = 146.0
+offset_bottom = 30.0
 text = "Show original"
 
 [node name="ManualTranslateButton" type="Button" parent="MainLayout/MainScreenBoxContainer/Panel/TranslateBox"]
 unique_name_in_owner = true
-margin_left = 150.0
-margin_right = 242.0
-margin_bottom = 30.0
+offset_left = 150.0
+offset_right = 242.0
+offset_bottom = 30.0
 text = "Translate"
 
 [node name="SexToySmallPanel" parent="MainLayout/MainScreenBoxContainer/Panel" instance=ExtResource( 7 )]
-margin_left = 246.0
-margin_right = 305.0
+offset_left = 246.0
+offset_right = 305.0
 
 [node name="MainScrollContainer" type="ScrollContainer" parent="MainLayout/MainScreenBoxContainer"]
 unique_name_in_owner = true
-margin_top = 34.0
-margin_right = 874.0
-margin_bottom = 628.0
+offset_top = 34.0
+offset_right = 874.0
+offset_bottom = 628.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 21 )
 
 [node name="TextAreaContainer" type="VBoxContainer" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer"]
 unique_name_in_owner = true
-margin_right = 874.0
-margin_bottom = 594.0
+offset_right = 874.0
+offset_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SceneArtWorkRect" type="TextureRect" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer/TextAreaContainer"]
 unique_name_in_owner = true
-margin_right = 874.0
+offset_right = 874.0
 size_flags_horizontal = 3
 expand = true
 stretch_mode = 6
@@ -228,19 +228,19 @@ expand = true
 stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer/TextAreaContainer"]
-margin_top = 4.0
-margin_right = 874.0
-margin_bottom = 29.0
+offset_top = 4.0
+offset_right = 874.0
+offset_bottom = 29.0
 mouse_filter = 2
 size_flags_horizontal = 3
-custom_constants/margin_right = 16
-custom_constants/margin_left = 16
+custom_constants/offset_right = 16
+custom_constants/offset_left = 16
 
 [node name="TextOutput" type="RichTextLabel" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer/TextAreaContainer/MarginContainer"]
 unique_name_in_owner = true
-margin_left = 16.0
-margin_right = 858.0
-margin_bottom = 25.0
+offset_left = 16.0
+offset_right = 858.0
+offset_bottom = 25.0
 focus_mode = 2
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -256,44 +256,44 @@ custom_effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtReso
 [node name="UniquePanelSpot" type="MarginContainer" parent="MainLayout/MainScreenBoxContainer"]
 unique_name_in_owner = true
 visible = false
-margin_top = 333.0
-margin_right = 874.0
-margin_bottom = 628.0
+offset_top = 333.0
+offset_right = 874.0
+offset_bottom = 628.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ExtraButtonsGrid" type="GridContainer" parent="MainLayout/MainScreenBoxContainer"]
 unique_name_in_owner = true
-margin_top = 632.0
-margin_right = 874.0
-margin_bottom = 632.0
+offset_top = 632.0
+offset_right = 874.0
+offset_bottom = 632.0
 size_flags_horizontal = 3
 custom_constants/vseparation = 1
 custom_constants/hseparation = 1
 columns = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="MainLayout/MainScreenBoxContainer"]
-margin_top = 636.0
-margin_right = 874.0
-margin_bottom = 720.0
+offset_top = 636.0
+offset_right = 874.0
+offset_bottom = 720.0
 custom_styles/panel = SubResource( 35 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainLayout/MainScreenBoxContainer/PanelContainer"]
-margin_top = 4.0
-margin_right = 874.0
-margin_bottom = 84.0
+offset_top = 4.0
+offset_right = 874.0
+offset_bottom = 84.0
 custom_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer"]
-margin_right = 874.0
-margin_bottom = 72.0
+offset_right = 874.0
+offset_bottom = 72.0
 
 [node name="SmartCharacterPanel" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 19 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 200.0
-margin_bottom = 72.0
+offset_right = 200.0
+offset_bottom = 72.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -303,18 +303,18 @@ size_flags_stretch_ratio = 0.59
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 72.0
+offset_left = 204.0
+offset_right = 404.0
+offset_bottom = 72.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 1
 compactMode = true
 
 [node name="PrevPageButton" type="Button" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 408.0
-margin_right = 476.0
-margin_bottom = 72.0
+offset_left = 408.0
+offset_right = 476.0
+offset_bottom = 72.0
 rect_min_size = Vector2( 68, 0 )
 shortcut_in_tooltip = false
 shortcut = SubResource( 26 )
@@ -322,9 +322,9 @@ text = "<"
 
 [node name="ButtonGridContainer" type="GridContainer" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 480.0
-margin_right = 802.0
-margin_bottom = 72.0
+offset_left = 480.0
+offset_right = 802.0
+offset_bottom = 72.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 1
@@ -333,18 +333,18 @@ columns = 5
 
 [node name="NextPageButton" type="Button" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 806.0
-margin_right = 874.0
-margin_bottom = 72.0
+offset_left = 806.0
+offset_right = 874.0
+offset_bottom = 72.0
 rect_min_size = Vector2( 68, 0 )
 shortcut_in_tooltip = false
 shortcut = SubResource( 28 )
 text = ">"
 
 [node name="Control" type="Control" parent="MainLayout/MainScreenBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 72.0
-margin_right = 874.0
-margin_bottom = 80.0
+offset_top = 72.0
+offset_right = 874.0
+offset_bottom = 80.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="InGameMenu" parent="MainLayout" instance=ExtResource( 18 )]
@@ -352,48 +352,48 @@ unique_name_in_owner = true
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 652.0
-margin_right = 1027.0
-margin_bottom = 720.0
+offset_left = 652.0
+offset_right = 1027.0
+offset_bottom = 720.0
 
 [node name="SkillsUI" parent="MainLayout" instance=ExtResource( 14 )]
 unique_name_in_owner = true
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 652.0
-margin_right = 1027.0
-margin_bottom = 720.0
+offset_left = 652.0
+offset_right = 1027.0
+offset_bottom = 720.0
 
 [node name="DevCommentary" type="VBoxContainer" parent="MainLayout"]
 unique_name_in_owner = true
 visible = false
-margin_left = 652.0
-margin_right = 1027.0
-margin_bottom = 720.0
+offset_left = 652.0
+offset_right = 1027.0
+offset_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="MainLayout/DevCommentary"]
-margin_right = 375.0
-margin_bottom = 20.0
+offset_right = 375.0
+offset_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainLayout/DevCommentary"]
-margin_top = 24.0
-margin_right = 375.0
-margin_bottom = 616.0
+offset_top = 24.0
+offset_right = 375.0
+offset_bottom = 616.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 21 )
 
 [node name="DevComLabel" type="RichTextLabel" parent="MainLayout/DevCommentary/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 375.0
-margin_bottom = 592.0
+offset_right = 375.0
+offset_bottom = 592.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/bold_italics_font = ExtResource( 12 )
@@ -404,15 +404,15 @@ bbcode_enabled = true
 fit_content_height = true
 
 [node name="GridContainer" type="GridContainer" parent="MainLayout/DevCommentary"]
-margin_top = 620.0
-margin_right = 375.0
-margin_bottom = 720.0
+offset_top = 620.0
+offset_right = 375.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" type="Button" parent="MainLayout/DevCommentary/GridContainer"]
-margin_right = 75.0
-margin_bottom = 26.0
+offset_right = 75.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Close"
 
@@ -421,60 +421,60 @@ unique_name_in_owner = true
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 652.0
-margin_right = 1027.0
-margin_bottom = 720.0
+offset_left = 652.0
+offset_right = 1027.0
+offset_bottom = 720.0
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="MainLayout"]
 visible = false
-margin_left = 1174.0
-margin_right = 1179.0
-margin_bottom = 720.0
+offset_left = 1174.0
+offset_right = 1179.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="MenuButtonsContainer" type="VBoxContainer" parent="MainLayout"]
 unique_name_in_owner = true
-margin_left = 1179.0
-margin_right = 1279.0
-margin_bottom = 720.0
+offset_left = 1179.0
+offset_right = 1279.0
+offset_bottom = 720.0
 rect_min_size = Vector2( 100, 0 )
 custom_constants/separation = 0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MainLayout/MenuButtonsContainer"]
 visible = false
-margin_right = 85.0
+offset_right = 85.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MainLayout/MenuButtonsContainer"]
 visible = false
-margin_top = 4.0
-margin_right = 85.0
-margin_bottom = 4.0
+offset_top = 4.0
+offset_right = 85.0
+offset_bottom = 4.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainLayout/MenuButtonsContainer"]
 visible = false
-margin_top = 8.0
-margin_right = 85.0
-margin_bottom = 8.0
+offset_top = 8.0
+offset_right = 85.0
+offset_bottom = 8.0
 
 [node name="SwitchLayoutHorizontalButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_right = 100.0
-margin_bottom = 26.0
+offset_right = 100.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 text = "<->"
 
 [node name="LoadButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 26.0
-margin_right = 100.0
-margin_bottom = 141.0
+offset_top = 26.0
+offset_right = 100.0
+offset_bottom = 141.0
 hint_tooltip = "Quick load (F9)"
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -484,9 +484,9 @@ text = "Q.load"
 
 [node name="SaveButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 141.0
-margin_right = 100.0
-margin_bottom = 257.0
+offset_top = 141.0
+offset_right = 100.0
+offset_bottom = 257.0
 hint_tooltip = "Quick save (F5)"
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -496,9 +496,9 @@ text = "Q.save"
 
 [node name="DebugMenuButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 257.0
-margin_right = 100.0
-margin_bottom = 372.0
+offset_top = 257.0
+offset_right = 100.0
+offset_bottom = 372.0
 hint_tooltip = "Open the debug/cheats menu"
 size_flags_vertical = 3
 shortcut_in_tooltip = false
@@ -506,9 +506,9 @@ text = "Debug"
 
 [node name="SkillsButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 372.0
-margin_right = 100.0
-margin_bottom = 488.0
+offset_top = 372.0
+offset_right = 100.0
+offset_bottom = 488.0
 hint_tooltip = "Spend the stat points and look at your skills (X)"
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -518,9 +518,9 @@ text = "Skills"
 
 [node name="MenuButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 488.0
-margin_right = 100.0
-margin_bottom = 604.0
+offset_top = 488.0
+offset_right = 100.0
+offset_bottom = 604.0
 hint_tooltip = "Open the menu (C)"
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -530,9 +530,9 @@ text = "Menu"
 
 [node name="RollbackButton" type="Button" parent="MainLayout/MenuButtonsContainer"]
 unique_name_in_owner = true
-margin_top = 604.0
-margin_right = 100.0
-margin_bottom = 720.0
+offset_top = 604.0
+offset_right = 100.0
+offset_bottom = 720.0
 hint_tooltip = "Rollback the game's state back"
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -555,19 +555,19 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.419608 )
 
 [node name="CloseFullArtWork" type="Button" parent="FullArtworkRect"]
-margin_left = 20.0
-margin_top = 18.8284
-margin_right = 78.0
-margin_bottom = 44.8284
+offset_left = 20.0
+offset_top = 18.8284
+offset_right = 78.0
+offset_bottom = 44.8284
 rect_min_size = Vector2( 100, 40 )
 text = "Close"
 
 [node name="FullArtLabel" type="Label" parent="FullArtworkRect"]
 unique_name_in_owner = true
-margin_left = 20.0
-margin_top = 70.0
-margin_right = 71.0
-margin_bottom = 90.0
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 71.0
+offset_bottom = 90.0
 
 [connection signal="pressed" from="MainLayout/MainScreenBoxContainer/Panel/TranslateBox/ShowOriginalCheckbox" to="." method="_on_ShowOriginalCheckbox_pressed"]
 [connection signal="pressed" from="MainLayout/MainScreenBoxContainer/Panel/TranslateBox/ManualTranslateButton" to="." method="_on_ManualTranslateButton_pressed"]
