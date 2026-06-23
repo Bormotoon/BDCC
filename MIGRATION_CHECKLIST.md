@@ -157,7 +157,7 @@ PoolStringArray → PackedStringArray
 | Система | Файлов | Строк | GM.* | Статус |
 |---------|--------|-------|------|--------|
 | **MainScene.gd** | 1 | 1,878 | 168 | 🔴 НЕ МИГРИРОВАН |
-| **BaseCharacter.gd** | 1 | 1,796 | 25 | 🔴 НЕ МИГРИРОВАН (только HealthComponent) |
+| **BaseCharacter.gd** | 1 | 1,796 | 25 | ✅ МИГРИРОВАН (Godot 4 syntax, all formulas preserved) |
 | **SaveManager.gd** | 1 | 369 | 24 | 🔴 НЕ МИГРИРОВАН |
 | **PlayerPanel.gd** | 1 | 165 | 20 | 🟡 НЕ МИГРИРОВАН |
 | **SaveConversion.gd** | 1 | 106 | 0 | 🟢 НЕ МИГРИРОВАН |
