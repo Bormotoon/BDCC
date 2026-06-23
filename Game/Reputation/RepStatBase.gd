@@ -1,15 +1,18 @@
-extends Reference
+extends RefCounted
 class_name RepStatBase
 
-var id:String = "error"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base reputation stat with level scoring.
 
-func getVisibleName():
+var id: String = "error"
+
+func getVisibleName() -> String:
 	return "Error?"
 
-func getTextForLevel(_level:int, _rep):
+func getTextForLevel(_level: int, _rep) -> String:
 	return "ERROR, FILL ME PLS"
 
-func getEffectsInfoForLevel(_level:int, _rep) -> Array:
+func getEffectsInfoForLevel(_level: int, _rep) -> Array:
 	return []
 
 func getMaxLevel() -> int:
@@ -18,25 +21,15 @@ func getMaxLevel() -> int:
 func getMinLevel() -> int:
 	return -1
 
-func getNeededScoreForLevel(_level:int, _curLevel:int) -> float:
-	if(_curLevel > 0 && _level < _curLevel):
+func getNeededScoreForLevel(level: int, cur_level: int) -> float:
+	if cur_level > 0 and level < cur_level:
 		return 1.0
-	if(_curLevel < 0 && _level > _curLevel):
+	if cur_level < 0 and level > cur_level:
 		return 1.0
-	
-	var absLevel:int = _level
-	if(absLevel < 0):
-		absLevel = -absLevel
-	
-	if(absLevel <= 1):
+	var abs_level := absi(level)
+	if abs_level <= 1:
 		return 1.0
-	
-	var neededScore:float = 1.0 + (absLevel*absLevel)*0.1
-	
-	return neededScore
+	return 1.0 + float(abs_level * abs_level) * 0.1
 
-func getSpecialRequirementToReachLevel(_level:int, _rep):
-	#if(_level == 3):
-	#	return ["somekey", "DO SOMETHING SILLY"]
-	
+func getSpecialRequirementToReachLevel(_level: int, _rep):
 	return null
