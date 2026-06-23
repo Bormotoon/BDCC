@@ -1,0 +1,31 @@
+# .github/workflows/gdformat.yml
+name: GDScript Linter & Formatter
+
+on:
+  push:
+    branches: [ "main", "reforged" ]
+  pull_request:
+    branches: [ "main", "reforged" ]
+
+jobs:
+  lint:
+    name: Check GDScript code style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install gdtoolkit
+        run: pip install gdtoolkit
+
+      - name: Run gdformat check (new architecture files only)
+        run: gdformat --check $(find Autoloads Core Components Entities Resources Visuals Systems Simulation Tools -name '*.gd' 2>/dev/null || true)
+
+      - name: Run gdlint (new architecture files only)
+        run: gdlint $(find Autoloads Core Components Entities Resources Visuals Systems Simulation Tools -name '*.gd' 2>/dev/null || true)
