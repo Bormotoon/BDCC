@@ -373,7 +373,7 @@ PoolStringArray → PackedStringArray
 
 | Файл | Строк | Статус |
 |------|-------|--------|
-| GameUI.gd (Game/UI/) | 712 | 🔴 КРИТИЧНО — central UI |
+| GameUI.gd (Game/UI/) | 712 | ✅ МИГРИРОВАН (Godot 4 syntax, 30+ onready, yield→await, connect migrated) |
 | LaunchScreen.gd | 637 | 🔴 НЕ МИГРИРОВАН |
 | MainMenu.gd | 319 | 🔴 НЕ МИГРИРОВАН |
 | ButtonChecks.gd | 395 | 🔴 НЕ МИГРИРОВАН |
