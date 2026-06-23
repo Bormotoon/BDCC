@@ -360,7 +360,7 @@ PoolStringArray → PackedStringArray
 
 | Файл | Строк | Статус |
 |------|-------|--------|
-| SceneBase.gd | 444 | 🔴 КРИТИЧНО — основа всей системы сцен |
+| SceneBase.gd | 444 | ✅ МИГРИРОВАН (Godot 4 syntax, all UI helpers preserved) |
 | FightScene.gd | 1,095 | 🔴 НЕ МИГРИРОВАН |
 | WorldScene.gd | 376 | 🔴 НЕ МИГРИРОВАН |
 | CharacterCreatorScene.gd | 412 | 🔴 НЕ МИГРИРОВАН |

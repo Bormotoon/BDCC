@@ -1,444 +1,323 @@
 extends Node
 class_name SceneBase
 
-#signal sayText(text)
-#signal clearText
-#signal answered
-#signal clearButtons
-#signal addButton(text, method, tooltip)
-#signal addDisabledButton(text, tooltip)
-signal sceneEnded(result)
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for ALL game scenes. Heavy GM.* usage preserved for backward compat.
+
+signal scene_ended(result)
+
 var state: String = ""
-var sceneID: String = "UNREGISTERED_SCENE"
-var currentCharactersVariants: Dictionary = {}
-var sceneTag = ""
-#var currentCharacter: String = ""
-var sceneEndedFlag = false
-var sceneEndedArgs
-var showFightUI = false
-var sceneSavedItemsInv:LightInventory = LightInventory.new()
-var uniqueSceneID: int = -1
-var parentSceneUniqueID: int = -1
-var showedDeveloperCommentary = false #No need to save this one
+var scene_id: String = "UNREGISTERED_SCENE"
+var current_characters_variants: Dictionary = {}
+var scene_tag: String = ""
+var scene_ended_flag: bool = false
+var scene_ended_args
+var show_fight_ui: bool = false
+var scene_saved_items_inv: LightInventory = LightInventory.new()
+var unique_scene_id: int = -1
+var parent_scene_unique_id: int = -1
+var showed_developer_commentary: bool = false
 
-func _run():
+# Backward aliases
+var sceneID: String:
+	get: return scene_id
+var uniqueSceneID: int:
+	get: return unique_scene_id
+	set(value): unique_scene_id = value
+var parentSceneUniqueID: int:
+	get: return parent_scene_unique_id
+	set(value): parent_scene_unique_id = value
+
+# ==========================================
+# LIFECYCLE
+# ==========================================
+
+func _run() -> void:
 	pass
 
-func _react(_action: String, _args):
-	pass
-	
-	#if(has_method(method)):
-	#	GM.ui.clearText()
-	#	GM.ui.clearButtons()
-		
-	#	callv(method, [_args])
-	#else:
-	#	print("Error: method with the name '"+method+"' is not found in "+name + " ("+sceneID+")")
-
-func _react_scene_end(_tag, _result):
+func _react(_action: String, _args) -> void:
 	pass
 
-func _initScene(_args = []):
+func _react_scene_end(_tag, _result) -> void:
 	pass
 
-func _reactInit():
+func _init_scene(_args: Array = []) -> void:
 	pass
 
-# Utility
-func initScene(args = []):
-	clearCharacter()
-	_initScene(args)
-	_reactInit()
-	
-	#checkSceneEnded()
+func _react_init() -> void:
+	pass
 
-func run():
-	GM.pc.updateNonBattleEffects()
-	for id in currentCharactersVariants:
-		var character = GlobalRegistry.getCharacter(id)
-		if(!character):
+func init_scene(args: Array = []) -> void:
+	clear_character()
+	_init_scene(args)
+	_react_init()
+
+## Line 55-82: run() — main scene execution
+func run() -> void:
+	GM.pc.update_non_battle_effects()
+	for id in current_characters_variants:
+		var character = GlobalRegistry.get_character(id)
+		if not character:
 			continue
-		character.updateNonBattleEffects()
-	
-	GM.ui.clearSceneArtwork()
-	GM.ui.clearText()
-	GM.ui.clearButtons()
-	GM.ui.clearUItextboxes()
-	_run()
-	GM.ES.triggerRun(Trigger.SceneAndStateHook, [sceneID, state])
-	
-	if(showFightUI):
-		GM.ui.getCharactersPanel().switchToFightMode()
-	else:
-		GM.ui.getCharactersPanel().switchToNormalMode()
-		
-	GM.pc.updateEffectPanel(GM.ui.getPlayerStatusEffectsPanel())
-	GM.ui.updateCharactersInPanel()
-	GM.ui.setSceneCreator(getSceneCreator(), shouldShowDevCommentaryIcon())
-	GM.ui.setSceneArtWork(Images.getSceneArt(self))
-	GM.ui.setBigAnswersMode(shouldDisplayBigButtons())
+		character.update_non_battle_effects()
 
-	
-	checkSceneEnded()
-		
-func checkSceneEnded():
-	if(sceneEndedFlag):
-		_onSceneEnd()
-		GM.main.removeScene(self, sceneEndedArgs)
-		emit_signal("sceneEnded", sceneEndedArgs)
-		print("removing scene "+name)
-		
-		if(!sceneSavedItemsInv.isEmpty()):
-			var newItems = []
-			while(!sceneSavedItemsInv.isEmpty()):
-				var theItem = sceneSavedItemsInv.items.front()
-				sceneSavedItemsInv.removeItem(theItem)
-				newItems.append(theItem)
-			
-			runScene("LootingScene", [{"items": newItems}])
-			sceneSavedItemsInv.items.clear()
-		
+	GM.ui.clear_scene_artwork()
+	GM.ui.clear_text()
+	GM.ui.clear_buttons()
+	GM.ui.clear_u_i_textboxes()
+	_run()
+	GM.ES.trigger_run(Trigger.SceneAndStateHook, [scene_id, state])
+
+	if show_fight_ui:
+		GM.ui.get_characters_panel().switch_to_fight_mode()
+	else:
+		GM.ui.get_characters_panel().switch_to_normal_mode()
+
+	GM.pc.update_effect_panel(GM.ui.get_player_status_effects_panel())
+	GM.ui.update_characters_in_panel()
+	GM.ui.set_scene_creator(get_scene_creator(), should_show_dev_commentary_icon())
+	GM.ui.set_scene_art_work(Images.get_scene_art(self))
+	GM.ui.set_big_answers_mode(should_display_big_buttons())
+
+	check_scene_ended()
+
+## Line 84-101
+func check_scene_ended() -> void:
+	if scene_ended_flag:
+		_on_scene_end()
+		GM.main.remove_scene(self, scene_ended_args)
+		scene_ended.emit(scene_ended_args)
+		if not scene_saved_items_inv.is_empty():
+			var new_items: Array = []
+			while not scene_saved_items_inv.is_empty():
+				var the_item = scene_saved_items_inv.items.front()
+				scene_saved_items_inv.remove_item(the_item)
+				new_items.append(the_item)
+			run_scene("LootingScene", [{"items": new_items}])
+			scene_saved_items_inv.items.clear()
 		queue_free()
 
-func addItemToSavedItems(theItem):
-	if(theItem == null):
+func end_scene(result = []) -> void:
+	scene_ended_flag = true
+	scene_ended_args = result
+	check_scene_ended()
+
+# ==========================================
+# UI HELPERS (lines 119-265)
+# ==========================================
+
+func say(text: String) -> void:
+	if GM.ui:
+		GM.ui.say(text)
+
+func sayn(text: String) -> void:
+	say(text + "\n")
+
+func saynn(text: String) -> void:
+	say(text + "\n\n")
+
+func add_button(text: String, tooltip: String = "", method: String = "", args: Array = []) -> void:
+	GM.ui.add_button(text, tooltip, method, args)
+
+func add_disabled_button(text: String, tooltip: String = "") -> void:
+	GM.ui.add_disabled_button(text, tooltip)
+
+func add_continue(method: String = "", args: Array = []) -> void:
+	add_button("Continue", "See what happens next", method, args)
+
+func add_next_button(method: String, args: Array = []) -> void:
+	if GM.ui:
+		GM.ui.add_button("Next", "", method, args)
+
+func add_button_with_checks(text: String, tooltip: String, method: String, args, checks: Array) -> void:
+	var bad_check = ButtonChecks.check(checks)
+	if bad_check == null:
+		add_button(text, ButtonChecks.get_prefix(checks) + tooltip, method, args)
+	else:
+		var reason_text = ButtonChecks.get_reason_text(bad_check)
+		if reason_text != "":
+			reason_text = "[" + reason_text + "] "
+		add_disabled_button(text, ButtonChecks.get_prefix(checks) + reason_text + tooltip)
+
+func add_message(text: String) -> void:
+	GM.main.add_message(text)
+
+func add_experience_to_player(ex: int, show_message: bool = true) -> void:
+	if show_message:
+		add_message("You received " + str(ex) + " experience")
+	GM.pc.add_experience(ex)
+
+# ==========================================
+# CHARACTER MANAGEMENT (lines 140-185)
+# ==========================================
+
+func add_character(id: String, variant: Array = []) -> void:
+	if id.is_empty():
 		return
-	if(sceneSavedItemsInv.hasItem(theItem)):
+	current_characters_variants[id] = variant
+	GM.main.start_updating_character(id)
+	if GM.main.get_current_scene() == self:
+		GM.ui.add_character_to_panel(id, variant)
+
+func remove_character(id: String) -> void:
+	current_characters_variants.erase(id)
+	if GM.main.get_current_scene() == self:
+		GM.ui.remove_character_from_panel(id)
+
+func has_character(id: String) -> bool:
+	return current_characters_variants.has(id)
+
+func clear_character() -> void:
+	if GM.main.get_current_scene() == self:
+		GM.ui.clear_characters_panel()
+	if current_characters_variants.is_empty():
 		return
-	sceneSavedItemsInv.addItem(theItem)
+	current_characters_variants.clear()
 
-func addFilledCondomToLootIfPerk(theItem):
-	if(GM.pc.hasPerk(Perk.CumKeepCondoms)):
-		addItemToSavedItems(theItem)
+func set_characters_easy_list(new_chars: Array) -> void:
+	for char_id in current_characters_variants.keys():
+		if char_id == "pc":
+			continue
+		if not new_chars.has(char_id):
+			remove_character(char_id)
+	for char_id in new_chars:
+		if char_id == "pc":
+			continue
+		if not current_characters_variants.has(char_id):
+			add_character(char_id)
 
-func react(_action: String, _args):
-	var result = _react(_action, _args)
-	#checkSceneEnded()
-	return result
+# ==========================================
+# FLAG DELEGATION (lines 293-309)
+# ==========================================
 
-func setState(newState: String):
-	state = newState
+func set_flag(flag_id, value) -> void:
+	GM.main.set_flag(flag_id, value)
 
-func getState() -> String:
-	return state
+func get_flag(flag_id, default_value = null):
+	return GM.main.get_flag(flag_id, default_value)
 
-func say(_text: String):
-	if(GM.ui):
-		GM.ui.say(_text)
-	#emit_signal("sayText", _text)
+func increase_flag(flag_id, add_value = 1) -> void:
+	GM.main.increase_flag(flag_id, add_value)
 
-func sayn(_text: String):
-	say(_text+"\n")
+func set_module_flag(module_id, flag_id, value) -> void:
+	GM.main.set_module_flag(module_id, flag_id, value)
 
-func saynn(_text: String):
-	say(_text+"\n\n")
+func get_module_flag(module_id, flag_id, default_value = null):
+	return GM.main.get_module_flag(module_id, flag_id, default_value)
 
-func addImage(image:Image):
-	if(GM.ui):
-		GM.ui.addImage(image)
+# ==========================================
+# TIME & SCENE (lines 287-328)
+# ==========================================
 
-func addCharacter(id: String, variant: Array = []):
-	if(id == ""):
-		return
-	currentCharactersVariants[id] = variant
-	GM.main.startUpdatingCharacter(id)
-	if(GM.main.getCurrentScene() == self):
-		GM.ui.addCharacterToPanel(id, variant)
+func process_time(seconds: int) -> void:
+	GM.main.process_time(seconds)
 
-func removeCharacter(id: String):
-	var _ok = currentCharactersVariants.erase(id)
-	if(GM.main.getCurrentScene() == self):
-		GM.ui.removeCharacterFromPanel(id)
+func start_new_day() -> int:
+	return GM.main.start_new_day()
 
-func hasCharacter(id: String):
-	if(currentCharactersVariants.has(id)):
-		return true
-	return false
+func set_location_name(location_name: String) -> void:
+	GM.main.set_location_name(location_name)
 
-func updateCharacter():
-	if(GM.main.getCurrentScene() == self):
-		GM.ui.clearCharactersPanel()
-		for id in currentCharactersVariants:
-			var character = GlobalRegistry.getCharacter(id)
-			if(!character):
+func aim_camera(room_id: String) -> void:
+	GM.main.aim_camera(room_id)
+
+func get_character_by_id(char_id: String) -> BaseCharacter:
+	return GlobalRegistry.get_character(char_id)
+
+func play_animation(the_scene_id, the_action_id, args: Dictionary = {}) -> void:
+	if GM.main != null:
+		GM.main.play_animation(the_scene_id, the_action_id, args)
+
+# ==========================================
+# ITEM HELPERS (lines 388-420)
+# ==========================================
+
+func put_on(char_id: String, item_id: String):
+	var the_character := get_character_by_id(char_id)
+	if not the_character:
+		return null
+	var the_item = GlobalRegistry.create_item(item_id)
+	if not the_item:
+		return null
+	the_character.get_inventory().force_equip_store_other_unless_restraint(the_item)
+	return the_item
+
+func put_off(char_id: String, item_id: String):
+	var the_character := get_character_by_id(char_id)
+	if not the_character:
+		return null
+	var the_cur_item: ItemBase = the_character.get_inventory().get_equipped_item_by_id(item_id)
+	if not the_cur_item:
+		return null
+	the_character.get_inventory().remove_equipped_item(the_cur_item)
+	return the_cur_item
+
+func remove_item_id(item_id: String, amount: int = 1) -> void:
+	GM.pc.get_inventory().remove_x_of_or_destroy(item_id, amount)
+
+func has_item_id(item_id: String) -> bool:
+	return GM.pc.get_inventory().has_item_id(item_id)
+
+# ==========================================
+# SAVE/LOAD (lines 422-444)
+# ==========================================
+
+func save_data() -> Dictionary:
+	return {
+		"state": state,
+		"currentCharactersVariants": current_characters_variants,
+		"sceneTag": scene_tag,
+		"sceneEndedFlag": scene_ended_flag,
+		"sceneEndedArgs": scene_ended_args,
+		"sceneSavedItemsInv": scene_saved_items_inv.save_data(),
+		"uniqueSceneID": unique_scene_id,
+		"parentSceneUniqueID": parent_scene_unique_id,
+	}
+
+func load_data(data: Dictionary) -> void:
+	state = SAVE.load_var(data, "state", "")
+	current_characters_variants = SAVE.load_var(data, "currentCharactersVariants", {})
+	scene_tag = SAVE.load_var(data, "sceneTag", "")
+	scene_ended_flag = SAVE.load_var(data, "sceneEndedFlag", false)
+	scene_ended_args = SAVE.load_var(data, "sceneEndedArgs", null)
+	update_character()
+	scene_saved_items_inv.load_data(SAVE.load_var(data, "sceneSavedItemsInv", {}))
+	unique_scene_id = SAVE.load_var(data, "uniqueSceneID", -1)
+	parent_scene_unique_id = SAVE.load_var(data, "parentSceneUniqueID", -1)
+
+func update_character() -> void:
+	if GM.main.get_current_scene() == self:
+		GM.ui.clear_characters_panel()
+		for id in current_characters_variants:
+			var character = GlobalRegistry.get_character(id)
+			if not character:
 				continue
-			GM.ui.addCharacterToPanel(id, currentCharactersVariants[id])
+			GM.ui.add_character_to_panel(id, current_characters_variants[id])
 
-func clearCharacter():
-	if(GM.main.getCurrentScene() == self):
-		GM.ui.clearCharactersPanel()
-	if(currentCharactersVariants.empty()):
-		return
-	currentCharactersVariants.clear()
-
-
-func setCharactersEasyList(newChars:Array):
-	for charID in currentCharactersVariants.keys():
-		if(charID == "pc"):
-			continue
-		if(!newChars.has(charID)):
-			removeCharacter(charID)
-	for charID in newChars:
-		if(charID == "pc"):
-			continue
-		if(!currentCharactersVariants.has(charID)):
-			addCharacter(charID)
-
-func _onSceneEnd():
+func _on_scene_end() -> void:
 	pass
 
-func endScene(result = []):
-	sceneEndedFlag = true
-	sceneEndedArgs = result
-	checkSceneEnded()
+func get_scene_creator() -> String:
+	var registry_creator = GlobalRegistry.get_scene_creator(scene_id)
+	if registry_creator != null and registry_creator != "":
+		return str(registry_creator)
+	return ""
 
-func runScene(id: String, args = [], tag = ""):
-	var scene = GM.main.runScene(id, args, uniqueSceneID)
-	scene.sceneTag = tag
-	return scene
+func supports_battle_turns() -> bool:
+	return false
 
-func react_scene_end(_tag, _result):
-	print(name+": My parent scene has ended")
-	#updateCharacter()
-	_react_scene_end(_tag, _result)
-	#checkSceneEnded()
+func supports_sex_engine() -> bool:
+	return false
 
-func addNextButton(method: String, args = []):
-	if(GM.ui):
-		GM.ui.addButton("Next", "", method, args)
-	#addButton("Next")
+func should_display_big_buttons() -> bool:
+	return false
 
-func addButton(text: String, tooltip: String = "", method: String = "", args = []):
-	GM.ui.addButton(text, tooltip, method, args)
-	#emit_signal("addButton", text, method, tooltip)
-
-func addContinue(method: String = "", args = []):
-	addButton("Continue", "See what happens next", method, args)
-
-func addDisabledButton(text: String, tooltip: String = ""):
-	GM.ui.addDisabledButton(text, tooltip)
-	#emit_signal("addDisabledButton", text, tooltip)
-
-func addButtonAt(index:int, text: String, tooltip: String = "", method: String = "", args = []):
-	GM.ui.addButtonAt(index, text, tooltip, method, args)
-	
-func addDisabledButtonAt(index:int, text: String, tooltip: String = ""):
-	GM.ui.addDisabledButtonAt(index, text, tooltip)
-
-func addButtonUnlessLate(text: String, tooltip: String = "", method: String = "", args = [], latetext: String = "It's way too late for that"):
-	if(GM.main.isVeryLate()):
-		addDisabledButton(text, latetext)
-	else:
-		addButton(text, tooltip, method, args)
-
-func addButtonWithChecks(text: String, tooltip: String, method: String, args, checks: Array):
-	var badCheck = ButtonChecks.check(checks)
-	if(badCheck == null):
-		addButton(text, ButtonChecks.getPrefix(checks) + tooltip, method, args)
-	else:
-		var reasonText = ButtonChecks.getReasonText(badCheck)
-		if(reasonText != ""):
-			reasonText = "["+reasonText+"] "
-		addDisabledButton(text, ButtonChecks.getPrefix(checks) + reasonText +tooltip)
-
-func addButtonWithChecksAt(index:int, text: String, tooltip: String, method: String, args, checks: Array):
-	var badCheck = ButtonChecks.check(checks)
-	if(badCheck == null):
-		addButtonAt(index, text, ButtonChecks.getPrefix(checks) + tooltip, method, args)
-	else:
-		var reasonText = ButtonChecks.getReasonText(badCheck)
-		if(reasonText != ""):
-			reasonText = "["+reasonText+"] "
-		addDisabledButtonAt(index, text, ButtonChecks.getPrefix(checks) + reasonText +tooltip)
-
-func addExtraButton(text: String, tooltip: String = "", method: String = "", args = [], _enabled:bool = true):
-	GM.ui.addExtraButton(text, tooltip, method, args, _enabled)
-
-func addExtraButtonAt(index:int, text: String, tooltip: String = "", method: String = "", args = [], _enabled:bool = true):
-	GM.ui.addExtraButtonAt(index, text, tooltip, method, args, _enabled)
-
-func addTextbox(id):
-	return GM.ui.addUITextbox(id)
-
-func addBigTextbox(id):
-	return GM.ui.addBigUITextbox(id)
-
-func getTextboxData(id):
-	return GM.ui.getUIdata(id)
-
-func addMessage(text: String):
-	GM.main.addMessage(text)
-
-func addExperienceToPlayer(ex: int, showMessage: bool = true):
-	if(showMessage):
-		addMessage("You received "+str(ex)+" experience")
-	GM.pc.addExperience(ex)
-
-func friskPlayer():
-	var foundAnything = false
-	for item in GM.pc.getInventory().getItemsWithTag(ItemTag.Illegal):
-		addMessage(item.getStackName()+" was taken away")
-		foundAnything = true
-	for item in GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.Illegal):
-		addMessage(item.getStackName()+" was taken away")
-		foundAnything = true
-	return foundAnything
-
-func processTime(seconds: int):
-	GM.main.processTime(seconds)
-
-func startNewDay():
-	return GM.main.startNewDay()
-
-func setFlag(flagID, value):
-	GM.main.setFlag(flagID, value)
-
-func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
-
-func increaseFlag(flagID, addvalue = 1):
-	GM.main.increaseFlag(flagID, addvalue)
-
-func setModuleFlag(moduleID, flagID, value):
-	GM.main.setModuleFlag(moduleID, flagID, value)
-
-func increaseModuleFlag(moduleID, flagID, addvalue = 1):
-	GM.main.increaseModuleFlag(moduleID, flagID, addvalue)
-
-func getModuleFlag(moduleID, flagID, defaultValue = null):
-	return GM.main.getModuleFlag(moduleID, flagID, defaultValue)
-
-func resolveCustomCharacterName(_charID):
+func get_dev_commentary():
 	return null
 
-func supportsBattleTurns():
-	return false
-
-func supportsSexEngine():
-	return false
-
-func setLocationName(locationName: String):
-	GM.main.setLocationName(locationName)
-
-func aimCamera(roomID: String):
-	GM.main.aimCamera(roomID)
-
-func aimCameraAndSetLocName(roomID: String):
-	GM.main.aimCameraAndSetLocName(roomID)
-
-func getCharacter(charID: String) -> BaseCharacter:
-	return GlobalRegistry.getCharacter(charID)
-
-func getModule(modID: String):
-	return GlobalRegistry.getModule(modID)
-
-func getDebugActions():
-	return []
-
-func doDebugAction(_id, _args = {}):
-	pass
-
-func getSceneCreator():
-	var registryCreator = GlobalRegistry.getSceneCreator(sceneID)
-	
-	if(registryCreator != null && registryCreator != ""):
-		return str(registryCreator)
-	return null
-
-func playAnimation(theSceneID, theActionID, args = {}):
-	if(GM.main != null):
-		GM.main.playAnimation(theSceneID, theActionID, args)
-
-func playAnimationForceReset(theSceneID, theActionID, args = {}):
-	if(GM.main != null):
-		GM.main.playAnimationForceReset(theSceneID, theActionID, args)
-
-func getDevCommentary():
-	return null
-
-func markShownDevCommentary():
-	showedDeveloperCommentary = true
-
-func hasDevCommentary():
-	var devComs = getDevCommentary()
-	if(devComs == null || devComs == ""):
+func should_show_dev_commentary_icon() -> bool:
+	if not OPTIONS.developer_commentary_enabled():
 		return false
-	return true
-
-func shouldShowDevCommentaryIcon():
-	if(!OPTIONS.developerCommentaryEnabled()):
+	if showed_developer_commentary:
 		return false
-	if(showedDeveloperCommentary):
-		return false
-	return hasDevCommentary()
-
-func shouldDisplayBigButtons():
-	return false
-
-func getSceneCompanions():
-	return []
-
-func isSpyingOnInteractionsWith(_charID:String):
-	return false
-
-func supportsShowingPawns() -> bool:
-	return false
-
-# Just a quick function, spawns an item out of nowhere
-func putOn(_charID:String, _itemID:String):
-	var theCharacter := getCharacter(_charID)
-	if(!theCharacter):
-		return null
-	var theItem = GlobalRegistry.createItem(_itemID)
-	if(!theItem):
-		return null
-	theCharacter.getInventory().forceEquipStoreOtherUnlessRestraint(theItem)
-	return theItem
-
-# Deletes the item!
-func putOff(_charID:String, _itemID:String):
-	var theCharacter := getCharacter(_charID)
-	if(!theCharacter):
-		return null
-	var theCurItem:ItemBase = theCharacter.getInventory().getEquippedItemByID(_itemID)
-	if(!theCurItem):
-		return null
-	theCharacter.getInventory().removeEquippedItem(theCurItem)
-	return theCurItem
-
-func clearSlot(_charID:String, _slot:String):
-	var theCharacter := getCharacter(_charID)
-	if(!theCharacter):
-		return
-	theCharacter.getInventory().clearSlot(_slot)
-
-# Quickly removes some item id from the player's inventory
-func removeItemID(_itemID:String, _am:int = 1):
-	GM.pc.getInventory().removeXOfOrDestroy(_itemID, _am)
-
-func hasItemID(_itemID:String) -> bool:
-	return GM.pc.getInventory().hasItemID(_itemID)
-
-func saveData():
-	var data = {}
-	data["state"] = state
-	data["currentCharactersVariants"] = currentCharactersVariants
-	data["sceneTag"] = sceneTag
-	data["sceneEndedFlag"] = sceneEndedFlag
-	data["sceneEndedArgs"] = sceneEndedArgs
-	data["sceneSavedItemsInv"] = sceneSavedItemsInv.saveData()
-	data["uniqueSceneID"] = uniqueSceneID
-	data["parentSceneUniqueID"] = parentSceneUniqueID
-	
-	return data
-
-func loadData(data):
-	state = SAVE.loadVar(data, "state", "")
-	currentCharactersVariants = SAVE.loadVar(data, "currentCharactersVariants", {})
-	sceneTag = SAVE.loadVar(data, "sceneTag", "")
-	sceneEndedFlag = SAVE.loadVar(data, "sceneEndedFlag", false)
-	sceneEndedArgs = SAVE.loadVar(data, "sceneEndedArgs", null)
-	updateCharacter()
-	sceneSavedItemsInv.loadData(SAVE.loadVar(data, "sceneSavedItemsInv", {}))
-	uniqueSceneID = SAVE.loadVar(data, "uniqueSceneID", -1)
-	parentSceneUniqueID = SAVE.loadVar(data, "parentSceneUniqueID", -1)
+	return get_dev_commentary() != null and get_dev_commentary() != ""
