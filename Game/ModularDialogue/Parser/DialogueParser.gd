@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DialogueParser
 
 # I LIKE WRITING BAD PARSERS, SUE ME

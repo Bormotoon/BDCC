@@ -215,11 +215,11 @@ PoolStringArray → PackedStringArray
 
 | Файл | Строк | Статус |
 |------|-------|--------|
-| ModularDialogue.gd | ~200 | 🔴 НЕ МИГРИРОВАН |
-| DialogueParser.gd | ~200 | 🔴 НЕ МИГРИРОВАН |
-| DialogueFiller*.gd | ~94 | 🔴 НЕ МИГРИРОВАН |
-| Adders/*.gd (8 файлов) | ~400 | 🔴 НЕ МИГРИРОВАН |
-| Fillers/*.gd (8 файлов) | ~400 | 🔴 НЕ МИГРИРОВАН |
+| ModularDialogue.gd | ~200 | ✅ МИГРИРОВАН (extends RefCounted) |
+| DialogueParser.gd | ~200 | ✅ МИГРИРОВАН (extends RefCounted) |
+| DialogueFiller*.gd | ~94 | ✅ МИГРИРОВАН (extends RefCounted) |
+| Adders/*.gd (8 файлов) | ~400 | ✅ МИГРИРОВАН (extends RefCounted) |
+| Fillers/*.gd (8 файлов) | ~400 | ✅ МИГРИРОВАН (extends RefCounted) |
 
 ### 2.7 GAME/NPCSLAVERY (113 файлов, 11,949 строк)
 
