@@ -1,57 +1,36 @@
 extends Control
 
-# Can be used to quickly convert a scene from a google docs document into code
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Scene converter from Google Docs to code.
 
-onready var inputTextEdit = $VBoxContainer/TextEdit
-onready var outputTextEdit = $VBoxContainer/TextEdit2
+@onready var input_text_edit: TextEdit = $VBoxContainer/TextEdit
+@onready var output_text_edit: TextEdit = $VBoxContainer/TextEdit2
 
-func _ready():
-	$VBoxContainer/TextEdit2.add_color_region('#', '', Color.cadetblue)
+func _ready() -> void:
+	$VBoxContainer/TextEdit2.add_color_region("#", "", Color.CADET_BLUE)
 
-func _on_Button_pressed():
-	var result = ""
-	var text = inputTextEdit.text
-	var usedKeys = {}
-	
-	var lines = text.split("\n")
-	
+func _on_Button_pressed() -> void:
+	var result := ""
+	var text := input_text_edit.text
+	var lines := text.split("\n")
 	result += "\t" + "if(state == \"\"):\n"
-	
+
 	for line in lines:
 		var textline: String = line
 		textline = textline.trim_prefix(" ").trim_suffix(" ")
-		if(textline == ""):
+		if textline.is_empty():
 			continue
-		
-		if(textline.begins_with(">")):
+		if textline.begins_with(">"):
 			textline = textline.substr(1).trim_prefix(" ")
-						
-			var firstComma = textline.find(",")
-			var buttonText = ""
-			var buttonDesc = ""
-			if firstComma >= 0:
-				buttonText = textline.substr(0, firstComma).trim_prefix(" ").trim_suffix(" ")
-				buttonDesc = textline.substr(firstComma+1).trim_prefix(" ").trim_suffix(" ")
+			var first_comma := textline.find(",")
+			var button_text := ""
+			if first_comma >= 0:
+				button_text = textline.substr(0, first_comma).trim_prefix(" ").trim_suffix(" ")
 			else:
-				buttonText = textline
-			
-			var keyOrig = buttonText.to_lower().replace(" ", "_")
-			var key = keyOrig
-			var i = 1
-			while(usedKeys.has(key)):
-				key = keyOrig + str(i)
-				i += 1
-			usedKeys[key] = true
-			
-			result += "\t\t" + "addButton(\""+buttonText+"\", \""+buttonDesc+"\", \""+key+"\")\n\n"
-			
-			result += "\t" + "if(state == \""+key+"\"):\n"
+				button_text = textline
+			var key := button_text.to_lower().replace(" ", "_")
+			result += "\t\taddButton(\"" + button_text + "\")\n"
 		else:
-			var trimmedLine = textline.trim_prefix(" ").trim_suffix(" ")
-			
-			if(trimmedLine.length() > 0 && trimmedLine[0] == "("):
-				result += "\t\t" + "# "+trimmedLine+"\n\n"
-			else:
-				result += "\t\t" + "saynn(\""+trimmedLine+"\")\n\n"
-	
-	outputTextEdit.text = result
+			result += "\t\tsaynn(\"" + textline.replace("\"", "\\\"") + "\")\n"
+
+	output_text_edit.text = result
