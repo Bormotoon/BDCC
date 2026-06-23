@@ -1,21 +1,21 @@
 extends Node2D
 
-var id:String
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Simple map entity with tween movement.
+
+var id: String
 var loc
-var floorid
+var floor_id
 
-onready var move_tween = $MoveTween
-onready var icon = $Icon
+@onready var icon: Sprite2D = $Icon
 
-func moveToPos(thePos:Vector2, _customOffset:bool = false, _theOffset:Vector2 = Vector2(0.0, 0.0)):
-	
-	move_tween.interpolate_property(self, "position",
-			global_position, thePos + (Vector2(RNG.randi_range(-16, 16), RNG.randi_range(-16, 16)) if !_customOffset else _theOffset), 0.5,
-			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	move_tween.start()
+func move_to_pos(target_pos: Vector2, custom_offset: bool = false, the_offset: Vector2 = Vector2.ZERO) -> void:
+	var offset := Vector2(RNG.randi_range(-16, 16), RNG.randi_range(-16, 16)) if not custom_offset else the_offset
+	var tween := create_tween()
+	tween.tween_property(self, "global_position", target_pos + offset, 0.5)
 
-func setTexture(theTexture:Texture):
-	icon.texture = theTexture
+func set_texture(texture: Texture2D) -> void:
+	icon.texture = texture
 
-func setColor(theColor:Color):
-	icon.self_modulate = theColor
+func set_color(color: Color) -> void:
+	icon.self_modulate = color

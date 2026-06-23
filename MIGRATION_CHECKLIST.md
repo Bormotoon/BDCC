@@ -169,8 +169,8 @@ PoolStringArray → PackedStringArray
 |------|-------|------|--------|
 | World.gd | 757 | 4 | ✅ МИГРИРОВАН (AStar2D pathfinding, room management, camera) |
 | GameRoom.gd | 274 | 12 | ✅ МИГРИРОВАН (@tool, @export, setget→property, emit→signal.emit) |
-| WorldPawn.gd | 75 | 0 | 🟡 НЕ МИГРИРОВАН |
-| WorldEntity.gd | 21 | 0 | 🟢 НЕ МИГРИРОВАН |
+| WorldPawn.gd | 75 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, activity icons→dict) |
+| WorldEntity.gd | 21 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, typed variables) |
 | Floors/*.gd (6 файлов) | ~370 | 36 | 🟡 НЕ МИГРИРОВАН |
 | Props/*.gd (3 файла) | ~122 | 0 | 🟢 НЕ МИГРИРОВАН |
 
