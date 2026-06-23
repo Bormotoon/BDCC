@@ -1,152 +1,114 @@
-extends Reference
+extends RefCounted
 class_name FetishHolder
 
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Fetish management with scoring and forced obedience blending.
+
 var character: WeakRef
-var fetishMap: Dictionary = {}
+var fetish_map: Dictionary = {}
 
-func _init():
-	for fetishID in GlobalRegistry.getFetishes():
-		#setFetish(fetishID, RNG.pick(FetishInterest.getAll()))
-		#setFetish(fetishID, FetishInterest.Loves)
-		#setFetish(fetishID, FetishInterest.Hates)
-		setFetish(fetishID, FetishInterest.Likes)
-	
-	#setFetish(Fetish.OralSexReceiving, FetishInterest.Loves)
-	#setFetish(Fetish.VaginalSexGiving, FetishInterest.Loves)
-	#setFetish(Fetish.DrugUse, FetishInterest.Loves)
-	#setFetish(Fetish.VaginalSexGiving, FetishInterest.Loves)
-	#setFetish(Fetish.Breeding, FetishInterest.Hates)
-	#setFetish(Fetish.BeingBred, FetishInterest.Hates)
-	#setFetish(Fetish.VaginalSexReceiving, FetishInterest.Hates)
+func _init() -> void:
+	for fetish_id in GlobalRegistry.getFetishes():
+		set_fetish(fetish_id, FetishInterest.Likes)
 
-func clear():
-	fetishMap.clear()
+func clear() -> void:
+	fetish_map.clear()
 
-func clearToInterest(theInterestValue:float):
-	for fetishID in GlobalRegistry.getFetishes():
-		setFetish(fetishID, theInterestValue)
+func clear_to_interest(interest_value: float) -> void:
+	for fetish_id in GlobalRegistry.getFetishes():
+		set_fetish(fetish_id, interest_value)
 
-func getCharacter():
-	if(character == null):
-		return character
+func get_character():
+	if character == null:
+		return null
 	return character.get_ref()
 
-func setCharacter(newchar):
-	character = weakref(newchar)
+func set_character(new_char) -> void:
+	character = weakref(new_char)
 
-func setFetish(fetishID:String, interest:float):
-	fetishMap[fetishID] = clamp(interest, -1.0, 1.0)
+func set_fetish(fetish_id: String, interest: float) -> void:
+	fetish_map[fetish_id] = clampf(interest, -1.0, 1.0)
 
-func getFetish(fetishID:String) -> float:
-	if(!fetishMap.has(fetishID)):
-		return 0.0
-	return fetishMap[fetishID]
+func get_fetish(fetish_id: String) -> float:
+	return fetish_map.get(fetish_id, 0.0)
 
-func getFetishValue(fetishID:String) -> float:
-	if(!fetishMap.has(fetishID)):
-		return 0.0
-	return fetishMap[fetishID]
+func get_fetish_value(fetish_id: String) -> float:
+	return fetish_map.get(fetish_id, 0.0)
 
-func addFetish(fetishID:String, theVal:float):
-	var newVal:float = clamp(getFetish(fetishID) + theVal, -1.0, 1.0)
-	fetishMap[fetishID] = newVal
+func add_fetish(fetish_id: String, val: float) -> void:
+	fetish_map[fetish_id] = clampf(get_fetish(fetish_id) + val, -1.0, 1.0)
 
-func getFetishes() -> Dictionary:
-	return fetishMap
+func get_fetishes() -> Dictionary:
+	return fetish_map
 
-func getGoals(_sexEngine, _sub, _minValue:float = 0.0) -> Array:
-	var result:Array = []
-	
-	for fetishID in GlobalRegistry.getFetishes():
-		var fetishInterestValue:float = 0.0
-		if(fetishMap.has(fetishID)):
-			fetishInterestValue = fetishMap[fetishID]
-		
-		if(fetishInterestValue >= _minValue):
-			var fetish:FetishBase = GlobalRegistry.getFetish(fetishID)
-			var goals = fetish.getGoals(_sexEngine, self, getCharacter(), _sub)
-			
+## Goal generation from fetishes
+func get_goals(_sex_engine, _sub, min_value: float = 0.0) -> Array:
+	var result: Array = []
+	for fetish_id in GlobalRegistry.getFetishes():
+		var interest_value: float = fetish_map.get(fetish_id, 0.0)
+		if interest_value >= min_value:
+			var fetish: FetishBase = GlobalRegistry.getFetish(fetish_id)
+			var goals = fetish.getGoals(_sex_engine, self, get_character(), _sub)
 			for goal in goals:
-				result.append([goal, max(0.1, fetishInterestValue)])
-
+				result.append([goal, maxf(0.1, interest_value)])
 	return result
 
-func removeImpossibleFetishes():
-	var thecharacter = getCharacter()
-	if(thecharacter == null):
+func remove_impossible_fetishes() -> void:
+	var the_character = get_character()
+	if the_character == null:
 		return
-	
-	for fetishID in fetishMap.keys():
-		var fetish:FetishBase = GlobalRegistry.getFetish(fetishID)
-		if(!fetish.isPossibleFor(thecharacter)):
-			var _ok = fetishMap.erase(fetishID)
+	for fetish_id in fetish_map.keys():
+		var fetish: FetishBase = GlobalRegistry.getFetish(fetish_id)
+		if not fetish.isPossibleFor(the_character):
+			fetish_map.erase(fetish_id)
 
-func scoreFetish(fetishes:Dictionary, onlyPositive:bool = false) -> float:
-	var maxPossibleValue = 0.0
-	var result = 0.0
-	for fetishID in fetishes:
-		var fetishValue:float = getFetishValue(fetishID)
-		var addValue = fetishValue * fetishes[fetishID]
-		if(!onlyPositive || (onlyPositive && addValue > 0.0)):
-			result += addValue
-		maxPossibleValue += 1.0
-	
-	var forcedObedience = clamp(getCharacter().getForcedObedienceLevel(), 0.0, 1.0)
-	if(forcedObedience > 0.0):
-		result = result * (1.0 - forcedObedience) + maxPossibleValue * forcedObedience
-	
+## Fetish scoring with forced obedience blending (lines 84-98)
+func score_fetish(fetishes: Dictionary, only_positive: bool = false) -> float:
+	var max_possible := 0.0
+	var result := 0.0
+	for fetish_id in fetishes:
+		var fetish_value: float = get_fetish_value(fetish_id)
+		var add_value := fetish_value * fetishes[fetish_id]
+		if not only_positive or add_value > 0.0:
+			result += add_value
+		max_possible += 1.0
+	var forced_obedience := clampf(get_character().get_forced_obedience_level(), 0.0, 1.0)
+	if forced_obedience > 0.0:
+		result = result * (1.0 - forced_obedience) + max_possible * forced_obedience
 	return result
 
-func scoreFetishMax(fetishes:Dictionary, minValue:float = -999.9) -> float:
-	var result = minValue
-	for fetishID in fetishes:
-		var fetishValue = getFetishValue(fetishID)
-		
-		var newValue = fetishValue * fetishes[fetishID]
-		if(newValue > result):
-			result = newValue
-	
-	var forcedObedience = clamp(getCharacter().getForcedObedienceLevel(), 0.0, 1.0)
-	if(forcedObedience > 0.0):
-		result = result * (1.0 - forcedObedience) + forcedObedience
-	
+func score_fetish_max(fetishes: Dictionary, min_value: float = -999.9) -> float:
+	var result := min_value
+	for fetish_id in fetishes:
+		var new_value: float = get_fetish_value(fetish_id) * fetishes[fetish_id]
+		if new_value > result:
+			result = new_value
+	var forced_obedience := clampf(get_character().get_forced_obedience_level(), 0.0, 1.0)
+	if forced_obedience > 0.0:
+		result = result * (1.0 - forced_obedience) + forced_obedience
 	return result
 
-func saveData():
-	var data = {
-		"fetishMap": fetishMap,
-	}
-	return data
+func save_data() -> Dictionary:
+	return {"fetishMap": fetish_map}
 
-func loadData(data):
-	var newfetishMap = SAVE.loadVar(data, "fetishMap", null)
-	if(newfetishMap != null && (newfetishMap is Dictionary)):
-		# Removing fetishes that the game doesn't have in its database
-		var filteredNewFetishMap = {}
-		for fetishID in newfetishMap:
-			var fetishObject = GlobalRegistry.getFetish(fetishID)
-			if(fetishObject == null):
-				Log.printerr("Removing fetish that doesn't exist: "+str(fetishID))
+func load_data(data: Dictionary) -> void:
+	var new_map = SAVE.loadVar(data, "fetishMap", null)
+	if new_map != null and new_map is Dictionary:
+		var filtered: Dictionary = {}
+		for fetish_id in new_map:
+			var fetish_obj = GlobalRegistry.getFetish(fetish_id)
+			if fetish_obj == null:
 				continue
-			var theValue = newfetishMap[fetishID]
-			if(theValue is String):
-				theValue = FetishInterest.textToNumber(theValue)
-			filteredNewFetishMap[fetishID] = theValue
-		newfetishMap = filteredNewFetishMap
-		
-		fetishMap = newfetishMap
-	
-	# Adds missing fetishes
-	var thechar = getCharacter()
-	if(thechar != null):
-		if(!thechar.isDynamicCharacter()):
-			for fetishID in GlobalRegistry.getFetishes():
-				if(!fetishMap.has(fetishID)):
-					fetishMap[fetishID] = GlobalRegistry.getFetish(fetishID).getInitialInterest(thechar)
-		else:
-			# A bit too random but eh
-			for fetishID in GlobalRegistry.getFetishes():
-				if(!fetishMap.has(fetishID)):
-					if(GlobalRegistry.getFetish(fetishID).isPossibleFor(thechar)):
-						#TODO: Better missing fetish generation?
-						fetishMap[fetishID] = RNG.randf_range(-1.0, 1.0)#RNG.pick(FetishInterest.getAll())
+			var val = new_map[fetish_id]
+			if val is String:
+				val = FetishInterest.textToNumber(val)
+			filtered[fetish_id] = val
+		fetish_map = filtered
+	# Add missing fetishes
+	var the_char = get_character()
+	if the_char != null:
+		for fetish_id in GlobalRegistry.getFetishes():
+			if not fetish_map.has(fetish_id):
+				var fetish_obj = GlobalRegistry.getFetish(fetish_id)
+				if fetish_obj.isPossibleFor(the_char):
+					fetish_map[fetish_id] = RNG.randf_range(-1.0, 1.0)
