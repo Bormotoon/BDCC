@@ -171,7 +171,7 @@ PoolStringArray → PackedStringArray
 | GameRoom.gd | 274 | 12 | ✅ МИГРИРОВАН (@tool, @export, setget→property, emit→signal.emit) |
 | WorldPawn.gd | 75 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, activity icons→dict) |
 | WorldEntity.gd | 21 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, typed variables) |
-| Floors/*.gd (6 файлов) | ~370 | 36 | 🟡 НЕ МИГРИРОВАН |
+| Floors/*.gd (6 файлов) | ~370 | 36 | ✅ МИГРИРОВАН (уже чистый Godot 4 код) |
 | Props/*.gd (3 файла) | ~122 | 0 | 🟢 НЕ МИГРИРОВАН |
 
 ### 2.4 GAME/SEXENGINE (152 файла, 32,219 строк)
