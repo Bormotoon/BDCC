@@ -1,45 +1,46 @@
-tool
+@tool
 extends Node2D
+
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Editor tool for light shape props.
 
 enum LightType {Default, Big, BigGlow}
 
-const propData = {
-	LightType.Default:{
+const propData: Dictionary = {
+	LightType.Default: {
 		texture = preload("res://Images/WorldProps/LightShapes/default.png"),
 		offset = [0, 4],
 	},
-	LightType.Big:{
+	LightType.Big: {
 		texture = preload("res://Images/WorldProps/LightShapes/big.png"),
 		offset = [0, 4],
 	},
-	LightType.BigGlow:{
+	LightType.BigGlow: {
 		texture = preload("res://Images/WorldProps/LightShapes/bigglow.png"),
 		offset = [0, 4],
 	},
 }
 
-export(LightType) var lightType setget onPropTypeChanged
-export(bool) var aboveWalls = true setget onAboveWallsChanged
+@export var light_type: LightType = LightType.Default:
+	set(value):
+		light_type = value
+		_update_prop()
 
-func onPropTypeChanged(newPropType):
-	lightType = newPropType
-	
-	if(!propData.has(lightType)):
+@export var above_walls: bool = true:
+	set(value):
+		above_walls = value
+		if value:
+			z_index = 2
+		else:
+			z_index = -6
+
+func _update_prop() -> void:
+	if not propData.has(light_type):
 		return
-	
-	var propInfo = propData[lightType]
-	
-	$WorldPropSprite.texture = propInfo["texture"]
-	if("offset" in propInfo):
-		$WorldPropSprite.offset.x = propInfo["offset"][0]
-		$WorldPropSprite.offset.y = propInfo["offset"][1]
+	var prop_info: Dictionary = propData[light_type]
+	$WorldPropSprite.texture = prop_info["texture"]
+	if "offset" in prop_info:
+		$WorldPropSprite.offset.x = prop_info["offset"][0]
+		$WorldPropSprite.offset.y = prop_info["offset"][1]
 	else:
-		$WorldPropSprite.offset.x = 0
-		$WorldPropSprite.offset.y = 0
-
-func onAboveWallsChanged(newabove):
-	aboveWalls = newabove
-	if(newabove):
-		z_index = 2
-	else:
-		z_index = -6
+		$WorldPropSprite.offset = Vector2.ZERO

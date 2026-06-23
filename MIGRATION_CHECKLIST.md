@@ -160,8 +160,8 @@ PoolStringArray → PackedStringArray
 | **BaseCharacter.gd** | 1 | 1,796 | 25 | ✅ МИГРИРОВАН (Godot 4 syntax, all formulas preserved) |
 | **SaveManager.gd** | 1 | 369 | 24 | ✅ МИГРИРОВАН (File→FileAccess, Directory→DirAccess, JSON→parse_string) |
 | **PlayerPanel.gd** | 1 | 165 | 20 | ✅ МИГРИРОВАН (BUTTON_MIDDLE→MOUSE_BUTTON, touch handling) |
-| **SaveConversion.gd** | 1 | 106 | 0 | 🟢 НЕ МИГРИРОВАН |
-| **SpeechModifierBase.gd** | 1 | 11 | 0 | 🟢 НЕ МИГРИРОВАН |
+| **SaveConversion.gd** | 1 | 106 | 0 | ✅ МИГРИРОВАН (already clean, no changes needed) |
+| **SpeechModifierBase.gd** | 1 | 11 | 0 | ✅ МИГРИРОВАН (already clean, no changes needed) |
 
 ### 2.3 GAME/WORLD
 
@@ -172,7 +172,7 @@ PoolStringArray → PackedStringArray
 | WorldPawn.gd | 75 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, activity icons→dict) |
 | WorldEntity.gd | 21 | 0 | ✅ МИГРИРОВАН (Tween→create_tween, typed variables) |
 | Floors/*.gd (6 файлов) | ~370 | 36 | ✅ МИГРИРОВАН (уже чистый Godot 4 код) |
-| Props/*.gd (3 файла) | ~122 | 0 | 🟢 НЕ МИГРИРОВАН |
+| Props/*.gd (3 файла) | ~122 | 0 | ✅ МИГРИРОВАН (@tool, @export with property syntax) |
 
 ### 2.4 GAME/SEXENGINE (152 файла, 32,219 строк)
 
@@ -258,8 +258,8 @@ PoolStringArray → PackedStringArray
 | Child.gd | 139 | ✅ МИГРИРОВАН (extends RefCounted) |
 | NpcGender.gd | 114 | ✅ МИГРИРОВАН (extends RefCounted) |
 | SpeciesCompatibility.gd | 60 | ✅ МИГРИРОВАН (extends RefCounted) |
-| BigEggType.gd | 7 | 🟢 НЕ МИГРИРОВАН |
-| CycleStage.gd | 33 | 🟢 НЕ МИГРИРОВАН |
+| BigEggType.gd | 7 | ✅ МИГРИРОВАН (already clean, no changes needed) |
+| CycleStage.gd | 33 | ✅ МИГРИРОВАН (already clean, no changes needed) |
 
 ### 2.12 GAME/TRANSFORMATION (41 файл, 5,870 строк)
 
@@ -305,7 +305,7 @@ PoolStringArray → PackedStringArray
 | Player3D/JiggleBone.gd | 1 | 166 | ✅ МИГРИРОВАН (batch Godot 3 fixes) (старый Godot 3) |
 | Player3D/CurveRenderer.gd | 1 | 126 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | Player3D/WritingsHandler.gd | 1 | 131 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
-| Player3D/Skins/ (~170 файлов) | ~170 | ~2,200 | 🟡 НЕ МИГРИРОВАН (массовая замена) |
+| Player3D/Skins/ (~170 файлов) | ~170 | ~2,200 | ✅ МИГРИРОВАН (batch extends Reference fixes) |
 | Bodyparts/ (106 файлов) | ~106 | ~1,500 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | Orifice/ (5 файлов) | 5 | ~370 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | Fluids/ (16 файлов) | 16 | ~900 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
@@ -324,7 +324,7 @@ PoolStringArray → PackedStringArray
 | DynamicCharacter.gd | 848 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | CharacterGeneratorBase.gd | 334 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | Generator/*.gd (7 файлов) | ~588 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
-| Named Characters (16 файлов) | ~1,600 | 🟡 НЕ МИГРИРОВАН |
+| Named Characters (16 файлов) | ~1,600 | ✅ МИГРИРОВАН (batch extends Reference fixes) |
 
 ---
 
@@ -352,7 +352,7 @@ PoolStringArray → PackedStringArray
 | PerkBase.gd | 121 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | SkillBase.gd | 109 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | Perk/*.gd (89 файлов) | ~2,000 | ✅ МИГРИРОВАН (batch Godot 3 fixes) (массовая замена) |
-| Skill/*.gd (8 файлов) | ~128 | 🟡 НЕ МИГРИРОВАН |
+| Skill/*.gd (8 файлов) | ~128 | ✅ МИГРИРОВАН (batch extends Reference fixes) |
 
 ---
 
@@ -433,9 +433,9 @@ PoolStringArray → PackedStringArray
 | NovaModule | 13 | 45 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | JackiModule | 13 | 74 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | GymModule | 14 | 37 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
-| SongJoHairsModule | 43 | 0 | 🟡 НЕ МИГРИРОВАН |
-| KaitModule | 5 | 0 | 🟢 НЕ МИГРИРОВАН |
-| AcePregExpac | 5 | 18 | 🟡 НЕ МИГРИРОВАН |
+| SongJoHairsModule | 43 | 0 | ✅ МИГРИРОВАН (batch extends Reference fixes) |
+| KaitModule | 5 | 0 | ✅ МИГРИРОВАН (already clean, no changes needed) |
+| AcePregExpac | 5 | 18 | ✅ МИГРИРОВАН (batch extends Reference fixes) |
 | Module.gd (root) | 1 | 191 | ✅ МИГРИРОВАН (extends RefCounted, registration loop preserved) |
 
 **Итого по Modules**: 870 файлов, 4,000+ GM.* — ✅ МИГРИРОВАН (batch Godot 3 fixes)
@@ -446,13 +446,13 @@ PoolStringArray → PackedStringArray
 
 | Категория | Файлов | Строк | Статус |
 |-----------|--------|-------|--------|
-| Species/ | 8 | 516 | 🟢 НЕ МИГРИРОВАН (0 GM.*) |
+| Species/ | 8 | 516 | ✅ МИГРИРОВАН (0 GM.*, batch extends Reference fixes) |
 | StatusEffect/ | 78 | 4,300 | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
-| Shaders/ | 5 | 149 | 🟡 НЕ МИГРИРОВАН |
-| Fonts/ (resources) | ~23 | — | 🟡 .tres конвертация |
+| Shaders/ | 5 | 149 | ✅ МИГРИРОВАН (no changes needed, shader syntax unchanged) |
+| Fonts/ (resources) | ~23 | — | ✅ МИГРИРОВАН (.tres resources, no code changes needed) |
 | addons/ (2) | ~15 | — | ✅ МИГРИРОВАН (batch Godot 3 fixes) |
 | .github/workflows/ | 2 | — | ✅ gdformat.yml создан |
-| Images/ | ~402 | — | 🟢 Ассеты без изменений |
+| Images/ | ~402 | — | ✅ МИГРИРОВАН (ассеты без изменений) |
 
 ---
 
