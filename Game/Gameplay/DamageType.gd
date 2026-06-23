@@ -1,45 +1,41 @@
 extends Node
 class_name DamageType
 
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Damage type enum with name/color helpers.
+
 enum {
 	Physical,
 	Lust,
 	Stamina
 }
 
-static func getAll():
+static func getAll() -> Array:
 	return [Physical, Lust, Stamina]
 
-static func getName(type) -> String:
-	if(type == Physical):
-		return "Physical"
-	if(type == Lust):
-		return "Lust"
-	if(type == Stamina):
-		return "Stamina"
+static func getName(type: int) -> String:
+	match type:
+		Physical: return "Physical"
+		Lust: return "Lust"
+		Stamina: return "Stamina"
 	return "Error"
 
-static func getBattleName(type) -> String:
-	if(type == Physical):
-		return "pain"
-	if(type == Lust):
-		return "lust"
-	if(type == Stamina):
-		return "stamina damage"
+static func getBattleName(type: int) -> String:
+	match type:
+		Physical: return "pain"
+		Lust: return "lust"
+		Stamina: return "stamina damage"
 	return "error bad"
 
-static func getColor(type) -> Color:
-	if(type == Physical):
-		return Color("#FF9A8E")
-	if(type == Lust):
-		return Color.violet
-	if(type == Stamina):
-		return Color.cornflower
-	return Color.floralwhite
+static func getColor(type: int) -> Color:
+	match type:
+		Physical: return Color("#FF9A8E")
+		Lust: return Color.VIOLET
+		Stamina: return Color.CORNFLOWER_BLUE
+	return Color.FLORAL_WHITE
 
-static func getColorString(type) -> String:
-	return "#"+getColor(type).to_html(false)
+static func getColorString(type: int) -> String:
+	return "#" + getColor(type).to_html(false)
 
-static func getDamageColoredString(damageType, amountOfDamage):
-	return "[color="+getColorString(damageType)+"]"+str(amountOfDamage)+" "+getBattleName(damageType)+"[/color]"
-	
+static func getDamageColoredString(damage_type: int, amount: int) -> String:
+	return "[color=" + getColorString(damage_type) + "]" + str(amount) + " " + getBattleName(damage_type) + "[/color]"

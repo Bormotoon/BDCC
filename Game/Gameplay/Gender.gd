@@ -1,6 +1,9 @@
 extends Object
 class_name Gender
 
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Gender enum with string/pronoun helpers.
+
 enum {
 	Male,
 	Female,
@@ -8,24 +11,18 @@ enum {
 	Other,
 }
 
-static func genderToString(thegender):
-	if(thegender == Male):
-		return "male"
-	if(thegender == Female):
-		return "female"
-	if(thegender == Androgynous):
-		return "androgynous"
-	if(thegender == Other):
-		return "other"
+static func genderToString(thegender: int) -> String:
+	match thegender:
+		Male: return "male"
+		Female: return "female"
+		Androgynous: return "androgynous"
+		Other: return "other"
 	return "error?"
 
-static func genderToPronouns(thegender):
-	if(thegender == Male):
-		return "He/his"
-	if(thegender == Female):
-		return "She/her"
-	if(thegender == Androgynous):
-		return "They/their"
-	if(thegender == Other):
-		return "It/its"
+static func genderToPronouns(thegender: int) -> String:
+	match thegender:
+		Male: return "He/his"
+		Female: return "She/her"
+		Androgynous: return "They/their"
+		Other: return "It/its"
 	return "error?"
