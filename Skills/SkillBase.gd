@@ -1,28 +1,31 @@
-extends Reference
+extends RefCounted
 class_name SkillBase
 
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base skill with level/experience system.
+
 var npc = null
-var id = "error"
-var level = 0
-var experience = 0
-var activities = {}
+var id: String = "error"
+var level: int = 0
+var experience: int = 0
+var activities: Dictionary = {}
 signal levelChanged(id, newlevel)
 signal experienceChanged
 
-func setCharacter(newnpc):
-	npc = newnpc
+func setCharacter(new_npc) -> void:
+	npc = new_npc
 
-func getVisibleName():
+func getVisibleName() -> String:
 	return "Error"
 
-func getShortName():
+func getShortName() -> String:
 	return getVisibleName()
 
-func getVisibleDescription():
+func getVisibleDescription() -> String:
 	return "Error, bad description"
 
-static func getRequiredExperience(_level) -> int:
-	return 100 + _level * 10 + int(sqrt(max(0,_level))) * 10
+static func getRequiredExperience(lvl: int) -> int:
+	return 100 + lvl * 10 + int(sqrt(maxf(0.0, float(lvl)))) * 10
 
 static func alwaysVisible() -> bool:
 	return false
@@ -30,80 +33,44 @@ static func alwaysVisible() -> bool:
 func scripted() -> bool:
 	return false
 
-func setLevel(lvl: int):
-	if(lvl > getLevelCap()):
+func setLevel(lvl: int) -> void:
+	if lvl > getLevelCap():
 		lvl = getLevelCap()
-	
 	level = lvl
-	emit_signal("levelChanged", id, level)
+	levelChanged.emit(id, level)
 
 func getLevel() -> int:
 	return level
 
-func addExperience(addexp: int, activityID = null):
-	if(npc == null || !npc.isPlayer()):
+func addExperience(add_exp: int, activity_id = null) -> void:
+	if npc == null or not npc.isPlayer():
 		return
-	if(activityID != null && activityID != "" && activities.has(activityID)):
+	if activity_id != null and activity_id != "" and activities.has(activity_id):
 		return
-		
-	var mult = 1.0
+	var mult := 1.0
 	mult += npc.getSkillExperienceMult(id)
-		
-	experience += round(addexp * mult)
-	if(activityID != null && activityID != ""):
-		activities[activityID] = 1
-	
+	experience += roundi(float(add_exp) * mult)
+	if activity_id != null and activity_id != "":
+		activities[activity_id] = 1
 	checkNewLevel()
-	
-	emit_signal("experienceChanged")
+	experienceChanged.emit()
 
-func getExperience():
+func getExperience() -> int:
 	return experience
 
-func getRequiredExperienceNextLevel():
+func getExperienceToNextLevel() -> int:
 	return getRequiredExperience(level)
 
 func getLevelProgress() -> float:
-	var fexperience = float(experience)
-	var fneedexperience = float(getRequiredExperience(level))
-	return fexperience / fneedexperience
+	var required := getExperienceToNextLevel()
+	if required <= 0:
+		return 1.0
+	return float(experience) / float(required)
 
-func checkNewLevel():
-	var addedAnyLevels = false
-	while(experience >= getRequiredExperienceNextLevel()):
-		if(level >= getLevelCap()):
-			level = getLevelCap()
-			experience = getRequiredExperienceNextLevel()
-			return
-		
-		experience -= getRequiredExperienceNextLevel()
-		level += 1
-		addedAnyLevels = true
-	
-	if(addedAnyLevels):
-		emit_signal("levelChanged", id, level)
-
-func getLevelCap():
+func getLevelCap() -> int:
 	return 100
 
-func onNewDay():
-	activities.clear()
-
-func saveData():
-	return {
-		"level": level,
-		"experience": experience,
-		"activities": activities,
-	}
-
-func loadData(data):
-	level = SAVE.loadVar(data, "level", 0)
-	experience = SAVE.loadVar(data, "experience", 0)
-	activities = SAVE.loadVar(data, "activities", {})
-
-func getPerkTiers():
-	return [
-		[0],
-		[5],
-		[10],
-	]
+func checkNewLevel() -> void:
+	while experience >= getExperienceToNextLevel():
+		experience -= getExperienceToNextLevel()
+		setLevel(level + 1)
