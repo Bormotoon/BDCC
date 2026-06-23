@@ -102,4 +102,4 @@ func getInventoryImage():
 func getInventoryImageColor():
 	if(egg):
 		return egg.getEggItemColor()
-	return Color.white
+	return Color.WHITE

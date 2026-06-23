@@ -6,7 +6,7 @@ var laidBy:String = "" # The character id of the character that laid this egg
 var orifice:int = OrificeType.Anus # What orifice has this egg originally came from
 var data:Dictionary
 var laidType:int = -1 # Of the egg
-var laidColor:Color = Color.white # Of the egg
+var laidColor:Color = Color.WHITE # Of the egg
 
 func getName() -> String:
 	return getNameByEggType(type)

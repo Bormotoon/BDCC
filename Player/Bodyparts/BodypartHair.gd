@@ -6,9 +6,9 @@ var femaleWeight = 1.0
 
 func _init():
 	limbSlot = LimbTypes.Hair
-	pickedRColor = Color.white
-	pickedGColor = Color.lightgray
-	pickedBColor = Color.darkgray
+	pickedRColor = Color.WHITE
+	pickedGColor = Color.LIGHT_GRAY
+	pickedBColor = Color.DARK_GRAY
 
 func getSlot():
 	return BodypartSlot.Hair

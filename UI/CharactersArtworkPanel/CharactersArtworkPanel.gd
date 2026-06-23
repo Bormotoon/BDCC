@@ -146,13 +146,13 @@ func updateImages():
 func updateMainCharacter():
 	if(currentCharacter == null):
 		nameLabel.text = ""
-		nameLabel.self_modulate = Color.white
+		nameLabel.self_modulate = Color.WHITE
 		return
 	
 	var character:Character = GlobalRegistry.getCharacter(currentCharacter)
 	if(character == null):
 		nameLabel.text = "???"
-		nameLabel.self_modulate = Color.white
+		nameLabel.self_modulate = Color.WHITE
 		return
 	nameLabel.text = character.getName()
 	nameLabel.self_modulate = character.getChatColor()

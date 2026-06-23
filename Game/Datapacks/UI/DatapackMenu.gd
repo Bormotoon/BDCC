@@ -211,11 +211,11 @@ func _on_ExportDatapackButton_pressed():
 	
 	if(OS.get_name() == "Web"):
 		var datapackPath = datapackToExport.getLoadedPath()
-		var save_game = File.new()
+		var save_game = FileAccess
 		if not save_game.file_exists(datapackPath):
 			return # Error! We don't have a save to load.
 		
-		save_game.open(datapackPath, File.READ)
+		save_game.open(datapackPath, FileAccess.READ)
 		#var saveData = JSON.parse_string(save_game.get_as_text())
 		
 		JavaScript.download_buffer(save_game.get_buffer(save_game.get_len()), datapackPath.get_file())

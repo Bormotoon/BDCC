@@ -456,17 +456,17 @@ func getPawnColor() -> Color:
 			return customColor
 	
 	if(isLilac()):
-		return Color.purple
+		return Color.PURPLE
 	if(isGeneralInmate()):
 		return Color.orange
 	if(isHighSecInmate()):
-		return Color.red
+		return Color.RED
 	if(isGuard()):
-		return Color.blue
+		return Color.BLUE
 	if(isNurse()):
 		return Color.yellowgreen
 	if(isEngineer()):
-		return Color.yellow
+		return Color.YELLOW
 	
 	return Color.pink
 
@@ -705,7 +705,7 @@ func getPawnRelationshipTextAndColor() -> Array:
 	if(special):
 		return [special.getMapTag(), special.getCategoryColor()]
 	
-	return ["", Color.white]
+	return ["", Color.WHITE]
 
 func getSpecialRelationship() -> SpecialRelationshipBase:
 	return GM.main.RS.getSpecialRelationship(charID)

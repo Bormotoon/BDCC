@@ -20,7 +20,7 @@ func apply(_buffHolder):
 func getBuffColor():
 	if(amount > 0):
 		return DamageType.getColor(DamageType.Stamina)
-	return Color.red
+	return Color.RED
 
 func saveData():
 	var data = .saveData()

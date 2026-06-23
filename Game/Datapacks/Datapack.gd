@@ -314,7 +314,7 @@ func saveToDisk() -> bool:
 func getLoadedPath() -> String:
 	if(loadedPath != ""):
 		return loadedPath
-	return GlobalRegistry.getDatapacksFolder().plus_file(getDatapackFileName())
+	return GlobalRegistry.getDatapacksFolder().path_join(getDatapackFileName())
 
 func getDatapackFileName() -> String:
 	return id+".res"

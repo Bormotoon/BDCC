@@ -33,7 +33,7 @@ func _ready():
 
 
 func _http_request_completed(_result, _response_code, _headers, _body):
-	var jsonResult = (JSON.parse(_body.get_string_from_utf8()))
+	var jsonResult = (JSON.parse_string(_body.get_string_from_utf8()))
 	if(jsonResult.error != OK):
 		printerr(jsonResult)
 	else:
@@ -124,7 +124,7 @@ func translate(_targetLanguage, _inputText):
 	var resultText:String = theData[3].get_string_from_utf8()
 	newreq.queue_free()
 	
-	var jsonResult = JSON.parse(resultText)
+	var jsonResult = JSON.parse_string(resultText)
 	if(jsonResult.error != OK):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"

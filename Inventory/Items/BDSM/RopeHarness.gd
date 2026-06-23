@@ -2,7 +2,7 @@ extends ItemBase
 
 func _init():
 	id = "ropeharness"
-	clothesColor = Color.red
+	clothesColor = Color.RED
 
 func getVisibleName():
 	return "Rope harness"

@@ -10,4 +10,4 @@ func apply(_buffHolder):
 	_buffHolder.orificesPreventedFromRecovering[OrificeType.Vagina] = true
 
 func getBuffColor():
-	return Color.red
+	return Color.RED

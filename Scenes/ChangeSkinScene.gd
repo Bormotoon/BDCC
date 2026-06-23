@@ -2,7 +2,7 @@ extends "res://Scenes/SceneBase.gd"
 
 var whichColorIsEdited = 0
 var pickedBodypartSlot = BodypartSlot.Body
-var rememberedColor = Color.white
+var rememberedColor = Color.WHITE
 var editingID = "pc"
 var thePC
 var debugMode = false

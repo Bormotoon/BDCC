@@ -140,7 +140,7 @@ func _process(delta):
 
 		var flatStyle:StyleBoxFlat = $GameScreen/Panel.get_theme_stylebox("panel")
 		if(isBlindFoldedVersion):
-			flatStyle.bg_color = Color.red
+			flatStyle.bg_color = Color.RED
 			
 			var score = getScore()
 			if(score >= 1000.0):
@@ -301,8 +301,8 @@ func doCommitClick():
 			if tween:
 				tween.kill()
 			tween = create_tween()
-			#tween.tween_method(self, "setStreakColor", Color.white, Color.red, 0.1)
-			tween.tween_method(self, "setStreakColor", Color.red, Color.white, 0.2)
+			#tween.tween_method(self, "setStreakColor", Color.WHITE, Color.RED, 0.1)
+			tween.tween_method(self, "setStreakColor", Color.RED, Color.WHITE, 0.2)
 			# reset pos
 			generateZone(difficulty)
 			return

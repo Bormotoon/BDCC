@@ -16,11 +16,11 @@ func setModEntry(modEntry):
 func updateEntry():
 	if(!storedEntry):
 		return
-	var theTextColor:Color = Color.white
+	var theTextColor:Color = Color.WHITE
 	label.text = storedEntry["name"]
 	if(storedEntry.has("broken") && storedEntry["broken"]):
 		label.text = "(BROKEN) "+label.text
-		theTextColor = Color.red
+		theTextColor = Color.RED
 	if(storedEntry.has("disabled") && storedEntry["disabled"]):
 		label.text += " (disabled)"
 		theTextColor = theTextColor.darkened(0.3)
@@ -35,9 +35,9 @@ func makeInactive():
 
 func _notification(what):
 	if what==NOTIFICATION_DRAG_BEGIN:
-		get_drag_data(rect_position)
+		get_drag_data(position)
 	elif what==NOTIFICATION_DRAG_END:
-		drop_data(rect_position,get_viewport().gui_get_drag_data())
+		drop_data(position,get_viewport().gui_get_drag_data())
 
 func get_drag_data(_position):
 	if !storedEntry or !Rect2(Vector2.ZERO,size).has_point(_position) or get_viewport().gui_get_drag_data():
@@ -78,7 +78,7 @@ func can_drop_data(_position, data):
 func _on_LaunchModEntry_gui_input(event):
 	if(not event is InputEventMouseButton):
 		return
-	if(event.button_index != BUTTON_LEFT): # fix scrolling up/down causing a new entry to be selected
+	if(event.button_index != MOUSE_BUTTON_LEFT): # fix scrolling up/down causing a new entry to be selected
 		return
 	if(event.doubleclick):
 		onDoubleClicked.emit(storedEntry)

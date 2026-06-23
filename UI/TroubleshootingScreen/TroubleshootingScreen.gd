@@ -61,7 +61,7 @@ func _on_CloseDebugButton_pressed():
 
 func _on_SaveDebugToFileButton_pressed():
 	var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-	var finalDir = externalDir.plus_file("BDCCDebug.txt")
+	var finalDir = externalDir.path_join("BDCCDebug.txt")
 	Util.writeFile(finalDir, debugText)
 	
 	debug_text_edit.text = "FILE IS SAVED TO: "+str(finalDir)+"\nPlease send this file to Rahi"
@@ -140,8 +140,8 @@ func _on_ManageFileList_item_selected(index:int):
 	
 	file_info_label.text = selectedManageFile
 	
-	var file:File = File.new()
-	if(file.open(selectedManageFile, File.READ) == OK):
+	var file:File = FileAccess
+	if(file.open(selectedManageFile, FileAccess.READ) == OK):
 		var theSize:int = file.get_len()
 		file_info_label.text += "\nSize: "+ String.humanize_size(theSize)
 		file.close()
@@ -151,7 +151,7 @@ func _on_ManageFileList_item_selected(index:int):
 func _on_DeleteFileButton_pressed():
 	if(selectedManageFile == ""):
 		return
-	var d:Directory = Directory.new()
+	var d:DirAccess = DirAccess.new()
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return
@@ -164,8 +164,8 @@ func _on_ExportFileButton_pressed():
 	if(selectedManageFile == ""):
 		return
 	var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-	var finalDir:String = externalDir.plus_file(selectedManageFile.get_file())
-	var d:Directory = Directory.new()
+	var finalDir:String = externalDir.path_join(selectedManageFile.get_file())
+	var d:DirAccess = DirAccess.new()
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return
@@ -178,7 +178,7 @@ func showMessage(mes:String):
 func _on_EditFileContentsButton_pressed():
 	if(selectedManageFile == ""):
 		return
-	var d:Directory = Directory.new()
+	var d:DirAccess = DirAccess.new()
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return

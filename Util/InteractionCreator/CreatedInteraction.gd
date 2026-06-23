@@ -106,20 +106,20 @@ func loadVar(_data, thekey, defaultValue = null):
 
 func saveToFile():
 	var folder:String = "user://createdInteractions"
-	var dir:Directory = Directory.new()
+	var dir:DirAccess = DirAccess.new()
 	var _ok = dir.make_dir(folder)
 	
-	var finalFilePath:String = folder.plus_file(id+".json")
-	var file:File = File.new()
-	var _ok2 = file.open(finalFilePath, File.WRITE)
+	var finalFilePath:String = folder.path_join(id+".json")
+	var file:File = FileAccess
+	var _ok2 = file.open(finalFilePath, FileAccess.WRITE)
 	
 	file.store_string(JSON.print(saveData(), "\t"))
 	file.close()
 
 func loadFromFile(filePath:String):
-	var file:File = File.new()
+	var file:File = FileAccess
 	
-	var _ok = file.open(filePath, File.READ)
+	var _ok = file.open(filePath, FileAccess.READ)
 	
 	if(_ok != OK):
 		return
@@ -127,7 +127,7 @@ func loadFromFile(filePath:String):
 	var text = file.get_as_text()
 	file.close()
 	
-	var json = JSON.parse(text)
+	var json = JSON.parse_string(text)
 	
 	if(json.error != OK):
 		return

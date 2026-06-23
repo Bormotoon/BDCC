@@ -188,10 +188,10 @@ func setParentVisSlot(theParentSlot):
 	parentSlot = theParentSlot
 
 func setErrored():
-	self_modulate = Color.red
+	self_modulate = Color.RED
 
 func resetErrored():
-	self_modulate = Color.white
+	self_modulate = Color.WHITE
 
 func makeExpand():
 	size_flags_horizontal = SIZE_EXPAND_FILL
@@ -203,6 +203,6 @@ func _on_PopupMenu_index_pressed(index):
 
 func _on_CrotchBlock_gui_input(event):
 	if event is InputEventMouseButton:
-		if event.pressed && event.doubleclick && event.button_index == BUTTON_RIGHT:
+		if event.pressed && event.doubleclick && event.button_index == MOUSE_BUTTON_RIGHT:
 			editor.onUserChangeMade()
 			doSelfdelete(true)

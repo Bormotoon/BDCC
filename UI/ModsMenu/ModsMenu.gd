@@ -55,7 +55,7 @@ func _on_ModsFolderButton_pressed():
 
 func _on_ImportModDialog_file_selected(path:String):
 	print(path)
-	var d = Directory.new()
+	var d = DirAccess.new()
 	d.copy(path, "user://mods/"+path.get_file())
 	if(!showedModDialog):
 		showedModDialog = true
@@ -134,8 +134,8 @@ func _on_AddModButton_pressed():
 		if(modDataAndFileName == null || modDataAndFileName.size() != 2):
 			return
 			
-		var modFile = File.new()
-		modFile.open("user://mods/"+modDataAndFileName[0].get_file(), File.WRITE)
+		var modFile = FileAccess
+		modFile.open("user://mods/"+modDataAndFileName[0].get_file(), FileAccess.WRITE)
 		modFile.store_buffer(modDataAndFileName[1])
 		modFile.close()
 			
@@ -158,9 +158,9 @@ func _on_AddModButton_pressed():
 #				else:
 #					has_permissions = true
 					
-			var d = Directory.new()
+			var d = DirAccess.new()
 			var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-			var finalDir = externalDir.plus_file("BDCCMods")
+			var finalDir = externalDir.path_join("BDCCMods")
 			d.make_dir_recursive(finalDir)
 			#$ImportModDialog.current_dir = finalDir
 			$AndroidPathAlert.dialog_text = "Mods on android are loaded from:\n"+finalDir+"\nPlace them there and restart the game."
@@ -177,7 +177,7 @@ func _on_RemoveModsButton_pressed():
 func _on_ConfirmationDialog_confirmed():
 	var modsFolder = "user://mods"
 	
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if dir.open(modsFolder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -186,7 +186,7 @@ func _on_ConfirmationDialog_confirmed():
 				pass
 			else:
 				if(file_name.get_extension() in ["pck", "zip"]):
-					var full_path = modsFolder.plus_file(file_name)
+					var full_path = modsFolder.path_join(file_name)
 					dir.remove_at(full_path)
 			file_name = dir.get_next()
 		OPTIONS.saveToFile()

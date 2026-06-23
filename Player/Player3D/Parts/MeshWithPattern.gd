@@ -113,15 +113,15 @@ func updateMaterial():
 			if(skinData.has("r")):
 				fancyMaterial.set_shader_param("pattern_red_color", skinData["r"])
 			else:
-				fancyMaterial.set_shader_param("pattern_red_color", Color.white)
+				fancyMaterial.set_shader_param("pattern_red_color", Color.WHITE)
 			if(skinData.has("g")):
 				fancyMaterial.set_shader_param("pattern_green_color", skinData["g"])
 			else:
-				fancyMaterial.set_shader_param("pattern_green_color", Color.white)
+				fancyMaterial.set_shader_param("pattern_green_color", Color.WHITE)
 			if(skinData.has("b")):
 				fancyMaterial.set_shader_param("pattern_blue_color", skinData["b"])
 			else:
-				fancyMaterial.set_shader_param("pattern_blue_color", Color.white)
+				fancyMaterial.set_shader_param("pattern_blue_color", Color.WHITE)
 			#print(skinData)
 
 func updateFacing():

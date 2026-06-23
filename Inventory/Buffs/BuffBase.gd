@@ -16,7 +16,7 @@ func apply(_buffHolder):
 	pass
 
 func getBuffColor():
-	return Color.white
+	return Color.WHITE
 
 func getVisibleDescriptionColored():
 	return "[color=#"+getBuffColor().to_html(false)+"]" + getVisibleDescription() + "[/color]"

@@ -49,7 +49,7 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		Log.printerr("[ModBrowser] Couldn't download mods data from github")
 		return
 	
-	var jsonResult = JSON.parse(body.get_string_from_utf8())
+	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
 	if(jsonResult.error != OK):
 		Log.printerr("[ModBrowser] Couldn't parse json data from github.")
 		return
@@ -136,7 +136,7 @@ func _on_DownloadModButton_pressed():
 	var fileName = pickedModEntry.download.get_file()
 	
 	downloadingContainer.visible = true
-	http_request_mod.download_file = GlobalRegistry.getModsFolder().plus_file(fileName)
+	http_request_mod.download_file = GlobalRegistry.getModsFolder().path_join(fileName)
 	var error = http_request_mod.request(pickedModEntry.download)
 	if error != OK:
 		Log.printerr("[ModBrowser] An error occurred in the HTTP request.")

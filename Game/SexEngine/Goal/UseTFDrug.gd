@@ -38,7 +38,7 @@ func getBegDesc() -> String:
 	return "Beg the dom to feed you any transformational drug!"
 
 func getBegMessage(_sexEngine, _domInfo, _subInfo) -> String:
-	return "{sub.You} {sub.youVerb('beg')} {dom.you} to feed {sub.youHim} a [color=#"+Color.cyan.to_html()+"]transformation pill[/color]."
+	return "{sub.You} {sub.youVerb('beg')} {dom.you} to feed {sub.youHim} a [color=#"+Color.CYAN.to_html()+"]transformation pill[/color]."
 
 func getBegDialogue(_sexEngine, _domInfo, _subInfo) -> String:
 	return RNG.pick([

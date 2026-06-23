@@ -9,7 +9,7 @@ const matLatex := preload("res://Player/Props/LatexTentacles.tres")
 func setPlant():
 	tentacle_egg.set_surface_material(0, matPlant)
 
-func setWhite(_color:Color = Color.white):
+func setWhite(_color:Color = Color.WHITE):
 	var theMat := matWhite.duplicate()
 	theMat.set_shader_param("albedo", _color)
 	#theMat.albedo_color = _color

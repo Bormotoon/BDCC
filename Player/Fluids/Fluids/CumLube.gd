@@ -7,7 +7,7 @@ func getVisibleName():
 	return "Cum Lube"
 
 func getCumOverlayColor():
-	return Color.lightgray
+	return Color.LIGHT_GRAY
 
 func canStoreInFluidTank() -> bool:
 	return false

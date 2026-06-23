@@ -3,9 +3,9 @@ class_name BodypartHorns
 
 func _init():
 	limbSlot = LimbTypes.Horns
-	pickedRColor = Color.white
-	pickedRColor = Color.lightgray
-	pickedRColor = Color.darkgray
+	pickedRColor = Color.WHITE
+	pickedRColor = Color.LIGHT_GRAY
+	pickedRColor = Color.DARK_GRAY
 
 func getSlot():
 	return BodypartSlot.Horns

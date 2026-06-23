@@ -30,12 +30,12 @@ func save():
 	else:
 		text += "quality/skinning/force_software_skinning=false\n"
 	
-	var file = File.new()
+	var file = FileAccess.open(path, FileAccess.READ)
 	file.open(settingsPath, file.WRITE_READ)
 	file.store_string(text)
 	file.close()
 
 func resetToDefault():
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if(dir.file_exists(settingsPath)):
 		dir.remove_at(settingsPath)

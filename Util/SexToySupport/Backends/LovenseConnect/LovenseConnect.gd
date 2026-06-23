@@ -202,7 +202,7 @@ func _on_local_request_completed(result:int, response_code:int, _headers:Array, 
 
 	var text := body.get_string_from_utf8()
 
-	var parsed := JSON.parse(text)
+	var parsed := JSON.parse_string(text)
 	if(parsed.error != OK):
 		connectionStatus = STATUS_DISCONNECTED
 		logError("Invalid JSON response: "+str(parsed.error_string))
@@ -245,7 +245,7 @@ func _handle_get_toys_response(response:Dictionary):
 	if toys_field is Dictionary:
 		toys_dict = toys_field
 	else:
-		var parsed_toys := JSON.parse(str(toys_field))
+		var parsed_toys := JSON.parse_string(str(toys_field))
 		if parsed_toys.error != OK or not (parsed_toys.result is Dictionary):
 			logError("Could not parse toys payload: " + str(toys_field))
 			setToys([])

@@ -5,7 +5,7 @@ signal color_changed(color)
 
 func setCurrentColor(theColor):
 	if(theColor == null):
-		theColor = Color.white
+		theColor = Color.WHITE
 	colorPicker.color = theColor
 
 func getCurrentColor():

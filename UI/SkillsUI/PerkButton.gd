@@ -18,13 +18,13 @@ func setPerk(theperk: PerkBase, shouldShowCost:bool = true):
 	showCost = shouldShowCost
 
 	if(GM.pc.getSkillsHolder().hasPerk(perk.id)):
-		modulate = Color.green
+		modulate = Color.GREEN
 	elif(GM.pc.getSkillsHolder().isPerkDisabled(perk.id)):
-		modulate = Color.yellow
+		modulate = Color.YELLOW
 	elif(!GM.pc.getSkillsHolder().canUnlockPerk(perk.id)):
-		modulate = Color.red
+		modulate = Color.RED
 	else:
-		modulate = Color.white
+		modulate = Color.WHITE
 	
 	$PerkButtonRect.texture = load(perk.getPicture())
 

@@ -34,16 +34,16 @@ func getSexEngineSubcategory() -> Array:
 func getDescription():
 	var theDesc:String = "A pill that lacks any labels or instructions. Who knows what it will do..\n"
 	if(tfID == "" || !GM.main.SCI.isTransformationUnlocked(tfID)):
-		theDesc += "[color=#"+Color.cyan.to_html()+"]This pill might have some kind of transformative effect on your body.[/color]"
+		theDesc += "[color=#"+Color.CYAN.to_html()+"]This pill might have some kind of transformative effect on your body.[/color]"
 	else:
 		var theTF:TFBase = GlobalRegistry.getTransformationRef(tfID)
 		if(theTF):
-			theDesc += "[color=#"+Color.cyan.to_html()+"]Transformation effect: [/color]"+theTF.getName()
+			theDesc += "[color=#"+Color.CYAN.to_html()+"]Transformation effect: [/color]"+theTF.getName()
 		else:
-			theDesc += "[color=#"+Color.cyan.to_html()+"]Transformation effect: [/color]"+"ERROR!"
+			theDesc += "[color=#"+Color.CYAN.to_html()+"]Transformation effect: [/color]"+"ERROR!"
 	
 	if(!configDesc.is_empty()):
-		theDesc += ("\n\n[color=#"+Color.cyan.to_html()+"]Pill settings:\n"+configDesc+"[/color]")
+		theDesc += ("\n\n[color=#"+Color.CYAN.to_html()+"]Pill settings:\n"+configDesc+"[/color]")
 	
 	return theDesc
 

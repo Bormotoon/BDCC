@@ -25,7 +25,7 @@ func getCost(_amount) -> int:
 	return int(_amount / 100.0) * 1
 
 func getCumOverlayColor():
-	return Color.cyan
+	return Color.CYAN
 
 func canStoreInFluidTank() -> bool:
 	return false

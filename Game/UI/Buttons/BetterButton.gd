@@ -122,4 +122,4 @@ func checkDisabled():
 	if(disabled):
 		button_label["custom_colors/font_color"] = Color(0.44, 0.44, 0.44)
 	else:
-		button_label["custom_colors/font_color"] = Color.white
+		button_label["custom_colors/font_color"] = Color.WHITE

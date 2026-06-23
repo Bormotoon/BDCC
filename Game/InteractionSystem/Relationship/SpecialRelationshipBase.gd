@@ -14,7 +14,7 @@ func getMapTag() -> String:
 	return getVisibleName()[0]
 
 func getCategoryColor() -> Color:
-	return Color.white
+	return Color.WHITE
 
 func getExtraCategoryText() -> String:
 	return ""

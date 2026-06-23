@@ -143,8 +143,8 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		var mpos: Vector2 = event.position
 
-		if event.button_index == BUTTON_RIGHT or event.button_index == BUTTON_MIDDLE:
-			if event.button_index == BUTTON_RIGHT and grabbing == GrabMode.MOVE:
+		if event.button_index == MOUSE_BUTTON_RIGHT or event.button_index == MOUSE_BUTTON_MIDDLE:
+			if event.button_index == MOUSE_BUTTON_RIGHT and grabbing == GrabMode.MOVE:
 				_curve.set_point_value(selected_index, initial_grab_pos.y)
 				_curve.set_point_offset(selected_index, initial_grab_pos.x)
 				set_selected_index(initial_grab_index)
@@ -170,7 +170,7 @@ func _gui_input(event: InputEvent) -> void:
 						grabbing = GrabMode.NONE
 		
 		# SELECTING OR CREATING POINTS
-		if event.button_index == BUTTON_LEFT:
+		if event.button_index == MOUSE_BUTTON_LEFT:
 			if grabbing == GrabMode.NONE:
 				selected_tangent_index = get_tangent_at(mpos)
 				if selected_tangent_index == TangentIndex.NONE:
@@ -202,7 +202,7 @@ func _gui_input(event: InputEvent) -> void:
 				initial_grab_pos = new_pos
 
 	# Tangents
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and !event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 		if selected_tangent_index != TangentIndex.NONE:
 			# Finish moving the tangent control
 			if selected_index == 0:
@@ -516,7 +516,7 @@ func _draw():
 	
 	# FIXME: Get editor theme colors, not GraphEdit, can't find how to get them
 	var grid_color_primary: Color = Color.whitesmoke*Color(1, 1, 1, 0.25)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.25)
-	var grid_color: Color = Color.gray*Color(1, 1, 1, 0.1)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.1)
+	var grid_color: Color = Color.GRAY*Color(1, 1, 1, 0.1)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.1)
 	
 	var grid_steps: Vector2 = Vector2(4, 2)
 	var step_size: Vector2 = Vector2(1, (_curve.max_value - _curve.min_value)) / grid_steps
@@ -541,7 +541,7 @@ func _draw():
 	#var font_size: int = get_theme_font_size("font_size", "Label")
 	var font_height: float = font.get_height()
 	# FIXME: Get Editor Font Color, not others
-	var text_color: Color = Color.white#get_theme_color(&"font_color", &"Editor")
+	var text_color: Color = Color.WHITE#get_theme_color(&"font_color", &"Editor")
 
 	for i in range(grid_steps.x + 1):
 		var x = i * step_size.x;
@@ -579,7 +579,7 @@ func _draw():
 	
 	draw_set_transform_matrix(Transform2D())
 	
-	var point_color: Color = Color.cyan#get_theme_color(&"font_color", &"Editor")
+	var point_color: Color = Color.CYAN#get_theme_color(&"font_color", &"Editor")
 	# Change this if you want to a different color for the hovered point
 	var hovered_point_color: Color = point_color
 	
@@ -762,7 +762,7 @@ func get_tangent_view_pos(index: int, tangent: int) -> Vector2:
 
 		
 func plot_curve_accurate(step: float, scaling: Vector2):
-	var line_color: Color = Color.cadetblue#get_theme_color(&"font_color", &"Editor")
+	var line_color: Color = Color.CADET_BLUE#get_theme_color(&"font_color", &"Editor")
 	
 	if _curve.get_point_count() <= 1:
 		var y: float = _curve.interpolate(0)# .sample(0)

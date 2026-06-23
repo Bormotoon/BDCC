@@ -62,7 +62,7 @@ func updateUI():
 	simple_effect.visible = (entry.type == SexToyEffect.SIMPLE)
 	
 	if(entry.type == SexToyEffect.SEQUENCE):
-		sequence_line_edit.text = var2str(entry.sequence).trim_prefix("[").trim_suffix("]")
+		sequence_line_edit.text = var_to_str(entry.sequence).trim_prefix("[").trim_suffix("]")
 	
 	if(entry.type == SexToyEffect.CURVE):
 		curve_editor.set_curve(entry.curve)
@@ -116,7 +116,7 @@ func _on_TimeSlider_value_changed(value:float):
 func _on_SequenceLineEdit_text_changed(_new_text:String):
 	var didFail:bool = false
 	var theArStr:String = "["+sequence_line_edit.text+"]"
-	var theJsonRes := JSON.parse(theArStr)
+	var theJsonRes := JSON.parse_string(theArStr)
 	if(!theJsonRes || theJsonRes.error != OK):
 		didFail = true
 	else:
@@ -135,9 +135,9 @@ func _on_SequenceLineEdit_text_changed(_new_text:String):
 			entry.sequence = theVal
 		
 	if(didFail):
-		sequence_line_edit["custom_colors/font_color"] = Color.red
+		sequence_line_edit["custom_colors/font_color"] = Color.RED
 	else:
-		sequence_line_edit["custom_colors/font_color"] = Color.white
+		sequence_line_edit["custom_colors/font_color"] = Color.WHITE
 
 func _on_TestEffectButton_pressed():
 	entry.trigger(100, false)

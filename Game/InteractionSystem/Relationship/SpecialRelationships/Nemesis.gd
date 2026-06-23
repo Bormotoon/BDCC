@@ -36,7 +36,7 @@ func getVisibleName() -> String:
 	return "Nemesis"
 
 func getCategoryColor() -> Color:
-	return Color.red
+	return Color.RED
 
 func checkSocialEventShouldStartActor(_charActor:String, _charTarget:String, _eventID:int, _args:Array) -> Array:
 	return [false]

@@ -16,7 +16,7 @@ func apply(_buffHolder):
 	#_buffHolder.addCustom(BuffAttribute.ForcedObedience, amount/100.0)
 
 func getBuffColor():
-	return Color.red
+	return Color.RED
 
 func saveData():
 	var data = .saveData()

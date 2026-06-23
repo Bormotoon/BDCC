@@ -55,7 +55,7 @@ func addBackend(_backend):
 	backends[_backend.id] = _backend
 
 func loadBackendByFolderName(_folder:String):
-	var _theScenePath:String = BackendsFolder.plus_file(_folder).plus_file(_folder+".tscn")
+	var _theScenePath:String = BackendsFolder.path_join(_folder).path_join(_folder+".tscn")
 	
 	var theScene:PackedScene = load(_theScenePath)
 	if(!theScene):
@@ -201,7 +201,7 @@ func loadFromFile():
 		gameplay.loadData(DEFAULT_GAMEPLAY_CONFIG) # Give the player a default gameplay config on the first load
 		return
 		
-	var jsonResult := JSON.parse(theStr)
+	var jsonResult := JSON.parse_string(theStr)
 	if(jsonResult.error != OK):
 		Log.printerr("SexToyManager: Error while loading the options file, the file is not a valid json")
 		return

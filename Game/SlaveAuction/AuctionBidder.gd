@@ -307,9 +307,9 @@ func getBidderInfoNoAuction() -> Array:
 func getTraitColor(_traitID:String) -> Color:
 	var theAuction = getAuction()
 	if(theAuction == null):
-		return Color.white
+		return Color.WHITE
 	if(!theAuction.slaveTraits.has(_traitID) || theAuction.slaveTraits[_traitID] <= 0.0):
-		return Color.darkgray
+		return Color.DARK_GRAY
 	
 	if(likes.has(_traitID)):
 		if(likes[_traitID] == TRAIT_HIT):
@@ -319,7 +319,7 @@ func getTraitColor(_traitID:String) -> Color:
 		if(dislikes[_traitID] == TRAIT_HIT):
 			return Color("#FF554C")
 		return Color("#FFB0A0")
-	return Color.red
+	return Color.RED
 
 func getOutbidReaction():
 	var possible:Array = [

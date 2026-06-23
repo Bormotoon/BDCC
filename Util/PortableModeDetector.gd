@@ -1,28 +1,28 @@
 extends Node
 
-# Seperate class so we can add it as an autoload node and set it to be first
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Portable mode detector. DirAccess → DirAccess.
 
-func _init():
-	var exe_dir = OS.get_executable_path().get_base_dir()
-	var portable_dir = exe_dir.plus_file("BDCCData/")
+func _init() -> void:
+	var exe_dir := OS.get_executable_path().get_base_dir()
+	var portable_dir := exe_dir.path_join("BDCCData/")
 
-	if Directory.new().dir_exists(portable_dir):
+	if DirAccess.dir_exists_absolute(portable_dir):
 		call_deferred("delayedLogPrint", "Using portable save directory: " + portable_dir)
 
-		var portable_dir_suffix = "/Godot/app_userdata/BDCC"
-		if OS.get_name() == "X11":
+		var portable_dir_suffix := "/Godot/app_userdata/BDCC"
+		if OS.get_name() == "Linux":
 			portable_dir_suffix = "/.local/share/godot/app_userdata/BDCC"
-		if !Directory.new().dir_exists(portable_dir.plus_file(portable_dir_suffix)):
-			Directory.new().make_dir_recursive(portable_dir.plus_file(portable_dir_suffix))
-		
+		if not DirAccess.dir_exists_absolute(portable_dir.path_join(portable_dir_suffix)):
+			DirAccess.make_dir_recursive_absolute(portable_dir.path_join(portable_dir_suffix))
+
 		if OS.has_environment("APPDATA"):
-			OS.set_environment("APPDATA", portable_dir)  # Windows
+			OS.set_environment("APPDATA", portable_dir)
 		if OS.has_environment("HOME"):
-			OS.set_environment("HOME", portable_dir)  # Linux & Mac
+			OS.set_environment("HOME", portable_dir)
 
-func _ready():
-	queue_free() # Not needed anymore
+func _ready() -> void:
+	queue_free()
 
-# Console doesn't exist when this object is doing its thing
-func delayedLogPrint(theText:String):
-	Log.print(theText)
+func delayedLogPrint(the_text: String) -> void:
+	print(the_text)

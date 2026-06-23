@@ -93,7 +93,7 @@ func translate(_targetLanguage, _inputText):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Empty response"
 		return theResult
-	var jsonResult = JSON.parse(theResultText)
+	var jsonResult = JSON.parse_string(theResultText)
 	if(jsonResult.error != OK):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"

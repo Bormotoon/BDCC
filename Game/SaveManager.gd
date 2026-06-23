@@ -1,7 +1,7 @@
 extends Node
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## Save/load system. File→FileAccess, Directory→DirAccess, JSON→JSON.parse_string.
+## Save/load system. File→FileAccess, DirAccess→DirAccess, JSON→JSON.parse_string.
 
 var current_savefile_version: int = 2
 var max_backup_quicksaves: int = 3
@@ -66,7 +66,7 @@ func can_save() -> bool:
 	return GM.main.can_save()
 
 # ==========================================
-# FILE OPERATIONS (File → FileAccess, Directory → DirAccess)
+# FILE OPERATIONS (File → FileAccess, DirAccess → DirAccess)
 # ==========================================
 
 ## Line 71-84: saveGame with FileAccess

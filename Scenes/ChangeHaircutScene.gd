@@ -57,9 +57,9 @@ func _react(_action: String, _args):
 	if(_action == "changehair"):
 		savedPage = GM.ui.getCurrentPage()
 
-		var savedRColor = Color.white
-		var savedGColor = Color.white
-		var savedBColor = Color.white
+		var savedRColor = Color.WHITE
+		var savedGColor = Color.WHITE
+		var savedBColor = Color.WHITE
 		if(GM.pc.hasBodypart(BodypartSlot.Hair)):
 			var theHair:Bodypart = GM.pc.getBodypart(BodypartSlot.Hair)
 			savedRColor = theHair.pickedRColor

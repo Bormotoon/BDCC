@@ -28,18 +28,18 @@ const SavePath = "res://Game/SexEngine/Util/SexReactionEditor/DefaultReactions.t
 
 
 func saveToFile():
-	var file := File.new()
-	file.open(SavePath, File.WRITE)
-	file.store_string(var2str(data))
+	var file = FileAccess.open(path, FileAccess.READ)
+	file.open(SavePath, FileAccess.WRITE)
+	file.store_string(var_to_str(data))
 	file.close()
 
 func loadFromFile():
-	var file := File.new()
-	if(file.open(SavePath, File.READ) != OK):
+	var file = FileAccess.open(path, FileAccess.READ)
+	if(file.open(SavePath, FileAccess.READ) != OK):
 		Log.printerr("Something bad happened")
 		return
 	var content:String = file.get_as_text()
-	data = str2var(content)
+	data = str_to_var(content)
 	file.close()
 	
 	# Call update funcs here

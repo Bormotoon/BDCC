@@ -7,10 +7,10 @@ const Red := 2
 
 static func getColor(_c:int) -> Color:
 	if(_c == Green):
-		return Color.green
+		return Color.GREEN
 	if(_c == Yellow):
-		return Color.yellow
+		return Color.YELLOW
 	if(_c == Red):
-		return Color.red
+		return Color.RED
 	
 	return Color.pink

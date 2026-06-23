@@ -57,7 +57,7 @@ func SetFlipLegPos(_newvalue):
 		global_position -= legsSwitchDifference
 	else:
 		# was right, became left
-		color = Color.white
+		color = Color.WHITE
 		global_position += legsSwitchDifference
 
 func SetFlipArmPos(_newvalue):
@@ -68,4 +68,4 @@ func SetFlipArmPos(_newvalue):
 		color = Color("#AAAAAA")
 	else:
 		# was right, became left
-		color = Color.white
+		color = Color.WHITE

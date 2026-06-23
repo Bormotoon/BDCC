@@ -11,4 +11,4 @@ func apply(_buffHolder):
 	pass
 
 func getBuffColor():
-	return Color.purple
+	return Color.PURPLE

@@ -4,7 +4,7 @@ func _init():
 	visibleName = "flared penis"
 	id = "equinepenis"
 	lengthCM = 22
-	pickedGColor = Color.red
+	pickedGColor = Color.RED
 	pickedBColor = Color.darkred
 
 func getCompatibleSpecies():

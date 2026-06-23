@@ -71,7 +71,7 @@ func updateSelectedPerkButton():
 	for perkID in perkToButton:
 		var theButton = perkToButton[perkID]
 		var isSelected:bool = (selectedPerkButtonID == perkID)
-		theButton.modulate = Color(0.5, 0.5, 0.5) if !isSelected else Color.green
+		theButton.modulate = Color(0.5, 0.5, 0.5) if !isSelected else Color.GREEN
 
 func onPerkButtonPressed(perkID:String):
 	selectedPerk = perkID

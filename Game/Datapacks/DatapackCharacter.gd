@@ -7,7 +7,7 @@ var description:String = "No description provided"
 var gender = Gender.Male
 var pronounsGender = null
 var hasChatColor:bool = false
-var chatColor:Color = Color.white
+var chatColor:Color = Color.WHITE
 var species:Array = []
 var customSpeciesName:String = ""
 
@@ -32,9 +32,9 @@ var characterType:String = CharacterType.Inmate
 var inmateType:int = InmateType.Unknown
 
 var pickedSkin:String = "EmptySkin"
-var pickedSkinRColor:Color = Color.white
-var pickedSkinGColor:Color = Color.lightgray
-var pickedSkinBColor:Color = Color.darkgray
+var pickedSkinRColor:Color = Color.WHITE
+var pickedSkinGColor:Color = Color.LIGHT_GRAY
+var pickedSkinBColor:Color = Color.DARK_GRAY
 
 var equippedItems:Dictionary = {}
 

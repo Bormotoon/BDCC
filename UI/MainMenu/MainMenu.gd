@@ -134,7 +134,7 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		setGithubLabelStr("Latest github release: Error", "")
 		return
 	
-	var jsonResult = JSON.parse(body.get_string_from_utf8())
+	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
 	if(jsonResult.error != OK):
 		Log.printerr("[MainMenu] Couldn't parse json data from github.")
 		setGithubLabelStr("Latest github release: Error", "")

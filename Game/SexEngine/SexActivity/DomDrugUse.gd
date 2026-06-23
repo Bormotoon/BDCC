@@ -183,7 +183,7 @@ func startActivity(_args):
 			])
 		
 		if(getSub().isPlayer() && itemID == "TFPill"):
-			text += " [color=#"+Color.cyan.to_html()+"]This pill might do something to your body[/color]"
+			text += " [color=#"+Color.CYAN.to_html()+"]This pill might do something to your body[/color]"
 
 		if(_isCanApply):
 			addText(text)
@@ -251,7 +251,7 @@ func startActivity(_args):
 				" {sub.YouHe} can only guess what drug that is.",
 			])
 		elif(getSub().isPlayer() && itemID == "TFPill"):
-			text += " [color=#"+Color.cyan.to_html()+"]This pill might do something to your body[/color]"
+			text += " [color=#"+Color.CYAN.to_html()+"]This pill might do something to your body[/color]"
 
 			generatePillVariants(itemID)
 			if(!pillVariants.is_empty()):

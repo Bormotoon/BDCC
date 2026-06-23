@@ -7,4 +7,4 @@ func getVisibleDescription():
 	return "Blinds the wearer"
 
 func getBuffColor():
-	return Color.purple
+	return Color.PURPLE

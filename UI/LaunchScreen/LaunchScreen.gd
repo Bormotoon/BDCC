@@ -51,7 +51,7 @@ func _ready():
 
 	if(GlobalRegistry.doesLoadLockFileExist()): # Game crashed during loading last time
 		SHOW_THIS_SCREEN_ANYWAY = true
-		debug_button["custom_colors/font_color"] = Color.yellow
+		debug_button["custom_colors/font_color"] = Color.YELLOW
 	
 	if(OS.get_name() == "Android" || SHOW_THIS_SCREEN_ANYWAY):
 		build_pck_button.visible = true
@@ -72,7 +72,7 @@ func checkModOrderAndFillData(rawModList):
 	var loadedOrder:Array = loadOrderFromFile()
 	
 	var finalOrder:Array = []
-	var theFile = File.new()
+	var theFile = FileAccess
 	for modEntry in loadedOrder:
 		if(!theFile.file_exists(modEntry["path"])):
 			continue
@@ -103,8 +103,8 @@ func checkModOrderAndFillData(rawModList):
 	GlobalRegistry.tempCurrentModOrder = currentModOrder
 
 func saveOrderIntoFile(saveData):
-	var save_game = File.new()
-	save_game.open(modOrderPath, File.WRITE)
+	var save_game = FileAccess.open("", FileAccess.READ)
+	save_game.open(modOrderPath, FileAccess.WRITE)
 	
 	var finalData = []
 	for modEntry in saveData:
@@ -118,14 +118,14 @@ func saveOrderIntoFile(saveData):
 	save_game.close()
 
 func loadOrderFromFile() -> Array:
-	var save_game = File.new()
+	var save_game = FileAccess.open("", FileAccess.READ)
 	if not save_game.file_exists(modOrderPath):
 		print("LaunchScreen: No mod order is found")
 		return []
 	
-	save_game.open(modOrderPath, File.READ)
+	save_game.open(modOrderPath, FileAccess.READ)
 	#var saveData = JSON.parse_string(save_game.get_as_text())
-	var jsonResult = JSON.parse(save_game.get_as_text())
+	var jsonResult = JSON.parse_string(save_game.get_as_text())
 	if(jsonResult.error != OK):
 		Log.printerr("LaunchScreen: Error while loading the mod order file, the file is not a valid json")
 		return []
@@ -292,7 +292,7 @@ func tryToPopulateFilesList():
 			else:
 				var stuff = uncompressed.get_string_from_utf8()
 				
-				var jsonResult = JSON.parse(stuff)
+				var jsonResult = JSON.parse_string(stuff)
 				if(jsonResult.error != OK):
 					return "'"+str(jsonFile)+"' is wrong or corrupted"
 				
@@ -379,7 +379,7 @@ func _on_ConfirmationDialog_confirmed():
 	if(selectedEntry == null):
 		return
 	
-	var theFile = Directory.new()
+	var theFile = DirAccess.new()
 	theFile.remove_at(selectedEntry["path"])
 	currentModOrder.erase(selectedEntry)
 	selectedEntry = null
@@ -404,7 +404,7 @@ func generateBDCCpckFile():
 	
 	var modsFolder = GlobalRegistry.getModsFolder()
 	
-	packer.pck_start(modsFolder.plus_file("BDCC.pck"))
+	packer.pck_start(modsFolder.path_join("BDCC.pck"))
 	
 	
 	fillFolder(packer, "res://")
@@ -422,13 +422,13 @@ const ignorePaths = {
 }
 
 func fillFolder(packer, folder):
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true, false)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				if(ignorePaths.has(full_path)):
 					print("IGNORED "+full_path)
 					file_name = dir.get_next()
@@ -445,7 +445,7 @@ func fillFolder(packer, folder):
 				#	root.remove_child(child1)
 			else:
 				#if(file_name.get_extension() == "gd"):
-				var full_path:String = folder.plus_file(file_name)
+				var full_path:String = folder.path_join(file_name)
 				packer.add_file(full_path, full_path)
 				#if(filter == "" || (filter in full_path)):
 				#	var child1 = tree.create_item(root)
@@ -524,8 +524,8 @@ func isOurVersionAffection(_modVersion:String) -> bool:
 	return true
 
 func getFileSize(_path:String) -> int:
-	var file := File.new()
-	if(file.open(_path, File.READ) != OK):
+	var file = FileAccess.open(path, FileAccess.READ)
+	if(file.open(_path, FileAccess.READ) != OK):
 		return 0
 	var theSize := file.get_len()
 	file.close()
@@ -586,7 +586,7 @@ func _on_HTTPRequestMods_request_completed(_result: int, _response_code: int, _h
 		setBusyPanel("[center]Couldn't download a broken mods list from github.[/center]", true)
 		return
 	
-	var jsonResult = JSON.parse(_body.get_string_from_utf8())
+	var jsonResult = JSON.parse_string(_body.get_string_from_utf8())
 	if(jsonResult.error != OK):
 		setBusyPanel("[center]Failed to parse broken mods list from github.[/center]", true)
 		return

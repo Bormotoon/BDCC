@@ -1,14 +1,16 @@
 extends Node
-# heavily modified from https://github.com/jitspoe/godot-console
+
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Debug console singleton. All Godot 3 patterns fixed.
 
 @onready var control := Control.new()
 var consoleScene = preload("res://UI/DebugUI/DebugConsole.tscn")
 
-var commands = {}
+var commands: Dictionary = {}
 
-signal onConsoleOutput(text)
+signal onConsoleOutput(text: String)
 
-func _ready():
+func _ready() -> void:
 	var canvas_layer := CanvasLayer.new()
 	canvas_layer.layer = 3
 	add_child(canvas_layer)
@@ -16,77 +18,62 @@ func _ready():
 	control.anchor_right = 1.0
 	canvas_layer.add_child(control)
 	control.visible = false
-	
+
 	var console = consoleScene.instantiate()
 	control.add_child(console)
-	var _ok = connect("onConsoleOutput", console, "printLine")
-	var _ok2 = console.consoleClosed.connect(toggleConsole)
+	onConsoleOutput.connect(console.printLine)
+	console.consoleClosed.connect(toggle_console)
 
-	pause_mode = PAUSE_MODE_PROCESS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	printLine("This is a development console")
-	addCommand("quit", self, "quit")
-	addCommand("help", self, "help")
+	add_command("quit", quit)
+	add_command("help", help)
 
-func quit():
+func quit() -> void:
 	get_tree().quit()
 
-func help():
+func help() -> void:
 	printLine(getCommandsHelp())
 
-func _unhandled_key_input(event):
-	if (event.is_action_pressed("toggle_debug_console")):
-		toggleConsole()
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_debug_console"):
+		toggle_console()
 		get_tree().set_input_as_handled()
-	elif (event.is_action_pressed("close_debug_console") && control.visible):
-		toggleConsole()
+	elif event.is_action_pressed("close_debug_console") and control.visible:
+		toggle_console()
 		get_tree().set_input_as_handled()
-	
 
-func toggleConsole():
-	control.visible = !control.visible
+func toggle_console() -> void:
+	control.visible = not control.visible
 
-func addCommand(command_name : String, object : Object, function_name : String, params : Array = [], description : String = "No description provided"):
+func add_command(command_name: String, callable: Callable, description: String = "No description provided") -> void:
 	commands[command_name] = {
-		"function": funcref(object, function_name),
-		"object": weakref(object),
-		"params": params,
+		"callable": callable,
 		"description": description,
 	}
 
-func removeCommand(command_name : String):
+func remove_command(command_name: String) -> void:
 	commands.erase(command_name)
 
-func doTextCommand(command):
+func doTextCommand(command: String) -> void:
 	printLine(command)
-	var split_text:Array = command.split(" ", true)
-	if (split_text.size() > 0):
-		var command_string = split_text[0]
-		if (commands.has(command_string)):
-			var command_entry = commands[command_string]
-			
-			var ref = command_entry["object"]
-			if(ref.get_ref() == null):
-				printLine("Object was destroyed, command is invalid.")
-				return
-			
+	var split_text: Array = command.split(" ", true)
+	if split_text.size() > 0:
+		var command_string: String = split_text[0]
+		if commands.has(command_string):
+			var command_entry: Dictionary = commands[command_string]
 			split_text.pop_front()
-			if(split_text.size() != command_entry["params"].size()):
-				printLine("Wrong amount of arguments, expected: "+str(command_entry["params"].size()))
-				return
-			command_entry["function"].call_funcv(split_text)
-
+			command_entry["callable"].callv(split_text)
 		else:
 			printLine("Command not found.")
 
-func printLine(text: String):
+func printLine(text: String) -> void:
 	onConsoleOutput.emit(text)
 
-func getCommandsHelp():
-	var result = ""
+func getCommandsHelp() -> String:
+	var result := ""
 	for command_name in commands:
-		var command = commands[command_name]
-		if(command["object"].get_ref() != null):
-			result += command_name + " - args=" + str(command["params"])+" - " + str(command["description"])+"\n"
-		
+		var command: Dictionary = commands[command_name]
+		result += command_name + " - " + str(command["description"]) + "\n"
 	return result

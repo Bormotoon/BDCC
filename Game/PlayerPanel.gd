@@ -69,15 +69,15 @@ func update_ui() -> void:
 		consciousness_bar.setProgressBarValue(1.0)
 
 func _gui_input(event: InputEvent) -> void:
-	# Godot 4: MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_WHEEL_UP/DOWN
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
+	# Godot 4: MOUSE_MOUSE_BUTTON_MIDDLE, MOUSE_MOUSE_BUTTON_WHEEL_UP/DOWN
+	if event is InputEventMouseButton and event.button_index == MOUSE_MOUSE_BUTTON_MIDDLE:
 		camera_3d.size = 10
 		camera_3d.transform.origin = Vector3(0.0, 4.141, 50.0)
 
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if event.button_index == MOUSE_MOUSE_BUTTON_WHEEL_UP:
 			camera_3d.size *= 0.9
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		if event.button_index == MOUSE_MOUSE_BUTTON_DOWN:
 			camera_3d.size *= 1.1
 
 	if event is InputEventMouseButton:

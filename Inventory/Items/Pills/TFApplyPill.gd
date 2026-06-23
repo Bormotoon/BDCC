@@ -7,7 +7,7 @@ func getVisibleName():
 	return "MorphIn Pill"
 	
 func getDescription():
-	return "A pill that's claiming to be able to [color=#"+Color.cyan.to_html()+"]turn any temporary transformation effects into permanent ones, meaning there will be no way to undo them anymore![/color]"
+	return "A pill that's claiming to be able to [color=#"+Color.CYAN.to_html()+"]turn any temporary transformation effects into permanent ones, meaning there will be no way to undo them anymore![/color]"
 
 func canUseInCombat():
 	return true
@@ -69,7 +69,7 @@ func getSexEngineInfo(_sexEngine, _domInfo, _subInfo):
 	
 	return {
 		"name": "MorphIn",
-		"usedName": "a [b][color=#"+Color.cyan.to_html()+"]MorphIn[/color][/b] pill",
+		"usedName": "a [b][color=#"+Color.CYAN.to_html()+"]MorphIn[/color][/b] pill",
 		"desc": getDescription(),
 		"scoreOnSub": 0.1*sqrt(float(sub.getTFTotalStagesSum())) if OPTIONS.isContentEnabled(ContentType.ForcedPermanentTFs) && sub.hasActiveTransformations() else 0.0,
 		"scoreOnSelf": 0.0,

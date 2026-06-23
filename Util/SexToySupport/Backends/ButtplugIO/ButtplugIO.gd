@@ -121,7 +121,7 @@ func disconnectFromServer():
 
 func onButtplugIOData():
 	var msg = _client.get_peer(1).get_packet().get_string_from_utf8()
-	var theJson := JSON.parse(msg)
+	var theJson := JSON.parse_string(msg)
 	if(theJson.error != OK):
 		onError(theJson.error_string)
 		return

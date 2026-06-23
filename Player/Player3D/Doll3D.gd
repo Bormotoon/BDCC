@@ -29,7 +29,7 @@ var breastsLeaking = false
 var pussyLeaking = false
 var anusLeaking = false
 var cumAmount = 0
-var cumColor = Color.white
+var cumColor = Color.WHITE
 var cummedInside = 0.0
 var isFacingRight:bool = false
 

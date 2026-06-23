@@ -44,7 +44,7 @@ func showAlert(theText:String):
 func _on_ModBrowser_visibility_changed():
 	if(visible && !downloadedMods):
 		downloadedMods = true
-		var error = http_request.request(baseUrl.plus_file("datapacks.json"))
+		var error = http_request.request(baseUrl.path_join("datapacks.json"))
 		if error != OK:
 			showAlert("[DatapackBrowser] An error occurred in the HTTP request.")
 
@@ -74,7 +74,7 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		showAlert("[DatapackBrowser] Couldn't download mods data from github")
 		return
 	
-	var jsonResult = JSON.parse(body.get_string_from_utf8())
+	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
 	if(jsonResult.error != OK):
 		showAlert("[DatapackBrowser] Couldn't parse json data from github.")
 		return
@@ -192,7 +192,7 @@ func onModEntrySelected(theModEntry):
 		else:
 			preview_texture_rect.texture = null
 			preview_texture_rect.visible = false
-			startDownloadingPreview(selectedDatapackIndex, baseUrl.plus_file(theModEntry["preview"]))
+			startDownloadingPreview(selectedDatapackIndex, baseUrl.path_join(theModEntry["preview"]))
 			preview_downloading_image.visible = true
 	else:
 		preview_texture_rect.texture = null
@@ -212,8 +212,8 @@ func _on_DownloadModButton_pressed():
 	var fileName = pickedModEntry["download"].get_file()
 	
 	downloadingContainer.visible = true
-	http_request_mod.download_file = GlobalRegistry.getDatapacksFolder().plus_file(fileName)
-	var error = http_request_mod.request(baseUrl.plus_file(pickedModEntry["download"]))
+	http_request_mod.download_file = GlobalRegistry.getDatapacksFolder().path_join(fileName)
+	var error = http_request_mod.request(baseUrl.path_join(pickedModEntry["download"]))
 	if error != OK:
 		showAlert("[DatapackBrowser] An error occurred in the HTTP request.")
 	else:

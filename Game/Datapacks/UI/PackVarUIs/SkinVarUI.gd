@@ -3,9 +3,9 @@ extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
 
 var data = {
 	skin = "",
-	r = Color.white,
-	g = Color.lightgray,
-	b = Color.darkgray,
+	r = Color.WHITE,
+	g = Color.LIGHT_GRAY,
+	b = Color.DARK_GRAY,
 }
 
 var noBase = false
@@ -131,7 +131,7 @@ func _on_CheckBoxR_toggled(button_pressed):
 	if(button_pressed):
 		data["r"] = null
 	else:
-		data["r"] = Color.white
+		data["r"] = Color.WHITE
 	updateEverything()
 	triggerChange(data.duplicate())
 
@@ -139,7 +139,7 @@ func _on_CheckBoxG_toggled(button_pressed):
 	if(button_pressed):
 		data["g"] = null
 	else:
-		data["g"] = Color.white
+		data["g"] = Color.WHITE
 	updateEverything()
 	triggerChange(data.duplicate())
 
@@ -147,7 +147,7 @@ func _on_CheckBoxB_toggled(button_pressed):
 	if(button_pressed):
 		data["b"] = null
 	else:
-		data["b"] = Color.white
+		data["b"] = Color.WHITE
 	updateEverything()
 	triggerChange(data.duplicate())
 

@@ -53,8 +53,8 @@ func _process(_delta:float):
 	var theVideoMem:String = String.humanize_size(int(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)))
 	var theStaticMem:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_STATIC)))
 	var theStaticMemMax:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)))
-	var theDynMem:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_DYNAMIC)))
-	var theDynMemMax:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_DYNAMIC_MAX)))
+	var theDynMem:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_STATIC)))
+	var theDynMemMax:String = String.humanize_size(int(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)))
 	var theString:String = "FPS: "+str(int(Performance.get_monitor(Performance.TIME_FPS)))+ "\t VRAM: "+theVideoMem+ "\t Static memory: "+theStaticMem+"/"+theStaticMemMax+"\t Dynamic memory: " + theDynMem+"/"+theDynMemMax+"\t Objects: "+str(int(Performance.get_monitor(Performance.OBJECT_COUNT)))+"\t Nodes: "+str(int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)))+"\t Resources: "+str(int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)))+"\t Orphan nodes(leaked): "+str(int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)))
 	
 	mem_label.text = theString

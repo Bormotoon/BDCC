@@ -3,7 +3,7 @@ extends BodypartPenis
 func _init():
 	visibleName = "knotted penis"
 	id = "caninepenis"
-	pickedGColor = Color.red
+	pickedGColor = Color.RED
 	pickedBColor = Color.darkred
 
 func getCompatibleSpecies():

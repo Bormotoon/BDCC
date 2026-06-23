@@ -68,7 +68,7 @@ func doUpdate():
 			
 			var vbox:VBoxContainer = VBoxContainer.new()
 			layers.add_child(vbox)
-			vbox.rect_position = zoneInfo.pos#(zoneInfo.pos + Vector2(RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread), RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread)))/meshTextureSizeDiv
+			vbox.position = zoneInfo.pos#(zoneInfo.pos + Vector2(RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread), RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread)))/meshTextureSizeDiv
 			vbox.rect_rotation = zoneInfo.rot + random.randf_range(-zoneInfo.rotSpread, zoneInfo.rotSpread)
 			vbox["custom_constants/separation"] = -5.0
 			vbox.rect_scale = Vector2(zoneInfo.scale, zoneInfo.scale)
@@ -102,7 +102,7 @@ func doUpdate():
 
 func fixVbox(vbox:VBoxContainer, scaleRightMod:float, squish:Vector2):
 	vbox.rect_pivot_offset = vbox.get_rect().size / 2.0
-	vbox.rect_position -= vbox.rect_pivot_offset
+	vbox.position -= vbox.rect_pivot_offset
 	vbox.rect_scale.x = abs(vbox.rect_scale.x) * scaleRightMod
 	vbox.rect_scale *= squish
 	call_deferred("randomizeLabels", vbox)
@@ -111,7 +111,7 @@ func randomizeLabels(vbox:VBoxContainer):
 	for labelA in vbox.get_children():
 		var newLabel:Label = labelA
 		newLabel.rect_rotation = random.randf_range(-3.0, 3.0)
-		newLabel.rect_position.x = random.randf_range(-10.0, 10.0)
+		newLabel.position.x = random.randf_range(-10.0, 10.0)
 
 func _on_UpdateTimer_timeout():
 	doUpdate()

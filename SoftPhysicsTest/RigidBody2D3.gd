@@ -17,7 +17,7 @@ func _ready():
 
 func _physics_process(_delta):
 	return
-	#if(Input.is_mouse_button_pressed(BUTTON_LEFT)):
+	#if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 	#	transform.origin = get_global_mouse_position()
 	#pass
 	#global_position = get_global_mouse_position()
@@ -25,5 +25,5 @@ func _physics_process(_delta):
 
 func _integrate_forces(_state):
 	pass
-	#if(Input.is_mouse_button_pressed(BUTTON_LEFT)):
+	#if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 	#	transform.origin = get_global_mouse_position()

@@ -74,7 +74,7 @@ func updateSelectedSpellError():
 	
 func _on_HTTPRequest_request_completed(_result, _response_code, _headers, _body):
 	spellErrors = []
-	var jsonResult = (JSON.parse(_body.get_string_from_utf8()))
+	var jsonResult = (JSON.parse_string(_body.get_string_from_utf8()))
 	if(jsonResult.error != OK):
 		Log.printerr(jsonResult)
 		updateSpellErrorsList()

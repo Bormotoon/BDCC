@@ -328,9 +328,9 @@ func getModsFolder() -> String:
 		#var permissions: Array = OS.get_granted_permissions() #for Godot 3 branch
 		#if permissions.has("android.permission.READ_EXTERNAL_STORAGE"):
 		var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-		var finalDir = externalDir.plus_file("BDCCMods")
+		var finalDir = externalDir.path_join("BDCCMods")
 		modsFolder = finalDir
-		var _ok = Directory.new().make_dir(modsFolder)
+		var _ok = DirAccess.make_dir_absolute(modsFolder)
 	return modsFolder
 	
 func getDatapacksFolder() -> String:
@@ -339,9 +339,9 @@ func getDatapacksFolder() -> String:
 		#var permissions: Array = OS.get_granted_permissions() #for Godot 3 branch
 		#if permissions.has("android.permission.READ_EXTERNAL_STORAGE"):
 		var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-		var finalDir = externalDir.plus_file("BDCCMods/Datapacks")
+		var finalDir = externalDir.path_join("BDCCMods/Datapacks")
 		modsFolder = finalDir
-		var _ok = Directory.new().make_dir(modsFolder)
+		var _ok = DirAccess.make_dir_absolute(modsFolder)
 	return modsFolder
 	
 func getRawModList() -> Array:
@@ -349,7 +349,7 @@ func getRawModList() -> Array:
 	
 	var modsFolder = getModsFolder()
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(modsFolder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -358,7 +358,7 @@ func getRawModList() -> Array:
 				pass
 			else:
 				if(file_name.get_extension() in ["pck", "zip"]):
-					var full_path = modsFolder.plus_file(file_name)
+					var full_path = modsFolder.path_join(file_name)
 					#print("Registered mod: " + full_path)
 					#var _ok = ProjectSettings.load_resource_pack(full_path)
 					#if(_ok):
@@ -388,7 +388,7 @@ func loadModOrder(theModOrder:Array):
 		var _ok = ProjectSettings.load_resource_pack(modEntry["path"])
 		if(_ok):
 			loadedMods.append(modEntry["name"])
-	if(!loadedMods.empty()):
+	if(!loadedMods.is_empty()):
 		Log.print("Loaded mods ("+str(loadedMods.size())+"): "+str(loadedMods))
 
 const CACHE_SCENE = "scene"
@@ -461,7 +461,7 @@ func newCached(theType:String, theID:String):
 
 
 func _init():
-	gles2Mode = (OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES2)
+	gles2Mode = false # Godot 4: renderer check changed
 	
 	checkModSupport()
 	
@@ -470,13 +470,13 @@ func _init():
 	bodypartStorageNode.name = "Bodyparts"	
 	
 func startLoadingDonationData():
-	var file = File.new()
+	var file = FileAccess.open("", FileAccess.READ)
 	if(file.file_exists("res://DonationInfo.json")):
-		file.open("res://DonationInfo.json", File.READ)
+		file.open("res://DonationInfo.json", FileAccess.READ)
 		var content = file.get_as_text()
 		file.close()
 		
-		var jsonResult = JSON.parse(content)
+		var jsonResult = JSON.parse_string(content)
 		if(jsonResult.error == OK):
 			cachedLocalDonationData = jsonResult.result
 	
@@ -506,7 +506,7 @@ func onDonationDataRequest(result, _response_code, _headers, body):
 		Log.printerr("[onDonationDataRequest] Couldn't get data from github")
 		return
 	
-	var jsonResult = JSON.parse(body.get_string_from_utf8())
+	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
 	if(jsonResult.error != OK):
 		Log.printerr("[onDonationDataRequest] Couldn't parse json data from github.")
 		return
@@ -561,16 +561,16 @@ func registerEverything():
 	startLoadingDonationData()
 	
 	loadingUpdate.emit(0.0/totalStages, "Modules pre-init")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	preinitModulesHooks("res://Modules/")
-	yield(preinitModulesFolder("res://Modules/"), "completed") # 1.0 & 2.0
+	await preinitModulesFolder("res://Modules/") # 1.0 & 2.0
 	
 	ModularDialogue.registerEverything()
 	
 	loadingUpdate.emit(3.0/totalStages, "Bodyparts")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	if(true):
 		var start2 = OS.get_ticks_usec()
@@ -591,8 +591,8 @@ func registerEverything():
 		Log.print("BODYPARTS initialized in: %s seconds" % [worker_time2])
 	
 	loadingUpdate.emit(4.0/totalStages, "Inventory")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerItemFolder("res://Inventory/Items/")
 	registerItemFolder("res://Inventory/Items/Underwear/")
@@ -609,8 +609,8 @@ func registerEverything():
 	registerLootListFolder("res://Inventory/LootLists/")
 	
 	loadingUpdate.emit(5.0/totalStages, "Skills")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerRepStatFolder("res://Game/Reputation/RepStats/")
 	
@@ -624,16 +624,16 @@ func registerEverything():
 	registerPerkFolder("res://Skills/Perk/")
 	
 	loadingUpdate.emit(6.0/totalStages, "Events")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerEventFolder("res://Events/Event/")
 	registerEventFolder("res://Game/NpcSlavery/SlaveActivitiesEvents/")
 	registerDrugDenEventFolder("res://Game/DrugDen/Events/")
 	
 	loadingUpdate.emit(7.0/totalStages, "Scenes")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	if(true):
 		var start2 = OS.get_ticks_usec()
@@ -653,15 +653,15 @@ func registerEverything():
 	registerFluidsFolder("res://Player/Fluids/Fluids/")
 	
 	loadingUpdate.emit(8.0/totalStages, "Characters")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerCharacterFolder("res://Characters/")
 	registerCharacterFolder("res://Characters/Generic/")
 	
 	loadingUpdate.emit(9.0/totalStages, "Attacks")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerAttackFolder("res://Attacks/", true)
 	
@@ -674,8 +674,8 @@ func registerEverything():
 	registerAuctionActionFolder("res://Game/SlaveAuction/Actions/")
 	
 	loadingUpdate.emit(10.0/totalStages, "Sex")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerSexActivitiesFolder("res://Game/SexEngine/SexActivity/")
 	registerSexActivitiesFolder("res://Game/SexEngine/SexActivity/Tentacles/")
@@ -715,8 +715,8 @@ func registerEverything():
 	registerRecruitFolder("res://Game/DomRoute/Recruits/")
 	
 	loadingUpdate.emit(11.0/totalStages, "Sex scenes")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	if(true):
 		var start2 = OS.get_ticks_usec()
@@ -730,8 +730,8 @@ func registerEverything():
 	registerMapFloorFolder("res://Game/World/Floors/")
 	
 	loadingUpdate.emit(12.0/totalStages, "Image packs")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerImagePackFolder("res://Images/ImagePacks/")
 	OPTIONS.checkImagePackOrder(imagePacks)
@@ -741,8 +741,8 @@ func registerEverything():
 	registerComputerFolder("res://Game/Computer/")
 	
 	loadingUpdate.emit(13.0/totalStages, "Skins")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	registerSkinsFolder("res://Player/Player3D/Skins/")
 	registerSkinsFolder("res://Player/Player3D/SkinsByAuthor/AverageAce/", "AverageAce")
@@ -750,10 +750,10 @@ func registerEverything():
 	registerPartSkinsFolder("res://Player/Player3D/SkinsPartsByAuthor/AverageAce/", "AverageAce")
 	
 	loadingUpdate.emit(14.0/totalStages, "Modules")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
-	yield(registerModules(), "completed") # 15.0 & 16.0
+	await registerModules() # 15.0 & 16.0
 	
 	findCustomSkins()
 	sortFightClubFighters()
@@ -764,14 +764,14 @@ func registerEverything():
 	GM.GES.registerAll()
 	
 	loadingUpdate.emit(17.0/totalStages, "Datapacks")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	loadDatapacksFromFolder(getDatapacksFolder())
 	loadDatapacksFromFolder("res://StaticDatapacks")
 	
 	loadingUpdate.emit(18.0/totalStages, "Modules late initialization")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	postInitModules()
 	
 	saveRegistryCacheToFile()
@@ -895,7 +895,7 @@ func createScene(id: String):
 	return scene
 
 func registerSceneFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -905,7 +905,7 @@ func registerSceneFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered scene: " + full_path)
 					registerScene(full_path)
 			file_name = dir.get_next()
@@ -915,7 +915,7 @@ func registerSceneFolder(folder: String):
 func registerBodypart(path: String, _authorOverride:String = ""):
 	var bodypart = load(path)
 	var bodypartObject = bodypart.new()
-	if(!_authorOverride.empty()):
+	if(!_authorOverride.is_empty()):
 		bodypartObject.author = _authorOverride
 	bodyparts[bodypartObject.id] = bodypartObject
 	bodypartStorageNode.add_child(bodypartObject)
@@ -954,7 +954,7 @@ func getBodypartsIdsBySlotForTF(_slot:String) -> Array:
 	return result
 
 func registerBodypartFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -964,7 +964,7 @@ func registerBodypartFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered bodypart: " + full_path)
 					registerBodypart(full_path)
 			file_name = dir.get_next()
@@ -983,7 +983,7 @@ func registerCharacter(path: String):
 	characterObject.queue_free()
 
 func registerCharacterFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -993,7 +993,7 @@ func registerCharacterFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered character: " + full_path)
 					registerCharacter(full_path)
 			file_name = dir.get_next()
@@ -1072,19 +1072,19 @@ func registerAttack(path: String):
 		playerAttacksIDS.append(attackObject.id)
 	
 func registerAttackFolder(folder: String, recursive = false):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
 				if(recursive):
-					registerAttackFolder(folder.plus_file(file_name)+"/", true)
+					registerAttackFolder(folder.path_join(file_name)+"/", true)
 				pass
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered attack: " + full_path)
 					registerAttack(full_path)
 			file_name = dir.get_next()
@@ -1117,7 +1117,7 @@ func registerStatusEffect(path: String):
 	#effectObject.queue_free()
 
 func registerStatusEffectFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1127,7 +1127,7 @@ func registerStatusEffectFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered status effect: " + full_path)
 					registerStatusEffect(full_path)
 			file_name = dir.get_next()
@@ -1182,7 +1182,7 @@ func registerSpecies(path: String):
 	allSpecies[speciesObject.id] = speciesObject
 
 func registerSpeciesFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1192,7 +1192,7 @@ func registerSpeciesFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered species: " + full_path)
 					registerSpecies(full_path)
 			file_name = dir.get_next()
@@ -1227,7 +1227,7 @@ func registerItem(path: String):
 		itemsByTag[tag].append(itemObject.id)
 
 func registerItemFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1237,7 +1237,7 @@ func registerItemFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered item: " + full_path)
 					registerItem(full_path)
 			file_name = dir.get_next()
@@ -1283,7 +1283,7 @@ func registerBuff(path: String):
 	buffs[itemObject.id] = item
 
 func registerBuffFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1293,7 +1293,7 @@ func registerBuffFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered buff: " + full_path)
 					registerBuff(full_path)
 			file_name = dir.get_next()
@@ -1316,7 +1316,7 @@ func registerEvent(path: String):
 	events[itemObject.id] = itemObject
 
 func registerEventFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1326,7 +1326,7 @@ func registerEventFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered event: " + full_path)
 					registerEvent(full_path)
 			file_name = dir.get_next()
@@ -1351,8 +1351,8 @@ func registerModules():
 		var moduleObject = modules[moduleID]
 		var progressValue = progressBase + (progressStep * loadedModuleCount / moduleCount)
 		loadingUpdate.emit(progressValue, moduleObject.getRegisterName())
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 		
 		moduleObject.register()
 		print("Module "+moduleObject.id+" by "+moduleObject.author+" was registered")
@@ -1385,7 +1385,7 @@ func registerQuest(path: String):
 	quests[itemObject.id] = itemObject
 
 func registerQuestFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1395,7 +1395,7 @@ func registerQuestFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					print("Registered quest: " + full_path)
 					registerQuest(full_path)
 			file_name = dir.get_next()
@@ -1432,7 +1432,7 @@ func registerSkill(path: String):
 	skills[itemObject.id] = item
 
 func registerSkillFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1442,7 +1442,7 @@ func registerSkillFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered skill: " + full_path)
 					registerSkill(full_path)
 			file_name = dir.get_next()
@@ -1471,7 +1471,7 @@ func registerPerk(path: String):
 	perksBySkillGroups[skillGroup].append(itemObject.id)
 
 func registerPerkFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1481,7 +1481,7 @@ func registerPerkFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered perk: " + full_path)
 					registerPerk(full_path)
 			file_name = dir.get_next()
@@ -1519,7 +1519,7 @@ func registerLustTopic(path: String):
 	lustTopicsObjects.append(itemObject)
 
 func registerLustTopicFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1529,7 +1529,7 @@ func registerLustTopicFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered lust topic: " + full_path)
 					registerLustTopic(full_path)
 			file_name = dir.get_next()
@@ -1552,7 +1552,7 @@ func registerStageScene(path: String):
 		stageScenes[getCachedID(CACHE_STAGESCENE, path)] = null
 		return
 	var item:PackedScene = load(path)
-	var itemObject = item.instance()
+	var itemObject = item.instantiate()
 	stageScenes[itemObject.id] = item
 	addCacheEntry(CACHE_STAGESCENE, itemObject.id, path)
 	var possibleStates = itemObject.getSupportedStates()
@@ -1563,7 +1563,7 @@ func registerStageScene(path: String):
 	#stageScenes[path.get_file()] = item
 
 func registerStageSceneFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1573,7 +1573,7 @@ func registerStageSceneFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "tscn"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered stage scene: " + full_path)
 					registerStageScene(full_path)
 			file_name = dir.get_next()
@@ -1588,7 +1588,7 @@ func createStageScene(id: String):
 	if(stageScenes[id] == null && hasCachedID(CACHE_STAGESCENE, id)):
 		var item:PackedScene = load(getCachedPath(CACHE_STAGESCENE, id))
 		if(item):
-			var itemObject = item.instance()
+			var itemObject = item.instantiate()
 			stageScenes[itemObject.id] = item
 			var possibleStates = itemObject.getSupportedStates()
 			if(possibleStates != null && possibleStates.size() > 0):
@@ -1598,7 +1598,7 @@ func createStageScene(id: String):
 			Log.printerr("ERROR: stage scene with the id "+id+" wasn't found (cache error)")
 			return null
 	
-	return stageScenes[id].instance()
+	return stageScenes[id].instantiate()
 
 func getStageScenesCachedStates():
 	return stageScenesCachedStates
@@ -1608,9 +1608,9 @@ func getStageScenesClasses():
 
 func instanceCached(scenePath):
 	if(sceneCache.has(scenePath)):
-		return sceneCache[scenePath].instance()
+		return sceneCache[scenePath].instantiate()
 	sceneCache[scenePath] = load(scenePath)
-	return sceneCache[scenePath].instance()
+	return sceneCache[scenePath].instantiate()
 
 
 func registerLustAction(path: String):
@@ -1623,7 +1623,7 @@ func registerLustAction(path: String):
 		orgasmLustActions.append(itemObject.id)
 
 func registerLustActionFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1633,7 +1633,7 @@ func registerLustActionFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered lust action: " + full_path)
 					registerLustAction(full_path)
 			file_name = dir.get_next()
@@ -1672,7 +1672,7 @@ func registerLootList(path: String):
 		lootListsAll.append(itemObject)
 	
 func registerLootListFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1682,7 +1682,7 @@ func registerLootListFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered loot list: " + full_path)
 					registerLootList(full_path)
 			file_name = dir.get_next()
@@ -1705,16 +1705,16 @@ func getLootListsByCharacter(charID: String):
 func preinitModulesHooks(folder: String):
 	var start = OS.get_ticks_usec()
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				#print("FOUND DIR: "+full_path)
 				
-				var preInitPath:String = full_path.plus_file("PreInit.gd")
+				var preInitPath:String = full_path.path_join("PreInit.gd")
 				if(dir.file_exists(preInitPath)):
 					#print("PRE-INIT FILE: " +preInitPath)
 					var preInitScript = load(preInitPath)
@@ -1733,16 +1733,16 @@ func preinitModulesFolder(folder: String):
 	var start = OS.get_ticks_usec()
 	
 	var moduleFiles: Array = []
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				#print("FOUND DIR: "+full_path)
 				
-				var modulePath:String = full_path.plus_file("Module.gd")
+				var modulePath:String = full_path.path_join("Module.gd")
 				if(dir.file_exists(modulePath)):
 					moduleFiles.append([file_name, modulePath])
 			file_name = dir.get_next()
@@ -1751,8 +1751,8 @@ func preinitModulesFolder(folder: String):
 		for moduleFile in moduleFiles:
 			var progressValue = progressBase + (progressStep * loadedModuleCount / moduleCount)
 			loadingUpdate.emit(progressValue, "Loading " + moduleFile[0])
-			yield(get_tree(), "idle_frame")
-			yield(get_tree(), "idle_frame")
+			await get_tree().process_frame
+			await get_tree().process_frame
 			preinitModule(moduleFile[1])
 			loadedModuleCount += 1
 	else:
@@ -1802,7 +1802,7 @@ func registerMapFloor(id: String, path: String):
 	mapFloors[id] = path
 
 func registerMapFloorFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1812,7 +1812,7 @@ func registerMapFloorFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "tscn"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered map floor: " + full_path)
 					registerMapFloor(full_path.get_file().get_basename(), full_path)
 			file_name = dir.get_next()
@@ -1829,16 +1829,16 @@ func registerImagePack(path: String):
 	imagePacks[imagepackObject.id] = imagepackObject
 
 func registerImagePackFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				#print("FOUND DIR: "+full_path)
 				
-				var imagePackPath:String = full_path.plus_file("ImagePack.gd")
+				var imagePackPath:String = full_path.path_join("ImagePack.gd")
 				if(dir.file_exists(imagePackPath)):
 					#print("IMAGE PACK FILE: " +modulePath)
 					registerImagePack(imagePackPath)
@@ -1866,7 +1866,7 @@ func registerWorldEdit(path: String):
 		regularWorldEdits.append(worldEditObject)
 
 func registerWorldEditFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1876,7 +1876,7 @@ func registerWorldEditFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered world edit: " + full_path)
 					registerWorldEdit(full_path)
 			file_name = dir.get_next()
@@ -1907,7 +1907,7 @@ func registerSexActivity(path: String):
 	sexActivitiesReferences[sexActivityObject.id] = sexActivityObject
 
 func registerSexActivitiesFolder(folder: String):
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1917,7 +1917,7 @@ func registerSexActivitiesFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					#print("Registered sex activity: " + full_path)
 					registerSexActivity(full_path)
 			file_name = dir.get_next()
@@ -1952,7 +1952,7 @@ func registerFetish(path: String):
 func getScriptsInFolder(folder: String):
 	var result = []
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -1962,7 +1962,7 @@ func getScriptsInFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					result.append(full_path)
 			file_name = dir.get_next()
 	else:
@@ -1973,18 +1973,18 @@ func getScriptsInFolder(folder: String):
 func getScriptsInSubFolders(folder: String):
 	var result = []
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				result.append_array(getScriptsInFolder(full_path))
 				#print("Found directory: " + file_name)
 			else:
 #				if(file_name.get_extension() == "gd"):
-#					var full_path = folder.plus_file(file_name)
+#					var full_path = folder.path_join(file_name)
 #					result.append(full_path)
 				pass
 			file_name = dir.get_next()
@@ -1996,18 +1996,18 @@ func getScriptsInSubFolders(folder: String):
 func getScriptsInFoldersRecursive(folder: String, ignoreBaseDir = false):
 	var result = []
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				result.append_array(getScriptsInFoldersRecursive(full_path, false))
 				#print("Found directory: " + file_name)
 			else:
 				if(!ignoreBaseDir && file_name.get_extension() == "gd"):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					result.append(full_path)
 				pass
 			file_name = dir.get_next()
@@ -2021,7 +2021,7 @@ func getDatapacksInFolder(folder: String):
 		return []
 	var result:Array = []
 	
-	var dir = Directory.new()
+	var dir = DirAccess.open(modsFolder)
 	if dir.open(folder) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -2031,7 +2031,7 @@ func getDatapacksInFolder(folder: String):
 				#print("Found directory: " + file_name)
 			else:
 				if(file_name.get_extension() in ["res", "tres"]):
-					var full_path = folder.plus_file(file_name)
+					var full_path = folder.path_join(file_name)
 					result.append(full_path)
 			file_name = dir.get_next()
 	else:
@@ -2249,7 +2249,7 @@ func findCustomSkins():
 	var skinsFolder = "user://custom_skins"
 	if(OS.get_name() == "Android"):
 		var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-		var finalDir = externalDir.plus_file("BDCCMods/custom_skins")
+		var finalDir = externalDir.path_join("BDCCMods/custom_skins")
 		skinsFolder = finalDir
 	
 	for skinPath in Util.getFilesInFolder(skinsFolder):
@@ -2481,7 +2481,7 @@ func reloadPacks():
 
 func deleteDatapack(id:String):
 	if(datapacks.has(id)):
-		var path = datapacks[id].getLoadedPath()#getDatapacksFolder().plus_file(datapacks[id].getDatapackFileName())
+		var path = datapacks[id].getLoadedPath()#getDatapacksFolder().path_join(datapacks[id].getDatapackFileName())
 		
 		if(Util.removeFile(path) == OK):
 			#reloadPacks()
@@ -2977,7 +2977,7 @@ func saveRegistryCacheToFile(forceSave:bool = false):
 
 	var save_game = File.new()
 	save_game.open(cacheFilePath, File.WRITE)
-	save_game.store_line(var2str(data))
+	save_game.store_line(var_to_str(data))
 	save_game.close()
 
 func loadRegistryCacheFromFile():
@@ -2993,8 +2993,8 @@ func loadRegistryCacheFromFile():
 		fillBaseCacheFields()
 		return
 	
-	save_game.open(cacheFilePath, File.READ)
-	var data = str2var(save_game.get_as_text())
+	save_game.open(cacheFilePath, FileAccess.READ)
+	var data = str_to_var(save_game.get_as_text())
 	if(data is Dictionary):
 		loadRegistryCache(data)
 	save_game.close()
@@ -3007,7 +3007,7 @@ func doesLoadLockFileExist() -> bool:
 	return f.file_exists(loadLockPath)
 
 func createLoadLockFile():
-	var file = File.new()
+	var file = FileAccess.open("", FileAccess.READ)
 	file.open(loadLockPath, File.WRITE)
 	#file.store_string(content)
 	file.close()

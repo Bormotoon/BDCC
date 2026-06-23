@@ -38,10 +38,10 @@ func set_is_active(value: bool, delayShow = false):
 	if is_active:
 		if(delayShow):
 			_tween.remove_all()
-			_tween.interpolate_property(self, "modulate", Color(0.0, 0.0, 0.0, -6.0), Color.white, 0.6)
+			_tween.interpolate_property(self, "modulate", Color(0.0, 0.0, 0.0, -6.0), Color.WHITE, 0.6)
 			_tween.start()
 		else:
-			modulate = Color.white
+			modulate = Color.WHITE
 			_tween.remove_all()
 	else:
 		_tween.remove_all()

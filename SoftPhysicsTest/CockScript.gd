@@ -13,7 +13,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if(Input.is_mouse_button_pressed(BUTTON_LEFT)):
+	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 		var toTarget = (get_global_mouse_position() - global_position)
 		var desiredVel = toTarget * mass
 		var currentVel = linear_velocity

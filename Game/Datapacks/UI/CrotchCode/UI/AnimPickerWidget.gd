@@ -288,14 +288,14 @@ func playAnim():
 	stage_3d.play(selectedAnim, animData["state"]["value"], finalAnimData)
 
 func a_gui_input(event: InputEvent):
-	if event is InputEventMouseButton && event.button_index == BUTTON_MIDDLE:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_MIDDLE:
 		camera3d.size = 10
 		camera3d.transform.origin = Vector3(0.0,4.141,50.0)
 	
 	if event is InputEventMouseButton:
-		if(event.button_index == BUTTON_WHEEL_UP):
+		if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
 			camera3d.size *= 0.9
-		if(event.button_index == BUTTON_WHEEL_DOWN):
+		if(event.button_index == MOUSE_BUTTON_DOWN):
 			camera3d.size *= 1.1
 	
 	if event is InputEventMouseButton:

@@ -221,22 +221,22 @@ func loadData(data):
 var configFilePath = "user://autotranslation.json"
 func saveToFile():
 	var saveData = saveData()
-	var save_game = File.new()
-	save_game.open(configFilePath, File.WRITE)
+	var save_game = FileAccess.open(configFilePath, FileAccess.WRITE)
+	save_game.open(configFilePath, FileAccess.WRITE)
 	
 	save_game.store_line(JSON.print(saveData, "\t", true))
 	
 	save_game.close()
 
 func loadFromFile():
-	var save_game = File.new()
+	var save_game = FileAccess.open(configFilePath, FileAccess.WRITE)
 	if not save_game.file_exists(configFilePath):
 		print("AutoTranslation: No saved options found, default values will be used")
 		return
 	
-	save_game.open(configFilePath, File.READ)
+	save_game.open(configFilePath, FileAccess.READ)
 	#var saveData = JSON.parse_string(save_game.get_as_text())
-	var jsonResult = JSON.parse(save_game.get_as_text())
+	var jsonResult = JSON.parse_string(save_game.get_as_text())
 	if(jsonResult.error != OK):
 		Log.printerr("AutoTranslation: Error while loading the options file, the file is not a valid json")
 		return

@@ -7,7 +7,7 @@ func getVisibleName():
 	return "Hot Wax"
 
 func getStatusEffectColor():
-	return Color.red
+	return Color.RED
 
 func getStatusEffectPicture():
 	return "res://Images/StatusEffects/leak.png"
@@ -44,7 +44,7 @@ func onGettingHitWith(_pc, _amount):
 	}
 
 func getCumOverlayColor():
-	return Color.red
+	return Color.RED
 
 func canStoreInFluidTank() -> bool:
 	return false

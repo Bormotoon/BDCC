@@ -64,7 +64,7 @@ func addToRunNoTabs(thetext):
 @onready var outputTextEdit = $VBoxContainer/TextEdit2
 
 func _ready():
-	$VBoxContainer/TextEdit2.add_color_region('#', '', Color.cadetblue)
+	$VBoxContainer/TextEdit2.add_color_region('#', '', Color.CADET_BLUE)
 
 func _on_Button_pressed():
 	reset()

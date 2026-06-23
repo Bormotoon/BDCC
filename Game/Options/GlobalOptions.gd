@@ -234,15 +234,9 @@ func apply_settings_effect() -> void:
 	apply_ui_scale()
 
 func apply_ui_scale() -> void:
-	var ideal_size := Vector2(1280, 720) if current_screen_orientation == SCREEN_HORIZONTAL else Vector2(720, 1280)
-	# Godot 4: DisplayServer instead of SceneTree stretch
-	# Note: set_screen_stretch API changed in Godot 4
-	if should_scale_ui:
-		get_tree().set_screen_stretch(
-			SceneTree.STRETCH_MODE_CANVAS, SceneTree.STRETCH_ASPECT_EXPAND, ideal_size)
-	else:
-		get_tree().set_screen_stretch(
-			SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_EXPAND, ideal_size)
+	# Godot 4: stretch mode is configured via project settings, not runtime API
+	# This function is a no-op placeholder until project settings are configured
+	pass
 
 func set_supports_vertical(supports: bool) -> void:
 	current_supports_vertical = supports

@@ -2,7 +2,7 @@ extends Object
 class_name Util
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## General utility functions. Directory→DirAccess, File→FileAccess.
+## General utility functions. DirAccess→DirAccess, File→FileAccess.
 
 static func fixed_shell_open(string: String):
 	var os_name = OS.get_name()
@@ -57,7 +57,7 @@ static func humanReadableList(arr: Array, and_connector: String = "and", comma_c
 			res += comma_connector + " "
 	return res
 
-## Directory→DirAccess (line 81-96)
+## DirAccess→DirAccess (line 81-96)
 static func getFilesInFolder(folder: String) -> Array:
 	var result: Array = []
 	var dir := DirAccess.open(folder)

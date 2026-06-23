@@ -3,7 +3,7 @@ extends BodypartPenis
 func _init():
 	visibleName = "ovipositor"
 	id = "ovipositorpenis"
-	pickedGColor = Color.red
+	pickedGColor = Color.RED
 	pickedBColor = Color.darkred
 
 func initFluidProduction():

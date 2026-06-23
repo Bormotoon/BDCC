@@ -18,7 +18,7 @@ func updateInfo():
 		
 		resultText += str(i)+") id = \""+str(sceneO.sceneID)+"\"\n"
 		resultText += "state = \""+str(sceneO.state)+"\"\n"
-		resultText += "SAVEDATA:\n"+var2str(sceneO.saveData())+"\n\n"
+		resultText += "SAVEDATA:\n"+var_to_str(sceneO.saveData())+"\n\n"
 		
 		i += 1
 		

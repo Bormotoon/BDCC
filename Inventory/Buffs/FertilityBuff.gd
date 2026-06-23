@@ -28,7 +28,7 @@ func apply(_buffHolder):
 
 func getBuffColor():
 	if(amount < 0):
-		return Color.red
+		return Color.RED
 	return DamageType.getColor(DamageType.Lust)
 
 func saveData():

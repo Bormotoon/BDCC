@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	if(self.global_translation.z < 0):
 		modulate = Color.transparent #hide the behind version
 	#else:
-	#	modulate = Color.white
+	#	modulate = Color.WHITE
 
 	time += delta
 	self.translation = Vector3(sin(time * frequency) * distMult, self.translation.y, self.translation.z)

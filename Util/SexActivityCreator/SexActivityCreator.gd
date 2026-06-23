@@ -955,7 +955,7 @@ func _on_LoadEverythingButton_pressed():
 	currentlyEditing = ""
 	
 	var dataStr = $LoadCodeDialog/VBoxContainer/TextEdit.text
-	var data = JSON.parse(dataStr).result
+	var data = JSON.parse_string(dataStr).result
 	var customCodeText = loadOr(data, "customCodeText", "")
 	$VBoxContainer/CustomCodeTab/TextEdit.text = customCodeText
 	

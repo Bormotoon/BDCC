@@ -10,7 +10,7 @@ func getVisibleName():
 	return "MorphAway Pill"
 	
 func getDescription():
-	return "A pill that's claiming to be able to [color=#"+Color.cyan.to_html()+"]undo any temporary transformation effects and return your body to its old self.[/color]"
+	return "A pill that's claiming to be able to [color=#"+Color.CYAN.to_html()+"]undo any temporary transformation effects and return your body to its old self.[/color]"
 
 func canUseInCombat():
 	return true

@@ -144,7 +144,7 @@ class ComputerFileSorting:
 
 # returns compfile. note that this doesn't assign an id if specified id is -1!
 func newCompFile(n:String,cat:String="it's a file!",f:String="",down:bool=true,i=-1,meth:String="") -> ComputerFile:
-	var nf = ComputerFile.new()
+	var nf = ComputerFileAccess
 	nf.name = n
 	nf.catData = cat
 	nf.canDownload = down

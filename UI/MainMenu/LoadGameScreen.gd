@@ -56,11 +56,11 @@ func _on_DeleteButton_pressed():
 func onExportButtonClicked(savePath: String):
 	print("EXPORT: "+savePath)
 	if(OS.get_name() == "Web"):
-		var save_game = File.new()
+		var save_game = FileAccess
 		if not save_game.file_exists(savePath):
 			return # Error! We don't have a save to load.
 		
-		save_game.open(savePath, File.READ)
+		save_game.open(savePath, FileAccess.READ)
 		#var saveData = JSON.parse_string(save_game.get_as_text())
 		
 		JavaScript.download_buffer(save_game.get_as_text().to_utf8(), savePath.get_file(), "text/plain")
@@ -81,11 +81,11 @@ func onExportButtonClicked(savePath: String):
 #			else:
 #				has_permissions = true
 		
-		var d = Directory.new()
+		var d = DirAccess.new()
 		var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-		var finalDir = externalDir.plus_file("BDCCSaves/")
+		var finalDir = externalDir.path_join("BDCCSaves/")
 		d.make_dir_recursive(finalDir)
-		var finalPath = finalDir.plus_file(savePath.get_file())
+		var finalPath = finalDir.path_join(savePath.get_file())
 		d.copy(savePath, finalPath)
 		$SaveExportedAlert.dialog_text = "Your save was exported to:\n"+str(finalPath)
 		$SaveExportedAlert.popup_centered()
@@ -99,7 +99,7 @@ func onExportButtonClicked(savePath: String):
 func _on_ExportSaveDialog_file_selected(path):
 	if(currentExportedPath == null || currentExportedPath == ""):
 		return
-	var d = Directory.new()
+	var d = DirAccess.new()
 	d.copy(currentExportedPath, path)
 
 func _notification(notification: int) -> void:
@@ -192,16 +192,16 @@ func _on_ImportButton_pressed():
 #				else:
 #					has_permissions = true
 		
-			var d = Directory.new()
+			var d = DirAccess.new()
 			var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-			var finalDir = externalDir.plus_file("BDCCSaves")
+			var finalDir = externalDir.path_join("BDCCSaves")
 			d.make_dir_recursive(finalDir)
 			$ImportSaveDialog.current_dir = finalDir
 		$ImportSaveDialog.popup_centered()
 
 func _on_ImportSaveDialog_file_selected(path: String):
 	print(path.get_file().get_basename())
-	var d = Directory.new()
+	var d = DirAccess.new()
 	d.copy(path, "user://saves/"+path.get_file().get_basename()+".save")
 	updateSaves()
 

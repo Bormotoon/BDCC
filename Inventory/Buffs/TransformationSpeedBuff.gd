@@ -19,8 +19,8 @@ func apply(_buffHolder):
 
 func getBuffColor():
 	if(amount < 0):
-		return Color.green
-	return Color.cyan
+		return Color.GREEN
+	return Color.CYAN
 
 func saveData():
 	var data = .saveData()

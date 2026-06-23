@@ -7,7 +7,7 @@ func getVisibleName():
 	return "Piss"
 
 func getStatusEffectColor():
-	return Color.yellow
+	return Color.YELLOW
 
 func getStatusEffectPicture():
 	return "res://Images/StatusEffects/puddle.png"
@@ -99,7 +99,7 @@ func onGettingHitWith(_pc, _amount):
 	}
 
 func getCumOverlayColor():
-	return Color.yellow
+	return Color.YELLOW
 
 func canStoreInFluidTank() -> bool:
 	return false

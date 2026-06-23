@@ -163,7 +163,7 @@ func _on_LoadConfigButton_pressed():
 	config_import_dialog.popup_centered()
 
 func _on_ConfigImportDialog_confirmed():
-	var theJsonResult := JSON.parse(import_text_edit.text if !import_text_edit.text.is_empty() else "{}")
+	var theJsonResult := JSON.parse_string(import_text_edit.text if !import_text_edit.text.is_empty() else "{}")
 	if(!theJsonResult || theJsonResult.error != OK || !(theJsonResult.result is Dictionary)):
 		info_final_accept_dialog.dialog_text = "Bad config. Make sure it looks like JSON."
 		info_final_accept_dialog.popup_centered()

@@ -61,13 +61,13 @@ func _on_TextureButton_pressed():
 	onDevComButton.emit()
 
 func a_gui_input(event: InputEvent):
-	if event is InputEventMouseButton && event.button_index == BUTTON_MIDDLE:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_MIDDLE:
 		world.zoomReset()
 	
 	if event is InputEventMouseButton:
-		if(event.button_index == BUTTON_WHEEL_UP):
+		if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
 			world.zoomOut()
-		if(event.button_index == BUTTON_WHEEL_DOWN):
+		if(event.button_index == MOUSE_BUTTON_DOWN):
 			world.zoomIn()
 
 	if event is InputEventScreenTouch:
@@ -115,7 +115,7 @@ func _handle_drag(event: InputEventScreenDrag):
 				return
 			pivot_point = touch_points[pivot_index]
 		else:
-			pivot_point = custom_viewport_control.rect_position + custom_viewport_control.size*0.5 #Vector2(0.0, 0.0)
+			pivot_point = custom_viewport_control.position + custom_viewport_control.size*0.5 #Vector2(0.0, 0.0)
 		
 		var old_point: Vector2 = touch_points[event.index]
 		var new_point: Vector2 = event.position

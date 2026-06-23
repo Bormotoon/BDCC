@@ -7,4 +7,4 @@ func getVisibleDescription():
 	return "Blocks anus in sex"
 
 func getBuffColor():
-	return Color.red
+	return Color.RED

@@ -37,13 +37,13 @@ func _on_Tree_item_selected():
 	pass
 
 func fillFolder(root:TreeItem, folder, filter):
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true, false)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				if(ignorePaths.has(full_path)):
 					file_name = dir.get_next()
 					continue
@@ -59,7 +59,7 @@ func fillFolder(root:TreeItem, folder, filter):
 					root.remove_child(child1)
 			else:
 				#if(file_name.get_extension() == "gd"):
-				var full_path:String = folder.plus_file(file_name)
+				var full_path:String = folder.path_join(file_name)
 				if(filter == "" || (filter in full_path)):
 					var child1 = tree.create_item(root)
 					child1.set_text(0, file_name)
@@ -96,14 +96,14 @@ func addSelected(selected):
 	if(metadata == null):
 		return
 	var path = metadata
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if(dir.dir_exists(path)):
 		print(path)
 		addFilesRec(path)
 		updateAddedFiles()
 		return
 	
-	var file = File.new()
+	var file = FileAccess.open(path, FileAccess.READ)
 	if(file.file_exists(path)):
 		print(path)
 		if(!addedFiles.has(path)):
@@ -114,16 +114,16 @@ func addSelected(selected):
 	print("NOT FOUND")
 
 func addFilesRec(folder):
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if dir.open(folder) == OK:
 		dir.list_dir_begin(true, false)
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				var full_path = folder.plus_file(file_name)
+				var full_path = folder.path_join(file_name)
 				addFilesRec(full_path)
 			else:
-				var full_path:String = folder.plus_file(file_name)
+				var full_path:String = folder.path_join(file_name)
 				if(!addedFiles.has(full_path)):
 					addedFiles.append(full_path)
 			file_name = dir.get_next()
@@ -160,7 +160,7 @@ func useTar():
 	if(editModName != ""):
 		modName = editModName
 	
-	var directory = Directory.new( )
+	var directory = DirAccess.new( )
 	#directory.remove_at("user://new_mod")
 	var baseNewModFolder = "user://exported_mods/"+modName
 	var newModFolder = baseNewModFolder
@@ -172,7 +172,7 @@ func useTar():
 	
 	for file in addedFiles:
 		if(file.get_extension() == "import"):
-			var config = ConfigFile.new()
+			var config = ConfigFileAccess
 			var err = config.load(file)
 			if err == OK:
 				if(config.has_section_key("remap", "path")):
@@ -189,8 +189,8 @@ func useTar():
 	
 	var output = []
 	
-	#var _ok = OS.execute('tar', ['-a', '-cf', ProjectSettings.globalize_path("user://exported_mods/".plus_file(modName+".zip")), "-C", ProjectSettings.globalize_path(newModFolder), "*", '.import/', '--force-local'], true, output, true)
-	var _ok = OS.execute('powershell', ['Compress-Archive', ProjectSettings.globalize_path(newModFolder).plus_file("*"), ProjectSettings.globalize_path("user://exported_mods/".plus_file(modName+".zip"))], true, output, true)
+	#var _ok = OS.execute('tar', ['-a', '-cf', ProjectSettings.globalize_path("user://exported_mods/".path_join(modName+".zip")), "-C", ProjectSettings.globalize_path(newModFolder), "*", '.import/', '--force-local'], true, output, true)
+	var _ok = OS.execute('powershell', ['Compress-Archive', ProjectSettings.globalize_path(newModFolder).path_join("*"), ProjectSettings.globalize_path("user://exported_mods/".path_join(modName+".zip"))], true, output, true)
 	print(output)
 	
 	Util.removeDirectory(newModFolder)
@@ -204,7 +204,7 @@ func gatherFiles():
 	if(editModName != ""):
 		modName = editModName
 	
-	var directory = Directory.new( )
+	var directory = DirAccess.new( )
 	#directory.remove_at("user://new_mod")
 	var baseNewModFolder = "user://exported_mods/"+modName
 	var newModFolder = baseNewModFolder
@@ -216,7 +216,7 @@ func gatherFiles():
 	
 	for file in addedFiles:
 		if(file.get_extension() == "import"):
-			var config = ConfigFile.new()
+			var config = ConfigFileAccess
 			var err = config.load(file)
 			if err == OK:
 				if(config.has_section_key("remap", "path")):
@@ -235,7 +235,7 @@ func gatherFiles():
 		var _ok = Util.fixed_shell_open(ProjectSettings.globalize_path(newModFolder))
 	
 func makePCKFile():
-	var directory = Directory.new( )
+	var directory = DirAccess.new( )
 	directory.make_dir("user://exported_mods")
 	
 	var modName = "newmod.pck"
@@ -244,10 +244,10 @@ func makePCKFile():
 		modName = editModName+".pck"
 	
 	var packer = PCKPacker.new()
-	packer.pck_start("user://exported_mods".plus_file(modName))
+	packer.pck_start("user://exported_mods".path_join(modName))
 	for file in addedFiles:
 		if(file.get_extension() == "import"):
-			var config = ConfigFile.new()
+			var config = ConfigFileAccess
 			var err = config.load(file)
 			if err == OK:
 				if(config.has_section_key("remap", "path")):

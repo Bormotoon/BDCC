@@ -129,7 +129,7 @@ static func generateGenericFurryColors():
 		#tertiaryColor = mutateColorSlightly(tertiaryColor)
 		
 		return [primaryColor, secondaryColor, tertiaryColor]
-	return [Color.white, Color.lightgray, Color.darkgray]
+	return [Color.WHITE, Color.LIGHT_GRAY, Color.DARK_GRAY]
 
 static func generateGenericHumanSkinColors():
 	var tones = [
