@@ -168,7 +168,7 @@ PoolStringArray → PackedStringArray
 | Файл | Строк | GM.* | Статус |
 |------|-------|------|--------|
 | World.gd | 757 | 4 | ✅ МИГРИРОВАН (AStar2D pathfinding, room management, camera) |
-| GameRoom.gd | 274 | 12 | 🟡 НЕ МИГРИРОВАН |
+| GameRoom.gd | 274 | 12 | ✅ МИГРИРОВАН (@tool, @export, setget→property, emit→signal.emit) |
 | WorldPawn.gd | 75 | 0 | 🟡 НЕ МИГРИРОВАН |
 | WorldEntity.gd | 21 | 0 | 🟢 НЕ МИГРИРОВАН |
 | Floors/*.gd (6 файлов) | ~370 | 36 | 🟡 НЕ МИГРИРОВАН |

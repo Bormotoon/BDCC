@@ -1,34 +1,50 @@
-tool
+@tool
 extends Sprite
 class_name GameRoom
 
-export(String) var roomName = ""
-export(String) var roomID = ""
-export(String, MULTILINE) var roomDescription = ""
-export(String, MULTILINE) var blindRoomDescription = ""
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Room node with export vars, colors, sprites, location tags.
 
-export(bool) var canWest = true
-export(bool) var canNorth = true
-export(bool) var canEast = true
-export(bool) var canSouth = true
+@export var room_name: String = ""
+@export var room_id: String = ""
+@export_multiline var room_description: String = ""
+@export_multiline var blind_room_description: String = ""
 
-export(RoomStuff.RoomSprite) var roomSprite = RoomStuff.RoomSprite.NONE setget setRoomSprite
-export(RoomStuff.RoomColor) var roomColor = RoomStuff.RoomColor.White setget onRoomChangeColor
-export(RoomStuff.RoomColor) var gridColor = RoomStuff.RoomColor.White setget onGridChangeColor
-const RoomColorToColor = {
-	RoomStuff.RoomColor.White : Color.white,
-	RoomStuff.RoomColor.Green : Color(0.7, 1.0, 0.7),
-	RoomStuff.RoomColor.Red : Color(1.0, 0.6, 0.6),
-	RoomStuff.RoomColor.Blue : Color(0.7, 0.7, 1.0),
-	RoomStuff.RoomColor.Pink : Color(1.0, 0.6, 0.8),
-	RoomStuff.RoomColor.Orange : Color(255.0/255.0, 204.0/255.0, 153.0/255.0),
-	RoomStuff.RoomColor.Yellow : Color(1.0, 1.0, 0.7),
-	RoomStuff.RoomColor.Grey : Color(0.5, 0.5, 0.5),
-	RoomStuff.RoomColor.LightGrey : Color(0.7, 0.7, 0.7),
+@export var can_west: bool = true
+@export var can_north: bool = true
+@export var can_east: bool = true
+@export var can_south: bool = true
+
+@export var room_sprite: RoomStuff.RoomSprite = RoomStuff.RoomSprite.NONE:
+	set(value):
+		room_sprite = value
+		_update_sprite()
+
+@export var room_color: RoomStuff.RoomColor = RoomStuff.RoomColor.White:
+	set(value):
+		room_color = value
+		if Engine.is_editor_hint:
+			_update_color()
+
+@export var grid_color: RoomStuff.RoomColor = RoomStuff.RoomColor.White:
+	set(value):
+		grid_color = value
+		if Engine.is_editor_hint:
+			_update_grid_color()
+
+const ROOM_COLOR_TO_COLOR: Dictionary = {
+	RoomStuff.RoomColor.White: Color.WHITE,
+	RoomStuff.RoomColor.Green: Color(0.7, 1.0, 0.7),
+	RoomStuff.RoomColor.Red: Color(1.0, 0.6, 0.6),
+	RoomStuff.RoomColor.Blue: Color(0.7, 0.7, 1.0),
+	RoomStuff.RoomColor.Pink: Color(1.0, 0.6, 0.8),
+	RoomStuff.RoomColor.Orange: Color(1.0, 0.8, 0.6),
+	RoomStuff.RoomColor.Yellow: Color(1.0, 1.0, 0.7),
+	RoomStuff.RoomColor.Grey: Color(0.5, 0.5, 0.5),
+	RoomStuff.RoomColor.LightGrey: Color(0.7, 0.7, 0.7),
 }
 
-const sprites = {
-	#RoomSprite.NONE: ,
+const SPRITES: Dictionary = {
 	RoomStuff.RoomSprite.PERSON: preload("res://Images/World/person.png"),
 	RoomStuff.RoomSprite.CANTEEN: preload("res://Images/World/canteen.png"),
 	RoomStuff.RoomSprite.STAIRS: preload("res://Images/World/stairs.png"),
@@ -42,233 +58,125 @@ const sprites = {
 	RoomStuff.RoomSprite.BOSS: preload("res://Images/World/boss.png"),
 }
 
-onready var roomSpriteObject = $Sprite
-onready var gridSprite = $Grid
+@onready var room_sprite_object: Sprite = $Sprite
+@onready var grid_sprite: Sprite = $Grid
 
-signal onEnter(room)
-signal onPreEnter(room)
-signal onReact(room, key)
+signal on_enter(room)
+signal on_pre_enter(room)
+signal on_react(room, key)
 
-# Room tags
-export(bool) var loctag_Greenhouses = false
-export(bool) var loctag_MentalWard = false
-export(bool) var loctag_GuardsEncounter = false
-export(bool) var loctag_EngineersEncounter = false
-export(bool) var loctag_Offlimits = false
-export(bool) var loctag_OldGuardsEncounter = false
-export(bool) var loctag_NoWallsNear = false
+# Location tags
+@export var loctag_greenhouses: bool = false
+@export var loctag_mental_ward: bool = false
+@export var loctag_guards_encounter: bool = false
+@export var loctag_engineers_encounter: bool = false
+@export var loctag_offlimits: bool = false
+@export var loctag_old_guards_encounter: bool = false
+@export var loctag_no_walls_near: bool = false
 
-export(int, FLAGS, "Inmates", "Guards") var population = 0
+@export_flags("Inmates", "Guards") var population: int = 0
 
-export(bool) var lootable = false
-export(String) var lootTableId = ""
-export(String) var lootAroundMessage = ""
-export(PoolStringArray) var lootItemIds = PoolStringArray()
-export(int) var lootCredits = 0
-export(int) var lootEveryXDays = 0
+@export var lootable: bool = false
+@export var loot_table_id: String = ""
+@export var loot_around_message: String = ""
+@export var loot_item_ids: PackedStringArray = PackedStringArray()
+@export var loot_credits: int = 0
+@export var loot_every_x_days: int = 0
 
-var astarID
-export(PoolStringArray) var astarConnectedTo = PoolStringArray()
-var astarConnections:Array = []
+var astar_id
+@export var astar_connected_to: PackedStringArray = PackedStringArray()
+var astar_connections: Array = []
+var floor_id: String = ""
 
-var floorID = ""
+func _ready() -> void:
+	if Engine.is_editor_hint:
+		return
+	if not room_id:
+		room_id = name
+	if not room_name:
+		room_name = room_id
+	if ROOM_COLOR_TO_COLOR.has(room_color):
+		self_modulate = ROOM_COLOR_TO_COLOR[room_color]
+	if SPRITES.has(room_sprite):
+		room_sprite_object.texture = SPRITES[room_sprite]
 
-func getPopulation():
-	var result = []
-	if(Util.isBitEnabled(population, 0)):
+func get_population() -> Array:
+	var result: Array = []
+	if Util.isBitEnabled(population, 0):
 		result.append(WorldPopulation.Inmates)
-	if(Util.isBitEnabled(population, 1)):
+	if Util.isBitEnabled(population, 1):
 		result.append(WorldPopulation.Guards)
 	return result
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if(Engine.editor_hint):
-		return
-	
-	if(!roomID):
-		roomID = name
-	if(!roomName):
-		roomName = roomID
-	
-	#if(get_parent() is GameWorld):
-	#	world = get_parent()
-	#	gridsize = world.gridsize
-	#if(get_parent() is SubGameWorld):
-	#	world = get_parent().get_parent()
-	#	gridsize = world.gridsize
-	
-	
-	
-	#if(world):
-	#	world.registerRoom(self)
-	if(RoomColorToColor.has(roomColor)):
-		self_modulate = RoomColorToColor[roomColor]
-	if(sprites.has(roomSprite)):
-		roomSpriteObject.texture = sprites[roomSprite]
-		
-func setRoomColor(newColor):
-	if(newColor != roomColor && RoomColorToColor.has(newColor)):
-		roomColor = newColor
-		
-func setRoomGridColor(newColor):
-	if(newColor != gridColor && RoomColorToColor.has(newColor)):
-		gridColor = newColor
-		
-func setRoomSprite(newSprite):
-	if(newSprite == RoomStuff.RoomSprite.NONE):
-		roomSprite = newSprite
+func _update_sprite() -> void:
+	if room_sprite == RoomStuff.RoomSprite.NONE:
 		$Sprite.texture = null
-	
-	if(newSprite != roomSprite && sprites.has(newSprite)):
-		roomSprite = newSprite
-		#roomSpriteObject.texture = sprites[roomSprite]
-		$Sprite.texture = sprites[roomSprite]
-	
+	elif SPRITES.has(room_sprite):
+		$Sprite.texture = SPRITES[room_sprite]
 
-	
-func getFloorID():
-	var myParent = get_parent()
-	while(!myParent.has_method("getRooms")):
-		myParent = myParent.get_parent()
-	return myParent.id
-	
-func getFloor():
-	var myParent = get_parent()
-	while(!myParent.has_method("getRooms")):
-		myParent = myParent.get_parent()
-	return myParent
-	
-func getCell() -> Vector2:
-	return Vector2(round(global_position.x / GameWorld.gridsize), round(global_position.y / GameWorld.gridsize))
+func _update_color() -> void:
+	if ROOM_COLOR_TO_COLOR.has(room_color):
+		self_modulate = ROOM_COLOR_TO_COLOR[room_color]
 
-func getDescription() -> String:
-	return _getDescription()
-
-func _getDescription() -> String:
-	return roomDescription
-
-func getBlindDescription() -> String:
-	if(blindRoomDescription == ""):
-		return "You don't understand where you are"
-	else:
-		return blindRoomDescription
-
-func getName():
-	return roomName
-
-func say(_text: String):
-	if(GM.ui):
-		GM.ui.say(_text)
-
-func sayn(_text: String):
-	say(_text+"\n")
-
-func saynn(_text: String):
-	say(_text+"\n\n")
-
-func addButton(text: String, tooltip: String = "", arg: String = ""):
-	GM.ui.addButton(text, tooltip, "roomCallback", [roomID, arg])
-	#emit_signal("addButton", text, method, tooltip)
-	
-func addDisabledButton(text: String, tooltip: String = ""):
-	GM.ui.addDisabledButton(text, tooltip)
-	#emit_signal("addDisabledButton", text, tooltip)
-	
-func addButtonUnlessLate(text: String, tooltip: String = "", arg: String = "", latetext: String = "It's way too late for that"):
-	if(GM.main.isVeryLate()):
-		addDisabledButton(text, latetext)
-	else:
-		addButton(text, tooltip, arg)
-	
-func addButtonWithChecks(text: String, tooltip: String, arg: String, checks: Array):
-	var badCheck = ButtonChecks.check(checks)
-	if(badCheck == null):
-		addButton(text, ButtonChecks.getPrefix(checks) + tooltip, arg)
-	else:
-		addDisabledButton(text, ButtonChecks.getReasonText(badCheck))
-	
-func clearScreen():
-	GM.ui.clearText()
-	GM.ui.clearButtons()
-	
-func runScene(id: String, args = []):
-	GM.main.runScene(id, args)
-
-func addActions():
-	for action in get_children():
-		if(action is RoomAction):
-			var roomAction:RoomAction = action
-			if(roomAction._shouldShow()):
-				if(roomAction._canRun()):
-					GM.ui.addButton(roomAction.ActionName, roomAction.ActionTooltip, "actionCallback", [roomAction.ActionScene])
-				else:
-					GM.ui.addDisabledButton(roomAction.ActionName, roomAction.ActionTooltip)
-
-func _onPreEnter():
-	emit_signal("onPreEnter", self)
-
-func _onEnter():
-	addActions()
-	
-	emit_signal("onEnter", self)
-
-func _onButton(key):
-	GM.ui.clearText()
-	GM.ui.clearButtons()
-	emit_signal("onReact", self, key)
-	return true
-
-func setHighlighted(high):
-	if(high):
-		self_modulate = Color.purple
-	else:
-		self_modulate = RoomColorToColor[roomColor]
-
-func onRoomChangeColor(newvalue):
-	roomColor = newvalue
-	
-	self_modulate = RoomColorToColor[roomColor]
-
-func onGridChangeColor(newvalue):
-	gridColor = newvalue
-	
-	if(newvalue == RoomStuff.RoomColor.White):
+func _update_grid_color() -> void:
+	if grid_color == RoomStuff.RoomColor.White:
 		$Grid.visible = false
 	else:
 		$Grid.visible = true
-	
-	$Grid.self_modulate = RoomColorToColor[gridColor]
+	$Grid.self_modulate = ROOM_COLOR_TO_COLOR.get(grid_color, Color.WHITE)
 
-func getCachedFloorID():
-	return floorID
+func get_floor_id() -> String:
+	var my_parent = get_parent()
+	while not my_parent.has_method("getRooms"):
+		my_parent = my_parent.get_parent()
+	return my_parent.id
 
-func isOfflimitsForInmates() -> bool:
-	if(loctag_GuardsEncounter || loctag_Greenhouses):
-		return true
-	if(loctag_EngineersEncounter || loctag_MentalWard):
-		return true
-	if(loctag_Offlimits):
-		return true
-	
-	return false
+func get_cell() -> Vector2:
+	return Vector2(roundf(global_position.x / GameWorld.GRID_SIZE), roundf(global_position.y / GameWorld.GRID_SIZE))
 
-func isLocToCatchOfflimits() -> bool:
-	if(loctag_GuardsEncounter || loctag_Greenhouses):
-		return true
-	if(loctag_EngineersEncounter || loctag_MentalWard):
-		return true
-	
-	return false
+func get_description() -> String:
+	return room_description
 
-# https://github.com/godotengine/godot/issues/43491
-# This function should just start working after the issue is fixed
-func _get_property_list():
-	var properties = []
-	properties.append({
-			name = "Location Tags",
-			type = TYPE_NIL,
-			hint_string = "loctag_",
-			usage = PROPERTY_USAGE_GROUP | PROPERTY_USAGE_SCRIPT_VARIABLE
-	})
-	return properties
+func get_blind_description() -> String:
+	return blind_room_description if blind_room_description != "" else "You don't understand where you are"
+
+func get_name() -> String:
+	return room_name
+
+func say(text: String) -> void:
+	if GM.ui:
+		GM.ui.say(text)
+
+func add_button(text: String, tooltip: String = "", arg: String = "") -> void:
+	GM.ui.addButton(text, tooltip, "roomCallback", [room_id, arg])
+
+func add_disabled_button(text: String, tooltip: String = "") -> void:
+	GM.ui.addDisabledButton(text, tooltip)
+
+func add_actions() -> void:
+	for action in get_children():
+		if action is RoomAction:
+			if action._shouldShow():
+				if action._canRun():
+					GM.ui.addButton(action.ActionName, action.ActionTooltip, "actionCallback", [action.ActionScene])
+				else:
+					GM.ui.addDisabledButton(action.ActionName, action.ActionTooltip)
+
+func _on_pre_enter() -> void:
+	on_pre_enter.emit(self)
+
+func _on_enter() -> void:
+	add_actions()
+	on_enter.emit(self)
+
+func set_highlighted(high: bool) -> void:
+	if high:
+		self_modulate = Color.PURPLE
+	else:
+		self_modulate = ROOM_COLOR_TO_COLOR.get(room_color, Color.WHITE)
+
+func is_offlimits_for_inmates() -> bool:
+	return loctag_guards_encounter or loctag_greenhouses or loctag_engineers_encounter or loctag_mental_ward or loctag_offlimits
+
+func get_cached_floor_id() -> String:
+	return floor_id
