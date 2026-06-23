@@ -1,16 +1,19 @@
-extends Reference
+extends RefCounted
 class_name EventTrigger
 
-var id = "error"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for event triggers.
 
-func addEvent(_event, _args):
+var id: String = "error"
+
+func addEvent(_event, _args) -> void:
 	pass
 
-func onAllEventsAdded():
+func onAllEventsAdded() -> void:
 	pass
 
-func triggerReact(_args):
+func triggerReact(_args) -> bool:
 	return false
 
-func triggerRun(_args):
+func triggerRun(_args) -> void:
 	pass
