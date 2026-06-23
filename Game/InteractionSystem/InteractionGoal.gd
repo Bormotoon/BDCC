@@ -1,54 +1,48 @@
 extends Object
 class_name InteractionGoal
 
-const Wander = "Wander"
-const Eat = "Eat"
-const Hangout = "Hangout"
-const WorkMine = "WorkMine"
-const Patrol = "Patrol"
-const POI = "POI" # Point of interest
-const Save = "Save"
-const Prostitute = "Prostitute"
-const Shower = "Shower"
-const RepairClothes = "RepairClothes"
-const Leave = "Leave"
-const Struggle = "Struggle"
-const GiveBirth = "GiveBirth"
-const LayEggs = "LayEggs"
-const HangoutAt = "HangoutAt"
-const SlaveLeave = "SlaveLeave"
-const SlaveGiveCredits = "SlaveGiveCredits"
-const NemesisAmbush = "NemesisAmbush"
-const GetHealed = "GetHealed"
-const NpcOwnerApproach = "NpcOwnerApproach"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Goal ID constants and factory.
 
-static func getAll():
+const Wander: String = "Wander"
+const Eat: String = "Eat"
+const Hangout: String = "Hangout"
+const WorkMine: String = "WorkMine"
+const Patrol: String = "Patrol"
+const POI: String = "POI"
+const Save: String = "Save"
+const Prostitute: String = "Prostitute"
+const Shower: String = "Shower"
+const RepairClothes: String = "RepairClothes"
+const Leave: String = "Leave"
+const Struggle: String = "Struggle"
+const GiveBirth: String = "GiveBirth"
+const LayEggs: String = "LayEggs"
+const HangoutAt: String = "HangoutAt"
+const SlaveLeave: String = "SlaveLeave"
+const SlaveGiveCredits: String = "SlaveGiveCredits"
+const NemesisAmbush: String = "NemesisAmbush"
+const GetHealed: String = "GetHealed"
+const NpcOwnerApproach: String = "NpcOwnerApproach"
+
+static func getAll() -> Array:
 	return [Wander, Eat, Hangout, WorkMine, Patrol, POI, Save, Prostitute, Shower, RepairClothes, Leave, Struggle, GiveBirth, LayEggs, HangoutAt, SlaveLeave, SlaveGiveCredits]
 
-static func getAllAlone():
+static func getAllAlone() -> Array:
 	return [Wander, Eat, Hangout, WorkMine, POI, Shower, RepairClothes, Leave, Struggle, GiveBirth, LayEggs, SlaveLeave, SlaveGiveCredits, Prostitute, NemesisAmbush, GetHealed, NpcOwnerApproach]
 
-static func create(theID:String):
-	var newGoal
-	if(GlobalRegistry.interactionGoalCache.has(theID)):
-		newGoal = GlobalRegistry.interactionGoalCache[theID]
-	else:
-		var resourcePath = "res://Game/InteractionSystem/AloneGoals/Goal"+theID+".gd"
-		newGoal = load(resourcePath)
-		if(newGoal != null):
-			GlobalRegistry.interactionGoalCache[theID] = newGoal
-			
-	if(newGoal == null):
+static func create(the_id: String):
+	var resource_path = "res://Game/InteractionSystem/AloneGoals/Goal" + the_id + ".gd"
+	var loaded = load(resource_path)
+	if loaded == null:
 		return null
-	var newBlock = newGoal.new()
-		
-	if(newBlock != null):
-		newBlock.id = theID
-	return newBlock
+	var new_block = loaded.new()
+	if new_block != null:
+		new_block.id = the_id
+	return new_block
 
-static func getRef(theID:String):
-	if(GlobalRegistry.interactionGoalRefCache.has(theID)):
-		return GlobalRegistry.interactionGoalRefCache[theID]
-	
-	GlobalRegistry.interactionGoalRefCache[theID] = create(theID)
-	return GlobalRegistry.interactionGoalRefCache[theID]
+static func getRef(the_id: String):
+	if GlobalRegistry.interactionGoalRefCache.has(the_id):
+		return GlobalRegistry.interactionGoalRefCache[the_id]
+	GlobalRegistry.interactionGoalRefCache[the_id] = create(the_id)
+	return GlobalRegistry.interactionGoalRefCache[the_id]
