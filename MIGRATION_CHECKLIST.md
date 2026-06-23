@@ -184,7 +184,7 @@ PoolStringArray → PackedStringArray
 | SexDomInfo.gd | ~80 | ✅ МИГРИРОВАН (anger/personality changes, goal management) |
 | SexSubInfo.gd | ~80 | ✅ МИГРИРОВАН (resistance/fear/consciousness, personality changes) |
 | SexVoice.gd | ~100 | ✅ МИГРИРОВАН (extends RefCounted, dialogue text preserved) |
-| SexReactionHandler.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
+| SexReactionHandler.gd | ~100 | ✅ МИГРИРОВАН (extends RefCounted, reaction chances preserved) |
 | Personality.gd | 85 | ✅ МИГРИРОВАН (extends RefCounted, stat scoring preserved) |
 | FetishHolder.gd | ~100 | ✅ МИГРИРОВАН (extends RefCounted, fetish scoring with obedience) |
 | Fetish/*.gd (24 файла) | ~2,400 | 🔴 НЕ МИГРИРОВАН |
