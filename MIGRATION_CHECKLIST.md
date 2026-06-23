@@ -286,7 +286,7 @@ PoolStringArray → PackedStringArray
 | Reputation/ | 8 | 554 | 🔴 НЕ МИГРИРОВАН |
 | Gameplay/ | 11 | 970 | ✅ МИГРИРОВАН (enums→match/case, constants) |
 | Flags/ | 2 | 86 | ✅ МИГРИРОВАН (match/case, type hints) |
-| Options/ | 4 | 1,748 | 🔴 НЕ МИГРИРОВАН |
+| Options/ | 4 | 1,748 | ✅ МИГРИРОВАН (File→FileAccess, JSON→parse_string, OS→DisplayServer) |
 | Computer/ | 2 | 452 | 🔴 НЕ МИГРИРОВАН |
 | Combat/ | 4 | 177 | 🔴 НЕ МИГРИРОВАН |
 | Minigames/ | 9 | 655 | 🔴 НЕ МИГРИРОВАН |
