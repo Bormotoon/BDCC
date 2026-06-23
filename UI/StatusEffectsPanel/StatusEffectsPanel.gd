@@ -6,8 +6,8 @@ var uiblockScene = preload("res://UI/StatusEffectsPanel/EffectUIBlock.tscn")
 var battleEffects = []
 var statusEffects = []
 
-export(bool) var showTooltipBelow = false
-onready var flexContainer = $FlexGridContainer
+@export var var showTooltipBelow = false
+@onready var flexContainer = $FlexGridContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,8 +26,8 @@ func addEffect(col, text, desc, texture = null, isWide = false):
 	if(texture):
 		block.setTexture(texture)
 	block.setNameAndDesc(text, desc)
-	block.connect("mouse_entered", self, "onBlockMouseEntered", [block])
-	block.connect("mouse_exited", self, "onBlockMouseExited", [block])
+	block.mouse_entered.connect(onBlockMouseEntered.bind([block]))
+	block.mouse_exited.connect(onBlockMouseExited.bind([block]))
 	
 	
 	flexContainer.add_child(block)

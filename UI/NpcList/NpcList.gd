@@ -1,17 +1,17 @@
 extends Control
 
-onready var npcRow = load("res://UI/NpcList/NPCRow.tscn")
-onready var container = $PanelContainer/VBoxC/ScrollC/VboxC2
-onready var nameButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Name
-onready var genderButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Gender
-onready var personalityButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Personality
-onready var childrenButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/ChildrenAmount
-onready var popupWindow = $CenterContainer/Notification
-onready var popupWindowLabel = $CenterContainer/Notification/NotificationLabel
-onready var popupForgetButton = $CenterContainer/Notification/HBoxC/Forget
-onready var popupOkButton = $CenterContainer/Notification/HBoxC/Ok
-onready var popupCancelButton = $CenterContainer/Notification/HBoxC/Cancel
-onready var relationship = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Relationship
+@onready var npcRow = load("res://UI/NpcList/NPCRow.tscn")
+@onready var container = $PanelContainer/VBoxC/ScrollC/VboxC2
+@onready var nameButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Name
+@onready var genderButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Gender
+@onready var personalityButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Personality
+@onready var childrenButton = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/ChildrenAmount
+@onready var popupWindow = $CenterContainer/Notification
+@onready var popupWindowLabel = $CenterContainer/Notification/NotificationLabel
+@onready var popupForgetButton = $CenterContainer/Notification/HBoxC/Forget
+@onready var popupOkButton = $CenterContainer/Notification/HBoxC/Ok
+@onready var popupCancelButton = $CenterContainer/Notification/HBoxC/Cancel
+@onready var relationship = $PanelContainer/VBoxC/UpperPanel/HBoxContainer/Relationship
 
 var _nameBtnState: bool = true
 var _genderBtnState: bool = true
@@ -30,8 +30,8 @@ func addRow(name: String, gender: String, subbyStat: float, ID: String, occupati
 		var theSpecial:Array = GM.main.RS.getSpecialTextAndColor(ID)
 		if(theSpecial.size() >= 2):
 			newRow.setSpecialRelationship(theSpecial[0], theSpecial[1])
-	newRow.connect("onForgetButtonPressed", self, "forgetNPC")
-	newRow.connect("onMeetButtonPressed", self, "meetNPC")
+	newRow.onForgetButtonPressed.connect(forgetNPC)
+	newRow.onMeetButtonPressed.connect(meetNPC)
 	
 
 var showedForgetPopup = false
@@ -57,7 +57,7 @@ func _on_Cancel_pressed():
 
 
 func meetNPC(ID, occupation):
-	emit_signal("onMeetNpcButton", ID, occupation)
+	onMeetNpcButton.emit(ID, occupation)
 
 
 func sendPopupMessage(msgText: String = "", isForgetWindow: bool = false):

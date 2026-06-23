@@ -1,9 +1,9 @@
 extends PanelContainer
 
-onready var profile_button:Button = $PanelContainer/HBoxContainer/ProfileButton
-onready var consoleLabel = $PanelContainer/ConsoleRichLabel
+@onready var profile_button:Button = $PanelContainer/HBoxContainer/ProfileButton
+@onready var consoleLabel = $PanelContainer/ConsoleRichLabel
 signal consoleClosed
-onready var mem_label:Label = $"%MemLabel"
+@onready var mem_label:Label = $"%MemLabel"
 
 var savedText = ""
 
@@ -26,7 +26,7 @@ func _on_ClearButton_pressed():
 	consoleLabel.bbcode_text = ""
 
 func _on_CloseButton_pressed():
-	emit_signal("consoleClosed")
+	consoleClosed.emit()
 
 
 func _on_DebugConsole_visibility_changed():

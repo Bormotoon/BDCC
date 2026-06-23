@@ -39,7 +39,7 @@ func makeImagepackList():
 	isImagesPacks = true
 
 func _on_List_item_selected(index):
-	emit_signal("value_changed", categoryID, id, myvalues[index][0])
+	value_changed.emit(categoryID, id, myvalues[index][0])
 
 func setDescription(newdesc):
 	description = newdesc

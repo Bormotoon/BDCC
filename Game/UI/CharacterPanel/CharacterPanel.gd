@@ -1,14 +1,14 @@
 extends VBoxContainer
 
-onready var nameLabel = $NameLabel
-onready var statusEffectsPanel = $StatusEffectsPanel
-onready var staminaBar = $StaminaBar
-onready var painBar = $PainBar
-onready var lustBar = $HBoxContainer/LustBar
-onready var levelBar = $LevelBar
+@onready var nameLabel = $NameLabel
+@onready var statusEffectsPanel = $StatusEffectsPanel
+@onready var staminaBar = $StaminaBar
+@onready var painBar = $PainBar
+@onready var lustBar = $HBoxContainer/LustBar
+@onready var levelBar = $LevelBar
 
-onready var consciousnessBar = $ConsciousnessBar
-onready var arousalBar = $HBoxContainer/ArousalBar
+@onready var consciousnessBar = $ConsciousnessBar
+@onready var arousalBar = $HBoxContainer/ArousalBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

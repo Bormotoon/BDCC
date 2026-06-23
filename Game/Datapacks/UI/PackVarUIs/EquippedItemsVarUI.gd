@@ -8,7 +8,7 @@ var data = {
 var values = []
 
 var singleSlotScene = preload("res://Game/Datapacks/UI/PackVarUIs/EquipItemVarUI.tscn")
-onready var inv_list = $InvList
+@onready var inv_list = $InvList
 
 func setInvData(_value):
 	data = _value
@@ -36,7 +36,7 @@ func updateValues():
 			"value": data[inventorySlot] if data.has(inventorySlot) else {id=""},
 		})
 		newSlot.id = inventorySlot
-		newSlot.connect("onValueChange", self, "onInvSlotChanged")
+		newSlot.onValueChange.connect(onInvSlotChanged)
 
 func onInvSlotChanged(slotID, newdata):
 	if(newdata["id"] == ""):

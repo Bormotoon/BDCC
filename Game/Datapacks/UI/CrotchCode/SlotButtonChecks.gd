@@ -7,7 +7,7 @@ signal onChecksChanged(checks)
 
 func setChecks(newChecks):
 	checks = newChecks
-	emit_signal("onChecksChanged", checks)
+	onChecksChanged.emit(checks)
 
 func getValue(_contex:CodeContex):
 	return false

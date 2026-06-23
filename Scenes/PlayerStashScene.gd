@@ -41,18 +41,18 @@ func _run():
 		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(theItems, "stash")
-		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
-		var _ok3 = inventory.connect("onInteractWithGroup", self, "onInventoryItemGroupInteracted")
+		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
+		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
 		addButton("Back", "Go back", "")
 	
 	if(state == "takeitemmenu"):
 		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(GlobalRegistry.getCharacter("playerstash").getInventory().getAllItems(), "take")
-		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
-		var _ok3 = inventory.connect("onInteractWithGroup", self, "onInventoryItemGroupInteracted")
+		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
+		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
 		addButton("Back", "Go back", "")
 
 func _react(_action: String, _args):

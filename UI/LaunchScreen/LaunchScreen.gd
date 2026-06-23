@@ -1,18 +1,18 @@
 extends Control
 
-onready var modDescriptionLabel = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/RichTextLabel
-onready var modVList = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/ModList
-onready var modFileList = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/ModFileList
-onready var modDisableButton = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/HFlowContainer/ModDisableButton
-onready var modCountLabel = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/orderhb/Label
-onready var build_pck_button = $"%BuildPCKButton"
-onready var open_mods_folder = $"%OpenModsFolder"
-onready var search_line_edit = $"%SearchLineEdit"
+@onready var modDescriptionLabel = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/RichTextLabel
+@onready var modVList = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/ModList
+@onready var modFileList = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/ModFileList
+@onready var modDisableButton = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/HFlowContainer/ModDisableButton
+@onready var modCountLabel = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/orderhb/Label
+@onready var build_pck_button = $"%BuildPCKButton"
+@onready var open_mods_folder = $"%OpenModsFolder"
+@onready var search_line_edit = $"%SearchLineEdit"
 
-onready var debug_button = $"%DebugButton"
-onready var building_pck_panel = $"%BuildingPCKPanel"
+@onready var debug_button = $"%DebugButton"
+@onready var building_pck_panel = $"%BuildingPCKPanel"
 
-onready var troubleshooting_screen = $"%TroubleshootingScreen"
+@onready var troubleshooting_screen = $"%TroubleshootingScreen"
 
 var launchModEntryScene = preload("res://UI/LaunchScreen/LaunchModEntry.tscn")
 
@@ -20,7 +20,7 @@ var currentModOrder:Array = []
 var selectedEntry = null
 var launchModEntries:Array = []
 
-export(Resource) var GlobalTheme
+@export var var GlobalTheme
 
 const modOrderPath = "user://modOrder.json"
 const pckversionPath = "user://bdccpckversion.txt"
@@ -46,7 +46,7 @@ func _ready():
 	var rawModList := GlobalRegistry.getRawModList()
 	if(GlobalRegistry.hasModSupport() && OS.get_name() == "Android" && (rawModList.size() > 0 || OPTIONS.shouldShowModdedLauncher())):
 		if(Util.readFile(pckversionPath) != GlobalRegistry.getGameVersionString()):
-			yield(generateBDCCpckFile(), "completed")
+			await generateBDCCpckFile()
 			rawModList = GlobalRegistry.getRawModList()
 
 	if(GlobalRegistry.doesLoadLockFileExist()): # Game crashed during loading last time
@@ -175,9 +175,9 @@ func updateModList():
 		modVList.add_child(newEntry)
 		newEntry.entryIndex = modEntryIdx
 		newEntry.setModEntry(modEntry)
-		newEntry.connect("onSelected", self, "onModEntryClicked")
-		newEntry.connect("onDoubleClicked", self, "toggleModEntryDisabled")
-		newEntry.connect("onDragOntoAnotherEntry",self,"modEntryDroppedData")
+		newEntry.onSelected.connect(onModEntryClicked)
+		newEntry.onDoubleClicked.connect(toggleModEntryDisabled)
+		newEntry.onDragOntoAnotherEntry.connect(modEntryDroppedData)
 		launchModEntries.append(newEntry)
 	
 	updateModListSelection()
@@ -393,13 +393,13 @@ func _on_RichTextLabel_meta_clicked(meta):
 
 
 func _on_TestButton_pressed():
-	yield(generateBDCCpckFile(), "completed")
+	await generateBDCCpckFile()
 	checkModOrderAndFillData(GlobalRegistry.getRawModList())
 	
 func generateBDCCpckFile():
 	building_pck_panel.visible = true
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
+	await get_tree().process_frame
 	var packer = PCKPacker.new()
 	
 	var modsFolder = GlobalRegistry.getModsFolder()
@@ -553,10 +553,10 @@ func checkBrokenModEntry(modEntry:Dictionary, brokenEntry:Dictionary) -> bool:
 	
 	return true
 
-onready var busy_panel = $"%BusyPanel"
-onready var busy_label = $"%BusyLabel"
-onready var busy_close_button = $"%BusyCloseButton"
-onready var http_request_mods:HTTPRequest = $"%HTTPRequestMods"
+@onready var busy_panel = $"%BusyPanel"
+@onready var busy_label = $"%BusyLabel"
+@onready var busy_close_button = $"%BusyCloseButton"
+@onready var http_request_mods:HTTPRequest = $"%HTTPRequestMods"
 
 func setBusyPanel(_text:String, _canClose:bool = false):
 	if(_text.is_empty()):

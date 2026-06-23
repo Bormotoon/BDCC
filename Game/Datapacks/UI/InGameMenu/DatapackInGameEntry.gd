@@ -26,10 +26,10 @@ func setContainsLabel(theT):
 	$ContainsLabel.text = theT
 
 func _on_LoadButton_pressed():
-	emit_signal("onLoadPressed", id)
+	onLoadPressed.emit(id)
 
 func _on_UnloadButton_pressed():
-	emit_signal("onUnloadPressed", id)
+	onUnloadPressed.emit(id)
 
 func _on_UpdateButton_pressed():
-	emit_signal("onUpdatePressed", id)
+	onUpdatePressed.emit(id)

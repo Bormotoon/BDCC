@@ -60,9 +60,9 @@ func _run():
 		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(theItems, "give")
-		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
-		var _ok3 = inventory.connect("onInteractWithGroup", self, "onInventoryItemGroupInteracted")
+		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
+		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
 		addButton("Back", "Go back", "")
 	
 	if(state == "takeitemmenu"):
@@ -70,9 +70,9 @@ func _run():
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(npc.getInventory().getItemsAndEquippedItemsTogetherGrouped(), "equiptake")
 		#inventory.setItems(npc.getInventory().getAllItems(), "take")
-		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
-		var _ok3 = inventory.connect("onInteractWithGroup", self, "onInventoryItemGroupInteracted")
+		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
+		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
 		addButton("Back", "Go back", "")
 	
 	if(state == "item_toggle_message"):

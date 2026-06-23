@@ -1,7 +1,7 @@
 extends Control
 
-onready var savesContainer = $VBoxContainer/ScrollContainer/ScrollVBox/SavesContainer
-onready var saveFileNameInput = $VBoxContainer/ScrollContainer/ScrollVBox/HBoxContainer/SaveFileNameInput
+@onready var savesContainer = $VBoxContainer/ScrollContainer/ScrollVBox/SavesContainer
+@onready var saveFileNameInput = $VBoxContainer/ScrollContainer/ScrollVBox/HBoxContainer/SaveFileNameInput
 var saveGameElemenetScene = preload("res://UI/MainMenu/SaveGameElement.tscn")
 signal onClosePressed
 var inDeleteMode = false
@@ -18,8 +18,8 @@ func updateSaves():
 		var saveGameElementObject = saveGameElemenetScene.instantiate()
 		savesContainer.add_child(saveGameElementObject)
 		saveGameElementObject.setSaveFile(savePath)
-		saveGameElementObject.connect("onLoadButtonPressed", self, "onSaveLoadButtonClicked")
-		saveGameElementObject.connect("onDeleteButtonPressed", self, "onDeleteButtonClicked")
+		saveGameElementObject.onLoadButtonPressed.connect(onSaveLoadButtonClicked)
+		saveGameElementObject.onDeleteButtonPressed.connect(onDeleteButtonClicked)
 		saveGameElementObject.setDeleteMode(inDeleteMode)
 		saveGameElementObject.setShowLoadButton(false)
 		
@@ -31,7 +31,7 @@ func onDeleteButtonClicked(savePath):
 	updateSaves()
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_LoadGameScreen_visibility_changed():

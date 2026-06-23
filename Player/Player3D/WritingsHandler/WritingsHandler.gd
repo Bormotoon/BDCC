@@ -1,9 +1,9 @@
 extends Node
 class_name WritingsHandler
 
-onready var viewport = $"%Viewport"
-onready var update_timer = $"%UpdateTimer"
-onready var layers = $"%Layers"
+@onready var viewport = $"%Viewport"
+@onready var update_timer = $"%UpdateTimer"
+@onready var layers = $"%Layers"
 
 const WritingsFont = preload("res://Fonts/BodyWritingsFont.tres")
 const WritingsFontThin = preload("res://Fonts/BodyWritingsFontThin.tres")

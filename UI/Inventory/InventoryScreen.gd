@@ -1,11 +1,11 @@
 extends Control
 
-onready var itemListContainer = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/VBoxContainer
+@onready var itemListContainer = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/VBoxContainer
 var inventoryEntry = preload("res://UI/Inventory/InventoryEntry.tscn")
 var inventoryGroupEntry = preload("res://UI/Inventory/InventoryGroupEntry.tscn")
-onready var itemNameLabel = $MarginContainer/HBoxContainer/VBoxContainer/Label
-onready var itemDescLabel = $MarginContainer/HBoxContainer/VBoxContainer/RichTextLabel
-onready var searchInput = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/SearchLineEdit
+@onready var itemNameLabel = $MarginContainer/HBoxContainer/VBoxContainer/Label
+@onready var itemDescLabel = $MarginContainer/HBoxContainer/VBoxContainer/RichTextLabel
+@onready var searchInput = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/SearchLineEdit
 
 #var inventory: Inventory
 var itemsByGroup = {}
@@ -118,15 +118,15 @@ func updateInventory():
 				filterEnteries.append(entry)
 				entry.setItem(item, currentMode)
 				
-				entry.connect("onInteractButtonPressed", self, "onEntryInteractButtonPressed")
-				entry.connect("onItemSelected", self, "onEntrySelected")
+				entry.onInteractButtonPressed.connect(onEntryInteractButtonPressed)
+				entry.onItemSelected.connect(onEntrySelected)
 		else:
 			var newGroupEntry = inventoryGroupEntry.instantiate()
 			itemListContainer.add_child(newGroupEntry)
 			newGroupEntry.setItem(theItems[0], currentMode)
 			filterEnteries.append(newGroupEntry)
 			
-			newGroupEntry.connect("onInteractButtonPressed", self, "onGroupEntryInteractButtonPressed")
+			newGroupEntry.onInteractButtonPressed.connect(onGroupEntryInteractButtonPressed)
 			# add entry to some group entries maybe here
 			for item in theItems:
 				if(!item):
@@ -136,8 +136,8 @@ func updateInventory():
 				entry.setItem(item, currentMode)
 				itemEntries.append(entry)
 				
-				entry.connect("onInteractButtonPressed", self, "onEntryInteractButtonPressed")
-				entry.connect("onItemSelected", self, "onEntrySelected")
+				entry.onInteractButtonPressed.connect(onEntryInteractButtonPressed)
+				entry.onItemSelected.connect(onEntrySelected)
 			newGroupEntry.updateCollapsed()
 			
 	updateSelectedHighlight()
@@ -170,16 +170,16 @@ func updateSelectedInfo():
 			itemDescLabel.bbcode_text += " (for "+str(selectedItem.getAmount())+")"
 
 func onEntryInteractButtonPressed(theItem):
-	emit_signal("onInteractWith", theItem)
+	onInteractWith.emit(theItem)
 
 func onGroupEntryInteractButtonPressed(theItem):
-	emit_signal("onInteractWithGroup", theItem)
+	onInteractWithGroup.emit(theItem)
 
 func onEntrySelected(theItem):
 	selectedItem = theItem
 	updateSelectedInfo()
 	updateSelectedHighlight()
-	emit_signal("onItemSelected", selectedItem)
+	onItemSelected.emit(selectedItem)
 
 
 func _on_SearchLineEdit_text_changed(_new_text):

@@ -1,6 +1,6 @@
 extends RigidBody
 
-onready var tentacle_egg:MeshInstance = $TentacleEgg/TentacleEgg
+@onready var tentacle_egg:MeshInstance = $TentacleEgg/TentacleEgg
 
 const matPlant := preload("res://Player/Props/EggPlantMatCustom.tres")
 const matWhite := preload("res://Player/Props/EggWhiteMatCustom.tres")

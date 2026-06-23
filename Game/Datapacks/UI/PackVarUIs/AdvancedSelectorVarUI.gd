@@ -1,7 +1,7 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var label = $Label
-onready var button = $Button
-onready var label_2 = $Label2
+@onready var label = $Label
+@onready var button = $Button
+@onready var label_2 = $Label2
 
 var advPickerScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/AdvancedPickingWindow.tscn")
 
@@ -64,8 +64,8 @@ func _on_Button_pressed():
 		value = selectedValue,
 		values = values,
 	})
-	newWindow.connect("onCancel", self, "onAdvPickerCancel")
-	newWindow.connect("onConfirm", self, "onAdvPickerConfirmPressed")
+	newWindow.onCancel.connect(onAdvPickerCancel)
+	newWindow.onConfirm.connect(onAdvPickerConfirmPressed)
 	newWindow.popup_centered()
 
 func onAdvPickerCancel(window):

@@ -1,6 +1,6 @@
 extends Node
 
-onready var tooltip = $CanvasLayer/TooltipDisplay
+@onready var tooltip = $CanvasLayer/TooltipDisplay
 
 var nodeRef:WeakRef
 

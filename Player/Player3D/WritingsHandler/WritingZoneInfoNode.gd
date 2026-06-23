@@ -45,7 +45,7 @@ const OPPOSITE = {
 	ZONE.ShinRight: ZONE.ShinLeft,
 }
 
-export(ZONE) var zone:int = 0
+@export var var zone:int = 0
 export var pos:Vector2
 export var posSpread:float = 0.0
 export var rot:float = 0.0

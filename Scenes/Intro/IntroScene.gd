@@ -48,7 +48,7 @@ func _run():
 		say("Enter the name of your character:")
 		
 		var textBox:LineEdit = addTextbox("player_name")
-		var _ok = textBox.connect("text_entered", self, "onTextBoxEnterPressed")
+		var _ok = textBox.text_entered.connect(onTextBoxEnterPressed)
 		
 		addButton("Confirm", "Choose this name", "setname")
 		

@@ -1,10 +1,10 @@
 extends Control
 
-onready var pack_variables = $VBoxContainer/Control/TabContainer/Info/ScrollContainer/VBoxContainer/PackVariables
-onready var new_flag_line_edit = $VBoxContainer/Control/TabContainer/Flags/HBoxContainer3/NewFlagLineEdit
-onready var flag_list = $VBoxContainer/Control/TabContainer/Flags/ScrollContainer2/FlagList
-onready var datapack_quest_code_wrapper = $VBoxContainer/Control/TabContainer/Stages/HBoxContainer/VBoxContainer/DatapackQuestCodeWrapper
-onready var possible_code_blocks_list = $VBoxContainer/Control/TabContainer/Stages/HBoxContainer/VBoxContainer2/ScrollContainer/PossibleCodeBlocksList
+@onready var pack_variables = $VBoxContainer/Control/TabContainer/Info/ScrollContainer/VBoxContainer/PackVariables
+@onready var new_flag_line_edit = $VBoxContainer/Control/TabContainer/Flags/HBoxContainer3/NewFlagLineEdit
+@onready var flag_list = $VBoxContainer/Control/TabContainer/Flags/ScrollContainer2/FlagList
+@onready var datapack_quest_code_wrapper = $VBoxContainer/Control/TabContainer/Stages/HBoxContainer/VBoxContainer/DatapackQuestCodeWrapper
+@onready var possible_code_blocks_list = $VBoxContainer/Control/TabContainer/Stages/HBoxContainer/VBoxContainer2/ScrollContainer/PossibleCodeBlocksList
 
 var varListEntryScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/VarListEntry.tscn")
 
@@ -65,9 +65,9 @@ func updateFlagList():
 		flag_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)
-		newVarEntry.connect("onDeletePressed", self, "onDeleteFlagPressed")
-		newVarEntry.connect("onVarEdit", self, "onFlagEdit")
-		newVarEntry.connect("onVarRename", self, "onFlagRename")
+		newVarEntry.onDeletePressed.connect(onDeleteFlagPressed)
+		newVarEntry.onVarEdit.connect(onFlagEdit)
+		newVarEntry.onVarRename.connect(onFlagRename)
 
 func onFlagRename(oldName, newName):
 	var varInfo = datapack.flags[oldName]

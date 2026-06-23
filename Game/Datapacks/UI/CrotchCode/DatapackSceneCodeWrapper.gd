@@ -1,11 +1,11 @@
 extends VBoxContainer
 
-onready var vis_slot_calls = $ScrollContainer/PanelContainer/VisSlotCalls
+@onready var vis_slot_calls = $ScrollContainer/PanelContainer/VisSlotCalls
 
 var mainSlotCalls = preload("res://Game/Datapacks/UI/CrotchCode/SlotCalls.gd").new()
-onready var undo_button = $HBoxContainer/UndoButton
-onready var redo_button = $HBoxContainer/RedoButton
-onready var scroll_container = $ScrollContainer
+@onready var undo_button = $HBoxContainer/UndoButton
+@onready var redo_button = $HBoxContainer/RedoButton
+@onready var scroll_container = $ScrollContainer
 
 var editor = null
 

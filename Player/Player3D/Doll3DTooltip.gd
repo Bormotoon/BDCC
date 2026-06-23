@@ -1,7 +1,7 @@
 extends Spatial
 
 var isIn = false
-export(String) var bodypartID = ""
+@export var var bodypartID = ""
 
 signal mouseEntered(bodypartID)
 signal mouseExited(bodypartID)
@@ -26,8 +26,8 @@ func _input(event: InputEvent):
 		if(distance < 0.5 && (event.position.x >= 0 && event.position.y >= 0)):
 			if(!isIn):
 				isIn = true
-				emit_signal("mouseEntered", self, bodypartID)
+				mouseEntered.emit(self, bodypartID)
 		else:
 			if(isIn):
 				isIn = false
-				emit_signal("mouseExited", self, bodypartID)
+				mouseExited.emit(self, bodypartID)

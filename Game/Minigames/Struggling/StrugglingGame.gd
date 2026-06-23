@@ -1,6 +1,6 @@
 extends Control
 
-onready var startUI = $StartUI
+@onready var startUI = $StartUI
 
 var buttonScene = preload("res://Game/Minigames/Struggling/StruggleButton.tscn")
 
@@ -165,7 +165,7 @@ func _on_NextButtonTimer_timeout():
 		
 		button.position = rect_size * pos
 		button.setup(buttonTime, buttonDeadzone)
-		button.connect("onHit", self, "onButtonHit")
+		button.onHit.connect(onButtonHit)
 		$Buttons.add_child(button)
 		$Buttons.move_child(button, 0)
 
@@ -191,4 +191,4 @@ func _on_ContinueButton_pressed():
 	
 	var result = MinigameResult.new()
 	result.score = accuracy
-	emit_signal("minigameCompleted", result)
+	minigameCompleted.emit(result)

@@ -1,6 +1,6 @@
 extends PanelContainer
 
-export(Gradient) var colorGradient
+@export var var colorGradient
 export var propertyName = "Property"
 var currentValue = null
 var currentBarValue = 0.0

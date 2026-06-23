@@ -28,12 +28,12 @@ func _on_SkillStatLine_mouse_exited():
 
 
 func _on_PlusButton_pressed():
-	emit_signal("onPlusButton", statID, 1)
+	onPlusButton.emit(statID, 1)
 
 
 func _on_PlusFiveButton_pressed():
-	emit_signal("onPlusButton", statID, 5)
+	onPlusButton.emit(statID, 5)
 
 
 func _on_PlusTenButton_pressed():
-	emit_signal("onPlusButton", statID, 10)
+	onPlusButton.emit(statID, 10)

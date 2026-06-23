@@ -1,9 +1,9 @@
 extends Control
 
-onready var artworkPanel = $CharactersArtworkPanel
-onready var charactersPanel = $CharactersPanel
-onready var fightCharacterList = $ScrollContainer/FightCharacterPanels
-onready var scrollContainer = $ScrollContainer
+@onready var artworkPanel = $CharactersArtworkPanel
+@onready var charactersPanel = $CharactersPanel
+@onready var fightCharacterList = $ScrollContainer/FightCharacterPanels
+@onready var scrollContainer = $ScrollContainer
 
 var fightCharacterUIScene = preload("res://Game/UI/CharacterPanel/CharacterPanel.tscn")
 var isInFightMode = false

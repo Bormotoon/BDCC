@@ -16,7 +16,7 @@ func updateStats():
 			name = theStat.getVisibleName(),
 			value = (statData[statID] if statData.has(statID) else 0),
 		})
-		newStatUI.connect("onValueChange", self, "onStatChanged")
+		newStatUI.onValueChange.connect(onStatChanged)
 
 func onStatChanged(id, value):
 	statData[id] = value

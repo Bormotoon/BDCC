@@ -1,8 +1,8 @@
 extends PanelContainer
 
 var characterID: String
-onready var characterNameLabel = $VBoxContainer/CharacterName
-onready var characterStatusGrid = $VBoxContainer/CharacterStatusGrid
+@onready var characterNameLabel = $VBoxContainer/CharacterName
+@onready var characterStatusGrid = $VBoxContainer/CharacterStatusGrid
 
 func setCharacterID(charID: String):
 	var character = GlobalRegistry.getCharacter(charID)

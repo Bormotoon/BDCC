@@ -23,7 +23,7 @@ var theGame:MainScene
 var testingScene = false
 var pickedSavePath = null
 
-onready var savesContainer = $SavesMenu/ScrollContainer/SavesContainer
+@onready var savesContainer = $SavesMenu/ScrollContainer/SavesContainer
 var saveGameElemenetScene = preload("res://UI/MainMenu/SaveGameElement.tscn")
 
 func reset():
@@ -60,8 +60,8 @@ func addToRunNoTabs(thetext):
 		
 	runs[currentRun].append(thetext)
 
-onready var inputTextEdit = $VBoxContainer/TextEdit
-onready var outputTextEdit = $VBoxContainer/TextEdit2
+@onready var inputTextEdit = $VBoxContainer/TextEdit
+@onready var outputTextEdit = $VBoxContainer/TextEdit2
 
 func _ready():
 	$VBoxContainer/TextEdit2.add_color_region('#', '', Color.cadetblue)
@@ -455,7 +455,7 @@ func updateSaves():
 		var saveGameElementObject = saveGameElemenetScene.instantiate()
 		savesContainer.add_child(saveGameElementObject)
 		saveGameElementObject.setSaveFile(savePath)
-		saveGameElementObject.connect("onLoadButtonPressed", self, "onSaveLoadButtonClicked")
+		saveGameElementObject.onLoadButtonPressed.connect(onSaveLoadButtonClicked)
 		saveGameElementObject.setDeleteMode(false)
 		saveGameElementObject.setPickMode()
 

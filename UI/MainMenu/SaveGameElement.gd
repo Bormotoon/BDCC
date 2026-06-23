@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 var saveFile:String = ""
-onready var saveNameLabel = $SaveNameLabel
+@onready var saveNameLabel = $SaveNameLabel
 signal onLoadButtonPressed(saveFile)
 signal onDeleteButtonPressed(saveFile)
 signal onExportButtonPressed(saveFile)
@@ -35,11 +35,11 @@ func setSaveFile(path):
 	saveNameLabel.bbcode_text = ("(External) " if isExternal else "") + "[b]" + saveFile.get_file() + "[/b] - " + fileModifTimeString + "\n"+extra
 
 func _on_LoadButton_pressed():
-	emit_signal("onLoadButtonPressed", saveFile)
+	onLoadButtonPressed.emit(saveFile)
 
 
 func _on_DeleteButton_pressed():
-	emit_signal("onDeleteButtonPressed", saveFile)
+	onDeleteButtonPressed.emit(saveFile)
 
 func updateButtons():
 	if(isInDeleteMode):
@@ -70,4 +70,4 @@ func setPickMode():
 	$DeleteButton.visible = false
 
 func _on_ExportButton_pressed():
-	emit_signal("onExportButtonPressed", saveFile)
+	onExportButtonPressed.emit(saveFile)

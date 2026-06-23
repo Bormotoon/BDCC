@@ -1,5 +1,5 @@
 extends VBoxContainer
-onready var block_catcher_panel = $BlockCatcherPanel
+@onready var block_catcher_panel = $BlockCatcherPanel
 
 var slotVar
 var extraMode = 0
@@ -13,8 +13,8 @@ func setSlotVar(theSlotVar):
 	slotVar = theSlotVar
 	updateBlock()
 	#updateBlocksFully()
-	#slotCalls.connect("onBlockAdded", self, "onNewBlockAdded")
-	slotVar.connect("onBlockChanged", self, "onBlockChanged")
+	#slotCalls.onBlockAdded.connect(onNewBlockAdded)
+	slotVar.onBlockChanged.connect(onBlockChanged)
 	block_catcher_panel.setRawMode(slotVar.getRawType(), extraMode)
 	block_catcher_panel.setRawValue(slotVar.getRawValue())
 	if(slotVar.getRawType() == CrotchVarType.BOOL):

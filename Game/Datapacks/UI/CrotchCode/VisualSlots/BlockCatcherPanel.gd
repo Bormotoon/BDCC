@@ -11,9 +11,9 @@ var extraMode = 0
 
 var bigTextEditWindowScene = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/CrotchBigTextEditWindow.tscn")
 var currentBigWindow
-onready var map_button = $MarginContainer/MapButton
-onready var advanced_picker_button = $MarginContainer/AdvancedPickerButton
-onready var flag_picker_button = $MarginContainer/FlagPickerButton
+@onready var map_button = $MarginContainer/MapButton
+@onready var advanced_picker_button = $MarginContainer/AdvancedPickerButton
+@onready var flag_picker_button = $MarginContainer/FlagPickerButton
 
 var dropIndex = -1
 
@@ -22,7 +22,7 @@ func can_drop_data(_position, _data):
 	return true
 
 func drop_data(_position, _data):
-	emit_signal("onBlockDraggedOnto", _data, dropIndex)
+	onBlockDraggedOnto.emit(_data, dropIndex)
 
 func setIsHighlighted(isHigh):
 	var borderS = 0
@@ -35,8 +35,8 @@ func setIsHighlighted(isHigh):
 	theStyle.border_width_bottom = borderS
 
 func _ready():
-	#var _ok = GlobalSignals.connect("onDragEnded", self, "onDragEnded")
-	#var _ok2 = GlobalSignals.connect("onDragStarted", self, "onDragStarted")
+	#var _ok = GlobalSignals.onDragEnded.connect(onDragEnded)
+	#var _ok2 = GlobalSignals.onDragStarted.connect(onDragStarted)
 	setRawMode(0)
 	pass
 
@@ -73,7 +73,7 @@ func setRawPossibleValues(posVals:Array):
 	rawPossibleValues = posVals.duplicate()
 	#if(rawPossibleValues.size() > 0):
 	#	rawValue = rawPossibleValues[0]
-	#	emit_signal("onRawValueChanged", rawValue)
+	#	onRawValueChanged.emit(rawValue)
 	updateRawVis()
 
 func updateRawVis():
@@ -174,24 +174,24 @@ func setRawValue(newVal):
 func _on_SpinBox_value_changed(_value):
 	if(rawMode == CrotchVarType.NUMBER):
 		rawValue = _value
-		emit_signal("onRawValueChanged", _value)
+		onRawValueChanged.emit(_value)
 
 func _on_LineEdit_text_changed(new_text):
 	if(rawMode == CrotchVarType.STRING):
 		rawValue = new_text
-		emit_signal("onRawValueChanged", new_text)
+		onRawValueChanged.emit(new_text)
 
 func _on_OptionButton_item_selected(index):
 	if(index < 0 || index >= rawPossibleValues.size()):
 		return
 	if(rawPossibleValues.size() > 0):
 		rawValue = rawPossibleValues[index]
-		emit_signal("onRawValueChanged", rawPossibleValues[index])
+		onRawValueChanged.emit(rawPossibleValues[index])
 
 func _on_TextEdit_text_changed():
 	if(rawMode == CrotchVarType.STRING):
 		rawValue = $MarginContainer/BigTextEdit/TextEdit.text
-		emit_signal("onRawValueChanged", rawValue)
+		onRawValueChanged.emit(rawValue)
 
 
 func _on_OpenFullButton_pressed():
@@ -203,8 +203,8 @@ func _on_OpenFullButton_pressed():
 	add_child(currentBigWindow)
 	
 	currentBigWindow.setText($MarginContainer/BigTextEdit/TextEdit.text)
-	currentBigWindow.connect("onCancel", self, "deleteBigWindow")
-	currentBigWindow.connect("onSave", self, "replaceTextWithBigText")
+	currentBigWindow.onCancel.connect(deleteBigWindow)
+	currentBigWindow.onSave.connect(replaceTextWithBigText)
 	currentBigWindow.popup_centered()
 
 func replaceTextWithBigText(_window, text):
@@ -214,7 +214,7 @@ func replaceTextWithBigText(_window, text):
 	
 	$MarginContainer/BigTextEdit/TextEdit.text = text
 	rawValue = text
-	emit_signal("onRawValueChanged", rawValue)
+	onRawValueChanged.emit(rawValue)
 
 func deleteBigWindow(_window):
 	if(currentBigWindow != null):
@@ -226,8 +226,8 @@ func _on_MapButton_pressed():
 	var newWindow = mapLockerPickerWindowScene.instantiate()
 	add_child(newWindow)
 	newWindow.setSelectedCell(str(rawValue))
-	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")
-	newWindow.connect("onCellSelected", self, "onMapButtonCellSelected")
+	newWindow.onCancelPressed.connect(onMapButtonClosed)
+	newWindow.onCellSelected.connect(onMapButtonCellSelected)
 	
 	newWindow.popup_centered()
 
@@ -238,7 +238,7 @@ func onMapButtonCellSelected(window, cell):
 	window.queue_free()
 	rawValue = cell
 	map_button.text = "ROOM="+str(rawValue)
-	emit_signal("onRawValueChanged", rawValue)
+	onRawValueChanged.emit(rawValue)
 
 var advPickerScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/AdvancedPickingWindow.tscn")
 func _on_AdvancedPickerButton_pressed():
@@ -248,8 +248,8 @@ func _on_AdvancedPickerButton_pressed():
 		value = rawValue,
 		values = rawPossibleValues,
 	})
-	newWindow.connect("onCancel", self, "onMapButtonClosed")
-	newWindow.connect("onConfirm", self, "onAdvPickerConfirmPressed")
+	newWindow.onCancel.connect(onMapButtonClosed)
+	newWindow.onConfirm.connect(onAdvPickerConfirmPressed)
 	newWindow.popup_centered()
 
 func onAdvPickerConfirmPressed(window, value):
@@ -259,7 +259,7 @@ func onAdvPickerConfirmPressed(window, value):
 	for value in rawPossibleValues:
 		if(value is Array && value[0] == rawValue && value.size() > 1):
 			advanced_picker_button.text = str(value[1])
-	emit_signal("onRawValueChanged", rawValue)
+	onRawValueChanged.emit(rawValue)
 
 
 var flagPickerScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/FlagPickerWindow.tscn")
@@ -267,8 +267,8 @@ func _on_FlagPickerButton_pressed():
 	var newWindow = flagPickerScene.instantiate()
 	add_child(newWindow)
 	newWindow.setFlag(str(rawValue))
-	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")
-	newWindow.connect("onFlagSelected", self, "onFlagSelected")
+	newWindow.onCancelPressed.connect(onMapButtonClosed)
+	newWindow.onFlagSelected.connect(onFlagSelected)
 	
 	newWindow.popup_centered()
 
@@ -276,4 +276,4 @@ func onFlagSelected(window, newFlag):
 	window.queue_free()
 	rawValue = newFlag
 	flag_picker_button.text = ""+str(rawValue)
-	emit_signal("onRawValueChanged", rawValue)
+	onRawValueChanged.emit(rawValue)

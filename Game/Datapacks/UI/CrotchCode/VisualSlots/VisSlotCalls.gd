@@ -1,6 +1,6 @@
 extends VBoxContainer
-onready var blocks_list = $BlocksList
-onready var block_catcher_panel = $BlockCatcherPanel
+@onready var blocks_list = $BlocksList
+@onready var block_catcher_panel = $BlockCatcherPanel
 
 var smallCatchPanel = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/BlockCatcherPanelSmall.tscn")
 
@@ -18,8 +18,8 @@ func setSlotCalls(theSlotCalls):
 		slotCalls.disconnect("onBlockAdded", self, "onNewBlockAdded")
 		slotCalls.disconnect("onBlockRemoved", self, "onBlockRemoved")
 	slotCalls = theSlotCalls
-	slotCalls.connect("onBlockAdded", self, "onNewBlockAdded")
-	slotCalls.connect("onBlockRemoved", self, "onBlockRemoved")
+	slotCalls.onBlockAdded.connect(onNewBlockAdded)
+	slotCalls.onBlockRemoved.connect(onBlockRemoved)
 	requestFullUpdate()
 
 
@@ -52,7 +52,7 @@ func updateLittleAdders():
 		blocks_list.add_child(newSmallAdder)
 		blocks_list.move_child(newSmallAdder, blockVisualNode.get_index())
 		newSmallAdder.dropIndex = _i
-		newSmallAdder.connect("onBlockDraggedOnto", self, "_on_BlockCatcherPanel_onBlockDraggedOnto")
+		newSmallAdder.onBlockDraggedOnto.connect(_on_BlockCatcherPanel_onBlockDraggedOnto)
 		littleAdders.append(newSmallAdder)
 		_i += 1
 
@@ -77,11 +77,11 @@ func addVisBlockToList(theCodeBlock, index):
 func requestFullUpdate():
 	if(!needsUpdating):
 		needsUpdating = true
-		#yield(get_tree(), "idle_frame")
-		#yield(get_tree(), "idle_frame")
-		#yield(get_tree(), "idle_frame")
-		#yield(get_tree(), "idle_frame")
-		#yield(get_tree(), "idle_frame")
+		#await get_tree().process_frame
+		#await get_tree().process_frame
+		#await get_tree().process_frame
+		#await get_tree().process_frame
+		#await get_tree().process_frame
 		call_deferred("updateBlocksFully")
 		#updateBlocksFully()
 	

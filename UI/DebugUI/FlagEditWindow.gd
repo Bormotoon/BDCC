@@ -10,9 +10,9 @@ signal clearDatapackFlag(moduleID, flagID)
 signal setFlagValue(moduleID, flagID, value)
 signal setDatapackFlagValue(moduleID, flagID, value)
 
-onready var checkbox = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/CheckBox
-onready var spinbox = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/SpinBox
-onready var lineedit = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/LineEdit
+@onready var checkbox = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/CheckBox
+@onready var spinbox = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/SpinBox
+@onready var lineedit = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/LineEdit
 
 func setDatpackFlag(newdatpackid, newflagID):
 	datapackID = newdatpackid
@@ -131,24 +131,24 @@ func _on_CancelButton_pressed():
 
 func _on_ClearFlag_pressed():
 	if(datapackID != null):
-		emit_signal("clearDatapackFlag", datapackID, flagID)
+		clearDatapackFlag.emit(datapackID, flagID)
 	else:
-		emit_signal("clearFlag", moduleID, flagID)
+		clearFlag.emit(moduleID, flagID)
 	visible = false
 
 func _on_ChangeFlagButton_pressed():
 	if(datapackID != null):
 		if(savedFlagType == DatapackSceneVarType.BOOL):
-			emit_signal("setDatapackFlagValue", datapackID, flagID, checkbox.pressed)
+			setDatapackFlagValue.emit(datapackID, flagID, checkbox.pressed)
 		if(savedFlagType == DatapackSceneVarType.STRING):
-			emit_signal("setDatapackFlagValue", datapackID, flagID, lineedit.text)
+			setDatapackFlagValue.emit(datapackID, flagID, lineedit.text)
 		if(savedFlagType == DatapackSceneVarType.NUMBER):
-			emit_signal("setDatapackFlagValue", datapackID, flagID, spinbox.value)
+			setDatapackFlagValue.emit(datapackID, flagID, spinbox.value)
 	else:
 		if(savedFlagType == FlagType.Bool):
-			emit_signal("setFlagValue", moduleID, flagID, checkbox.pressed)
+			setFlagValue.emit(moduleID, flagID, checkbox.pressed)
 		if(savedFlagType == FlagType.Text):
-			emit_signal("setFlagValue", moduleID, flagID, lineedit.text)
+			setFlagValue.emit(moduleID, flagID, lineedit.text)
 		if(savedFlagType == FlagType.Number):
-			emit_signal("setFlagValue", moduleID, flagID, spinbox.value)
+			setFlagValue.emit(moduleID, flagID, spinbox.value)
 	visible = false

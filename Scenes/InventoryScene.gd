@@ -21,8 +21,8 @@ func _run():
 			var inventory = inventoryScreenScene.instantiate()
 			GM.ui.addFullScreenCustomControl("inventory", inventory)
 			inventory.setItems(GM.pc.getInventory().getItemsAndEquippedItemsTogetherGrouped(), ("fight" if fightMode else ""))
-			var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-			var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
+			var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+			var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
 			
 		else:
 			saynn("What do you wanna do")

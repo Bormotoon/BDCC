@@ -34,19 +34,19 @@ func setShortcutPhysicalScancode(code, reqControl:bool = false):
 #		if(event.pressed && event.physical_scancode == savedKey):
 #			grab_click_focus()
 #			grab_focus()
-#			emit_signal("pressed")
+#			pressed.emit()
 
 
 func _on_SceneOptionButton_pressed():
 	if(OS.has_touchscreen_ui_hint() && OPTIONS.shouldRequireDoubleTapOnMobile()):
 		if(!showingDescription):
 			showingDescription = true
-			emit_signal("mouse_entered")
+			mouse_entered.emit()
 		else:
 			showingDescription = false
-			emit_signal("pressedActually")
+			pressedActually.emit()
 	else:
-		emit_signal("pressedActually")
+		pressedActually.emit()
 
 
 func _on_SceneOptionButton_focus_exited():

@@ -1,10 +1,10 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var doll = $Doll3D
 #onready var doll2 = $Doll3D2
-onready var tentacles = $Tentacles
+@onready var tentacles = $Tentacles
 
 func _init():
 	id = StageScene.TentaclesDuo
@@ -83,11 +83,11 @@ func playAnimation(animID, _args = {}):
 
 	#_args["instantSleep"] = true
 	if(_args.has("instantSleep") && _args["instantSleep"]):
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 		state_machine2.start("TentSleep-loop")
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 
 	if(animID == "idle"):
 		state_machine2.travel("TentIdle-loop")

@@ -1,31 +1,31 @@
 extends Control
 
 var dialogWhat = ""
-onready var addDialog = $WindowDialog
+@onready var addDialog = $WindowDialog
 
-onready var statesList = $VBoxContainer/HBoxContainer/StatesActionsList/StatesList
-onready var domActionsList = $VBoxContainer/HBoxContainer/StatesActionsList/DomActionsList
-onready var subActionsList = $VBoxContainer/HBoxContainer/StatesActionsList/SubActionsList
+@onready var statesList = $VBoxContainer/HBoxContainer/StatesActionsList/StatesList
+@onready var domActionsList = $VBoxContainer/HBoxContainer/StatesActionsList/DomActionsList
+@onready var subActionsList = $VBoxContainer/HBoxContainer/StatesActionsList/SubActionsList
 
-onready var perTurnActionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/PerTurnActions
-onready var actionActionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/ActionActionsList
-onready var conditionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/ConditionsList
+@onready var perTurnActionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/PerTurnActions
+@onready var actionActionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/ActionActionsList
+@onready var conditionsList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/ConditionsList
 
-onready var actionEditingDialog = $ActionEditingDialog
-onready var actionEditingArgsList = $ActionEditingDialog/VBoxContainer/ArgsListScroll/ArgsList
-onready var actionEditingLabel = $ActionEditingDialog/VBoxContainer/Label
+@onready var actionEditingDialog = $ActionEditingDialog
+@onready var actionEditingArgsList = $ActionEditingDialog/VBoxContainer/ArgsListScroll/ArgsList
+@onready var actionEditingLabel = $ActionEditingDialog/VBoxContainer/Label
 
-onready var exportedCodeDialog = $ExportedCodeDialog
-onready var exportedCodeTextEdit = $ExportedCodeDialog/VBoxContainer/TextEdit
+@onready var exportedCodeDialog = $ExportedCodeDialog
+@onready var exportedCodeTextEdit = $ExportedCodeDialog/VBoxContainer/TextEdit
 
-onready var stateDynamicPropertiesList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/StateDynamicPropertiestList
-onready var dynamicPropertiesList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/DynamicPropertiestList
-onready var activityPropertiesList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/ActivityPropertiesList
-onready var startActionsList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/VBoxContainer/StartActionsList
-onready var startConditionsList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/VBoxContainer/StartConditionsList
+@onready var stateDynamicPropertiesList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/StateDynamicPropertiestList
+@onready var dynamicPropertiesList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/ActionPropertiesList/DynamicPropertiestList
+@onready var activityPropertiesList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/ActivityPropertiesList
+@onready var startActionsList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/VBoxContainer/StartActionsList
+@onready var startConditionsList = $VBoxContainer/ActivitySettingsScreen/VBoxContainer/VBoxContainer/StartConditionsList
 
-onready var stateDefaultAnimPicker = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/StateDefaultAnimPicker
-onready var animsWithConditionList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/AnimsWithConditionList
+@onready var stateDefaultAnimPicker = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/StateDefaultAnimPicker
+@onready var animsWithConditionList = $VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/StatePropertiesList/AnimsWithConditionList
 
 signal onClosePressed
 
@@ -72,7 +72,7 @@ func _ready():
 		theScene.setOptions(theData)
 		if(theData.has("text")):
 			theScene.setText(theData["text"])
-		theScene.connect("onChange", self, "onActionPropertyChange")
+		theScene.onChange.connect(onActionPropertyChange)
 		dynamicPropertiesObjects[propertyID] = theScene
 		
 	var statePropertiesData = getStateProperties()
@@ -84,7 +84,7 @@ func _ready():
 		theScene.setOptions(theData)
 		if(theData.has("text")):
 			theScene.setText(theData["text"])
-		theScene.connect("onChange", self, "onStatePropertyChange")
+		theScene.onChange.connect(onStatePropertyChange)
 		stateDynamicPropertiesObjects[propertyID] = theScene
 
 	var activityPropertiesData = getSexActivityProperties()
@@ -97,7 +97,7 @@ func _ready():
 		if(theData.has("text")):
 			theScene.setText(theData["text"])
 		theScene.setData(sexActivityProperties[propertyID])
-		theScene.connect("onChange", self, "onActivityPropertyChange")
+		theScene.onChange.connect(onActivityPropertyChange)
 		activityPropertiesObjects[propertyID] = theScene
 	
 	hideAllScreens()
@@ -271,8 +271,8 @@ func updateRightPanel():
 			animsWithConditionList.add_child(newConAnimScene)
 			newConAnimScene.setData(animWithCondition)
 			newConAnimScene.id = index
-			newConAnimScene.connect("onDeletePressed", self, "onDeletingAnimWithCondition")
-			newConAnimScene.connect("onUpPressed", self, "onUpAnimWithCondition")
+			newConAnimScene.onDeletePressed.connect(onDeletingAnimWithCondition)
+			newConAnimScene.onUpPressed.connect(onUpAnimWithCondition)
 			index += 1
 	
 	if(currentlyEditing == "domAction"):
@@ -1015,7 +1015,7 @@ func _on_LoadEverythingButton_pressed():
 		#if(theData.has("text")):
 		#	theScene.setText(theData["text"])
 		activityPropertiesObjects[propertyID].setData(sexActivityProperties[propertyID])
-		#theScene.connect("onChange", self, "onActivityPropertyChange")
+		#theScene.onChange.connect(onActivityPropertyChange)
 		#activityPropertiesObjects[propertyID] = theScene
 
 	updateLeftPanel()
@@ -1040,7 +1040,7 @@ func _on_StartConditionsList_onEditPressed(id):
 	startEditingAction(sexActivityProperties["startConditions"][id])
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_RemoveStateButton_pressed():

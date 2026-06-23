@@ -1,6 +1,6 @@
 extends PanelContainer
 
-onready var label:Label = $HBoxContainer/Label
+@onready var label:Label = $HBoxContainer/Label
 
 var storedEntry = null
 var entryIndex:int = -1
@@ -69,7 +69,7 @@ func drop_data(_position, data):
 		return
 	var newidx = origin.entryIndex
 	var neworiginidx = entryIndex
-	emit_signal("onDragOntoAnotherEntry",[newidx,neworiginidx])
+	onDragOntoAnotherEntry.emit([newidx,neworiginidx])
 
 func can_drop_data(_position, data):
 	return typeof(data)==TYPE_DICTIONARY
@@ -81,7 +81,7 @@ func _on_LaunchModEntry_gui_input(event):
 	if(event.button_index != BUTTON_LEFT): # fix scrolling up/down causing a new entry to be selected
 		return
 	if(event.doubleclick):
-		emit_signal("onDoubleClicked", storedEntry)
+		onDoubleClicked.emit(storedEntry)
 		return # avoid double select, mostly for performance reasons
 	if(event.pressed):
-		emit_signal("onSelected", storedEntry)
+		onSelected.emit(storedEntry)

@@ -57,7 +57,7 @@ func loadData(_data):
 		if(taskObj == null):
 			continue
 		taskObj.loadData(SAVE.loadVar(taskData, "data", {}))
-		var _ok = taskObj.connect("onTaskCompleted", self, "onSlutTaskCompleted")
+		var _ok = taskObj.onTaskCompleted.connect(onSlutTaskCompleted)
 		tasks.append(taskObj)
 
 func generateTasks(howManyTasks = 2):
@@ -87,7 +87,7 @@ func generateTasks(howManyTasks = 2):
 		var theTaskRef:NpcBreakTaskBase = RNG.grabWeightedPairs(weightMap)
 		var theTask:NpcBreakTaskBase = GlobalRegistry.createSlaveBreakTask(theTaskRef.id)
 		
-		#var _ok = theTask.connect("onTaskCompleted", self, "onBreakTaskCompleted")
+		#var _ok = theTask.onTaskCompleted.connect(onBreakTaskCompleted)
 		theTask.generateFor(theChar, _isSlaveLevelup, RNG.randf_rangeX2(difficultyMin, difficultyMax))
 		tasks.append(theTask)
 		howManyTasks -= 1
@@ -95,7 +95,7 @@ func generateTasks(howManyTasks = 2):
 	for task in tasks:
 	#tasks = NpcBreakTaskBase.generateTasksFor(theChar, slaveType, false, tasksAmount, difficultyMin, difficultyMax)
 	#for task in tasks:
-		var _ok = task.connect("onTaskCompleted", self, "onSlutTaskCompleted")
+		var _ok = task.onTaskCompleted.connect(onSlutTaskCompleted)
 
 func isEverythingCompleted():
 	for task in tasks:

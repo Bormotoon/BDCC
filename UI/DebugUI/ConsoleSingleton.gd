@@ -1,7 +1,7 @@
 extends Node
 # heavily modified from https://github.com/jitspoe/godot-console
 
-onready var control := Control.new()
+@onready var control := Control.new()
 var consoleScene = preload("res://UI/DebugUI/DebugConsole.tscn")
 
 var commands = {}
@@ -20,7 +20,7 @@ func _ready():
 	var console = consoleScene.instantiate()
 	control.add_child(console)
 	var _ok = connect("onConsoleOutput", console, "printLine")
-	var _ok2 = console.connect("consoleClosed", self, "toggleConsole")
+	var _ok2 = console.consoleClosed.connect(toggleConsole)
 
 	pause_mode = PAUSE_MODE_PROCESS
 
@@ -80,7 +80,7 @@ func doTextCommand(command):
 			printLine("Command not found.")
 
 func printLine(text: String):
-	emit_signal("onConsoleOutput", text)
+	onConsoleOutput.emit(text)
 
 func getCommandsHelp():
 	var result = ""

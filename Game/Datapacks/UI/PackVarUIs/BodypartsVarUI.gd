@@ -1,5 +1,5 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var parts_list = $ScrollContainer/PartsList
+@onready var parts_list = $ScrollContainer/PartsList
 
 var data = {
 	BodypartSlot.Head : {
@@ -18,7 +18,7 @@ func _ready():
 			"bodypartSlot": bodypartSlot,
 			"value": {id="", data={}},
 		})
-		singleUI.connect("onValueChange", self, "onBodypartChanged")
+		singleUI.onValueChange.connect(onBodypartChanged)
 		bodypartEditors[bodypartSlot] = singleUI
 
 func setData(_dataLine:Dictionary):

@@ -30,7 +30,7 @@ func setPerk(theperk: PerkBase, shouldShowCost:bool = true):
 
 
 func _on_TextureButton_pressed():
-	emit_signal("perkClicked", perk.id if perk != null else "")
+	perkClicked.emit(perk.id if perk != null else "")
 
 
 func _on_TextureButton_mouse_entered():

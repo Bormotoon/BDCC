@@ -1,7 +1,7 @@
 extends ConfirmationDialog
 
-onready var source_list = $HBoxContainer2/SourceList
-onready var flag_list = $HBoxContainer2/FlagList
+@onready var source_list = $HBoxContainer2/SourceList
+@onready var flag_list = $HBoxContainer2/FlagList
 
 var flagID:String = ""
 var flagSource:String = ""
@@ -20,7 +20,7 @@ func _ready():
 	updateSources()
 
 func _on_FlagPickerWindow_popup_hide():
-	emit_signal("onCancelPressed", self)
+	onCancelPressed.emit(self)
 
 func setFlag(newFlagID:String, updatePos:bool = true):
 	flagID = newFlagID
@@ -158,4 +158,4 @@ func _on_FlagPickerWindow_confirmed():
 		finalFlag = flagSource + "." + flagID
 	elif(sourceIsDatapack):
 		finalFlag = flagSource + ":" + flagID
-	emit_signal("onFlagSelected", self, finalFlag)
+	onFlagSelected.emit(self, finalFlag)

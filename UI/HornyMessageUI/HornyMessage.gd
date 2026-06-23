@@ -1,7 +1,7 @@
 extends Control
 
-onready var richTextLabel = $CanvasLayer/RichTextLabel
-onready var tween = $CanvasLayer/RichTextLabel/Tween
+@onready var richTextLabel = $CanvasLayer/RichTextLabel
+@onready var tween = $CanvasLayer/RichTextLabel/Tween
 
 func _ready():
 	visible = false

@@ -1,11 +1,11 @@
 extends Control
-onready var datapack_item_list = $DatapackViewer/VBoxContainer/HBoxContainer/DatapackItemList
-onready var datapack_desc_label = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/DatapackDescLabel
-onready var new_pack_confirmation_dialog = $DatapackViewer/NewPackConfirmationDialog
-onready var edit_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/EditDatapackButton
-onready var delete_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/DeleteDatapackButton
-onready var export_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/ExportDatapackButton
-onready var import_pack_button = $DatapackViewer/VBoxContainer/GridContainer/ImportPackButton
+@onready var datapack_item_list = $DatapackViewer/VBoxContainer/HBoxContainer/DatapackItemList
+@onready var datapack_desc_label = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/DatapackDescLabel
+@onready var new_pack_confirmation_dialog = $DatapackViewer/NewPackConfirmationDialog
+@onready var edit_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/EditDatapackButton
+@onready var delete_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/DeleteDatapackButton
+@onready var export_datapack_button = $DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer/ExportDatapackButton
+@onready var import_pack_button = $DatapackViewer/VBoxContainer/GridContainer/ImportPackButton
 
 signal onClosePressed
 
@@ -20,7 +20,7 @@ func _ready():
 		import_pack_button.visible = false
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 func updateDatapackList():
 	datapack_item_list.clear()
@@ -76,8 +76,8 @@ func startEditingDatapack(datapack:Datapack):
 	pushMenu(datapackEditorScreen)
 	
 	datapackEditorScreen.setDatapack(datapack)
-	datapackEditorScreen.connect("onSaveButtonPressed", self, "onSaveDatapackPressed")
-	datapackEditorScreen.connect("onCancelButtonPressed", self, "onCancelDatapackPressed")
+	datapackEditorScreen.onSaveButtonPressed.connect(onSaveDatapackPressed)
+	datapackEditorScreen.onCancelButtonPressed.connect(onCancelDatapackPressed)
 
 func onSaveDatapackPressed(_menu, datapack:Datapack):
 	
@@ -183,7 +183,7 @@ func _on_DatapackFolderButton_pressed():
 var datapackBrowserScene = preload("res://Game/Datapacks/UI/DatapackBrowser.tscn")
 func _on_DatapackBrowserButton_pressed():
 	var newMenu = datapackBrowserScene.instantiate()
-	newMenu.connect("closePressed", self, "popMenu")
+	newMenu.closePressed.connect(popMenu)
 
 	pushMenu(newMenu)
 
@@ -225,7 +225,7 @@ func _on_ExportDatapackButton_pressed():
 
 #func _on_ImportPackButton_pressed():
 #	if OS.get_name() == "HTML5":
-#		var saveDataAndFileName = yield(readSaveFileHTML5(), "completed")
+#		var saveDataAndFileName = await readSaveFileHTML5()
 #		if(saveDataAndFileName == null || saveDataAndFileName.size() != 2):
 #			return
 #		SAVE.saveGameFromText(saveDataAndFileName[0], saveDataAndFileName[1])

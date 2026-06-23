@@ -1,7 +1,7 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
 
-onready var advanced_selector_var_ui = $AdvancedSelectorVarUI
-onready var selector_var_ui = $SelectorVarUI
+@onready var advanced_selector_var_ui = $AdvancedSelectorVarUI
+@onready var selector_var_ui = $SelectorVarUI
 
 func setData(_dataLine:Dictionary):
 	advanced_selector_var_ui.setData(_dataLine)

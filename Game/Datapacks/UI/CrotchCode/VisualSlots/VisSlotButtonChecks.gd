@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var open_editor_button = $OpenEditorButton
+@onready var open_editor_button = $OpenEditorButton
 
 var slotButtonChecks
 var editor
@@ -13,8 +13,8 @@ func _on_OpenEditorButton_pressed():
 	add_child(newWindow)
 	
 	newWindow.setChecks(slotButtonChecks.checks)
-	newWindow.connect("onCancel", self, "doHideEditor")
-	newWindow.connect("onConfirm", self, "doSaveButtonChecks")
+	newWindow.onCancel.connect(doHideEditor)
+	newWindow.onConfirm.connect(doSaveButtonChecks)
 
 	newWindow.popup_centered()
 

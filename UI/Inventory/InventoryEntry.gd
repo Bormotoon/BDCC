@@ -2,9 +2,9 @@ extends Control
 
 signal onInteractButtonPressed(item)
 signal onItemSelected(item)
-onready var itemNameLabel = $HBoxContainer/Control/Info/Label
-onready var itemTextureRect = $HBoxContainer/Control/Info/TextureRect
-onready var select_button = $HBoxContainer/Control/SelectButton
+@onready var itemNameLabel = $HBoxContainer/Control/Info/Label
+@onready var itemTextureRect = $HBoxContainer/Control/Info/TextureRect
+@onready var select_button = $HBoxContainer/Control/SelectButton
 
 var item: ItemBase
 var isSelected = false
@@ -125,10 +125,10 @@ func updateInfo():
 			
 
 func _on_InteractButton_pressed():
-	emit_signal("onInteractButtonPressed", item)
+	onInteractButtonPressed.emit(item)
 
 func _on_SelectButton_pressed():
-	emit_signal("onItemSelected", item)
+	onItemSelected.emit(item)
 
 func setSelected(isNewSelected):
 	if(isNewSelected != isSelected):

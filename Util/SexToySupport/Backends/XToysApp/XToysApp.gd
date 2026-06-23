@@ -121,7 +121,7 @@ func _process(_delta:float):
 		
 		var newHttpRequest := HTTPRequest.new()
 		add_child(newHttpRequest)
-		newHttpRequest.connect("request_completed", self, "deleteRequestAfterDone", [newHttpRequest])
+		newHttpRequest.request_completed.connect(deleteRequestAfterDone.bind([newHttpRequest]))
 		newHttpRequest.request(
 			"https://webhook.xtoys.app/"+webhookID, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST,
 			JSON.print(_data)

@@ -123,7 +123,7 @@ func _run():
 		if(whichColorIsEdited == 2):
 			colorPicker.setCurrentColor(bodypart.pickedBColor)
 			rememberedColor = bodypart.pickedBColor
-		colorPicker.connect("color_changed", self, "changepartcolormenu_colorchanged")
+		colorPicker.color_changed.connect(changepartcolormenu_colorchanged)
 			
 		addButton("Back", "Go back", "resetcolor_bodypartmenu")
 		addButton("Confirm", "Select this color", "changepartcolormenu_select")
@@ -134,7 +134,7 @@ func changepartcolormenu_colorchanged(_theColor):
 	if(isChanging):
 		return
 	isChanging = true
-	yield(get_tree().create_timer(0.3), "timeout")
+	await get_tree().create_timer(0.3).timeout
 	if(GM.ui.getCustomControl("colorpicker") == null):
 		isChanging = false
 		return

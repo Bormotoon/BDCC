@@ -643,7 +643,7 @@ func playRandomSexAnim():
 			playAnimation(StageScene.SexPortal, RNG.pick(["sex", "fast"]), {pc=randNPC, npc="pc", npcBodyState={naked=true}, bodyState={exposedCrotch=true,hard=true}})
 		
 		randomSexIsPlaying = true
-		yield(get_tree().create_timer(4.0 + RNG.randf_range(0.0, 4.0)/Util.maxi(1, npcsToUse.size())), "timeout")
+		await get_tree().create_timer(4.0 + RNG.randf_range(0.0, 4.0)/Util.maxi(1, npcsToUse.size())).timeout
 		if(randomSexShouldStop):
 			randomSexIsPlaying = false
 			return

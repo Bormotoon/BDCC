@@ -16,7 +16,7 @@ func setOptionValue(_newvalue):
 	$Checkbox.pressed = _newvalue
 
 func _on_Checkbox_toggled(button_pressed):
-	emit_signal("value_changed", categoryID, id, button_pressed)
+	value_changed.emit(categoryID, id, button_pressed)
 
 func setDescription(newdesc):
 	description = newdesc

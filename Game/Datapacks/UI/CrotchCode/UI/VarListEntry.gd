@@ -1,9 +1,9 @@
 extends HBoxContainer
-onready var string_var_ui = $StringVarUI
-onready var spin_box = $Control/SpinBox
-onready var text_edit = $Control/TextEdit
-onready var check_box = $Control/CheckBox
-onready var selector_type = $SelectorType
+@onready var string_var_ui = $StringVarUI
+@onready var spin_box = $Control/SpinBox
+@onready var text_edit = $Control/TextEdit
+@onready var check_box = $Control/CheckBox
+@onready var selector_type = $SelectorType
 
 signal onVarEdit(varName, entry)
 signal onDeletePressed(varName)
@@ -57,25 +57,25 @@ func _on_StringVarUI_onValueChange(_id, newValue):
 	var oldName = varName
 	varName = newValue
 	
-	emit_signal("onVarRename", oldName, varName)
+	onVarRename.emit(oldName, varName)
 
 func _on_DeleteButton_pressed():
-	emit_signal("onDeletePressed", varName)
+	onDeletePressed.emit(varName)
 
 func _on_SpinBox_value_changed(value):
 	if(entry["type"] == DatapackSceneVarType.NUMBER):
 		entry["default"] = value
-		emit_signal("onVarEdit", varName, entry.duplicate())
+		onVarEdit.emit(varName, entry.duplicate())
 
 func _on_TextEdit_text_changed():
 	if(entry["type"] == DatapackSceneVarType.STRING):
 		entry["default"] = text_edit.text
-		emit_signal("onVarEdit", varName, entry.duplicate())
+		onVarEdit.emit(varName, entry.duplicate())
 
 func _on_CheckBox_toggled(button_pressed):
 	if(entry["type"] == DatapackSceneVarType.BOOL):
 		entry["default"] = button_pressed
-		emit_signal("onVarEdit", varName, entry.duplicate())
+		onVarEdit.emit(varName, entry.duplicate())
 
 func _on_SelectorType_item_selected(index):
 	var allTypes = DatapackSceneVarType.getAll()
@@ -85,4 +85,4 @@ func _on_SelectorType_item_selected(index):
 	entry["default"] = DatapackSceneVarType.getDefaultValue(entry["type"])
 	updateDefaultValue()
 	
-	emit_signal("onVarEdit", varName, entry.duplicate())
+	onVarEdit.emit(varName, entry.duplicate())

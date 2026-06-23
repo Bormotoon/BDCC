@@ -24,7 +24,7 @@ func setCharacter(newnpc):
 func setStat(statID: String, value: int):
 	assert(GlobalRegistry.getStat(statID) != null)
 	stats[statID] = value
-	emit_signal("statChanged")
+	statChanged.emit()
 
 func increaseStatIfCan(statID: String, amount = 1):
 	amount = min(amount, getFreeStatPoints())
@@ -90,7 +90,7 @@ func loadData(data):
 		newskill.setCharacter(npc)
 		newskill.loadData(skillData)
 		skills[skillID] = newskill
-		var _ok = newskill.connect("levelChanged", self, "onSkillLevelChanged")
+		var _ok = newskill.levelChanged.connect(onSkillLevelChanged)
 		
 	var loadedPerks = SAVE.loadVar(data, "perks", [])
 	for loadedPerk in loadedPerks:
@@ -108,7 +108,7 @@ func loadData(data):
 
 func setLevel(lvl: int):
 	level = lvl
-	emit_signal("levelChanged")
+	levelChanged.emit()
 
 func getLevel() -> int:
 	return level
@@ -132,7 +132,7 @@ func addExperience(addexp: int):
 	
 	checkNewLevel()
 	
-	emit_signal("experienceChanged")
+	experienceChanged.emit()
 
 func getExperience():
 	return experience
@@ -156,7 +156,7 @@ func checkNewLevel():
 			npc.onAutoLevelUp()
 	
 	if(addedAnyLevels):
-		emit_signal("levelChanged")
+		levelChanged.emit()
 		
 		
 func addSkillExperience(skillID, amount, activityID = null):
@@ -175,7 +175,7 @@ func ensureSkillExists(skillID):
 			return
 		newskill.setCharacter(npc)
 		skills[skillID] = newskill
-		var _ok = newskill.connect("levelChanged", self, "onSkillLevelChanged")
+		var _ok = newskill.levelChanged.connect(onSkillLevelChanged)
 	
 func onNewDay():
 	for skillID in skills:
@@ -367,7 +367,7 @@ func processBattleTurn():
 		perk.processBattleTurn()
 
 func onSkillLevelChanged(skillID, _skillLevel):
-	emit_signal("skillLevelChanged", skillID)
+	skillLevelChanged.emit(skillID)
 
 func getBuffs():
 	var result = []

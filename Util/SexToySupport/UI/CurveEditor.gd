@@ -50,7 +50,7 @@ func _ready() -> void:
 	
 	if _curve == null:
 		_curve = Curve.new()
-		_curve.connect("range_changed", self, "_on_curve_changed")
+		_curve.range_changed.connect(_on_curve_changed)
 		#_curve.range_changed.connect(_on_curve_changed)
 		
 func _on_curve_changed() -> void:

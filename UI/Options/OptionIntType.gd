@@ -23,4 +23,4 @@ func getDescription():
 
 
 func _on_SpinBox_value_changed(value):
-	emit_signal("value_changed", categoryID, id, value)
+	value_changed.emit(categoryID, id, value)

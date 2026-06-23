@@ -22,11 +22,11 @@ func _init():
 func _ready():
 	req = HTTPRequest.new()
 	add_child(req)
-	var _ok = req.connect("request_completed", self, "_http_request_completed")
+	var _ok = req.request_completed.connect(_http_request_completed)
 
 	initdatareq = HTTPRequest.new()
 	add_child(initdatareq)
-	var _ok2 = initdatareq.connect("request_completed", self, "_http_request_completed_init_data")
+	var _ok2 = initdatareq.request_completed.connect(_http_request_completed_init_data)
 	
 	var _ok3 = initdatareq.request("https://translate.google.com")
 
@@ -83,7 +83,7 @@ func translate(_targetLanguage, _inputText):
 		newreq.queue_free()
 		return theResult
 	
-	var theData = yield(newreq, "request_completed")
+	var theData = await newreq.request_completed
 	
 	if(theData == null || !(theData is Array) || theData.size() != 4):
 		theResult["error"] = true

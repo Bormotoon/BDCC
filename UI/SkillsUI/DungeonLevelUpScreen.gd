@@ -7,10 +7,10 @@ var perkToButton:Dictionary = {}
 
 var perkList:Array = []
 
-onready var stat_list = $"%StatList"
-onready var perk_list = $"%PerkList"
-onready var level_label = $"%LevelLabel"
-onready var perks_panel = $"%PerksPanel"
+@onready var stat_list = $"%StatList"
+@onready var perk_list = $"%PerkList"
+@onready var level_label = $"%LevelLabel"
+@onready var perks_panel = $"%PerksPanel"
 
 
 var perkButtonScene = preload("res://UI/SkillsUI/PerkButton.tscn")
@@ -32,7 +32,7 @@ func setData(theLevel:int, thePerkList:Array = [], lastSelectedStat:String = "")
 	stat_list.add_child(nothingButton)
 	nothingButton.text = "SKIP"
 	statToButton["SKIP"] = nothingButton
-	nothingButton.connect("pressed", self, "onStatButtonPressed", [""])
+	nothingButton.pressed.connect(onStatButtonPressed.bind([""]))
 
 	for statID in GlobalRegistry.getStats():
 		var theStat:StatBase = GlobalRegistry.getStat(statID)
@@ -42,7 +42,7 @@ func setData(theLevel:int, thePerkList:Array = [], lastSelectedStat:String = "")
 		statButton.text = theStat.getVisibleName()
 		statButton.hint_tooltip = theStat.getVisibleDescription()
 		statToButton[statID] = statButton
-		statButton.connect("pressed", self, "onStatButtonPressed", [statID])
+		statButton.pressed.connect(onStatButtonPressed.bind([statID]))
 	
 	updateSelectedStatButton()
 	
@@ -54,14 +54,14 @@ func setData(theLevel:int, thePerkList:Array = [], lastSelectedStat:String = "")
 		perk_list.add_child(skipPerkButton)
 		skipPerkButton.setSkippedPerk()
 		perkToButton["SKIP"] = skipPerkButton
-		skipPerkButton.connect("perkClicked", self, "onPerkButtonPressed")
+		skipPerkButton.perkClicked.connect(onPerkButtonPressed)
 		
 		for perkID in perkList:
 			var perkButton = perkButtonScene.instantiate()
 			perk_list.add_child(perkButton)
 			perkButton.setPerk(GlobalRegistry.getPerk(perkID), false)
 			perkToButton[perkID] = perkButton
-			perkButton.connect("perkClicked", self, "onPerkButtonPressed")
+			perkButton.perkClicked.connect(onPerkButtonPressed)
 	
 		updateSelectedPerkButton()
 
@@ -98,4 +98,4 @@ func updateSelectedStatButton():
 		
 
 func _on_ContinueButton_pressed():
-	emit_signal("onConfirm", selectedStat, selectedPerk)
+	onConfirm.emit(selectedStat, selectedPerk)

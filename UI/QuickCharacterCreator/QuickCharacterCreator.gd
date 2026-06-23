@@ -1,12 +1,12 @@
 extends Control
 
-onready var slotList = $HBoxContainer/PanelContainer/VBoxContainer/SlotList
-onready var bodypartList = $HBoxContainer/PanelContainer/VBoxContainer/BodypartList
-onready var doll = $HBoxContainer/DollWrapper/Viewport/Doll3D
-onready var currentBodypartChoicesList = $HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer/CurrentBodypartChoices
-onready var outputText = $HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer/OutputText
-onready var thicknessSlider = $HBoxContainer/PanelContainer/VBoxContainer/Thickness
-onready var feminitySlider = $HBoxContainer/PanelContainer/VBoxContainer/Feminity
+@onready var slotList = $HBoxContainer/PanelContainer/VBoxContainer/SlotList
+@onready var bodypartList = $HBoxContainer/PanelContainer/VBoxContainer/BodypartList
+@onready var doll = $HBoxContainer/DollWrapper/Viewport/Doll3D
+@onready var currentBodypartChoicesList = $HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer/CurrentBodypartChoices
+@onready var outputText = $HBoxContainer/PanelContainer/VBoxContainer/Control/HBoxContainer/OutputText
+@onready var thicknessSlider = $HBoxContainer/PanelContainer/VBoxContainer/Thickness
+@onready var feminitySlider = $HBoxContainer/PanelContainer/VBoxContainer/Feminity
 var currentSlot
 var bodypartChoices = []
 var bodyparts = {}
@@ -105,7 +105,7 @@ func updateCurrentBodypart():
 		currentBodypartChoicesList.add_child(optionListObject)
 		optionListObject.setValues(data["options"])
 		optionListObject.setOptionName(data["textButton"])
-		optionListObject.connect("value_changed", self, "onOptionListValueChanged")
+		optionListObject.value_changed.connect(onOptionListValueChanged)
 		optionListObject.id = attribID
 		
 func onOptionListValueChanged(_categoryID, id, newvalue):

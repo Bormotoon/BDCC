@@ -1,10 +1,10 @@
 extends MarginContainer
 
-onready var label = $HBoxContainer/Control/Info/Label
-onready var interact_buttons_list = $HBoxContainer/HBoxContainer/InteractButtonsList
-onready var texture_rect = $HBoxContainer/Control/Info/TextureRect
-onready var v_separator = $HBoxContainer/Control/Info/VSeparator
-onready var v_separator_2 = $HBoxContainer/HBoxContainer/VSeparator2
+@onready var label = $HBoxContainer/Control/Info/Label
+@onready var interact_buttons_list = $HBoxContainer/HBoxContainer/InteractButtonsList
+@onready var texture_rect = $HBoxContainer/Control/Info/TextureRect
+@onready var v_separator = $HBoxContainer/Control/Info/VSeparator
+@onready var v_separator_2 = $HBoxContainer/HBoxContainer/VSeparator2
 
 
 var isSelected:bool = false
@@ -47,10 +47,10 @@ func setEntry(_entry:Dictionary):
 		var newButton:Button = Button.new()
 		interact_buttons_list.add_child(newButton)
 		newButton.text = actionEntry[1] if actionEntry.size() > 1 else actionEntry[0]
-		var _ok = newButton.connect("pressed", self, "onActionButtonPressed", [actionEntry[0], actionEntry[2] if actionEntry.size() > 2 else {}])
+		var _ok = newButton.pressed.connect(onActionButtonPressed.bind([actionEntry[0], actionEntry[2] if actionEntry.size() > 2 else {}]))
 	
 func onActionButtonPressed(_actionId:String, _args):
-	emit_signal("onActionPressed", id, _actionId, _args)
+	onActionPressed.emit(id, _actionId, _args)
 
 func _on_SelectButton_pressed():
-	emit_signal("onEntrySelected", id)
+	onEntrySelected.emit(id)

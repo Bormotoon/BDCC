@@ -47,21 +47,21 @@ var sceneChains = []
 var chainObjects = []
 var rememberedChains = []
 
-export(bool) var addTestBody = false
-export(bool) var isOnlyPenis = false
+@export var var addTestBody = false
+@export var var isOnlyPenis = false
 
 var dollAttachmentZoneScene = preload("res://Player/Player3D/Parts/DollAttachmentZone.tscn")
 
-onready var nipplesParticles = $BoneAttachments/NipplesBoneAttachment/NipplesParticles
-onready var pussyParticles = $BoneAttachments/VaginaBoneAttachment/PussyParticles
-onready var anusParticles = $BoneAttachments/VaginaBoneAttachment/AnusParticles
-onready var pussy_cum_inside_particles = $BoneAttachments/VaginaBoneAttachment/PussyCumInsideParticles
+@onready var nipplesParticles = $BoneAttachments/NipplesBoneAttachment/NipplesParticles
+@onready var pussyParticles = $BoneAttachments/VaginaBoneAttachment/PussyParticles
+@onready var anusParticles = $BoneAttachments/VaginaBoneAttachment/AnusParticles
+@onready var pussy_cum_inside_particles = $BoneAttachments/VaginaBoneAttachment/PussyCumInsideParticles
 
-onready var breastsJiggleBone = $DollSkeleton/BreastsJiggleBone
-onready var bellyJiggleBone = $DollSkeleton/BellyJiggleBone
-onready var buttJiggleBone = $DollSkeleton/ButtJiggleBone
+@onready var breastsJiggleBone = $DollSkeleton/BreastsJiggleBone
+@onready var bellyJiggleBone = $DollSkeleton/BellyJiggleBone
+@onready var buttJiggleBone = $DollSkeleton/ButtJiggleBone
 
-onready var random_leak_timer = $"%RandomLeakTimer"
+@onready var random_leak_timer = $"%RandomLeakTimer"
 
 
 func getDollSkeleton():
@@ -84,7 +84,7 @@ func _ready():
 		random_leak_timer.start(RNG.randf_range(3, 20))
 	
 	if(GM.main != null && is_instance_valid(GM.main)):
-		var _ok = GM.main.connect("saveLoadingFinished", self, "reconnect")
+		var _ok = GM.main.saveLoadingFinished.connect(reconnect)
 	setState("facing", ("right" if isFacingRight else "left"))
 
 func testBody():
@@ -305,7 +305,7 @@ func loadCharacter(charID):
 		disconnectFromOld()
 		ch.updateDoll(self)
 		savedCharacterID = charID
-		var _ok = ch.connect("bodypart_changed", self, "onCharacterBodypartChanged")
+		var _ok = ch.bodypart_changed.connect(onCharacterBodypartChanged)
 		
 func prepareCharacter(charID):
 	stopCumInside()
@@ -630,9 +630,9 @@ func setupCumParticles(particlesNode:CPUParticles, intensity:float, howoften:flo
 	particlesNode.preprocess = howoften - RNG.randf_range(0.0, 1.0)
 	particlesNode.speed_scale = 2.0
 
-onready var penis_cum_particles = $BoneAttachments/PenisTipAttachment/PenisCumParticles
-onready var chastity_cum_particles = $BoneAttachments/PenisBoneAttachment/ChastityCumParticles
-onready var penis_cum_particles_2 = $BoneAttachments/PenisTipAttachment/PenisCumParticles2
+@onready var penis_cum_particles = $BoneAttachments/PenisTipAttachment/PenisCumParticles
+@onready var chastity_cum_particles = $BoneAttachments/PenisBoneAttachment/ChastityCumParticles
+@onready var penis_cum_particles_2 = $BoneAttachments/PenisTipAttachment/PenisCumParticles2
 
 func startCumPenis(intensity:float, howoften:float = 3.0, isChastity=false):
 	if(!OPTIONS.isVisibleCumShotsEnabled()):

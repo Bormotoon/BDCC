@@ -47,4 +47,4 @@ func _on_VisRawSelector_item_selected(index):
 	selectedValue = values[index]
 	if(selectedValue is Array):
 		selectedValue = selectedValue[0]
-	emit_signal("onValueChanged", id, selectedValue)
+	onValueChanged.emit(id, selectedValue)

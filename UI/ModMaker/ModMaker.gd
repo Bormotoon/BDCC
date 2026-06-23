@@ -1,10 +1,10 @@
 extends Control
 
-onready var filterLine = $HBoxContainer/VBoxContainer/FilterLine
-onready var tree = $HBoxContainer/VBoxContainer/Tree
-onready var itemList = $HBoxContainer/VBoxContainer2/ItemList
-onready var modNameEdit = $HBoxContainer/VBoxContainer2/HBoxContainer/ModNameEdit
-onready var exportModeSelector = $HBoxContainer/VBoxContainer2/ExportModeSelector
+@onready var filterLine = $HBoxContainer/VBoxContainer/FilterLine
+@onready var tree = $HBoxContainer/VBoxContainer/Tree
+@onready var itemList = $HBoxContainer/VBoxContainer2/ItemList
+@onready var modNameEdit = $HBoxContainer/VBoxContainer2/HBoxContainer/ModNameEdit
+@onready var exportModeSelector = $HBoxContainer/VBoxContainer2/ExportModeSelector
 
 var addedFiles = []
 

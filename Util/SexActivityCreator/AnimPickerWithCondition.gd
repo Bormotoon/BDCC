@@ -21,10 +21,10 @@ func updateFromData():
 	$StageSceneAnimPicker.setData(data["animData"])
 
 func _on_DeleteButton_pressed():
-	emit_signal("onDeletePressed", id)
+	onDeletePressed.emit(id)
 
 func _on_LineEdit_text_changed(new_text):
 	data["condition"] = new_text
 
 func _on_UpButton_pressed():
-	emit_signal("onUpPressed", id)
+	onUpPressed.emit(id)

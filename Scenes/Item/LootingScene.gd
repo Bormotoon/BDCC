@@ -37,8 +37,8 @@ func _run():
 			inventory.shouldGrabInput = false
 			GM.ui.addFullScreenCustomControl("inventory", inventory)
 			inventory.setItems(theItems, "loot")
-			#var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-			var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
+			#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+			var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
 			
 			if(savedCredits > 0 || !inv.isEmpty()):
 				addButton("Take all", "Take everything and leave", "grabAllAndLeave")

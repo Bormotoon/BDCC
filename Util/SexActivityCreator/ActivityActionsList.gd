@@ -1,8 +1,8 @@
 extends VBoxContainer
 
 var options = []
-onready var optionList = $HBoxContainer/OptionButton
-onready var actionList = $ScrollContainer/ActionList
+@onready var optionList = $HBoxContainer/OptionButton
+@onready var actionList = $ScrollContainer/ActionList
 
 signal onAddButton(what)
 export var labelText = "Some text"
@@ -36,7 +36,7 @@ func _on_AddButton_pressed():
 	if(optionList.selected < 0 || options.size() <= 0):
 		return
 		
-	emit_signal("onAddButton", options[optionList.selected][0])
+	onAddButton.emit(options[optionList.selected][0])
 
 func setText(theText):
 	$HBoxContainer/Label.text = theText
@@ -66,25 +66,25 @@ func updateActions():
 		newItem.setText(action[1])
 		newItem.id = action[0]
 
-		newItem.connect("onEditButton", self, "onActionEditPressed")
-		newItem.connect("onUpButton", self, "onActionUpPressed")
-		newItem.connect("onDownButton", self, "onActionDownPressed")
-		newItem.connect("onDeleteButton", self, "onActionDeletePressed")
+		newItem.onEditButton.connect(onActionEditPressed)
+		newItem.onUpButton.connect(onActionUpPressed)
+		newItem.onDownButton.connect(onActionDownPressed)
+		newItem.onDeleteButton.connect(onActionDeletePressed)
 
 func onActionEditPressed(id, _data):
-	emit_signal("onEditPressed", id)
+	onEditPressed.emit(id)
 func onActionUpPressed(id, _data):
 	if(actionObjects != null):
 		Util.moveValueUp(actionObjects, id)
 		updateActions()
-	emit_signal("onUpPressed", id)
+	onUpPressed.emit(id)
 func onActionDownPressed(id, _data):
 	if(actionObjects != null):
 		Util.moveValueDown(actionObjects, id)
 		updateActions()
-	emit_signal("onDownPressed", id)
+	onDownPressed.emit(id)
 func onActionDeletePressed(id, _data):
 	if(actionObjects != null):
 		actionObjects.remove_at(id)
 		updateActions()
-	emit_signal("onDeletePressed", id)
+	onDeletePressed.emit(id)

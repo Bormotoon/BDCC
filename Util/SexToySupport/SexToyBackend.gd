@@ -86,7 +86,7 @@ func getNameInList() -> String:
 	return getName()+" (disabled)"
 
 func notifyDevicesChanged():
-	emit_signal("devicesChanged")
+	devicesChanged.emit()
 
 # Called every frame while the manager UI is visible
 func getInfo() -> Array:

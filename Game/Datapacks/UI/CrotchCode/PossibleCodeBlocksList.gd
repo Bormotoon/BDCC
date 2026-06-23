@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-export(int, FLAGS, "SCENE", "EVENT", "QUEST") var filter:int = CrotchBlockEditorType.ALL
+@export_flags("SCENE", "EVENT", "QUEST") var filter: int = CrotchBlockEditorType.ALL
 export var favKind:String = "scene"
 
 var editor
@@ -36,10 +36,10 @@ func setEditor(newEd):
 	editor = newEd
 
 var collapsables = {}
-onready var no_category_list = $NoCategoryList
-onready var categories_list = $CategoriesList
+@onready var no_category_list = $NoCategoryList
+@onready var categories_list = $CategoriesList
 var collapseScene = preload("res://Game/Datapacks/UI/PackVarsCollapsableRegion.tscn")
-onready var fav_list = $PackVarsCollapsableRegion/VBoxContainer/VBoxContainer/FavList
+@onready var fav_list = $PackVarsCollapsableRegion/VBoxContainer/VBoxContainer/FavList
 
 func populateFav():
 	Util.delete_children(fav_list)
@@ -105,7 +105,7 @@ func populate():
 			visualScene.setCodeBlock(testCodeblock)
 
 func _ready():
-	var _ok = CrotchFavBlocks.connect("onBlocksChanged", self, "populateFav")
+	var _ok = CrotchFavBlocks.onBlocksChanged.connect(populateFav)
 	
 	#populate()
 	pass

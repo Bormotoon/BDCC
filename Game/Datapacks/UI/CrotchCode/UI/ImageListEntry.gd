@@ -1,8 +1,8 @@
 extends HBoxContainer
-onready var id_label = $IDLabel
-onready var artist_label = $ArtistLabel
-onready var image_scale = $ImageScale
-onready var image_var_ui = $ImageVarUI
+@onready var id_label = $IDLabel
+@onready var artist_label = $ArtistLabel
+@onready var image_scale = $ImageScale
+@onready var image_var_ui = $ImageVarUI
 
 var entry:DatapackSceneImage
 signal onIDChanged(oldID, newID)
@@ -41,7 +41,7 @@ func _on_IDLabel_onValueChange(_id, newValue):
 	var oldID = entry.id
 	
 	entry.id = newValue
-	emit_signal("onIDChanged", oldID, entry.id)
+	onIDChanged.emit(oldID, entry.id)
 
 func _on_ArtistLabel_onValueChange(_id, newValue):
 	entry.artist = newValue
@@ -53,4 +53,4 @@ func _on_ImageVarUI_onValueChange(_id, newValue):
 	entry.image.setImage(newValue)
 
 func _on_DeleteButton_pressed():
-	emit_signal("onDeletePressed", entry.id)
+	onDeletePressed.emit(entry.id)

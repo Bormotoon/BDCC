@@ -6,8 +6,8 @@ var id
 
 var visibleValues = []
 
-onready var filter_edit = $MarginContainer/VBoxContainer/FilterEdit
-onready var item_list = $MarginContainer/VBoxContainer/ItemList
+@onready var filter_edit = $MarginContainer/VBoxContainer/FilterEdit
+@onready var item_list = $MarginContainer/VBoxContainer/ItemList
 
 signal onConfirm(window, value)
 signal onCancel(window)
@@ -54,20 +54,20 @@ func _on_FilterEdit_text_changed(_new_text):
 
 func _on_ConfirmButton_pressed():
 	if(item_list.get_selected_items().size() <= 0):
-		emit_signal("onCancel", self)
+		onCancel.emit(self)
 		return
 	var selectedIndex = item_list.get_selected_items()[0]
 	if(selectedIndex < 0 || selectedIndex >= visibleValues.size()):
-		emit_signal("onCancel", self)
+		onCancel.emit(self)
 		return
 	
 	if(visibleValues[selectedIndex] is Array):
-		emit_signal("onConfirm", self, visibleValues[selectedIndex][0])
+		onConfirm.emit(self, visibleValues[selectedIndex][0])
 	else:
-		emit_signal("onConfirm", self, visibleValues[selectedIndex])
+		onConfirm.emit(self, visibleValues[selectedIndex])
 
 func _on_CancelButton_pressed():
-	emit_signal("onCancel", self)
+	onCancel.emit(self)
 
 func _on_AdvancedPickingWindow_popup_hide():
-	emit_signal("onCancel", self)
+	onCancel.emit(self)

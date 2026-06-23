@@ -1,10 +1,10 @@
 extends Control
 
-onready var entry_list = $VBoxContainer/ScrollContainer/EntryList
+@onready var entry_list = $VBoxContainer/ScrollContainer/EntryList
 
 var entryScene = preload("res://Game/Datapacks/UI/InGameMenu/DatapackInGameEntry.tscn")
-onready var keep_flags_window_dialog = $VBoxContainer/Label/KeepFlagsWindowDialog
-onready var update_window_dialog = $VBoxContainer/Label/UpdateWindowDialog
+@onready var keep_flags_window_dialog = $VBoxContainer/Label/KeepFlagsWindowDialog
+@onready var update_window_dialog = $VBoxContainer/Label/UpdateWindowDialog
 
 signal onClosePressed
 
@@ -21,9 +21,9 @@ func updateList():
 		newEntry.setContainsLabel(datapack.getContainsString())
 		newEntry.id = datapackID
 		
-		newEntry.connect("onLoadPressed", self, "onDatapackLoadPressed")
-		newEntry.connect("onUnloadPressed", self, "onDatapackUnloadPressed")
-		newEntry.connect("onUpdatePressed", self, "onDatapackUpdatePressed")
+		newEntry.onLoadPressed.connect(onDatapackLoadPressed)
+		newEntry.onUnloadPressed.connect(onDatapackUnloadPressed)
+		newEntry.onUpdatePressed.connect(onDatapackUpdatePressed)
 		
 		if(!datapack.needsTogglingOn()):
 			newEntry.setNothingToLoad()
@@ -57,7 +57,7 @@ func _on_DatapackIngameMenu_visibility_changed():
 		updateList()
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 func _on_ClearFlagsButton_pressed():
 	if(datapackIDToUse == null):

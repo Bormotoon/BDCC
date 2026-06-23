@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var open_editor_button = $OpenEditorButton
+@onready var open_editor_button = $OpenEditorButton
 
 var slotAnim
 var editor
@@ -16,8 +16,8 @@ func _on_OpenEditorButton_pressed():
 	for charID in editor.scene.chars:
 		finalCharAliases[charID] = editor.scene.chars[charID]["realid"]
 	
-	newWindow.connect("onCancelPressed", self, "doHideEditor")
-	newWindow.connect("onAnimSelected", self, "doSaveAnimData")
+	newWindow.onCancelPressed.connect(doHideEditor)
+	newWindow.onAnimSelected.connect(doSaveAnimData)
 	newWindow.getPicker().allPossibleChars = ["pc"] + editor.scene.chars.keys()
 	newWindow.getPicker().charAliases = finalCharAliases
 	newWindow.getPicker().vars = editor.scene.vars.keys()

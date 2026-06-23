@@ -1,5 +1,5 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var color_picker_button = $ColorPickerButton
+@onready var color_picker_button = $ColorPickerButton
 
 func setColorValue(_value):
 	color_picker_button.color = _value
@@ -15,7 +15,7 @@ func _on_ColorPickerButton_color_changed(_color):
 	if(isDebouncing):
 		return
 	isDebouncing = true
-	yield(get_tree().create_timer(0.3), "timeout")
+	await get_tree().create_timer(0.3).timeout
 	
 	triggerChange(color_picker_button.color)
 	

@@ -29,7 +29,7 @@ func _ready():
 	
 	req = HTTPRequest.new()
 	add_child(req)
-	var _ok = req.connect("request_completed", self, "_http_request_completed")
+	var _ok = req.request_completed.connect(_http_request_completed)
 
 
 func _http_request_completed(_result, _response_code, _headers, _body):
@@ -106,7 +106,7 @@ func translate(_targetLanguage, _inputText):
 		newreq.queue_free()
 		return theResult
 	
-	var theData = yield(newreq, "request_completed")
+	var theData = await newreq.request_completed
 	
 	if(theData == null || !(theData is Array) || theData.size() != 4):
 		theResult["error"] = true

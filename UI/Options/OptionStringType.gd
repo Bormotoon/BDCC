@@ -25,4 +25,4 @@ func getDescription():
 	return description
 
 func _on_LineEdit_text_changed(new_text):
-	emit_signal("value_changed", categoryID, id, new_text)
+	value_changed.emit(categoryID, id, new_text)

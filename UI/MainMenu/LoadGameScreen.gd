@@ -1,6 +1,6 @@
 extends Control
 
-onready var savesContainer = $VBoxContainer/ScrollContainer/ScrollVBox/SavesContainer
+@onready var savesContainer = $VBoxContainer/ScrollContainer/ScrollVBox/SavesContainer
 var saveGameElemenetScene = preload("res://UI/MainMenu/SaveGameElement.tscn")
 signal onClosePressed
 var inDeleteMode = false
@@ -28,9 +28,9 @@ func updateSaves():
 		var saveGameElementObject = saveGameElemenetScene.instantiate()
 		savesContainer.add_child(saveGameElementObject)
 		saveGameElementObject.setSaveFile(savePath)
-		saveGameElementObject.connect("onLoadButtonPressed", self, "onSaveLoadButtonClicked")
-		saveGameElementObject.connect("onDeleteButtonPressed", self, "onDeleteButtonClicked")
-		saveGameElementObject.connect("onExportButtonPressed", self, "onExportButtonClicked")
+		saveGameElementObject.onLoadButtonPressed.connect(onSaveLoadButtonClicked)
+		saveGameElementObject.onDeleteButtonPressed.connect(onDeleteButtonClicked)
+		saveGameElementObject.onExportButtonPressed.connect(onExportButtonClicked)
 		saveGameElementObject.setDeleteMode(inDeleteMode)
 		
 func onSaveLoadButtonClicked(savePath):
@@ -41,7 +41,7 @@ func onDeleteButtonClicked(savePath):
 	updateSaves()
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_LoadGameScreen_visibility_changed():
@@ -77,7 +77,7 @@ func onExportButtonClicked(savePath: String):
 #				or not permissions.has("android.permission.WRITE_EXTERNAL_STORAGE"):
 #				var _ok = OS.request_permissions()
 #				#await get_tree().create_timer(1).timeout
-#				yield(get_tree().create_timer(1), "timeout") #for Godot 3 branch
+#				await get_tree().create_timer(1).timeout #for Godot 3 branch
 #			else:
 #				has_permissions = true
 		
@@ -104,7 +104,7 @@ func _on_ExportSaveDialog_file_selected(path):
 
 func _notification(notification: int) -> void:
 	if notification == MainLoop.NOTIFICATION_WM_FOCUS_IN:
-		emit_signal("in_focus")
+		in_focus.emit()
 
 # Copied from https://github.com/Orama-Interactive/Pixelorama/blob/master/src/Autoload/HTML5FileExchange.gd
 # Thanks to Pixelorama devs
@@ -148,9 +148,9 @@ func readSaveFileHTML5():
 	# Execute JS function
 	JavaScript.eval("upload_save();", true)  # Opens prompt for choosing file
 
-	yield(self, "in_focus")  # Wait until JS prompt is closed
+	await self.focus_entered  # Wait until JS prompt is closed (Godot 4: focus_entered signal)
 
-	yield(get_tree().create_timer(0.5), "timeout")  # Give some time for async JS data load
+	await get_tree().create_timer(0.5).timeout  # Give some time for async JS data load
 
 	if JavaScript.eval("canceled;", true):  # If File Dialog closed w/o file
 		return
@@ -161,7 +161,7 @@ func readSaveFileHTML5():
 		file_data = JavaScript.eval("fileData;", true)
 		if file_data != null:
 			break
-		yield(get_tree().create_timer(1.0), "timeout")  # Need more time to load data
+		await get_tree().create_timer(1.0).timeout  # Need more time to load data
 
 #	var file_type = JavaScript.eval("fileType;", true)
 	var file_name = JavaScript.eval("fileName;", true)
@@ -171,7 +171,7 @@ func readSaveFileHTML5():
 
 func _on_ImportButton_pressed():
 	if OS.get_name() == "HTML5":
-		var saveDataAndFileName = yield(readSaveFileHTML5(), "completed")
+		var saveDataAndFileName = await readSaveFileHTML5()
 		if(saveDataAndFileName == null || saveDataAndFileName.size() != 2):
 			return
 		SAVE.saveGameFromText(saveDataAndFileName[0], saveDataAndFileName[1])
@@ -188,7 +188,7 @@ func _on_ImportButton_pressed():
 #					or not permissions.has("android.permission.WRITE_EXTERNAL_STORAGE"):
 #					var _ok = OS.request_permissions()
 #					#await get_tree().create_timer(1).timeout
-#					yield(get_tree().create_timer(1), "timeout") #for Godot 3 branch
+#					await get_tree().create_timer(1).timeout #for Godot 3 branch
 #				else:
 #					has_permissions = true
 		

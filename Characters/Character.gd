@@ -55,9 +55,9 @@ func _ready():
 	if(npcHasMenstrualCycle):
 		menstrualCycle = MenstrualCycle.new()
 		menstrualCycle.setCharacter(self)
-		var _ok = menstrualCycle.connect("readyToGiveBirthOnce", self, "onCharacterReadyToGiveBirth")
-		var _ok2 = menstrualCycle.connect("heavyIntoPregnancy", self, "onCharacterHeavyIntoPregnancy")
-		var _ok3 = menstrualCycle.connect("visiblyPregnant", self, "onCharacterVisiblyPregnant")
+		var _ok = menstrualCycle.readyToGiveBirthOnce.connect(onCharacterReadyToGiveBirth)
+		var _ok2 = menstrualCycle.heavyIntoPregnancy.connect(onCharacterHeavyIntoPregnancy)
+		var _ok3 = menstrualCycle.visiblyPregnant.connect(onCharacterVisiblyPregnant)
 		menstrualCycle.start()
 
 func _init():

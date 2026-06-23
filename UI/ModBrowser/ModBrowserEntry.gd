@@ -9,7 +9,7 @@ func setModEntry(modEntry:ModEntry):
 	storedEntry = modEntry
 
 func _on_TextureButton_pressed():
-	emit_signal("onSelected", storedEntry)
+	onSelected.emit(storedEntry)
 
 func makeActive():
 	$Panel.visible = true

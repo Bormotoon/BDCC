@@ -9,15 +9,15 @@ signal onBlockClear
 
 func clear():
 	blocks = []
-	emit_signal("onBlockClear")
+	onBlockClear.emit()
 
 func addBlock(newBlock):
 	blocks.append(newBlock)
-	emit_signal("onBlockAdded", newBlock, blocks.size() - 1)
+	onBlockAdded.emit(newBlock, blocks.size() - 1)
 
 func removeBlock(theBlock):
 	blocks.erase(theBlock)
-	emit_signal("onBlockRemoved", theBlock)
+	onBlockRemoved.emit(theBlock)
 
 func execute(_contex:CodeContex):
 	for block in blocks:
@@ -32,7 +32,7 @@ func getBlocks():
 
 func addBlockAt(newBlock, index):
 	blocks.insert(index, newBlock)
-	emit_signal("onBlockAdded", newBlock, index)
+	onBlockAdded.emit(newBlock, index)
 
 func calcLineNums(_contex:CodeContex):
 	for block in blocks:

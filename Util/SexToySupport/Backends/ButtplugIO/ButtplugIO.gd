@@ -77,13 +77,13 @@ func applySetting(_varid:String, _value):
 func _ready():
 	set_process(false)
 	# Connect base signals to get notified of connection open, close, and errors.
-	_client.connect("connection_closed", self, "onSocketClosed")
-	_client.connect("connection_error", self, "onSocketFailedToConnect")
-	_client.connect("connection_established", self, "onSocketConnected")
+	_client.connection_closed.connect(onSocketClosed)
+	_client.connection_error.connect(onSocketFailedToConnect)
+	_client.connection_established.connect(onSocketConnected)
 	# This signal is emitted when not using the Multiplayer API every time
 	# a full packet is received.
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
-	_client.connect("data_received", self, "onButtplugIOData")
+	_client.data_received.connect(onButtplugIOData)
 	
 	#connectToServer()
 
@@ -276,7 +276,7 @@ func stopScan():
 func scanForDevices():
 	startScan()
 	scanTimer = 30.0
-	#yield(get_tree().create_timer(30.0), "timeout")
+	#await get_tree().create_timer(30.0).timeout
 	#stopScan()
 
 func _process(_delta:float):

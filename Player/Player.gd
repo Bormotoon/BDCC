@@ -52,8 +52,8 @@ func _ready():
 	tfHolder = TFHolder.new()
 	tfHolder.setCharacter(self)
 	
-	var _ok = menstrualCycle.connect("readyToGiveBirthOnce", self, "onPlayerReadyToGiveBirth")
-	var _ok2 = menstrualCycle.connect("visiblyPregnant", self, "onPlayerVisiblyPregnant")
+	var _ok = menstrualCycle.readyToGiveBirthOnce.connect(onPlayerReadyToGiveBirth)
+	var _ok2 = menstrualCycle.visiblyPregnant.connect(onPlayerVisiblyPregnant)
 	
 	getInventory().clear()
 	giveBodypart(GlobalRegistry.createBodypart("digilegs"))
@@ -117,7 +117,7 @@ func setLocation(newRoomID:String):
 	#	GM.ui.setLocationName(roomName)
 	if(GM.main != null && is_instance_valid(GM.main) && GM.main.IS != null):
 		GM.main.IS.updatePCLocation()
-	emit_signal("location_changed", newRoomID)
+	location_changed.emit(newRoomID)
 	
 func getLocation():
 	return location
@@ -155,11 +155,11 @@ func setName(newname: String):
 		newname = "Player"
 	
 	gamename = newname
-	emit_signal("stat_changed")
+	stat_changed.emit()
 	
 func addCredits(_c: int):
 	credits += _c
-	emit_signal("stat_changed")
+	stat_changed.emit()
 
 func getCredits() -> int:
 	return credits
@@ -227,7 +227,7 @@ func updateNonBattleEffects():
 
 	GM.GES.callGameExtenders(ExtendGame.pcUpdateNonBattleEffects, [self])
 
-	emit_signal("stat_changed")
+	stat_changed.emit()
 	
 	buffsHolder.calculateBuffs()
 	
@@ -355,7 +355,7 @@ func getSpecies():
 func setSpecies(species: Array):
 	pickedSpecies = species
 	pickedSpecies.sort()
-	emit_signal("stat_changed")
+	stat_changed.emit()
 
 func resetBodypartsToDefault():
 	resetBodypartsToDefaultFor(getSpecies())
@@ -404,7 +404,7 @@ func resetBodypartsToDefaultFor(speciesIds):
 				
 		giveBodypart(bestBodypart, false)
 		
-	emit_signal("bodypart_changed")
+	bodypart_changed.emit()
 
 func saveData():
 	var data = {
@@ -521,7 +521,7 @@ func loadData(data):
 	peeProduction.loadData(SAVE.loadVar(data, "peeProduction", {}))
 
 	updateNonBattleEffects()
-	emit_signal("bodypart_changed")
+	bodypart_changed.emit()
 	
 	#ensure always-visible skills are visible for old saves
 	var allSkills = GlobalRegistry.getSkills();
@@ -893,7 +893,7 @@ func doPainfullyStretchHole(_bodypart, _who = "pc") -> bool:
 			return false
 		
 		addEffect(StatusEffect.StretchedPainfullyPussy, [1])
-		emit_signal("holePainfullyStretched", _bodypart, _who)
+		holePainfullyStretched.emit(_bodypart, _who)
 		SexToyManager.sendTrigger(SexToyTrigger.OnHoleStretchedPainfully, [_bodypart])
 		return true
 	if(_bodypart == BodypartSlot.Anus && hasBodypart(_bodypart)):
@@ -901,14 +901,14 @@ func doPainfullyStretchHole(_bodypart, _who = "pc") -> bool:
 			return false
 		
 		addEffect(StatusEffect.StretchedPainfullyAnus, [1])
-		emit_signal("holePainfullyStretched", _bodypart, _who)
+		holePainfullyStretched.emit(_bodypart, _who)
 		SexToyManager.sendTrigger(SexToyTrigger.OnHoleStretchedPainfully, [_bodypart])
 		return true
 	return false
 
 func doWound(_who = "pc") -> bool:
 	addEffect(StatusEffect.Wounded, [1])
-	emit_signal("gotWoundedBy", _who)
+	gotWoundedBy.emit(_who)
 	SexToyManager.sendTrigger(SexToyTrigger.OnWounded)
 	return true
 

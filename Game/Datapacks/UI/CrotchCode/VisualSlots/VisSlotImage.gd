@@ -2,7 +2,7 @@ extends VBoxContainer
 
 var slotImage:CrotchSlotImage
 var editor
-onready var image_var_ui = $ImageVarUI
+@onready var image_var_ui = $ImageVarUI
 
 func setSlotImage(theSlotVar):
 	slotImage = theSlotVar

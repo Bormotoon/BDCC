@@ -290,7 +290,7 @@ func _run():
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
-		var _ok = inventory.connect("onInteractWith", self, "onMakeInteract")
+		var _ok = inventory.onInteractWith.connect(onMakeInteract)
 	
 	if(state == "database"):
 		addButton("Back", "Back to the previous menu", "")
@@ -371,8 +371,8 @@ func _run():
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
-		#var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		#var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
+		#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		#var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
 		
 	
 	if(state == "upgrades"):
@@ -426,7 +426,7 @@ func _run():
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
-		var _ok = inventory.connect("onInteractWith", self, "onUpgradesInteract")
+		var _ok = inventory.onInteractWith.connect(onUpgradesInteract)
 	
 	if(state == "lookAtUpgrade"):
 		var upgradeInfo:Dictionary = GM.main.SCI.getUpgrades()[pickedUpgrade]

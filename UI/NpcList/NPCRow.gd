@@ -1,14 +1,14 @@
 extends PanelContainer
 
-onready var _npcNameLabel = $HBoxContainer/VBoxContainer/Name
-onready var relationship_name = $HBoxContainer/VBoxContainer/RelationshipName
-onready var _npcGenderLabel = $HBoxContainer/Gender
-onready var _npcPersonalityLabel = $HBoxContainer/Personality
-onready var _amountOfChildrenLabel = $HBoxContainer/Children
-onready var meetButton = $HBoxContainer/CenterContainer2/Meet
-onready var forgetButton = $HBoxContainer/CenterContainer/Forget
-onready var relationship = $HBoxContainer/Relationship
-onready var showNpcButton = $ShowNPC
+@onready var _npcNameLabel = $HBoxContainer/VBoxContainer/Name
+@onready var relationship_name = $HBoxContainer/VBoxContainer/RelationshipName
+@onready var _npcGenderLabel = $HBoxContainer/Gender
+@onready var _npcPersonalityLabel = $HBoxContainer/Personality
+@onready var _amountOfChildrenLabel = $HBoxContainer/Children
+@onready var meetButton = $HBoxContainer/CenterContainer2/Meet
+@onready var forgetButton = $HBoxContainer/CenterContainer/Forget
+@onready var relationship = $HBoxContainer/Relationship
+@onready var showNpcButton = $ShowNPC
 signal onForgetButtonPressed(npcID, name, node)
 signal onMeetButtonPressed(npcID, occupation)
 var _npcID setget setNpcID, getNpcID
@@ -77,7 +77,7 @@ func _on_Forget_pressed():
 	if(_npcID == null):
 		Log.error("Exception: Attempt to delete null character in the NPC list")
 	else:
-		emit_signal("onForgetButtonPressed", _npcID, getNpcName(), self)
+		onForgetButtonPressed.emit(_npcID, getNpcName(), self)
 
 
 func _on_ShowNPC_pressed():
@@ -92,4 +92,4 @@ func _on_ShowNPC_pressed():
 
 
 func _on_Meet_pressed():
-	emit_signal("onMeetButtonPressed", _npcID, _npcOccupation)
+	onMeetButtonPressed.emit(_npcID, _npcOccupation)

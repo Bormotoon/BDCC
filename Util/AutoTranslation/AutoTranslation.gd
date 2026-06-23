@@ -82,7 +82,7 @@ func recreateTranslatorIfNeeded():
 			add_child(newTranslator)
 			translators.append(newTranslator)
 	
-	emit_signal("translator_recreated")
+	translator_recreated.emit()
 
 func shouldTranslate():
 	return shouldBeTranslating
@@ -117,7 +117,7 @@ func translate(inputText):
 				usedTranslators.append(translator)
 			var theResult = translator.translate(targetLanguage, theText)
 			if(theResult is GDScriptFunctionState):
-				theResult = yield(theResult, "completed")
+				theResult = await theResult
 			if(theResult == null || !(theResult is Dictionary) || !(theResult.has("success")) || !theResult["success"]):
 				continue
 			if(translator.id == "googlebatch"):
@@ -134,7 +134,7 @@ func translate(inputText):
 		
 		_i += 1
 		if(_i < amountOfTexts):
-			yield(get_tree().create_timer(2.0), "timeout")
+			await get_tree().create_timer(2.0).timeout
 	
 	if(theResultedArray.size() == 0):
 		for translator in usedTranslators:

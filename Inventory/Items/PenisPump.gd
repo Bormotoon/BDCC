@@ -30,7 +30,7 @@ func generateFluids():
 	fluids = Fluids.new()
 	fluids.setCapacity(1000.0)
 	#fluids.addFluid("Milk", 250.0)
-	#var _ok = fluids.connect("contentsChanged", self, "updatePcIfNeeded")
+	#var _ok = fluids.contentsChanged.connect(updatePcIfNeeded)
 
 func getPossibleActions():
 	return [

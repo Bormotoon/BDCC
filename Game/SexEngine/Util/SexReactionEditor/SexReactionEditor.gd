@@ -6,25 +6,25 @@ var data:Dictionary = {
 	reactions = {},
 }
 const SavePath = "res://Game/SexEngine/Util/SexReactionEditor/DefaultReactions.txt"
-onready var new_reaction_list:OptionButton = $"%NewReactionList"
-onready var reaction_list = $"%ReactionList"
-onready var main_tab = $"%MainTab"
-onready var reaction_tab = $"%ReactionTab"
-onready var output_tab = $"%OutputTab"
+@onready var new_reaction_list:OptionButton = $"%NewReactionList"
+@onready var reaction_list = $"%ReactionList"
+@onready var main_tab = $"%MainTab"
+@onready var reaction_tab = $"%ReactionTab"
+@onready var output_tab = $"%OutputTab"
 
-onready var role_selector = $"%RoleSelector"
+@onready var role_selector = $"%RoleSelector"
 
-onready var chance_spinbox = $"%ChanceSpinbox"
-onready var say_together_checkbox = $"%SayTogetherCheckbox"
-onready var chances_line_edit = $"%ChancesLineEdit"
+@onready var chance_spinbox = $"%ChanceSpinbox"
+@onready var say_together_checkbox = $"%SayTogetherCheckbox"
+@onready var chances_line_edit = $"%ChancesLineEdit"
 
-onready var reaction_entries_list = $"%ReactionEntriesList"
-onready var condition_text_edit = $"%ConditionTextEdit"
-onready var lines_text_edit = $"%LinesTextEdit"
+@onready var reaction_entries_list = $"%ReactionEntriesList"
+@onready var condition_text_edit = $"%ConditionTextEdit"
+@onready var lines_text_edit = $"%LinesTextEdit"
 
-onready var output_text_edit = $"%OutputTextEdit"
+@onready var output_text_edit = $"%OutputTextEdit"
 
-onready var prompt_text_edit = $"%PromptTextEdit"
+@onready var prompt_text_edit = $"%PromptTextEdit"
 
 
 func saveToFile():

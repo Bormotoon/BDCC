@@ -1,7 +1,7 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var location_button = $LocationButton
+@onready var location_button = $LocationButton
 
-onready var label = $Label
+@onready var label = $Label
 var location = "main_punishment_spot"
 var mapLockerPickerWindowScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/MapLocPickerWindow.tscn")
 
@@ -20,8 +20,8 @@ func _on_LocationButton_pressed():
 	var newWindow = mapLockerPickerWindowScene.instantiate()
 	add_child(newWindow)
 	newWindow.setSelectedCell(str(location))
-	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")
-	newWindow.connect("onCellSelected", self, "onMapButtonCellSelected")
+	newWindow.onCancelPressed.connect(onMapButtonClosed)
+	newWindow.onCellSelected.connect(onMapButtonCellSelected)
 	
 	newWindow.popup_centered()
 

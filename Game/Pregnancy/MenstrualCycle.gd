@@ -176,11 +176,11 @@ func processTime(seconds:int):
 		
 		if(!noticedVisiblyPregnant && isVisiblyPregnant()):
 			noticedVisiblyPregnant = true
-			emit_signal("visiblyPregnant")
+			visiblyPregnant.emit()
 			
 		if(!noticedHeavyIntoPregnancy && thePregnancyProgress > 0.66):
 			noticedHeavyIntoPregnancy = true
-			emit_signal("heavyIntoPregnancy")
+			heavyIntoPregnancy.emit()
 
 	if(!hasAnyWomb()):
 		cycleProgress = 0.0
@@ -210,7 +210,7 @@ func processTime(seconds:int):
 		
 		if(readyFetusAmount == impregnatedEggCells.size() && !noticedReadyToGiveBirth):
 			noticedReadyToGiveBirth = true
-			emit_signal("readyToGiveBirthOnce")
+			readyToGiveBirthOnce.emit()
 
 	if(hasAnyBigEggs):
 		for bigEgg in bigEggs:

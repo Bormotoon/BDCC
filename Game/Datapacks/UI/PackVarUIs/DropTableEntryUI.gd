@@ -9,4 +9,4 @@ func setData(_data:Dictionary):
 		$Label.text = _data["name"]
 
 func _on_DeleteButton_pressed():
-	emit_signal("onDeletePressed", id)
+	onDeletePressed.emit(id)

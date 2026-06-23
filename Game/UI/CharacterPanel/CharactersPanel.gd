@@ -2,7 +2,7 @@ extends VBoxContainer
 
 var characterPanelScane = preload("res://Game/UI/CharacterPanel/CharacterPanelSmall.tscn")
 var addedCharacters: Dictionary = {}
-onready var charactersBox = $ScrollContainer/CharactersBox
+@onready var charactersBox = $ScrollContainer/CharactersBox
 
 func _ready():
 	clear()
@@ -14,8 +14,8 @@ func addCharacter(charID: String):
 	var panel = characterPanelScane.instantiate()
 	charactersBox.add_child(panel)
 	panel.setCharacterID(charID)
-	panel.connect("mouse_entered", self, "onCharacterMouseEntered", [panel])
-	panel.connect("mouse_exited", self, "onCharacterMouseExited")
+	panel.mouse_entered.connect(onCharacterMouseEntered.bind([panel]))
+	panel.mouse_exited.connect(onCharacterMouseExited)
 	
 	addedCharacters[charID] = panel
 	

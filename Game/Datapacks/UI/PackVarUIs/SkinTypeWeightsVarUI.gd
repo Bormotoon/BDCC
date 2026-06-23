@@ -17,7 +17,7 @@ func updateSkinTypes():
 			name = SkinType.getName(skinType),
 			value = (data[skinType] if data.has(skinType) else 0.0),
 		})
-		newNumber.connect("onValueChange", self, "onSkinTypeWeightChanged")
+		newNumber.onValueChange.connect(onSkinTypeWeightChanged)
 	
 func onSkinTypeWeightChanged(id, value):
 	if(value <= 0.0):

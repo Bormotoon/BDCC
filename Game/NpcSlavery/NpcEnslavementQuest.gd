@@ -57,7 +57,7 @@ func generateTasks():
 	
 	tasks = NpcBreakTaskBase.generateTasksFor(theChar, slaveType, false, tasksAmount, difficultyMin, difficultyMax)
 	for task in tasks:
-		var _ok = task.connect("onTaskCompleted", self, "onBreakTaskCompleted")
+		var _ok = task.onTaskCompleted.connect(onBreakTaskCompleted)
 
 func onBreakTaskCompleted(_theTask):
 	if(!canEnslaveReminded && isEverythingCompleted()):
@@ -161,5 +161,5 @@ func loadData(data):
 		if(taskObj == null):
 			continue
 		taskObj.loadData(SAVE.loadVar(taskData, "data", {}))
-		var _ok = taskObj.connect("onTaskCompleted", self, "onBreakTaskCompleted")
+		var _ok = taskObj.onTaskCompleted.connect(onBreakTaskCompleted)
 		tasks.append(taskObj)

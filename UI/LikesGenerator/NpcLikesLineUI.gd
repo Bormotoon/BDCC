@@ -53,7 +53,7 @@ func updateButtons():
 func setCurrentValue(val):
 	currentValue = val
 	updateButtons()
-	emit_signal("onCurrentValueChange", interestID, currentValue)
+	onCurrentValueChange.emit(interestID, currentValue)
 
 
 func _on_Button_pressed():

@@ -1,10 +1,10 @@
 extends Control
 
 var SPELLCHECK_URL = 'https://orthographe.reverso.net/api/v1/Spelling'
-onready var http_request = $HTTPRequest
-onready var mistake_item_list = $VBoxContainer/HBoxContainer/VBoxContainer/MistakeItemList
-onready var rich_text_label = $VBoxContainer/HBoxContainer/VBoxContainer/RichTextLabel
-onready var text_edit = $VBoxContainer/HBoxContainer/TextEdit
+@onready var http_request = $HTTPRequest
+@onready var mistake_item_list = $VBoxContainer/HBoxContainer/VBoxContainer/MistakeItemList
+@onready var rich_text_label = $VBoxContainer/HBoxContainer/VBoxContainer/RichTextLabel
+@onready var text_edit = $VBoxContainer/HBoxContainer/TextEdit
 
 var spellErrors = []
 var selectedErrorIndex:int = -1
@@ -184,7 +184,7 @@ func textIndexToLineAndCol(index):
 	return [0, 0]
 
 func _on_ConfirmButton_pressed():
-	emit_signal("onTextSubmit", text_edit.text)
+	onTextSubmit.emit(text_edit.text)
 
 func _on_CancelButton_pressed():
-	emit_signal("onCancel")
+	onCancel.emit()

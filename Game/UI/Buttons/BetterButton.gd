@@ -13,8 +13,8 @@ export var instantTooltip:bool = false
 export var myShortcutKey:String = ""
 export var myShortcutCtrl:bool = false
 
-onready var key_label = $"%KeyLabel"
-onready var button_label = $"%ButtonLabel"
+@onready var key_label = $"%KeyLabel"
+@onready var button_label = $"%ButtonLabel"
 
 var showingDescription:bool = false
 
@@ -44,7 +44,7 @@ func _ready():
 		setShortcutPhysicalScancode(OS.find_scancode_from_string(myShortcutKey), myShortcutCtrl)
 	checkDisabled()
 	
-	OPTIONS.connect("onLayoutChange", self, "updateButtonSize")
+	OPTIONS.onLayoutChange.connect(updateButtonSize)
 
 func updateButtonSize():
 	if(shouldScaleToUIButtonSize):
@@ -105,12 +105,12 @@ func _on_BetterButton_pressed():
 	if(OS.has_touchscreen_ui_hint() && OPTIONS.shouldRequireDoubleTapOnMobile() && allowDoubleTabSetting):
 		if(!showingDescription):
 			showingDescription = true
-			emit_signal("mouse_entered")
+			mouse_entered.emit()
 		else:
 			showingDescription = false
-			emit_signal("pressedActually")
+			pressedActually.emit()
 	else:
-		emit_signal("pressedActually")
+		pressedActually.emit()
 
 func setIsDisabled(_dis:bool):
 	if(_dis == disabled):

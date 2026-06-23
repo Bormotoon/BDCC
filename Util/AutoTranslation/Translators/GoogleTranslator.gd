@@ -23,7 +23,7 @@ func _ready():
 	pass
 	#req = HTTPRequest.new()
 	#add_child(req)
-	#req.connect("request_completed", self, "_http_request_completed")
+	#req.request_completed.connect(_http_request_completed)
 
 func _http_request_completed(_result, _response_code, _headers, _body):
 	#print(body.get_string_from_utf8())
@@ -98,7 +98,7 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "An error occurred in the HTTP request."
 		return theResult
 	
-	var theData = yield(newreq, "request_completed")
+	var theData = await newreq.request_completed
 	
 	if(theData == null || !(theData is Array) || theData.size() != 4):
 		theResult["error"] = true

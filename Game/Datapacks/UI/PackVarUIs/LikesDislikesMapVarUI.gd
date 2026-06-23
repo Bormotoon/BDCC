@@ -18,7 +18,7 @@ func updateMap():
 				interestTopic= interestID,
 				value= (interestMap[interestID] if interestMap.has(interestID) else Interest.Neutral),
 			})
-			newFetishScene.connect("onValueChange", self, "onFetishValueSelected")
+			newFetishScene.onValueChange.connect(onFetishValueSelected)
 			$FetishMap.add_child(HSeparator.new())
 
 func onFetishValueSelected(_id, _value):

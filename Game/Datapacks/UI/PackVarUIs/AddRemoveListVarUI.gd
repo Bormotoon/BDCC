@@ -5,7 +5,7 @@ var addedValues = []
 var valueIDtoText = {}
 var allowDuplicates = false
 #onready var add_item_list = $HBoxContainer/AddItemList
-onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
+@onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
 
 var selectedValue
 #var isListVals = false

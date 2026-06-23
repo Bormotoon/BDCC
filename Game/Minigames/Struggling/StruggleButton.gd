@@ -3,7 +3,7 @@ extends Node2D
 var progress = 0.0
 var waitTime = 5.0
 var deadZone = 0.1
-onready var _animation_player := $AnimationPlayer
+@onready var _animation_player := $AnimationPlayer
 var hit = false
 
 var hitEffectScene = preload("res://Game/Minigames/Struggling/StruggleHitEffect.tscn")
@@ -41,7 +41,7 @@ func gotHit(_tooLate = false):
 	hit = true
 	
 	if(_tooLate):
-		emit_signal("onHit", 0.0)
+		onHit.emit(0.0)
 		#print("TOO LATE")
 		spawnHitEffect().makeMiss()
 	else:
@@ -54,7 +54,7 @@ func gotHit(_tooLate = false):
 		else:
 			spawnHitEffect().makeMiss()
 		
-		emit_signal("onHit", score)
+		onHit.emit(score)
 
 func getScore():
 	var closeness = abs(progress - 1.0)

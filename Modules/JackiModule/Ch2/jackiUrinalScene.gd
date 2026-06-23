@@ -973,7 +973,7 @@ func playRandomSexAnim():
 		else:
 			playAnimation(StageScene.UrinalPeeing, RNG.pick(["peefemale"]), {pc="pc", npc=domID, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		randomSexIsPlaying = true
-		yield(get_tree().create_timer(3.0 + RNG.randf_range(0.0, 4.0)), "timeout")
+		await get_tree().create_timer(3.0 + RNG.randf_range(0.0, 4.0)).timeout
 		if(!(state in ["after_first_two"])):
 			randomSexIsPlaying = false
 			return

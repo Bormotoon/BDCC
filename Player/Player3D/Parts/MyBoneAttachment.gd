@@ -1,8 +1,8 @@
 extends Position3D
 class_name MyBoneAttachment
 
-export(NodePath) var skeleton: NodePath
-export(String) var boneId
+@export var var skeleton: NodePath
+@export var var boneId
 var startTransform:Transform
 var correctedTransform: Transform
 var shouldScaleWithBone = true

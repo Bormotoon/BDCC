@@ -1,7 +1,7 @@
 extends Spatial
 class_name PartState
 
-export(String) var stateValue = ""
+@export var var stateValue = ""
 
 func getStateValue():
 	return stateValue

@@ -170,7 +170,7 @@ func _send_local_command(payload:Dictionary) -> bool:
 	var req := HTTPRequest.new()
 	add_child(req)
 
-	req.connect("request_completed", self, "_on_local_request_completed", [req, payload.get("command", "")])
+	req.request_completed.connect(_on_local_request_completed.bind([req, payload.get("command", "")]))
 
 	var headers := [
 		"Content-Type: application/json",

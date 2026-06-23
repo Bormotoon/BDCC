@@ -2,10 +2,10 @@ extends WindowDialog
 
 signal onConfirm(window, checks)
 signal onCancel(window)
-onready var check_list = $VBoxContainer/HBoxContainer/VBoxContainer/CheckList
-onready var scroll_container = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer
-onready var type_selector = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/TypeSelector
-onready var pack_variables = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/PackVariables
+@onready var check_list = $VBoxContainer/HBoxContainer/VBoxContainer/CheckList
+@onready var scroll_container = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer
+@onready var type_selector = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/TypeSelector
+@onready var pack_variables = $VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer/PackVariables
 
 var checks = []
 var selectedIndex = -1
@@ -34,10 +34,10 @@ func updateChecksList():
 		_i += 1
 		
 func _on_ConfirmButton_pressed():
-	emit_signal("onConfirm", self, checks)
+	onConfirm.emit(self, checks)
 
 func _on_CancelButton_pressed():
-	emit_signal("onCancel", self)
+	onCancel.emit(self)
 
 func _on_RemoveButton_pressed():
 	if(check_list.get_selected_items().size() <= 0):

@@ -2,11 +2,11 @@ extends Control
 
 signal onClosePressed
 
-onready var contributors_label = $"%ContributorsLabel"
+@onready var contributors_label = $"%ContributorsLabel"
 
 func _ready():
 	$VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer/DonationsLabel.bbcode_text = GlobalRegistry.getDonationDataString(true)
-	var _ok = GlobalRegistry.connect("donationDataUpdated", self, "updateDonationData")
+	var _ok = GlobalRegistry.donationDataUpdated.connect(updateDonationData)
 
 	var contributorText:String = ""
 	for contributorName in GlobalRegistry.contributorsCredits:
@@ -18,7 +18,7 @@ func updateDonationData():
 	$VBoxContainer/ScrollContainer/ScrollVBox/ContentContainer/DonationsLabel.bbcode_text = GlobalRegistry.getDonationDataString(true)
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 func _on_SupportRahiButton_pressed():
 	var _ok = Util.fixed_shell_open("https://subscribestar.adult/rahi")

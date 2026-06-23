@@ -1,8 +1,8 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
+@onready var animationTree = $AnimationTree
 #onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
+@onready var doll = $Doll3D
 #onready var dildo = $CanineDildo
 
 func _init():

@@ -1,6 +1,6 @@
 extends Control
 
-onready var colorPicker = $ColorPicker
+@onready var colorPicker = $ColorPicker
 signal color_changed(color)
 
 func setCurrentColor(theColor):
@@ -13,7 +13,7 @@ func getCurrentColor():
 
 
 func _on_ColorPicker_color_changed(color):
-	emit_signal("color_changed", color)
+	color_changed.emit(color)
 
 func getData():
 	return getCurrentColor()

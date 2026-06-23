@@ -16,7 +16,7 @@ func updatePersData():
 			"personalityStat": statID,
 			"value": (data[statID] if data.has(statID) else 0.0),
 		})
-		newStat.connect("onValueChange", self, "onPersonalitySingleChange")
+		newStat.onValueChange.connect(onPersonalitySingleChange)
 
 func onPersonalitySingleChange(_id, _value):
 	data[_id] = _value

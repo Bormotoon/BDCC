@@ -15,10 +15,10 @@ export 							var use_gravity: bool = false
 export 							var gravity := Vector3(0, -9.81, 0)
 export (Axis) 					var forward_axis: int = Axis.Z_Minus
 export (NodePath) 				var collision_shape: NodePath setget set_collision_shape
-export(Vector3) var directionVector = Vector3(0, 1, 0)
+@export var var directionVector = Vector3(0, 1, 0)
 
 var skeleton: Skeleton
-export(NodePath) var skeletonPath: NodePath
+@export var var skeletonPath: NodePath
 var bone_id: int
 var bone_id_parent: int
 var collision_sphere: CollisionShape

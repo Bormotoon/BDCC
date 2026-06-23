@@ -482,7 +482,7 @@ func startLoadingDonationData():
 	
 	donationDataRequest = HTTPRequest.new()
 	add_child(donationDataRequest)
-	var _ok = donationDataRequest.connect("request_completed", self, "onDonationDataRequest")
+	var _ok = donationDataRequest.request_completed.connect(onDonationDataRequest)
 	var _ok2 = donationDataRequest.request("https://raw.githubusercontent.com/Alexofp/BDCC/main/DonationInfo.json")
 
 func validateDonationData(donationData):
@@ -518,7 +518,7 @@ func onDonationDataRequest(result, _response_code, _headers, body):
 		return
 	
 	cachedDonationData = donationData
-	emit_signal("donationDataUpdated")
+	donationDataUpdated.emit()
 
 func getDonationDataString(_tightGrouping:bool = false):
 	var theData
@@ -560,7 +560,7 @@ func registerEverything():
 	
 	startLoadingDonationData()
 	
-	emit_signal("loadingUpdate", 0.0/totalStages, "Modules pre-init")
+	loadingUpdate.emit(0.0/totalStages, "Modules pre-init")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	preinitModulesHooks("res://Modules/")
@@ -568,7 +568,7 @@ func registerEverything():
 	
 	ModularDialogue.registerEverything()
 	
-	emit_signal("loadingUpdate", 3.0/totalStages, "Bodyparts")
+	loadingUpdate.emit(3.0/totalStages, "Bodyparts")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -590,7 +590,7 @@ func registerEverything():
 		var worker_time2 = (end2-start2)/1000000.0
 		Log.print("BODYPARTS initialized in: %s seconds" % [worker_time2])
 	
-	emit_signal("loadingUpdate", 4.0/totalStages, "Inventory")
+	loadingUpdate.emit(4.0/totalStages, "Inventory")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -608,7 +608,7 @@ func registerEverything():
 	registerLootTableFolder("res://Inventory/LootTable/")
 	registerLootListFolder("res://Inventory/LootLists/")
 	
-	emit_signal("loadingUpdate", 5.0/totalStages, "Skills")
+	loadingUpdate.emit(5.0/totalStages, "Skills")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -623,7 +623,7 @@ func registerEverything():
 	
 	registerPerkFolder("res://Skills/Perk/")
 	
-	emit_signal("loadingUpdate", 6.0/totalStages, "Events")
+	loadingUpdate.emit(6.0/totalStages, "Events")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -631,7 +631,7 @@ func registerEverything():
 	registerEventFolder("res://Game/NpcSlavery/SlaveActivitiesEvents/")
 	registerDrugDenEventFolder("res://Game/DrugDen/Events/")
 	
-	emit_signal("loadingUpdate", 7.0/totalStages, "Scenes")
+	loadingUpdate.emit(7.0/totalStages, "Scenes")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -652,14 +652,14 @@ func registerEverything():
 	
 	registerFluidsFolder("res://Player/Fluids/Fluids/")
 	
-	emit_signal("loadingUpdate", 8.0/totalStages, "Characters")
+	loadingUpdate.emit(8.0/totalStages, "Characters")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
 	registerCharacterFolder("res://Characters/")
 	registerCharacterFolder("res://Characters/Generic/")
 	
-	emit_signal("loadingUpdate", 9.0/totalStages, "Attacks")
+	loadingUpdate.emit(9.0/totalStages, "Attacks")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -673,7 +673,7 @@ func registerEverything():
 	registerAuctionTraitFolder("res://Game/SlaveAuction/Traits/")
 	registerAuctionActionFolder("res://Game/SlaveAuction/Actions/")
 	
-	emit_signal("loadingUpdate", 10.0/totalStages, "Sex")
+	loadingUpdate.emit(10.0/totalStages, "Sex")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -714,7 +714,7 @@ func registerEverything():
 	registerNurseryTaskFolder("res://Game/Science/NurseryTasks/")
 	registerRecruitFolder("res://Game/DomRoute/Recruits/")
 	
-	emit_signal("loadingUpdate", 11.0/totalStages, "Sex scenes")
+	loadingUpdate.emit(11.0/totalStages, "Sex scenes")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -729,7 +729,7 @@ func registerEverything():
 		
 	registerMapFloorFolder("res://Game/World/Floors/")
 	
-	emit_signal("loadingUpdate", 12.0/totalStages, "Image packs")
+	loadingUpdate.emit(12.0/totalStages, "Image packs")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -740,7 +740,7 @@ func registerEverything():
 	
 	registerComputerFolder("res://Game/Computer/")
 	
-	emit_signal("loadingUpdate", 13.0/totalStages, "Skins")
+	loadingUpdate.emit(13.0/totalStages, "Skins")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -749,7 +749,7 @@ func registerEverything():
 	registerPartSkinsFolder("res://Player/Player3D/SkinsParts/")
 	registerPartSkinsFolder("res://Player/Player3D/SkinsPartsByAuthor/AverageAce/", "AverageAce")
 	
-	emit_signal("loadingUpdate", 14.0/totalStages, "Modules")
+	loadingUpdate.emit(14.0/totalStages, "Modules")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	
@@ -763,13 +763,13 @@ func registerEverything():
 	
 	GM.GES.registerAll()
 	
-	emit_signal("loadingUpdate", 17.0/totalStages, "Datapacks")
+	loadingUpdate.emit(17.0/totalStages, "Datapacks")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	loadDatapacksFromFolder(getDatapacksFolder())
 	loadDatapacksFromFolder("res://StaticDatapacks")
 	
-	emit_signal("loadingUpdate", 18.0/totalStages, "Modules late initialization")
+	loadingUpdate.emit(18.0/totalStages, "Modules late initialization")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	postInitModules()
@@ -781,7 +781,7 @@ func registerEverything():
 	Log.print("GlobalRegistry fully initialized in: %s seconds" % [worker_time])
 	isInitialized = true
 	deleteLoadLockFile()
-	emit_signal("loadingFinished")
+	loadingFinished.emit()
 	
 # The point is that it will still generate unique ids even after saving/loading
 func generateUniqueID():
@@ -1350,7 +1350,7 @@ func registerModules():
 	for moduleID in modules:
 		var moduleObject = modules[moduleID]
 		var progressValue = progressBase + (progressStep * loadedModuleCount / moduleCount)
-		emit_signal("loadingUpdate", progressValue, moduleObject.getRegisterName())
+		loadingUpdate.emit(progressValue, moduleObject.getRegisterName())
 		yield(get_tree(), "idle_frame")
 		yield(get_tree(), "idle_frame")
 		
@@ -1750,7 +1750,7 @@ func preinitModulesFolder(folder: String):
 		var loadedModuleCount = 0
 		for moduleFile in moduleFiles:
 			var progressValue = progressBase + (progressStep * loadedModuleCount / moduleCount)
-			emit_signal("loadingUpdate", progressValue, "Loading " + moduleFile[0])
+			loadingUpdate.emit(progressValue, "Loading " + moduleFile[0])
 			yield(get_tree(), "idle_frame")
 			yield(get_tree(), "idle_frame")
 			preinitModule(moduleFile[1])

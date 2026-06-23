@@ -132,7 +132,7 @@ func _run():
 		var game = minigameScene.instantiate()
 		GM.ui.addFullScreenCustomControl("minigame", game)
 		game.setDifficulty(4)
-		game.connect("minigameCompleted", self, "onMinigameTest")
+		game.minigameCompleted.connect(onMinigameTest)
 
 		addButton("Continue", "Good", "")
 

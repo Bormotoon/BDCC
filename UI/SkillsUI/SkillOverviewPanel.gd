@@ -2,12 +2,12 @@ extends PanelContainer
 
 var skillID = null
 
-onready var nameLabel = $VBoxContainer/NameLabel
-onready var levelBar = $VBoxContainer/HBoxContainer/LevelBar
-onready var descLabel = $VBoxContainer/DescLabel
-onready var learnedPerksLabel = $VBoxContainer/LearnedPerksLabel
-onready var freePerksLabel = $VBoxContainer/FreePerksLabel
-onready var perksButton = $VBoxContainer/HBoxContainer/PerksButton
+@onready var nameLabel = $VBoxContainer/NameLabel
+@onready var levelBar = $VBoxContainer/HBoxContainer/LevelBar
+@onready var descLabel = $VBoxContainer/DescLabel
+@onready var learnedPerksLabel = $VBoxContainer/LearnedPerksLabel
+@onready var freePerksLabel = $VBoxContainer/FreePerksLabel
+@onready var perksButton = $VBoxContainer/HBoxContainer/PerksButton
 
 signal perksButton(skillID)
 
@@ -46,4 +46,4 @@ func updateInfo():
 	perksButton.text = "Perks ("+str(learnedPerkCount)+"/"+str(totalPerkCount)+")"
 
 func _on_PerksButton_pressed():
-	emit_signal("perksButton", skillID)
+	perksButton.emit(skillID)

@@ -1,11 +1,11 @@
 extends Control
 
-onready var failArea = $GameScreen/Panel/FailZone
-onready var cursor = $GameScreen/Panel/Cursor
-onready var redZone = $GameScreen/Panel/Panel
-onready var orangeZone = $GameScreen/Panel/Panel2
-onready var goldenZone = $GameScreen/Panel/Panel3
-onready var button = $StartMenu/CenterContainer/VBoxContainer/Button
+@onready var failArea = $GameScreen/Panel/FailZone
+@onready var cursor = $GameScreen/Panel/Cursor
+@onready var redZone = $GameScreen/Panel/Panel
+@onready var orangeZone = $GameScreen/Panel/Panel2
+@onready var goldenZone = $GameScreen/Panel/Panel3
+@onready var button = $StartMenu/CenterContainer/VBoxContainer/Button
 
 var time = 0.0
 var cursorSpeed = 1.0
@@ -126,7 +126,7 @@ func _process(delta):
 	
 	if(ingame && !freeze):
 		if(timeLeft > 0 && (timeLeft - delta) <= 0):
-			emit_signal("minigameCompleted", calcFinalScore())
+			minigameCompleted.emit(calcFinalScore())
 		time += delta
 		timeLeft -= delta
 		
@@ -280,7 +280,7 @@ func setStreakColor(theColor):
 	streakLabel.add_color_override("font_color", theColor)
 
 var tween
-onready var streakLabel = $GameScreen/StreakLabel
+@onready var streakLabel = $GameScreen/StreakLabel
 func _on_ClickAtTheRightTime_gui_input(event):
 	if(event is InputEventMouseButton):
 		if(event.pressed && !freeze):
@@ -309,10 +309,10 @@ func doCommitClick():
 		
 	
 	freeze = true
-	yield(get_tree().create_timer(0.5), "timeout")
+	await get_tree().create_timer(0.5).timeout
 	freeze = false
 	#generateZone(RNG.randf_range(1.0, 10.0))
 	#setDifficulty(5)
 	#print(finalScore)
 
-	emit_signal("minigameCompleted", calcFinalScore())
+	minigameCompleted.emit(calcFinalScore())

@@ -1,8 +1,8 @@
 extends Control
 
-onready var skillsContainer = $ScrollContainer/VBoxContainer/SkillsContainer
-onready var basePerksInfo = $ScrollContainer/VBoxContainer/BasePerksInfo
-onready var basePerksLabel = $ScrollContainer/VBoxContainer/BasePerksInfo/BasePerksLabel
+@onready var skillsContainer = $ScrollContainer/VBoxContainer/SkillsContainer
+@onready var basePerksInfo = $ScrollContainer/VBoxContainer/BasePerksInfo
+@onready var basePerksLabel = $ScrollContainer/VBoxContainer/BasePerksInfo/BasePerksLabel
 var skillOverviewPanelScene = preload("res://UI/SkillsUI/SkillOverviewPanel.tscn")
 
 signal openPerksButton(skillID)
@@ -16,7 +16,7 @@ func updateSkills():
 		var skillPanel = skillOverviewPanelScene.instantiate()
 		skillsContainer.add_child(skillPanel)
 		skillPanel.setSkillID(skillID)
-		skillPanel.connect("perksButton", self, "onPerksButton")
+		skillPanel.perksButton.connect(onPerksButton)
 	
 	var basePerksAmount = GM.pc.getSkillsHolder().getVisibleBasePerksIDs().size()
 	if(basePerksAmount == 0):
@@ -30,7 +30,7 @@ func _on_SkillsOverviewTab_visibility_changed():
 		updateSkills()
 
 func onPerksButton(skillID):
-	emit_signal("openPerksButton", skillID)
+	openPerksButton.emit(skillID)
 
 func _on_BasePerksButton_pressed():
-	emit_signal("openBasePerks")
+	openBasePerks.emit()

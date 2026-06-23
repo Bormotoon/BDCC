@@ -1,10 +1,10 @@
 extends Control
 
 signal onClosePressed
-onready var langList = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/LanguageList
-onready var translatorsList = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/TranslatorsList
+@onready var langList = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/LanguageList
+@onready var translatorsList = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/TranslatorsList
 func _ready():
-	AutoTranslation.connect("translator_recreated", self, "_on_AutoTranslation_translator_recreated")
+	AutoTranslation.translator_recreated.connect(_on_AutoTranslation_translator_recreated)
 	
 	var allLangs = TranslationLanguage.getAll()
 	var _i = 0
@@ -32,7 +32,7 @@ func refreshTranslatorOrder():
 
 func _on_CloseButton_pressed():
 	AutoTranslation.saveToFile()
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_EnableTranslationBox_toggled(button_pressed):

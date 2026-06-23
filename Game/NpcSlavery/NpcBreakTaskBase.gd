@@ -44,7 +44,7 @@ func checkIfCompletedFor(_npc):
 func completeSelf():
 	if(!taskIsCompleted):
 		taskIsCompleted = true
-		emit_signal("onTaskCompleted", self)
+		onTaskCompleted.emit(self)
 
 func isCompleted():
 	return taskIsCompleted
@@ -111,7 +111,7 @@ static func generateTasksFor(theChar, slaveType, _isSlaveLevelup, taskAmount, di
 		var theTaskRef:NpcBreakTaskBase = RNG.grabWeightedPairs(weightMap)
 		var theTask:NpcBreakTaskBase = GlobalRegistry.createSlaveBreakTask(theTaskRef.id)
 		
-		#var _ok = theTask.connect("onTaskCompleted", self, "onBreakTaskCompleted")
+		#var _ok = theTask.onTaskCompleted.connect(onBreakTaskCompleted)
 		theTask.generateFor(theChar, _isSlaveLevelup, RNG.randf_rangeX2(difficultyMin, difficultyMax))
 		tasks.append(theTask)
 		howManyTasks -= 1

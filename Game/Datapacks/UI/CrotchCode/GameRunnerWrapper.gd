@@ -1,5 +1,5 @@
 extends Control
-onready var game = $Game
+@onready var game = $Game
 
 signal onStopButtonPressed
 
@@ -19,4 +19,4 @@ func run(datapackID, datapackScene, pickedSavePath = null):
 	theGame.runCurrentScene()
 
 func _on_StopButton_pressed():
-	emit_signal("onStopButtonPressed")
+	onStopButtonPressed.emit()

@@ -1,13 +1,13 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var animationTree3 = $AnimationTree3
-onready var animationTree4 = $AnimationTree4
-onready var doll = $Doll3D
-onready var doll2 = $Doll3D2
-onready var doll3 = $Doll3D3
-onready var doll4 = $Doll3D4
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var animationTree3 = $AnimationTree3
+@onready var animationTree4 = $AnimationTree4
+@onready var doll = $Doll3D
+@onready var doll2 = $Doll3D2
+@onready var doll3 = $Doll3D3
+@onready var doll4 = $Doll3D4
 
 func _init():
 	id = StageScene.SexGangbang

@@ -1,10 +1,10 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var doll = $Doll3D
 #onready var doll2 = $Doll3D2
-onready var tentacles = $Tentacles
+@onready var tentacles = $Tentacles
 
 func _init():
 	id = StageScene.TentaclesSleepOn

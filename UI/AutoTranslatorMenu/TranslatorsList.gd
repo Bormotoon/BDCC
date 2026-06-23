@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var translatorList = $ScrollContainer/TranslatorList
+@onready var translatorList = $ScrollContainer/TranslatorList
 
 export var labelText = "Some text"
 export var smallContainer = true
@@ -37,8 +37,8 @@ func updateTranslators():
 		newItem.id = _i
 		_i += 1
 
-		newItem.connect("onUpButton", self, "onTranslatorUpPressed")
-		newItem.connect("onDownButton", self, "onTranslatorDownPressed")
+		newItem.onUpButton.connect(onTranslatorUpPressed)
+		newItem.onDownButton.connect(onTranslatorDownPressed)
 
 func onTranslatorUpPressed(id, _data):
 	if id == 0:
@@ -46,7 +46,7 @@ func onTranslatorUpPressed(id, _data):
 	var modified = translators.pop_at(id)
 	translators.insert(id - 1, modified)
 	updateTranslators()
-	emit_signal("onUpPressed", id)
+	onUpPressed.emit(id)
 func onTranslatorDownPressed(id, _data):
 	if id == len(translators) - 1:
 		return
@@ -54,4 +54,4 @@ func onTranslatorDownPressed(id, _data):
 	var modified = translators.pop_at(id)
 	translators.insert(id + 1, modified)
 	updateTranslators()
-	emit_signal("onDownPressed", id)
+	onDownPressed.emit(id)

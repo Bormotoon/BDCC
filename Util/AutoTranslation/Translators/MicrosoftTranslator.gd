@@ -26,7 +26,7 @@ func _get_token(req: HTTPRequest, force_refresh = false):
 	if(response != OK):
 		return ""
 	
-	var theData = yield(req, "request_completed")
+	var theData = await req.request_completed
 	if(theData == null || !(theData is Array) || theData.size() != 4):
 		return ""
 	
@@ -60,7 +60,7 @@ func translate(_targetLanguage, _inputText):
 	var tk  = ""
 	
 	if get_token is GDScriptFunctionState:
-		tk = yield(get_token, "completed")
+		tk = await get_token
 	else:
 		tk = get_token
 	
@@ -89,7 +89,7 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "An error occurred in the HTTP request."
 		return theResult
 	
-	var theData = yield(newreq, "request_completed")
+	var theData = await newreq.request_completed
 	
 	if(theData == null || !(theData is Array) || theData.size() != 4):
 		theResult["error"] = true

@@ -1,11 +1,11 @@
 extends Control
 
-onready var perkNameLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkNameLabel
-onready var perkDescLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkDescLabel
-onready var togglePerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/TogglePerkButton
+@onready var perkNameLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkNameLabel
+@onready var perkDescLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkDescLabel
+@onready var togglePerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/TogglePerkButton
 
-onready var perksContainer = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/PerksContainer
-onready var perksFlexGrid = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/PerksContainer/FlexGridContainer
+@onready var perksContainer = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/PerksContainer
+@onready var perksFlexGrid = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/PerksContainer/FlexGridContainer
 
 var perkButtonScene = preload("res://UI/SkillsUI/PerkButton.tscn")
 
@@ -25,7 +25,7 @@ func updatePerks():
 		var perkButton = perkButtonScene.instantiate()
 		perksFlexGrid.add_child(perkButton)
 		perkButton.setPerk(perk)
-		var _ok = perkButton.connect("perkClicked", self, "onPerkButton")
+		var _ok = perkButton.perkClicked.connect(onPerkButton)
 		
 func onPerkButton(perkID):
 	selectedPerkID = perkID

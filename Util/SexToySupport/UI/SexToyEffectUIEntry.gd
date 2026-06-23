@@ -1,21 +1,21 @@
 extends PanelContainer
 
-onready var label_effect_name = $"%LabelEffectName"
-onready var effect_type_option_button = $"%EffectTypeOptionButton"
+@onready var label_effect_name = $"%LabelEffectName"
+@onready var effect_type_option_button = $"%EffectTypeOptionButton"
 
-onready var sequence_effect = $"%SequenceEffect"
-onready var sequence_line_edit = $"%SequenceLineEdit"
+@onready var sequence_effect = $"%SequenceEffect"
+@onready var sequence_line_edit = $"%SequenceLineEdit"
 
-onready var curve_effect = $"%CurveEffect"
-onready var curve_editor = $"%CurveEditor"
-onready var curve_duration_spin_box = $"%CurveDurationSpinBox"
-onready var toy_group_checkboxes = $"%ToyGroupCheckboxes"
+@onready var curve_effect = $"%CurveEffect"
+@onready var curve_editor = $"%CurveEditor"
+@onready var curve_duration_spin_box = $"%CurveDurationSpinBox"
+@onready var toy_group_checkboxes = $"%ToyGroupCheckboxes"
 
-onready var simple_effect = $"%SimpleEffect"
-onready var intensity_label = $"%IntensityLabel"
-onready var intensity_slider = $"%IntensitySlider"
-onready var time_label = $"%TimeLabel"
-onready var time_slider = $"%TimeSlider"
+@onready var simple_effect = $"%SimpleEffect"
+@onready var intensity_label = $"%IntensityLabel"
+@onready var intensity_slider = $"%IntensitySlider"
+@onready var time_label = $"%TimeLabel"
+@onready var time_slider = $"%TimeSlider"
 
 
 var entry:SexToyEffectEntry
@@ -32,7 +32,7 @@ func _ready():
 		newCheckbox.text = theGroupName
 		toy_group_checkboxes.add_child(newCheckbox)
 		groupCheckboxes.append(newCheckbox)
-		newCheckbox.connect("pressed", self, "onToyGroupToggle", [newCheckbox, theGroup])
+		newCheckbox.pressed.connect(onToyGroupToggle.bind([newCheckbox, theGroup]))
 		#toy_group_option_button.add_item(theGroupName)
 		
 	effect_type_option_button.add_item("Vibrate (Simple)")
@@ -45,7 +45,7 @@ func setEntry(_indx:int, _entry:SexToyEffectEntry):
 	updateUI()
 
 func _on_DeleteEffectButton_pressed():
-	emit_signal("onDeleteButton", entry)
+	onDeleteButton.emit(entry)
 
 func updateUI():
 	if(!entry):

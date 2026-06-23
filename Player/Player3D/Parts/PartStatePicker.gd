@@ -1,8 +1,8 @@
 extends Spatial
 class_name PartStatePicker
 
-export(String) var state = ""
-export(String) var defaultValue = ""
+@export var var state = ""
+@export var var defaultValue = ""
 
 func _ready():
 	setValue(defaultValue)

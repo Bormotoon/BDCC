@@ -1,8 +1,8 @@
 extends Control
 
-onready var anim_list = $VBoxContainer/HBoxContainer/AnimList
-onready var camera3d = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/Camera
-onready var anim_settings_list = $VBoxContainer/HBoxContainer/SettingsWrapperContainer/ScrollContainer/AnimSettingsList
+@onready var anim_list = $VBoxContainer/HBoxContainer/AnimList
+@onready var camera3d = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/Camera
+@onready var anim_settings_list = $VBoxContainer/HBoxContainer/SettingsWrapperContainer/ScrollContainer/AnimSettingsList
 
 var animPickerSelectorScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/AnimPickerSelectorVar.tscn")
 
@@ -29,7 +29,7 @@ var animStage:BaseStageScene3D
 signal onCancelPressed
 signal onAnimSelected(animID, animData)
 
-onready var stage_3d = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/Stage3D
+@onready var stage_3d = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/Stage3D
 var draggingCamera: bool = false
 var previousPosition: Vector2 = Vector2(0, 0)
 var startMousePosition: Vector2 = Vector2(0, 0)
@@ -72,7 +72,7 @@ func updateAnimSettings():
 		vars = vars,
 		varName = animData["state"]["varName"],
 	})
-	stateVar.connect("onDataChanged", self, "onStateDataChanged")
+	stateVar.onDataChanged.connect(onStateDataChanged)
 	
 	if(animData.has("data")):
 		for entryID in animData["data"]:
@@ -89,7 +89,7 @@ func updateAnimSettings():
 				vars = vars,
 				varName = theEntry["varName"],
 			})
-			newVarEntry.connect("onDataChanged", self, "onAnimDataChanged")
+			newVarEntry.onDataChanged.connect(onAnimDataChanged)
 	#var varSettings = theScene.getVarOptions()
 
 #func _init():
@@ -315,7 +315,7 @@ func _on_PanelContainer_gui_input(event):
 
 
 func _on_CancelButton_pressed():
-	emit_signal("onCancelPressed")
+	onCancelPressed.emit()
 
 func _on_ConfirmButton_pressed():
-	emit_signal("onAnimSelected", selectedAnim, animData.duplicate(true))
+	onAnimSelected.emit(selectedAnim, animData.duplicate(true))

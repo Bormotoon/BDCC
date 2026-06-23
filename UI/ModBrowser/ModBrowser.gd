@@ -1,12 +1,12 @@
 extends Control
 
-onready var http_request = $HTTPRequest
-onready var http_request_mod = $HTTPRequestMod
+@onready var http_request = $HTTPRequest
+@onready var http_request_mod = $HTTPRequestMod
 var modEntryScene = preload("res://UI/ModBrowser/ModBrowserEntry.tscn")
-onready var modList = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/ModList
-onready var modDescriptionLabel = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/RichTextLabel
-onready var downloadingContainer = $DownloadingContrainer
-onready var messageDialog = $MessageDialog
+@onready var modList = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/ModList
+@onready var modDescriptionLabel = $VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/RichTextLabel
+@onready var downloadingContainer = $DownloadingContrainer
+@onready var messageDialog = $MessageDialog
 
 var allMods = []
 var pickedModEntry:ModEntry
@@ -39,7 +39,7 @@ func updateModList(modsArray = allMods):
 		var newBrowserEntry = modEntryScene.instantiate()
 		modList.add_child(newBrowserEntry)
 		newBrowserEntry.setModEntry(modEntry)
-		var _ok = newBrowserEntry.connect("onSelected", self, "onModEntrySelected")
+		var _ok = newBrowserEntry.onSelected.connect(onModEntrySelected)
 		if(modEntry == pickedModEntry):
 			newBrowserEntry.makeActive()
 		visualModEntries.append(newBrowserEntry)
@@ -193,7 +193,7 @@ func _on_SortOldestFirstButton_pressed():
 	updateModList()
 
 func _on_CloseButton_pressed():
-	emit_signal("closePressed")
+	closePressed.emit()
 
 
 func _on_RichTextLabel_meta_clicked(meta):

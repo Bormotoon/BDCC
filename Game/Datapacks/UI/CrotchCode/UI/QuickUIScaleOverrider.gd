@@ -1,6 +1,6 @@
 extends Control
 
-onready var option_button = $HBoxContainer/OptionButton
+@onready var option_button = $HBoxContainer/OptionButton
 
 const scaleOptions:Array = [
 	[0.0, "Default"],

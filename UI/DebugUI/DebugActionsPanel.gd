@@ -1,7 +1,7 @@
 extends Control
 
 var debugActionScene = preload("res://UI/DebugUI/DebugActionButton.tscn")
-onready var debugActionArgsWindow = $DebugActionArgumentsWindow
+@onready var debugActionArgsWindow = $DebugActionArgumentsWindow
 
 func updateActions():
 	Util.delete_children($VBoxContainer/VBoxContainer)
@@ -21,7 +21,7 @@ func updateActions():
 	for action in actions:
 		var debugActionObject = debugActionScene.instantiate()
 		
-		var _ok = debugActionObject.connect("onActionPressed", self, "onDebugAction")
+		var _ok = debugActionObject.onActionPressed.connect(onDebugAction)
 		$VBoxContainer/VBoxContainer.add_child(debugActionObject)
 		debugActionObject.id = action["id"]
 		debugActionObject.setText(action["name"])
@@ -33,7 +33,7 @@ func updateActions():
 	for action in GM.main.getDebugActions():
 		var debugActionObject = debugActionScene.instantiate()
 		
-		var _ok = debugActionObject.connect("onActionPressed", self, "onDebugAction")
+		var _ok = debugActionObject.onActionPressed.connect(onDebugAction)
 		$VBoxContainer/VBoxContainer2.add_child(debugActionObject)
 		debugActionObject.id = action["id"]
 		debugActionObject.setText(action["name"])

@@ -2,7 +2,7 @@ extends WindowDialog
 
 var actionID
 var args
-onready var argListContainer = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer
+@onready var argListContainer = $VBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer
 
 var numberArgScene = preload("res://UI/DebugUI/DebugActionArgs/DebugActionArgumentNumber.tscn")
 var stringArgScene = preload("res://UI/DebugUI/DebugActionArgs/DebugActionArgumentString.tscn")
@@ -55,5 +55,5 @@ func _on_DoActionButton_pressed():
 	for storedArgScene in storedArgScenes:
 		result[storedArgScene.id] = storedArgScene.getResult()
 	
-	emit_signal("onDoActionButton", actionID, isMain, result)
+	onDoActionButton.emit(actionID, isMain, result)
 	visible = false

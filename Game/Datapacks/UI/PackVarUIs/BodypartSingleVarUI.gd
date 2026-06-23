@@ -1,7 +1,7 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
 #onready var option_button = $HBoxContainer/OptionButton
-onready var settings_list = $SettingsList
-onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
+@onready var settings_list = $SettingsList
+@onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
 
 
 var bodypartSlot = BodypartSlot.Head
@@ -116,7 +116,7 @@ func updateSettings():
 			value = {skin=(data["pickedSkin"] if data.has("pickedSkin") else null),r=(data["pickedR"] if data.has("pickedR") else null),g=(data["pickedG"] if data.has("pickedG") else null),b=(data["pickedB"] if data.has("pickedB") else null)},
 			skins = availSkins,
 		})
-		skinScene.connect("onValueChange", self, "onBodypartSkinChanged")
+		skinScene.onValueChange.connect(onBodypartSkinChanged)
 	
 	var pickableAttributes = partRef.getPickableAttributes()
 	
@@ -136,7 +136,7 @@ func updateSettings():
 				"value": theValue,
 				"name": attribData["textButton"],
 			})
-			newNumberVar.connect("onValueChange", self, "onBodypartSettingChange")
+			newNumberVar.onValueChange.connect(onBodypartSettingChange)
 			continue
 	
 		var newSelectorVar = selectorVarUIScene.instantiate()
@@ -149,7 +149,7 @@ func updateSettings():
 			"noexpand": true,
 			"isAltText": true,
 		})
-		newSelectorVar.connect("onValueChange", self, "onBodypartSettingChange")
+		newSelectorVar.onValueChange.connect(onBodypartSettingChange)
 
 func onBodypartSettingChange(settingID, value):
 	data["data"][settingID] = value

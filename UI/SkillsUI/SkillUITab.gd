@@ -2,16 +2,16 @@ extends Control
 
 var skillID = null
 var tabName = "bad tab"
-onready var nameLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/NameLabel
-onready var levelBar = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/LevelBar
-onready var descLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/DescLabel
-onready var tiersContainer = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/TiersContainer
-onready var perksLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/PerksLabel
-onready var perkNameLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkNameLabel
-onready var perkDescLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkDescLabel
-onready var perkRequirmentsLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkRequirementsLabel
-onready var unlockPerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/UnlockPerkButton
-onready var togglePerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/TogglePerkButton
+@onready var nameLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/NameLabel
+@onready var levelBar = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/LevelBar
+@onready var descLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/DescLabel
+@onready var tiersContainer = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer/TiersContainer
+@onready var perksLabel = $ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/PerksLabel
+@onready var perkNameLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkNameLabel
+@onready var perkDescLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkDescLabel
+@onready var perkRequirmentsLabel = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/PerkRequirementsLabel
+@onready var unlockPerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/UnlockPerkButton
+@onready var togglePerkButton = $ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer/TogglePerkButton
 
 var perksTierScene = preload("res://UI/SkillsUI/PerksTierContainer.tscn")
 
@@ -72,7 +72,7 @@ func updatePerks():
 		perksTierUI.setSkillAndTier(skill, tierData, i)
 		i += 1
 		
-		perksTierUI.connect("perkClicked", self, "onPerkButton")
+		perksTierUI.perkClicked.connect(onPerkButton)
 
 func onPerkButton(perkID):
 	selectedPerkID = perkID

@@ -1,17 +1,17 @@
 extends Control
 
-onready var loadGameScreen = $LoadGameScreen
-onready var mainMenuScreen = $MainMenu
-onready var saveMenuScreen = $SaveGameScreen
+@onready var loadGameScreen = $LoadGameScreen
+@onready var mainMenuScreen = $MainMenu
+@onready var saveMenuScreen = $SaveGameScreen
 signal onResumeButtonPressed
-onready var datapack_ingame_menu = $DatapackIngameMenu
+@onready var datapack_ingame_menu = $DatapackIngameMenu
 
-onready var resume_button = $"%ResumeButton"
-onready var save_game_button = $"%SaveGameButton"
-onready var load_game_button = $"%LoadGameButton"
-onready var datapacks_button = $"%DatapacksButton"
-onready var main_menu_button = $"%MainMenuButton"
-onready var sex_toy_manager_button = $"%SexToyManagerButton"
+@onready var resume_button = $"%ResumeButton"
+@onready var save_game_button = $"%SaveGameButton"
+@onready var load_game_button = $"%LoadGameButton"
+@onready var datapacks_button = $"%DatapacksButton"
+@onready var main_menu_button = $"%MainMenuButton"
+@onready var sex_toy_manager_button = $"%SexToyManagerButton"
 
 func resizeButtons():
 	var theButtons:Array = [
@@ -52,7 +52,7 @@ func _on_MainMenuButton_pressed():
 	var _ok = get_tree().change_scene("res://UI/MainMenu/MainMenu.tscn")
 
 func _on_ResumeButton_pressed():
-	emit_signal("onResumeButtonPressed")
+	onResumeButtonPressed.emit()
 
 
 func _on_SaveGameButton2_pressed():
@@ -84,7 +84,7 @@ func _on_SexToyManagerButton_pressed():
 	hideAllMenus()
 	#saveMenuScreen.visible = true
 	var theUI = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instantiate()
-	theUI.connect("onClosePressed", self, "onSexToyManagerUIClose", [theUI])
+	theUI.onClosePressed.connect(onSexToyManagerUIClose.bind([theUI]))
 	add_child(theUI)
 
 func onSexToyManagerUIClose(_ui:Control):

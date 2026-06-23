@@ -1,26 +1,26 @@
 extends Control
 
-onready var pack_variables = $VBoxContainer/MarginContainer/TabContainer/Info/ScrollContainer/PackVariables
-onready var states_list = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/StatesList
-onready var new_state_line_edit = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer/NewStateLineEdit
-onready var possible_code_blocks_list = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/PossibleCodeBlocksList
-onready var datapack_scene_code_wrapper = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/DatapackSceneCodeWrapper
-onready var output_label = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/OutputTextLabel
-onready var pick_save_button = $VBoxContainer/MarginContainer/HBoxContainer/PickSaveButton
-onready var state_label = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/StateLabel
-onready var states = $VBoxContainer/MarginContainer/TabContainer/States
+@onready var pack_variables = $VBoxContainer/MarginContainer/TabContainer/Info/ScrollContainer/PackVariables
+@onready var states_list = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/StatesList
+@onready var new_state_line_edit = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer/NewStateLineEdit
+@onready var possible_code_blocks_list = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/PossibleCodeBlocksList
+@onready var datapack_scene_code_wrapper = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/DatapackSceneCodeWrapper
+@onready var output_label = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/OutputTextLabel
+@onready var pick_save_button = $VBoxContainer/MarginContainer/HBoxContainer/PickSaveButton
+@onready var state_label = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/StateLabel
+@onready var states = $VBoxContainer/MarginContainer/TabContainer/States
 
-onready var new_var_line_edit = $VBoxContainer/MarginContainer/TabContainer/Variables/HBoxContainer/NewVarLineEdit
-onready var var_list = $VBoxContainer/MarginContainer/TabContainer/Variables/ScrollContainer/VarList
-onready var new_flag_line_edit = $VBoxContainer/MarginContainer/TabContainer/Variables/HBoxContainer3/NewFlagLineEdit
-onready var flag_list = $VBoxContainer/MarginContainer/TabContainer/Variables/ScrollContainer2/FlagList
+@onready var new_var_line_edit = $VBoxContainer/MarginContainer/TabContainer/Variables/HBoxContainer/NewVarLineEdit
+@onready var var_list = $VBoxContainer/MarginContainer/TabContainer/Variables/ScrollContainer/VarList
+@onready var new_flag_line_edit = $VBoxContainer/MarginContainer/TabContainer/Variables/HBoxContainer3/NewFlagLineEdit
+@onready var flag_list = $VBoxContainer/MarginContainer/TabContainer/Variables/ScrollContainer2/FlagList
 
-onready var possible_char_list = $VBoxContainer/MarginContainer/TabContainer/Characters/HBoxContainer/VBoxContainer/PossibleCharList
-onready var char_list = $VBoxContainer/MarginContainer/TabContainer/Characters/ScrollContainer/CharList
-onready var filter_possible_char_list_edit = $VBoxContainer/MarginContainer/TabContainer/Characters/HBoxContainer/VBoxContainer/FilterPossibleCharListEdit
+@onready var possible_char_list = $VBoxContainer/MarginContainer/TabContainer/Characters/HBoxContainer/VBoxContainer/PossibleCharList
+@onready var char_list = $VBoxContainer/MarginContainer/TabContainer/Characters/ScrollContainer/CharList
+@onready var filter_possible_char_list_edit = $VBoxContainer/MarginContainer/TabContainer/Characters/HBoxContainer/VBoxContainer/FilterPossibleCharListEdit
 
-onready var scene_images_list = $VBoxContainer/MarginContainer/TabContainer/Images/ScrollContainer/PanelContainer/SceneImagesList
-onready var scene_image_id_edit = $VBoxContainer/MarginContainer/TabContainer/Images/HBoxContainer/SceneImageIDEdit
+@onready var scene_images_list = $VBoxContainer/MarginContainer/TabContainer/Images/ScrollContainer/PanelContainer/SceneImagesList
+@onready var scene_image_id_edit = $VBoxContainer/MarginContainer/TabContainer/Images/HBoxContainer/SceneImageIDEdit
 
 
 var varListEntryScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/VarListEntry.tscn")
@@ -46,10 +46,10 @@ var allPossibleChars = []
 var possibleChars = []
 
 func _ready():
-	codeContex.connect("onPrint", self, "doOutput")
-	codeContex.connect("onError", self, "doOutputError")
-	triggerCodeContex.connect("onPrint", self, "doTriggerOutput")
-	triggerCodeContex.connect("onError", self, "doTriggerOutputError")
+	codeContex.onPrint.connect(doOutput)
+	codeContex.onError.connect(doOutputError)
+	triggerCodeContex.onPrint.connect(doTriggerOutput)
+	triggerCodeContex.onError.connect(doTriggerOutputError)
 	datapack_scene_code_wrapper.setEditor(self)
 	datapack_trigger_code_wrapper.setEditor(self)
 	
@@ -256,7 +256,7 @@ func updateSelectedState():
 
 func _on_RunButton_pressed():
 	var newGame = gameWrapperScene.instantiate()
-	newGame.connect("onStopButtonPressed", self, "onGameWrapperStop")
+	newGame.onStopButtonPressed.connect(onGameWrapperStop)
 	getMenu().pushMenu(newGame)
 	newGame.run(datapack.id, scene.id, selectedSavePath)
 
@@ -265,8 +265,8 @@ func onGameWrapperStop():
 
 func _on_PickSaveButton_pressed():
 	var newPicker = savePickerScene.instantiate()
-	newPicker.connect("onClosePressed", self, "onPickerClosePressed")
-	newPicker.connect("onSavePicked", self, "onPickerSavePicked")
+	newPicker.onClosePressed.connect(onPickerClosePressed)
+	newPicker.onSavePicked.connect(onPickerSavePicked)
 	getMenu().pushMenu(newPicker)
 
 func onPickerClosePressed():
@@ -288,9 +288,9 @@ func updateVarList():
 		var_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)
-		newVarEntry.connect("onDeletePressed", self, "onDeleteVarPressed")
-		newVarEntry.connect("onVarEdit", self, "onVarEdit")
-		newVarEntry.connect("onVarRename", self, "onVarRename")
+		newVarEntry.onDeletePressed.connect(onDeleteVarPressed)
+		newVarEntry.onVarEdit.connect(onVarEdit)
+		newVarEntry.onVarRename.connect(onVarRename)
 
 func onVarRename(oldName, newName):
 	var varInfo = scene.vars[oldName]
@@ -307,9 +307,9 @@ func updateFlagList():
 		flag_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)
-		newVarEntry.connect("onDeletePressed", self, "onDeleteFlagPressed")
-		newVarEntry.connect("onVarEdit", self, "onFlagEdit")
-		newVarEntry.connect("onVarRename", self, "onFlagRename")
+		newVarEntry.onDeletePressed.connect(onDeleteFlagPressed)
+		newVarEntry.onVarEdit.connect(onFlagEdit)
+		newVarEntry.onVarRename.connect(onFlagRename)
 
 func onFlagRename(oldName, newName):
 	var varInfo = datapack.flags[oldName]
@@ -424,9 +424,9 @@ func updateCharList():
 		char_list.add_child(newCharEntry)
 		
 		newCharEntry.setEntry(alias, charEntry)
-		newCharEntry.connect("onDeletePressed", self, "onDeleteCharPressed")
-		newCharEntry.connect("onCharEdit", self, "onCharEdit")
-		newCharEntry.connect("onAliasChange", self, "onCharAliasChange")
+		newCharEntry.onDeletePressed.connect(onDeleteCharPressed)
+		newCharEntry.onCharEdit.connect(onCharEdit)
+		newCharEntry.onAliasChange.connect(onCharAliasChange)
 
 func onDeleteCharPressed(alias):
 	if(!scene.chars.has(alias)):
@@ -454,10 +454,10 @@ func _on_SaveAllButton_pressed():
 		doOutput("Saved")
 
 
-onready var trigger_settings_full_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList
+@onready var trigger_settings_full_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList
 
 
-onready var trigger_item_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/VBoxContainer/TriggerItemList
+@onready var trigger_item_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/VBoxContainer/TriggerItemList
 var selectedTrigger:DatapackSceneTrigger
 
 func updateTriggerList():
@@ -494,16 +494,16 @@ func _on_TriggerItemList_item_selected(index):
 	selectedTrigger = scene.triggers[index]
 	updateSelectedTrigger()
 
-onready var trigger_type_selector = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer2/TriggerTypeSelector
-onready var trigger_type_desc_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer2/TriggerTypeDescLabel
-onready var trigger_settings = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/PackVarsCollapsableRegion/VBoxContainer/VBoxContainer/TriggerSettings
-onready var trigger_execute_type = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer/TriggerExecuteType
-onready var trigger_execute_type_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer/TriggerExecuteTypeLabel
-onready var trigger_priority = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/TriggerPriority
-onready var datapack_trigger_code_wrapper = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/DatapackTriggerCodeWrapper
-onready var trigger_output_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/TriggerOutputLabel
-onready var possible_trigger_code_blocks_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/VBoxContainer2/ScrollContainer/PossibleTriggerCodeBlocksList
-onready var pack_vars_collapsable_region = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/PackVarsCollapsableRegion
+@onready var trigger_type_selector = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer2/TriggerTypeSelector
+@onready var trigger_type_desc_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer2/TriggerTypeDescLabel
+@onready var trigger_settings = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/PackVarsCollapsableRegion/VBoxContainer/VBoxContainer/TriggerSettings
+@onready var trigger_execute_type = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer/TriggerExecuteType
+@onready var trigger_execute_type_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/HBoxContainer/TriggerExecuteTypeLabel
+@onready var trigger_priority = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/TriggerPriority
+@onready var datapack_trigger_code_wrapper = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/DatapackTriggerCodeWrapper
+@onready var trigger_output_label = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/TriggerOutputLabel
+@onready var possible_trigger_code_blocks_list = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/VBoxContainer2/ScrollContainer/PossibleTriggerCodeBlocksList
+@onready var pack_vars_collapsable_region = $VBoxContainer/MarginContainer/TabContainer/Triggers/HBoxContainer/HSplitContainer/ScrollContainer/TriggerSettingsFullList/PackVarsCollapsableRegion
 
 
 func updateSelectedTrigger():
@@ -612,8 +612,8 @@ func updateImagesSceneList():
 		
 		scene_images_list.add_child(newEntry)
 		newEntry.setEntry(imageEntry)
-		newEntry.connect("onIDChanged", self, "onImageEntryIDChanged")
-		newEntry.connect("onDeletePressed", self, "onImageEntryDeletePressed")
+		newEntry.onIDChanged.connect(onImageEntryIDChanged)
+		newEntry.onDeletePressed.connect(onImageEntryDeletePressed)
 		
 func onImageEntryIDChanged(oldID, newID):
 	var theEntry = scene.images[oldID]
@@ -661,8 +661,8 @@ func _on_MoveStateUpButton_pressed():
 	updateStatesList()
 	#updateSelectedState()
 
-onready var new_name_window = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer2/RenameStateButton/NewNameWindow
-onready var new_name_state_edit = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer2/RenameStateButton/NewNameWindow/VBoxContainer/NewNameStateEdit
+@onready var new_name_window = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer2/RenameStateButton/NewNameWindow
+@onready var new_name_state_edit = $VBoxContainer/MarginContainer/TabContainer/States/HBoxContainer/StatesList/HBoxContainer2/RenameStateButton/NewNameWindow/VBoxContainer/NewNameStateEdit
 
 func _on_RenameStateButton_pressed():
 	if(selectedStateID == ""):

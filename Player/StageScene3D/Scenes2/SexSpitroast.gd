@@ -1,11 +1,11 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var animationTree3 = $AnimationTree3
-onready var doll = $Doll3D
-onready var doll2 = $Doll3D2
-onready var doll3 = $Doll3D3
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var animationTree3 = $AnimationTree3
+@onready var doll = $Doll3D
+@onready var doll2 = $Doll3D2
+@onready var doll3 = $Doll3D3
 
 func _init():
 	id = StageScene.SexSpitroast

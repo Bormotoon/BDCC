@@ -1,10 +1,10 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var item_list = $VBoxContainer2/HBoxContainer/ItemList
+@onready var item_list = $VBoxContainer2/HBoxContainer/ItemList
 
 var thingIds = []
 var savedThings:Dictionary
 var editorKind:String = ""
-onready var new_thing_id_line_edit = $Control/AddNewDialog/VBoxContainer/NewThingIDLineEdit
+@onready var new_thing_id_line_edit = $Control/AddNewDialog/VBoxContainer/NewThingIDLineEdit
 var datapack
 
 func setThings(thingsDict:Dictionary):

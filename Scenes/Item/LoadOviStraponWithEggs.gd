@@ -42,9 +42,9 @@ func _run():
 		inventory.shouldGroup = false
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		updateInvScreen(inventory)
-		#var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
-		var _ok2 = inventory.connect("onInteractWith", self, "onInventoryItemInteracted")
-		var _ok3 = inventory.connect("onInteractWithGroup", self, "onInventoryItemGroupInteracted")
+		#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
+		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
+		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
 		
 		addButton("Close", "Enough messing around", "endthescene")
 		addButton("Empty it ("+str(getCurrentAmount())+"/"+str(getMaxAmount())+")", "Remove all of the eggs from this strapon", "emptyit")

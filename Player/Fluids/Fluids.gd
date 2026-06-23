@@ -54,7 +54,7 @@ func addFluidIgnoreCapacity(fluidType, amount: float, fluidDNA = null, causerID:
 		if(fluidType == contentData["fluidType"] && contentData["fluidDNA"].canCombineWith(fluidDNA)):
 			contentData["amount"] += amount
 			cachedFluidsAmount += amount
-			emit_signal("contentsChanged", cachedFluidsAmount-amount, cachedFluidsAmount)
+			contentsChanged.emit(cachedFluidsAmount-amount, cachedFluidsAmount)
 			return amount
 	
 	contents.append({
@@ -63,7 +63,7 @@ func addFluidIgnoreCapacity(fluidType, amount: float, fluidDNA = null, causerID:
 		"fluidDNA": fluidDNA,
 	})
 	cachedFluidsAmount += amount
-	emit_signal("contentsChanged", cachedFluidsAmount-amount, cachedFluidsAmount)
+	contentsChanged.emit(cachedFluidsAmount-amount, cachedFluidsAmount)
 	return amount
 
 func removeEmptyInternalEntries():
@@ -149,7 +149,7 @@ func transferTo(otherFluids, fraction = 0.5, minAmount = 0.0, causerID:String = 
 		result += actuallyTransferred
 		
 	removeEmptyInternalEntries()
-	emit_signal("contentsChanged", oldFluidAmount, getFluidAmount())
+	contentsChanged.emit(oldFluidAmount, getFluidAmount())
 	return result
 
 func transferAmountTo(otherFluids, howMuch, causerID:String = ""):
@@ -181,7 +181,7 @@ func transferAmountTo(otherFluids, howMuch, causerID:String = ""):
 		
 		result += actuallyTransferred
 	removeEmptyInternalEntries()
-	emit_signal("contentsChanged", oldFluidAmount, getFluidAmount())
+	contentsChanged.emit(oldFluidAmount, getFluidAmount())
 	return result
 	
 # Ignores capacity, be careful
@@ -248,7 +248,7 @@ func doDrainObsorb(howMuchToDrain: float, howMuchGotObsorbed: float):
 		
 	if(shouldRemoveInternal):
 		removeEmptyInternalEntries()
-	emit_signal("contentsChanged", fluidAmount, getFluidAmount())
+	contentsChanged.emit(fluidAmount, getFluidAmount())
 	return result
 
 func drain(howMuchToDrain: float, randMin:float = 1.0, randMax:float = 1.0):
@@ -272,7 +272,7 @@ func drain(howMuchToDrain: float, randMin:float = 1.0, randMax:float = 1.0):
 		
 	if(shouldRemoveInternal):
 		removeEmptyInternalEntries()
-	emit_signal("contentsChanged", fluidAmount, getFluidAmount())
+	contentsChanged.emit(fluidAmount, getFluidAmount())
 	return result
 
 func drainPercent(factor: float):

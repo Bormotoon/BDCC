@@ -289,7 +289,7 @@ func _run():
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(1.25)
 		inventory.setEntries(entries)
-		var _ok = inventory.connect("onInteractWith", self, "onMakeInteract")
+		var _ok = inventory.onInteractWith.connect(onMakeInteract)
 		
 		addButton("Back", "Enough browsing", "roam")
 	

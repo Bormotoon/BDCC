@@ -1,15 +1,15 @@
 extends BaseStageScene3D
 
-onready var start_egg_timer:Timer = $"%StartEggTimer"
-onready var egg_timer:Timer = $"%EggTimer"
-onready var egg_spawner_node:Spatial = $"%EggSpawnerNode"
+@onready var start_egg_timer:Timer = $"%StartEggTimer"
+@onready var egg_timer:Timer = $"%EggTimer"
+@onready var egg_spawner_node:Spatial = $"%EggSpawnerNode"
 const EggPropScene = preload("res://Player/Props/EggPhysicsProp.tscn")
-onready var squirt_egg_particles:CPUParticles = $"%SquirtEggParticles"
+@onready var squirt_egg_particles:CPUParticles = $"%SquirtEggParticles"
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
-onready var doll2 = $Doll3D2
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var doll = $Doll3D
+@onready var doll2 = $Doll3D2
 
 #var eggsLeft:int = 0
 var currentlyLaying

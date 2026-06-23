@@ -8,7 +8,7 @@ var isMain = false
 signal onActionPressed(debugAction)
 
 func _on_Button_pressed():
-	emit_signal("onActionPressed", self)
+	onActionPressed.emit(self)
 
 func setText(newtext):
 	$Button.text = newtext

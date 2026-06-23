@@ -8,7 +8,7 @@ var blocks = {}
 signal onBlocksChanged
 
 func emitBlocksChanged():
-	emit_signal("onBlocksChanged")
+	onBlocksChanged.emit()
 
 func getBlocks(kind:String):
 	loadIfNeeded()

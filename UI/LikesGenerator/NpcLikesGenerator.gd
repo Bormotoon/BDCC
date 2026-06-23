@@ -1,6 +1,6 @@
 extends Control
 
-onready var optionsList = $HBoxContainer/VBoxContainer/ScrollContainer/Options
+@onready var optionsList = $HBoxContainer/VBoxContainer/ScrollContainer/Options
 var npcLikeLineUI = preload("res://UI/LikesGenerator/NpcLikesLineUI.tscn")
 var linesUi = []
 var linesByTopicID = {}
@@ -22,7 +22,7 @@ func resetLines():
 			var uiLine = npcLikeLineUI.instantiate()
 			
 			uiLine.setInterestData(id, topic.getVisibleName(id))
-			uiLine.connect("onCurrentValueChange", self, "_on_NpcLikesLineUI_onCurrentValueChange")
+			uiLine.onCurrentValueChange.connect(_on_NpcLikesLineUI_onCurrentValueChange)
 			
 			optionsList.add_child(uiLine)
 			linesUi.append(uiLine)

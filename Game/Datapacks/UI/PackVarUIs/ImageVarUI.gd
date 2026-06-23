@@ -14,7 +14,7 @@ func setIsUploading(newEdit):
 	
 	if(isUploading):
 		if(!signalConnected):
-			var _ok = get_tree().connect("files_dropped", self, "_on_files_dropped")
+			var _ok = get_tree().files_dropped.connect(_on_files_dropped)
 			signalConnected = true
 		
 		$Control/DragDropWindowDialog.show_modal()

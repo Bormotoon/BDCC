@@ -5,7 +5,7 @@ var isFavVersion = false
 var favKind:String = ""
 var id = "base"
 var codeBlock
-onready var template_vertical_list = $HBoxContainer/TemplateVerticalList
+@onready var template_vertical_list = $HBoxContainer/TemplateVerticalList
 var parentSlot
 
 var editor
@@ -83,19 +83,19 @@ func constructTemplate():
 			currentHBox.add_child(newRawString)
 			newRawString.setValue(templateLine["value"])
 			newRawString.id = templateLine["id"]
-			newRawString.connect("onValueChanged", codeBlock, "applyRawValue")
+			newRawString.onValueChanged.connect(codeBlock.applyRawValue)
 		if(templateType == "rawint"):
 			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawInt.tscn").instantiate()
 			currentHBox.add_child(newRawString)
 			newRawString.setValue(templateLine["value"])
 			newRawString.id = templateLine["id"]
-			newRawString.connect("onValueChanged", codeBlock, "applyRawValue")
+			newRawString.onValueChanged.connect(codeBlock.applyRawValue)
 		if(templateType == "rawselector"):
 			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawSelector.tscn").instantiate()
 			currentHBox.add_child(newRawString)
 			newRawString.setValueAndValues(templateLine["value"], templateLine["values"])
 			newRawString.id = templateLine["id"]
-			newRawString.connect("onValueChanged", codeBlock, "applyRawValue")
+			newRawString.onValueChanged.connect(codeBlock.applyRawValue)
 		if(templateType == "slot"):
 			var slotID = templateLine["id"]
 			#currentHBox = HBoxContainer.new()

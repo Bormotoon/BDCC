@@ -2,15 +2,15 @@ extends Control
 
 signal onClose
 
-onready var main_h_box = $"%MainHBox"
+@onready var main_h_box = $"%MainHBox"
 
 func _on_CloseButton_pressed():
-	emit_signal("onClose")
+	onClose.emit()
 
-onready var debug_panel_container = $"%DebugPanelContainer"
-onready var debug_text_edit = $"%DebugTextEdit"
-onready var save_debug_to_file_button = $"%SaveDebugToFileButton"
-onready var log_text_edit = $"%LogTextEdit"
+@onready var debug_panel_container = $"%DebugPanelContainer"
+@onready var debug_text_edit = $"%DebugTextEdit"
+@onready var save_debug_to_file_button = $"%SaveDebugToFileButton"
+@onready var log_text_edit = $"%LogTextEdit"
 
 func _ready():
 	debug_panel_container.visible = false
@@ -67,8 +67,8 @@ func _on_SaveDebugToFileButton_pressed():
 	debug_text_edit.text = "FILE IS SAVED TO: "+str(finalDir)+"\nPlease send this file to Rahi"
 
 
-onready var view_logs_container = $"%ViewLogsContainer"
-onready var logs_item_list = $"%LogsItemList"
+@onready var view_logs_container = $"%ViewLogsContainer"
+@onready var logs_item_list = $"%LogsItemList"
 
 var logFilesList:Array = []
 var selectedLogFile:String = ""
@@ -96,9 +96,9 @@ func _on_LogsItemList_item_selected(index:int):
 	var theText:String = Util.readFile(selectedLogFile)
 	log_text_edit.text = theText
 
-onready var manage_files_container = $"%ManageFilesContainer"
-onready var manage_file_list = $"%ManageFileList"
-onready var file_info_label = $"%FileInfoLabel"
+@onready var manage_files_container = $"%ManageFilesContainer"
+@onready var manage_file_list = $"%ManageFileList"
+@onready var file_info_label = $"%FileInfoLabel"
 
 var selectedManageFile:String = ""
 
@@ -112,7 +112,7 @@ func _on_ManageFilesButton_pressed():
 	manage_files_container.visible = true
 	updateManageFileList()
 
-onready var filter_file_line_edit = $"%FilterFileLineEdit"
+@onready var filter_file_line_edit = $"%FilterFileLineEdit"
 
 func updateManageFileList():
 	manageFiles = Util.getFilesInFoldersRecursive("user://")
@@ -185,8 +185,8 @@ func _on_EditFileContentsButton_pressed():
 	startEditingFile(selectedManageFile)
 
 var editingFilePath:String = ""
-onready var edit_file_container = $"%EditFileContainer"
-onready var file_text_edit = $"%FileTextEdit"
+@onready var edit_file_container = $"%EditFileContainer"
+@onready var file_text_edit = $"%FileTextEdit"
 
 func startEditingFile(_filepath:String):
 	edit_file_container.visible = true
@@ -218,8 +218,8 @@ func _on_ResetRenderButton_pressed():
 	OPTIONS.resetRenderSettings()
 	showAlert("Restart the game for this to have an effect.")
 
-onready var alert_window_dialog = $"%AlertWindowDialog"
-onready var alert_label = $"%AlertLabel"
+@onready var alert_window_dialog = $"%AlertWindowDialog"
+@onready var alert_label = $"%AlertLabel"
 
 func _on_ConfirmAlertButton_pressed():
 	alert_window_dialog.visible = false

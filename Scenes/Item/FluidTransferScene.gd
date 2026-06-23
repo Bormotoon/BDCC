@@ -106,7 +106,7 @@ func _run():
 			saynn("Enter how much you wanna transfer in ml")
 			
 			var textBox:LineEdit = addTextbox("transfer_ml")
-			var _ok = textBox.connect("text_entered", self, "onFillMLEnterPressed")
+			var _ok = textBox.text_entered.connect(onFillMLEnterPressed)
 			addButton("Confirm", "pick this amount", "confirmtextfill")
 			
 			addButton("Back", "Go back a menu", "fillWithFluids")
@@ -171,7 +171,7 @@ func _run():
 			saynn("Enter how much you wanna transfer in ml")
 			
 			var textBox:LineEdit = addTextbox("transfer_ml")
-			var _ok = textBox.connect("text_entered", self, "onTransferMLEnterPressed")
+			var _ok = textBox.text_entered.connect(onTransferMLEnterPressed)
 			addButton("Confirm", "pick this amount", "confirmtexttransfer")
 			
 			addButton("Back", "Go back a menu", "transferFluids")

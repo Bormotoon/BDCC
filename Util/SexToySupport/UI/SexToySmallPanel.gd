@@ -1,8 +1,8 @@
 extends HBoxContainer
 
-onready var popup_panel = $"%PopupPanel"
-onready var override_list = $"%OverrideList"
-onready var pause_check_box = $"%PauseCheckBox"
+@onready var popup_panel = $"%PopupPanel"
+@onready var override_list = $"%OverrideList"
+@onready var pause_check_box = $"%PauseCheckBox"
 
 var theSexToyGroupOverrideUIScene := preload("res://Util/SexToySupport/UI/SexToyGroupOverrideUI.tscn")
 

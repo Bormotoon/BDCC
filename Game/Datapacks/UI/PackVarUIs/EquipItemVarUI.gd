@@ -1,5 +1,5 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
+@onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI
 
 var thePrefix = ""
 
@@ -14,7 +14,7 @@ func _ready():
 	packVars = load("res://Game/Datapacks/UI/PackVariables.tscn").instantiate()
 	add_child(packVars)
 	packVars.addSeparators = false
-	var _ok = packVars.connect("onVariableChange", self, "_on_PackVariables_onVariableChange")
+	var _ok = packVars.onVariableChange.connect(_on_PackVariables_onVariableChange)
 
 func setSelectedValue(_value):
 	selectedValue = _value

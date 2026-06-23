@@ -1,7 +1,7 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
 
 var personalityStat = PersonalityStat.Brat
-onready var h_slider = $HSlider
+@onready var h_slider = $HSlider
 
 func setSliderValue(_value):
 	h_slider.value = _value

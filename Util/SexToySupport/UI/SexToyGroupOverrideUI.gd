@@ -2,8 +2,8 @@ extends HBoxContainer
 
 var group:int = -1
 
-onready var override_check_box = $"%OverrideCheckBox"
-onready var value_h_slider = $"%ValueHSlider"
+@onready var override_check_box = $"%OverrideCheckBox"
+@onready var value_h_slider = $"%ValueHSlider"
 
 func setGroup(_g:int):
 	group = _g

@@ -1,21 +1,21 @@
 extends Control
 
-onready var toy_settings = $"%Toy Settings"
-onready var gameplay_triggers = $"%Gameplay Triggers"
-onready var backends_item_list = $"%BackendsItemList"
-onready var toy_item_list = $"%ToyItemList"
-onready var backend_panel = $"%BackendPanel"
-onready var toy_panel = $"%ToyPanel"
-onready var backend_desc = $"%BackendDesc"
-onready var enable_back_end_check_box = $"%EnableBackEndCheckBox"
-onready var test_toy_button = $"%TestToyButton"
-onready var test_toy_slider = $"%TestToySlider"
-onready var backend_pack_variables = $"%BackendPackVariables"
-onready var enable_manager_checkbox = $"%EnableManagerCheckbox"
-onready var backend_actions_list = $"%BackendActionsList"
-onready var back_end_info_label = $"%BackEndInfoLabel"
-onready var toy_pack_variables = $"%ToyPackVariables"
-onready var toy_missing_label = $"%ToyMissingLabel"
+@onready var toy_settings = $"%Toy Settings"
+@onready var gameplay_triggers = $"%Gameplay Triggers"
+@onready var backends_item_list = $"%BackendsItemList"
+@onready var toy_item_list = $"%ToyItemList"
+@onready var backend_panel = $"%BackendPanel"
+@onready var toy_panel = $"%ToyPanel"
+@onready var backend_desc = $"%BackendDesc"
+@onready var enable_back_end_check_box = $"%EnableBackEndCheckBox"
+@onready var test_toy_button = $"%TestToyButton"
+@onready var test_toy_slider = $"%TestToySlider"
+@onready var backend_pack_variables = $"%BackendPackVariables"
+@onready var enable_manager_checkbox = $"%EnableManagerCheckbox"
+@onready var backend_actions_list = $"%BackendActionsList"
+@onready var back_end_info_label = $"%BackEndInfoLabel"
+@onready var toy_pack_variables = $"%ToyPackVariables"
+@onready var toy_missing_label = $"%ToyMissingLabel"
 
 var selectedSomething
 var isBackendSelected:bool = false
@@ -33,7 +33,7 @@ func _ready():
 	updateBackendList()
 	updateToyList()
 	updateToyOrBackendPanel()
-	SexToyManager.connect("onToyListChange", self, "onSexToyListChange")
+	SexToyManager.onToyListChange.connect(onSexToyListChange)
 
 func updateToyList():
 	toy_item_list.clear()
@@ -71,7 +71,7 @@ func updateToyOrBackendPanel():
 
 func _on_CloseButton_pressed():
 	SexToyManager.saveToFile()
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 func _on_BackendsItemList_item_selected(index:int):
 	stopTestingToy()
@@ -153,7 +153,7 @@ func updateBackendActionsList():
 			var newButton:Button = Button.new()
 			newButton.text = theActionEntry[1]
 			backend_actions_list.add_child(newButton)
-			newButton.connect("pressed", self, "onBackendAction", [theActionEntry[0]])
+			newButton.pressed.connect(onBackendAction.bind([theActionEntry[0]]))
 
 func onBackendAction(_action:String):
 	if(selectedSomething && (selectedSomething is SexToyBackend)):

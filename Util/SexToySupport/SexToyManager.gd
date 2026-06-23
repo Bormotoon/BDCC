@@ -100,7 +100,7 @@ func provideToy(_backend, _toy) -> bool:
 	#Log.print("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
 	toys.append(_toy)
 	markShouldSave()
-	emit_signal("onToyListChange")
+	onToyListChange.emit()
 	return true
 
 func provideToyGet(_backend, _toy):
@@ -113,7 +113,7 @@ func provideToyGet(_backend, _toy):
 	#Log.print("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
 	toys.append(_toy)
 	markShouldSave()
-	#emit_signal("onToyListChange")
+	#onToyListChange.emit()
 	return _toy
 
 func setToys(_backend, _toys:Array):
@@ -142,7 +142,7 @@ func setToys(_backend, _toys:Array):
 	
 	if(_shouldUpdate):
 		markShouldSave()
-		emit_signal("onToyListChange")
+		onToyListChange.emit()
 		#saveToFile()
 
 # More of a test method

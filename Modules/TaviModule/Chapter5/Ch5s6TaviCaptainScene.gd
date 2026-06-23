@@ -1008,7 +1008,7 @@ func playRandomSexAnim():
 		var randomSexID = RNG.pick([StageScene.SexCowgirl, StageScene.SexAllFours, StageScene.SexMissionary, StageScene.SexFreeStanding, StageScene.SexReverseCowgirl, StageScene.SexFullNelson])
 		playAnimation(randomSexID, RNG.pick(["sex", "fast"]), {pc=domID, npc=subID, bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
 		randomSexIsPlaying = true
-		yield(get_tree().create_timer(5.0 + RNG.randf_range(0.0, 4.0)), "timeout")
+		await get_tree().create_timer(5.0 + RNG.randf_range(0.0, 4.0)).timeout
 		if(!(state in ["kait_lost_random_sex1", "kait_lost_random_sex2", "kait_lost_random_sex3", "kait_lost_random_sex4", "kait_won_randomsex1", "kait_won_randomsex2", "kait_won_randomsex3", "kait_won_randomsex4"])):
 			randomSexIsPlaying = false
 			return

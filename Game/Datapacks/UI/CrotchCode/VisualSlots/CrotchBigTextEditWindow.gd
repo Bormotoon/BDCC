@@ -2,9 +2,9 @@ extends WindowDialog
 
 signal onCancel(window)
 signal onSave(window, text)
-onready var text_edit = $MarginContainer/VBoxContainer/TextEdit
-onready var tag_fast_picker = $MarginContainer/VBoxContainer/HBoxContainer2/TagFastPicker
-onready var color_picker_button = $MarginContainer/VBoxContainer/HBoxContainer2/PanelContainer/HBoxContainer/ColorPickerButton
+@onready var text_edit = $MarginContainer/VBoxContainer/TextEdit
+@onready var tag_fast_picker = $MarginContainer/VBoxContainer/HBoxContainer2/TagFastPicker
+@onready var color_picker_button = $MarginContainer/VBoxContainer/HBoxContainer2/PanelContainer/HBoxContainer/ColorPickerButton
 
 const tags = [
 	"Add tag..",
@@ -35,16 +35,16 @@ func setText(theText):
 
 func _on_CancelButton_pressed():
 	hide()
-	emit_signal("onCancel", self)
+	onCancel.emit(self)
 
 
 func _on_CrotchBigTextEditWindow_popup_hide():
 	hide()
-	emit_signal("onCancel", self)
+	onCancel.emit(self)
 
 func _on_SaveButton_pressed():
 	hide()
-	emit_signal("onSave", self, text_edit.text)
+	onSave.emit(self, text_edit.text)
 
 var spellCheckerWindowScene = preload("res://Util/SpellChecker/SpellCheckerWindow.tscn")
 
@@ -54,8 +54,8 @@ func _on_SpellCheckerButton_pressed():
 	
 	theWindow.popup_centered()
 	theWindow.setText(text_edit.text)
-	theWindow.connect("onCancel", self, "onSpellCheckerCancel")
-	theWindow.connect("onTextSubmit", self, "onSpellCheckerSubmit")
+	theWindow.onCancel.connect(onSpellCheckerCancel)
+	theWindow.onTextSubmit.connect(onSpellCheckerSubmit)
 
 func onSpellCheckerCancel(window):
 	window.queue_free()
@@ -143,7 +143,7 @@ func _on_TagFastPicker_item_selected(index):
 		return
 	
 	var theText:String = tags[index]
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	#var column = text_edit.cursor_get_column()
 	text_edit.insert_text_at_cursor(theText)
 	#text_edit.cursor_set_column(column + 1)

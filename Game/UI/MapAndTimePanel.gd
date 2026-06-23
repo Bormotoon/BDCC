@@ -1,13 +1,13 @@
 extends VBoxContainer
 
-onready var locationLabel = $LocationLabel
-onready var timeLabel = $timeLabel
-onready var sceneCreatorLabel = $sceneCreatorLabel
+@onready var locationLabel = $LocationLabel
+@onready var timeLabel = $timeLabel
+@onready var sceneCreatorLabel = $sceneCreatorLabel
 var worldScene = preload("res://Game/World/World.tscn")
-onready var world = $Viewport/World
+@onready var world = $Viewport/World
 signal onDevComButton
-onready var compact_label = $"%CompactLabel"
-onready var custom_viewport_control = $"%CustomViewportControl"
+@onready var compact_label = $"%CompactLabel"
+@onready var custom_viewport_control = $"%CustomViewportControl"
 
 
 export var compactMode:bool = false
@@ -58,7 +58,7 @@ func recreateWorld():
 
 
 func _on_TextureButton_pressed():
-	emit_signal("onDevComButton")
+	onDevComButton.emit()
 
 func a_gui_input(event: InputEvent):
 	if event is InputEventMouseButton && event.button_index == BUTTON_MIDDLE:

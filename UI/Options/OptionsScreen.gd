@@ -1,6 +1,6 @@
 extends Control
 
-onready var optionsContainer = $VBoxContainer/ScrollContainer/ScrollVBox/OptionsContainer
+@onready var optionsContainer = $VBoxContainer/ScrollContainer/ScrollVBox/OptionsContainer
 var optionsCategoryScene = preload("res://UI/Options/OptionsCategory.tscn")
 var optionCategoryUnknown = preload("res://UI/Options/OptionUnknownType.tscn")
 var optionCategoryCheckbox = preload("res://UI/Options/OptionCheckboxType.tscn")
@@ -9,7 +9,7 @@ var optionCategoryFloat = preload("res://UI/Options/OptionFloatType.tscn")
 var optionCategoryInt = preload("res://UI/Options/OptionIntType.tscn")
 var optionCategoryPriorityList = preload("res://UI/Options/OptionPriorityListType.tscn")
 var optionCategoryString = preload("res://UI/Options/OptionStringType.tscn")
-onready var category_name_label = $"%CategoryNameLabel"
+@onready var category_name_label = $"%CategoryNameLabel"
 
 
 signal onClosePressed
@@ -18,10 +18,10 @@ signal onClosePressed
 
 var currentTab = -1
 
-onready var gameplay_cat_button = $"%GameplayCatButton"
-onready var game_cat_button = $"%GameCatButton"
-onready var display_cat_button = $"%DisplayCatButton"
-onready var interface_cat_button = $"%InterfaceCatButton"
+@onready var gameplay_cat_button = $"%GameplayCatButton"
+@onready var game_cat_button = $"%GameCatButton"
+@onready var display_cat_button = $"%DisplayCatButton"
+@onready var interface_cat_button = $"%InterfaceCatButton"
 
 func _ready():
 	setTab(OPTIONS.TAB_GAMEPLAY)
@@ -80,7 +80,7 @@ func updateOptions():
 			optionUIObject.setOptionName(optionName)
 			optionUIObject.setOptionValue(optionValue)
 			if(optionUIObject.has_signal("value_changed")):
-				var _ok = optionUIObject.connect("value_changed", self, "onOptionChanged")
+				var _ok = optionUIObject.value_changed.connect(onOptionChanged)
 			
 			if(optionType == "string"):
 				if("placeholder" in option):
@@ -94,8 +94,8 @@ func updateOptions():
 				optionUIObject.setValues(option["values"])
 			
 			if(optionDescription != null && optionUIObject.has_signal("mouse_entered")):
-				var _ok = optionUIObject.connect("mouse_entered", self, "onOptionMouseEntered", [optionUIObject])
-				var _ok2 = optionUIObject.connect("mouse_exited", self, "onOptionMouseExited", [optionUIObject])
+				var _ok = optionUIObject.mouse_entered.connect(onOptionMouseEntered.bind([optionUIObject]))
+				var _ok2 = optionUIObject.mouse_exited.connect(onOptionMouseExited.bind([optionUIObject]))
 				if(optionUIObject.has_method("setDescription")):
 					optionUIObject.setDescription(optionDescription)
 		if(!addedAny):
@@ -122,7 +122,7 @@ func _on_RevertButton_pressed():
 
 func _on_CloseButton_pressed():
 	OPTIONS.saveToFile()
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_ResetRenderButton_pressed():

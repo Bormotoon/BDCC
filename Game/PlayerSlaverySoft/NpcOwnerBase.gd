@@ -307,7 +307,7 @@ func generateTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficultyMa
 		
 		theTask.generateFor(theChar, _isSlaveLevelup, RNG.randf_rangeX2(difficultyMin, difficultyMax))
 		tasks.append(theTask)
-		var _ok = theTask.connect("onTaskCompleted", self, "onSlutTaskCompleted")
+		var _ok = theTask.onTaskCompleted.connect(onSlutTaskCompleted)
 		howManyTasks -= 1
 
 func generateOwnerTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficultyMax:float = 2.0, taskPool:String = NpcTaskPool.Normal):
@@ -340,7 +340,7 @@ func generateOwnerTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficu
 		
 		theTask.generateFor(theChar, _isSlaveLevelup, RNG.randf_rangeX2(difficultyMin, difficultyMax))
 		ownerTasks.append(theTask)
-		var _ok = theTask.connect("onTaskCompleted", self, "onOwnerTaskCompleted")
+		var _ok = theTask.onTaskCompleted.connect(onOwnerTaskCompleted)
 		howManyTasks -= 1
 
 func isEverythingCompleted() -> bool:
@@ -702,7 +702,7 @@ func loadData(_data:Dictionary):
 		if(taskObj == null):
 			continue
 		taskObj.loadData(SAVE.loadVar(taskData, "data", {}))
-		var _ok = taskObj.connect("onTaskCompleted", self, "onSlutTaskCompleted")
+		var _ok = taskObj.onTaskCompleted.connect(onSlutTaskCompleted)
 		tasks.append(taskObj)
 	
 	ownerTasks.clear()
@@ -713,5 +713,5 @@ func loadData(_data:Dictionary):
 		if(taskObj == null):
 			continue
 		taskObj.loadData(SAVE.loadVar(taskData, "data", {}))
-		var _ok = taskObj.connect("onTaskCompleted", self, "onOwnerTaskCompleted")
+		var _ok = taskObj.onTaskCompleted.connect(onOwnerTaskCompleted)
 		ownerTasks.append(taskObj)

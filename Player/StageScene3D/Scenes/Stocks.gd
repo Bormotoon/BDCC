@@ -1,7 +1,7 @@
 extends BaseStageScene3D
 
-onready var animationPlayer = $AnimationPlayer
-onready var doll = $Doll3D
+@onready var animationPlayer = $AnimationPlayer
+@onready var doll = $Doll3D
 
 func _init():
 	id = StageScene.Stocks

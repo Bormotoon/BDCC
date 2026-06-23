@@ -2,12 +2,12 @@ extends Control
 
 signal onInteractButtonPressed(item)
 #signal onItemSelected(item)
-onready var itemNameLabel = $VBoxContainer/HBoxContainer/Control/Info/HBoxContainer/Label
-onready var itemCollapsedLabel = $VBoxContainer/HBoxContainer/Control/Info/HBoxContainer/Label2
+@onready var itemNameLabel = $VBoxContainer/HBoxContainer/Control/Info/HBoxContainer/Label
+@onready var itemCollapsedLabel = $VBoxContainer/HBoxContainer/Control/Info/HBoxContainer/Label2
 var inventoryEntry = preload("res://UI/Inventory/InventoryEntry.tscn")
-onready var entryList = $VBoxContainer/MarginContainer/VBoxContainer
-onready var entryMargin = $VBoxContainer/MarginContainer
-onready var itemTextureRect = $VBoxContainer/HBoxContainer/Control/Info/TextureRect
+@onready var entryList = $VBoxContainer/MarginContainer/VBoxContainer
+@onready var entryMargin = $VBoxContainer/MarginContainer
+@onready var itemTextureRect = $VBoxContainer/HBoxContainer/Control/Info/TextureRect
 
 var item: ItemBase
 var isSelected = false
@@ -91,13 +91,13 @@ func updateInfo():
 		showUseButton(true)
 
 func _on_InteractButton_pressed():
-	emit_signal("onInteractButtonPressed", item)
+	onInteractButtonPressed.emit(item)
 
 func _on_SelectButton_pressed():
 	entryMargin.visible = !entryMargin.visible
 	isCollapsed = !entryMargin.visible
 	updateCollapsed()
-	#emit_signal("onItemSelected", item)
+	#onItemSelected.emit(item)
 
 func updateCollapsed():
 	if(isCollapsed):

@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var crotch_code_editor = $"../../.."
+@onready var crotch_code_editor = $"../../.."
 
 func can_drop_data(_position, _data):
 	return true

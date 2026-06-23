@@ -796,7 +796,7 @@ func generateLevelUpTasks():
 	
 	levelupTasks = NpcBreakTaskBase.generateTasksFor(getChar(), slaveType, true, taskAmount, difficultyMin, difficultyMax)
 	for task in levelupTasks:
-		var _ok = task.connect("onTaskCompleted", self, "onLevelupTaskCompleted")
+		var _ok = task.onTaskCompleted.connect(onLevelupTaskCompleted)
 
 func addExperience(howMuch:int):
 	slaveExperience += howMuch
@@ -845,7 +845,7 @@ func doLevelup():
 		
 		GM.pc.getReputation().addRep(RepStat.Alpha, 0.2*sqrt(slaveLevel))
 		
-	emit_signal("onSlaveLevelup", self)
+	onSlaveLevelup.emit(self)
 
 func getLevelupTaskProgressText():
 	var result = []
@@ -1325,5 +1325,5 @@ func loadData(data):
 		if(taskObj == null):
 			continue
 		taskObj.loadData(SAVE.loadVar(taskData, "data", {}))
-		var _ok = taskObj.connect("onTaskCompleted", self, "onLevelupTaskCompleted")
+		var _ok = taskObj.onTaskCompleted.connect(onLevelupTaskCompleted)
 		levelupTasks.append(taskObj)

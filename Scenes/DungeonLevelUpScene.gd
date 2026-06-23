@@ -15,7 +15,7 @@ func _run():
 		var levelUpScreen = levelUpScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("levelUpScreen", levelUpScreen)
 		levelUpScreen.setData(GM.main.DrugDenRun.handledPCLevel+1, perksList, GM.main.DrugDenRun.lastSelectedStat if GM.main.DrugDenRun != null else "")
-		var _ok = levelUpScreen.connect("onConfirm", self, "onConfirmPressed")
+		var _ok = levelUpScreen.onConfirm.connect(onConfirmPressed)
 		
 		addButton("Confirm", "You're content with this", "doConfirm")
 

@@ -92,7 +92,7 @@ func setVariables(_data:Dictionary):
 				add_child(newWidget)
 			widgets.append(newWidget)
 			newWidget.id = dataID
-			newWidget.connect("onValueChange", self, "onWidgetValueChange")
+			newWidget.onValueChange.connect(onWidgetValueChange)
 			newWidget.setData(dataLine)
 			
 			if(addSeparators):
@@ -104,7 +104,7 @@ func setVariables(_data:Dictionary):
 					add_child(HSeparator.new())
 
 func onWidgetValueChange(id, value):
-	emit_signal("onVariableChange", id, value)
+	onVariableChange.emit(id, value)
 
 func checkWidgetsFinished():
 	for widget in widgets:

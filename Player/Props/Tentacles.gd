@@ -2,10 +2,10 @@ extends Spatial
 
 var isPlant = false
 
-onready var animation_player = $AnimationPlayer
-onready var animation_player3 = $TentaclesAnims3/AnimationPlayer
-onready var tentacle_tiny = $TentaclesTiny/TentaclesArmature/Skeleton/TentacleTiny
-onready var tentacle = $TentaclesArmature/Skeleton/Tentacle
+@onready var animation_player = $AnimationPlayer
+@onready var animation_player3 = $TentaclesAnims3/AnimationPlayer
+@onready var tentacle_tiny = $TentaclesTiny/TentaclesArmature/Skeleton/TentacleTiny
+@onready var tentacle = $TentaclesArmature/Skeleton/Tentacle
 
 func _ready():
 	setBig()

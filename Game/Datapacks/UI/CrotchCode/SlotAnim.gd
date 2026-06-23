@@ -9,7 +9,7 @@ signal onAnimChanged(animID, animData)
 func setAnimAndData(newAnim, newData):
 	animID = newAnim
 	animData = newData
-	emit_signal("onAnimChanged", animID, animData)
+	onAnimChanged.emit(animID, animData)
 
 func getValue(_contex:CodeContex):
 	return false

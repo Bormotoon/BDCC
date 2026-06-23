@@ -1,15 +1,15 @@
 extends Control
 
-onready var nameLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/NameLabel
-onready var levelBar = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/LevelBar
-onready var freeStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/FreeStatsLabel
-onready var attribList = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/AttribList
+@onready var nameLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/NameLabel
+@onready var levelBar = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/LevelBar
+@onready var freeStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/FreeStatsLabel
+@onready var attribList = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/AttribList
 signal onClosePressed
-onready var applyButton = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/HBoxContainer/ApplyButton
-onready var cancelButton = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/HBoxContainer/CancelButton
-onready var tabContainer = $VBoxContainer/TabContainer
-onready var damageStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/DamageStatsLabel
-onready var extraStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/SecondPanel/VBoxContainer/ExtraStatsLabel
+@onready var applyButton = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/HBoxContainer/ApplyButton
+@onready var cancelButton = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/PanelContainer2/VBoxContainer/HBoxContainer/CancelButton
+@onready var tabContainer = $VBoxContainer/TabContainer
+@onready var damageStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/PanelContainer/VBoxContainer/DamageStatsLabel
+@onready var extraStatsLabel = $VBoxContainer/TabContainer/Stats/ScrollContainer/HBoxContainer/Vbox/SecondPanel/VBoxContainer/ExtraStatsLabel
 
 var skillStatLineScene = preload("res://UI/SkillsUI/SkillStatLine.tscn")
 var statObjects = {}
@@ -39,7 +39,7 @@ func addPoints(statID, amount):
 	addedPoints[statID] += amount
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 func updateData():
 	assert(GM.pc != null)
@@ -79,7 +79,7 @@ func createAttribList():
 		attribList.add_child(skillStatLine)
 		skillStatLine.statID = statID
 
-		skillStatLine.connect("onPlusButton", self, "onStatPlusButton")
+		skillStatLine.onPlusButton.connect(onStatPlusButton)
 		statObjects[statID] = skillStatLine
 		
 	updateAttribList()

@@ -1,5 +1,5 @@
 extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
-onready var auto_selector_var_ui = $AutoSelectorVarUI
+@onready var auto_selector_var_ui = $AutoSelectorVarUI
 
 var data = {
 	skin = "",
@@ -157,7 +157,7 @@ func _on_ColorPickerButtonR_color_changed(color):
 	if(isDebouncing):
 		return
 	isDebouncing = true
-	yield(get_tree().create_timer(0.1), "timeout")
+	await get_tree().create_timer(0.1).timeout
 	triggerChange(data.duplicate())
 	isDebouncing = false
 
@@ -166,7 +166,7 @@ func _on_ColorPickerButtonG_color_changed(color):
 	if(isDebouncing):
 		return
 	isDebouncing = true
-	yield(get_tree().create_timer(0.1), "timeout")
+	await get_tree().create_timer(0.1).timeout
 	triggerChange(data.duplicate())
 	isDebouncing = false
 
@@ -175,7 +175,7 @@ func _on_ColorPickerButtonB_color_changed(color):
 	if(isDebouncing):
 		return
 	isDebouncing = true
-	yield(get_tree().create_timer(0.1), "timeout")
+	await get_tree().create_timer(0.1).timeout
 	triggerChange(data.duplicate())
 	isDebouncing = false
 

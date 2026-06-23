@@ -1,13 +1,13 @@
 extends Control
 
-onready var itemListContainer = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/VBoxContainer
+@onready var itemListContainer = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/VBoxContainer
 #var inventoryEntry = preload("res://UI/Inventory/InventoryEntry.tscn")
 #var inventoryGroupEntry = preload("res://UI/Inventory/InventoryGroupEntry.tscn")
 var genericEntryScene = preload("res://UI/Inventory/GenericInventoryEntry.tscn")
-onready var itemNameLabel = $MarginContainer/HBoxContainer/VBoxContainer/Label
-onready var itemDescLabel = $MarginContainer/HBoxContainer/VBoxContainer/RichTextLabel
-onready var searchInput = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/SearchLineEdit
-onready var v_box_container_2 = $MarginContainer/HBoxContainer/VBoxContainer2
+@onready var itemNameLabel = $MarginContainer/HBoxContainer/VBoxContainer/Label
+@onready var itemDescLabel = $MarginContainer/HBoxContainer/VBoxContainer/RichTextLabel
+@onready var searchInput = $MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer2/SearchLineEdit
+@onready var v_box_container_2 = $MarginContainer/HBoxContainer/VBoxContainer2
 
 var entries:Dictionary = {}
 var selectedEntry:String = ""
@@ -63,8 +63,8 @@ func updateEntries():
 		newEntry.id = entryID
 		newEntry.setEntry(entry)
 		newEntry.setSelected(selectedEntry == entryID)
-		var _ok = newEntry.connect("onActionPressed", self, "onEntryActionPressed")
-		var _ok2 = newEntry.connect("onEntrySelected", self, "onEntrySelected")
+		var _ok = newEntry.onActionPressed.connect(onEntryActionPressed)
+		var _ok2 = newEntry.onEntrySelected.connect(onEntrySelected)
 		entriesScenes[entryID] = newEntry
 		
 func updateSelectedEntry():
@@ -73,7 +73,7 @@ func updateSelectedEntry():
 		entryScene.setSelected(selectedEntry == entryID)
 
 func onEntryActionPressed(_id, _actionID, _args):
-	emit_signal("onInteractWith", _id, _actionID, _args)
+	onInteractWith.emit(_id, _actionID, _args)
 
 func onEntrySelected(_id):
 	selectedEntry = _id
@@ -85,7 +85,7 @@ func onEntrySelected(_id):
 	itemDescLabel.bbcode_text = theEntry["desc"] if theEntry.has("desc") else "No description provided"
 	
 	
-	emit_signal("onItemSelected", _id)
+	onItemSelected.emit(_id)
 
 
 func _on_SearchLineEdit_text_changed(_new_text):

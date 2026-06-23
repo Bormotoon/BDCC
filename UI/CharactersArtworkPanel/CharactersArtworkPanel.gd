@@ -3,12 +3,12 @@ extends Control
 var currentCharacter = null
 var characters = {}
 
-onready var nameLabel = $VBoxContainer2/Control/MarginContainer/VBoxContainer/NameLabel
-onready var textureRect = $VBoxContainer2/Control/TextureRect
-onready var textureRect2 = $VBoxContainer2/Control/TextureRect2
-onready var textureRect3 = $VBoxContainer2/Control/TextureRect3
-onready var characterStatusGrid = $VBoxContainer2/CharacterStatusGrid
-onready var nextCharacterButton = $VBoxContainer2/Control/MarginContainer/VBoxContainer/HBoxContainer/NextButton
+@onready var nameLabel = $VBoxContainer2/Control/MarginContainer/VBoxContainer/NameLabel
+@onready var textureRect = $VBoxContainer2/Control/TextureRect
+@onready var textureRect2 = $VBoxContainer2/Control/TextureRect2
+@onready var textureRect3 = $VBoxContainer2/Control/TextureRect3
+@onready var characterStatusGrid = $VBoxContainer2/CharacterStatusGrid
+@onready var nextCharacterButton = $VBoxContainer2/Control/MarginContainer/VBoxContainer/HBoxContainer/NextButton
 
 func _ready():
 	clear()

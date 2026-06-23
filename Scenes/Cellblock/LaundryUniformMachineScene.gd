@@ -48,7 +48,7 @@ func _run():
 		var colorPicker = colorPickerScene.instantiate()
 		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 		colorPicker.setCurrentColor(theItem.clothesColor)
-		colorPicker.connect("color_changed", self, "changebasecolormenu_colorchanged")
+		colorPicker.color_changed.connect(changebasecolormenu_colorchanged)
 		
 		addButtonWithChecks("Confirm", "Pay 5 credits and finalize the color", "do_pay_coloritem", [theItem], [[ButtonChecks.HasCredits, 5]])
 		addButton("Cancel", "You changed your mind", "cancel_dying")
@@ -158,7 +158,7 @@ func changebasecolormenu_colorchanged(_theColor):
 	if(isChanging):
 		return
 	isChanging = true
-	yield(get_tree().create_timer(0.3), "timeout")
+	await get_tree().create_timer(0.3).timeout
 	if(GM.ui.getCustomControl("colorpicker") == null):
 		isChanging = false
 		return

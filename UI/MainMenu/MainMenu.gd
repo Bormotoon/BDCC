@@ -1,32 +1,32 @@
 extends Control
 
-onready var versionLabel = $"%VersionLabel"
-onready var MainVBox = $"%MainVBox"
-onready var LoadGameTab = $"%LoadGameScreen"
-onready var optionsGameTab = $"%OptionsScreen"
-onready var creditsGameTab = $"%CreditsScreen"
-onready var resumeButton = $"%ResumeButton"
-onready var http_request = $"%HTTPRequest"
-onready var gutHubReleaseLabel = $"%GithubReleaseLabel"
-onready var gitHubReleaseButton = $"%GithubReleasesButton"
-onready var devToolsScreen = $"%DevToolsScreen"
-onready var devSubScreen = $"%DevScreen"
-onready var loadedModsLabel = $"%LoadedModsLabel"
-onready var modsMenu = $"%ModsMenu"
-onready var autoTranslatorMenu = $"%AutoTranslatorMenu"
-onready var donations_label = $"%DonationsLabel"
-onready var auto_translator_button = $"%AutoTranslatorButton"
+@onready var versionLabel = $"%VersionLabel"
+@onready var MainVBox = $"%MainVBox"
+@onready var LoadGameTab = $"%LoadGameScreen"
+@onready var optionsGameTab = $"%OptionsScreen"
+@onready var creditsGameTab = $"%CreditsScreen"
+@onready var resumeButton = $"%ResumeButton"
+@onready var http_request = $"%HTTPRequest"
+@onready var gutHubReleaseLabel = $"%GithubReleaseLabel"
+@onready var gitHubReleaseButton = $"%GithubReleasesButton"
+@onready var devToolsScreen = $"%DevToolsScreen"
+@onready var devSubScreen = $"%DevScreen"
+@onready var loadedModsLabel = $"%LoadedModsLabel"
+@onready var modsMenu = $"%ModsMenu"
+@onready var autoTranslatorMenu = $"%AutoTranslatorMenu"
+@onready var donations_label = $"%DonationsLabel"
+@onready var auto_translator_button = $"%AutoTranslatorButton"
 
-onready var center_area_v_box = $"%CenterAreaVBox"
-onready var vertical_bottom_spacer = $"%VerticalBottomSpacer"
+@onready var center_area_v_box = $"%CenterAreaVBox"
+@onready var vertical_bottom_spacer = $"%VerticalBottomSpacer"
 
-onready var troubleshooting_screen = $"%TroubleshootingScreen"
+@onready var troubleshooting_screen = $"%TroubleshootingScreen"
 
-onready var vertical_github_release_box = $"%VerticalGithubReleaseBox"
-onready var vertical_github_release_label = $"%VerticalGithubReleaseLabel"
+@onready var vertical_github_release_box = $"%VerticalGithubReleaseBox"
+@onready var vertical_github_release_label = $"%VerticalGithubReleaseLabel"
 var verticalModsStr:String = ""
 
-export(Resource) var GlobalTheme
+@export var var GlobalTheme
 
 func updateVerticalGithubReleaseVisibility():
 	if(OPTIONS.shouldFetchGithubRelease() && OPTIONS.isVerticalOrientation()):
@@ -45,7 +45,7 @@ func _ready():
 	versionLabel.text = "Version: "+GlobalRegistry.getGameVersionString()
 
 	donations_label.bbcode_text = GlobalRegistry.getDonationDataString()
-	var _ok = GlobalRegistry.connect("donationDataUpdated", self, "updateDonationData")
+	var _ok = GlobalRegistry.donationDataUpdated.connect(updateDonationData)
 
 	checkCanResume()
 	if(OPTIONS.shouldFetchGithubRelease()):
@@ -67,7 +67,7 @@ func _ready():
 	if(OS.get_name() == "HTML5"):
 		auto_translator_button.disabled = true
 	
-	OPTIONS.connect("onScreenOrientationChange", self, "updateSidePanelsVisibility")
+	OPTIONS.onScreenOrientationChange.connect(updateSidePanelsVisibility)
 	
 func updateDonationData():
 	donations_label.bbcode_text = GlobalRegistry.getDonationDataString()
@@ -188,8 +188,8 @@ func _on_DevToolsButton_pressed():
 	devToolsScreen.visible = true
 	updateSidePanelsVisibility()
 
-onready var panel_2 = $"%Panel2"
-onready var panel = $"%Panel"
+@onready var panel_2 = $"%Panel2"
+@onready var panel = $"%Panel"
 
 func updateSidePanelsVisibility():
 	var isVert:bool = OPTIONS.isVerticalOrientation()
@@ -273,14 +273,14 @@ func _on_SexActivityCreator_pressed():
 	var scene = load("res://Util/SexActivityCreator/SexActivityCreator.tscn")
 	devSubScreen.add_child(scene.instantiate())
 
-onready var main_h_box = $"%MainHBox"
+@onready var main_h_box = $"%MainHBox"
 
 var datapackMenu
 func _on_DatapackButton_pressed():
 	#hideAllMenus()
 	main_h_box.visible = false
 	datapackMenu = load("res://Game/Datapacks/UI/DatapackMenu.tscn").instantiate()
-	datapackMenu.connect("onClosePressed", self, "onDatapackMenuClosedPressed")
+	datapackMenu.onClosePressed.connect(onDatapackMenuClosedPressed)
 	add_child(datapackMenu)
 
 func onDatapackMenuClosedPressed():
@@ -293,7 +293,7 @@ func onDatapackMenuClosedPressed():
 func _on_InteractionCreator_pressed():
 	main_h_box.visible = false
 	datapackMenu = load("res://Util/InteractionCreator/InteractionCreator.tscn").instantiate()
-	datapackMenu.connect("onClosePressed", self, "onDatapackMenuClosedPressed")
+	datapackMenu.onClosePressed.connect(onDatapackMenuClosedPressed)
 	add_child(datapackMenu)
 
 func _on_QuitButton_pressed():
@@ -311,7 +311,7 @@ func _on_TroubleshootingScreen_onClose():
 func _on_SexToysButton_pressedActually():
 	main_h_box.visible = false
 	var theMenu = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instantiate()
-	theMenu.connect("onClosePressed", self, "onMenuClosePressed", [theMenu])
+	theMenu.onClosePressed.connect(onMenuClosePressed.bind([theMenu]))
 	add_child(theMenu)
 
 func onMenuClosePressed(_menu):

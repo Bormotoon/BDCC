@@ -1,9 +1,9 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
-onready var doll2 = $Doll3D2
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var doll = $Doll3D
+@onready var doll2 = $Doll3D2
 
 func _init():
 	id = StageScene.SlutwallSexOral

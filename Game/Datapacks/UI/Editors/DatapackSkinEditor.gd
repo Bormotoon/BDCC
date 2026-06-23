@@ -1,10 +1,10 @@
 extends Control
-onready var pack_variables = $VBoxContainer/HBoxContainer/ScrollContainer/PackVariables
+@onready var pack_variables = $VBoxContainer/HBoxContainer/ScrollContainer/PackVariables
 
 var datapack:Datapack
 var skin:DatapackSkin
 var dynamicCharacter:DynamicCharacter
-onready var doll = $VBoxContainer/HBoxContainer/DollWrapper/Viewport/Doll3D
+@onready var doll = $VBoxContainer/HBoxContainer/DollWrapper/Viewport/Doll3D
 
 func _ready():
 	for speciesID in GlobalRegistry.getAllSpecies():

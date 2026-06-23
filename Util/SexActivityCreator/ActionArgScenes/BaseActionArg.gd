@@ -19,4 +19,4 @@ func setOptions(_options):
 	pass
 
 func emitChanged():
-	emit_signal("onChange", dataID, getData())
+	onChange.emit(dataID, getData())

@@ -1,20 +1,20 @@
 extends Control
 
-onready var triggers_item_list = $"%TriggersItemList"
-onready var effect_list = $"%EffectList"
-onready var trigger_name_label = $"%TriggerNameLabel"
-onready var passive_h_box = $"%PassiveHBox"
-onready var start_from_label = $"%StartFromLabel"
-onready var start_from_h_slider = $"%StartFromHSlider"
-onready var info_accept_dialog = $"%InfoAcceptDialog"
-onready var export_text_edit = $"%ExportTextEdit"
-onready var config_import_dialog = $"%ConfigImportDialog"
-onready var import_text_edit = $"%ImportTextEdit"
-onready var info_final_accept_dialog = $"%InfoFinalAcceptDialog"
-onready var scale_with_value = $"%ScaleWithValue"
-onready var scale_with_value_checkbox = $"%ScaleWithValueCheckbox"
-onready var scale_with_value_label = $"%ScaleWithValueLabel"
-onready var scale_with_value_slider = $"%ScaleWithValueSlider"
+@onready var triggers_item_list = $"%TriggersItemList"
+@onready var effect_list = $"%EffectList"
+@onready var trigger_name_label = $"%TriggerNameLabel"
+@onready var passive_h_box = $"%PassiveHBox"
+@onready var start_from_label = $"%StartFromLabel"
+@onready var start_from_h_slider = $"%StartFromHSlider"
+@onready var info_accept_dialog = $"%InfoAcceptDialog"
+@onready var export_text_edit = $"%ExportTextEdit"
+@onready var config_import_dialog = $"%ConfigImportDialog"
+@onready var import_text_edit = $"%ImportTextEdit"
+@onready var info_final_accept_dialog = $"%InfoFinalAcceptDialog"
+@onready var scale_with_value = $"%ScaleWithValue"
+@onready var scale_with_value_checkbox = $"%ScaleWithValueCheckbox"
+@onready var scale_with_value_label = $"%ScaleWithValueLabel"
+@onready var scale_with_value_slider = $"%ScaleWithValueSlider"
 
 var selectedTrigger:int = 0
 
@@ -70,7 +70,7 @@ func updateSelectedTrigger():
 		effect_list.add_child(newEffectUIEntry)
 	
 		newEffectUIEntry.setEntry(_i+1, theEffect)
-		newEffectUIEntry.connect("onDeleteButton", self, "onDeleteEffectButton")
+		newEffectUIEntry.onDeleteButton.connect(onDeleteEffectButton)
 		_i += 1
 
 func updateStartFromSlider():

@@ -9,7 +9,7 @@ func _init():
 	
 func setCharacter(c):
 	.setCharacter(c)
-	character.connect("pain_changed", self, "_on_pain_changed")
+	character.pain_changed.connect(_on_pain_changed)
 	
 func initArgs(_args = []):
 	if(_args.size() > 0):

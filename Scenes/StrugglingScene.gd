@@ -182,7 +182,7 @@ func _run():
 			game.setHasAdvancedPerk(true)
 		
 		game.setDifficulty(restraintData.getLevel())
-		game.connect("minigameCompleted", self, "onMinigameCompleted")
+		game.minigameCompleted.connect(onMinigameCompleted)
 		addButton("Give up", "Give up the struggle and lose 10 stamina", "giveupstruggle")
 
 	if(state == "struggleAgainst"):

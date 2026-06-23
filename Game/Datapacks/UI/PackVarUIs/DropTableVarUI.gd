@@ -7,10 +7,10 @@ var data = {
 	creditsMax = 5,
 	customLoot = [],
 }
-onready var base_drop_table = $BaseDropTable
-onready var chance_to_drop_credits_ui = $ChanceToDropCreditsUI
-onready var min_credits_ui = $MinCreditsUI
-onready var max_credits_ui = $MaxCreditsUI
+@onready var base_drop_table = $BaseDropTable
+@onready var chance_to_drop_credits_ui = $ChanceToDropCreditsUI
+@onready var min_credits_ui = $MinCreditsUI
+@onready var max_credits_ui = $MaxCreditsUI
 
 var dropTableEntryScene = preload("res://Game/Datapacks/UI/PackVarUIs/DropTableEntryUI.tscn")
 
@@ -101,7 +101,7 @@ func updateCustomLoot():
 		newEntry.setData({
 			name = theText,
 		})
-		newEntry.connect("onDeletePressed", self, "onDeleteCustomLootEntry")
+		newEntry.onDeletePressed.connect(onDeleteCustomLootEntry)
 		_i += 1
 
 func onDeleteCustomLootEntry(_index):

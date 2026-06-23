@@ -1,8 +1,8 @@
 extends Control
 
-onready var world = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/World
-onready var floor_list = $VBoxContainer/HBoxContainer/FloorList
-onready var cell_list = $VBoxContainer/HBoxContainer/CellList
+@onready var world = $VBoxContainer/HBoxContainer/PanelContainer/Viewport/World
+@onready var floor_list = $VBoxContainer/HBoxContainer/FloorList
+@onready var cell_list = $VBoxContainer/HBoxContainer/CellList
 
 var cells = []
 var selectedCell = ""
@@ -69,7 +69,7 @@ func _on_CellList_item_selected(index):
 	setSelectedCell(cells[index])
 	
 func _on_ConfirmButton_pressed():
-	emit_signal("onCellSelected", selectedCell)
+	onCellSelected.emit(selectedCell)
 
 func _on_CancelButton_pressed():
-	emit_signal("onCancelPressed")
+	onCancelPressed.emit()

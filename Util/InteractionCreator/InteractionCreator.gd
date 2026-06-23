@@ -1,19 +1,19 @@
 extends Control
-onready var pack_variables = $VBoxContainer/TabContainer/Info/ScrollContainer/PackVariables
-onready var generated_text_dialog = $GeneratedTextDialog
-onready var generated_text_edit = $GeneratedTextDialog/GeneratedTextEdit
-onready var state_name_edit = $VBoxContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/StateNameEdit
-onready var states_list = $VBoxContainer/TabContainer/States/HBoxContainer/VBoxContainer/StatesList
-onready var state_pack_variables = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/StatePackVariables
-onready var action_pack_variables = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/ActionPackVariables
-onready var state_panel = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer
-onready var actions_list = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/ActionsList
-onready var action_name_edit = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer/ActionNameEdit
-onready var pick_load_dialog = $PickLoadDialog
-onready var saved_interaction_list = $PickLoadDialog/VBoxContainer/SavedInteractionList
-onready var int_pack_variables = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/ScrollContainer/VBoxContainer/IntPackVariables
-onready var interruptions_list = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/VBoxContainer/InterruptionsList
-onready var int_name_edit = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/VBoxContainer/HBoxContainer/IntNameEdit
+@onready var pack_variables = $VBoxContainer/TabContainer/Info/ScrollContainer/PackVariables
+@onready var generated_text_dialog = $GeneratedTextDialog
+@onready var generated_text_edit = $GeneratedTextDialog/GeneratedTextEdit
+@onready var state_name_edit = $VBoxContainer/TabContainer/States/HBoxContainer/VBoxContainer/HBoxContainer/StateNameEdit
+@onready var states_list = $VBoxContainer/TabContainer/States/HBoxContainer/VBoxContainer/StatesList
+@onready var state_pack_variables = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/StatePackVariables
+@onready var action_pack_variables = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/ActionPackVariables
+@onready var state_panel = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer
+@onready var actions_list = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/ActionsList
+@onready var action_name_edit = $VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer/ActionNameEdit
+@onready var pick_load_dialog = $PickLoadDialog
+@onready var saved_interaction_list = $PickLoadDialog/VBoxContainer/SavedInteractionList
+@onready var int_pack_variables = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/ScrollContainer/VBoxContainer/IntPackVariables
+@onready var interruptions_list = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/VBoxContainer/InterruptionsList
+@onready var int_name_edit = $VBoxContainer/TabContainer/Interruptions/HBoxContainer/VBoxContainer/HBoxContainer/IntNameEdit
 
 
 var interaction:CreatedInteraction = CreatedInteraction.new()
@@ -40,7 +40,7 @@ func _on_PackVariables_onVariableChange(id, value):
 
 
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func showGenText(theText:String):

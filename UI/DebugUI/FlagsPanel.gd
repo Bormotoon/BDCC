@@ -2,8 +2,8 @@ extends Control
 
 var flagPanelEntryScene = preload("res://UI/DebugUI/FlagPanelEntry.tscn")
 var flagPanelDividerScene = preload("res://UI/DebugUI/FlagPanelDivider.tscn")
-onready var flagEditWindow = $FlagEditWindow
-onready var filterEdit = $ScrollContainer/VBoxContainer/HBoxContainer/LineEdit
+@onready var flagEditWindow = $FlagEditWindow
+@onready var filterEdit = $ScrollContainer/VBoxContainer/HBoxContainer/LineEdit
 
 export var addGameFlags = true
 export var addDatapackFlags = false
@@ -30,7 +30,7 @@ func updateFlags():
 			$ScrollContainer/VBoxContainer/VBoxContainer.add_child(newflagpanelentry)
 			newflagpanelentry.setNameAndValue(flagID+" ("+str(FlagType.getVisibleName(flagType))+")", flagValue)
 			newflagpanelentry.flagID = flagID
-			var _ok = newflagpanelentry.connect("changeFlagButton", self, "onFlagChangeButton")
+			var _ok = newflagpanelentry.changeFlagButton.connect(onFlagChangeButton)
 
 		var modules = GlobalRegistry.getModules()
 		for moduleID in modules:
@@ -55,7 +55,7 @@ func updateFlags():
 				newflagpanelentry.setNameAndValue(flagID+" ("+str(FlagType.getVisibleName(flagType))+")", flagValue)
 				newflagpanelentry.flagID = flagID
 				newflagpanelentry.moduleID = moduleID
-				var _ok = newflagpanelentry.connect("changeFlagButton", self, "onFlagChangeButton")
+				var _ok = newflagpanelentry.changeFlagButton.connect(onFlagChangeButton)
 	
 	if(addDatapackFlags):
 		var loadedDatapacks = GM.main.loadedDatapacks
@@ -78,7 +78,7 @@ func updateFlags():
 				newflagpanelentry.setNameAndValue(flagID+" ("+str(DatapackSceneVarType.getName(flagType))+")", flagValue)
 				newflagpanelentry.flagID = flagID
 				newflagpanelentry.moduleID = datapackID
-				var _ok = newflagpanelentry.connect("changeFlagButton", self, "onDatapackFlagChangeButton")
+				var _ok = newflagpanelentry.changeFlagButton.connect(onDatapackFlagChangeButton)
 	
 	
 func addDivider(text):

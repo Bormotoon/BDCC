@@ -1,9 +1,9 @@
 extends Node
 class_name RoomAction
 
-export(String) var ActionName
-export(String) var ActionTooltip
-export(String) var ActionScene
+@export var var ActionName
+@export var var ActionTooltip
+@export var var ActionScene
 
 func _canRun() -> bool:
 	return true

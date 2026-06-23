@@ -1,6 +1,6 @@
 extends Control
 
-onready var whs_label = $ScrollContainer/WHSLabel
+@onready var whs_label = $ScrollContainer/WHSLabel
 
 func _ready():
 	updateInfo()

@@ -11,10 +11,10 @@ var id
 
 signal onDataChanged(id, data)
 
-onready var option_button = $OptionButton
-onready var var_option_list = $VarOptionList
-onready var label = $Label
-onready var var_enabled_box = $VarEnabledBox
+@onready var option_button = $OptionButton
+@onready var var_option_list = $VarOptionList
+@onready var label = $Label
+@onready var var_enabled_box = $VarEnabledBox
 
 func setData(_data:Dictionary):
 	if(_data.has("name")):
@@ -93,7 +93,7 @@ func _on_OptionButton_item_selected(index):
 	emitChange()
 	
 func emitChange():
-	emit_signal("onDataChanged", id, {
+	onDataChanged.emit(id, {
 		value = selectedValue,
 		isVar = isVar,
 		varName = selectedVar,

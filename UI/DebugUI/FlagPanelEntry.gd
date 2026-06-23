@@ -10,4 +10,4 @@ func setNameAndValue(newtext, newvalue):
 	$HBoxContainer/ValueLabel.text = str(newvalue)
 
 func _on_ChangeButton_pressed():
-	emit_signal("changeFlagButton", moduleID, flagID)
+	changeFlagButton.emit(moduleID, flagID)

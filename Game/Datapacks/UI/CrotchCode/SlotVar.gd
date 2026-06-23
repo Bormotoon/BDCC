@@ -22,7 +22,7 @@ func getRawValue():
 
 func setBlock(theBlock):
 	block = theBlock
-	emit_signal("onBlockChanged", theBlock)
+	onBlockChanged.emit(theBlock)
 
 func getValue(_contex:CodeContex):
 	if(block == null):

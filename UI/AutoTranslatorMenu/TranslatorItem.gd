@@ -7,10 +7,10 @@ signal onDownButton(id, data)
 signal onUpButton(id, data)
 
 func _on_DownButton_pressed():
-	emit_signal("onDownButton", id, data)
+	onDownButton.emit(id, data)
 
 func _on_UpButton_pressed():
-	emit_signal("onUpButton", id, data)
+	onUpButton.emit(id, data)
 
 func setText(theText):
 	$Label.text = theText.replace("\n", " | ")

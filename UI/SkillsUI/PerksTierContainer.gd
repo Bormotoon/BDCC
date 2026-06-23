@@ -5,8 +5,8 @@ var tierData
 var level
 var tierIndex
 
-onready var flexGrid = $VBoxContainer/FlexGridContainer
-onready var levelLabel = $VBoxContainer/LevelLabel
+@onready var flexGrid = $VBoxContainer/FlexGridContainer
+@onready var levelLabel = $VBoxContainer/LevelLabel
 var perkButtonScene = preload("res://UI/SkillsUI/PerkButton.tscn")
 
 signal perkClicked(perkID)
@@ -46,7 +46,7 @@ func updatePerks():
 		var perkButton = perkButtonScene.instantiate()
 		flexGrid.add_child(perkButton)
 		perkButton.setPerk(perk)
-		var _ok = perkButton.connect("perkClicked", self, "onPerkButton")
+		var _ok = perkButton.perkClicked.connect(onPerkButton)
 		
 func onPerkButton(perkID):
-	emit_signal("perkClicked", perkID)
+	perkClicked.emit(perkID)

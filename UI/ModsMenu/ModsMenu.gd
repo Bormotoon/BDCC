@@ -1,6 +1,6 @@
 extends Control
 
-onready var modsLabel = $VBoxContainer/ScrollContainer/VBoxContainer/ModsLabel
+@onready var modsLabel = $VBoxContainer/ScrollContainer/VBoxContainer/ModsLabel
 signal onClosePressed
 signal in_focus
 var showedModDialog = false
@@ -46,7 +46,7 @@ func _ready():
 	modsLabel.bbcode_text = text
 	
 func _on_CloseButton_pressed():
-	emit_signal("onClosePressed")
+	onClosePressed.emit()
 
 
 func _on_ModsFolderButton_pressed():
@@ -98,7 +98,7 @@ func _define_js():
 	
 func _notification(notification: int) -> void:
 	if notification == MainLoop.NOTIFICATION_WM_FOCUS_IN:
-		emit_signal("in_focus")
+		in_focus.emit()
 	
 func readModHTML5():
 	if OS.get_name() != "HTML5" or !OS.has_feature("JavaScript"):
@@ -107,9 +107,9 @@ func readModHTML5():
 	# Execute JS function
 	JavaScript.eval("upload_mod();", true)  # Opens prompt for choosing file
 
-	yield(self, "in_focus")  # Wait until JS prompt is closed
+	await self.focus_entered  # Wait until JS prompt is closed (Godot 4: focus_entered signal)
 
-	yield(get_tree().create_timer(0.5), "timeout")  # Give some time for async JS data load
+	await get_tree().create_timer(0.5).timeout  # Give some time for async JS data load
 
 	if JavaScript.eval("canceled;", true):  # If File Dialog closed w/o file
 		return
@@ -120,7 +120,7 @@ func readModHTML5():
 		file_data = JavaScript.eval("fileData;", true)
 		if file_data != null:
 			break
-		yield(get_tree().create_timer(1.0), "timeout")  # Need more time to load data
+		await get_tree().create_timer(1.0).timeout  # Need more time to load data
 
 #	var file_type = JavaScript.eval("fileType;", true)
 	var file_name = JavaScript.eval("fileName;", true)
@@ -130,7 +130,7 @@ func readModHTML5():
 
 func _on_AddModButton_pressed():
 	if OS.get_name() == "HTML5":
-		var modDataAndFileName = yield(readModHTML5(), "completed")
+		var modDataAndFileName = await readModHTML5()
 		if(modDataAndFileName == null || modDataAndFileName.size() != 2):
 			return
 			
@@ -154,7 +154,7 @@ func _on_AddModButton_pressed():
 #					or not permissions.has("android.permission.WRITE_EXTERNAL_STORAGE"):
 #					var _ok = OS.request_permissions()
 #					#await get_tree().create_timer(1).timeout
-#					yield(get_tree().create_timer(1), "timeout") #for Godot 3 branch
+#					await get_tree().create_timer(1).timeout #for Godot 3 branch
 #				else:
 #					has_permissions = true
 					

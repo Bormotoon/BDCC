@@ -1,9 +1,9 @@
 extends BaseStageScene3D
 
-onready var animationTree = $AnimationTree
-onready var animationTree2 = $AnimationTree2
-onready var doll = $Doll3D
-onready var dildo = $CanineDildo
+@onready var animationTree = $AnimationTree
+@onready var animationTree2 = $AnimationTree2
+@onready var doll = $Doll3D
+@onready var dildo = $CanineDildo
 
 func _init():
 	id = StageScene.CanineDildoSex
@@ -62,12 +62,12 @@ func playAnimation(animID, _args = {}):
 	if(_args.has("skipToHover") && _args["skipToHover"]): # Don't ask me
 		state_machine.stop()
 		state_machine2.stop()
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 		state_machine.start("CanineDildoRideHover_1-loop")
 		state_machine2.start("CanineDildoRideHover_2-loop")
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 		#return
 	
 	if(_args.has("cum") && _args["cum"] && !(animID in ["tease"])):

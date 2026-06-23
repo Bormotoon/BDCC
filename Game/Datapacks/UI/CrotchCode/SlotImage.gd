@@ -7,7 +7,7 @@ signal onImageChanced(datapackImage)
 
 func setImage(theImage:Image):
 	image.setImage(theImage)
-	emit_signal("onImageChanced", image)
+	onImageChanced.emit(image)
 
 func getImage() -> Image:
 	return image.getImage()

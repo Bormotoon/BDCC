@@ -1,7 +1,7 @@
 extends Node2D
 
-export(bool) var supportsVerticalFlip = true
-export(bool) var supportsHorizontalFlip = true
+@export var var supportsVerticalFlip = true
+@export var var supportsHorizontalFlip = true
 
 func canFlipV():
 	return supportsVerticalFlip
