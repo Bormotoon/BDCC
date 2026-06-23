@@ -185,7 +185,7 @@ PoolStringArray → PackedStringArray
 | SexSubInfo.gd | ~80 | 🔴 НЕ МИГРИРОВАН |
 | SexVoice.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
 | SexReactionHandler.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
-| Personality.gd | 85 | 🔴 НЕ МИГРИРОВАН |
+| Personality.gd | 85 | ✅ МИГРИРОВАН (extends RefCounted, stat scoring preserved) |
 | FetishHolder.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
 | Fetish/*.gd (24 файла) | ~2,400 | 🔴 НЕ МИГРИРОВАН |
 | Goal/*.gd (28 файлов) | ~2,800 | 🔴 НЕ МИГРИРОВАН |
