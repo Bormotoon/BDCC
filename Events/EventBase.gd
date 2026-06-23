@@ -1,119 +1,82 @@
-extends Reference
+extends RefCounted
 class_name EventBase
 
-var id = "badevent"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for events. extends Reference → RefCounted.
 
-func _init():
+var id: String = "badevent"
+
+func registerTriggers(_es) -> void:
 	pass
 
-func registerTriggers(_es):
+func react(_trigger_id, _args) -> void:
 	pass
 
-func react(_triggerID, _args):
-	pass
-	
-func run(_triggerID, _args):
+func run(_trigger_id, _args) -> void:
 	pass
 
-func getPriority():
+func getPriority() -> int:
 	return 10
 
-func onButton(_method, _args):
+func onButton(_method, _args) -> void:
 	pass
 
-func eventCheck(_checkID, _args = []):
+func eventCheck(_check_id, _args: Array = []):
 	return null
 
-func doEventCheck(_checkID, _args = []):
-	if(GM.ES):
-		return GM.ES.eventCheck(_checkID, _args)
+func doEventCheck(_check_id, _args: Array = []):
+	if GM.ES:
+		return GM.ES.eventCheck(_check_id, _args)
 
-func checkCharacterBusy(_checkID, messageifbusy, characterName = ""):
-	var checkData = doEventCheck(_checkID)
-	if(checkData == null):
+func checkCharacterBusy(_check_id, message_if_busy: String, character_name: String = "") -> bool:
+	var check_data = doEventCheck(_check_id)
+	if check_data == null:
 		return false
-	
-	if(checkData is Dictionary && checkData.has("text")):
-		saynn(checkData["text"])
+	if check_data is Dictionary and check_data.has("text"):
+		saynn(check_data["text"])
 	else:
-		saynn(messageifbusy)
-	if(characterName != ""):
-		addDisabledButton(characterName, "They are not here")
+		saynn(message_if_busy)
+	if character_name != "":
+		addDisabledButton(character_name, "They are not here")
 	return true
 
-func runScene(sceneid: String, args = [], tag = ""):
-	var scene = GM.main.runScene(sceneid, args)
-	scene.sceneTag = tag
+func runScene(scene_id: String, args: Array = [], tag: String = "") -> void:
+	GM.main.runScene(scene_id, args)
 
-func say(_text: String):
-	if(GM.ui):
+func say(_text: String) -> void:
+	if GM.ui:
 		GM.ui.say(_text)
 
-func sayn(_text: String):
-	say(_text+"\n")
+func sayn(_text: String) -> void:
+	say(_text + "\n")
 
-func saynn(_text: String):
-	say(_text+"\n\n")
+func saynn(_text: String) -> void:
+	say(_text + "\n\n")
 
-func addButton(text: String, tooltip: String = "", method: String = "", args = []):
+func addButton(text: String, tooltip: String = "", method: String = "", args: Array = []) -> void:
 	GM.ui.addButton(text, tooltip, "EVENTSYSTEM_BUTTON", [self, method, args])
 
-func addDisabledButton(text: String, tooltip: String = ""):
+func addDisabledButton(text: String, tooltip: String = "") -> void:
 	GM.ui.addDisabledButton(text, tooltip)
 
-func addButtonUnlessLate(text: String, tooltip: String = "", method: String = "", args = [], latetext: String = "It's way too late for that"):
-	if(GM.main.isVeryLate()):
+func addButtonUnlessLate(text: String, tooltip: String = "", method: String = "", args: Array = [], latetext: String = "It's way too late for that") -> void:
+	if GM.main.isVeryLate():
 		addDisabledButton(text, latetext)
 	else:
 		addButton(text, tooltip, method, args)
-	
-func addButtonWithChecks(text: String, tooltip: String, method: String, args, checks: Array):
-	var badCheck = ButtonChecks.check(checks)
-	if(badCheck == null):
+
+func addButtonWithChecks(text: String, tooltip: String, method: String, args, checks: Array) -> void:
+	var bad_check = ButtonChecks.check(checks)
+	if bad_check == null:
 		addButton(text, ButtonChecks.getPrefix(checks) + tooltip, method, args)
 	else:
-		addDisabledButton(text, ButtonChecks.getReasonText(badCheck))
+		addDisabledButton(text, ButtonChecks.getReasonText(bad_check))
 
-func setFlag(flagID, value):
-	GM.main.setFlag(flagID, value)
+func setFlag(flag_id, value) -> void:
+	GM.main.setFlag(flag_id, value)
 
-func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
+func getFlag(flag_id, default_value = null):
+	return GM.main.getFlag(flag_id, default_value)
 
-func increaseFlag(flagID, addvalue = 1):
-	GM.main.increaseFlag(flagID, addvalue)
-
-func setModuleFlag(moduleID, flagID, value):
-	GM.main.setModuleFlag(moduleID, flagID, value)
-
-func increaseModuleFlag(moduleID, flagID, addvalue = 1):
-	GM.main.increaseModuleFlag(moduleID, flagID, addvalue)
-
-func getModuleFlag(moduleID, flagID, defaultValue = null):
-	return GM.main.getModuleFlag(moduleID, flagID, defaultValue)
-
-func npcSatisfiesCondition(character:BaseCharacter, conInfo):
-	return NpcFinder.npcSatisfiesCondition(character, conInfo)
-
-func grabNpcIDFromPool(poolID, _conditions = []):
-	return NpcFinder.grabNpcIDFromPool(poolID, _conditions)
-
-func generateNpcForPool(poolID, generator, _args = {}):
-	return NpcFinder.generateNpcForPool(poolID, generator, _args)
-
-func grabNpcIDFromPoolOrGenerate(poolID, _conditions, generator, _args = {}, preferOld = false):
-	return NpcFinder.grabNpcIDFromPoolOrGenerate(poolID, _conditions, generator, _args, preferOld)
-	
-func getCharacter(charID: String) -> BaseCharacter:
-	return GlobalRegistry.getCharacter(charID)
-
-func getModule(modID: String):
-	return GlobalRegistry.getModule(modID)
-	
-func addMessage(theMessage: String):
-	GM.main.addMessage(theMessage)
-
-func addExperienceToPlayer(ex: int, showMessage: bool = true):
-	if(showMessage):
-		addMessage("You received "+str(ex)+" experience")
-	GM.pc.addExperience(ex)
+func increaseFlag(flag_id, add_value = 1) -> void:
+	GM.main.increaseFlag(flag_id, add_value)
