@@ -59,7 +59,7 @@ func onStart(_args:Array):
 			elif(thePrio == currentPriority):
 				currentPossibleList.append(ownerTypeID)
 		
-		theNpcTypeID = RNG.pick(currentPossibleList) if !currentPossibleList.empty() else "Normal"
+		theNpcTypeID = RNG.pick(currentPossibleList) if !currentPossibleList.is_empty() else "Normal"
 	npcOwner = GlobalRegistry.createNpcOwnerType(theNpcTypeID)
 	npcOwner.setRelationship(self)
 	npcOwner.onStart()
@@ -111,7 +111,7 @@ func loadData(_data:Dictionary):
 	.loadData(_data)
 	
 	var theOwnerType:String = SAVE.loadVar(_data, "ownerType", "")
-	if(theOwnerType.empty() || !GlobalRegistry.getNpcOwnerTypeRef(theOwnerType)):
+	if(theOwnerType.is_empty() || !GlobalRegistry.getNpcOwnerTypeRef(theOwnerType)):
 		return
 	npcOwner = GlobalRegistry.createNpcOwnerType(theOwnerType)
 	npcOwner.setRelationship(self)

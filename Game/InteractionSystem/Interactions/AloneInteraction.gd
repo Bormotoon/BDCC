@@ -125,7 +125,7 @@ func switchGoalToObject(newGoal:InteractionGoalBase):
 		return false
 	var thePawn := getRolePawn("main")
 	if(goal):
-		if(!goal.globalTask.empty()):
+		if(!goal.globalTask.is_empty()):
 			var theGlobalTask:GlobalTask = GM.main.IS.getGlobalTask(goal.globalTask)
 			if(theGlobalTask):
 				theGlobalTask.onPawnStoppedDoingTask(thePawn)
@@ -135,7 +135,7 @@ func switchGoalToObject(newGoal:InteractionGoalBase):
 	goal = newGoal
 	goal.onGoalStart()
 	
-	if(!goal.globalTask.empty()):
+	if(!goal.globalTask.is_empty()):
 		var theGlobalTask:GlobalTask = GM.main.IS.getGlobalTask(goal.globalTask)
 		if(theGlobalTask):
 			theGlobalTask.onPawnStartedDoingTask(thePawn)
@@ -145,7 +145,7 @@ func switchGoalToObject(newGoal:InteractionGoalBase):
 func onStopped():
 	var thePawn := getRolePawn("main")
 	if(goal):
-		if(!goal.globalTask.empty()):
+		if(!goal.globalTask.is_empty()):
 			var theGlobalTask:GlobalTask = GM.main.IS.getGlobalTask(goal.globalTask)
 			if(theGlobalTask):
 				theGlobalTask.onPawnStoppedDoingTask(thePawn)

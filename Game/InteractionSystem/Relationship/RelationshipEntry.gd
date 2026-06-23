@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name RelationshipEntry
 
 var affection:float = 0.0

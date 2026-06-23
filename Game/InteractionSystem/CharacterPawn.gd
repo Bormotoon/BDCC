@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name CharacterPawn
 
 var location:String = "main_punishment_spot"

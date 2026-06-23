@@ -36,7 +36,7 @@ func doAction(_id:String, _args:Dictionary):
 			return
 		
 		var result:Dictionary = getPawn().getChar().doStruggleOutOfRestraints()
-		if(result.empty()):
+		if(result.is_empty()):
 			completeGoal()
 			return
 		else:

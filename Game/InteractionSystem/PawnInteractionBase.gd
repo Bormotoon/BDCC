@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name PawnInteractionBase
 
 var id:String = "error"
@@ -963,7 +963,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 	if(cachedTarget == theTarget):
 		if(cachedPath.size() > 1 && getLocation() == cachedPath[0]):
 			setLocation(cachedPath[1])
-			cachedPath.remove(0)
+			cachedPath.remove_at(0)
 		else:
 			cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
 	
@@ -1240,7 +1240,7 @@ func sayLine(role:String, lineID:String, args:Dictionary, actualArgs:Dictionary 
 	var processedArgs = {}
 	for argID in args: # Assumes all the args are characters
 		processedArgs[argID] = getRoleID(args[argID])
-	if(!actualArgs.empty()):
+	if(!actualArgs.is_empty()):
 		for argID in actualArgs:
 			processedArgs[argID] = actualArgs[argID]
 	
@@ -1932,7 +1932,7 @@ func getActionsRelativeChanceInfo() -> Array:
 		totalScore += theFinalScore
 		actionAndScore.append([actionEntry["name"], theFinalScore])
 	
-	if(actionAndScore.empty()):
+	if(actionAndScore.is_empty()):
 		return []
 	
 	for theEntryPair in actionAndScore:

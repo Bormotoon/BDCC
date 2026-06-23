@@ -2,7 +2,7 @@ extends RefCounted
 class_name InteractionGoalBase
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## Base class for interaction goals. extends Reference → RefCounted.
+## Base class for interaction goals. extends RefCounted → RefCounted.
 
 var id: String = ""
 var pawn_id: String = ""

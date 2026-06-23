@@ -29,7 +29,7 @@ func init_text():
 func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "search"):
 		var pawnIDs = findProstitutionTargetsNearby([lastClientID])
-		if(!pawnIDs.empty()):
+		if(!pawnIDs.is_empty()):
 			var pawnID = RNG.pick(pawnIDs)
 			lastClientID = pawnID
 			doInvolvePawn("client", pawnID)

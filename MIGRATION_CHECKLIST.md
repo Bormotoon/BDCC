@@ -200,16 +200,16 @@ PoolStringArray → PackedStringArray
 
 | Файл | Строк | GM.* | Статус |
 |------|-------|------|--------|
-| InteractionSystem.gd | ~500 | 32 | 🔴 ЧАСТИЧНО (SimulationBridge создан) |
-| PawnInteractionBase.gd | ~300 | 74 | 🔴 НЕ МИГРИРОВАН |
-| CharacterPawn.gd | ~200 | 26 | 🔴 ЧАСТИЧНО (PawnComponent создан) |
-| AloneGoals/*.gd (20 файлов) | ~2,000 | varies | 🔴 НЕ МИГРИРОВАН |
-| GlobalTasks/*.gd (9 файлов) | ~700 | varies | 🔴 НЕ МИГРИРОВАН |
-| Interactions/*.gd (19 файлов) | ~3,800 | varies | 🔴 НЕ МИГРИРОВАН |
-| PawnTypes/*.gd (4 файла) | ~400 | varies | 🔴 НЕ МИГРИРОВАН |
-| Relationship/*.gd (8 файлов) | ~800 | varies | 🔴 НЕ МИГРИРОВАН |
+| InteractionSystem.gd | ~500 | 32 | ✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes) |
+| PawnInteractionBase.gd | ~300 | 74 | ✅ МИГРИРОВАН (extends RefCounted, .empty→.is_empty) |
+| CharacterPawn.gd | ~200 | 26 | ✅ МИГРИРОВАН (extends RefCounted) |
+| AloneGoals/*.gd (20 файлов) | ~2,000 | varies | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| GlobalTasks/*.gd (9 файлов) | ~700 | varies | ✅ МИГРИРОВАН (extends RefCounted) |
+| Interactions/*.gd (19 файлов) | ~3,800 | varies | ✅ МИГРИРОВАН (.empty→.is_empty, .remove→.remove_at) |
+| PawnTypes/*.gd (4 файла) | ~400 | varies | ✅ МИГРИРОВАН (extends RefCounted) |
+| Relationship/*.gd (8 файлов) | ~800 | varies | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
 
-**Итого по InteractionSystem**: ~69 файлов, ~11,400 строк — 🔴 КРИТИЧНО
+**Итого по InteractionSystem**: ~69 файлов, ~11,400 строк — ✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes)
 
 ### 2.6 GAME/MODULARDIALOGUE (24 файла, 14,037 строк)
 

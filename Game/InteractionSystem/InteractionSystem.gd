@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name InteractionSystem
 
 var pawns:Dictionary = {}
@@ -330,7 +330,7 @@ func onPawnMoved(charID, oldLoc:String, newLoc:String):
 		return
 	if(pawnsByLoc.has(oldLoc)):
 		var _ok2 = pawnsByLoc[oldLoc].erase(charID)
-		if(pawnsByLoc[oldLoc].empty()):
+		if(pawnsByLoc[oldLoc].is_empty()):
 			var _ok3 = pawnsByLoc.erase(oldLoc)
 	if(!pawnsByLoc.has(newLoc)):
 		pawnsByLoc[newLoc] = {}
@@ -483,7 +483,7 @@ func startInteraction(interactionID:String, involvedPawns:Dictionary, args:Dicti
 	assert(interaction != null)
 	interactions.append(interaction)
 	
-	if(!involvedPawns.empty()):
+	if(!involvedPawns.is_empty()):
 		var firstPawn = getPawn(involvedPawns[involvedPawns.keys()[0]])
 		if(firstPawn != null):
 			interaction.setLocation(firstPawn.getLocation())
@@ -535,7 +535,7 @@ func recalculateAllAssignedGlobalTasks():
 			var theGoal:InteractionGoalBase = theInteraction.goal
 			if(theGoal):
 				var theGlobalTaskID:String = theGoal.globalTask
-				if(!theGlobalTaskID.empty() && globalTasks.has(theGlobalTaskID)):
+				if(!theGlobalTaskID.is_empty() && globalTasks.has(theGlobalTaskID)):
 					var theTask:GlobalTask = globalTasks[theGlobalTaskID]
 					theTask.assigned.append(pawnID)
 					theTask.assignedCached += 1
@@ -591,7 +591,7 @@ func calculatePawnDistribution() -> Dictionary:
 
 func trySpawnSpecialRelationshipPawn() -> bool:
 	var allSpecial:Dictionary = GM.main.RS.special
-	if(allSpecial.empty()):
+	if(allSpecial.is_empty()):
 		return false
 	
 	#for _i in 5:
@@ -636,7 +636,7 @@ func processAllPawnsNoInteractions(howManySeconds:int):
 	interactionsDisabled = false
 
 func spawnMorningWave():
-	if(pawnDistribution.empty()):
+	if(pawnDistribution.is_empty()):
 		return
 	var howManyToSpawnF:float = getMaxPawnCount()
 	howManyToSpawnF *= RNG.randf_range(0.7, 0.9)
@@ -704,7 +704,7 @@ func getExtraText() -> String:
 	return extraText
 
 func hasExtraText() -> bool:
-	return !extraText.empty()
+	return !extraText.is_empty()
 
 func resetExtraText():
 	extraText = ""

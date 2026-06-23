@@ -77,7 +77,7 @@ func tryStartNpcOwnerEvent() -> bool:
 			completeGoal()
 			
 			var newEventInfo:Array= getNpcOwner(getPawn()).getApproachEvent()
-			if(!newEventInfo.empty()):
+			if(!newEventInfo.is_empty()):
 				GM.main.runScene("NpcOwnerEventRunnerScene", [getPawn().charID, newEventInfo[0], newEventInfo[1]])
 			return true
 	return false

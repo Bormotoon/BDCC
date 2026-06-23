@@ -644,7 +644,7 @@ func getPreviewLineForRole(_role:String) -> String:
 func doHelpStruggleForStarter():
 	var theStarter = getRoleChar("starter")
 	var struggleData:Dictionary = theStarter.doStruggleOutOfRestraints(false, true, getRoleChar("reacter"), 2.0)
-	if(struggleData.empty()):
+	if(struggleData.is_empty()):
 		struggleText = "Something happened.."
 	else:
 		struggleText = struggleData["text"]

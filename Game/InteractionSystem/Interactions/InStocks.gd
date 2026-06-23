@@ -95,7 +95,7 @@ func about_to_struggle_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "continue"):
 		var inmate = getRoleChar("inmate")
 		var struggleData:Dictionary = inmate.doStruggleOutOfRestraints()
-		if(struggleData.empty()):
+		if(struggleData.is_empty()):
 			return
 		struggleText = struggleData["text"]
 		setState("after_struggle", "inmate")
@@ -414,7 +414,7 @@ func saveUsingStamina() -> void:
 	saveTryCount += 1
 	var inmate = getRoleChar("inmate")
 	var struggleData:Dictionary = inmate.doStruggleOutOfRestraints(false, true, getRoleChar("saver"), 2.0)
-	if(struggleData.empty()):
+	if(struggleData.is_empty()):
 		struggleText = "Something happened.."
 	else:
 		struggleText = struggleData["text"]
