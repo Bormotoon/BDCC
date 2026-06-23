@@ -1,25 +1,28 @@
-extends Reference
+extends RefCounted
 class_name QuestBase
 
-var id = "error"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for quests.
 
-func getVisibleName():
+var id: String = "error"
+
+func getVisibleName() -> String:
 	return "Bad quest"
 
-func getProgress():
+func getProgress() -> Array:
 	return ["Bad quest, let the developer know"]
 
-func isVisible():
+func isVisible() -> bool:
 	return false
 
-func isCompleted():
+func isCompleted() -> bool:
 	return false
 
-func isMainQuest():
+func isMainQuest() -> bool:
 	return false
 
-func getPriority():
+func getPriority() -> int:
 	return 0
 
-func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
+func getFlag(flag_id, default_value = null):
+	return GM.main.getFlag(flag_id, default_value)
