@@ -22,12 +22,12 @@ func getDefaultAnimation():
 	var theDomIDs:Array = sexEngine.getXFreeDomIDsForAnim(1)
 	var theSubIDs:Array = sexEngine.getXFreeSubIDsForAnim(1)
 	
-	if(theSubIDs.empty() && theDomIDs.empty()):
+	if(theSubIDs.is_empty() && theDomIDs.is_empty()):
 		return null
 	
-	if(theSubIDs.empty()):
+	if(theSubIDs.is_empty()):
 		return [StageScene.TentaclesDuo, "stand", {onlyTentacles=true}]
-	if(theDomIDs.empty()):
+	if(theDomIDs.is_empty()):
 		if(isUnconscious(theSubIDs[0])):
 			return [StageScene.Sleeping, "sleep", {pc=theSubIDs[0]}]
 		return [StageScene.GivingBirth, "idle", {pc=theSubIDs[0]}]
@@ -45,7 +45,7 @@ func processAnimationArgs(_args:Dictionary):
 		_args["plant"] = true
 	
 	var sexEngine = getSexEngine()
-	if(!sexEngine.doms.empty()):
+	if(!sexEngine.doms.is_empty()):
 		var theInfo = sexEngine.doms[sexEngine.doms.keys()[0]]
 		if(theInfo && theInfo.didJustCame()):
 			_args["cum"] = true

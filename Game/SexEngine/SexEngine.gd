@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexEngine
 
 var activities:Array = []
@@ -52,7 +52,7 @@ func calcAllPossibleGoalsToBeg():
 		
 		var activityGoals:Dictionary = activityRef.getGoals()
 		var supportedSexTypes:Dictionary = activityRef.getSupportedSexTypes()
-		if(!areSexTypesSupported(supportedSexTypes) || activityGoals.empty()):
+		if(!areSexTypesSupported(supportedSexTypes) || activityGoals.is_empty()):
 			continue
 		
 		for goalID in activityGoals:
@@ -69,12 +69,12 @@ func addOutputRaw(_rawEntry:Array):
 	outputRaw.append(_rawEntry)
 
 func addTextRaw(_text:String):
-	if(_text.empty()):
+	if(_text.is_empty()):
 		return
 	addOutputRaw([OUTPUT_TEXT, _text])
 
 func talkText(_charID:String, _text:String):
-	if(_text.empty()):
+	if(_text.is_empty()):
 		return
 	if(domsNoTalking && doms.has(_charID)):
 		return
@@ -90,7 +90,7 @@ func getFinalOutput() -> String:
 	#var savedCharID:String = ""
 	
 	for outputEntry in outputRaw:
-		var isEmpt:bool = result.empty()
+		var isEmpt:bool = result.is_empty()
 		var theTag:int = outputEntry[0]
 		
 		if(theTag == OUTPUT_TEXT):
@@ -402,7 +402,7 @@ func generateGoals():
 		if(generateGoalsFor(domID, amountToGenerate)):
 			generatedAnyGoals = true
 
-	if(!isDom("pc") && !generatedAnyGoals && !doms.empty() && !pcControlsDoms):
+	if(!isDom("pc") && !generatedAnyGoals && !doms.is_empty() && !pcControlsDoms):
 		addTextRaw("Dom couldn't decide what to do with the sub, none of their fetishes apply.")
 		talkText(RNG.pick(doms), "You are a lucky slut.")
 
@@ -511,7 +511,7 @@ func removeGoal(thedominfo, goalid, thesubinfo):
 		var goalInfo = thedominfo.goals[_i]
 		
 		if(goalInfo[0] == goalid && goalInfo[1] == thesubinfo.charID):
-			thedominfo.goals.remove(_i)
+			thedominfo.goals.remove_at(_i)
 			return true
 	return false
 
@@ -609,23 +609,23 @@ func checkFailedAndCompletedGoals():
 			var sexGoal:SexGoalBase = GlobalRegistry.getSexGoal(goalInfo[0])
 			if(sexGoal.isCompleted(self, domInfo, subInfo, goalInfo[2])):
 				Log.printVerbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" got completed")
-				domInfo.goals.remove(i)
+				domInfo.goals.remove_at(i)
 			elif(!sexGoal.isPossible(self, domInfo, subInfo, goalInfo[2])):
 				Log.printVerbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" is impossible, removed")
-				domInfo.goals.remove(i)
+				domInfo.goals.remove_at(i)
 
 func removeEndedActivities():
 	checkImpossibleActivities()
 	for i in range(activities.size() - 1, -1, -1):
 		if(activities[i].hasEnded):
-			activities.remove(i)
+			activities.remove_at(i)
 			
 	checkFailedAndCompletedGoals()
 
 func stopActivitiesThatInvolveCharID(_charID:String):
 	for i in range(activities.size() - 1, -1, -1):
 		if(activities[i].isInvolved(_charID)):
-			activities.remove(i)
+			activities.remove_at(i)
 
 func processTurn():
 	removeEndedActivities()
@@ -714,7 +714,7 @@ func processAIActions(isDom:bool = true, processPlayerToo:bool = false):
 		for actionEntry in possibleActions:
 			actionsScores.append(max(actionEntry["score"], 0.0))
 		
-		if(possibleActions.empty()):
+		if(possibleActions.is_empty()):
 			continue
 		
 		var importantActions:Array = []
@@ -736,7 +736,7 @@ func processAIActions(isDom:bool = true, processPlayerToo:bool = false):
 			finalPossibleActions = importantActions
 			finalActionScores = importantScores
 		
-		if(!RNG.chance(totalScore * 100.0) || finalPossibleActions.empty()):
+		if(!RNG.chance(totalScore * 100.0) || finalPossibleActions.is_empty()):
 			continue
 			
 		var pickedFinalAction:Dictionary = RNG.pickWeighted(finalPossibleActions, finalActionScores)
@@ -932,7 +932,7 @@ func getActionsForCharID(_charID:String, isForMenu:bool = false) -> Array:
 			if(!newSexActivityRef.canStartActivity(self, _domInfo, _subInfo)):
 				continue
 			var possibleActions:Array = newSexActivityRef.getStartActionsFinal(self, _domInfo, _subInfo)
-			if(possibleActions.empty()):
+			if(possibleActions.is_empty()):
 				continue
 			for actionEntry in possibleActions:
 				result.append({
@@ -987,9 +987,9 @@ func getPCTarget() -> String:
 		pcTarget = ""
 	
 	if(pcTarget == ""):
-		if(canChooseDoms && !doms.empty()):
+		if(canChooseDoms && !doms.is_empty()):
 			pcTarget = doms.keys()[0]
-		elif(canChooseSubs && !subs.empty()):
+		elif(canChooseSubs && !subs.is_empty()):
 			pcTarget = subs.keys()[0]
 	
 	return pcTarget
@@ -1376,7 +1376,7 @@ func reconsiderPCTarget():
 			if(!domsThatHaveActivitiesWithPC.has(otherDomInfo.charID)):
 				domsThatHaveActivitiesWithPC.append(otherDomInfo.charID)
 	# We have a target but we don't have any sex activities with it, lets try to switch to the one that we do
-	if(!domsThatHaveActivitiesWithPC.empty()):
+	if(!domsThatHaveActivitiesWithPC.is_empty()):
 		pcTarget = domsThatHaveActivitiesWithPC[0]
 	
 func getBestAnimation():
@@ -1648,7 +1648,7 @@ func findDynamicJoiner():
 		return
 	
 	var allPawnIDs:Array = GM.main.IS.getPawnIDsNear(theLoc, 1, 1)
-	if(allPawnIDs.empty()):
+	if(allPawnIDs.is_empty()):
 		return
 	var pickedNewDomID:String = RNG.pick(allPawnIDs)
 	if(participatedDoms.has(pickedNewDomID)):
@@ -1657,7 +1657,7 @@ func findDynamicJoiner():
 	if(!thePawn || !thePawn.canBeInterrupted()):
 		return
 	# Little hack-ish but it basically makes it so if you allow dynamic joiners, they will do stuff by default
-	if(isDom("pc") && doms.size() == 1 && participatedDoms.empty()):
+	if(isDom("pc") && doms.size() == 1 && participatedDoms.is_empty()):
 		pcAllowsDomAutonomy = true
 	var theChance:float = getChanceForDynamicJoiner(pickedNewDomID)
 	if(!RNG.chance(theChance)):

@@ -79,7 +79,7 @@ func getActions(_indx:int):
 		if(hasBodypartUncovered(SUB_0, BodypartSlot.Anus)):
 			addAction("egg", 1.0 if getSub().menstrualCycle.isReadyToLayEggsCanContinue() else 0.0, "Help lay", "Help them to lay an egg!", {A_PRIORITY: 5})
 		#addAction("addegg", 1.0, "ADD EGG", "ADD TEST EGG PLEASE REMOVE ME!", {A_PRIORITY: 3})
-		if(!eggsOut.empty()):
+		if(!eggsOut.is_empty()):
 			addAction("stealeggs", 0.0, "Steal eggs!", "Steal all of the eggs that they have currently laid", {A_PRIORITY: 4})
 		
 	if(_indx == SUB_0):
@@ -171,7 +171,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 	
 	if(_actionID == "escape"):
 		var canEscapeAtAll:bool = true
-		if(!eggsOut.empty()):
+		if(!eggsOut.is_empty()):
 			canEscapeAtAll = false
 		elif(getSub().isReadyToLayEggs()):
 			canEscapeAtAll = false

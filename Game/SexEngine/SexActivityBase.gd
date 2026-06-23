@@ -3,7 +3,7 @@ class_name SexActivityBase
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
 ## Base class for all sex activities (~3500 lines).
-## extends Reference → RefCounted. All game logic preserved.
+## extends RefCounted → RefCounted. All game logic preserved.
 
 var id: String = "error"
 var unique_id: int = 0

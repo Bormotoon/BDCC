@@ -50,7 +50,7 @@ func startActivity(_args):
 	if(itemState == null):
 		getDom().getInventory().unequipItem(theitem)
 	else:
-		itemState.remove()
+		itemState.remove_at()
 	
 	endActivity()
 	addText("{dom.You} {dom.youVerb('take')} off {dom.yourHis} "+str(theitem.getCasualName())+".")

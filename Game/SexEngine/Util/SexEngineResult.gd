@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexEngineResult
 
 var sexType:String = SexType.DefaultSex
@@ -37,7 +37,7 @@ func isSubUnconscious(_subID:String) -> bool:
 	return getSub(_subID).isUnconscious
 
 func getAverageDomSatisfaction() -> float:
-	if(doms.empty()):
+	if(doms.is_empty()):
 		return 0.0
 	var domSatisfaction:float = 0.0
 	for domID in doms:
@@ -46,7 +46,7 @@ func getAverageDomSatisfaction() -> float:
 	return domSatisfaction
 
 func getAverageSubSatisfaction() -> float:
-	if(subs.empty()):
+	if(subs.is_empty()):
 		return 0.0
 	var subSatisfaction:float = 0.0
 	for subID in subs:
@@ -55,7 +55,7 @@ func getAverageSubSatisfaction() -> float:
 	return subSatisfaction
 
 func getAverageSatisfaction() -> float:
-	if(doms.empty() && subs.empty()):
+	if(doms.is_empty() && subs.is_empty()):
 		return 0.0
 	var theSatisfaction:float = 0.0
 	for domID in doms:

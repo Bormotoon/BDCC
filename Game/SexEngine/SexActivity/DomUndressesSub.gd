@@ -88,7 +88,7 @@ func init_processTurn():
 		if(itemState == null):
 			getSub().getInventory().unequipItem(theitem)
 		else:
-			itemState.remove()
+			itemState.remove_at()
 		
 		endActivity()
 		addText("{dom.You} {dom.youVerb('take')} off {sub.yourHis} "+str(theitem.getCasualName())+".")

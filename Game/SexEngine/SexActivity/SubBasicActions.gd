@@ -67,7 +67,7 @@ func startActivity(_args):
 		endActivity()
 		var sub = getSub()
 		var struggleData:Dictionary = sub.doStruggleOutOfRestraints(getSubInfo().isScared(), false)
-		if(struggleData.empty()):
+		if(struggleData.is_empty()):
 			return
 		
 		var text:String = struggleData["text"] if struggleData.has("text") else "[color=red]ERROR? No struggle text provided[/color]"

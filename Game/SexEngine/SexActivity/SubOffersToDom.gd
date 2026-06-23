@@ -63,7 +63,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 			continue
 		var theFetishes:Dictionary = theGoalRef.getBegDomFetishes()
 		var fetishMod:float = -1.0
-		if(!theFetishes.empty()):
+		if(!theFetishes.is_empty()):
 			for fetishID in theFetishes:
 				var subFetishID:String = Fetish.getOppositeFetish(fetishID)
 				fetishMod = min(fetishMod, _subFetishHolder.getFetish(subFetishID))
@@ -113,7 +113,7 @@ func getDomAgreeGoalChance(_sexEngine:SexEngine, _domInfo:SexDomInfo, _subInfo:S
 	var _domFetishHolder:FetishHolder = _domInfo.getChar().getFetishHolder()
 	
 	var minFetishScore:float = 1.0
-	if(theFetishes.empty()):
+	if(theFetishes.is_empty()):
 		minFetishScore = 1.0
 	else:
 		for fetishID in theFetishes:

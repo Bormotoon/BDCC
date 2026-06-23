@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexTypeBase
 
 var id = "error"
@@ -32,13 +32,13 @@ func getDefaultAnimation():
 	var theDomIDs:Array = sexEngine.getXFreeDomIDsForAnim(1)
 	var theSubIDs:Array = sexEngine.getXFreeSubIDsForAnim(1)
 	
-	if(theDomIDs.empty() && theSubIDs.empty()):
+	if(theDomIDs.is_empty() && theSubIDs.is_empty()):
 		return null
-	if(theDomIDs.empty()):
+	if(theDomIDs.is_empty()):
 		if(isUnconscious(theSubIDs[0])):
 			return [StageScene.Sleeping, "sleep", {pc=theSubIDs[0]}]
 		return [StageScene.GivingBirth, "idle", {pc=theSubIDs[0]}]
-	if(theSubIDs.empty()):
+	if(theSubIDs.is_empty()):
 		return [StageScene.Solo, "stand", {pc=theDomIDs[0]}]
 	
 	if(isUnconscious(theSubIDs[0])):

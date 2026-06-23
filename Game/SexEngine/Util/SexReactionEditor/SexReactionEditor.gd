@@ -194,7 +194,7 @@ func _on_RemoveEntryButton_pressed():
 	var selectedLineEntryIndx:int = reaction_entries_list.get_selected_items()[0]
 	var selectedRole:int = role_selector.selected
 	
-	editReaction["lines"][selectedRole].remove(selectedLineEntryIndx)
+	editReaction["lines"][selectedRole].remove_at(selectedLineEntryIndx)
 	updateReactionEntryList()
 	editLinesEntry = {}
 	updateLinesEntry()
@@ -266,7 +266,7 @@ func _on_GenerateCodeButton_pressed():
 		
 		
 		for _i in range(4):
-			if(!reactionEntry["lines"].has(_i) || reactionEntry["lines"][_i].empty()):
+			if(!reactionEntry["lines"].has(_i) || reactionEntry["lines"][_i].is_empty()):
 				continue
 			var theTabs:String = "\t\t\t\t"
 			var roleName:String = ROLES_NAMES[_i]
@@ -284,7 +284,7 @@ func _on_GenerateCodeButton_pressed():
 #				var theLines:String = theLinesEntry["lines"]
 #				var linesSplit:Array = theLines.split("\n", false)
 #
-#				if(conditionSplit.empty()):
+#				if(conditionSplit.is_empty()):
 #					text += theTabs + "addLines([\n"
 #					for theLine in linesSplit:
 #						text += theTabs + "\t\""+theLine+"\",\n"
@@ -312,7 +312,7 @@ func calcConditionTree(entries:Array) -> Dictionary:
 		var theLines:String = theLinesEntry["lines"]
 		var linesSplit:Array = theLines.split("\n", false)
 		
-		if(linesSplit.empty()):
+		if(linesSplit.is_empty()):
 			continue
 		var dictToAddLinesTo:Dictionary = result
 		for conditionText in conditionSplit:
@@ -330,10 +330,10 @@ func calcConditionTree(entries:Array) -> Dictionary:
 func conditionTreeToArrayOfLines(_tree:Dictionary, _condition:Array = []) -> Array:
 	var result:Array = []
 	
-	if(!_condition.empty()):
+	if(!_condition.is_empty()):
 		#Util.join(_condition, " && ")
 		result.append("\t".repeat(_condition.size()-1)+"if("+_condition.back()+"):")
-	if(!_tree["lines"].empty()):
+	if(!_tree["lines"].is_empty()):
 		var theTabs:String = "\t".repeat(_condition.size())
 		result.append(theTabs+"addLines([")
 		for line in _tree["lines"]:
@@ -391,7 +391,7 @@ func _on_CleanLinesButton_pressed():
 		_on_ConditionTextEdit_text_changed()
 
 func updatePrompt():
-	if(editReaction.empty() || editReactionID == "" || reaction_entries_list.get_selected_items().empty()):
+	if(editReaction.is_empty() || editReactionID == "" || reaction_entries_list.get_selected_items().is_empty()):
 		prompt_text_edit.text = ""
 		return
 	var thePrompt:String = "I'm making a lewd text-based game that has a sex engine. I need 20 dialogue lines that an npc might say as a reaction during one of the sex activities. Keep them short and snappy.\n"

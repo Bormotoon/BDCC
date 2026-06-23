@@ -55,7 +55,7 @@ func addSoftSlaveryTentaclesTalk(_text:String):
 	if(theTentaclesChar && theTentaclesChar.has_method("tentaclesProcessTalk")):
 		_text = theTentaclesChar.tentaclesProcessTalk(_text)
 	
-	if(_text.empty()):
+	if(_text.is_empty()):
 		return
 	addTextRaw("\n\n[say="+getDomID()+"]"+_text+"[/say]\n\n")
 

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name EncounterSettings
 
 var preferKnownEncounters:bool = false
@@ -97,7 +97,7 @@ func generateSpecies() -> String:
 		var weight = GM.main.getEncounterSettings().getSpeciesWeight(speciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([speciesID, weight])
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return ""
 	return RNG.pickWeightedPairs(possible)
 	
@@ -110,7 +110,7 @@ func generateSpeciesBlacklist(blacklist:Array) -> String:
 		var weight = GM.main.getEncounterSettings().getSpeciesWeight(speciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([speciesID, weight])
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return ""
 	return RNG.pickWeightedPairs(possible)
 	

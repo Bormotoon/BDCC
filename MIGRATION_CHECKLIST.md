@@ -178,7 +178,7 @@ PoolStringArray → PackedStringArray
 
 | Файл | Строк | Статус |
 |------|-------|--------|
-| SexEngine.gd | ~500 | 🔴 ЧАСТИЧНО (SexEngineManager создан) |
+| SexEngine.gd | ~500 | ✅ МИГРИРОВАН (extends RefCounted, .empty→.is_empty, .remove→.remove_at) |
 | SexActivityBase.gd | 3538 | ✅ МИГРИРОВАН (extends RefCounted, all stimulation formulas preserved) |
 | SexGoalBase.gd | 91 | ✅ МИГРИРОВАН (extends RefCounted, beg system preserved) |
 | SexDomInfo.gd | ~80 | ✅ МИГРИРОВАН (anger/personality changes, goal management) |
@@ -187,14 +187,14 @@ PoolStringArray → PackedStringArray
 | SexReactionHandler.gd | ~100 | ✅ МИГРИРОВАН (extends RefCounted, reaction chances preserved) |
 | Personality.gd | 85 | ✅ МИГРИРОВАН (extends RefCounted, stat scoring preserved) |
 | FetishHolder.gd | ~100 | ✅ МИГРИРОВАН (extends RefCounted, fetish scoring with obedience) |
-| Fetish/*.gd (24 файла) | ~2,400 | 🔴 НЕ МИГРИРОВАН |
-| Goal/*.gd (28 файлов) | ~2,800 | 🔴 НЕ МИГРИРОВАН |
-| SexActivity/*.gd (37 файлов) | ~7,400 | 🔴 НЕ МИГРИРОВАН |
-| SexType/*.gd (5 файлов) | ~250 | 🔴 НЕ МИГРИРОВАН |
-| Reactions/DefaultReactions.gd | ~200 | 🔴 НЕ МИГРИРОВАН |
-| Util/*.gd (8 файлов) | ~400 | 🔴 НЕ МИГРИРОВАН |
+| Fetish/*.gd (24 файла) | ~2,400 | ✅ МИГРИРОВАН (extends RefCounted) |
+| Goal/*.gd (28 файлов) | ~2,800 | ✅ МИГРИРОВАН (extends RefCounted) |
+| SexActivity/*.gd (37 файлов) | ~7,400 | ✅ МИГРИРОВАН (.empty→.is_empty, .instance→.instantiate) |
+| SexType/*.gd (5 файлов) | ~250 | ✅ МИГРИРОВАН (extends RefCounted, .empty→.is_empty) |
+| Reactions/DefaultReactions.gd | ~200 | ✅ МИГРИРОВАН (extends RefCounted) |
+| Util/*.gd (8 файлов) | ~400 | ✅ МИГРИРОВАН (extends RefCounted, .empty→.is_empty) |
 
-**Итого по SexEngine**: ~150 файлов, ~32,000 строк — 🔴 КРИТИЧНО
+**Итого по SexEngine**: ~150 файлов, ~32,000 строк — ✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes)
 
 ### 2.5 GAME/INTERACTIONSYSTEM (69 файлов, 11,401 строк)
 

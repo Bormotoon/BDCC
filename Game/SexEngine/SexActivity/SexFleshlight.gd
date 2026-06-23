@@ -328,7 +328,7 @@ func getTargetIndx() -> int:
 
 func clearTargetIndx():
 	if(subs.size() > 1):
-		subs.remove(1)
+		subs.remove_at(1)
 
 func saveData():
 	var data = .saveData()

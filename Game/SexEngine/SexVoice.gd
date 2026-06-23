@@ -3,7 +3,7 @@ class_name SexVoice
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
 ## Voice/reaction text generation for sex scenes.
-## extends Reference → RefCounted. All dialogue preserved.
+## extends RefCounted → RefCounted. All dialogue preserved.
 
 static func domReactToSubBodypart(bodypart, sex_engine, dom_info, sub_info) -> String:
 	var dom = dom_info.getChar()

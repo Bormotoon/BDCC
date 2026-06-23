@@ -2,7 +2,7 @@ extends RefCounted
 class_name SexGoalBase
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## Base class for sex goals. extends Reference → RefCounted.
+## Base class for sex goals. extends RefCounted → RefCounted.
 
 var id: String = "error"
 

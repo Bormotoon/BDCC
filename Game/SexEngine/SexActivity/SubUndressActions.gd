@@ -56,7 +56,7 @@ func startActivity(_args):
 	if(itemState == null):
 		getSub().getInventory().unequipItem(theitem)
 	else:
-		itemState.remove()
+		itemState.remove_at()
 	
 	endActivity()
 	addText("{sub.You} {sub.youVerb('take')} off {sub.yourHis} "+str(theitem.getCasualName())+".")

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexInfoBase
 
 var sexEngineRef: WeakRef
@@ -50,7 +50,7 @@ func getInfoStringFinal(_isSelected:bool = false) -> String:
 	var text:String = getInfoString(_isSelected)
 	
 	var extraInfo:Array = getExtraInfoLines()
-	if(!extraInfo.empty()):
+	if(!extraInfo.is_empty()):
 		for line in extraInfo:
 			text += "\n - "+str(line)
 	
@@ -504,10 +504,10 @@ func doFetishChangeCalculation() -> Dictionary:
 			messages.append(theChar.getName()+"'s interest towards '"+theFetish.getVisibleName()+"' fetish has [color=#FFCED2]decreased[/color], "+theChar.heShe()+" "+theChangeDesc+" it")
 			#messages.append(theChar.getName()+" "+theChangeDesc+" "+theFetish.getVisibleName())
 	
-	if(!downFetishes.empty()):
+	if(!downFetishes.is_empty()):
 		messages = [theChar.getName()+" [color=#FFB0A0]dislikes[/color] these fetishes more: "+Util.join(downFetishes," ")] + messages
 	
-	if(!upFetishes.empty()):
+	if(!upFetishes.is_empty()):
 		messages = [theChar.getName()+" [color=#FFBAF8]likes[/color] these fetishes more: "+Util.join(upFetishes," ")] + messages
 	
 	return {messages=messages}

@@ -254,7 +254,7 @@ func startActivity(_args):
 			text += " [color=#"+Color.cyan.to_html()+"]This pill might do something to your body[/color]"
 
 			generatePillVariants(itemID)
-			if(!pillVariants.empty()):
+			if(!pillVariants.is_empty()):
 				var tfNames:Array = []
 				for tfID in pillVariants:
 					var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
