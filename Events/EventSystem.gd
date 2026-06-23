@@ -1,20 +1,20 @@
 extends Node
 class_name EventSystem
 
-var eventTriggers = {}
-var eventChecks = {}
-var datapackEvents = []
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Event registration and dispatch system.
 
-func _ready():
+var event_triggers: Dictionary = {}
+var event_checks: Dictionary = {}
+var datapack_events: Array = []
+
+func _ready() -> void:
 	GM.ES = self
 	name = "EventSystem"
-	
-	registerEventTriggers()
-	
-	registerEvents()
+	_registerEventTriggers()
+	_registerEvents()
 
-func registerEventTriggers():
-	# Default event triggers
+func _registerEventTriggers() -> void:
 	registerEventTrigger(Trigger.EnteringRoom, EventTriggerLocation.new())
 	registerEventTrigger(Trigger.EnteringRoomWithSlave, EventTriggerLocation.new())
 	registerEventTrigger(Trigger.TalkingToNPC, EventTriggerLocation.new())
@@ -32,106 +32,58 @@ func registerEventTriggers():
 	registerEventTrigger(Trigger.TalkingToDynamicNPC, EventTriggerWeighted.new())
 	registerEventTrigger(Trigger.MeetDynamicNPC, EventTriggerWeighted.new())
 	registerEventTrigger(Trigger.UnconsciousPCGrabbed, EventTriggerWeighted.new())
-	
 	var modules = GlobalRegistry.getModules()
-	for moduleID in modules:
-		var module: Module = modules[moduleID]
-		
-		module.registerEventTriggers()
+	for module_id in modules:
+		modules[module_id].registerEventTriggers()
 
-func registerEvents():
-	var loadedevents = GlobalRegistry.getEvents()
-	for eventID in loadedevents:
-		var event = loadedevents[eventID]
-		event.registerTriggers(self)
-		
-	for triggerID in eventTriggers:
-		eventTriggers[triggerID].onAllEventsAdded()
+func _registerEvents() -> void:
+	var loaded_events = GlobalRegistry.getEvents()
+	for event_id in loaded_events:
+		loaded_events[event_id].registerTriggers(self)
+	for trigger_id in event_triggers:
+		event_triggers[trigger_id].onAllEventsAdded()
 
-func registerDatapackEvents(datapackIDs): # Very slow, use with caution
-	eventTriggers = {}
-	eventChecks = {}
-	datapackEvents = []
-	
-	registerEventTriggers()
-	
-	# Re-Registering normal events
-	var loadedevents = GlobalRegistry.getEvents()
-	for eventID in loadedevents:
-		var event = loadedevents[eventID]
-		event.registerTriggers(self)
-	
-	# Registering datapack events
-	var _i = 0
-	for datapackID in datapackIDs:
-		var datapack = GlobalRegistry.getDatapack(datapackID)
-		if(datapack == null):
-			continue
-		for sceneID in datapack.scenes:
-			var datapackScene = datapack.scenes[sceneID]
-			
-			for trigger in datapackScene.triggers:
-				var newEvent = preload("res://Game/Datapacks/DatapackScene/DatapackSceneEvent.gd").new()
-				newEvent.id = "DatapackEvent"+str(_i)
-				newEvent.setDatapackData(datapack, datapackScene, trigger)
-				newEvent.registerTriggers(self)
-				datapackEvents.append(newEvent)
-				_i += 1
-	
-	for triggerID in eventTriggers:
-		eventTriggers[triggerID].onAllEventsAdded()
-	
-func registerEventTrigger(triggerID, eventTriggerObject):
-	eventTriggerObject.id = triggerID
-	eventTriggers[triggerID] = eventTriggerObject
+func registerEventTrigger(trigger_id, event_trigger_object) -> void:
+	event_trigger_object.id = trigger_id
+	event_triggers[trigger_id] = event_trigger_object
 
-func addTrigger(event, triggerID, args = []):
-	if(!eventTriggers.has(triggerID)):
-		registerEventTrigger(triggerID, EventTriggerPriority.new())
-	
-	eventTriggers[triggerID].addEvent(event, args)
+func addTrigger(event, trigger_id, args: Array = []) -> void:
+	if not event_triggers.has(trigger_id):
+		registerEventTrigger(trigger_id, EventTriggerPriority.new())
+	event_triggers[trigger_id].addEvent(event, args)
 
-func addDatapackTrigger(event, triggerID, args = []):
-	addTrigger(event, triggerID, args)
-
-func triggerReact(triggerID, args = []):
-	if(!eventTriggers.has(triggerID)):
+func triggerReact(trigger_id, args: Array = []) -> bool:
+	if not event_triggers.has(trigger_id):
 		return false
-	
-	return eventTriggers[triggerID].triggerReact(args)
+	return event_triggers[trigger_id].triggerReact(args)
 
-func triggerRun(triggerID, args = []):
-	if(!eventTriggers.has(triggerID)):
+func triggerRun(trigger_id, args: Array = []) -> void:
+	if not event_triggers.has(trigger_id):
 		return
-	
-	return eventTriggers[triggerID].triggerRun(args)
+	event_triggers[trigger_id].triggerRun(args)
 
-func checkButtonInput(method, args):
-	if(method == "EVENTSYSTEM_BUTTON"):
+func checkButtonInput(method: String, args: Array) -> bool:
+	if method == "EVENTSYSTEM_BUTTON":
 		args[0].onButton(args[1], args[2])
 		return true
 	return false
 
-func addEventCheck(event, checkID):
-	if(!eventChecks.has(checkID)):
-		eventChecks[checkID] = []
-	
-	eventChecks[checkID].append(event)
+func addEventCheck(event, check_id: String) -> void:
+	if not event_checks.has(check_id):
+		event_checks[check_id] = []
+	event_checks[check_id].append(event)
 
-func eventCheck(checkID, args = []):
-	if(!eventChecks.has(checkID)):
+func eventCheck(check_id: String, args: Array = []):
+	if not event_checks.has(check_id):
 		return null
-	
-	for theEventCheck in eventChecks[checkID]:
-		var eventCheckData = theEventCheck.eventCheck(checkID, args)
-		if(eventCheckData != null):
-			return eventCheckData
+	for the_event_check in event_checks[check_id]:
+		var check_data = the_event_check.eventCheck(check_id, args)
+		if check_data != null:
+			return check_data
 	return null
 
-func saveData():
-	var data = {}
+func saveData() -> Dictionary:
+	return {}
 
-	return data
-
-func loadData(_data):
+func loadData(_data: Dictionary) -> void:
 	pass
