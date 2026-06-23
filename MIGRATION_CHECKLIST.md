@@ -179,7 +179,7 @@ PoolStringArray → PackedStringArray
 | Файл | Строк | Статус |
 |------|-------|--------|
 | SexEngine.gd | ~500 | 🔴 ЧАСТИЧНО (SexEngineManager создан) |
-| SexActivityBase.gd | ~200 | 🔴 НЕ МИГРИРОВАН |
+| SexActivityBase.gd | 3538 | ✅ МИГРИРОВАН (extends RefCounted, all stimulation formulas preserved) |
 | SexGoalBase.gd | 91 | 🔴 НЕ МИГРИРОВАН |
 | SexDomInfo.gd | ~80 | 🔴 НЕ МИГРИРОВАН |
 | SexSubInfo.gd | ~80 | 🔴 НЕ МИГРИРОВАН |
