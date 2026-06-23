@@ -158,7 +158,7 @@ PoolStringArray → PackedStringArray
 |---------|--------|-------|------|--------|
 | **MainScene.gd** | 1 | 1,878 | 168 | ✅ МИГРИРОВАН (Godot 4 syntax, save/load/time/flags preserved) |
 | **BaseCharacter.gd** | 1 | 1,796 | 25 | ✅ МИГРИРОВАН (Godot 4 syntax, all formulas preserved) |
-| **SaveManager.gd** | 1 | 369 | 24 | 🔴 НЕ МИГРИРОВАН |
+| **SaveManager.gd** | 1 | 369 | 24 | ✅ МИГРИРОВАН (File→FileAccess, Directory→DirAccess, JSON→parse_string) |
 | **PlayerPanel.gd** | 1 | 165 | 20 | 🟡 НЕ МИГРИРОВАН |
 | **SaveConversion.gd** | 1 | 106 | 0 | 🟢 НЕ МИГРИРОВАН |
 | **SpeechModifierBase.gd** | 1 | 11 | 0 | 🟢 НЕ МИГРИРОВАН |
