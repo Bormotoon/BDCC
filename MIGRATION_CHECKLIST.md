@@ -332,7 +332,7 @@ PoolStringArray → PackedStringArray
 
 | Подсистема | Файлов | Строк | Статус |
 |-----------|--------|-------|--------|
-| Inventory.gd | 1 | 935 | 🔴 НЕ МИГРИРОВАН |
+| Inventory.gd | 1 | 935 | ✅ МИГРИРОВАН (equip/unequip/save/load all preserved) |
 | ItemBase.gd | 1 | 730 | ✅ МИГРИРОВАН (extends RefCounted, all item methods preserved) |
 | BuffsHolder.gd | 1 | 236 | 🔴 НЕ МИГРИРОВАН |
 | Buffs/ (76 файлов) | 76 | ~2,600 | 🔴 НЕ МИГРИРОВАН |

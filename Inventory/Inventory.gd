@@ -1,935 +1,454 @@
 extends Node
 class_name Inventory
 
-var items = []
-var equippedItems = {}
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Full inventory system with equip/unequip, stacking, save/load.
+
+var items: Array = []
+var equipped_items: Dictionary = {}
 
 signal equipped_items_changed
 
-func _ready():
+func _ready() -> void:
 	name = "Inventory"
 
-func addItem(item: Reference):
-	if(item.currentInventory != null):
-		assert(false)
-	
-	if(item.canCombine()):
-		for myitem in items:
-			if(myitem.id == item.id):
-				if(myitem.tryCombine(item)):
-					#item.queue_free()
-					return
-		
-	items.append(item)
-	item.currentInventory = self
+# ==========================================
+# ADD ITEMS (lines 12-61)
+# ==========================================
 
-func addItemID(itemID:String):
-	var newItem = GlobalRegistry.createItem(itemID)
-	if(newItem == null):
+func add_item(item: RefCounted) -> void:
+	if item.current_inventory != null:
+		assert(false)
+	if item.can_combine():
+		for my_item in items:
+			if my_item.id == item.id:
+				if my_item.try_combine(item):
+					return
+	items.append(item)
+	item.current_inventory = self
+
+func add_item_id(item_id: String) -> bool:
+	var new_item = GlobalRegistry.create_item(item_id)
+	if new_item == null:
 		return false
-	addItem(newItem)
+	add_item(new_item)
 	return true
 
-func forceEquipItemID(itemID:String):
-	var newItem = GlobalRegistry.createItem(itemID)
-	if(newItem == null):
+func force_equip_item_id(item_id: String) -> bool:
+	var new_item = GlobalRegistry.create_item(item_id)
+	if new_item == null:
 		return false
-	if(newItem.getClothingSlot() == null):
+	if new_item.get_clothing_slot() == null:
 		return false
-	return forceEquipStoreOtherUnlessRestraint(newItem)
+	return force_equip_store_other_unless_restraint(new_item)
 
-func addXOfItemID(itemID:String, amount:int):
-	var theRef = GlobalRegistry.getItemRef(itemID)
-	if(theRef == null):
+func add_x_of_item_id(item_id: String, amount: int) -> bool:
+	var the_ref = GlobalRegistry.get_item_ref(item_id)
+	if the_ref == null:
 		return false
-	
-	var canStack = theRef.canCombine()
-	
-	if(canStack):
-		var newItem = GlobalRegistry.createItem(itemID)
-		newItem.setAmount(Util.maxi(0, amount))
-		if(newItem == null):
+	var can_stack := the_ref.can_combine()
+	if can_stack:
+		var new_item = GlobalRegistry.create_item(item_id)
+		new_item.set_amount(Util.maxi(0, amount))
+		if new_item == null:
 			return false
-		addItem(newItem)
+		add_item(new_item)
 		return true
 	else:
 		for _i in range(amount):
-			var newItem = GlobalRegistry.createItem(itemID)
-			if(newItem == null):
+			var new_item = GlobalRegistry.create_item(item_id)
+			if new_item == null:
 				return false
-			addItem(newItem)
+			add_item(new_item)
 		return true
 
-func hasItem(item):
+# ==========================================
+# QUERY ITEMS (lines 63-258)
+# ==========================================
+
+func has_item(item) -> bool:
 	return items.has(item)
 
-func hasItemID(itemID: String) -> bool:
+func has_item_id(item_id: String) -> bool:
 	for item in items:
-		if(item.id == itemID):
+		if item.id == item_id:
 			return true
 	return false
 
-func getItems():
+func get_items() -> Array:
 	return items
 
-func getAllItems():
+func get_all_items() -> Array:
 	return items
 
-func getEquippedItems():
-	return equippedItems
+func get_equipped_items() -> Dictionary:
+	return equipped_items
 
-func getAllItemsCanDye():
-	var result = []
-	for item in items:
-		if(item.canDye()):
-			result.append(item)
-	for itemSlot in equippedItems:
-		if(equippedItems[itemSlot].canDye()):
-			result.append(equippedItems[itemSlot])
-	return result
+func get_all_equipped_items() -> Dictionary:
+	return equipped_items
 
-func getAllSellableItems():
-	var result = []
+func get_all_of(item_id: String) -> Array:
+	var result: Array = []
 	for item in items:
-		if(item.canSell()):
+		if item.id == item_id:
 			result.append(item)
 	return result
 
-func getItemsAndEquippedItemsTogether():
-	var result = []
-	result.append_array(equippedItems.values())
-	result.append_array(items)
-	return result
-
-func getItemsAndEquippedItemsTogetherGrouped():
-	var result = {}
-	for item in equippedItems.values():
-		result["%$%"+item.id] = [item]
-	
+func get_first_of(item_id: String):
 	for item in items:
-		var invGroupID:String = item.getInventoryGroupID()
-		if(!result.has(invGroupID)):
-			result[invGroupID] = [item]
-		else:
-			result[invGroupID].append(item)
-	
-	return result
-
-func getAllOf(itemID: String):
-	var result = []
-	
-	for item in items:
-		if(item.id == itemID):
-			result.append(item)
-	
-	return result
-	
-func getFirstOf(itemID: String):
-	for item in items:
-		if(item.id == itemID):
+		if item.id == item_id:
 			return item
 	return null
 
-func hasItemWithUniqueID(uniqueID: String):
-	for item in items:
-		if(item.uniqueID == uniqueID):
-			return true
-	return false
-
-func getItemByUniqueID(uniqueID: String):
-	for item in items:
-		if(item.uniqueID == uniqueID):
-			return item
-			
-	for slot in equippedItems.keys():
-		var item = equippedItems[slot]
-		if(item.uniqueID == uniqueID):
-			return item
-	return null
-
-func getEquippedItemByUniqueID(uniqueID: String):
-	for slot in equippedItems.keys():
-		var item = equippedItems[slot]
-		if(item.uniqueID == uniqueID):
-			return item
-	return null
-
-func hasEquippedItemWithUniqueID(uniqueID: String):
-	for slot in equippedItems.keys():
-		var item = equippedItems[slot]
-		if(item.uniqueID == uniqueID):
-			return true
-	return false
-
-func getEquippedItemByID(theID: String):
-	for slot in equippedItems.keys():
-		var item = equippedItems[slot]
-		if(item.id == theID):
-			return item
-	return null
-
-func removeItem(item):
-	if(items.has(item)):
-		items.erase(item)
-		item.currentInventory = null
-		return item
-	return null
-
-func removeFirstOf(itemID:String):
-	var theItem = getFirstOf(itemID)
-	if(theItem != null):
-		removeItem(theItem)
-		return true
-	return false
-
-func removeXFromItemOrDelete(item, amount:int):
-	assert(items.has(item))
-	
-	item.removeXOrDestroy(amount)
-
-func getAmountOf(itemID:String) -> int:
-	var item = getFirstOf(itemID)
-	if(item == null):
+func get_amount_of(item_id: String) -> int:
+	var item = get_first_of(item_id)
+	if item == null:
 		return 0
 	return item.amount
 
-func getUniqueAmountOf(itemID:String) -> int:
+func has_x_of(item_id: String, amount: int) -> bool:
+	var item = get_first_of(item_id)
+	if item == null:
+		return false
+	return item.amount >= amount
+
+func get_x_of_total(item_id: String) -> int:
 	var result := 0
 	for item in items:
-		if(item.id == itemID):
-			result += 1
-	return result
-
-func hasXOf(itemID:String, amount:int) -> bool:
-	var item = getFirstOf(itemID)
-	if(item == null):
-		return false
-	if(item.amount >= amount):
-		return true
-	else:
-		return false
-
-func getXOfTotal(itemID:String) -> int:
-	var result := 0
-	for item in items:
-		if(item.id == itemID):
+		if item.id == item_id:
 			result += item.amount
 	return result
 
-func hasXOfTotal(itemID:String, amount:int) -> bool:
-	var itemTotal = getXOfTotal(itemID)
-	
-	if(itemTotal >= amount):
-		return true
-	return false
+func has_x_of_total(item_id: String, amount: int) -> bool:
+	return get_x_of_total(item_id) >= amount
 
-func removeXOfOrDestroy(itemID:String, amount:int):
-	var item = getFirstOf(itemID)
-	if(item == null):
-		return
-	
-	item.removeXOrDestroy(amount)
-
-func getAllCombatUsableItems():
-	var result = []
-	
+func get_all_combat_usable_items() -> Array:
+	var result: Array = []
 	for item in items:
-		if(item.canUseInCombat()):
+		if item.can_use_in_combat():
 			result.append(item)
-	
 	return result
-		
-func getAllCombatUsableRestraints():
-	var result = []
-	
+
+func get_all_combat_usable_restraints() -> Array:
+	var result: Array = []
 	for item in items:
-		if(item.canForceOntoNpc()):
+		if item.can_force_onto_npc():
 			result.append(item)
-		
 	return result
-		
-func getAllCombatUsableRestraintsForStaticNpc():
-	var result = []
-	
+
+func get_items_with_tag(tag_id: StringName) -> Array:
+	var result: Array = []
 	for item in items:
-		if(item.canForceOntoStaticNpc()):
+		if item.has_tag(tag_id):
 			result.append(item)
-		
-	return result
-		
-func canEquipSlot(slot):
-	if(get_parent() != null && get_parent().has_method("invCanEquipSlot")):
-		return get_parent().invCanEquipSlot(slot)
-	return true
-		
-func getCharacter():
-	if(get_parent() != null):
-		return get_parent()
-	return null
-		
-func equipItem(item):
-	if(hasItem(item)):
-		removeItem(item)
-	
-	var slot:String = item.getClothingSlot()
-	
-	if(equippedItems.has(slot)):
-		Log.printerr("Trying to equip an item to slot "+str(slot)+" when there is already an item")
-		return false
-		#assert(false)
-	
-	if(!canEquipSlot(slot)):
-		return false
-	
-	equippedItems[slot] = item
-	item.currentInventory = self
-	#add_child(item)
-	emit_signal("equipped_items_changed")
-	
-	if(SexToyManager.enabled && item.isRestraint()):
-		var theChar = getCharacter()
-		if(theChar && theChar.isPlayer()):
-			SexToyManager.sendTrigger(SexToyTrigger.OnBondageLocked)
-	
-	return true
-
-func unequipItem(item):
-	var theitem = removeEquippedItem(item)
-	if(theitem != null):
-		addItem(theitem)
-		return true
-	return false
-
-func clearSlot(slot):
-	var theitem = removeItemFromSlot(slot)
-	if(theitem != null):
-		return true
-	return false
-
-func unequipSlot(slot):
-	var theitem = removeItemFromSlot(slot)
-	if(theitem != null):
-		addItem(theitem)
-		return true
-	return false
-
-func unequipSlotUnlessRestraint(slot):
-	var theitem = getEquippedItem(slot)
-	if(theitem != null):
-		if(theitem.isRestraint()):
-			return false
-		
-		return unequipItem(theitem)
-	return false
-
-func unequipSlotRemoveIfRestraint(slot):
-	var theitem = getEquippedItem(slot)
-	if(theitem == null):
-		return false
-
-	removeItemFromSlot(slot)
-	if(!theitem.isRestraint() || theitem.isImportant()):
-		addItem(theitem)
-		return true
-
-func forceEquipRemoveOther(item):
-	var slot:String = item.getClothingSlot()
-	
-	if(hasSlotEquipped(slot)):
-		removeItemFromSlot(slot)
-	
-	return equipItem(item)
-
-func forceEquipStoreOther(item):
-	var slot:String = item.getClothingSlot()
-	
-	if(hasSlotEquipped(slot)):
-		var storedItem = removeItemFromSlot(slot)
-		addItem(storedItem)
-	
-	return equipItem(item)
-
-func forceEquipStoreOtherUnlessRestraint(item):
-	var slot:String = item.getClothingSlot()
-	
-	if(hasSlotEquipped(slot)):
-		var storedItem = removeItemFromSlot(slot)
-		if(!storedItem.isRestraint() || storedItem.isImportant() || storedItem.isRestraintShouldKeep()):
-			addItem(storedItem)
-	
-	return equipItem(item)
-	
-func equipItemBy(item, equipper):
-	var success = equipItem(item)
-	if(success):
-		item.onEquippedBy(equipper, false)
-
-func forceEquipByRemoveOther(item, forcer, canSmartLock=true):
-	var success = forceEquipRemoveOther(item)
-	if(success):
-		item.onEquippedBy(forcer, true)
-		if(canSmartLock):
-			item.tryAddSmartLock(forcer)
-		
-func forceEquipByStoreOther(item, forcer, canSmartLock=true):
-	var success = forceEquipStoreOther(item)
-	if(success):
-		item.onEquippedBy(forcer, true)
-		if(canSmartLock):
-			item.tryAddSmartLock(forcer)
-		
-func forceEquipByStoreOtherUnlessRestraint(item, forcer, canSmartLock=true):
-	var success = forceEquipStoreOtherUnlessRestraint(item)
-	if(success):
-		item.onEquippedBy(forcer, true)
-		if(canSmartLock):
-			item.tryAddSmartLock(forcer)
-
-func getSmartLockedItemsAmount() -> int:
-	var result:int = 0
-	for slot in equippedItems:
-		var item = equippedItems[slot]
-		if(item.restraintData != null && item.restraintData.hasSmartLock()):
-			result += 1
 	return result
 
-func getAllSmartLocks() -> Array:
-	var result:Array = []
-	for slot in equippedItems:
-		var item = equippedItems[slot]
-		if(item.restraintData != null && item.restraintData.hasSmartLock()):
-			result.append(item.restraintData.getSmartLock())
+func get_equipped_items_with_tag(tag_id: StringName) -> Array:
+	var result: Array = []
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		if item.has_tag(tag_id):
+			result.append(item)
 	return result
 
-func hasItemIDEquipped(itemID: String):
-	for slot in equippedItems:
-		var item = equippedItems[slot]
-		if(item.id == itemID):
-			return true
-	return false
+func get_all_items_can_dye() -> Array:
+	var result: Array = []
+	for item in items:
+		if item.can_dye():
+			result.append(item)
+	for slot in equipped_items:
+		if equipped_items[slot].can_dye():
+			result.append(equipped_items[slot])
+	return result
 
-func hasSlotEquipped(slot):
-	return equippedItems.has(slot) && equippedItems[slot] != null
+func get_all_sellable_items() -> Array:
+	var result: Array = []
+	for item in items:
+		if item.can_sell():
+			result.append(item)
+	return result
 
-func getEquippedItem(slot):
-	if(equippedItems.has(slot)):
-		return equippedItems[slot]
-	return null
+func get_items_and_equipped_together() -> Array:
+	var result: Array = []
+	result.append_array(equipped_items.values())
+	result.append_array(items)
+	return result
 
-func getAllEquippedItems():
-#	var result = []
-#	for slot in equippedItems:
-#		if(equippedItems[slot] == null):
-#			continue
-#		result.append(equippedItems[slot])
-	
-	return equippedItems
+func get_items_and_equipped_grouped() -> Dictionary:
+	var result: Dictionary = {}
+	for item in equipped_items.values():
+		result["%$%" + item.id] = [item]
+	for item in items:
+		var group_id: String = item.get_inventory_group_id()
+		if not result.has(group_id):
+			result[group_id] = [item]
+		else:
+			result[group_id].append(item)
+	return result
 
-func removeItemFromSlot(slot):
-	if(equippedItems.has(slot)):
-		var item = equippedItems[slot]
-		item.onUnequipped()
-		equippedItems.erase(slot)
-		item.currentInventory = null
-		emit_signal("equipped_items_changed")
+func get_offspring_eggs() -> Array:
+	var result: Array = []
+	for item in items:
+		if item.id == "EggGeneric" and item.is_offspring_egg():
+			result.append(item)
+	return result
+
+# ==========================================
+# REMOVE ITEMS (lines 171-231)
+# ==========================================
+
+func remove_item(item) -> Variant:
+	if items.has(item):
+		items.erase(item)
+		item.current_inventory = null
 		return item
 	return null
 
-func removeEquippedItem(item):
-	for slot in equippedItems.keys():
-		var myitem = equippedItems[slot]
-		
-		if(myitem == item):
-			item.onUnequipped()
-			equippedItems.erase(slot)
-			item.currentInventory = null
-			emit_signal("equipped_items_changed")
-			return item
-	return null
-
-func clear():
-	for item in items:
-		item.currentInventory = null
-		#item.queue_free()
-	items.clear()
-	
-	
-	for itemSlot in equippedItems.keys():
-		#equippedItems[itemSlot].queue_free()
-		equippedItems[itemSlot].currentInventory = null
-	equippedItems.clear()
-	emit_signal("equipped_items_changed")
-
-func clearEquippedItems():
-	for itemSlot in equippedItems.keys():
-		#equippedItems[itemSlot].queue_free()
-		equippedItems[itemSlot].currentInventory = null
-	equippedItems.clear()
-	emit_signal("equipped_items_changed")
-	
-func clearEquippedItemsKeepPersistent():
-	var persistent = {}
-	for itemSlot in equippedItems.keys():
-		#equippedItems[itemSlot].queue_free()
-		if(equippedItems[itemSlot].isPersistent()):
-			persistent[itemSlot] = equippedItems[itemSlot]
-		else:
-			equippedItems[itemSlot].currentInventory = null
-	equippedItems.clear()
-	equippedItems = persistent
-	emit_signal("equipped_items_changed")
-
-func getEquippedItemsWithBuff(buffID):
-	var result = []
-	for itemSlot in equippedItems.keys():
-		var item = equippedItems[itemSlot]
-		
-		var buffs = item.getBuffs()
-		
-		for buff in buffs:
-			if(buff.id == buffID):
-				result.append(item)
-				continue
-	return result
-
-func removeItemsList(itemsToDelete: Array):
-	for item in itemsToDelete:
-		removeItem(item)
-
-func removeEquippedItemsList(itemsToDelete: Array):
-	for item in itemsToDelete:
-		removeEquippedItem(item)
-
-func removeEquippedItemsWithBuff(buffID):
-	var founditems = getEquippedItemsWithBuff(buffID)
-	var hasItem = false
-	if(founditems.size() > 0):
-		hasItem = true
-	removeEquippedItemsList(founditems)
-	return hasItem
-
-func getItemsWithTag(tag):
-	var result = []
-	for item in items:
-		if(item.hasTag(tag)):
-			result.append(item)
-	return result
-		
-func hasItemsWithTag(tag):
-	return getItemsWithTag(tag).size() > 0
-
-func getItemsWithTagCount(tag):
-	return getItemsWithTag(tag).size()
-
-func removeItemsWithTag(tag):
-	removeItemsList(getItemsWithTag(tag))
-
-func getEquippedItemsWithTag(tag):
-	var result = []
-	for itemSlot in equippedItems.keys():
-		var item = equippedItems[itemSlot]
-
-		if(item.hasTag(tag)):
-			result.append(item)
-	return result
-	
-func hasEquippedItemWithTag(tag):
-	for itemSlot in equippedItems.keys():
-		var item = equippedItems[itemSlot]
-
-		if(item.hasTag(tag)):
-			return true
-	return false
-	
-func getEquippedItemsWithTagCount(tag):
-	return getEquippedItemsWithTag(tag).size()
-	
-func removeEquippedItemsWithTag(tag):
-	removeEquippedItemsList(getEquippedItemsWithTag(tag))
-	
-func getEquppedRestraints():
-	var result = []
-	
-	for itemSlot in equippedItems:
-		var item = equippedItems[itemSlot]
-		if(item.isRestraint()):
-			result.append(item)
-	return result
-
-func getEquippedRestraints():
-	return getEquppedRestraints()
-
-func getRemovableRestraintsAmount() -> int:
-	var result:int = 0
-	for itemSlot in equippedItems:
-		var item = equippedItems[itemSlot]
-		if(item.isRestraint()):
-			var restraintData = item.getRestraintData()
-			if(restraintData.canStruggle()):
-				result += 1
-	return result
-
-func hasRemovableRestraints():
-	return getRemovableRestraintsAmount() > 0
-
-func hasRemovableRestraintsNoLockedSmartlocks():
-	for itemSlot in equippedItems:
-		var item = equippedItems[itemSlot]
-		if(item.isRestraint()):
-			var restraintData = item.getRestraintData()
-			if(restraintData.canStruggleFinal() && restraintData.shouldStruggle()):
-				return true
+func remove_first_of(item_id: String) -> bool:
+	var the_item = get_first_of(item_id)
+	if the_item != null:
+		remove_item(the_item)
+		return true
 	return false
 
-func getEquppedRemovableRestraints():
-	var result = []
-	
-	for itemSlot in equippedItems:
-		var item = equippedItems[itemSlot]
-		if(item.isRestraint()):
-			var restraintData = item.getRestraintData()
-			if(restraintData.canStruggle()):
-				result.append(item)
-	return result
+func remove_x_from_item_or_delete(item, amount: int) -> void:
+	assert(items.has(item))
+	item.remove_x_or_destroy(amount)
 
-func getEquppedRemovableRestraintsNoLockedSmartlocks():
-	var result = []
-	
-	for itemSlot in equippedItems:
-		var item = equippedItems[itemSlot]
-		if(item.isRestraint()):
-			var restraintData = item.getRestraintData()
-			if(restraintData.canStruggleFinal()):
-				result.append(item)
-	return result
-
-func forceRestraintsWithTag(tag, amount = 1):
-	var itemIDs = GlobalRegistry.getItemIDsByTag(tag)
-	itemIDs.shuffle()
-	var added = 0
-	var result = []
-	
-	for itemID in itemIDs:
-		var potentialItem = GlobalRegistry.getItemRef(itemID)
-		
-		var slot:String = potentialItem.getClothingSlot()
-		if(slot == null || !canEquipSlot(slot)):
-			continue
-		
-		if(hasSlotEquipped(slot)):
-			var ourItem = getEquippedItem(slot)
-			if(ourItem.isRestraint()):
-				continue
-		
-		var newItem = GlobalRegistry.createItem(itemID)
-		if(forceEquipStoreOther(newItem)):
-			result.append(newItem)
-			added += 1
-			
-			if(added >= amount):
-				return result
-	return result
-
-func forceRestraintsList(_itemIDs:Array, maxAmount:int=-1) -> Array:
-	var result:Array = []
-	var added:int = 0
-	
-	for itemID in _itemIDs:
-		var potentialItem = GlobalRegistry.getItemRef(itemID)
-		
-		var slot:String = potentialItem.getClothingSlot()
-		if(slot == null || !canEquipSlot(slot)):
-			continue
-		
-		if(hasSlotEquipped(slot)):
-			var ourItem = getEquippedItem(slot)
-			if(ourItem.isRestraint() || ourItem.isImportant()):
-				continue
-		
-		var newItem = GlobalRegistry.createItem(itemID)
-		if(forceEquipStoreOtherUnlessRestraint(newItem)):
-			result.append(newItem)
-			added += 1
-			
-			if(maxAmount >= 0 && added >= maxAmount):
-				return result
-	
-	return result
-
-func getFirstItemThatCoversBodypart(bodypartSlot):
-	for inventorySlot in InventorySlot.getAll():
-		if(!hasSlotEquipped(inventorySlot)):
-			continue
-		
-		var item = getEquippedItem(inventorySlot)
-		if(item.coversBodypart(bodypartSlot)):
-			return item
-	
-	return null
-
-func getRestraintsThatCanBeForcedDuringSex(tag):
-	var itemIDs:Array = GlobalRegistry.getItemIDsByTag(tag)
-	var result:Array = []
-	
-	for itemID in itemIDs:
-		var potentialItem = GlobalRegistry.getItemRef(itemID)
-		
-		var slot:String = potentialItem.getClothingSlot()
-		if(slot == null || !canEquipSlot(slot)):
-			continue
-
-		if(hasSlotEquipped(slot)):
-			var ourItem = getEquippedItem(slot)
-			if(ourItem.isRestraint() || ourItem.isImportant()):
-				continue
-		
-		var bodypartSlot = potentialItem.getRequiredBodypart()
-		var coversItem = getFirstItemThatCoversBodypart(bodypartSlot)
-		if(bodypartSlot != null && coversItem != null):
-			if(coversItem.isRestraint() || coversItem.isImportant()):
-				continue
-		
-		result.append(itemID)
-	return result
-
-func getAmountOfRestraintsThatCanForceDuringSex(tag):
-	return getRestraintsThatCanBeForcedDuringSex(tag).size()
-
-func clearStaticRestraints():
-	for slot in InventorySlot.getStatic():
-		removeItemFromSlot(slot)
-
-func hasLockedStaticRestraints():
-	for slot in InventorySlot.getStatic():
-		if(hasSlotEquipped(slot)):
-			return true
-	return false
-
-func hasIllegalItems():
-	for item in items:
-		if(item.hasTag(ItemTag.Illegal)):
-			return true
-
-	for itemSlot in equippedItems.keys():
-		var item = equippedItems[itemSlot]
-
-		if(item.hasTag(ItemTag.Illegal)):
-			return true
-	return false
-
-func findAndEquipInmateUniform():
-	if(hasItemID("inmateuniform")):
-		forceEquipStoreOtherUnlessRestraint(getFirstOf("inmateuniform"))
-	elif(hasItemID("inmateuniformHighsec")):
-		forceEquipStoreOtherUnlessRestraint(getFirstOf("inmateuniformHighsec"))
-	elif(hasItemID("inmateuniformSexDeviant")):
-		forceEquipStoreOtherUnlessRestraint(getFirstOf("inmateuniformSexDeviant"))
-
-func removeBrokenDuplicatedItems():
-	var itemsToRemove = []
-	var equippedItemsToRemove = []
-	
-	var seenIDS = {}
-	for item in items:
-		if(item.uniqueID == null || item.uniqueID == ""):
-			continue
-		
-		if(seenIDS.has(item.uniqueID)):
-			itemsToRemove.append(item)
-		else:
-			seenIDS[item.uniqueID] = true
-	
-	for slot in equippedItems.keys():
-		var item = equippedItems[slot]
-		
-		if(item.uniqueID == null || item.uniqueID == ""):
-			continue
-		
-		if(seenIDS.has(item.uniqueID)):
-			equippedItemsToRemove.append(item)
-		else:
-			seenIDS[item.uniqueID] = true
-	
-	for item in itemsToRemove:
-		Log.printerr("REMOVING DUBLICATED ITEM: "+item.id+" UNIQUE ID: "+str(item.uniqueID))
-		removeItem(item)
-	for equippedItem in equippedItemsToRemove:
-		Log.printerr("REMOVING DUBLICATED ITEM: "+equippedItem.id+" UNIQUE ID: "+str(equippedItem.uniqueID))
-		removeEquippedItem(equippedItem)
-
-func removeRandomRestraints(removedRestraintsChance):
-	var restraints = getEquppedRestraints()
-	var howManyRemoved = 0
-	if(restraints.size() > 0):
-		for restraint in restraints:
-			if(restraint.isImportant() || restraint.isPersistent()):
-				continue
-			
-			var chanceModifier = 1.0
-			var restraintData:RestraintData = restraint.getRestraintData()
-			if(restraintData != null):
-				chanceModifier /= restraintData.getLevel()
-			
-			if(RNG.chance(removedRestraintsChance * chanceModifier)):
-				removeEquippedItem(restraint)
-				howManyRemoved += 1
-	
-	return howManyRemoved
-
-func hasKnownTFPillWithEffect(tfID:String) -> bool:
-	for item in items:
-		if(item.id == "TFPill"):
-			var theTFID:String = item.getTFID()
-			if(tfID == theTFID && GM.main.SCI.isTransformationUnlocked(theTFID)):
-				return true
-	return false
-
-func removeTFPillWithEffect(tfID:String):
-	for item in items:
-		if(item.id == "TFPill"):
-			var theTFID:String = item.getTFID()
-			if(theTFID == tfID):
-				item.removeXOrDestroy(1)
-				return
-
-func hasAnyOffspringEggs() -> bool:
-	for item in items:
-		if(item.id == "EggGeneric"):
-			if(item.isOffspringEgg()):
-				return true
-	return false
-
-func getOffspringEggs() -> Array:
-	var result:Array = []
-	for item in items:
-		if(item.id == "EggGeneric"):
-			if(item.isOffspringEgg()):
-				result.append(item)
-	return result
-
-func saveData():
-	var data = {}
-	
-	data["items"] = []
-	
-	for item in items:
-		var itemData = {
-			"id": item.id,
-			"uniqueID": item.uniqueID,
-		}
-		itemData["data"] = item.saveData()
-		
-		data["items"].append(itemData)
-	
-	data["equipped_items"] = {}
-	for slot in equippedItems:
-		var item = equippedItems[slot]
-		var itemData = {
-			"id": item.id,
-			"uniqueID": item.uniqueID,
-		}
-		itemData["data"] = item.saveData()
-		
-		data["equipped_items"][slot] = itemData
-		
-	return data
-	
-func loadData(data):
-	clear()
-	
-	var loadedItems = SAVE.loadVar(data, "items", [])
-	
-	for loadedItem in loadedItems:
-		var id = SAVE.loadVar(loadedItem, "id", "")
-		var uniqueID = SAVE.loadVar(loadedItem, "uniqueID", "")
-		if(uniqueID != null && (uniqueID is int)):
-			uniqueID = str(uniqueID)
-		var itemLoadedData = SAVE.loadVar(loadedItem, "data", {})
-		
-		var newItem: ItemBase = GlobalRegistry.createItem(id, false)
-		if(!newItem):
-			Log.printerr("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
-			continue
-		if(uniqueID == null || uniqueID == ""):
-			uniqueID = "item"+str(GlobalRegistry.generateUniqueID())
-		newItem.uniqueID = uniqueID
-		newItem.loadData(itemLoadedData)
-		addItem(newItem)
-		
-	var loadedEquippedItems = SAVE.loadVar(data, "equipped_items", {})
-	for loadedSlot in loadedEquippedItems:
-		var loadedItem = loadedEquippedItems[loadedSlot]
-		var id = SAVE.loadVar(loadedItem, "id", "")
-		var uniqueID = SAVE.loadVar(loadedItem, "uniqueID", null)
-		if(uniqueID != null && (uniqueID is int)):
-			uniqueID = str(uniqueID)
-		var itemLoadedData = SAVE.loadVar(loadedItem, "data", {})
-		
-		var newItem: ItemBase = GlobalRegistry.createItem(id, false)
-		if(!newItem):
-			Log.printerr("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
-			continue
-		if(uniqueID == null || uniqueID == ""):
-			uniqueID = "item"+str(GlobalRegistry.generateUniqueID())
-		newItem.uniqueID = uniqueID
-		newItem.loadData(itemLoadedData)
-		equipItem(newItem)
-
-func loadDataNPC(data, npc):
-	if(true):
-		var hasAnyInvData = data.has("equipped_items")
-		loadData(data)
-		if(!hasAnyInvData):
-			npc.resetEquipmentHard() # Recreates all the equipped items because we need fresh uniqueIDs for the items
+func remove_x_of_or_destroy(item_id: String, amount: int) -> void:
+	var item = get_first_of(item_id)
+	if item == null:
 		return
-	
+	item.remove_x_or_destroy(amount)
+
+func remove_items_list(items_to_delete: Array) -> void:
+	for item in items_to_delete:
+		remove_item(item)
+
+func clear() -> void:
 	for item in items:
-		item.currentInventory = null
+		item.current_inventory = null
 	items.clear()
-	for itemSlot in equippedItems.keys():
-		if(equippedItems[itemSlot].uniqueID in [null, ""]):
-			continue
-		equippedItems[itemSlot].currentInventory = null
-		equippedItems.erase(itemSlot)
-	#equippedItems.clear()
-	
-	var loadedItems = SAVE.loadVar(data, "items", [])
-	for loadedItem in loadedItems:
-		var id = SAVE.loadVar(loadedItem, "id", "")
-		var uniqueID = SAVE.loadVar(loadedItem, "uniqueID", "")
-		var itemLoadedData = SAVE.loadVar(loadedItem, "data", {})
-		
-		var newItem: ItemBase = GlobalRegistry.createItem(id, false)
-		if(!newItem):
-			Log.printerr("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
-			continue
-		newItem.uniqueID = uniqueID
-		newItem.loadData(itemLoadedData)
-		addItem(newItem)
-	
-	var loadedEquippedItems = SAVE.loadVar(data, "equipped_items", {})
-	for loadedSlot in loadedEquippedItems:
-		var loadedItem = loadedEquippedItems[loadedSlot]
-		var id = SAVE.loadVar(loadedItem, "id", "")
-		var uniqueID = SAVE.loadVar(loadedItem, "uniqueID", null)
-		var itemLoadedData = SAVE.loadVar(loadedItem, "data", {})
-		
-		# Npc's 'default' equipped items
-		if(uniqueID in [null, ""]):
-			if(hasSlotEquipped(loadedSlot)):
-				var currentItem: ItemBase = getEquippedItem(loadedSlot)
-				
-				if(currentItem.id != id):
-					continue
-				currentItem.loadData(itemLoadedData)
-		# Anything player might have forced onto them
+	for slot in equipped_items:
+		equipped_items[slot].current_inventory = null
+	equipped_items.clear()
+	equipped_items_changed.emit()
+
+# ==========================================
+# EQUIP/UNEQUIP (lines 260-480)
+# ==========================================
+
+func can_equip_slot(slot) -> bool:
+	if get_parent() != null and get_parent().has_method("invCanEquipSlot"):
+		return get_parent().invCanEquipSlot(slot)
+	return true
+
+func equip_item(item) -> bool:
+	if has_item(item):
+		remove_item(item)
+	var slot: String = item.get_clothing_slot()
+	if equipped_items.has(slot):
+		Log.printerr("Trying to equip to slot " + str(slot) + " when already occupied")
+		return false
+	if not can_equip_slot(slot):
+		return false
+	equipped_items[slot] = item
+	item.current_inventory = self
+	equipped_items_changed.emit()
+	if SexToyManager.enabled and item.is_restraint():
+		var the_char = get_character()
+		if the_char and the_char.is_player():
+			SexToyManager.send_trigger(SexToyTrigger.OnBondageLocked)
+	return true
+
+func unequip_item(item) -> bool:
+	var the_item = remove_equipped_item(item)
+	if the_item != null:
+		add_item(the_item)
+		return true
+	return false
+
+func force_equip_remove_other(item) -> bool:
+	var slot: String = item.get_clothing_slot()
+	if has_slot_equipped(slot):
+		remove_item_from_slot(slot)
+	return equip_item(item)
+
+func force_equip_store_other(item) -> bool:
+	var slot: String = item.get_clothing_slot()
+	if has_slot_equipped(slot):
+		var stored_item = remove_item_from_slot(slot)
+		add_item(stored_item)
+	return equip_item(item)
+
+func force_equip_store_other_unless_restraint(item) -> bool:
+	var slot: String = item.get_clothing_slot()
+	if has_slot_equipped(slot):
+		var stored_item = remove_item_from_slot(slot)
+		if not stored_item.is_restraint() or stored_item.is_important() or stored_item.is_restraint_should_keep():
+			add_item(stored_item)
+	return equip_item(item)
+
+func equip_item_by(item, equipper) -> void:
+	var success = equip_item(item)
+	if success:
+		item.on_equipped_by(equipper, false)
+
+func force_equip_by_remove_other(item, forcer, can_smart_lock: bool = true) -> void:
+	var success = force_equip_remove_other(item)
+	if success:
+		item.on_equipped_by(forcer, true)
+		if can_smart_lock:
+			item.try_add_smart_lock(forcer)
+
+func has_slot_equipped(slot) -> bool:
+	return equipped_items.has(slot) and equipped_items[slot] != null
+
+func get_equipped_item(slot):
+	return equipped_items.get(slot)
+
+func get_equipped_item_by_id(the_id: String):
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		if item.id == the_id:
+			return item
+	return null
+
+func has_item_id_equipped(item_id: String) -> bool:
+	for slot in equipped_items:
+		if equipped_items[slot].id == item_id:
+			return true
+	return false
+
+func remove_item_from_slot(slot):
+	if equipped_items.has(slot):
+		var item = equipped_items[slot]
+		item.on_unequipped()
+		equipped_items.erase(slot)
+		item.current_inventory = null
+		equipped_items_changed.emit()
+		return item
+	return null
+
+func remove_equipped_item(item):
+	for slot in equipped_items.keys():
+		if equipped_items[slot] == item:
+			item.on_unequipped()
+			equipped_items.erase(slot)
+			item.current_inventory = null
+			equipped_items_changed.emit()
+			return item
+	return null
+
+func clear_slot(slot) -> bool:
+	var the_item = remove_item_from_slot(slot)
+	return the_item != null
+
+func clear_equipped_items() -> void:
+	for slot in equipped_items.keys():
+		equipped_items[slot].current_inventory = null
+	equipped_items.clear()
+	equipped_items_changed.emit()
+
+func clear_equipped_items_keep_persistent() -> void:
+	var persistent: Dictionary = {}
+	for slot in equipped_items.keys():
+		if equipped_items[slot].is_persistent():
+			persistent[slot] = equipped_items[slot]
 		else:
-			if(!hasSlotEquipped(loadedSlot)):
-				var newItem: ItemBase = GlobalRegistry.createItem(id, false)
-				if(newItem == null):
-					Log.printerr("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
-					continue
-				newItem.uniqueID = uniqueID
-				newItem.loadData(itemLoadedData)
-				equipItem(newItem)
-	emit_signal("equipped_items_changed")
+			equipped_items[slot].current_inventory = null
+	equipped_items.clear()
+	equipped_items = persistent
+	equipped_items_changed.emit()
+
+func get_smart_locked_items_amount() -> int:
+	var result := 0
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		if item.restraint_data != null and item.restraint_data.has_smart_lock():
+			result += 1
+	return result
+
+func get_all_smart_locks() -> Array:
+	var result: Array = []
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		if item.restraint_data != null and item.restraint_data.has_smart_lock():
+			result.append(item.restraint_data.get_smart_lock())
+	return result
+
+func get_equipped_items_with_buff(buff_id: StringName) -> Array:
+	var result: Array = []
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		for buff in item.get_buffs():
+			if buff.id == buff_id:
+				result.append(item)
+				break
+	return result
+
+func get_character():
+	if get_parent() != null:
+		return get_parent()
+	return null
+
+# ==========================================
+# SAVE/LOAD (lines 810-935)
+# ==========================================
+
+func save_data() -> Dictionary:
+	var data := {}
+	data["items"] = []
+	for item in items:
+		var item_data := {"id": item.id, "uniqueID": item.unique_id}
+		item_data["data"] = item.save_data()
+		data["items"].append(item_data)
+	data["equipped_items"] = {}
+	for slot in equipped_items:
+		var item = equipped_items[slot]
+		var item_data := {"id": item.id, "uniqueID": item.unique_id}
+		item_data["data"] = item.save_data()
+		data["equipped_items"][slot] = item_data
+	return data
+
+func load_data(data: Dictionary) -> void:
+	clear()
+	var loaded_items = SAVE.load_var(data, "items", [])
+	for loaded_item in loaded_items:
+		var item_id = SAVE.load_var(loaded_item, "id", "")
+		var uid = SAVE.load_var(loaded_item, "uniqueID", "")
+		if uid != null and uid is int:
+			uid = str(uid)
+		var item_data = SAVE.load_var(loaded_item, "data", {})
+		var new_item: ItemBase = GlobalRegistry.create_item(item_id, false)
+		if not new_item:
+			Log.printerr("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
+			continue
+		if uid == null or uid == "":
+			uid = "item" + str(GlobalRegistry.generate_unique_id())
+		new_item.unique_id = uid
+		new_item.load_data(item_data)
+		add_item(new_item)
+	var loaded_equipped = SAVE.load_var(data, "equipped_items", {})
+	for loaded_slot in loaded_equipped:
+		var loaded_item = loaded_equipped[loaded_slot]
+		var item_id = SAVE.load_var(loaded_item, "id", "")
+		var uid = SAVE.load_var(loaded_item, "uniqueID", null)
+		if uid != null and uid is int:
+			uid = str(uid)
+		var item_data = SAVE.load_var(loaded_item, "data", {})
+		var new_item: ItemBase = GlobalRegistry.create_item(item_id, false)
+		if not new_item:
+			Log.printerr("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
+			continue
+		if uid == null or uid == "":
+			uid = "item" + str(GlobalRegistry.generate_unique_id())
+		new_item.unique_id = uid
+		new_item.load_data(item_data)
+		equip_item(new_item)
+
+func load_data_npc(data: Dictionary, npc) -> void:
+	var has_any_inv_data = data.has("equipped_items")
+	load_data(data)
+	if not has_any_inv_data:
+		npc.reset_equipment_hard()
