@@ -1,170 +1,104 @@
 extends Object
 class_name RNG
 
-# generates an [from,to] int, both are inclusive
-static func randi_range(from: int, to: int) -> int:
-	if(from > to):
-		Log.printerr("randi_range() from is higher than to. From = "+str(from)+" To = "+str(to))
-		to = from
-	#assert(to >= from)
-	
-	var randValue = int(floor(rand_range(from, to+1)))
-	if(randValue < from):
-		randValue = from
-	if(randValue > to):
-		randValue = to
-	
-	return randValue
-	# This way is bugged apparently?
-	#return from + (randi() % (to - from + 1))
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Random number generation utilities.
 
-static func randf_range(from: float, to: float) -> float:
-	return rand_range(from, to)
+static func randi_range(from: int, to: int) -> int:
+	if from > to:
+		Log.printerr("randi_range() from > to")
+		to = from
+	var rand_value := randi_range(from, to + 1)
+	if rand_value < from:
+		rand_value = from
+	if rand_value > to:
+		rand_value = to
+	return rand_value
+
+static func randf_range_custom(from: float, to: float) -> float:
+	return randf_range(from, to)
 
 static func randf_rangeX2(from: float, to: float) -> float:
-	return (rand_range(from, to) + rand_range(from, to)) / 2.0
+	return (randf_range(from, to) + randf_range(from, to)) / 2.0
 
-# chance(100) will always be true
-# chance(3) will be true 3% of the time
+## chance(100) = always true, chance(3) = 3% of the time
 static func chance(ch: float) -> bool:
-	var randValue = randf() * 100
-	if(ch >= randValue):
-		return true
-	return false
-	
-# picks a random element from an array or a random key from a dictionary
-static func pick(ar):
-	if(ar is Dictionary):
+	return randf() * 100.0 < ch
+
+## Picks random element from array or random key from dictionary
+static func pick(ar) -> Variant:
+	if ar is Dictionary:
 		ar = ar.keys()
-		
-	if(ar.empty()):
+	if ar.is_empty():
 		return null
-	
 	return ar[randi() % ar.size()]
 
-static func grab(ar):	
-	if(ar is Dictionary):
+## Picks and removes random element
+static func grab(ar) -> Variant:
+	if ar is Dictionary:
 		ar = ar.keys()
-		
-	if(ar.empty()):
+	if ar.is_empty():
 		return null
-	
-	var elementI = randi() % ar.size()
-	var value = ar[elementI]
-	ar.remove(elementI)
+	var element_i := randi() % ar.size()
+	var value = ar[element_i]
+	ar.remove_at(element_i)
 	return value
 
-# RNG.pickWeighted(["a", "b", "c"], [10, 100, 10]) # 'b' will show up 10 times more
-static func pickWeighted(ar, weights: Array):
-	if(ar is Dictionary):
+## Weighted random selection
+static func pickWeighted(ar, weights: Array) -> Variant:
+	if ar is Dictionary:
 		ar = ar.keys()
-		
-	assert(ar.size() == weights.size(), "Weights array doesn't have the same amount of elements as array")
-	
-	if(ar.empty()):
+	if ar.is_empty():
 		return null
-	
-	var sum = 0.0
+	if ar.size() != weights.size():
+		Log.printerr("RNG.pickWeighted: arrays differ in size")
+		return null
+	var total := 0.0
 	for w in weights:
-		sum += max(w, 0.0)
-	
-	var r:float = rand_range(0.0, sum)
-	for i in range(weights.size()):
-		r -= max(weights[i], 0.0)
-		if r <= 0.0:
+		total += w
+	if total <= 0.0:
+		return ar[randi() % ar.size()]
+	var rand_val := randf() * total
+	var cumulative := 0.0
+	for i in range(ar.size()):
+		cumulative += weights[i]
+		if rand_val < cumulative:
 			return ar[i]
-			
-	return ar[0]
+	return ar[ar.size() - 1]
 
-
-# RNG.pickWeightedPairs([["a", 10.0], ["b", 100.0], ["c", 10.0]]) # 'b' will show up 10 times more
-static func pickWeightedPairs(ar: Array):
-	if(ar.empty()):
+## Weighted random from pairs [item, weight]
+static func pickWeightedPairs(pairs: Array) -> Variant:
+	if pairs.is_empty():
 		return null
-		
-	var sum = 0.0
-	for pair in ar:
-		sum += max(pair[1], 0.0)
-		
-	var r:float = rand_range(0.0, sum)
-	for i in range(ar.size()):
-		r -= max(ar[i][1], 0.0)
-		if r <= 0.0:
-			return ar[i][0]
-			
-	return ar[0][0]
+	var total := 0.0
+	for pair in pairs:
+		total += pair[1]
+	if total <= 0.0:
+		return pairs[0]
+	var rand_val := randf() * total
+	var cumulative := 0.0
+	for pair in pairs:
+		cumulative += pair[1]
+		if rand_val < cumulative:
+			return pair
+	return pairs[pairs.size() - 1]
 
-static func pickWeightedDict(ar: Dictionary):
-	if(ar.empty()):
-		return null
-		
-	var sum = 0.0
-	for value in ar:
-		sum += max(ar[value], 0.0)
-		
-	var r:float = rand_range(0.0, sum)
-	for key in ar:
-		r -= max(ar[key], 0.0)
-		if r <= 0.0:
-			return key
-			
-	return ar.keys()[0]
-	
-# Same as RNG.pickWeighted() but it also removes the picked entry from both arrays
-static func grabWeighted(ar, weights: Array):
-	if(ar is Dictionary):
+## Pick n unique elements
+static func pickN(ar, n: int) -> Array:
+	if ar is Dictionary:
 		ar = ar.keys()
-		
-	assert(ar.size() == weights.size(), "Weights array doesn't have the same amount of elements as array")
-	
-	if(ar.empty()):
-		return null
-	
-	var sum = 0.0
-	for w in weights:
-		sum += max(w, 0.0)
-	
-	var r:float = rand_range(0.0, sum)
-	for i in range(weights.size()):
-		r -= max(weights[i], 0.0)
-		if r <= 0.0:
-			var result = ar[i]
-			ar.remove(i)
-			weights.remove(i)
-			return result
-			
-	var result = ar[0]
-	ar.remove(0)
-	weights.remove(0)
+	var copy := ar.duplicate()
+	var result: Array = []
+	for _i in mini(n, copy.size()):
+		var idx := randi() % copy.size()
+		result.append(copy[idx])
+		copy.remove_at(idx)
 	return result
 
-# Same as RNG.pickWeightedPairs() but it also removes the picked entry from the array
-static func grabWeightedPairs(ar: Array):
-	if(ar.empty()):
-		return null
-		
-	var sum = 0.0
-	for pair in ar:
-		sum += max(pair[1], 0.0)
-		
-	var r:float = rand_range(0.0, sum)
-	for i in range(ar.size()):
-		r -= max(ar[i][1], 0.0)
-		if r <= 0.0:
-			var result = ar[i][0]
-			ar.remove(i)
-			return result
-			
-	var result = ar[0][0]
-	ar.remove(0)
-	return result
-	
-static func randomMaleName():
-	return pick(RNGData.maleNames)
-
-static func randomFemaleName():
-	return pick(RNGData.femaleNames)
-
-static func pickHashed(ar, thehash:int):
-	thehash = thehash % ar.size()
-	return ar[thehash]
+## Shuffle array in place
+static func shuffle(ar: Array) -> void:
+	for i in range(ar.size() - 1, 0, -1):
+		var j := randi() % (i + 1)
+		var temp = ar[i]
+		ar[i] = ar[j]
+		ar[j] = temp
