@@ -30,7 +30,7 @@ func addCharacter(charID:String, variant:Array = []):
 	charactersPanel.addCharacter(charID)
 	
 	if(!fightCharacterPanels.has(charID)):
-		var fightSceneUI = fightCharacterUIScene.instance()
+		var fightSceneUI = fightCharacterUIScene.instantiate()
 		fightCharacterList.add_child(fightSceneUI)
 		fightSceneUI.updateFromCharacterID(charID)
 		fightCharacterPanels[charID] = fightSceneUI

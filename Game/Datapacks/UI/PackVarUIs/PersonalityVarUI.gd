@@ -9,7 +9,7 @@ var data = {
 func updatePersData():
 	Util.delete_children($VBoxContainer)
 	for statID in PersonalityStat.getAll():
-		var newStat = singleStatScene.instance()
+		var newStat = singleStatScene.instantiate()
 		$VBoxContainer.add_child(newStat)
 		newStat.id = statID
 		newStat.setData({

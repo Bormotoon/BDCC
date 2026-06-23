@@ -137,7 +137,7 @@ func _recursive_quick_save_make_backup(current_i: int = 1) -> void:
 	if dir.file_exists(quick_save_fullname):
 		_recursive_quick_save_make_backup(current_i + 1)
 		if current_i >= max_backup_quicksaves:
-			dir.remove(quick_save_fullname)
+			dir.remove_at(quick_save_fullname)
 			_invalidate_cached_save_info_by_path(quick_save_fullname)
 			return
 		var new_name := "quicksave backup" + str(current_i + 1)
@@ -294,7 +294,7 @@ func load_var(data, key: String, null_value = null):
 func delete_save(path: String) -> void:
 	var dir := DirAccess.open("user://saves/")
 	if dir:
-		dir.remove(path)
+		dir.remove_at(path)
 	_invalidate_cached_save_info_by_path(path)
 
 func load_var_method(data, key: String, null_value = null):

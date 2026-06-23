@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name RecruitBase
 
 var id:String = ""
@@ -73,7 +73,7 @@ func isArSame(_ar1:Array, _ar2:Array) -> bool:
 	return true
 	
 func needsToBeSaved() -> bool:
-	if(completed || !history.empty()):
+	if(completed || !history.is_empty()):
 		return true
 	return false
 
@@ -212,7 +212,7 @@ func onContext(_context:RecruitContext):
 		history.pop_front()
 
 func getHistoryString() -> String:
-	if(history.empty()):
+	if(history.is_empty()):
 		return ""
 	var result:Array = ["Previous plans:"]
 	for theEntry in history:

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SaveConversion
 
 static func convertFlag(flags:Dictionary, moduleFlags:Dictionary, moduleID, flagID):

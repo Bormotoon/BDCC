@@ -44,7 +44,7 @@ func _on_RemoveButton_pressed():
 		return
 	if(selectedIndex < 0 || selectedIndex >= checks.size()):
 		return
-	checks.remove(selectedIndex)
+	checks.remove_at(selectedIndex)
 	updateChecksList()
 	updateSelectedItem()
 

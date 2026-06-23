@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name PlayerSlaveryHolder
 
 # This object always exists and holds slavery-related stuff
@@ -26,9 +26,9 @@ func getPossibleSlaveriesAmount(includeTrivial:bool = false) -> int:
 func getRandomPossibleSlaveryID(includeTrivial:bool = false) -> String:
 	var theSlaveries := getPossibleSlaveries(includeTrivial)
 	
-	if(theSlaveries.empty()):
+	if(theSlaveries.is_empty()):
 		theSlaveries = getPossibleSlaveries(true)
-		if(theSlaveries.empty()):
+		if(theSlaveries.is_empty()):
 			return ""
 	
 	#TODO: Prefer to pick slaveries that weren't picked before
@@ -50,7 +50,7 @@ func transferAllItems(_charFrom, _charTo, equippedToo:bool = false):
 	if(!_charFrom || !_charTo):
 		return
 	var theItems:Array = _charFrom.getInventory().getItems()
-	while(!theItems.empty()):
+	while(!theItems.is_empty()):
 		var theItem = theItems[0]
 		
 		_charFrom.getInventory().removeItem(theItem)
@@ -125,7 +125,7 @@ func getUnlockedEndingsAmountOf(slaveryID:String) -> int:
 		return 0
 	var result:int = 0
 	var allPossible := getAllPossibleEndingsOf(slaveryID)
-	if(allPossible.empty()):
+	if(allPossible.is_empty()):
 		return 0
 	for theEndingID in allPossible:
 		if(hasUnlockedEnding(slaveryID, theEndingID)):
@@ -138,7 +138,7 @@ func getEndingsInfo(includeDesc:bool = true) -> String:
 	for slaveryID in GlobalRegistry.getPlayerSlaveryDefs():
 		var slaveryDef:PlayerSlaveryDef = GlobalRegistry.getPlayerSlaveryDef(slaveryID)
 		var theEndings := slaveryDef.getEndings()
-		if(theEndings.empty()):
+		if(theEndings.is_empty()):
 			continue
 		var unlockedAmount:int = getUnlockedEndingsAmountOf(slaveryID)
 		result.append(slaveryDef.getVisibleName()+" ("+str(unlockedAmount)+"/"+str(theEndings.size())+"):")

@@ -10,10 +10,10 @@ func _init():
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
 	var allFrens:Array= _event.getFreeOwnerIDsNearby(true, _context)
-	if(allFrens.empty()):
+	if(allFrens.is_empty()):
 		if(RNG.chance(_event.getNearbyCheckAllChance())):
 			allFrens = _event.getFreeOwnerIDs(true, _context)
-			if(allFrens.empty()):
+			if(allFrens.is_empty()):
 				return false
 		else:
 			return false

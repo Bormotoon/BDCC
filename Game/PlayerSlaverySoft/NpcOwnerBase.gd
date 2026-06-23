@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NpcOwnerBase
 
 var id:String = "error"
@@ -442,10 +442,10 @@ func getOwnerQuestProgressText() -> String:
 	return Util.join(getOwnerQuestProgressArray(), "\n")
 
 func hasGivenPCTasks() -> bool:
-	return !tasks.empty()
+	return !tasks.is_empty()
 
 func hasGivenPCOwnerTasks() -> bool:
-	return !ownerTasks.empty()
+	return !ownerTasks.is_empty()
 
 func hasGivenPCAnyTasks() -> bool:
 	return hasGivenPCTasks() || hasGivenPCOwnerTasks()

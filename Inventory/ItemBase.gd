@@ -2,7 +2,7 @@ extends RefCounted
 class_name ItemBase
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## Base class for ALL items. extends Reference → RefCounted.
+## Base class for ALL items. extends RefCounted → RefCounted.
 
 var id: String = "baditem"
 var unique_id = null

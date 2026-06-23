@@ -60,7 +60,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 	var possiblePartIDs:Dictionary = Bodypart.findPossibleBodypartIDsDict(BodypartSlot.Vagina, theChar, theChar.getSpecies(), NpcGender.Female, true)
 	if(possiblePartIDs.has("")):
 		possiblePartIDs.erase("")
-	if(possiblePartIDs.empty()):
+	if(possiblePartIDs.is_empty()):
 		return {}
 	var newPartID:String = RNG.pickWeightedDict(possiblePartIDs)
 	addedVag = true

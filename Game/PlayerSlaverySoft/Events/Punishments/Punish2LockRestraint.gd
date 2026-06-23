@@ -9,7 +9,7 @@ func _init():
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
 	var allPossible := getPossibleLocks()
-	if(allPossible.empty()):
+	if(allPossible.is_empty()):
 		return false
 	
 	pickedLock = RNG.pick(allPossible)

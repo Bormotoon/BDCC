@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name TFResult
 
 var effects:Dictionary = {}

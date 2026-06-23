@@ -199,7 +199,7 @@ func _on_OpenFullButton_pressed():
 		currentBigWindow.queue_free()
 		currentBigWindow = null
 	
-	currentBigWindow = bigTextEditWindowScene.instance()
+	currentBigWindow = bigTextEditWindowScene.instantiate()
 	add_child(currentBigWindow)
 	
 	currentBigWindow.setText($MarginContainer/BigTextEdit/TextEdit.text)
@@ -223,7 +223,7 @@ func deleteBigWindow(_window):
 
 var mapLockerPickerWindowScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/MapLocPickerWindow.tscn")
 func _on_MapButton_pressed():
-	var newWindow = mapLockerPickerWindowScene.instance()
+	var newWindow = mapLockerPickerWindowScene.instantiate()
 	add_child(newWindow)
 	newWindow.setSelectedCell(str(rawValue))
 	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")
@@ -242,7 +242,7 @@ func onMapButtonCellSelected(window, cell):
 
 var advPickerScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/AdvancedPickingWindow.tscn")
 func _on_AdvancedPickerButton_pressed():
-	var newWindow = advPickerScene.instance()
+	var newWindow = advPickerScene.instantiate()
 	add_child(newWindow)
 	newWindow.setData({
 		value = rawValue,
@@ -264,7 +264,7 @@ func onAdvPickerConfirmPressed(window, value):
 
 var flagPickerScene = preload("res://Game/Datapacks/UI/CrotchCode/UI/FlagPickerWindow.tscn")
 func _on_FlagPickerButton_pressed():
-	var newWindow = flagPickerScene.instance()
+	var newWindow = flagPickerScene.instantiate()
 	add_child(newWindow)
 	newWindow.setFlag(str(rawValue))
 	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")

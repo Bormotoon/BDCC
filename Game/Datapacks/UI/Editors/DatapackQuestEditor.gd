@@ -61,7 +61,7 @@ func updateFlagList():
 	for varName in datapack.flags:
 		var varData = datapack.flags[varName]
 		
-		var newVarEntry = varListEntryScene.instance()
+		var newVarEntry = varListEntryScene.instantiate()
 		flag_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name LustAction
 
 var id = "error"

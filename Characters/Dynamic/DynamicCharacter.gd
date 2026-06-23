@@ -374,7 +374,7 @@ func saveData():
 			"data": bodyparts[slot].saveData(),
 		}
 	
-	if(!statusEffects.empty()):
+	if(!statusEffects.is_empty()):
 		data["statusEffects"] = saveStatusEffectsData()
 	data["inventory"] = inventory.saveData()
 	data["skills"] = skillsHolder.saveData()
@@ -383,9 +383,9 @@ func saveData():
 		data["menstrualCycle"] = menstrualCycle.saveData()
 	data["bodyFluids"] = bodyFluids.saveData()
 
-	if(!timedBuffs.empty()):
+	if(!timedBuffs.is_empty()):
 		data["timedBuffs"] = saveBuffsData(timedBuffs)
-	if(!timedBuffsTurns.empty()):
+	if(!timedBuffsTurns.is_empty()):
 		data["timedBuffsTurns"] = saveBuffsData(timedBuffsTurns)
 	
 	
@@ -442,13 +442,13 @@ func loadData(data):
 	consciousness = SAVE.loadVar(data, "consciousness", 1.0)
 	npcName = SAVE.loadVar(data, "npcName", "Error")
 	npcSpecies = SAVE.loadVar(data, "npcSpecies", ["canine"])
-	if(!npcSpecies.empty()):
+	if(!npcSpecies.is_empty()):
 		var specAm:int = npcSpecies.size()
 		for _i in range(npcSpecies.size()):
 			var _irev:int = specAm - _i - 1
 			if(!GlobalRegistry.getSpecies(npcSpecies[_irev])):
-				npcSpecies.remove(_irev)
-		if(npcSpecies.empty()):
+				npcSpecies.remove_at(_irev)
+		if(npcSpecies.is_empty()):
 			npcSpecies = ["canine"]
 	if(data.has("npcCustomSpeciesName")):
 		npcCustomSpeciesName = SAVE.loadVar(data, "npcCustomSpeciesName", "")
@@ -471,7 +471,7 @@ func loadData(data):
 		var possibleRandomAttacks:Array= ["simplekickattack", "shoveattack", "stretchingAttack", "lickWounds", "ShivAttack", "biteattack", "NpcScratch"]
 		for existingAttack in npcAttacks:
 			possibleRandomAttacks.erase(existingAttack)
-		while(_missingAttacks > 0 && !possibleRandomAttacks.empty()):
+		while(_missingAttacks > 0 && !possibleRandomAttacks.is_empty()):
 			npcAttacks.append(RNG.grab(possibleRandomAttacks))
 			_missingAttacks -= 1
 		
@@ -518,7 +518,7 @@ func loadData(data):
 		var thePartID:String = SAVE.loadVar(thePartEntry, "id", "")
 		var bodypart
 		
-		if(thePartID.empty() || !GlobalRegistry.getBodypartRef(thePartID)):
+		if(thePartID.is_empty() || !GlobalRegistry.getBodypartRef(thePartID)):
 			var replacementID = BodypartSlot.findReplacement(slot, thePartID, getSpecies(), getGender())
 			if(replacementID == null || replacementID == ""):
 				Log.printerr("Couldn't find an replacement bodypart for slot "+str(slot))
@@ -532,7 +532,7 @@ func loadData(data):
 			continue
 			
 		giveBodypart(bodypart, false)
-		if(!thePartEntry.empty()):
+		if(!thePartEntry.is_empty()):
 			bodypart.loadData(SAVE.loadVar(thePartEntry, "data", {}))
 	checkSkins(true)
 	

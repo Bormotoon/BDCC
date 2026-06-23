@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name MyProjectSettings
 
 # Reason for this class is that default ProjectSettings.save_custom() saves literally every setting while we only need these 2
@@ -38,4 +38,4 @@ func save():
 func resetToDefault():
 	var dir = Directory.new()
 	if(dir.file_exists(settingsPath)):
-		dir.remove(settingsPath)
+		dir.remove_at(settingsPath)

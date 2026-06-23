@@ -92,7 +92,7 @@ func generateFullPattern():
 		var patternFileName = RNG.pick(patternFolderFiles)
 		var pattern = load(patternFileName)
 		
-		var patternObject = pattern.instance()
+		var patternObject = pattern.instantiate()
 		$Patterns.add_child(patternObject)
 
 func calculateFullPatternData():
@@ -109,7 +109,7 @@ func _on_StartButton_pressed():
 	$StartUI.visible = false
 	$WinUI.visible = false
 
-	#var button = buttonScene.instance()
+	#var button = buttonScene.instantiate()
 	#button.position = get_global_mouse_position()
 	#$Buttons.add_child(button)
 	generateFullPattern()
@@ -156,7 +156,7 @@ func _on_NextButtonTimer_timeout():
 	
 	var data = patternObject.getData()
 	if(data["type"] == "button"):
-		var button = buttonScene.instance()
+		var button = buttonScene.instantiate()
 		var pos = data["position"]
 		if(shouldFlipV):
 			pos.y = 1.0 - pos.y

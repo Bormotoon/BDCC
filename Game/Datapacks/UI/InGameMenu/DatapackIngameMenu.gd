@@ -14,7 +14,7 @@ func updateList():
 	for datapackID in GlobalRegistry.getDatapacks():
 		var datapack:Datapack = GlobalRegistry.getDatapack(datapackID)
 		
-		var newEntry = entryScene.instance()
+		var newEntry = entryScene.instantiate()
 		entry_list.add_child(newEntry)
 		
 		newEntry.setNameLabel(datapack.getFancyName())
@@ -31,7 +31,7 @@ func updateList():
 		else:
 			if(GM.main.isDatapackLoaded(datapackID)):
 				newEntry.setIsLoaded(true)
-				newEntry.setCanUpdate(!datapack.characters.empty())
+				newEntry.setCanUpdate(!datapack.characters.is_empty())
 			else:
 				newEntry.setIsLoaded(false)
 				newEntry.setCanUpdate(false)
@@ -44,7 +44,7 @@ var datapackIDToUse = null
 func onDatapackUnloadPressed(datapackID):
 	var datapack:Datapack = GlobalRegistry.getDatapack(datapackID)
 	if(datapack != null):
-		if(!datapack.flags.empty()):
+		if(!datapack.flags.is_empty()):
 			datapackIDToUse = datapackID
 			keep_flags_window_dialog.popup_centered()
 			return

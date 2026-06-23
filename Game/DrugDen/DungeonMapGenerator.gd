@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DungeonMapGenerator
 
 var map:Dictionary = {} # Vector2 = {e=true,w=true,s=false,n=false}
@@ -37,7 +37,7 @@ func generate(theSettings:Dictionary):
 	# Generating main path
 	while(true):
 		var thePath:Array = generateStrand(startPos, mainPathLen, true)
-		if(thePath.empty()):
+		if(thePath.is_empty()):
 			map.clear()
 		else:
 			endPos = thePath.back()
@@ -89,7 +89,7 @@ func getRandomFreeCell(canStartStrand:bool = false) -> Vector2:
 		if(isCellImportant(thePos)):
 			continue
 		if(canStartStrand):
-			if(getDirsNoCell(thePos).empty()):
+			if(getDirsNoCell(thePos).is_empty()):
 				return Vector2()
 		return thePos
 	return Vector2()
@@ -106,7 +106,7 @@ func generateStrand(thePos:Vector2, strandLen:int, emptyOnFail:bool) -> Array:
 	while(result.size() < strandLen+1):
 		var possibleDirs:Array = getDirsNoCell(thePos)
 		
-		if(possibleDirs.empty()):
+		if(possibleDirs.is_empty()):
 			if(emptyOnFail):
 				return [] # We failed to generate a strand with the required length
 			return result

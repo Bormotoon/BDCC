@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name StatusEffectBase
 
 var id = "badstatuseffect"
@@ -148,6 +148,6 @@ func contextGetEnemyID(_context:Dictionary) -> String:
 
 func contextGetEnemy(_context:Dictionary):
 	var theEnemyID:String = contextGetEnemyID(_context)
-	if(theEnemyID.empty()):
+	if(theEnemyID.is_empty()):
 		return null
 	return GlobalRegistry.getCharacter(theEnemyID)

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name AuctionAction
 
 var id:String = "error"
@@ -175,7 +175,7 @@ func isEmphasizeAction() -> bool:
 func getNameFromTraits() -> String:
 	var theTraits:Dictionary = getTraits()
 	
-	if(theTraits.empty()):
+	if(theTraits.is_empty()):
 		return "ERROR??"
 	
 	var traitID:String = theTraits.keys()[0]

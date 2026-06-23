@@ -21,67 +21,67 @@ func setVariables(_data:Dictionary):
 		var newWidget
 		
 		if(type == "string"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StringVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StringVarUI.tscn").instantiate()
 		elif(type == "bigString"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BigStringVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BigStringVarUI.tscn").instantiate()
 		elif(type == "editor"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EditorVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EditorVarUI.tscn").instantiate()
 		elif(type == "bodyparts"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartsVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartsVarUI.tscn").instantiate()
 		elif(type == "bodypart"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartSingleVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartSingleVarUI.tscn").instantiate()
 		elif(type == "skin"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SkinVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SkinVarUI.tscn").instantiate()
 		elif(type == "number"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/NumberVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/NumberVarUI.tscn").instantiate()
 		elif(type == "selector"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SelectorVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SelectorVarUI.tscn").instantiate()
 		elif(type == "equippedItems"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EquippedItemsVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EquippedItemsVarUI.tscn").instantiate()
 		elif(type == "equippedItem"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EquipItemVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/EquipItemVarUI.tscn").instantiate()
 		elif(type == "addRemoveList"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AddRemoveListVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AddRemoveListVarUI.tscn").instantiate()
 		elif(type == "color"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/ColorVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/ColorVarUI.tscn").instantiate()
 		elif(type == "checkbox"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/CheckboxVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/CheckboxVarUI.tscn").instantiate()
 		elif(type == "personality"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/PersonalityVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/PersonalityVarUI.tscn").instantiate()
 		elif(type == "personalityStat"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/PersonalityStatVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/PersonalityStatVarUI.tscn").instantiate()
 		elif(type == "fetishes"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/FetishMapVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/FetishMapVarUI.tscn").instantiate()
 		elif(type == "fetishSingle"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/FetishSingleVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/FetishSingleVarUI.tscn").instantiate()
 		elif(type == "likesDislikes"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LikesDislikesMapVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LikesDislikesMapVarUI.tscn").instantiate()
 		elif(type == "likesDislikesSingle"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LikesDislikesSingleVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LikesDislikesSingleVarUI.tscn").instantiate()
 		elif(type == "stats"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StatsVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StatsVarUI.tscn").instantiate()
 		elif(type == "statSingle"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StatSingleVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StatSingleVarUI.tscn").instantiate()
 		elif(type == "image"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/ImageVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/ImageVarUI.tscn").instantiate()
 		elif(type == "skinTypeWeights"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SkinTypeWeightsVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/SkinTypeWeightsVarUI.tscn").instantiate()
 		elif(type == "lootTable"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/DropTableVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/DropTableVarUI.tscn").instantiate()
 		elif(type == "location"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LocationVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/LocationVarUI.tscn").instantiate()
 		elif(type == "advancedSelector"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AdvancedSelectorVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AdvancedSelectorVarUI.tscn").instantiate()
 		elif(type == "autoSelector"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AutoSelectorVarUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/AutoSelectorVarUI.tscn").instantiate()
 		elif(type == "stringID"):
-			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StringVarIDUI.tscn").instance()
+			newWidget = preload("res://Game/Datapacks/UI/PackVarUIs/StringVarIDUI.tscn").instantiate()
 		else:
 			Log.printerr("Unknown var type found: "+str(type))
 
 		if(newWidget != null):
 			if(dataLine.has("collapsable") && dataLine["collapsable"]):
-				var newCollapse = collapseRegionScene.instance()
+				var newCollapse = collapseRegionScene.instantiate()
 				add_child(newCollapse)
 				newCollapse.setText(dataLine["name"] if dataLine.has("name") else dataID)
 				newCollapse.addToRegion(newWidget)

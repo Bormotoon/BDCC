@@ -102,7 +102,7 @@ func _on_RemoveButton_pressed():
 	if(selectedDelItemIndex < 0 || selectedDelItemIndex >= addedValues.size()):
 		return
 	
-	addedValues.remove(selectedDelItemIndex)
+	addedValues.remove_at(selectedDelItemIndex)
 	updateAddedValues()
 	triggerChange(addedValues.duplicate())
 

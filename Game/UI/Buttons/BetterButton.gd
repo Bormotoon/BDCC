@@ -31,16 +31,16 @@ func _ready():
 	
 	updateButtonSize()
 	
-	if(!text.empty() && myButtonText.empty()):
+	if(!text.is_empty() && myButtonText.is_empty()):
 		myButtonText = text
 	text = " "
 	
-	if(!hint_tooltip.empty() && myTooltipDesc.empty()):
+	if(!hint_tooltip.is_empty() && myTooltipDesc.is_empty()):
 		myTooltipDesc = hint_tooltip
 	hint_tooltip = ""
 	updateButtonText()
 	
-	if(!myShortcutKey.empty()):
+	if(!myShortcutKey.is_empty()):
 		setShortcutPhysicalScancode(OS.find_scancode_from_string(myShortcutKey), myShortcutCtrl)
 	checkDisabled()
 	
@@ -88,9 +88,9 @@ func _on_BetterButton_mouse_exited():
 	hideTooltip()
 
 func showTooltip():
-	if(myTooltipName.empty() && myTooltipDesc.empty()):
+	if(myTooltipName.is_empty() && myTooltipDesc.is_empty()):
 		return
-	GlobalTooltip.showTooltip(self, myTooltipName if !myTooltipName.empty() else myButtonText, myTooltipDesc, false, !instantTooltip)
+	GlobalTooltip.showTooltip(self, myTooltipName if !myTooltipName.is_empty() else myButtonText, myTooltipDesc, false, !instantTooltip)
 
 func hideTooltip():
 	GlobalTooltip.hideTooltip(self)
@@ -98,7 +98,7 @@ func hideTooltip():
 func setTooltipText(_name:String, _desc:String):
 	myTooltipName = _name
 	myTooltipDesc = _name
-	GlobalTooltip.setTooltipText(self, myTooltipName if !myTooltipName.empty() else myButtonText, myTooltipDesc)
+	GlobalTooltip.setTooltipText(self, myTooltipName if !myTooltipName.is_empty() else myButtonText, myTooltipDesc)
 
 
 func _on_BetterButton_pressed():

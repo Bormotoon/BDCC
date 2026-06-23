@@ -79,19 +79,19 @@ func constructTemplate():
 			currentHBox.add_child(newLabel)
 			newLabel.text = templateLine["text"]
 		if(templateType == "rawstring"):
-			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawString.tscn").instance()
+			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawString.tscn").instantiate()
 			currentHBox.add_child(newRawString)
 			newRawString.setValue(templateLine["value"])
 			newRawString.id = templateLine["id"]
 			newRawString.connect("onValueChanged", codeBlock, "applyRawValue")
 		if(templateType == "rawint"):
-			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawInt.tscn").instance()
+			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawInt.tscn").instantiate()
 			currentHBox.add_child(newRawString)
 			newRawString.setValue(templateLine["value"])
 			newRawString.id = templateLine["id"]
 			newRawString.connect("onValueChanged", codeBlock, "applyRawValue")
 		if(templateType == "rawselector"):
-			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawSelector.tscn").instance()
+			var newRawString = preload("res://Game/Datapacks/UI/CrotchCode/VisualSlots/VisRawSelector.tscn").instantiate()
 			currentHBox.add_child(newRawString)
 			newRawString.setValueAndValues(templateLine["value"], templateLine["values"])
 			newRawString.id = templateLine["id"]

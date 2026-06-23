@@ -56,13 +56,13 @@ func updateSources():
 	
 	for moduleID in GlobalRegistry.getModules():
 		var theModule = GlobalRegistry.getModule(moduleID)
-		if(!theModule.getFlagsCache().empty()):
+		if(!theModule.getFlagsCache().is_empty()):
 			sources.append([moduleID, "m"])
 	
 	for datapackID in GlobalRegistry.getDatapacks():
 		var theDatapack:Datapack = GlobalRegistry.getDatapack(datapackID)
 		
-		if(!theDatapack.flags.empty()):
+		if(!theDatapack.flags.is_empty()):
 			sources.append([datapackID, "d"])
 	
 	updateSourcesList()

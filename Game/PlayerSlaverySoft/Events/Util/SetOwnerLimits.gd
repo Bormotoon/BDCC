@@ -58,7 +58,7 @@ func start_do(_id:String, _args:Array):
 		else:
 			pickedSexLimits.append(theLimitID)
 	if(_id == "confirm"):
-		if(pickedSexLimits.empty()):
+		if(pickedSexLimits.is_empty()):
 			endEvent()
 			return
 		

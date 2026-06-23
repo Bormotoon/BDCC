@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name EggLaid
 
 var type:int = BigEggType.Plant
@@ -29,7 +29,7 @@ func getEggDescription() -> String:
 	if(type == BigEggType.Unfertilized):
 		return "This egg wasn't fertilized. It contains no DNA and is therefore useless."+byWho
 	
-	if(data.empty()):
+	if(data.is_empty()):
 		return "Unknown egg"+byWho
 	
 	var result:String = ""
@@ -48,12 +48,12 @@ func getEggDescription() -> String:
 	return result+byWho
 
 func isPCMother() -> bool:
-	if(data.empty()):
+	if(data.is_empty()):
 		return false
 	return data.get("motherID", "") == "pc"
 
 func isPCFather() -> bool:
-	if(data.empty()):
+	if(data.is_empty()):
 		return false
 	return data.get("fatherID", "") == "pc"
 
@@ -118,7 +118,7 @@ func createItem():
 	return genericEgg
 
 func isOffspringEgg() -> bool:
-	return type == BigEggType.Fertilized && !data.empty()
+	return type == BigEggType.Fertilized && !data.is_empty()
 
 func canSellEgg() -> bool:
 	if(isOffspringEgg()):
@@ -164,7 +164,7 @@ static func generateEggReport(_eggs:Array) -> Array:
 			continue
 		
 		var theReport:String = theEgg.generateReportLine()
-		result.append("- 1x"+theEgg.getName()+((": "+theReport) if !theReport.empty() else ""))
+		result.append("- 1x"+theEgg.getName()+((": "+theReport) if !theReport.is_empty() else ""))
 	
 	for eggType in eggAmountByType:
 		var theAm:int = eggAmountByType[eggType]
@@ -191,13 +191,13 @@ static func generateOneLineList(_eggs:Array) -> String:
 
 func tryGetMainSpeciesID() -> String:
 	var theSpecies: Array = data.get("resultSpecies", [])
-	if(theSpecies.empty()):
+	if(theSpecies.is_empty()):
 		return ""
 	return theSpecies[0]
 
 func tryGetMainSpecies():
 	var theSpeciesID:String = tryGetMainSpeciesID()
-	if(theSpeciesID.empty()):
+	if(theSpeciesID.is_empty()):
 		return null
 	return GlobalRegistry.getSpecies(theSpeciesID)
 
@@ -251,7 +251,7 @@ func getEggItemColor() -> Color:
 	return laidColor
 
 func createEggCell() -> EggCell:
-	if(data.empty()):
+	if(data.is_empty()):
 		var newEggCell := EggCell.new()
 		newEggCell.bigEgg = true
 		newEggCell.bigEggType = type

@@ -517,7 +517,7 @@ func checkEvent(_scene, _loc:String) -> Array:
 	
 	if(_loc == LOC_IMPORTANT):
 		var theSci := getPendingScientistScene()
-		if(!theSci.empty() && didScientistsApproach()):
+		if(!theSci.is_empty() && didScientistsApproach()):
 			return [theSci]
 	
 	#if(_loc == LOC_SHOWER):
@@ -525,7 +525,7 @@ func checkEvent(_scene, _loc:String) -> Array:
 	return []
 
 func shouldScientistsApproach() -> bool:
-	if(!getPendingScientistScene().empty()):
+	if(!getPendingScientistScene().is_empty()):
 		return true
 	return false
 
@@ -622,12 +622,12 @@ func shouldDisplayWarningAboveMonster() -> bool:
 	return false
 
 func getAngryReason() -> String:
-	if(angryReason.empty()):
+	if(angryReason.is_empty()):
 		return "didn't spend time with it"
 	return angryReason
 
 func hasEvent() -> bool:
-	return !eventScene.empty()
+	return !eventScene.is_empty()
 
 func getEventExtraWeight(_eventID:int) -> float:
 	if(_eventID == EVENT_WINDOW):
@@ -672,8 +672,8 @@ func getPossibleEvents() -> Array:
 	for _i in range(thePS):
 		var _indx:int = thePS - 1 - _i
 		if(possible[_indx][0] == lastEventType && RNG.chance(150.0 - weights[_indx]*50.0)):
-			possible.remove(_indx)
-			weights.remove(_indx)
+			possible.remove_at(_indx)
+			weights.remove_at(_indx)
 	return [possible, weights]
 
 func processTurn():
@@ -691,7 +691,7 @@ func processTurn():
 				eventNeed = 0
 				
 				var theAllEventsAndWeights := getPossibleEvents()
-				if(!theAllEventsAndWeights.empty()):
+				if(!theAllEventsAndWeights.is_empty()):
 					var theAllEvents:Array = theAllEventsAndWeights[0]
 					var theAllWeights:Array = theAllEventsAndWeights[1]
 					
@@ -702,7 +702,7 @@ func processTurn():
 		
 		if(isAngry):
 			monsterLoc = goToSlow(monsterLoc, GM.pc.getLocation())
-		elif(!eventTarget.empty()):
+		elif(!eventTarget.is_empty()):
 			if(monsterLoc == eventTarget):
 				eventGiveupTimer += 1
 				if(eventGiveupTimer >= 6 && RNG.chance(33)):
@@ -714,7 +714,7 @@ func processTurn():
 		elif(monsterLoc == monsterTarget):
 			monsterTarget = RNG.pick([LOC_BED, LOC_FRIDGE, LOC_IMPORTANT, LOC_PLAY, LOC_SHOWER, LOC_WINDOW])
 		else:
-			if(!monsterTarget.empty()):
+			if(!monsterTarget.is_empty()):
 				monsterLoc = goToSlow(monsterLoc, monsterTarget)
 		
 	updateIcons()
@@ -726,23 +726,23 @@ func doTurn():
 	processTurn()
 
 func afterWalkCheck():
-	if(didScientistsApproach() && !getPendingScientistScene().empty()):
+	if(didScientistsApproach() && !getPendingScientistScene().is_empty()):
 		GM.main.addMessage("You hear knocking on the glass..")
 
 func goToSlow(_startLoc:String, theTargetLoc:String) -> String:
 	if(theTargetLoc == "pc"):
 		theTargetLoc = GM.pc.getLocation()
-	if(theTargetLoc.empty()):
+	if(theTargetLoc.is_empty()):
 		Log.printerr("EMPTY TARGET LOC")
 		return _startLoc
 	if(_startLoc == theTargetLoc):
 		return theTargetLoc
 	
 	var path:Array = GM.world.calculatePath(_startLoc, theTargetLoc)
-	if(!path.empty() && path[0] == _startLoc):
+	if(!path.is_empty() && path[0] == _startLoc):
 		path.pop_front()
 	
-	if(path.empty()):
+	if(path.is_empty()):
 		return theTargetLoc
 	
 	return path[0]
@@ -836,7 +836,7 @@ func setEvent(_eventType:int, _targetLoc:String, _scene:String, _args:Array = []
 	eventGiveupTimer = 0
 
 func getCurrentEvent() -> int:
-	if(!eventScene.empty()):
+	if(!eventScene.is_empty()):
 		return lastEventType
 	return -1
 
@@ -854,7 +854,7 @@ func addMonsterNameButtons(_scene:SceneBase):
 func setMonsterName(_n:String):
 	monsterName = _n
 func getMonsterName() -> String:
-	if(monsterName.empty()):
+	if(monsterName.is_empty()):
 		return DEFAULT_MONSTER_NAME
 	return monsterName
 
@@ -905,7 +905,7 @@ func talk(_text:String):
 	# 9-10 - perfect
 	
 	var _theText:String = processTalkText(_text)
-	if(_theText.empty()):
+	if(_theText.is_empty()):
 		return
 	_scene.saynn("[say="+getTentaclesCharID()+"]"+_theText+"[/say]")
 

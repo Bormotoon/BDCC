@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NpcOwnerEventRunner
 
 var ownerID:String = ""
@@ -24,13 +24,13 @@ func getNpcOwner() -> NpcOwnerBase:
 
 #Checks only the 'current' event
 func getAllInvolvedCharIDs() -> Array:
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return []
 	return eventStack.back().getAllInvolvedCharIDs()
 
 #Checks all the events
 func getAllEventsInvolvedCharIDs() -> Array:
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return []
 	var result:Array = [getOwnerID()]
 	for theEvent in eventStack:
@@ -62,7 +62,7 @@ func setLocation(_loc:String):
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
 		return ownerID
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return
 	return eventStack.back().resolveCustomCharacterName(_charID)
 
@@ -95,19 +95,19 @@ func removeEndedEvent(_event, _args:Array):
 			if(thePawn.getInteraction() && thePawn.getInteraction().id == "InNpcOwnerEvent"):
 				thePawn.getInteraction().stopMe()
 	
-	if(!eventStack.empty()):
+	if(!eventStack.is_empty()):
 		var newCurrent = eventStack.back()
 		newCurrent.reactEnded(_event, eventTag, _args)
 
 func getCurrentEvent():
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return null
 	return eventStack.back()
 
 func run():
 	texts.clear()
 	buttons.clear()
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		Log.printerr("NO EVENTS IN THE EVENT RUNNER!")
 		return
 	getCurrentEvent().runCurrentState()
@@ -116,7 +116,7 @@ func saynn(_text:String):
 	texts.append(_text)
 
 func sayAppend(_text:String):
-	if(texts.empty()):
+	if(texts.is_empty()):
 		texts.append(_text)
 	else:
 		texts[texts.size()-1] += " "+_text
@@ -140,10 +140,10 @@ func getFinalActions() -> Array:
 	return buttons
 
 func shouldEnd() -> bool:
-	return eventStack.empty() || shouldStop
+	return eventStack.is_empty() || shouldStop
 
 func doAction(_action:Array) -> Array:
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		Log.printerr("NO EVENTS IN THE EVENT RUNNER!")
 		return [NpcOwnerActionType.NOTHING]
 	return getCurrentEvent().doAction(_action[2], _action[3])
@@ -166,17 +166,17 @@ func onRunnerStop():
 				thePawn.getInteraction().stopMe()
 
 func getDebugActions() -> Array:
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return []
 	return eventStack.back().getDebugActions()
 
 func doDebugAction(_id, _args = {}):
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return
 	eventStack.back().doDebugAction(_id, _args)
 
 func isPlayerOnALeash() -> bool:
-	if(eventStack.empty()):
+	if(eventStack.is_empty()):
 		return false
 	return eventStack.back().isPlayerOnALeash()
 

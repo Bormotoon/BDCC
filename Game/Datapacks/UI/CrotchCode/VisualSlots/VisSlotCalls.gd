@@ -48,7 +48,7 @@ func updateLittleAdders():
 	for block in slotCalls.getBlocks():
 		var blockVisualNode = blockToVisualBlock[block]
 		
-		var newSmallAdder = smallCatchPanel.instance()
+		var newSmallAdder = smallCatchPanel.instantiate()
 		blocks_list.add_child(newSmallAdder)
 		blocks_list.move_child(newSmallAdder, blockVisualNode.get_index())
 		newSmallAdder.dropIndex = _i
@@ -57,7 +57,7 @@ func updateLittleAdders():
 		_i += 1
 
 func addVisBlockToList(theCodeBlock, index):
-	var newVisualBlock = preload("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instance()
+	var newVisualBlock = preload("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instantiate()
 	newVisualBlock.editor = editor
 	var _cm = blocks_list.get_child_count()
 	blocks_list.add_child(newVisualBlock)

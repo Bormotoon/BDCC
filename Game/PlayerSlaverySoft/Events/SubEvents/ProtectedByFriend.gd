@@ -9,10 +9,10 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	if(didPCCancelHelp()):
 		return false
 	var allFrens:Array= _event.getFreeFriendsIDsNearby(true, _context)
-	if(allFrens.empty()):
+	if(allFrens.is_empty()):
 		if(RNG.chance(_event.getNearbyCheckAllChance())):
 			allFrens = _event.getFreeFriendsIDs(true, _context)
-			if(allFrens.empty()):
+			if(allFrens.is_empty()):
 				return false
 		else:
 			return false

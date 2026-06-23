@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name LightInventory
 # Just a simple item storage. No equipped items support. Also is a reference instead of a node
 
@@ -121,7 +121,7 @@ func getItemsWithTag(tag:String) -> Array:
 	return result
 
 func isEmpty() -> bool:
-	return items.empty()
+	return items.is_empty()
 
 func getCharacter():
 	return null

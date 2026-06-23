@@ -40,7 +40,7 @@ func _run():
 		addButton("Back", "Go back", "endthescene")
 	
 	if(state == "pick_chatcolor"):
-		var colorPicker = colorPickerScene.instance()
+		var colorPicker = colorPickerScene.instantiate()
 		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 		colorPicker.setCurrentColor(npc.getChatColor())
 			

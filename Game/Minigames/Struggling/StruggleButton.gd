@@ -29,7 +29,7 @@ func _process(delta: float):
 		gotHit(true)
 
 func spawnHitEffect():
-	var hitEffect = hitEffectScene.instance()
+	var hitEffect = hitEffectScene.instantiate()
 	get_parent().add_child(hitEffect)
 	hitEffect.global_position = global_position
 	return hitEffect

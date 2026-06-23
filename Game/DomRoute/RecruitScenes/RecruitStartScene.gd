@@ -26,7 +26,7 @@ func _run():
 	
 	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
 	var _presenterID:String = _recruit.getPresenterCharID()
-	var _hasPresenter:bool = !_presenterID.empty()
+	var _hasPresenter:bool = !_presenterID.is_empty()
 	if(state == ""):
 		if(_hasPresenter):
 			addCharacter(_presenterID)

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SlaveAuctionBidders
 
 var bidders:Array = []
@@ -32,13 +32,13 @@ func applyUpgradeEffects():
 			totalAmountUnlocked += 1
 
 func peekBidders() -> Array:
-	if(bidders.empty()):
+	if(bidders.is_empty()):
 		generateBidders()
 	applyUpgradeEffects()
 	return bidders
 
 func grabBidders() -> Array:
-	if(bidders.empty()):
+	if(bidders.is_empty()):
 		generateBidders()
 	applyUpgradeEffects()
 	

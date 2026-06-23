@@ -299,7 +299,7 @@ class Dude:
 		nuggets = SAVE.loadVar(_data, "nuggets", 0)
 	
 	func getTarget() -> String:
-		if(path.empty()):
+		if(path.is_empty()):
 			return ""
 		return path.back()
 		
@@ -308,12 +308,12 @@ class Dude:
 		if(theLoc == theTargetLoc):
 			return true
 		
-		if(path.empty() || path.back() != theTargetLoc):
+		if(path.is_empty() || path.back() != theTargetLoc):
 			path = GM.world.calculatePath(theLoc, theTargetLoc)
-			if(!path.empty() && path[0] == loc):
+			if(!path.is_empty() && path[0] == loc):
 				path.pop_front()
 		
-		if(path.empty()):
+		if(path.is_empty()):
 			Log.printerr("Dude path is empty, something is wrong!")
 			return false
 		
@@ -408,7 +408,7 @@ func dudeGetFreeMiningSpot() -> String:
 				break
 		if(_canPick):
 			return theLoc
-	if(hasOreLocs.empty()):
+	if(hasOreLocs.is_empty()):
 		return ""
 	return RNG.pick(hasOreLocs)
 		
@@ -477,7 +477,7 @@ func processDude(dude:Dude):
 		
 		var theTarget:String = dude.getTarget()
 		if(theTarget == "" || !hasNuggetsIn(theTarget)):
-			if(canPickup && !nuggets.empty() && dude.energyUsed < 7):
+			if(canPickup && !nuggets.is_empty() && dude.energyUsed < 7):
 				theTarget = RNG.pick(nuggets)[1]
 		if(theTarget == ""):
 			dude.goHome()
@@ -854,7 +854,7 @@ func removeNugget(_id:String):
 	for nuggetEntry in nuggets:
 		if(nuggetEntry[0] == _id):
 			GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
-			nuggets.remove(_i)
+			nuggets.remove_at(_i)
 			return
 		_i += 1
 
@@ -863,7 +863,7 @@ func removeNuggetIn(_loc:String):
 	for nuggetEntry in nuggets:
 		if(nuggetEntry[1] == _loc):
 			GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
-			nuggets.remove(_i)
+			nuggets.remove_at(_i)
 			return
 		_i += 1
 

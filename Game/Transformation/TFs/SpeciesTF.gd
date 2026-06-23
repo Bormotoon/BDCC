@@ -106,7 +106,7 @@ func hasAnySlotsLeftToTranform() -> bool:
 		var possiblePartIDs:Dictionary = Bodypart.findPossibleBodypartIDsDict(bodypartSlot, theChar, newSpecies, null, true)
 		if(!allowsRemoving && possiblePartIDs.has("") && theChar.hasBodypart(bodypartSlot)):
 			possiblePartIDs.erase("")
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			continue
 		
 		var currentBodypart:Bodypart = theChar.getBodypart(bodypartSlot)
@@ -143,7 +143,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		var possiblePartIDs:Dictionary = Bodypart.findPossibleBodypartIDsDict(bodypartSlot, theChar, newSpecies, null, true)
 		if(!allowsRemoving && possiblePartIDs.has("") && theChar.hasBodypart(bodypartSlot)):
 			possiblePartIDs.erase("")
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			continue
 		
 		var currentBodypart:Bodypart = theChar.getBodypart(bodypartSlot)

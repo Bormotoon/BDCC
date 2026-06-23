@@ -43,7 +43,7 @@ func getPillFluidsRequired() -> Dictionary:
 #	return 0.0
 
 func isPossibleFor(_char) -> bool:
-	if(getPossibleSteps(_char).empty()):
+	if(getPossibleSteps(_char).is_empty()):
 		return false
 	return true
 
@@ -130,7 +130,7 @@ func getPossibleSteps(_char:BaseCharacter) -> Array:
 		elif(!_char.hasVagina() && !addedVag):
 			result.append("growvag")
 	
-	if(result.empty() && _char.getFemininity() < 100):
+	if(result.is_empty() && _char.getFemininity() < 100):
 		if(_char.getFemininity() < 45):
 			result.append("femincmale")
 		else:
@@ -139,7 +139,7 @@ func getPossibleSteps(_char:BaseCharacter) -> Array:
 	return result
 
 func canTransformFurther() -> bool:
-	if(!getPossibleSteps(getChar()).empty()):
+	if(!getPossibleSteps(getChar()).is_empty()):
 		return true
 	return false
 	
@@ -150,7 +150,7 @@ func getTimerForStage(_theStage:int) -> int:
 	
 func doProgress(_context:Dictionary) -> Dictionary:
 	var allSteps:Array = getPossibleSteps(getChar())
-	if(allSteps.empty()):
+	if(allSteps.is_empty()):
 		return {}
 	var nextStep:String = RNG.pick(allSteps)
 	
@@ -200,7 +200,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		
 		var theChar = getChar()
 		var possiblePartIDs:Dictionary = Bodypart.findPossibleBodypartIDsDict(BodypartSlot.Hair, theChar, theChar.getSpecies(), NpcGender.Female, true)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 		var newPartID:String = RNG.pickWeightedDict(possiblePartIDs)
 		return {

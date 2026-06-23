@@ -58,7 +58,7 @@ func updateModList(datapacksArray = allDatapacks):
 	visualModEntries.clear()
 	Util.delete_children(modList)
 	for modEntry in datapacksArray:
-		var newBrowserEntry = datapackEntryScene.instance()
+		var newBrowserEntry = datapackEntryScene.instantiate()
 		modList.add_child(newBrowserEntry)
 		newBrowserEntry.id = modEntry["id"]
 		datapackLinks[modEntry["id"]] = true
@@ -162,7 +162,7 @@ func updatePickedModEntry():
 		text += "Author: "+str(pickedModEntry["author"])+"\n"
 		text += "Version: "+str(pickedModEntry["version"])+"\n"
 		text += "Filesize: "+ String.humanize_size(pickedModEntry["filesize"])+"\n"
-		if(!pickedModEntry["requiredMods"].empty() || !pickedModEntry["requiredDatapacks"].empty()):
+		if(!pickedModEntry["requiredMods"].is_empty() || !pickedModEntry["requiredDatapacks"].is_empty()):
 			text += Datapack.getRequiredModsStringStatic(pickedModEntry["requiredMods"], pickedModEntry["requiredDatapacks"], pickedModEntry["reqDatapackToName"], datapackLinks) + "\n"
 		text += ""+str(pickedModEntry["contains"])+"\n"
 		#text += "Mod version: "+str(pickedModEntry.modversion)+"\n"

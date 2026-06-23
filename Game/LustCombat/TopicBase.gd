@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name TopicBase
 
 # One object for each topic would be too much strain, all topics in one object would be too messy. My solution is to group them into a few objects

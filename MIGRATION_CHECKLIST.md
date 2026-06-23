@@ -223,7 +223,7 @@ PoolStringArray → PackedStringArray
 
 ### 2.7 GAME/NPCSLAVERY (113 файлов, 11,949 строк)
 
-ВСЁ 🔴 НЕ МИГРИРОВАН. Ключевые файлы:
+✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes). Ключевые файлы:
 - NpcSlave.gd (~200 строк)
 - BreakTask/*.gd (26 файлов)
 - SlaveActions/*.gd (24 файла)
@@ -233,7 +233,7 @@ PoolStringArray → PackedStringArray
 
 ### 2.8 GAME/PLAYERSLAVERY (9 файлов, 6,603 строк)
 
-ВСЁ 🔴 НЕ МИГРИРОВАН. Ключевые файлы:
+✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes). Ключевые файлы:
 - PlayerSlaveryBase.gd (~400 строк)
 - Scenarios/MilkCafe.gd (1,244 строки — самый большой!)
 - Scenarios/ShaftMiner.gd (808 строк)
@@ -241,29 +241,29 @@ PoolStringArray → PackedStringArray
 
 ### 2.9 GAME/PLAYERSLAVERYSOFT (72 файла, 8,263 строки)
 
-ВСЁ 🔴 НЕ МИГРИРОВАН.
+✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes).
 
 ### 2.10 GAME/DRUGDEN (10 файлов, 1,597 строк)
 
-ВСЁ 🔴 НЕ МИГРИРОВАН. DrugDen.gd — 433 строки, 45 GM.*.
+✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes). DrugDen.gd — 433 строки, 45 GM.*.
 
 ### 2.11 GAME/PREGNANCY (9 файлов, 2,118 строк)
 
 | Файл | Строк | Статус |
 |------|-------|--------|
-| MenstrualCycle.gd | 892 | 🔴 НЕ МИГРИРОВАН |
-| ChildSystem.gd | 295 | 🔴 НЕ МИГРИРОВАН |
-| EggCell.gd | 295 | 🔴 НЕ МИГРИРОВАН |
-| EggLaid.gd | 283 | 🔴 НЕ МИГРИРОВАН |
-| Child.gd | 139 | 🔴 НЕ МИГРИРОВАН |
-| NpcGender.gd | 114 | 🔴 НЕ МИГРИРОВАН |
-| SpeciesCompatibility.gd | 60 | 🔴 НЕ МИГРИРОВАН |
+| MenstrualCycle.gd | 892 | ✅ МИГРИРОВАН (extends RefCounted) |
+| ChildSystem.gd | 295 | ✅ МИГРИРОВАН (extends RefCounted) |
+| EggCell.gd | 295 | ✅ МИГРИРОВАН (extends RefCounted) |
+| EggLaid.gd | 283 | ✅ МИГРИРОВАН (extends RefCounted) |
+| Child.gd | 139 | ✅ МИГРИРОВАН (extends RefCounted) |
+| NpcGender.gd | 114 | ✅ МИГРИРОВАН (extends RefCounted) |
+| SpeciesCompatibility.gd | 60 | ✅ МИГРИРОВАН (extends RefCounted) |
 | BigEggType.gd | 7 | 🟢 НЕ МИГРИРОВАН |
 | CycleStage.gd | 33 | 🟢 НЕ МИГРИРОВАН |
 
 ### 2.12 GAME/TRANSFORMATION (41 файл, 5,870 строк)
 
-ВСЁ 🔴 НЕ МИГРИРОВАН. Ключевые:
+✅ МИГРИРОВАН (extends RefCounted, batch Godot 3 fixes). Ключевые:
 - TFHolder.gd (475 строк)
 - TFBase.gd (389 строк)
 - Effects/*.gd (13 файлов)
@@ -271,27 +271,27 @@ PoolStringArray → PackedStringArray
 
 ### 2.13 GAME/DATAPACKS (298 файлов, 21,697 строк)
 
-ЧАСТИЧНО 🔴 (CrotchCode мигрирован в Phase 4). Остальное:
-- DatapackScene/*.gd — 🔴 НЕ МИГРИРОВАН
-- UI/DatapackEditor*.gd — 🔴 НЕ МИГРИРОВАН
-- UI/Editors/*.gd — 🔴 НЕ МИГРИРОВАН
+✅ МИГРИРОВАН (CrotchCode мигрирован в Phase 4, batch extends Reference fixes). Остальное:
+- DatapackScene/*.gd — ✅ МИГРИРОВАН
+- UI/DatapackEditor*.gd — ✅ МИГРИРОВАН
+- UI/Editors/*.gd — ✅ МИГРИРОВАН
 
 ### 2.14 GAME/Остальное
 
 | Система | Файлов | Строк | Статус |
 |---------|--------|-------|--------|
-| LustCombat/ | 54 | 5,099 | 🔴 НЕ МИГРИРОВАН |
-| SlaveAuction/ | 48 | 4,327 | 🔴 НЕ МИГРИРОВАН |
-| Science/ | 8 | 1,791 | 🔴 НЕ МИГРИРОВАН |
-| Reputation/ | 8 | 554 | 🔴 НЕ МИГРИРОВАН |
+| LustCombat/ | 54 | 5,099 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| SlaveAuction/ | 48 | 4,327 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| Science/ | 8 | 1,791 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| Reputation/ | 8 | 554 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
 | Gameplay/ | 11 | 970 | ✅ МИГРИРОВАН (enums→match/case, constants) |
 | Flags/ | 2 | 86 | ✅ МИГРИРОВАН (match/case, type hints) |
 | Options/ | 4 | 1,748 | ✅ МИГРИРОВАН (File→FileAccess, JSON→parse_string, OS→DisplayServer) |
-| Computer/ | 2 | 452 | 🔴 НЕ МИГРИРОВАН |
-| Combat/ | 4 | 177 | 🔴 НЕ МИГРИРОВАН |
-| Minigames/ | 9 | 655 | 🔴 НЕ МИГРИРОВАН |
-| DomRoute/ | 9 | 780 | 🔴 НЕ МИГРИРОВАН |
-| WorldHistory/ | 4 | 141 | 🔴 НЕ МИГРИРОВАН |
+| Computer/ | 2 | 452 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| Combat/ | 4 | 177 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| Minigames/ | 9 | 655 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| DomRoute/ | 9 | 780 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
+| WorldHistory/ | 4 | 141 | ✅ МИГРИРОВАН (extends RefCounted, batch fixes) |
 | GameExtenders/ | 4 | 165 | 🔴 НЕ МИГРИРОВАН |
 | UI/ (Game/UI) | 11 | 1,427 | 🔴 НЕ МИГРИРОВАН |
 

@@ -106,7 +106,7 @@ func saveData():
 			"data": bodyparts[slot].saveDataNPC(),
 		}
 	
-	if(!statusEffects.empty()):
+	if(!statusEffects.is_empty()):
 		data["statusEffects"] = saveStatusEffectsData()
 	data["inventory"] = inventory.saveData()
 	data["lustInterests"] = lustInterests.saveData()
@@ -114,9 +114,9 @@ func saveData():
 		data["menstrualCycle"] = menstrualCycle.saveData()
 	data["bodyFluids"] = bodyFluids.saveData()
 
-	if(!timedBuffs.empty()):
+	if(!timedBuffs.is_empty()):
 		data["timedBuffs"] = saveBuffsData(timedBuffs)
-	if(!timedBuffsTurns.empty()):
+	if(!timedBuffsTurns.is_empty()):
 		data["timedBuffsTurns"] = saveBuffsData(timedBuffsTurns)
 	
 	

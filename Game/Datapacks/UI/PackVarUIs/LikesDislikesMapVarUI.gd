@@ -11,7 +11,7 @@ func updateMap():
 	
 	for lustTopicObject in GlobalRegistry.getLustTopicObjects():
 		for interestID in lustTopicObject.handles_ids:
-			var newFetishScene = fetishSingleScene.instance()
+			var newFetishScene = fetishSingleScene.instantiate()
 			$FetishMap.add_child(newFetishScene)
 			newFetishScene.id = interestID
 			newFetishScene.setData({

@@ -108,7 +108,7 @@ func updateSettings():
 		else:
 			availSkins = [""] + GlobalRegistry.getPartSkins(selectedPartID).keys()
 		
-		var skinScene = skinUIScene.instance()
+		var skinScene = skinUIScene.instantiate()
 		settings_list.add_child(skinScene)
 		skinScene.id = "skin"
 		skinScene.setData({
@@ -129,7 +129,7 @@ func updateSettings():
 			theValue = data["data"][attribID]
 		
 		if(attribData.has("floatinput") && attribData["floatinput"]):
-			var newNumberVar = numberVarUIScene.instance()
+			var newNumberVar = numberVarUIScene.instantiate()
 			settings_list.add_child(newNumberVar)
 			newNumberVar.id = attribID
 			newNumberVar.setData({
@@ -139,7 +139,7 @@ func updateSettings():
 			newNumberVar.connect("onValueChange", self, "onBodypartSettingChange")
 			continue
 	
-		var newSelectorVar = selectorVarUIScene.instance()
+		var newSelectorVar = selectorVarUIScene.instantiate()
 		settings_list.add_child(newSelectorVar)
 		newSelectorVar.id = attribID
 		newSelectorVar.setData({

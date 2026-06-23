@@ -11,7 +11,7 @@ var data = {}
 var packVars
 
 func _ready():
-	packVars = load("res://Game/Datapacks/UI/PackVariables.tscn").instance()
+	packVars = load("res://Game/Datapacks/UI/PackVariables.tscn").instantiate()
 	add_child(packVars)
 	packVars.addSeparators = false
 	var _ok = packVars.connect("onVariableChange", self, "_on_PackVariables_onVariableChange")

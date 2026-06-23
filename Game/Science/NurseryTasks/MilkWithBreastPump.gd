@@ -29,7 +29,7 @@ func generatePossibleTasks() -> Array:
 		var poolID:String = RNG.pick([CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Guards, CharacterPool.Nurses, CharacterPool.Engineers])
 		
 		var poolChars = GM.main.getDynamicCharacterIDsFromPool(poolID)
-		if(poolChars.empty()):
+		if(poolChars.is_empty()):
 			continue
 			
 		var randomDynamicCharID:String = RNG.pick(poolChars)

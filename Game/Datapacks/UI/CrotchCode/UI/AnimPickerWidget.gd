@@ -62,7 +62,7 @@ func updateAnimSettings():
 	if(animStage == null):
 		return
 	
-	var stateVar = animPickerSelectorScene.instance()
+	var stateVar = animPickerSelectorScene.instantiate()
 	anim_settings_list.add_child(stateVar)
 	stateVar.setData({
 		name = "State",
@@ -78,7 +78,7 @@ func updateAnimSettings():
 		for entryID in animData["data"]:
 			var theEntry = animData["data"][entryID]
 			
-			var newVarEntry = animPickerSelectorScene.instance()
+			var newVarEntry = animPickerSelectorScene.instantiate()
 			anim_settings_list.add_child(newVarEntry)
 			newVarEntry.id = entryID
 			newVarEntry.setData({

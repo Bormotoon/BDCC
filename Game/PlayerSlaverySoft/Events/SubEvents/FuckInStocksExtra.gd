@@ -9,7 +9,7 @@ func getSubEventScore(_event, _tag:String, _args:Array) -> float:
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
 	var theNearPawns := getFreePawnsNear(3)
-	if(theNearPawns.empty()):
+	if(theNearPawns.is_empty()):
 		return false
 	var thePickedPawn:CharacterPawn = RNG.pick(theNearPawns)
 	involveCharID(C_EXTRA1, thePickedPawn.charID)

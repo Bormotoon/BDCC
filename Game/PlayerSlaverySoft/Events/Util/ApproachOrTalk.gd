@@ -12,7 +12,7 @@ func onStart(_args:Array):
 	
 	if(shouldGetApproached):
 		var theEventData:Array = theNpcOwner.getApproachEvent()
-		if(!theEventData.empty()):
+		if(!theEventData.is_empty()):
 			runEvent("", theEventData[0], theEventData[1] if theEventData.size() > 1 else [])
 			return
 	

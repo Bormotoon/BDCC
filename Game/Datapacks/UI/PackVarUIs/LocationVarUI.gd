@@ -17,7 +17,7 @@ func setLocation(newLoc):
 	location_button.text = str(location)
 
 func _on_LocationButton_pressed():
-	var newWindow = mapLockerPickerWindowScene.instance()
+	var newWindow = mapLockerPickerWindowScene.instantiate()
 	add_child(newWindow)
 	newWindow.setSelectedCell(str(location))
 	newWindow.connect("onCancelPressed", self, "onMapButtonClosed")

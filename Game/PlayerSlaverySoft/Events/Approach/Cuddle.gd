@@ -338,7 +338,7 @@ func askedQuestion():
 	for theAnswer in theAnswers:
 		addButton(theAnswer[0], theAnswer[1], "pickAnswer", [_i])
 		_i += 1
-	if(theAnswers.empty()):
+	if(theAnswers.is_empty()):
 		addButton("Close", "Let the dev know!", "endEvent")
 	
 	#addContinue("endEvent")

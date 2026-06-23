@@ -28,7 +28,7 @@ func updateValues():
 	Util.delete_children(inv_list)
 	
 	for inventorySlot in InventorySlot.getAll():
-		var newSlot = singleSlotScene.instance()
+		var newSlot = singleSlotScene.instantiate()
 		inv_list.add_child(newSlot)
 		newSlot.setData({
 			"name": InventorySlot.getVisibleName(inventorySlot),

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DatapackScene
 
 var id:String = "error"
@@ -142,7 +142,7 @@ func loadImageVar(_data, thekey):
 		if(imageData is Image):
 			return imageData
 		elif(imageData is PoolByteArray):
-			if(imageData.empty()):
+			if(imageData.is_empty()):
 				return null
 			else:
 				var newIm = Image.new()

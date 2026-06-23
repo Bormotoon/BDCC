@@ -12,7 +12,7 @@ func triggerReact(args):
 	var eventsCopy = events.duplicate()
 	var weightsCopy = weights.duplicate()
 	
-	while(!eventsCopy.empty()):
+	while(!eventsCopy.is_empty()):
 		var event = RNG.grabWeighted(eventsCopy, weightsCopy)
 		if(event.react(id, args)):
 			return true

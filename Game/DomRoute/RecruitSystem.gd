@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name RecruitSystem
 
 var recruits:Dictionary = {}
@@ -24,7 +24,7 @@ func setCurrent(_id:String, _replayMode:bool = false) -> bool:
 	return true
 
 func hasCurrent() -> bool:
-	if(currentID.empty() || !recruits.has(currentID)):
+	if(currentID.is_empty() || !recruits.has(currentID)):
 		return false
 	return true
 

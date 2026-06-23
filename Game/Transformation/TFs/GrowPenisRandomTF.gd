@@ -108,7 +108,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			var currPenis:String = theChar.getBodypart(BodypartSlot.Penis).id
 			if(possiblePartIDs.has(currPenis)):
 				possiblePartIDs.erase(currPenis)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 		newPartID = RNG.pick(possiblePartIDs)
 	

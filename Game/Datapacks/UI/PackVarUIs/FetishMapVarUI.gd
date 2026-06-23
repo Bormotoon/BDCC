@@ -10,7 +10,7 @@ func updateMap():
 	Util.delete_children($FetishMap)
 	
 	for fetishID in GlobalRegistry.getFetishes():
-		var newFetishScene = fetishSingleScene.instance()
+		var newFetishScene = fetishSingleScene.instantiate()
 		$FetishMap.add_child(newFetishScene)
 		newFetishScene.id = fetishID
 		newFetishScene.setData({

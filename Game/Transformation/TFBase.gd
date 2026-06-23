@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name TFBase
 
 var id:String = "error"
@@ -81,7 +81,7 @@ func getPillOptions() -> Dictionary:
 	}
 
 func getPillCanConfigure() -> bool:
-	return !getPillOptions().empty()
+	return !getPillOptions().is_empty()
 
 func getPillDatabaseDesc() -> String:
 	return "FILL ME"

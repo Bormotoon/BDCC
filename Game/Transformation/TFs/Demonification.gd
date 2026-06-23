@@ -74,7 +74,7 @@ func canTransformFurther() -> bool:
 func doProgress(_context:Dictionary) -> Dictionary:
 	var result:Dictionary = .doProgress(_context)
 	
-	if(!result.empty()):
+	if(!result.is_empty()):
 		return result
 	
 	var theChar:BaseCharacter = getChar()

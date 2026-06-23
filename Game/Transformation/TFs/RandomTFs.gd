@@ -42,7 +42,7 @@ func getPillFluidsRequired() -> Dictionary:
 #	return 0.0
 
 func isPossibleFor(_char) -> bool:
-	if(getPossibleSteps(_char).empty()):
+	if(getPossibleSteps(_char).is_empty()):
 		return false
 	return true
 
@@ -89,7 +89,7 @@ func getPossibleSteps(_char:BaseCharacter) -> Array:
 	return result
 
 func canTransformFurther() -> bool:
-	if(!getPossibleSteps(getChar()).empty()):
+	if(!getPossibleSteps(getChar()).is_empty()):
 		return true
 	return false
 	
@@ -105,7 +105,7 @@ func getTimerForStage(_theStage:int) -> int:
 	
 func doProgress(_context:Dictionary) -> Dictionary:
 	var allSteps:Array = getPossibleSteps(getChar())
-	if(allSteps.empty()):
+	if(allSteps.is_empty()):
 		return {}
 	var nextStep:String = RNG.pick(allSteps)
 	lastStep = nextStep
@@ -131,7 +131,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			var currentPart:String = theChar.getBodypart(BodypartSlot.Hair).id
 			if(possiblePartIDs.has(currentPart)):
 				possiblePartIDs.erase(currentPart)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 
 		var newPartID:String = RNG.pickWeightedDict(possiblePartIDs)
@@ -158,7 +158,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			var currPenis:String = theChar.getBodypart(slot).id
 			if(possiblePartIDs.has(currPenis)):
 				possiblePartIDs.erase(currPenis)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 		var newPartID:String = RNG.pick(possiblePartIDs)
 		

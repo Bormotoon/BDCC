@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SimpleStringInterpolator
 
 const LEX_TEXT = 0
@@ -51,7 +51,7 @@ func process(_text:String, variablesObject) -> String:
 	var secondVarLex = null
 	var thirdVarLex = null
 	
-	while(!_lexems.empty()):
+	while(!_lexems.is_empty()):
 		var curLexData = _lexems[0]
 		_lexems.pop_front()
 		var curLex = curLexData[0]

@@ -45,7 +45,7 @@ func _run():
 		if(!bodypart.hasCustomSkinPattern()):
 			addButton("Skin", "Change the hair's skin", "changepartskinmenu")
 		else:
-			if(!GlobalRegistry.getPartSkins(bodypart.id).empty() || bodypart.pickedSkin != null):
+			if(!GlobalRegistry.getPartSkins(bodypart.id).is_empty() || bodypart.pickedSkin != null):
 				addButton("Skin", "Change the hair's skin", "changepartskinmenu")
 		addButton("Primary color", "Change your slave's hair color", "changecolor", [0])
 		addButton("Secondary color", "Change your slave's hair color", "changecolor", [1])
@@ -112,7 +112,7 @@ func _run():
 
 	if(state == "changecolor"):
 		var bodypart = npc.getBodypart(BodypartSlot.Hair)
-		var colorPicker = colorPickerScene.instance()
+		var colorPicker = colorPickerScene.instantiate()
 		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(bodypart.pickedRColor)

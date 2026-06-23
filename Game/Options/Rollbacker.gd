@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Rollbacker
 
 var rollbackStates:Array = []
@@ -76,7 +76,7 @@ func rollback():
 		rollbackStates.pop_back()
 	needsExtraRollback = true
 	
-	if(rollbackStates.empty()):
+	if(rollbackStates.is_empty()):
 		Log.error("Something went wrong, rollbacker doesn't have a state to rollback to.")
 		return
 	

@@ -126,7 +126,7 @@ func generateTransformText(_result:Dictionary):
 	#	addText("This shouldn't happen")
 
 func isEffectBadShouldRemove() -> bool:
-	if(!newPartID.empty() && !GlobalRegistry.bodyparts.has(newPartID)):
+	if(!newPartID.is_empty() && !GlobalRegistry.bodyparts.has(newPartID)):
 		return true
 	return false
 

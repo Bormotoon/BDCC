@@ -11,7 +11,7 @@ var bodypartEditors = {}
 
 func _ready():
 	for bodypartSlot in BodypartSlot.getAll():
-		var singleUI = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartSingleVarUI.tscn").instance()
+		var singleUI = preload("res://Game/Datapacks/UI/PackVarUIs/BodypartSingleVarUI.tscn").instantiate()
 		singleUI.id = bodypartSlot
 		parts_list.add_child(singleUI)
 		singleUI.setData({

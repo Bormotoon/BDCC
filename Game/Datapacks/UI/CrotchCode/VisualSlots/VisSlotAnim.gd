@@ -8,7 +8,7 @@ var editor
 var animEditor = preload("res://Game/Datapacks/UI/CrotchCode/UI/AnimPickerWindow.tscn")
 
 func _on_OpenEditorButton_pressed():
-	var newWindow = animEditor.instance()
+	var newWindow = animEditor.instantiate()
 	
 	add_child(newWindow)
 	

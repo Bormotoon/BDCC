@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name MinigameResult
 
 var score:float = 0.0

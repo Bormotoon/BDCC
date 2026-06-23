@@ -32,7 +32,7 @@ func getEffectDesc():
 	if(false && unpluggedHoles.size() > 0): # Disabled, players can figure it out themselves
 		helpfulPlugMessage = " Plug your "+Util.humanReadableList(unpluggedHolesTexts)+" if you don't want that."
 	
-	if(unpluggedHoles.empty()):
+	if(unpluggedHoles.is_empty()):
 		return "You are stuffed with "+str(eggAm)+" egg"+("s" if eggAm != 1 else "")+"..."
 	var timeLeftString:String
 	if(theTimeUntilEggs >= 10000000):

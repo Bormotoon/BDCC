@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SlaveAuction
 
 var charID:String = ""
@@ -134,7 +134,7 @@ func doBestAction():
 			if(theScore > maxScore):
 				maxScore = theScore
 	
-	if(actionToScore.empty()):
+	if(actionToScore.is_empty()):
 		Log.printerr("Something is wrong, we can't pick an auction action to do")
 		return
 	
@@ -207,7 +207,7 @@ func canDoAction(_auctionAction:AuctionAction) -> Array:
 	if(_auctionAction.requiresAtLeastOneTraitForSlave()):
 		var canUseAction:bool = false
 		var traitsToCheck:Dictionary = _auctionAction.getTraits()
-		if(!traitsToCheck.empty()):
+		if(!traitsToCheck.is_empty()):
 			for traitID in traitsToCheck:
 				if(slaveTraits.has(traitID) && slaveTraits[traitID] > 0.0):
 					canUseAction = true
@@ -219,7 +219,7 @@ func canDoAction(_auctionAction:AuctionAction) -> Array:
 			return [false, "Your slave lacks the traits required for this action"]
 			
 #	var traitsToCheck:Dictionary = _auctionAction.getTraits()
-#	if(!traitsToCheck.empty()):
+#	if(!traitsToCheck.is_empty()):
 #		for traitID in traitsToCheck:
 #			if(usedTraits.has(traitID)):
 #				return [false, "You already showed this trait"]
@@ -326,7 +326,7 @@ func doAction(_auctionAction:AuctionAction):
 	saynn(theResult["slaveReaction"])
 	
 	var traits:Dictionary = theResult["traits"]
-	if(!traits.empty()):
+	if(!traits.is_empty()):
 		for traitID in traits:
 			usedTraits[traitID] = true
 	usedActions[_auctionAction.id] = true
@@ -362,7 +362,7 @@ func doAction(_auctionAction:AuctionAction):
 	for bidderA in bidders:
 		var bidder:AuctionBidder = bidderA
 		
-		if(bidder.discoveredLikes.empty() && bidder.discoveredDislikes.empty()):
+		if(bidder.discoveredLikes.is_empty() && bidder.discoveredDislikes.is_empty()):
 			continue
 		
 		var disTexts:Array = []
@@ -395,11 +395,11 @@ func doAction(_auctionAction:AuctionAction):
 
 	doRoundOfBiddingWithChecks()
 		
-	#if(!biddingTexts.empty()):
+	#if(!biddingTexts.is_empty()):
 	#	extraTexts.append("")
 	#	extraTexts.append_array(biddingTexts)
 	
-	#if(!extraTexts.empty()):
+	#if(!extraTexts.is_empty()):
 	#	actionText += "\n\n"+Util.join(extraTexts, "\n")
 		
 	actionText = Util.join(extraActionTexts, "")

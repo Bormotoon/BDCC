@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Science
 
 var points:int = 0
@@ -515,7 +515,7 @@ func generateNurseryTasks():
 			possible.append([newTaskInfo, weight])
 	
 	var picked:Array = []
-	while(picked.size() < needTasksToGenerate && !possible.empty()):
+	while(picked.size() < needTasksToGenerate && !possible.is_empty()):
 		picked.append(RNG.grabWeightedPairs(possible))
 	
 	for pickedInfo in picked:
@@ -591,7 +591,7 @@ func processTime(_seconds:int):
 			continue
 		
 		if(task.shouldBeCancelled()):
-			nurseryTasks.remove(taskAmount-1-_i)
+			nurseryTasks.remove_at(taskAmount-1-_i)
 			continue
 
 func addPoints(howMuch:int, showMessage:bool = true):
@@ -773,7 +773,7 @@ func canMakePillResult(tfID:String) -> Array:
 		if(howMuchWeHave < howMuchNeed):
 			badResult.append("Not enough "+(fluidObj.getVisibleName() if fluidObj != null else fluidID))
 	
-	if(badResult.empty()):
+	if(badResult.is_empty()):
 		return [true, ""]
 	return [false, Util.join(badResult, "\n")]
 
@@ -789,7 +789,7 @@ func canMakeHasFluids(fluidsNeed:Dictionary) -> Array:
 		if(howMuchWeHave < howMuchNeed):
 			badResult.append("Not enough "+(fluidObj.getVisibleName() if fluidObj != null else fluidID))
 	
-	if(badResult.empty()):
+	if(badResult.is_empty()):
 		return [true, ""]
 	return [false, Util.join(badResult, "\n")]
 
@@ -1128,7 +1128,7 @@ func findRandomNpcIDForStrangeDrug() -> String:
 			poolID = RNG.pick([CharacterPool.Guards, CharacterPool.Nurses, CharacterPool.Nurses, CharacterPool.Engineers])
 		
 		var poolChars = GM.main.getDynamicCharacterIDsFromPool(poolID)
-		if(poolChars.empty()):
+		if(poolChars.is_empty()):
 			continue
 			
 		var randomDynamicCharID:String = RNG.pick(poolChars)

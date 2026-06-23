@@ -58,7 +58,7 @@ func setData(_dataLine:Dictionary):
 func _on_Button_pressed():
 	if(values.size() <= 0):
 		return
-	var newWindow = advPickerScene.instance()
+	var newWindow = advPickerScene.instantiate()
 	add_child(newWindow)
 	newWindow.setData({
 		value = selectedValue,

@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DrugDenEventBase
 
 var id:String = "error"

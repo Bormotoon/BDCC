@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Datapack
 
 var id:String = "error"
@@ -231,13 +231,13 @@ func getEditVarsOnlyValues():
 
 func getContainsString() -> String:
 	var resultDat = []
-	if(!characters.empty()):
+	if(!characters.is_empty()):
 		resultDat.append(str(characters.size())+" character"+("s" if characters.size() != 1 else ""))
-	if(!skins.empty()):
+	if(!skins.is_empty()):
 		resultDat.append(str(skins.size())+" skin"+("s" if skins.size() != 1 else ""))
-	if(!scenes.empty()):
+	if(!scenes.is_empty()):
 		resultDat.append(str(scenes.size())+" scene"+("s" if scenes.size() != 1 else ""))
-	if(!quests.empty()):
+	if(!quests.is_empty()):
 		resultDat.append(str(quests.size())+" quest"+("s" if quests.size() != 1 else ""))
 	if(resultDat.size() <= 0):
 		return "Contains: Nothing"
@@ -320,7 +320,7 @@ func getDatapackFileName() -> String:
 	return id+".res"
 
 func needsTogglingOn():
-	return !characters.empty() || !scenes.empty() || !quests.empty()
+	return !characters.is_empty() || !scenes.is_empty() || !quests.is_empty()
 
 func getFinalCharacterID(charID):
 	return id + ":" + charID

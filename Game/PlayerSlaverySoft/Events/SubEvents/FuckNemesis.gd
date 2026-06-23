@@ -9,7 +9,7 @@ func _init():
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
 	var allNemesis:Array= _event.getFreeNemesisIDs(true, _context)
-	if(allNemesis.empty()):
+	if(allNemesis.is_empty()):
 		return false
 	involveCharID(C_EXTRA1, RNG.pick(allNemesis))
 	return true

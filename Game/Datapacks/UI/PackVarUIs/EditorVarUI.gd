@@ -88,7 +88,7 @@ func _on_AddNewDialog_confirmed():
 		updateThings()
 		#showAlert("Adding new character, "+theNewId)
 		#print("ADDING NEW CHARACTER, "+theNewId)
-		var charEditor = load("res://Game/Datapacks/UI/Editors/DatapackCharacterEditor.tscn").instance()
+		var charEditor = load("res://Game/Datapacks/UI/Editors/DatapackCharacterEditor.tscn").instantiate()
 		charEditor.datapack = datapack
 		pushMenu(charEditor)
 		charEditor.setCharacter(newDatapackCharacter)
@@ -101,7 +101,7 @@ func _on_AddNewDialog_confirmed():
 		updateThings()
 		#showAlert("Adding new character, "+theNewId)
 		#print("ADDING NEW CHARACTER, "+theNewId)
-		var skinEditor = load("res://Game/Datapacks/UI/Editors/DatapackSkinEditor.tscn").instance()
+		var skinEditor = load("res://Game/Datapacks/UI/Editors/DatapackSkinEditor.tscn").instantiate()
 		skinEditor.datapack = datapack
 		pushMenu(skinEditor)
 		skinEditor.setSkin(newSkin)
@@ -114,7 +114,7 @@ func _on_AddNewDialog_confirmed():
 		updateThings()
 		#showAlert("Adding new character, "+theNewId)
 		#print("ADDING NEW CHARACTER, "+theNewId)
-		var sceneEditor = load("res://Game/Datapacks/UI/Editors/DatapackSceneEditor.tscn").instance()
+		var sceneEditor = load("res://Game/Datapacks/UI/Editors/DatapackSceneEditor.tscn").instantiate()
 		sceneEditor.datapack = datapack
 		pushMenu(sceneEditor)
 		sceneEditor.setScene(newScene)
@@ -127,7 +127,7 @@ func _on_AddNewDialog_confirmed():
 		updateThings()
 		#showAlert("Adding new character, "+theNewId)
 		#print("ADDING NEW CHARACTER, "+theNewId)
-		var questEditor = load("res://Game/Datapacks/UI/Editors/DatapackQuestEditor.tscn").instance()
+		var questEditor = load("res://Game/Datapacks/UI/Editors/DatapackQuestEditor.tscn").instantiate()
 		questEditor.datapack = datapack
 		pushMenu(questEditor)
 		questEditor.setQuest(newQuest)
@@ -139,22 +139,22 @@ func _on_EditButton_pressed():
 	
 	#print("EDITING "+str(selectedIDToEdit))
 	if(editorKind == "character"):
-		var charEditor = load("res://Game/Datapacks/UI/Editors/DatapackCharacterEditor.tscn").instance()
+		var charEditor = load("res://Game/Datapacks/UI/Editors/DatapackCharacterEditor.tscn").instantiate()
 		charEditor.datapack = datapack
 		pushMenu(charEditor)
 		charEditor.setCharacter(savedThings[selectedIDToEdit])
 	if(editorKind == "skin"):
-		var skinEditor = load("res://Game/Datapacks/UI/Editors/DatapackSkinEditor.tscn").instance()
+		var skinEditor = load("res://Game/Datapacks/UI/Editors/DatapackSkinEditor.tscn").instantiate()
 		skinEditor.datapack = datapack
 		pushMenu(skinEditor)
 		skinEditor.setSkin(savedThings[selectedIDToEdit])
 	if(editorKind == "scene"):
-		var sceneEditor = load("res://Game/Datapacks/UI/Editors/DatapackSceneEditor.tscn").instance()
+		var sceneEditor = load("res://Game/Datapacks/UI/Editors/DatapackSceneEditor.tscn").instantiate()
 		sceneEditor.datapack = datapack
 		pushMenu(sceneEditor)
 		sceneEditor.setScene(savedThings[selectedIDToEdit])
 	if(editorKind == "quest"):
-		var questEditor = load("res://Game/Datapacks/UI/Editors/DatapackQuestEditor.tscn").instance()
+		var questEditor = load("res://Game/Datapacks/UI/Editors/DatapackQuestEditor.tscn").instantiate()
 		questEditor.datapack = datapack
 		pushMenu(questEditor)
 		questEditor.setQuest(savedThings[selectedIDToEdit])

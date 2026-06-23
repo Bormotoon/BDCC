@@ -24,7 +24,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 		var damageText:String = theResult[1]
 		var damageItem:ItemBase = theResult[2]
 		
-		if(!damageTexts.empty()):
+		if(!damageTexts.is_empty()):
 			damageTexts.append(RNG.pick([
 				"{npc.name} keeps ripping your clothes!",
 				"{npc.name} is still going!",

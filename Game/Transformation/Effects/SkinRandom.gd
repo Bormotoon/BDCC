@@ -14,7 +14,7 @@ func initArgs(_args:Array):
 func applyEffect(_data:Dictionary) -> Dictionary:
 	if(pickedSkin == ""):
 		var finalSpecies:Array = species
-		if(finalSpecies.empty()):
+		if(finalSpecies.is_empty()):
 			finalSpecies = _data["species"] if _data.has("species") else [Species.Canine]
 		
 		pickedSkin = TFUtil.getRandomSkinForSpecies(finalSpecies)
@@ -42,7 +42,7 @@ func applyEffect(_data:Dictionary) -> Dictionary:
 	}
 
 func isEffectBadShouldRemove() -> bool:
-	if(!pickedSkin.empty() && !GlobalRegistry.getSkin(pickedSkin)):
+	if(!pickedSkin.is_empty() && !GlobalRegistry.getSkin(pickedSkin)):
 		return true
 	for speciesID in species:
 		if(!GlobalRegistry.getSpecies(speciesID)):

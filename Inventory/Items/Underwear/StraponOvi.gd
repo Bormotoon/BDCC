@@ -29,7 +29,7 @@ func getDescription():
 		contentsList.append(theItem.getStackName())
 	
 	text += "\n\nEgg storage ("+str(getCurrentOvipositorEggAmount())+"/"+str(getMaxOvipositorEggAmount())+"):"
-	if(contentsList.empty()):
+	if(contentsList.is_empty()):
 		text += "\n- Empty\n"
 	else:
 		text += "\n" + Util.join(contentsList, "\n") + "\n"

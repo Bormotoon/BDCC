@@ -35,7 +35,7 @@ func inStocks():
 func inStocks_do(_id:String, _args:Array):
 	if(_id == "findSomeone"):
 		var theFriendID := findOwnerFriend(false)
-		if(theFriendID.empty()):
+		if(theFriendID.is_empty()):
 			startTheStocks()
 			return
 		involveCharID(C_EXTRA1, theFriendID)

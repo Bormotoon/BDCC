@@ -12,7 +12,7 @@ static func getRandomColorsForSpecies(species:Array) -> Array:
 		if(theSpeciesObj):
 			possibleSpecies.append(theSpeciesObj)
 	
-	if(possibleSpecies.empty()):
+	if(possibleSpecies.is_empty()):
 		possibleSpecies = [GlobalRegistry.getSpecies(Species.Canine)]
 	
 	var skinColors = RNG.pick(possibleSpecies).generateSkinColors()
@@ -35,7 +35,7 @@ static func getRandomSkinForSpecies(species:Array) -> String:
 			if(fittingSkinTypes is Dictionary && fittingSkinTypes.has(skinType)):
 				possibleSkins.append([skinID, fittingSkinTypes[skinType]])
 		
-	if(possibleSkins.empty()):
+	if(possibleSkins.is_empty()):
 		return "EmptySkin"
 	return RNG.pickWeightedPairs(possibleSkins)
 
@@ -88,8 +88,8 @@ static func generateTFIDForAPill(blacklist:Array = [], knownMult:float = 0.5) ->
 		if(tfWeight > 0.0):
 			possible.append([tfID, tfWeight])
 	
-	if(possible.empty()):
-		if(!disabledUnknown.empty()):
+	if(possible.is_empty()):
+		if(!disabledUnknown.is_empty()):
 			return RNG.pick(disabledUnknown)
 		return ""
 	return RNG.pickWeightedPairs(possible)

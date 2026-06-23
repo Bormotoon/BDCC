@@ -46,7 +46,7 @@ func populateFav():
 	
 	var blocks = CrotchFavBlocks.getBlocks(favKind)
 	for newBlock in blocks:
-		var visualScene = load("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instance()
+		var visualScene = load("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instantiate()
 		if(visualScene == null):
 			continue
 		visualScene.editor = editor
@@ -84,7 +84,7 @@ func populate():
 				if(collapsables.has(category)):
 					nodeToAddTo = collapsables[category]
 				else:
-					var newCollapse = collapseScene.instance()
+					var newCollapse = collapseScene.instantiate()
 					newCollapse.editor = editor
 					categories_list.add_child(newCollapse)
 					newCollapse.makeCodeBlockMode()
@@ -92,7 +92,7 @@ func populate():
 					collapsables[category] = newCollapse
 					nodeToAddTo = newCollapse
 		
-			var visualScene = load("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instance()
+			var visualScene = load("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instantiate()
 			if(visualScene == null):
 				continue
 			visualScene.editor = editor

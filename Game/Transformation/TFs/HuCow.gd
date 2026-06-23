@@ -54,7 +54,7 @@ func getSexGoalWeightModifier(_sexGoalID:String) -> float:
 func isPossibleFor(_char) -> bool:
 	#if(!_char.hasPenis() || _char.getPenisSize() < 10):
 	#	return false
-	if(getPossibleSteps(_char).empty()):
+	if(getPossibleSteps(_char).is_empty()):
 		return false
 	return true
 
@@ -90,7 +90,7 @@ func getPossibleSteps(_char:BaseCharacter) -> Array:
 	return result
 
 func canTransformFurther() -> bool:
-	if(!getPossibleSteps(getChar()).empty()):
+	if(!getPossibleSteps(getChar()).is_empty()):
 		return true
 	return false
 	
@@ -105,7 +105,7 @@ func getTimerForStage(_theStage:int) -> int:
 	
 func doProgress(_context:Dictionary) -> Dictionary:
 	var allSteps:Array = getPossibleSteps(getChar())
-	if(allSteps.empty()):
+	if(allSteps.is_empty()):
 		return {}
 	var nextStep:String = RNG.pick(allSteps)
 	
@@ -160,7 +160,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		addedhorns = true
 		
 		var possiblePartIDs:Dictionary = Bodypart.findPossibleBodypartIDsDict(BodypartSlot.Horns, theChar, [Species.Demon], NpcGender.Female, true)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 		var newPartID:String = RNG.pickWeightedDict(possiblePartIDs)
 		return {
@@ -216,7 +216,7 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 	if(isFirstTime()):
 		addText("What is happening with your body..")
 	else:
-		if(getPossibleSteps(getChar()).empty()):
+		if(getPossibleSteps(getChar()).is_empty()):
 			addText("After all that, a sudden wave of realization washes over {npc.youHim}. {npc.YouHe} {npc.youAre} now a perfect HuCow! {npc.YouHe} just need to take some MorphIn and make these changes permanent..")
 	
 	if(step in ["switchbreasts", "incbreasts", "nipSen"]):

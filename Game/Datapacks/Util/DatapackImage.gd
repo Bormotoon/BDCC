@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DatapackImage
 
 var image:Image
@@ -12,7 +12,7 @@ func getImage() -> Image:
 	if(image != null):
 		return image
 	
-	if(imageRaw.empty()):
+	if(imageRaw.is_empty()):
 		return image
 	var newIm = Image.new()
 	var _ok = newIm.load_png_from_buffer(imageRaw)

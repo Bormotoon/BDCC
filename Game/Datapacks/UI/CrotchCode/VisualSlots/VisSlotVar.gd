@@ -31,7 +31,7 @@ func updateBlock():
 	if(slotVar.getBlock() == null):
 		block_catcher_panel.setContainedNode(null)
 		return
-	var newVisualBlock = preload("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instance()
+	var newVisualBlock = preload("res://Game/Datapacks/UI/CrotchCode/CrotchBlockVisual.tscn").instantiate()
 	newVisualBlock.editor = editor
 	block_catcher_panel.setContainedNode(newVisualBlock)
 	newVisualBlock.setCodeBlock(slotVar.getBlock())

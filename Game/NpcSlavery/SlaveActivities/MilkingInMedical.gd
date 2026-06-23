@@ -22,7 +22,7 @@ func onStart(_args = []):
 func onNewDay():
 	var fluidsGot:Dictionary = GM.main.SCI.doMilkCharacter(getChar())
 	
-	if(fluidsGot.empty()):
+	if(fluidsGot.is_empty()):
 		lastReport = " - Nothing"
 		return
 	lastReport = ""

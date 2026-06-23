@@ -10,10 +10,10 @@ func _init():
 	eventWeight = 0.1
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
-	if(_args.empty()):
+	if(_args.is_empty()):
 		return false
 	var thePawns:Array = _args[0]
-	if(thePawns.empty()):
+	if(thePawns.is_empty()):
 		return false
 	involveCharID(C_EXTRA1, RNG.pick(thePawns).getCharID())
 	walkiesEvent = RNG.pick([

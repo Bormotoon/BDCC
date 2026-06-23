@@ -12,7 +12,7 @@ func _run():
 		
 		saynn("This is a placeholder recruit scene. Continue will end the scene.")
 		
-		var textEdit = textWidgetScene.instance()
+		var textEdit = textWidgetScene.instantiate()
 		GM.ui.addCustomControl("textedit", textEdit)
 		
 		var outputText:Array = []

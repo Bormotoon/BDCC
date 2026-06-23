@@ -12,7 +12,7 @@ signal onCellSelected(newCell)
 signal onCancelPressed
 
 func _init():
-	if(GlobalRegistry.mapFloors.empty()):
+	if(GlobalRegistry.mapFloors.is_empty()):
 		GlobalRegistry.registerMapFloorFolder("res://Game/World/Floors/")
 
 func _ready():

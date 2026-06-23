@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NpcOwnerEventBase
 
 const LOC_STOCKS = "main_punishment_spot"
@@ -296,7 +296,7 @@ func sayAppend(_text:String):
 	getRunner().sayAppend(_text)
 
 func sayPretext():
-	if(pretext.empty()):
+	if(pretext.is_empty()):
 		return
 	saynn(pretext)
 
@@ -378,7 +378,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 	if(cachedTarget == theTarget):
 		if(cachedPath.size() > 1 && getLocation() == cachedPath[0]):
 			setLocation(cachedPath[1])
-			cachedPath.remove(0)
+			cachedPath.remove_at(0)
 		else:
 			cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
 	
@@ -456,16 +456,16 @@ func getTaskInfo(_introText:String = "") -> String:
 	var theNpcOwner := getNpcOwner()
 	if(!theNpcOwner):
 		return ""
-	var result:Array = [_introText] if !_introText.empty() else []
+	var result:Array = [_introText] if !_introText.is_empty() else []
 	result.append_array(theNpcOwner.getQuestProgressArray())
 	
-	if(result.empty()):
+	if(result.is_empty()):
 		return ""
 	return Util.join(result, "\n")
 
 func sayTaskInfo(_introText:String = ""):
 	var theInfo := getTaskInfo(_introText)
-	if(theInfo.empty()):
+	if(theInfo.is_empty()):
 		return
 	saynn(theInfo)
 
@@ -473,16 +473,16 @@ func getOwnerTaskInfo(_introText:String = "") -> String:
 	var theNpcOwner := getNpcOwner()
 	if(!theNpcOwner):
 		return ""
-	var result:Array = [_introText] if !_introText.empty() else []
+	var result:Array = [_introText] if !_introText.is_empty() else []
 	result.append_array(theNpcOwner.getOwnerQuestProgressArray())
 	
-	if(result.empty()):
+	if(result.is_empty()):
 		return ""
 	return Util.join(result, "\n")
 
 func sayOwnerTaskInfo(_introText:String = ""):
 	var theInfo := getOwnerTaskInfo(_introText)
-	if(theInfo.empty()):
+	if(theInfo.is_empty()):
 		return
 	saynn(theInfo)
 
@@ -493,7 +493,7 @@ func sayOwnerRandomTaskLine():
 	var possible:Array = []
 	for task in theNpcOwner.tasks:
 		possible.append_array(task.getNpcOwnerDialogueLines())
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return
 	talkOwner(RNG.pick(possible))
 
@@ -525,7 +525,7 @@ func checkProtect(_pretext:String) -> bool:
 
 func checkSubEvent(_tag:String, _pretext:String, _args:Array, _checkHistory:bool = false, _checkDesperate:bool = false) -> bool:
 	var eventIDsWithTag:Array = GlobalRegistry.getNpcOwnerEventIDsByTag(_tag)
-	if(eventIDsWithTag.empty()):
+	if(eventIDsWithTag.is_empty()):
 		return false
 	
 	var theRunner = getRunner()
@@ -578,13 +578,13 @@ func checkSubEvent(_tag:String, _pretext:String, _args:Array, _checkHistory:bool
 	
 	#if(totalScore < 1.0 && !RNG.chance(totalScore*100.0)):
 	#	return false
-	#if(possible.empty() && !possibleDesperate.empty()):
+	#if(possible.is_empty() && !possibleDesperate.is_empty()):
 	#	possible = possibleDesperate
 	
 	#print(possible)
 	
 	var _context:Dictionary = {}
-	while(!possible.empty()):
+	while(!possible.is_empty()):
 		var someEvent = RNG.grabWeightedPairs(possible)
 		someEvent.setEventRunner(getRunner())
 		someEvent.tag = _tag
@@ -710,7 +710,7 @@ func doDebugAction(_id, _args = {}):
 		someEvent.setEventRunner(getRunner())
 		someEvent.tag = ""
 		someEvent.pretext = ""
-		if(someEvent.reactsToTags.empty()):
+		if(someEvent.reactsToTags.is_empty()):
 			getRunner().eventStack.append(someEvent)
 			someEvent.involveOwner()
 			someEvent.onStart([])
@@ -784,7 +784,7 @@ func findOwnerFriend(fromSamePool:bool = true, skiplist:Array = []) -> String:
 			thePool = RNG.pick(CharacterPool.getPrisonPopulationPools())
 		
 		var theConds:Array = []
-		if(!skiplist.empty()):
+		if(!skiplist.is_empty()):
 			theConds.append([NpcCon.AvoidIDs, skiplist])
 		
 		var someNPC:String = NpcFinder.grabNpcIDFromPool(thePool, theConds)

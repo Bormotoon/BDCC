@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name MenstrualCycle
 
 var cycleProgress: float = 0.0
@@ -196,8 +196,8 @@ func processTime(seconds:int):
 			ovulate()
 	
 	var pregnancySpeed:float = 1.0
-	var hasAnyImpregCells:bool = !impregnatedEggCells.empty()
-	var hasAnyBigEggs:bool = !bigEggs.empty()
+	var hasAnyImpregCells:bool = !impregnatedEggCells.is_empty()
+	var hasAnyBigEggs:bool = !bigEggs.is_empty()
 	if(hasAnyImpregCells || hasAnyBigEggs): # speed is costly to calculate
 		pregnancySpeed = getPregnancySpeed()
 		
@@ -309,7 +309,7 @@ func obsorbCum(_cumType, amountML:float, fluidDNA, orificeType:int = OrificeType
 	
 	var fertility:float = theCharacter.getFertility()
 	var virility:float = fluidDNA.getVirility()
-	if(fertility > 0.0 && virility > 0.0 && !bigEggs.empty()):
+	if(fertility > 0.0 && virility > 0.0 && !bigEggs.is_empty()):
 		var egg = RNG.pick(bigEggs)
 		if(egg.bigEggType == BigEggType.Unfertilized && egg.orificeType == orificeType && !egg.isimpregnated):
 			var theMotherChar = getCharacter()
@@ -339,7 +339,7 @@ func obsorbCum(_cumType, amountML:float, fluidDNA, orificeType:int = OrificeType
 				impregnatedEggCells.append(egg)
 
 func isEggStuffed() -> bool:
-	return !bigEggs.empty()
+	return !bigEggs.is_empty()
 
 func isEggStuffedWithOffspring() -> bool:
 	for theEgg in bigEggs:
@@ -351,7 +351,7 @@ func isPregnant(_normalPreg:bool = true, _bigEggPreg:bool = true) -> bool:
 	if(_bigEggPreg && isEggStuffedWithOffspring()):
 		return true
 	if(_normalPreg):
-		return !impregnatedEggCells.empty()
+		return !impregnatedEggCells.is_empty()
 	return false
 
 func isEggStuffedBy(_charID:String) -> bool:
@@ -437,7 +437,7 @@ func isReadyToLayEggs(_checkIfPlugged:bool = true) -> bool:
 
 # Checks if there are eggs we can STILL lay (<30 minutes)
 func isReadyToLayEggsCanContinue(_checkIfPlugged:bool = true) -> bool:
-	return !getEggsToBeLaid(30*60, _checkIfPlugged).empty()
+	return !getEggsToBeLaid(30*60, _checkIfPlugged).is_empty()
 
 func hasEggsInOrifice(_orifice:int, _onlyTentacle:bool = false) -> bool:
 	for egg in bigEggs:
@@ -578,7 +578,7 @@ func delayEggs(_time:int = 6*60*60):
 		egg.delayEgg(_time)
 
 func getTimeUntilNextEggLaying() -> int:
-	if(bigEggs.empty()):
+	if(bigEggs.is_empty()):
 		return 10000000
 	var theTime:int = 10000000#bigEggs[0].getTimeUntilReadyToBeLaid()
 	for egg in bigEggs:
@@ -605,7 +605,7 @@ func getEggsToBeLaid(_time:int = 30*60, _ignoreIfPlugged:bool = true) -> Array:
 	return result
 
 func isVisiblyEggStuffed() -> bool:
-	if(!bigEggs.empty()):
+	if(!bigEggs.is_empty()):
 		return true
 	return false
 
@@ -644,7 +644,7 @@ func saveData():
 		eggData.append(egg.saveData())
 	data["eggCells"] = eggData
 	
-	if(!bigEggs.empty()):
+	if(!bigEggs.is_empty()):
 		var bigEggData:Array = []
 		for egg in bigEggs:
 			bigEggData.append(egg.saveData())
@@ -711,13 +711,13 @@ func speedUpPregnancy():
 
 # {type=BigEggType.Plant, laidBy=charID, orifice=OrificeType.Anus/Vagina, slot=BodypartSlot.Anus/Vagina, data=OPTIONAL}
 func laySingleEgg(_time:int = 0) -> EggLaid:
-	if(bigEggs.empty()):
+	if(bigEggs.is_empty()):
 		return null
 	var theChar = getCharacter()
 	if(!theChar):
 		return null
 	var readyEggs:Array = getEggsToBeLaid(_time)
-	if(readyEggs.empty()):
+	if(readyEggs.is_empty()):
 		return null
 	var randomEgg = RNG.pick(readyEggs)
 	
@@ -744,7 +744,7 @@ func layEggSpecific(_egg:EggCell) -> EggLaid:
 	return newEgg
 
 func layEggs(_time:int = 30*60, _isAtNursery:bool = false, _layAll:bool = false) -> Array:
-	if(bigEggs.empty()):
+	if(bigEggs.is_empty()):
 		return []
 	
 	var theChar = getCharacter()
@@ -759,7 +759,7 @@ func layEggs(_time:int = 30*60, _isAtNursery:bool = false, _layAll:bool = false)
 			continue
 		result.append(theLaidEgg)
 	
-	if(_isPc && !result.empty()):
+	if(_isPc && !result.is_empty()):
 		SexToyManager.sendTrigger(SexToyTrigger.OnGivingBirth, [result.size()])
 	
 	return result
@@ -845,7 +845,7 @@ func transferSpecificEggTo(_eggCell:EggCell, _otherCycle, _orificeTarget:int) ->
 	return true
 
 func transferAnyBigEggTo(_otherCycle, _targetOrifice:int, _orificeFilter:Array = []) -> EggCell:
-	var hasFilter:bool = !_orificeFilter.empty()
+	var hasFilter:bool = !_orificeFilter.is_empty()
 	
 	var pickedEgg:EggCell
 	if(hasFilter):
@@ -880,7 +880,7 @@ func turnImpregnatedEggsIntoBigEggs():
 		theEggCell.bigEggType = BigEggType.Fertilized
 		theEggCell.generateEggTypeAndColor()
 		
-		impregnatedEggCells.remove(_indx)
+		impregnatedEggCells.remove_at(_indx)
 		bigEggs.append(theEggCell)
 		
 func getDebugInfo() -> String:

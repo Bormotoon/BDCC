@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name WorldHistory
 
 var eventsByEventID:Dictionary = {}
@@ -55,10 +55,10 @@ func satisfiesCondition(event:WorldHistoryEvent, condInfo:Array, _i:int = 0) -> 
 	return false
 
 func queryHappened(eventID:String, conditions:Array = []) -> bool:
-	if(!eventsByEventID.has(eventID) || eventsByEventID[eventID].empty()):
+	if(!eventsByEventID.has(eventID) || eventsByEventID[eventID].is_empty()):
 		return false
 	
-	if(conditions.empty()):
+	if(conditions.is_empty()):
 		return true
 	
 	for event in eventsByEventID[eventID]:
@@ -74,9 +74,9 @@ func queryHappened(eventID:String, conditions:Array = []) -> bool:
 func queryAmount(eventID:String, conditions:Array = []) -> int:
 	var result:int = 0
 	
-	if(!eventsByEventID.has(eventID) || eventsByEventID[eventID].empty()):
+	if(!eventsByEventID.has(eventID) || eventsByEventID[eventID].is_empty()):
 		return 0
-	if(conditions.empty()):
+	if(conditions.is_empty()):
 		return eventsByEventID[eventID].size()
 	
 	for event in eventsByEventID[eventID]:
@@ -105,6 +105,6 @@ func onNewDay():
 			if(event.day >= eraseDay):
 				newEventsByType[eventID].append(event)
 		
-		if(newEventsByType[eventID].empty()):
+		if(newEventsByType[eventID].is_empty()):
 			var _ok = newEventsByType.erase(eventID)
 	eventsByEventID = newEventsByType

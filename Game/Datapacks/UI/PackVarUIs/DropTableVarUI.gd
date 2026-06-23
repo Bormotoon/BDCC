@@ -94,7 +94,7 @@ func updateCustomLoot():
 				theText += str(minVal)+"-"+str(maxVal)+"x "
 		theText += itemRef.getVisibleName()
 		
-		var newEntry = dropTableEntryScene.instance()
+		var newEntry = dropTableEntryScene.instantiate()
 		$PanelContainer/CustomLootList.add_child(newEntry)
 		newEntry.id = _i
 		
@@ -107,7 +107,7 @@ func updateCustomLoot():
 func onDeleteCustomLootEntry(_index):
 	if(_index < 0 || _index >= data["customLoot"].size()):
 		return
-	data["customLoot"].remove(_index)
+	data["customLoot"].remove_at(_index)
 	updateCustomLoot()
 	triggerChange(data.duplicate())
 

@@ -11,7 +11,7 @@ func _init():
 
 func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> bool:
 	var theFriend := findOwnerFriend()
-	if(theFriend.empty()):
+	if(theFriend.is_empty()):
 		return false
 	involveCharID(C_EXTRA1, theFriend)
 	return true

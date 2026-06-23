@@ -10,7 +10,7 @@ func updateSkinTypes():
 	Util.delete_children($VBoxContainer)
 
 	for skinType in SkinType.getAll():
-		var newNumber = numberVarScene.instance()
+		var newNumber = numberVarScene.instantiate()
 		$VBoxContainer.add_child(newNumber)
 		newNumber.id = skinType
 		newNumber.setData({

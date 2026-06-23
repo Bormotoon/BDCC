@@ -18,7 +18,7 @@ func applyEffect(_data:Dictionary) -> Dictionary:
 	
 	if(pickedSkin != ""):
 		_data["pickedSkin"] = pickedSkin
-	if(!pickedColors.empty()):
+	if(!pickedColors.is_empty()):
 		_data["pickedSkinRColor"] = TFUtil.colorInterpolateStr(_data["pickedSkinRColor"], pickedColors[0], interpolate)
 		_data["pickedSkinGColor"] = TFUtil.colorInterpolateStr(_data["pickedSkinGColor"], pickedColors[1], interpolate)
 		_data["pickedSkinBColor"] = TFUtil.colorInterpolateStr(_data["pickedSkinBColor"], pickedColors[2], interpolate)

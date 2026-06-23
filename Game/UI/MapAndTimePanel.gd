@@ -53,7 +53,7 @@ func recreateWorld():
 	if(world != null):
 		world.queue_free()
 		world = null
-	world = worldScene.instance()
+	world = worldScene.instantiate()
 	$Viewport.add_child(world)
 
 

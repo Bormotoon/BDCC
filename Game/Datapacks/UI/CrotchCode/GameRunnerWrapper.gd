@@ -6,7 +6,7 @@ signal onStopButtonPressed
 var theGame
 
 func run(datapackID, datapackScene, pickedSavePath = null):
-	theGame = preload("res://Game/MainScene.tscn").instance()
+	theGame = preload("res://Game/MainScene.tscn").instantiate()
 	game.add_child(theGame)
 	theGame.setIsTestingScene(true)
 	if(pickedSavePath != null):

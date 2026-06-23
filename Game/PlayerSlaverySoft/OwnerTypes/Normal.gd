@@ -49,7 +49,7 @@ func addRandomTrait(_announce:bool = true) -> bool:
 		if(!theTrait):
 			continue
 		var theExclusive:String = theTrait.getTraitExclusiveType()
-		if(!theExclusive.empty()):
+		if(!theExclusive.is_empty()):
 			exclusives[theExclusive] = true
 	
 	for traitID in GlobalRegistry.getNpcOwnerTraits():
@@ -57,7 +57,7 @@ func addRandomTrait(_announce:bool = true) -> bool:
 			continue
 		var theTrait:NpcOwnerTraitBase = GlobalRegistry.getNpcOwnerTrait(traitID)
 		var theExclusive:String = theTrait.getTraitExclusiveType()
-		if(!theExclusive.empty()):
+		if(!theExclusive.is_empty()):
 			if(exclusives.has(theExclusive)):
 				continue
 			
@@ -66,7 +66,7 @@ func addRandomTrait(_announce:bool = true) -> bool:
 			continue
 		possible.append([theTrait, theScore])
 	
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return false
 	
 	var thePickedTrait:NpcOwnerTraitBase = RNG.pickWeightedPairs(possible)
@@ -121,7 +121,7 @@ func getPossiblePCNamesForLevel(_level:int) -> Array:
 
 func getRelationshipFullInfo() -> Array:
 	var theInfo := .getRelationshipFullInfo()
-	if(!traits.empty()):
+	if(!traits.is_empty()):
 		theInfo.append("")
 		var traitNames:Array = []
 		var traitNamesDescs:Array = []
@@ -138,7 +138,7 @@ func getRelationshipFullInfo() -> Array:
 
 func getExtraCategoryText() -> String:
 	var theText:String = .getExtraCategoryText()
-	if(!traits.empty()):
+	if(!traits.is_empty()):
 		var traitNames:Array = []
 		for traitID in traits:
 			var theTrait:NpcOwnerTraitBase = GlobalRegistry.getNpcOwnerTrait(traitID)

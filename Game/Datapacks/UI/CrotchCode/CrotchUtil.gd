@@ -6,7 +6,7 @@ static func getAllBlocks(firstElement):
 	
 	var result:Dictionary = {}
 	
-	while(!toCheck.empty()):
+	while(!toCheck.is_empty()):
 		var nextElement = toCheck.front()
 		toCheck.pop_front()
 		

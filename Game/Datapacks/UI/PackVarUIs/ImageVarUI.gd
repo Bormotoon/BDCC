@@ -27,7 +27,7 @@ func setIsUploading(newEdit):
 
 func _on_files_dropped(files, _screen):
 	setIsUploading(false)
-	if(files.empty()):
+	if(files.is_empty()):
 		return
 	
 	var theFilePath:String = files[0]

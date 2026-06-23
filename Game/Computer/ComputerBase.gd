@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name ComputerBase
 
 var id = "error"
@@ -39,7 +39,7 @@ func inputCommand(_commandString:String):
 	var command = ""
 	if(splitted.size() > 0):
 		command = splitted[0]
-		splitted.remove(0)
+		splitted.remove_at(0)
 	
 	lastOutput = reactToCommand(command, splitted, _commandString)
 	if(lastOutput == null):

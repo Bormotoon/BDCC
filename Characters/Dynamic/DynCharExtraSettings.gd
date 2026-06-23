@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DynCharExtraSettings
 
 # Holds datapack character settings so we don't balloon out the dynamic character class

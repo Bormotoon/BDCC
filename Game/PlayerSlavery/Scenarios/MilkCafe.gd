@@ -353,7 +353,7 @@ func sayn(_text:String):
 func say(_text:String):
 	texts.append(_text)
 func addTextToBack(_text:String):
-	if(texts.empty()):
+	if(texts.is_empty()):
 		texts.append(_text+"\n\n")
 	else:
 		var lastText:String = texts.pop_back()
@@ -446,9 +446,9 @@ func doFinalAction(_finalActionEntry:Array) -> Dictionary:
 			
 		
 		call(state + "_do", theID, theArgs)
-		if(texts.empty() && actions.empty()):
+		if(texts.is_empty() && actions.is_empty()):
 			call(state + "_state")
-		elif(actions.empty()):
+		elif(actions.is_empty()):
 			addAction("Continue", "See what happens next..", "setState", [state])
 	return {}
 	
@@ -893,7 +893,7 @@ func triggerEventMaybe():
 		if(canHelpCage && !cageRemoved):
 			possible.append(["eHelpCage", 4.0])
 	
-	if(!possible.empty()):
+	if(!possible.is_empty()):
 		var theEvent:String = RNG.pickWeightedPairs(possible)
 		if(theEvent == lastEvent):
 			theEvent = RNG.pickWeightedPairs(possible)
@@ -1505,7 +1505,7 @@ func main_do(_id:String, _args:Array):
 	
 	if(_id == "idleStruggle"):
 		var struggleData:Dictionary = GM.pc.doStruggleOutOfRestraints(false, false, null, 5.0)
-		if(struggleData.empty()):
+		if(struggleData.is_empty()):
 			return
 		var text:String = struggleData["text"] if struggleData.has("text") else "[color=red]ERROR? No struggle text provided[/color]"
 		saynn(text)
@@ -1731,7 +1731,7 @@ func main_do(_id:String, _args:Array):
 		if(obedience > 0.5 && RNG.chance(10.0)):
 			possible.append("guy")
 		
-		if(!possible.empty()):
+		if(!possible.is_empty()):
 			var randP:String = RNG.pick(possible)
 			if(randP == "cow"):
 				playAnimation(StageScene.Duo, "stand", {npc=C_COW})
@@ -2313,7 +2313,7 @@ func milkScene(_actorID:String, _targetID:String):
 			possible.append(["peggingsmarttable", 4.0])
 			possible.append(["seedmilkmachine", 4.0])
 	
-	if(possible.empty()):
+	if(possible.is_empty()):
 		sayParsed("Game couldn't figure out how to milk {target.you}!")
 		return
 	var milkWay:String = RNG.pickWeightedPairs(possible)

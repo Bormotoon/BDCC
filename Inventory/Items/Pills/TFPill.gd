@@ -42,7 +42,7 @@ func getDescription():
 		else:
 			theDesc += "[color=#"+Color.cyan.to_html()+"]Transformation effect: [/color]"+"ERROR!"
 	
-	if(!configDesc.empty()):
+	if(!configDesc.is_empty()):
 		theDesc += ("\n\n[color=#"+Color.cyan.to_html()+"]Pill settings:\n"+configDesc+"[/color]")
 	
 	return theDesc

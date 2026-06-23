@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name PlayerSlaveryBase
 
 # Contains the actual logic/data. This class only gets created when the slavery starts

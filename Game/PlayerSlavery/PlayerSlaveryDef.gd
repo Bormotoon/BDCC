@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name PlayerSlaveryDef
 
 # A very light-weight object that just contains some info about the slavery and has the ability to create the actual thing

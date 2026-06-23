@@ -56,7 +56,7 @@ func canSell():
 	return false
 
 func canCombine():
-	if(egg.data.empty()):
+	if(egg.data.is_empty()):
 		return true
 	
 	return false

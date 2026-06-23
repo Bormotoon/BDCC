@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DrugDen
 
 const DrugDenFloor = "DrugDenDungeon"
@@ -41,7 +41,7 @@ func generateMap():
 	var randomEventsPosList:Array = dunGen.findRandomSpots(3)
 	var bossPosList:Array = []
 	
-	if(shouldHaveBoss && !randomEventsPosList.empty()):
+	if(shouldHaveBoss && !randomEventsPosList.is_empty()):
 		bossPosList.append(RNG.grab(randomEventsPosList))
 	
 	var mapIndex:int = 1
@@ -168,7 +168,7 @@ func endRun():
 	
 	# Only keep items that have the item tag
 	var pcItems:Array = GM.pc.getInventory().getItems()
-	while(!pcItems.empty()):
+	while(!pcItems.is_empty()):
 		var theItem:ItemBase = pcItems[0]
 		GM.pc.getInventory().removeItem(theItem)
 		if(theItem.hasTag(ItemTag.KeptAfterDrugDenRun) || keepAll):
@@ -284,7 +284,7 @@ func getPerksForReachingLevel(_level:int) -> Array:
 		possiblePerkIDWithWeight[perkID] = theWeight
 	
 	for _i in range(3):
-		if(possiblePerkIDWithWeight.empty()):
+		if(possiblePerkIDWithWeight.is_empty()):
 			break
 		
 		var nextPerkID:String = RNG.pickWeightedDict(possiblePerkIDWithWeight)
@@ -325,7 +325,7 @@ func generateEvent():
 		
 		possible[eventID] = weight
 		
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return null
 	
 	var pickedEventID:String = RNG.pickWeightedDict(possible)
@@ -368,7 +368,7 @@ func checkSetNewHighestLevelReached() -> bool:
 
 func transferAllItems(_charFrom, _charTo):
 	var theItems:Array = _charFrom.getInventory().getItems()
-	while(!theItems.empty()):
+	while(!theItems.is_empty()):
 		var theItem = theItems[0]
 		
 		_charFrom.getInventory().removeItem(theItem)

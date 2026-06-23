@@ -385,7 +385,7 @@ func simonsSaysTricksDo_do(_id:String, _args:Array):
 	
 	if(pcPickedTrick == trickQueue.front()):
 		trickQueue.pop_front()
-		if(trickQueue.empty()):
+		if(trickQueue.is_empty()):
 			setState("simonsSaysTricksDoGood")
 		else:
 			setState("simonsSaysTricksDo")

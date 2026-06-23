@@ -85,7 +85,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 	var newPartID:String = ""
 	var newPartSlot:String = ""
 	
-	if(!specificPartID.empty()):
+	if(!specificPartID.is_empty()):
 		var thePart = GlobalRegistry.getBodypartRef(specificPartID)
 		if(!thePart):
 			return {}
@@ -110,7 +110,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			var currPenis:String = theChar.getBodypart(pickedRandomSlot).id
 			if(possiblePartIDs.has(currPenis)):
 				possiblePartIDs.erase(currPenis)
-		if(possiblePartIDs.empty()):
+		if(possiblePartIDs.is_empty()):
 			return {}
 		newPartSlot = pickedRandomSlot
 		newPartID = RNG.pick(possiblePartIDs)

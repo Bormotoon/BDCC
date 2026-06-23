@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name AuctionBidder
 
 const TRAIT_UNDISCOVERED = 0
@@ -89,7 +89,7 @@ func discoverRandomTrait(_auction) -> bool:
 		
 		if(dislikes[traitID] == TRAIT_UNDISCOVERED):
 			possible.append([traitID, 1.0 + weightBonus])
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return false
 	return discoverTrait(_auction, RNG.pickWeightedPairs(possible))
 
@@ -103,7 +103,7 @@ func discoverRandomRelevantTrait(_auction) -> bool:
 	for traitID in dislikes:
 		if(dislikes[traitID] == TRAIT_UNDISCOVERED && slaveTraits.has(traitID) && slaveTraits[traitID] > 0.0):
 			possible.append(traitID)
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return false
 	return discoverTrait(_auction, RNG.pick(possible))
 
@@ -127,7 +127,7 @@ func discoverRandomTraitOfType(_auction, _traitType) -> bool:
 		
 		if(dislikes[traitID] == TRAIT_UNDISCOVERED):
 			possible.append(traitID)
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return false
 	return discoverTrait(_auction, RNG.pick(possible))
 
@@ -259,14 +259,14 @@ func getBidderInfo() -> Array:
 				knownDislikes.append("[color=#"+getTraitColor(traitID).to_html(false)+"]"+theTrait.getName(traitID)+"[/color]")
 	
 	resultAr.append(name+". "+ "Desire to bid: " + str(Util.roundF(getFinalDesire()*100.0, 1))+"% "+"Current bid: " + ("[color=#FFD677][b]" if hasWinningBid else "") + str(currentBid)+" credits"+("[/b][/color]" if hasWinningBid else ""))
-	if(likes.empty()):
+	if(likes.is_empty()):
 		resultAr.append("- Prefers: Nothing")
 	else:
-		resultAr.append("- Prefers: "+str(Util.join(knownLikes, ", "))+(", " if !knownLikes.empty() && hiddenLikesAmount > 0 else "")+((str(hiddenLikesAmount)+" undiscovered") if hiddenLikesAmount > 0 else "")) # + "   ("+str(Util.join(likes.keys(), ", "))+")"
-	if(dislikes.empty()):
+		resultAr.append("- Prefers: "+str(Util.join(knownLikes, ", "))+(", " if !knownLikes.is_empty() && hiddenLikesAmount > 0 else "")+((str(hiddenLikesAmount)+" undiscovered") if hiddenLikesAmount > 0 else "")) # + "   ("+str(Util.join(likes.keys(), ", "))+")"
+	if(dislikes.is_empty()):
 		resultAr.append("- Dislikes: Nothing")
 	else:
-		resultAr.append("- Dislikes: "+str(Util.join(knownDislikes, ", "))+(", " if !knownDislikes.empty() && hiddenDislikesAmount > 0 else "")+((str(hiddenDislikesAmount)+" undiscovered") if hiddenDislikesAmount > 0 else "")) # + "   ("+str(Util.join(dislikes.keys(), ", "))+")"
+		resultAr.append("- Dislikes: "+str(Util.join(knownDislikes, ", "))+(", " if !knownDislikes.is_empty() && hiddenDislikesAmount > 0 else "")+((str(hiddenDislikesAmount)+" undiscovered") if hiddenDislikesAmount > 0 else "")) # + "   ("+str(Util.join(dislikes.keys(), ", "))+")"
 	
 	return resultAr
 
@@ -293,14 +293,14 @@ func getBidderInfoNoAuction() -> Array:
 				knownDislikes.append("[color=#"+getTraitColor(traitID).to_html(false)+"]"+theTrait.getName(traitID)+"[/color]")
 	
 	resultAr.append(name)
-	if(likes.empty()):
+	if(likes.is_empty()):
 		resultAr.append("- Prefers: Nothing")
 	else:
-		resultAr.append("- Prefers: "+str(Util.join(knownLikes, ", "))+(", " if !knownLikes.empty() && hiddenLikesAmount > 0 else "")+((str(hiddenLikesAmount)+" undiscovered") if hiddenLikesAmount > 0 else "")) # + "   ("+str(Util.join(likes.keys(), ", "))+")"
-	if(dislikes.empty()):
+		resultAr.append("- Prefers: "+str(Util.join(knownLikes, ", "))+(", " if !knownLikes.is_empty() && hiddenLikesAmount > 0 else "")+((str(hiddenLikesAmount)+" undiscovered") if hiddenLikesAmount > 0 else "")) # + "   ("+str(Util.join(likes.keys(), ", "))+")"
+	if(dislikes.is_empty()):
 		resultAr.append("- Dislikes: Nothing")
 	else:
-		resultAr.append("- Dislikes: "+str(Util.join(knownDislikes, ", "))+(", " if !knownDislikes.empty() && hiddenDislikesAmount > 0 else "")+((str(hiddenDislikesAmount)+" undiscovered") if hiddenDislikesAmount > 0 else "")) # + "   ("+str(Util.join(dislikes.keys(), ", "))+")"
+		resultAr.append("- Dislikes: "+str(Util.join(knownDislikes, ", "))+(", " if !knownDislikes.is_empty() && hiddenDislikesAmount > 0 else "")+((str(hiddenDislikesAmount)+" undiscovered") if hiddenDislikesAmount > 0 else "")) # + "   ("+str(Util.join(dislikes.keys(), ", "))+")"
 	
 	return resultAr
 

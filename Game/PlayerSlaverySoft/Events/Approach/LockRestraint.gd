@@ -15,7 +15,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	if(npcOwner.hasOwnerLock()):
 		return false
 	var allPossible := getPossibleLocks()
-	if(allPossible.empty()):
+	if(allPossible.is_empty()):
 		return false
 	
 	var theLevel := npcOwner.getLevel()
@@ -25,7 +25,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	if(theLevel >= npcOwner.getMaxLevel()):
 		maxOfferLocks = 99
 	
-	while(maxOfferLocks > 0 && !allPossible.empty()):
+	while(maxOfferLocks > 0 && !allPossible.is_empty()):
 		pickedLocks.append(RNG.grab(allPossible))
 		maxOfferLocks -= 1
 	

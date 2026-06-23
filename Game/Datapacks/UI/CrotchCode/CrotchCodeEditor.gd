@@ -19,7 +19,7 @@ func _ready():
 	
 
 func doOutput(theText):
-	if(!output_label.bbcode_text.empty()):
+	if(!output_label.bbcode_text.is_empty()):
 		output_label.bbcode_text += "\n"+theText
 	else:
 		output_label.bbcode_text = theText

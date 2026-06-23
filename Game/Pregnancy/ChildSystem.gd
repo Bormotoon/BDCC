@@ -143,11 +143,11 @@ func getChildBigReportString(_childs:Array) -> String:
 		
 		var theExtras:Array = []
 		var theMono:String = child.getMonozygotic()
-		if(!theMono.empty()):
+		if(!theMono.is_empty()):
 			theExtras.append(theMono)
 		if(child.bigEgg):
 			theExtras.append("Egg")
-		if(!child.laidByID.empty()):
+		if(!child.laidByID.is_empty()):
 			var theLaidByChar = GlobalRegistry.getCharacter(child.laidByID)
 			if(theLaidByChar):
 				theExtras.append("Laid by "+theLaidByChar.getName())
@@ -209,7 +209,7 @@ func optimize():
 		
 		if(shouldRemove):
 			addArchiveChild(motherID, fatherID)
-			children.remove(_i)
+			children.remove_at(_i)
 		else:
 			_i += 1
 		

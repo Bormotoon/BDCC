@@ -67,7 +67,7 @@ func removeWritings(nonPermanent:bool = true, permanent:bool = false):
 	checkShouldStop()
 
 func checkShouldStop():
-	if(writings.empty() && permWritings.empty()):
+	if(writings.is_empty() && permWritings.is_empty()):
 		stop()
 
 func _init():
@@ -98,7 +98,7 @@ func getEffectDesc():
 				var data = BodyWritings.getWritingInfo(writingID)
 				writingsNames.append("[i]'"+data[BodyWritingsDB.DBText]+"'[/i]")
 		
-		if(!writingsNames.empty()):
+		if(!writingsNames.is_empty()):
 			var zoneName:String = BodyWritingsZone.getZoneVisibleName(int(zone))
 			text += "\n"+Util.humanReadableList(writingsNames)+" on your "+zoneName
 		#text += "\n"+zoneName+": "+Util.humanReadableList(writingsNames)

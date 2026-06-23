@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SlaveActionBase
 
 const Nothing = 0
@@ -46,7 +46,7 @@ func getFinalVisibleDesc():
 	
 	if(slaveMinLevel > 0):
 		theDesc += "\nSlave minimal level: "+str(slaveMinLevel)
-	if(!slaveSkillsRequired.empty()):
+	if(!slaveSkillsRequired.is_empty()):
 		var reqs = []
 		for slaveType in slaveSkillsRequired:
 			var slaveTypeLevel = slaveSkillsRequired[slaveType]

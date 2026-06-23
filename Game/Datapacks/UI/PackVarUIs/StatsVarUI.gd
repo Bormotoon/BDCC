@@ -9,7 +9,7 @@ func updateStats():
 	for statID in GlobalRegistry.getStats():
 		var theStat:StatBase = GlobalRegistry.getStat(statID)
 		
-		var newStatUI = singleStatUI.instance()
+		var newStatUI = singleStatUI.instantiate()
 		$VBoxContainer.add_child(newStatUI)
 		newStatUI.id = statID
 		newStatUI.setData({

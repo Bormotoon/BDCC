@@ -179,7 +179,7 @@ func _on_TestButton_pressed():
 	codeContex.execute(datapack_scene_code_wrapper.getSlotCalls())
 	
 #func doOutput(theText):
-#	if(!output_label.bbcode_text.empty()):
+#	if(!output_label.bbcode_text.is_empty()):
 #		output_label.bbcode_text += "\n"+theText
 #	else:
 #		output_label.bbcode_text = theText
@@ -255,7 +255,7 @@ func updateSelectedState():
 	datapack_scene_code_wrapper.setSlotCalls(theState.code)
 
 func _on_RunButton_pressed():
-	var newGame = gameWrapperScene.instance()
+	var newGame = gameWrapperScene.instantiate()
 	newGame.connect("onStopButtonPressed", self, "onGameWrapperStop")
 	getMenu().pushMenu(newGame)
 	newGame.run(datapack.id, scene.id, selectedSavePath)
@@ -264,7 +264,7 @@ func onGameWrapperStop():
 	getMenu().popMenu()
 
 func _on_PickSaveButton_pressed():
-	var newPicker = savePickerScene.instance()
+	var newPicker = savePickerScene.instantiate()
 	newPicker.connect("onClosePressed", self, "onPickerClosePressed")
 	newPicker.connect("onSavePicked", self, "onPickerSavePicked")
 	getMenu().pushMenu(newPicker)
@@ -284,7 +284,7 @@ func updateVarList():
 	for varName in scene.vars:
 		var varData = scene.vars[varName]
 		
-		var newVarEntry = varListEntryScene.instance()
+		var newVarEntry = varListEntryScene.instantiate()
 		var_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)
@@ -303,7 +303,7 @@ func updateFlagList():
 	for varName in datapack.flags:
 		var varData = datapack.flags[varName]
 		
-		var newVarEntry = varListEntryScene.instance()
+		var newVarEntry = varListEntryScene.instantiate()
 		flag_list.add_child(newVarEntry)
 		
 		newVarEntry.setEntry(varName, varData)
@@ -420,7 +420,7 @@ func updateCharList():
 	for alias in scene.chars:
 		var charEntry = scene.chars[alias]
 		
-		var newCharEntry = charListEntryScene.instance()
+		var newCharEntry = charListEntryScene.instantiate()
 		char_list.add_child(newCharEntry)
 		
 		newCharEntry.setEntry(alias, charEntry)
@@ -484,7 +484,7 @@ func _on_RemoveTriggerButton_pressed():
 		return
 	
 	selectedTrigger = null
-	scene.triggers.remove(selectedTriggerIndex)
+	scene.triggers.remove_at(selectedTriggerIndex)
 	updateTriggerList()
 	updateSelectedTrigger()
 
@@ -561,7 +561,7 @@ func updateSelectedTriggerType():
 	trigger_type_desc_label.text = "("+DatapackSceneTriggerType.getDescription(selectedTrigger.triggerType)+")"
 	
 	trigger_settings.setVariables(theTriggerVars)
-	if(theTriggerVars.empty()):
+	if(theTriggerVars.is_empty()):
 		pack_vars_collapsable_region.visible = false
 	else:
 		pack_vars_collapsable_region.visible = true
@@ -608,7 +608,7 @@ func updateImagesSceneList():
 	for imageID in scene.images:
 		var imageEntry:DatapackSceneImage = scene.images[imageID]
 		
-		var newEntry = imageListEntryScene.instance()
+		var newEntry = imageListEntryScene.instantiate()
 		
 		scene_images_list.add_child(newEntry)
 		newEntry.setEntry(imageEntry)

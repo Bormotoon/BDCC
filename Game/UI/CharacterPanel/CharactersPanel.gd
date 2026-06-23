@@ -11,7 +11,7 @@ func addCharacter(charID: String):
 	if(addedCharacters.has(charID)):
 		return
 	
-	var panel = characterPanelScane.instance()
+	var panel = characterPanelScane.instantiate()
 	charactersBox.add_child(panel)
 	panel.setCharacterID(charID)
 	panel.connect("mouse_entered", self, "onCharacterMouseEntered", [panel])

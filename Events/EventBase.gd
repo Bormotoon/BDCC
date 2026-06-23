@@ -2,7 +2,7 @@ extends RefCounted
 class_name EventBase
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
-## Base class for events. extends Reference → RefCounted.
+## Base class for events. extends RefCounted → RefCounted.
 
 var id: String = "badevent"
 

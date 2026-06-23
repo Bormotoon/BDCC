@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name DatapackSceneTrigger
 
 const TRIGGER_REACT = 0

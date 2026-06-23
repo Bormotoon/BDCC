@@ -49,7 +49,7 @@ func _on_SaveButton_pressed():
 var spellCheckerWindowScene = preload("res://Util/SpellChecker/SpellCheckerWindow.tscn")
 
 func _on_SpellCheckerButton_pressed():
-	var theWindow = spellCheckerWindowScene.instance()
+	var theWindow = spellCheckerWindowScene.instantiate()
 	add_child(theWindow)
 	
 	theWindow.popup_centered()

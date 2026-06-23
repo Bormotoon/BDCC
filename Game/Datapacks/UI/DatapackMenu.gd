@@ -38,7 +38,7 @@ func updateDatapackDesc(theDatapack:Datapack):
 	finalText += "id="+theDatapack.id
 	finalText += "\n"+theDatapack.name
 	finalText += "\nAuthor: "+theDatapack.author
-	if(!theDatapack.requiredMods.empty() || !theDatapack.requiredDatapacks.empty()):
+	if(!theDatapack.requiredMods.is_empty() || !theDatapack.requiredDatapacks.is_empty()):
 		finalText += "\n"+theDatapack.getRequiredModsString()
 	finalText += "\n\n"+theDatapack.description
 	finalText += "\n\n"+theDatapack.getContainsString()
@@ -72,7 +72,7 @@ func _on_NewPackConfirmationDialog_confirmed():
 	startEditingDatapack(newDatapack)
 
 func startEditingDatapack(datapack:Datapack):
-	var datapackEditorScreen = preload("res://Game/Datapacks/UI/DatapackEditor.tscn").instance()
+	var datapackEditorScreen = preload("res://Game/Datapacks/UI/DatapackEditor.tscn").instantiate()
 	pushMenu(datapackEditorScreen)
 	
 	datapackEditorScreen.setDatapack(datapack)
@@ -126,11 +126,11 @@ func pushMenu(newMenu:Control):
 
 	
 func popMenu():
-	if(!menuStack.empty()):
+	if(!menuStack.is_empty()):
 		menuStack.back().queue_free()
 		menuStack.pop_back()
 		
-		if(menuStack.empty()):
+		if(menuStack.is_empty()):
 			$DatapackViewer.visible = true
 			onMenuPopped()
 		else:
@@ -182,7 +182,7 @@ func _on_DatapackFolderButton_pressed():
 
 var datapackBrowserScene = preload("res://Game/Datapacks/UI/DatapackBrowser.tscn")
 func _on_DatapackBrowserButton_pressed():
-	var newMenu = datapackBrowserScene.instance()
+	var newMenu = datapackBrowserScene.instantiate()
 	newMenu.connect("closePressed", self, "popMenu")
 
 	pushMenu(newMenu)

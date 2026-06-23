@@ -8,7 +8,7 @@ var editor
 var buttonChecksEditor = preload("res://Game/Datapacks/UI/CrotchCode/UI/ButtonChecksEditorWindow.tscn")
 
 func _on_OpenEditorButton_pressed():
-	var newWindow = buttonChecksEditor.instance()
+	var newWindow = buttonChecksEditor.instantiate()
 	
 	add_child(newWindow)
 	

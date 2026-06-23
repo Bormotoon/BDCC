@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Child
 
 var name: String = ""
@@ -56,7 +56,7 @@ func setFatherID(newfather):
 
 func setLaidByID(_charID:String):
 	laidByID = _charID
-	bigEgg = true if !_charID.empty() else false
+	bigEgg = true if !_charID.is_empty() else false
 
 func getLaidByID() -> String:
 	return laidByID
