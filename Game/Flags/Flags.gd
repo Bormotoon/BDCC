@@ -1,7 +1,10 @@
 extends Object
 class_name Flag
 
-static func getFlags():
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Global flag definitions and reset logic.
+
+static func getFlags() -> Dictionary:
 	return {
 		"Canteen_PlayerAteToday": flag(FlagType.Bool),
 		"Mining_IntroducedToMinning": flag(FlagType.Bool),
@@ -16,17 +19,12 @@ static func getFlags():
 
 enum Crime_Type {Innocent, Theft, Murder, Prostitution}
 
-static func resetFlagsOnNewDay():
-	if(GM.main.getFlag("Canteen_PlayerAteToday")):
+static func resetFlagsOnNewDay() -> void:
+	if GM.main.getFlag("Canteen_PlayerAteToday"):
 		GM.main.setFlag("Canteen_PlayerAteToday", false)
-	
 	var modules = GlobalRegistry.getModules()
-	for moduleID in modules:
-		var module = modules[moduleID]
-		
-		module.resetFlagsOnNewDay()
+	for module_id in modules:
+		modules[module_id].reset_flags_on_new_day()
 
-static func flag(type):
-	return {
-		"type": type,
-	}
+static func flag(type) -> Dictionary:
+	return {"type": type}

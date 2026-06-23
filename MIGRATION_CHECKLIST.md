@@ -285,7 +285,7 @@ PoolStringArray → PackedStringArray
 | Science/ | 8 | 1,791 | 🔴 НЕ МИГРИРОВАН |
 | Reputation/ | 8 | 554 | 🔴 НЕ МИГРИРОВАН |
 | Gameplay/ | 11 | 970 | 🔴 НЕ МИГРИРОВАН |
-| Flags/ | 2 | 86 | 🔴 НЕ МИГРИРОВАН |
+| Flags/ | 2 | 86 | ✅ МИГРИРОВАН (match/case, type hints) |
 | Options/ | 4 | 1,748 | 🔴 НЕ МИГРИРОВАН |
 | Computer/ | 2 | 452 | 🔴 НЕ МИГРИРОВАН |
 | Combat/ | 4 | 177 | 🔴 НЕ МИГРИРОВАН |
