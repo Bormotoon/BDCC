@@ -1,88 +1,73 @@
-extends Reference
+extends RefCounted
 class_name InteractionGoalBase
 
-var id:String = ""
-var pawnID:String = ""
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for interaction goals. extends Reference → RefCounted.
+
+var id: String = ""
+var pawn_id: String = ""
 var interaction
-var globalTask:String = ""
+var global_task: String = ""
 
-func saveData():
-	return {
-		"gt": globalTask,
-	}
+func save_data() -> Dictionary:
+	return {"gt": global_task}
 
-func loadData(_data):
-	globalTask = SAVE.loadVar(_data, "gt", "")
+func load_data(data: Dictionary) -> void:
+	global_task = SAVE.loadVar(data, "gt", "")
 
-func getScore(_pawn:CharacterPawn) -> float:
+func get_score(_pawn: CharacterPawn) -> float:
 	return 0.0
 
-func getText():
+func get_text() -> String:
 	return "They be doing something!"
 
-func onGoalStart():
+func on_goal_start() -> void:
 	pass
 
-func getActions() -> Array:
-	return [
-#		{
-#			id = "test",
-#			name = "Test",
-#			desc = "Do something",
-#			score = 1.0,
-#			args = {},
-#			time = 60,
-#		},
-	]
+func get_actions() -> Array:
+	return []
 
-func doAction(_id:String, _args:Dictionary):
+func do_action(_id: String, _args: Dictionary) -> void:
 	pass
 
-func getKeepScore() -> float:
-	return getScore(getPawn()) + 0.1
+func get_keep_score() -> float:
+	return get_score(get_pawn()) + 0.1
 
+func get_pawn() -> CharacterPawn:
+	return GM.main.IS.getPawn(pawn_id)
 
-
-
-
-func getPawn() -> CharacterPawn:
-	return GM.main.IS.getPawn(pawnID)
-
-func getInteraction():
+func get_interaction():
 	return interaction
 
-func canReachPC() -> bool:
+func can_reach_pc() -> bool:
 	var room = GM.world.getRoomByID(GM.pc.getLocation())
-	if(room == null || room.isOfflimitsForInmates()):
+	if room == null or room.is_offlimits_for_inmates():
 		return false
 	return true
 
-func getLocation() -> String:
+func get_location() -> String:
 	return getInteraction().getLocation()
 
-func setLocation(newLoc:String):
-	getInteraction().setLocation(newLoc)
+func set_location(new_loc: String) -> void:
+	getInteraction().setLocation(new_loc)
 
-func goTowards(theTarget:String):
-	return getInteraction().goTowards(theTarget)
+func go_towards(target: String):
+	return getInteraction().goTowards(target)
 
-func doWander():
+func do_wander():
 	return getInteraction().doWander()
 
-func doWanderGurantee():
-	return getInteraction().doWanderGurantee()
-
-func completeGoal():
+func complete_goal() -> void:
 	getInteraction().completeGoal()
 
-func getCurrentAction() -> String:
+func get_current_action() -> String:
 	return getInteraction().getCurrentAction()
 
-func doLookAround(keepScoreMult:float = 1.0):
-	return getInteraction().doLookAround("main", keepScoreMult)
+func do_look_around(keep_score_mult: float = 1.0):
+	return getInteraction().doLookAround("main", keep_score_mult)
 
-func getAnimData() -> Array:
-	return [StageScene.Solo, "stand", {pc="main"}]
+func get_anim_data() -> Array:
+	return [StageScene.Solo, "stand", {"pc": "main"}]
 
-func getActivityIcon():
+func get_activity_icon():
 	return RoomStuff.PawnActivity.None
