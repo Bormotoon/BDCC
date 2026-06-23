@@ -62,7 +62,7 @@ func _run():
 		for quest in mainQuests:
 			sayn("[b]"+quest.getVisibleName()+"[/b]")
 			var progress = quest.getProgress()
-			progress.invert()
+			progress.reverse()
 			for line in progress:
 				sayn("* "+line)
 			sayn("")
@@ -75,7 +75,7 @@ func _run():
 		for quest in sideQuests:
 			sayn("[b]"+quest.getVisibleName()+"[/b]")
 			var progress = quest.getProgress()
-			progress.invert()
+			progress.reverse()
 			for line in progress:
 				sayn("* "+line)
 			sayn("")
@@ -88,7 +88,7 @@ func _run():
 		for quest in completedQuests:
 			sayn("[b]"+quest.getVisibleName()+"[/b] (Completed)")
 			var progress = quest.getProgress()
-			progress.invert()
+			progress.reverse()
 			for line in progress:
 				sayn("* "+line)
 			sayn("")

@@ -138,7 +138,7 @@ func _process(delta):
 		setCursorPosition(newPosition)
 		setTimeBar(timeLeft / timer)
 
-		var flatStyle:StyleBoxFlat = $GameScreen/Panel.get_stylebox("panel")
+		var flatStyle:StyleBoxFlat = $GameScreen/Panel.get_theme_stylebox("panel")
 		if(isBlindFoldedVersion):
 			flatStyle.bg_color = Color.red
 			

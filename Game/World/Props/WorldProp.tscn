@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Images/WorldProps/bench.png" type="Texture" id=1]
 [ext_resource path="res://Game/World/Props/WorldProp.gd" type="Script" id=2]
-[ext_resource path="res://Shaders/Shadow.shader" type="Shader" id=3]
+[ext_resource path="res://Shaders/Shadow.gdshader" type="Shader" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )

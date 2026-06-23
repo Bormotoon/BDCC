@@ -18,7 +18,7 @@ func getAllRestTransformsForBone(skeletonObject:Skeleton, boneIdx):
 			result.append(skeletonObject.get_bone_rest(boneIdx))
 		
 		boneIdx = skeletonObject.get_bone_parent(boneIdx)
-	result.invert()
+	result.reverse()
 	
 	var resultTranform = Transform.IDENTITY
 	for tran in result:

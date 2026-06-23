@@ -207,7 +207,7 @@ func addPartUnlessSame(slot, partPath):
 	
 	if(parts.has(slot)):
 		var oldpart: Spatial = parts[slot]
-		if(oldpart.filename == partPath):
+		if(oldpart.scene_file_path == partPath):
 			if(callbackObj != null && callbackObj.has_method("onDollUpdate")):
 				callbackObj.onDollUpdate(self, slot, oldpart)
 			return

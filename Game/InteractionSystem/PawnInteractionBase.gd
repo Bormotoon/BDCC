@@ -1553,7 +1553,7 @@ func reactToLustFocus(args:Dictionary, lustEntry:Dictionary):
 		if(shouldRevealWhatWasLiked == true):
 			var suffixesOrdered:Array = ["Presence", "Absence"]
 			if(RNG.chance(20)):
-				suffixesOrdered.invert()
+				suffixesOrdered.reverse()
 			for summaryKeySuffix in suffixesOrdered:
 				var summaryKey:String = "topicsLiked" + summaryKeySuffix
 				if( focusedLikenessSummary[summaryKey].size() > 0 ):
@@ -1574,7 +1574,7 @@ func reactToLustFocus(args:Dictionary, lustEntry:Dictionary):
 		if(shouldRevealWhatWasDisliked == true):
 			var suffixesOrdered:Array = ["Presence", "Absence"]
 			if(RNG.chance(20)):
-				suffixesOrdered.invert()
+				suffixesOrdered.reverse()
 			for summaryKeySuffix in suffixesOrdered:
 				var summaryKey:String = "topicsDisliked" + summaryKeySuffix
 				if( focusedLikenessSummary[summaryKey].size() > 0 ):

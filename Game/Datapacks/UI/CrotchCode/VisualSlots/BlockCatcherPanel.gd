@@ -28,7 +28,7 @@ func setIsHighlighted(isHigh):
 	var borderS = 0
 	if(isHigh):
 		borderS = 4
-	var theStyle:StyleBoxFlat = get_stylebox("panel")
+	var theStyle:StyleBoxFlat = get_theme_stylebox("panel")
 	theStyle.border_width_left = borderS
 	theStyle.border_width_right = borderS
 	theStyle.border_width_top = borderS
