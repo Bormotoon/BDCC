@@ -26,7 +26,7 @@ func _init():
 
 func _run():
 	if(debugMode && state != "changebasecolormenu" && state != "changepartcolormenu"):
-		var textEdit = textWidgetScene.instance()
+		var textEdit = textWidgetScene.instantiate()
 		GM.ui.addCustomControl("textedit", textEdit)
 		
 		var outputText = []
@@ -98,7 +98,7 @@ func _run():
 			GM.ui.setCurrentPage(savedPage)
 
 	if(state == "changebasecolormenu"):
-		var colorPicker = colorPickerScene.instance()
+		var colorPicker = colorPickerScene.instantiate()
 		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(thePC.pickedSkinRColor)
@@ -122,7 +122,7 @@ func _run():
 		if(!bodypart.hasCustomSkinPattern()):
 			addButton("Skin", "Change part's skin", "changepartskinmenu")
 		else:
-			if(!GlobalRegistry.getPartSkins(bodypart.id).empty() || bodypart.pickedSkin != null):
+			if(!GlobalRegistry.getPartSkins(bodypart.id).is_empty() || bodypart.pickedSkin != null):
 				addButton("Skin", "Change part's skin", "changepartskinmenu")
 		addButton("Primary color", "Change part's primary color", "changepartcolormenu", [0])
 		addButton("Secondary color", "Change part's secondary color", "changepartcolormenu", [1])
@@ -160,7 +160,7 @@ func _run():
 		
 	if(state == "changepartcolormenu"):
 		var bodypart = thePC.getBodypart(pickedBodypartSlot)
-		var colorPicker = colorPickerScene.instance()
+		var colorPicker = colorPickerScene.instantiate()
 		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(bodypart.pickedRColor)

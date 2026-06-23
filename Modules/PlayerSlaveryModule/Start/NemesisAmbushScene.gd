@@ -54,7 +54,7 @@ func _reactInit():
 		var possibleRestraints:Array = ["basketmuzzle", "blindfold", "bondagemittens", "inmateanklecuffs", "inmatewristcuffs"]
 		possibleRestraints.shuffle()
 		var addedList := GM.pc.getInventory().forceRestraintsList(possibleRestraints, 2)
-		if(addedList.empty()):
+		if(addedList.is_empty()):
 			addMessage("Looks like they didn't really manage to add more bondage gear onto you..")
 		elif(addedList.size() == 1):
 			addMessage("Looks like they only managed to add one piece of bondage gear onto you..")
@@ -558,7 +558,7 @@ func transferAllItems(_charFrom, _charTo):
 	if(!_charFrom || !_charTo):
 		return
 	var theItems:Array = _charFrom.getInventory().getItems()
-	while(!theItems.empty()):
+	while(!theItems.is_empty()):
 		var theItem = theItems[0]
 		
 		_charFrom.getInventory().removeItem(theItem)

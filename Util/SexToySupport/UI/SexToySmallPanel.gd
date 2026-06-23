@@ -8,7 +8,7 @@ var theSexToyGroupOverrideUIScene := preload("res://Util/SexToySupport/UI/SexToy
 
 func _ready():
 	for _group in SexToyGroup.ALL:
-		var theScene:Control = theSexToyGroupOverrideUIScene.instance()
+		var theScene:Control = theSexToyGroupOverrideUIScene.instantiate()
 		override_list.add_child(theScene)
 		theScene.setGroup(_group)
 	visible = SexToyManager.enabled

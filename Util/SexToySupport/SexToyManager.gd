@@ -60,7 +60,7 @@ func loadBackendByFolderName(_folder:String):
 	var theScene:PackedScene = load(_theScenePath)
 	if(!theScene):
 		return
-	addBackend(theScene.instance())
+	addBackend(theScene.instantiate())
 
 func _process(_delta:float):
 	if(!enabled):
@@ -197,7 +197,7 @@ func saveToFile():
 
 func loadFromFile():
 	var theStr := Util.readFile(TOY_SETTINGS_FILE)
-	if(theStr.empty()):
+	if(theStr.is_empty()):
 		gameplay.loadData(DEFAULT_GAMEPLAY_CONFIG) # Give the player a default gameplay config on the first load
 		return
 		

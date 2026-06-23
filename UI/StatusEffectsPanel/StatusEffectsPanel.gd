@@ -14,7 +14,7 @@ func _ready():
 	clearStatusEffects()
 
 func addEffect(col, text, desc, texture = null, isWide = false):
-	var block = uiblockScene.instance()
+	var block = uiblockScene.instantiate()
 	block.setColor(col)
 	block.tooltipShouldBeWide = isWide
 #	if(type == EffectType.Green):

@@ -157,7 +157,7 @@ func loadOrderFromFile() -> Array:
 
 func updateModList():
 	var theFilterText:String = search_line_edit.text.to_lower()
-	var hasFilterText:bool = !theFilterText.empty()
+	var hasFilterText:bool = !theFilterText.is_empty()
 	
 	launchModEntries.clear()
 	Util.delete_children(modVList)
@@ -171,7 +171,7 @@ func updateModList():
 		if(hasFilterText && !(theFilterText in theSearchName)):
 			continue
 		
-		var newEntry = launchModEntryScene.instance()
+		var newEntry = launchModEntryScene.instantiate()
 		modVList.add_child(newEntry)
 		newEntry.entryIndex = modEntryIdx
 		newEntry.setModEntry(modEntry)
@@ -333,7 +333,7 @@ func _on_MoveUpButton_pressed():
 	var newIndex = currentIndex - 1
 	if(newIndex < 0):
 		newIndex = 0
-	currentModOrder.remove(currentIndex)
+	currentModOrder.remove_at(currentIndex)
 	currentModOrder.insert(newIndex, selectedEntry)
 	
 	ensureBDCCIsFirst()
@@ -348,7 +348,7 @@ func _on_MoveDownButton_pressed():
 	var newIndex = currentIndex + 1
 	if(newIndex >= currentModOrder.size()):
 		newIndex = currentModOrder.size() - 1
-	currentModOrder.remove(currentIndex)
+	currentModOrder.remove_at(currentIndex)
 	currentModOrder.insert(newIndex, selectedEntry)
 	
 	updateModList()
@@ -362,7 +362,7 @@ func ensureBDCCIsFirst():
 			else:
 				entry["disabled"] = false
 			
-			currentModOrder.remove(_i)
+			currentModOrder.remove_at(_i)
 			currentModOrder.insert(0, entry)
 			foundBDCC = true
 			return
@@ -380,7 +380,7 @@ func _on_ConfirmationDialog_confirmed():
 		return
 	
 	var theFile = Directory.new()
-	theFile.remove(selectedEntry["path"])
+	theFile.remove_at(selectedEntry["path"])
 	currentModOrder.erase(selectedEntry)
 	selectedEntry = null
 	
@@ -538,8 +538,8 @@ func checkBrokenModEntry(modEntry:Dictionary, brokenEntry:Dictionary) -> bool:
 	var theSinceField:String = brokenEntry["since"] if (brokenEntry.has("since") && (brokenEntry["since"] is String)) else ""
 	var theBadSizesField:Array = brokenEntry["badsizes"] if (brokenEntry.has("badsizes") && (brokenEntry["badsizes"] is Array)) else []
 	
-	var hasSinceVersion:bool = !theSinceField.empty()
-	var hasSizes:bool = !theBadSizesField.empty()
+	var hasSinceVersion:bool = !theSinceField.is_empty()
+	var hasSizes:bool = !theBadSizesField.is_empty()
 	
 	if(hasSinceVersion && !isOurVersionAffection(theSinceField)):
 		return false
@@ -559,7 +559,7 @@ onready var busy_close_button = $"%BusyCloseButton"
 onready var http_request_mods:HTTPRequest = $"%HTTPRequestMods"
 
 func setBusyPanel(_text:String, _canClose:bool = false):
-	if(_text.empty()):
+	if(_text.is_empty()):
 		busy_panel.visible = false
 		return
 	

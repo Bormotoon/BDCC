@@ -19,7 +19,7 @@ func _run():
 		if(!recallMode):
 			saynn("You're standing in front of a holographic bounty board. It scans your collar.. and shows you these tasks:")
 		
-		if(nurseryTasks.empty()):
+		if(nurseryTasks.is_empty()):
 			if(recallMode):
 				if(GM.main.SCI.didGenerateNurseryTasksToday()):
 					saynn("You can't remember any bounties that you haven't yet completed.. You should probably check the bounty board tomorrow.")
@@ -141,7 +141,7 @@ func getDebugActions():
 
 func doDebugAction(_id, _args = {}):
 	if(_id == "completeTasks"):
-		while(!GM.main.SCI.peekNurseryTasks().empty()):
+		while(!GM.main.SCI.peekNurseryTasks().is_empty()):
 			var task = GM.main.SCI.peekNurseryTasks()[0]
 			task.completeSelf()
 

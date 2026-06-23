@@ -30,7 +30,7 @@ func _getName():
 	var theName:String = "Tentacles"
 	if(GM.main != null):
 		var newName:String = GM.main.getFlag("ElizaModule.tent_name", "")
-		if(!newName.empty()):
+		if(!newName.is_empty()):
 			theName = newName
 	return theName
 

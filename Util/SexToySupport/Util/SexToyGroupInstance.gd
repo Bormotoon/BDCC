@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexToyGroupInstance
 
 # https://github.com/JtotheThree/godot_curve_editor

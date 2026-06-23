@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexToyBase
 
 # It's more of a 'feature' of a toy. Each vibration motor will get its own SexToyBase basically

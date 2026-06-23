@@ -18,7 +18,7 @@ func _run():
 				playAnimation(theAnimInfo[0], theAnimInfo[1], theAnimInfo[2])
 		
 		var theText:String = tentacles.getText(roomID)
-		if(!theText.empty()):
+		if(!theText.is_empty()):
 			saynn(theText)
 
 		if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
@@ -62,7 +62,7 @@ func _react(_action: String, _args):
 		tentacles.processTurn()
 		
 		var eventInfo:Array = tentacles.checkEvent(self, GM.pc.getLocation())
-		if(!eventInfo.empty()):
+		if(!eventInfo.is_empty()):
 			runScene(eventInfo[0], eventInfo[1] if eventInfo.size() > 1 else [])
 			return
 		elif(!GM.main.checkExtraScenes(true, true)):

@@ -21,7 +21,7 @@ func _reactInit():
 		possible.append("7")
 	_tentacles.train(_tentacles.STAT_ANGER)
 	
-	if(possible.empty()):
+	if(possible.is_empty()):
 		possible.append("0")
 	
 	if(possible.size() > 0):

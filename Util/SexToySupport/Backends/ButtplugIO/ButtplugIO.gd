@@ -68,7 +68,7 @@ func getSettings() -> Dictionary:
 func applySetting(_varid:String, _value):
 	if(_varid == "websocketURL"):
 		websocketURL = _value
-		if(websocketURL.empty()):
+		if(websocketURL.is_empty()):
 			websocketURL = DEFAULT_WEBSOCKET_URL
 			return true
 	
@@ -203,7 +203,7 @@ func processButtplugIOMessage(_message:Dictionary):
 					var newToy := SexToyVibrator.new()
 					newToy.setBackend(id, _deviceName, _featureDesc, "vib"+featureStrIndx)
 					newToy.name = _deviceName
-					if(_featureDesc.empty()):
+					if(_featureDesc.is_empty()):
 						newToy.name += " ("+theFeatureName+" "+str(int(featureStrIndx)+1)+")"
 					else:
 						newToy.name += " ("+_featureDesc+")"
@@ -290,7 +290,7 @@ func _process(_delta:float):
 	if(requestTimer > 0.0):
 		requestTimer -= _delta
 	
-	if(requestTimer <= 0.0 && !requestQueue.empty()):
+	if(requestTimer <= 0.0 && !requestQueue.is_empty()):
 		var theRequestID:String = requestQueue.keys().front()
 		var _data:Dictionary = requestQueue[theRequestID]
 		

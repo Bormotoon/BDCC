@@ -22,7 +22,7 @@ var nodeToFree
 signal onMeetNpcButton(ID, occupation)
 
 func addRow(name: String, gender: String, subbyStat: float, ID: String, occupation: String, children: int = 0, canForget: bool = true, canMeet: bool = true):
-	var newRow = npcRow.instance()
+	var newRow = npcRow.instantiate()
 	container.add_child(newRow)
 	newRow.initData(name, gender, subbyStat, ID, occupation, children, canForget, canMeet)
 	newRow.setRelationShipData(GM.main.RS.getAffection("pc", ID), GM.main.RS.getLust("pc", ID))

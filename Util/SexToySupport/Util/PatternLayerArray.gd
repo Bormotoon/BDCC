@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name PatternLayerArray
 
 var vibPattern:Array
@@ -18,7 +18,7 @@ func playSimple(_intensity:float, _time:float):
 func process(_dt:float):
 	var newVibLevel:float = 0.0
 	var proccessedDT:float = _dt
-	while(!vibPattern.empty() && proccessedDT > 0.0):
+	while(!vibPattern.is_empty() && proccessedDT > 0.0):
 		newVibLevel = vibPattern[0]
 		
 		var toRem:float = proccessedDT
@@ -31,7 +31,7 @@ func process(_dt:float):
 			vibPattern.pop_front()
 			vibPattern.pop_front()
 	
-	if(looping && vibPattern.empty()):
+	if(looping && vibPattern.is_empty()):
 		vibPattern = patternCopy.duplicate()
 	
 	vibLevel = newVibLevel * intensity
@@ -42,7 +42,7 @@ func getValue() -> float:
 func shouldBeRemoved() -> bool:
 	if(looping):
 		return false
-	return vibPattern.empty()
+	return vibPattern.is_empty()
 
 func setIntensity(_i:float):
 	intensity = _i

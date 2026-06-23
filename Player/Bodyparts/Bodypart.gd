@@ -57,11 +57,11 @@ func getCharacterCreatorDesc():
 
 func getCharacterCreatorDescFinal(_isActive:bool) -> String:
 	if(_isActive):
-		return "This is the currently selected bodypart"+(("\n[i]Created by:[/i] "+author) if !author.empty() else "")
+		return "This is the currently selected bodypart"+(("\n[i]Created by:[/i] "+author) if !author.is_empty() else "")
 	
 	var theDescRaw:String = str(getCharacterCreatorDesc())
-	if(!author.empty()):
-		if(!theDescRaw.empty()):
+	if(!author.is_empty()):
+		if(!theDescRaw.is_empty()):
 			theDescRaw += "\n"
 		theDescRaw += "[i]Created by:[/i] "+author
 	return theDescRaw
@@ -499,7 +499,7 @@ func applySkinData(_data:Dictionary):
 
 func generateRandomSkinIfCan(_dynamicCharacter):
 	if(hasCustomSkinPattern()):
-		if(!GlobalRegistry.getPartSkins(id).empty()):
+		if(!GlobalRegistry.getPartSkins(id).is_empty()):
 			pickedSkin = RNG.pick(GlobalRegistry.getPartSkins(id).keys() + [null])
 
 func generateRandomColors(_dynamicCharacter):

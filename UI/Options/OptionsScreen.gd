@@ -35,7 +35,7 @@ func updateOptions():
 	var options = OPTIONS.getChangeableOptions()
 	
 	for category in options:
-		var optionsCategory = optionsCategoryScene.instance()
+		var optionsCategory = optionsCategoryScene.instantiate()
 		optionsContainer.add_child(optionsCategory)
 
 		optionsCategory.setCategoryName(category["name"])
@@ -56,19 +56,19 @@ func updateOptions():
 			
 			var optionUIObject: Node = null
 			if(optionType == "checkbox"):
-				optionUIObject = optionCategoryCheckbox.instance()
+				optionUIObject = optionCategoryCheckbox.instantiate()
 			elif(optionType == "list"):
-				optionUIObject = optionCategoryList.instance()
+				optionUIObject = optionCategoryList.instantiate()
 			elif(optionType == "float"):
-				optionUIObject = optionCategoryFloat.instance()
+				optionUIObject = optionCategoryFloat.instantiate()
 			elif(optionType == "int"):
-				optionUIObject = optionCategoryInt.instance()
+				optionUIObject = optionCategoryInt.instantiate()
 			elif(optionType == "prioritylist"):
-				optionUIObject = optionCategoryPriorityList.instance()
+				optionUIObject = optionCategoryPriorityList.instantiate()
 			elif(optionType == "string"):
-				optionUIObject = optionCategoryString.instance()
+				optionUIObject = optionCategoryString.instantiate()
 			else:
-				optionUIObject = optionCategoryUnknown.instance()
+				optionUIObject = optionCategoryUnknown.instantiate()
 			
 			if(optionUIObject == null):
 				continue

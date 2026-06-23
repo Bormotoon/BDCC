@@ -67,7 +67,7 @@ func updatePerks():
 	
 	var i = 0
 	for tierData in tiers:
-		var perksTierUI = perksTierScene.instance()
+		var perksTierUI = perksTierScene.instantiate()
 		tiersContainer.add_child(perksTierUI)
 		perksTierUI.setSkillAndTier(skill, tierData, i)
 		i += 1

@@ -120,7 +120,7 @@ func translate(_targetLanguage, _inputText):
 	var body = theData[3]
 	#print(body.get_string_from_utf8())
 	var theResultText:String = body.get_string_from_utf8()
-	if(theResultText.empty()):
+	if(theResultText.is_empty()):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Empty response"
 		return theResult

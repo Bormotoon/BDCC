@@ -39,7 +39,7 @@ func _init():
 
 func _reactInit():
 	anims = GlobalRegistry.getStageScenesCachedStates()
-	if(!animsOnlyList.empty()):
+	if(!animsOnlyList.is_empty()):
 		anims = anims.duplicate()
 		for animID in anims.keys():
 			if(!(animID in animsOnlyList)):

@@ -18,7 +18,7 @@ func react(_triggerID, _args):
 		if(theNpcOwner.checkShouldSleepTogether()):
 			possible.append(charID)
 	
-	if(possible.empty()):
+	if(possible.is_empty()):
 		return false
 	runScene("NpcOwnerSleepTogetherScene", [RNG.pick(possible)])
 	return true

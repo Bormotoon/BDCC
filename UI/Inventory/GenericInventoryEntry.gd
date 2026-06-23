@@ -42,7 +42,7 @@ func setEntry(_entry:Dictionary):
 	
 	Util.delete_children(interact_buttons_list)
 	var actions:Array = _entry["actions"] if _entry.has("actions") else []
-	v_separator_2.visible = !actions.empty()
+	v_separator_2.visible = !actions.is_empty()
 	for actionEntry in actions:
 		var newButton:Button = Button.new()
 		interact_buttons_list.add_child(newButton)

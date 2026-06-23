@@ -49,7 +49,7 @@ func doUpdate():
 	var shouldRender:bool = false
 	var newCache:Array = [_isLookingLeft]
 	
-	if(!_theData.empty() && mesh.is_visible_in_tree()):
+	if(!_theData.is_empty() && mesh.is_visible_in_tree()):
 		for zone in _zones:
 			var dataZone:int = zone
 			if(!_isLookingLeft):

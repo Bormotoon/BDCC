@@ -17,7 +17,7 @@ func _reactInit():
 		possible.append("3") # raw meat
 		possible.append("4") # 'milk'
 	
-	if(possible.empty()):
+	if(possible.is_empty()):
 		possible.append("0")
 	
 	if(possible.size() > 0):

@@ -22,7 +22,7 @@ func updatePerks():
 	for perkID in allBasePerksIDs:
 		var perk: PerkBase = GlobalRegistry.getPerk(perkID)
 
-		var perkButton = perkButtonScene.instance()
+		var perkButton = perkButtonScene.instantiate()
 		perksFlexGrid.add_child(perkButton)
 		perkButton.setPerk(perk)
 		var _ok = perkButton.connect("perkClicked", self, "onPerkButton")

@@ -58,7 +58,7 @@ func updateEntries():
 		if(filterText != "" && !(filterText in entryName)):
 			continue
 		
-		var newEntry = genericEntryScene.instance()
+		var newEntry = genericEntryScene.instantiate()
 		itemListContainer.add_child(newEntry)
 		newEntry.id = entryID
 		newEntry.setEntry(entry)

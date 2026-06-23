@@ -260,7 +260,7 @@ func _run():
 			addButton(CharacterPool.getVisibleName(encounterPoolID), "Pick this occupation", "occupationmenupool", [encounterPoolID])
 		
 	if(state == "occupationmenupool"):
-		var npclist = npclistScene.instance()
+		var npclist = npclistScene.instantiate()
 		GM.ui.addFullScreenCustomControl("npclist", npclist)
 		var _ok = npclist.connect("onMeetNpcButton", self, "doMeetNpc")
 		

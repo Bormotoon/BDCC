@@ -1094,7 +1094,7 @@ func _react(_action: String, _args):
 		pickedLoc = "waterfall"
 		endLocation = "yard_waterfall"
 		path = GM.world.calculatePath(startLocation, endLocation)
-		path.remove(0)
+		path.remove_at(0)
 		setState("start_walkies")
 		return
 
@@ -1104,7 +1104,7 @@ func _react(_action: String, _args):
 		pickedLoc = "canteen"
 		endLocation = "hall_canteen"
 		path = GM.world.calculatePath(startLocation, endLocation)
-		path.remove(0)
+		path.remove_at(0)
 		setState("start_walkies")
 		return
 
@@ -1114,7 +1114,7 @@ func _react(_action: String, _args):
 		pickedLoc = "shower"
 		endLocation = "main_shower1"
 		path = GM.world.calculatePath(startLocation, endLocation)
-		path.remove(0)
+		path.remove_at(0)
 		setState("start_walkies")
 		return
 
@@ -1124,14 +1124,14 @@ func _react(_action: String, _args):
 		pickedLoc = "yard"
 		endLocation = "yard_northCorridor"
 		path = GM.world.calculatePath(startLocation, endLocation)
-		path.remove(0)
+		path.remove_at(0)
 		setState("start_walkies")
 		return
 
 	if(_action == "do_walkies"):
 		processTime(60)
 		var nextLoc = path[0]
-		path.remove(0)
+		path.remove_at(0)
 		
 		if(!GM.world.hasRoomID(nextLoc)):
 			return

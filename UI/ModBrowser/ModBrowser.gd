@@ -36,7 +36,7 @@ func updateModList(modsArray = allMods):
 	visualModEntries.clear()
 	Util.delete_children(modList)
 	for modEntry in modsArray:
-		var newBrowserEntry = modEntryScene.instance()
+		var newBrowserEntry = modEntryScene.instantiate()
 		modList.add_child(newBrowserEntry)
 		newBrowserEntry.setModEntry(modEntry)
 		var _ok = newBrowserEntry.connect("onSelected", self, "onModEntrySelected")

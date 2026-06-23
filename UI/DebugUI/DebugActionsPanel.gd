@@ -19,7 +19,7 @@ func updateActions():
 		return
 	
 	for action in actions:
-		var debugActionObject = debugActionScene.instance()
+		var debugActionObject = debugActionScene.instantiate()
 		
 		var _ok = debugActionObject.connect("onActionPressed", self, "onDebugAction")
 		$VBoxContainer/VBoxContainer.add_child(debugActionObject)
@@ -31,7 +31,7 @@ func updateActions():
 		debugActionObject.isMain = false
 		
 	for action in GM.main.getDebugActions():
-		var debugActionObject = debugActionScene.instance()
+		var debugActionObject = debugActionScene.instantiate()
 		
 		var _ok = debugActionObject.connect("onActionPressed", self, "onDebugAction")
 		$VBoxContainer/VBoxContainer2.add_child(debugActionObject)

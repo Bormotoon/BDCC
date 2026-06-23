@@ -232,7 +232,7 @@ func _react(_action: String, _args):
 		while path.size() > 0:
 			HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(1,3))
 			processTime(1 * 60)
-			path.remove(0)
+			path.remove_at(0)
 		if(!headingBack):
 			setState("arrive")
 			aimCamera(endLocation)
@@ -247,7 +247,7 @@ func _react(_action: String, _args):
 		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(1,3))
 		processTime(1 * 60)
 		var nextLoc = path[0]
-		path.remove(0)
+		path.remove_at(0)
 		
 		if(!GM.world.hasRoomID(nextLoc)):
 			endScene()

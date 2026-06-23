@@ -26,7 +26,7 @@ func updateFlags():
 			var flagType = flagData["type"]
 			var flagValue = GM.main.getFlag(flagID)
 			
-			var newflagpanelentry = flagPanelEntryScene.instance()
+			var newflagpanelentry = flagPanelEntryScene.instantiate()
 			$ScrollContainer/VBoxContainer/VBoxContainer.add_child(newflagpanelentry)
 			newflagpanelentry.setNameAndValue(flagID+" ("+str(FlagType.getVisibleName(flagType))+")", flagValue)
 			newflagpanelentry.flagID = flagID
@@ -37,7 +37,7 @@ func updateFlags():
 			var module:Module = modules[moduleID]
 			
 			var modflags = module.getFlagsCache() 
-			if(modflags.empty()):
+			if(modflags.is_empty()):
 				continue
 			addDivider(str(moduleID)+" MODULE FLAGS")
 			
@@ -50,7 +50,7 @@ func updateFlags():
 				var flagType = flagData["type"]
 				var flagValue = GM.main.getModuleFlag(moduleID, flagID)
 				
-				var newflagpanelentry = flagPanelEntryScene.instance()
+				var newflagpanelentry = flagPanelEntryScene.instantiate()
 				$ScrollContainer/VBoxContainer/VBoxContainer.add_child(newflagpanelentry)
 				newflagpanelentry.setNameAndValue(flagID+" ("+str(FlagType.getVisibleName(flagType))+")", flagValue)
 				newflagpanelentry.flagID = flagID
@@ -61,7 +61,7 @@ func updateFlags():
 		var loadedDatapacks = GM.main.loadedDatapacks
 		for datapackID in loadedDatapacks:
 			var datapack = GlobalRegistry.getDatapack(datapackID)
-			if(datapack == null || datapack.flags.empty()):
+			if(datapack == null || datapack.flags.is_empty()):
 				continue
 			addDivider(str(datapackID)+" DATAPACK FLAGS")
 	
@@ -73,7 +73,7 @@ func updateFlags():
 				var flagType = flagData["type"]
 				var flagValue = GM.main.getDatapackFlag(datapackID, flagID)
 				
-				var newflagpanelentry = flagPanelEntryScene.instance()
+				var newflagpanelentry = flagPanelEntryScene.instantiate()
 				$ScrollContainer/VBoxContainer/VBoxContainer.add_child(newflagpanelentry)
 				newflagpanelentry.setNameAndValue(flagID+" ("+str(DatapackSceneVarType.getName(flagType))+")", flagValue)
 				newflagpanelentry.flagID = flagID
@@ -82,7 +82,7 @@ func updateFlags():
 	
 	
 func addDivider(text):
-	var flagPanelDividerObject = flagPanelDividerScene.instance()
+	var flagPanelDividerObject = flagPanelDividerScene.instantiate()
 	$ScrollContainer/VBoxContainer/VBoxContainer.add_child(flagPanelDividerObject)
 	flagPanelDividerObject.setText(text)
 

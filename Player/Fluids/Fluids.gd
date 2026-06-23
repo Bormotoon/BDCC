@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Fluids
 
 # Everything is in milliliters
@@ -107,7 +107,7 @@ func clear():
 	dirtyFlag = false
 
 func isEmpty():
-	return contents.empty()
+	return contents.is_empty()
 
 func getFluidAmount() -> float:
 	if(!dirtyFlag):

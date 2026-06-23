@@ -13,7 +13,7 @@ func updateSkills():
 	
 	var skills = GM.pc.getSkillsHolder().getSkills()
 	for skillID in skills:
-		var skillPanel = skillOverviewPanelScene.instance()
+		var skillPanel = skillOverviewPanelScene.instantiate()
 		skillsContainer.add_child(skillPanel)
 		skillPanel.setSkillID(skillID)
 		skillPanel.connect("perksButton", self, "onPerksButton")

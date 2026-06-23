@@ -24,7 +24,7 @@ func getProgress():
 	result.append("Eliza Quinn has told you to do 3 nursery bounties if you want to get a chance to become her lab assistant.\nApproach the bounty board in the nursery to see today's bounties. You have currently done "+str(amountOfNurseryTasks)+" task"+("s" if amountOfNurseryTasks != 1 else "")+".")
 	
 	var nurseryTasks:Array = GM.main.SCI.peekNurseryTasks()
-	if(!nurseryTasks.empty()):
+	if(!nurseryTasks.is_empty()):
 		var taskText:String = "Bounties that you remember:"
 		for taskA in nurseryTasks:
 			var task:NurseryTaskBase = taskA

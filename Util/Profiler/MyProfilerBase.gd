@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name MyProfilerBase
 
 func start(_mark:String):

@@ -63,7 +63,7 @@ func updateData():
 #	var skills = GM.pc.getSkillsHolder().getSkills()
 #	for skillID in skills:
 #		var tabID = tabContainer.get_child_count()
-#		var skillTab = skillTabScene.instance()
+#		var skillTab = skillTabScene.instantiate()
 #		tabContainer.add_child(skillTab)
 #		skillTab.setSkillID(skillID)
 #		skillTabs.append(skillTab)
@@ -75,7 +75,7 @@ func createAttribList():
 	Util.delete_children(attribList)
 	
 	for statID in Stat.getAll():
-		var skillStatLine = skillStatLineScene.instance()
+		var skillStatLine = skillStatLineScene.instantiate()
 		attribList.add_child(skillStatLine)
 		skillStatLine.statID = statID
 
@@ -188,7 +188,7 @@ func _on_Skills_openPerksButton(skillID):
 		openedSkillTab = null
 	
 	var tabID = tabContainer.get_child_count()
-	var skillTab = skillTabScene.instance()
+	var skillTab = skillTabScene.instantiate()
 	tabContainer.add_child(skillTab)
 	skillTab.setSkillID(skillID)
 	openedSkillTab = skillTab
@@ -202,7 +202,7 @@ func _on_Skills_openBasePerks():
 		openedSkillTab = null
 	
 	var tabID = tabContainer.get_child_count()
-	var skillTab = basePerksTabScene.instance()
+	var skillTab = basePerksTabScene.instantiate()
 	tabContainer.add_child(skillTab)
 	#skillTab.setSkillID(skillID)
 	openedSkillTab = skillTab

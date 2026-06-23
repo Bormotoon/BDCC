@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SensitiveZone
 
 var sensitivity:float = 1.0

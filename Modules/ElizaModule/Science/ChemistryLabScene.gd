@@ -286,7 +286,7 @@ func _run():
 				actions = theActions,
 			}
 			
-		var inventory = genericInventoryScreenScene.instance()
+		var inventory = genericInventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
@@ -367,7 +367,7 @@ func _run():
 			
 
 			
-		var inventory = genericInventoryScreenScene.instance()
+		var inventory = genericInventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
@@ -422,7 +422,7 @@ func _run():
 				desc = "No upgrades left to unlock! AlphaCorp is proud of you!",
 			}
 	
-		var inventory = genericInventoryScreenScene.instance()
+		var inventory = genericInventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
@@ -498,7 +498,7 @@ func _run():
 		var option:Dictionary = options[pickedTFOption]
 		
 		if(option.has("color") && option["color"]):
-			var colorPicker = colorPickerScene.instance()
+			var colorPicker = colorPickerScene.instantiate()
 			GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 			colorPicker.setCurrentColor(Color(pickedArgs[pickedTFOption]))
 			

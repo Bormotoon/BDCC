@@ -139,7 +139,7 @@ func _on_Button_pressed():
 			var varStuff = line.substr(5)
 			var splitted = varStuff.split(" ")
 			var variableName = splitted[0]
-			splitted.remove(0)
+			splitted.remove_at(0)
 			var vairableValue = Util.join(splitted, " ")
 			
 			trackedVariables[variableName] = {
@@ -152,7 +152,7 @@ func _on_Button_pressed():
 			var varStuff = line.substr(7)
 			var splitted = varStuff.split(" ")
 			var variableName = splitted[0]
-			splitted.remove(0)
+			splitted.remove_at(0)
 			var vairableValue = Util.join(splitted, " ")
 			
 			npcAssocs[variableName] = vairableValue
@@ -165,7 +165,7 @@ func _on_Button_pressed():
 			var splittedContent = content.split(":")
 			
 			var charID = splittedContent[0].strip_edges()
-			splittedContent.remove(0)
+			splittedContent.remove_at(0)
 			var whatSaid = Util.join(splittedContent, ":").strip_edges()
 			
 			whatSaid = whatSaid.replace("{{rahiMaster}}", '"+str(getFlag("RahiModule.rahiPCName", GM.pc.getName()))+"')
@@ -183,7 +183,7 @@ func _on_Button_pressed():
 			var splittedStuff = stuff.split(",")
 			
 			var commandID = splittedStuff[0].strip_edges()
-			splittedStuff.remove(0)
+			splittedStuff.remove_at(0)
 			
 			var theCode = []
 			_i += 1
@@ -225,8 +225,8 @@ func _on_Button_pressed():
 				
 				var theid = splittedStuff[splittedStuff.size()-1].strip_edges()
 				var thename = splittedStuff[0].strip_edges()
-				splittedStuff.remove(0)
-				splittedStuff.remove(splittedStuff.size()-1)
+				splittedStuff.remove_at(0)
+				splittedStuff.remove_at(splittedStuff.size()-1)
 				var thedesc = Util.join(splittedStuff, ",").strip_edges()
 				addToRun('addButton("'+thename+'", "'+thedesc+'", "'+theid+'")')
 				_i += 1
@@ -236,8 +236,8 @@ func _on_Button_pressed():
 				
 				var theid = splittedStuff[splittedStuff.size()-1].strip_edges()
 				var thename = splittedStuff[0].strip_edges()
-				splittedStuff.remove(0)
-				splittedStuff.remove(splittedStuff.size()-1)
+				splittedStuff.remove_at(0)
+				splittedStuff.remove_at(splittedStuff.size()-1)
 				var thedesc = Util.join(splittedStuff, ",").strip_edges()
 				_i += 1
 				
@@ -288,7 +288,7 @@ func _on_Button_pressed():
 	result.append("extends "+sceneParent)
 	result.append("")
 	
-	if(!trackedVariables.empty()):
+	if(!trackedVariables.is_empty()):
 		for variableName in trackedVariables:
 			var varData = trackedVariables[variableName]
 			result.append("var "+str(variableName)+" = "+str(varData["value"]))
@@ -310,7 +310,7 @@ func _on_Button_pressed():
 			result.append('\t'+theLine)
 		result.append("")
 	
-	if(!npcAssocs.empty()):
+	if(!npcAssocs.is_empty()):
 		result.append("func resolveCustomCharacterName(_charID):")
 		for charID in npcAssocs:
 			var resultedCharID = npcAssocs[charID]
@@ -320,7 +320,7 @@ func _on_Button_pressed():
 		result.append("")
 	
 	result.append("func _run():")
-	if(!runLines.empty()):
+	if(!runLines.is_empty()):
 		for line in runLines:
 			result.append("\t"+line)
 		result.append("")
@@ -331,12 +331,12 @@ func _on_Button_pressed():
 			#var toAdd = []
 			result.append(Util.join(runs[runID], "\n"))
 	
-	if(!functions.empty()):
+	if(!functions.is_empty()):
 		result.append_array(functions)
 	result.append("")
 	
 	result.append("func _react(_action: String, _args):")
-	if(!reactLines.empty()):
+	if(!reactLines.is_empty()):
 		for line in reactLines:
 			result.append("\t"+line)
 		result.append("")
@@ -356,7 +356,7 @@ func _on_Button_pressed():
 	result.append("\tsetState(_action)")
 	result.append("")
 	
-	if(!sceneReacts.empty()):
+	if(!sceneReacts.is_empty()):
 		result.append("func _react_scene_end(_tag, _result):")
 		for sceneTag in sceneReacts:
 			result.append('\tif(_tag == "'+str(sceneTag)+'"):')
@@ -366,7 +366,7 @@ func _on_Button_pressed():
 			result.append("")
 		#result.append("")
 	
-	if(!trackedVariables.empty()):
+	if(!trackedVariables.is_empty()):
 		result.append("func saveData():")
 		result.append("\tvar data = .saveData()")
 		result.append("")
@@ -420,7 +420,7 @@ func _on_TestButton_pressed():
 	$GameSpotControl.visible = true
 	$VBoxContainer.visible = false
 	testingScene = true
-	theGame = preload("res://Game/MainScene.tscn").instance()
+	theGame = preload("res://Game/MainScene.tscn").instantiate()
 	$GameSpotControl.add_child(theGame)
 	theGame.setIsTestingScene(true)
 	if(pickedSavePath != null):
@@ -452,7 +452,7 @@ func updateSaves():
 	var savesPaths = SAVE.getSavesSortedByDate()
 	
 	for savePath in savesPaths:
-		var saveGameElementObject = saveGameElemenetScene.instance()
+		var saveGameElementObject = saveGameElemenetScene.instantiate()
 		savesContainer.add_child(saveGameElementObject)
 		saveGameElementObject.setSaveFile(savePath)
 		saveGameElementObject.connect("onLoadButtonPressed", self, "onSaveLoadButtonClicked")

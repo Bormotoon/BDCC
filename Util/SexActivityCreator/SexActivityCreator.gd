@@ -109,12 +109,12 @@ func _ready():
 
 func registerArgScene(path):
 	var theAction = load(path)
-	var theActionObject= theAction.instance()
+	var theActionObject= theAction.instantiate()
 	registeredArgScenes[theActionObject.id] = theAction
 	theActionObject.queue_free()
 
 func createArgScene(id):
-	return registeredArgScenes[id].instance()
+	return registeredArgScenes[id].instantiate()
 
 func registerAction(path):
 	var theAction = load(path)
@@ -267,7 +267,7 @@ func updateRightPanel():
 		Util.delete_children(animsWithConditionList)
 		var index = 0
 		for animWithCondition in currentState["animsWithCondition"]:
-			var newConAnimScene = preload("res://Util/SexActivityCreator/AnimPickerWithCondition.tscn").instance()
+			var newConAnimScene = preload("res://Util/SexActivityCreator/AnimPickerWithCondition.tscn").instantiate()
 			animsWithConditionList.add_child(newConAnimScene)
 			newConAnimScene.setData(animWithCondition)
 			newConAnimScene.id = index
@@ -496,7 +496,7 @@ func _on_GenerateCodeButton_pressed():
 	var result = []
 	
 	result.append("extends SexActivityBase")
-	if(!customVariables.empty()):
+	if(!customVariables.is_empty()):
 		result.append("")
 		for varID in customVariables:
 			result.append("var "+varID+" = "+customVariables[varID]["default"])
@@ -612,7 +612,7 @@ func _on_GenerateCodeButton_pressed():
 		
 		
 	
-	if(states.empty()):
+	if(states.is_empty()):
 		result.append("\tpass")
 	
 	result.append("")
@@ -664,7 +664,7 @@ func _on_GenerateCodeButton_pressed():
 		result.append("")
 		
 		result.append(actionSide[3])
-		if(actionSide[2].empty()):
+		if(actionSide[2].is_empty()):
 			result.append("\tpass")
 		
 		for actionID in actionSide[2]:
@@ -707,7 +707,7 @@ func _on_GenerateCodeButton_pressed():
 	for line in customCodeText.split("\n"):
 		result.append(line)
 	
-	if(!customVariables.empty()):
+	if(!customVariables.is_empty()):
 		result.append("")
 		
 		result.append("func saveData():")
@@ -725,7 +725,7 @@ func _on_GenerateCodeButton_pressed():
 		for varID in customVariables:
 			result.append("\t"+varID+" = SAVE.loadVar(_data, \""+varID+"\", "+customVariables[varID]["default"]+")")
 	
-	if(!states.empty()):
+	if(!states.is_empty()):
 		result.append("")
 		result.append("func getAnimation():")
 		
@@ -1093,7 +1093,7 @@ func _on_removeDomButton_pressed():
 		return
 	
 	var index = $VBoxContainer/HBoxContainer/StatesActionsList/DomActionsList.get_selected_items()[0]
-	currentState["domActions"].remove(index)
+	currentState["domActions"].remove_at(index)
 	removeUselessActions()
 	updateLeftPanel()
 	updateRightPanel()
@@ -1105,7 +1105,7 @@ func _on_RemoveSubButton_pressed():
 		return
 	
 	var index = $VBoxContainer/HBoxContainer/StatesActionsList/SubActionsList.get_selected_items()[0]
-	currentState["subActions"].remove(index)
+	currentState["subActions"].remove_at(index)
 	removeUselessActions()
 	updateLeftPanel()
 	updateRightPanel()
@@ -1138,7 +1138,7 @@ func onDeletingAnimWithCondition(index):
 	if(currentState == null):
 		return
 	
-	currentState["animsWithCondition"].remove(index)
+	currentState["animsWithCondition"].remove_at(index)
 	updateRightPanel()
 	
 func onUpAnimWithCondition(index):

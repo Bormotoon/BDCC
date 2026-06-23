@@ -26,15 +26,15 @@ func updateArgs():
 		var newControl = null
 		
 		if(arg["type"] in ["number", "int"]):
-			newControl = numberArgScene.instance()
+			newControl = numberArgScene.instantiate()
 		if(arg["type"] in ["string", "text"]):
-			newControl = stringArgScene.instance()
+			newControl = stringArgScene.instantiate()
 		if(arg["type"] in ["list"]):
-			newControl = listArgScene.instance()
+			newControl = listArgScene.instantiate()
 		if(arg["type"] in ["bool", "checkbox"]):
-			newControl = boolArgScene.instance()
+			newControl = boolArgScene.instantiate()
 		if(arg["type"] in ["smartlist"]):
-			newControl = smartListArgScene.instance()
+			newControl = smartListArgScene.instantiate()
 		
 		if(newControl != null):
 			argListContainer.add_child(newControl)

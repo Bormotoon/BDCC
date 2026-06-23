@@ -187,7 +187,7 @@ func _on_ConfirmationDialog_confirmed():
 			else:
 				if(file_name.get_extension() in ["pck", "zip"]):
 					var full_path = modsFolder.plus_file(file_name)
-					dir.remove(full_path)
+					dir.remove_at(full_path)
 			file_name = dir.get_next()
 		OPTIONS.saveToFile()
 	else:

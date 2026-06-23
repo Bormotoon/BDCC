@@ -161,7 +161,7 @@ func useTar():
 		modName = editModName
 	
 	var directory = Directory.new( )
-	#directory.remove("user://new_mod")
+	#directory.remove_at("user://new_mod")
 	var baseNewModFolder = "user://exported_mods/"+modName
 	var newModFolder = baseNewModFolder
 	var i = 1
@@ -205,7 +205,7 @@ func gatherFiles():
 		modName = editModName
 	
 	var directory = Directory.new( )
-	#directory.remove("user://new_mod")
+	#directory.remove_at("user://new_mod")
 	var baseNewModFolder = "user://exported_mods/"+modName
 	var newModFolder = baseNewModFolder
 	var i = 1

@@ -54,7 +54,7 @@ func getSettings() -> Dictionary:
 func applySetting(_varid:String, _value):
 	if(_varid == "webhookID"):
 		webhookID = _value
-		if(webhookID.empty()):
+		if(webhookID.is_empty()):
 			webhookID = DEFAULT_WEBHOOK
 			return true
 	
@@ -115,7 +115,7 @@ func _process(_delta:float):
 	if(requestTimer > 0.0):
 		requestTimer -= _delta
 	
-	if(requestTimer <= 0.0 && !requestQueue.empty()):
+	if(requestTimer <= 0.0 && !requestQueue.is_empty()):
 		var theRequestID:String = requestQueue.keys().front()
 		var _data:Dictionary = requestQueue[theRequestID]
 		

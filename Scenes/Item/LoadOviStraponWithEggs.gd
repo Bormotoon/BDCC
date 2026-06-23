@@ -37,7 +37,7 @@ func updateInvScreen(_screen):
 
 func _run():
 	if(state == ""):
-		var inventory = inventoryScreenScene.instance()
+		var inventory = inventoryScreenScene.instantiate()
 		inventory.shouldGrabInput = false
 		inventory.shouldGroup = false
 		GM.ui.addFullScreenCustomControl("inventory", inventory)

@@ -9,7 +9,7 @@ func _init():
 func _reactInit():
 	var allStrangePills:Array = GM.main.SCI.getPCUnknownStrangePills()
 	
-	if(allStrangePills.empty()):
+	if(allStrangePills.is_empty()):
 		setState("no_drugs_found")
 		return
 	drugUniqueID = allStrangePills[0].uniqueID

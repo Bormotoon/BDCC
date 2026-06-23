@@ -101,7 +101,7 @@ func updateCurrentBodypart():
 	for attribID in attributes:
 		var data = attributes[attribID]
 		
-		var optionListObject = optionListType.instance()
+		var optionListObject = optionListType.instantiate()
 		currentBodypartChoicesList.add_child(optionListObject)
 		optionListObject.setValues(data["options"])
 		optionListObject.setOptionName(data["textButton"])

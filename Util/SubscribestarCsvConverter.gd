@@ -16,7 +16,7 @@ func getData():
 	#print(fields)
 	
 	var data = []
-	lines.remove(0)
+	lines.remove_at(0)
 	
 	for line in lines:
 		var newData = {}

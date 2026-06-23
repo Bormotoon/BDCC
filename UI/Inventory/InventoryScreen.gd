@@ -112,7 +112,7 @@ func updateInventory():
 		if(theItems.size() == 1):
 			var item = theItems[0]
 			if(item):
-				var entry = inventoryEntry.instance()
+				var entry = inventoryEntry.instantiate()
 				itemListContainer.add_child(entry)
 				itemEntries.append(entry)
 				filterEnteries.append(entry)
@@ -121,7 +121,7 @@ func updateInventory():
 				entry.connect("onInteractButtonPressed", self, "onEntryInteractButtonPressed")
 				entry.connect("onItemSelected", self, "onEntrySelected")
 		else:
-			var newGroupEntry = inventoryGroupEntry.instance()
+			var newGroupEntry = inventoryGroupEntry.instantiate()
 			itemListContainer.add_child(newGroupEntry)
 			newGroupEntry.setItem(theItems[0], currentMode)
 			filterEnteries.append(newGroupEntry)
@@ -131,7 +131,7 @@ func updateInventory():
 			for item in theItems:
 				if(!item):
 					continue
-				var entry = inventoryEntry.instance()
+				var entry = inventoryEntry.instantiate()
 				newGroupEntry.addEntry(entry)
 				entry.setItem(item, currentMode)
 				itemEntries.append(entry)

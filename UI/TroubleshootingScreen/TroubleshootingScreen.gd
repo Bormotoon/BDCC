@@ -155,7 +155,7 @@ func _on_DeleteFileButton_pressed():
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return
-	d.remove(selectedManageFile)
+	d.remove_at(selectedManageFile)
 	selectedManageFile = ""
 	updateManageFileList()
 	showMessage("File removed!")

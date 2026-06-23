@@ -9,7 +9,7 @@ func _reactInit():
 	
 	var possible:Array = []
 	
-	#if(possible.empty()):
+	#if(possible.is_empty()):
 	#	possible.append("0")
 	
 	if(possible.size() > 0):

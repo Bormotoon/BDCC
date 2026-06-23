@@ -35,8 +35,8 @@ func updateVerticalGithubReleaseVisibility():
 		vertical_github_release_box.visible = false
 
 func setGithubLabelStr(_simpleText:String, _extraText:String):
-	gutHubReleaseLabel.text = _simpleText + (_extraText if !_extraText.empty() else "")
-	vertical_github_release_label.text = _simpleText + ("\n"+verticalModsStr if !verticalModsStr.empty() else "")
+	gutHubReleaseLabel.text = _simpleText + (_extraText if !_extraText.is_empty() else "")
+	vertical_github_release_label.text = _simpleText + ("\n"+verticalModsStr if !verticalModsStr.is_empty() else "")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -209,14 +209,14 @@ func _on_DevSceneConverter_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://Util/SceneConverter.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 
 func _on_DevLikesGenerator_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://UI/LikesGenerator/NpcLikesGenerator.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 
 func _on_DiscordButton_pressed():
@@ -234,7 +234,7 @@ func _on_DevCharCreator_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://UI/QuickCharacterCreator/QuickCharacterCreator.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 
 func _on_ModsButton_pressed():
@@ -247,14 +247,14 @@ func _on_DevModCreator_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://UI/ModMaker/ModMaker.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 
 func _on_DevSceneConverter2_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://Util/SceneConverter2.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 
 func _on_AutoTranslatorMenu_onClosePressed():
@@ -271,7 +271,7 @@ func _on_SexActivityCreator_pressed():
 	Util.delete_children(devSubScreen)
 	
 	var scene = load("res://Util/SexActivityCreator/SexActivityCreator.tscn")
-	devSubScreen.add_child(scene.instance())
+	devSubScreen.add_child(scene.instantiate())
 
 onready var main_h_box = $"%MainHBox"
 
@@ -279,7 +279,7 @@ var datapackMenu
 func _on_DatapackButton_pressed():
 	#hideAllMenus()
 	main_h_box.visible = false
-	datapackMenu = load("res://Game/Datapacks/UI/DatapackMenu.tscn").instance()
+	datapackMenu = load("res://Game/Datapacks/UI/DatapackMenu.tscn").instantiate()
 	datapackMenu.connect("onClosePressed", self, "onDatapackMenuClosedPressed")
 	add_child(datapackMenu)
 
@@ -292,7 +292,7 @@ func onDatapackMenuClosedPressed():
 
 func _on_InteractionCreator_pressed():
 	main_h_box.visible = false
-	datapackMenu = load("res://Util/InteractionCreator/InteractionCreator.tscn").instance()
+	datapackMenu = load("res://Util/InteractionCreator/InteractionCreator.tscn").instantiate()
 	datapackMenu.connect("onClosePressed", self, "onDatapackMenuClosedPressed")
 	add_child(datapackMenu)
 
@@ -310,7 +310,7 @@ func _on_TroubleshootingScreen_onClose():
 
 func _on_SexToysButton_pressedActually():
 	main_h_box.visible = false
-	var theMenu = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instance()
+	var theMenu = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instantiate()
 	theMenu.connect("onClosePressed", self, "onMenuClosePressed", [theMenu])
 	add_child(theMenu)
 

@@ -167,7 +167,7 @@ func _on_ApplyButton_pressed():
 	doFixError()
 
 func _on_FixAllButton_pressed():
-	while(!spellErrors.empty()):
+	while(!spellErrors.is_empty()):
 		selectedErrorIndex = 0
 		doFixError()
 

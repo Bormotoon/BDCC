@@ -61,7 +61,7 @@ func getSettings() -> Dictionary:
 func applySetting(_varid:String, _value):
 	if(_varid == "localHost"):
 		localHost = str(_value).strip_edges()
-		if localHost.empty():
+		if localHost.is_empty():
 			localHost = DEFAULT_LOCAL_HOST
 		return true
 
@@ -110,7 +110,7 @@ func vibrate(_toy, _strength:float):
 	var toyData:Dictionary = _toy.backendData
 
 	var theToyId:String = str(toyData.get("toy", ""))
-	if(theToyId.empty()):
+	if(theToyId.is_empty()):
 		logError("Missing Lovense toy id in backendData")
 		return
 	
@@ -153,7 +153,7 @@ func _process(_delta:float):
 	if(requestTimer > 0.0):
 		requestTimer -= _delta
 	
-	if(requestTimer <= 0.0 && !requestQueue.empty()):
+	if(requestTimer <= 0.0 && !requestQueue.is_empty()):
 		var theRequestID:String = requestQueue.keys().front()
 		var _data:Dictionary = requestQueue[theRequestID]
 		var _am:int = requestRepeat.get(theRequestID, 0)
@@ -265,7 +265,7 @@ func _handle_get_toys_response(response:Dictionary):
 		var theDBToyInfo:Dictionary = getToyInfo(theReportedName)
 		var theNickname:String = toy_info.get("nickName", "")
 		
-		var theFinalName:String = theNickname if !theNickname.empty() else theDBToyInfo.get("name", "Lovense Toy")
+		var theFinalName:String = theNickname if !theNickname.is_empty() else theDBToyInfo.get("name", "Lovense Toy")
 		var _group:int = 0
 		var _i:int = 0
 #		for theFeature in theDBToyInfo["features"]: # Didn't really work sadly
@@ -370,7 +370,7 @@ func getToyInfo(_name:String) -> Dictionary:
 	var resultFeatures:Array = []
 	var theRawFeatures:Array = theFoundConf.get("features", [])
 	for theRawFeature in theRawFeatures:
-		if(!theRawFeature.has("output") || theRawFeature["output"].empty()):
+		if(!theRawFeature.has("output") || theRawFeature["output"].is_empty()):
 			continue
 		var theOutputStuff:Dictionary = theRawFeature["output"]
 		var theOutputType:String = theOutputStuff.keys()[0] # Luckily all the entries only have 1 output key
@@ -410,5 +410,5 @@ func loadData(_data:Dictionary):
 
 	localHost = SAVE.loadVar(_data, "localHost", DEFAULT_LOCAL_HOST)
 
-	if localHost.empty():
+	if localHost.is_empty():
 		localHost = DEFAULT_LOCAL_HOST

@@ -83,7 +83,7 @@ func _on_InGameMenu_visibility_changed():
 func _on_SexToyManagerButton_pressed():
 	hideAllMenus()
 	#saveMenuScreen.visible = true
-	var theUI = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instance()
+	var theUI = load("res://Util/SexToySupport/UI/SexToyManagerUI.tscn").instantiate()
 	theUI.connect("onClosePressed", self, "onSexToyManagerUIClose", [theUI])
 	add_child(theUI)
 

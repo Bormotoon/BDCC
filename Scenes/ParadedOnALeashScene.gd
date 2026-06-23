@@ -76,7 +76,7 @@ func _react(_action: String, _args):
 			return
 		
 		var nextLoc = path[0]
-		path.remove(0)
+		path.remove_at(0)
 		
 		if(!GM.world.hasRoomID(nextLoc)):
 			endScene()

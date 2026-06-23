@@ -413,7 +413,7 @@ func _react(_action: String, _args):
 			else:
 				pcOtherAm += 1
 			var theChilds:Array = theEgg.egg.addSelfToNursery()
-			if(!theChilds.empty()):
+			if(!theChilds.is_empty()):
 				allNewChilds.append_array(theChilds)
 				addedAm += 1
 			GM.pc.getInventory().removeItem(theEgg)

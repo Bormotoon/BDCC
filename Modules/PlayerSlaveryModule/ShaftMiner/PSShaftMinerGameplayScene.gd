@@ -122,7 +122,7 @@ func _run():
 				addButtonAt(14, "Mine", "Do some mining here", "do_mine_boss")
 		
 		var theTexts:Array = GM.main.PS.getTextsForLocFinal(roomID)
-		if(!theTexts.empty()):
+		if(!theTexts.is_empty()):
 			say(Util.join(theTexts, ""))
 		
 	if(state == "hire1_menu"):
@@ -273,7 +273,7 @@ func _run():
 				actions = [["unlock", "Buy"]] if canUnlock else [],
 			}
 		
-		if(!GM.main.PS.upgrades.empty()):
+		if(!GM.main.PS.upgrades.is_empty()):
 			entries["=placeholderbuy="] = {
 				name = " === Unlocked Upgrades ===",
 				desc = "A list of what you have upgraded.",
@@ -285,7 +285,7 @@ func _run():
 					desc = upgradeInfo["desc"]+"\n\nCost: "+str(upgradeInfo["cost"])+" credits",
 				}
 		
-		var inventory = genericInventoryScreenScene.instance()
+		var inventory = genericInventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(1.25)
 		inventory.setEntries(entries)
@@ -339,7 +339,7 @@ func _react(_action: String, _args):
 		
 		var extraPickUp:int = GM.main.PS.getExtraPickupAmount()
 		for _i in range(extraPickUp):
-			if(!nuggetButtons.empty()):
+			if(!nuggetButtons.is_empty()):
 				nuggetButtons.erase(RNG.pick(nuggetButtons))
 			GM.main.PS.pickupNugget()
 		
@@ -348,7 +348,7 @@ func _react(_action: String, _args):
 			setState("roam")
 			return
 		
-		if(nuggetButtons.empty()):
+		if(nuggetButtons.is_empty()):
 			calcNuggetButtons()
 		return
 

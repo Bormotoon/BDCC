@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexToyTriggerEntry
 
 var type:int = SexToyTrigger.Lust
@@ -64,7 +64,7 @@ func getArg(_args:Array, _i:int, _default = null):
 	return _args[_i]
 
 func shouldBeRemoved() -> bool:
-	return effects.empty()
+	return effects.is_empty()
 
 func checkShouldBeRemoved():
 	if(shouldBeRemoved()):

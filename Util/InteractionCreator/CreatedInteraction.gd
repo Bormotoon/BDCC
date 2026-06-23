@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name CreatedInteraction
 
 var id:String = ""
@@ -216,7 +216,7 @@ func generateCode() -> String:
 			text += Util.join(afterButtonLines, "\n")
 			text += "\n\n"
 		
-		if(!state.actions.empty()):
+		if(!state.actions.is_empty()):
 			text += 'func '+actualID+'_do(_id:String, _args:Dictionary, _context:Dictionary):\n'
 			for actionID in state.actions:
 				var action:CreatedInteractionAction = state.actions[actionID]
@@ -232,13 +232,13 @@ func generateCode() -> String:
 		#text += '\t]'
 		#text += "\n\n"
 	
-	if(!interruptions.empty()):
+	if(!interruptions.is_empty()):
 		text += 'func getInterruptActions(_pawn:CharacterPawn) -> Array:\n'
 		text += '\tvar result:Array = []\n'
 		for intID in interruptions:
 			var interruption:CreatedInteractionInterruption = interruptions[intID]
 			var tt := "\t"
-			if(!interruption.states.empty()):
+			if(!interruption.states.is_empty()):
 				text += tt+"if(getState() in ["+Util.joinWithBorders(interruption.states, ", ", '"')+"]):\n"
 				tt += "\t"
 			if(interruption.cond != ""):

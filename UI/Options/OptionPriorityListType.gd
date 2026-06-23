@@ -58,7 +58,7 @@ func _on_MoveUpButton_pressed():
 	if(newIndex < 0):
 		newIndex = 0
 	
-	myvalues.remove(selectedItemIndex)
+	myvalues.remove_at(selectedItemIndex)
 	myvalues.insert(newIndex, element)
 	repopulateList()
 	$List.select(newIndex)
@@ -73,7 +73,7 @@ func _on_MoveDownButton_pressed():
 	if(newIndex >= myvalues.size()):
 		newIndex = myvalues.size() - 1
 	
-	myvalues.remove(selectedItemIndex)
+	myvalues.remove_at(selectedItemIndex)
 	myvalues.insert(newIndex, element)
 	repopulateList()
 	$List.select(newIndex)

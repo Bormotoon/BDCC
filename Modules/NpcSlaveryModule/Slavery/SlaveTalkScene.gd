@@ -474,7 +474,7 @@ func addButtonsForActionsOfType(actionsType):
 		if(!theAction.isActionVisibleFinal(npcID)):
 			continue
 		
-		if(theAction.extraSlaves.empty()):
+		if(theAction.extraSlaves.is_empty()):
 			var canDoInfo = theAction.checkCanDoFinal(npcID)
 			if(canDoInfo[0]):
 				addButton(theAction.getVisibleName(), theAction.getFinalVisibleDesc(), "do_action", [theAction.id])
@@ -550,7 +550,7 @@ func _react(_action: String, _args):
 		var theAction:SlaveActionBase = GlobalRegistry.getSlaveAction(_args[0])
 		#var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		# Multi-slave action
-		if(!theAction.extraSlaves.empty()):
+		if(!theAction.extraSlaves.is_empty()):
 			runScene("SlaveStartActionScene", [theAction.id, npcID], "slaveStartAction")
 			setState("")
 			return

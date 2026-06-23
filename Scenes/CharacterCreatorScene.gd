@@ -215,7 +215,7 @@ func _run():
 		if(currentAttribute.has("type")):
 			var attribType = currentAttribute["type"]
 			if(attribType == "color"):
-				var colorPicker = colorPickerScene.instance()
+				var colorPicker = colorPickerScene.instantiate()
 				GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 				if(currentAttribute.has("currentColor") && currentAttribute["currentColor"] != null):
 					colorPicker.setCurrentColor(currentAttribute["currentColor"])
@@ -259,7 +259,7 @@ func _run():
 		if(currentAttribute.has("type")):
 			var attribType = currentAttribute["type"]
 			if(attribType == "color"):
-				var colorPicker = colorPickerScene.instance()
+				var colorPicker = colorPickerScene.instantiate()
 				GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
 				if(currentAttribute.has("currentColor")):
 					colorPicker.setCurrentColor(currentAttribute["currentColor"])

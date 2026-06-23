@@ -66,7 +66,7 @@ func _ready():
 			if(child is WritingZoneInfoNode):
 				writingZoneInfos[child.zone] = child
 		
-		writingsHandler = preload("res://Player/Player3D/WritingsHandler/WritingsHandler.tscn").instance()
+		writingsHandler = preload("res://Player/Player3D/WritingsHandler/WritingsHandler.tscn").instantiate()
 		add_child(writingsHandler)
 		writingsHandler.setData(self)
 

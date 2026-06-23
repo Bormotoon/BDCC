@@ -23,7 +23,7 @@ func _run():
 				stuffedHolesTexts.append("butt")
 			else:
 				stuffedHolesTexts.append(BodypartSlot.getVisibleNameNoCap(theHole))
-		if(stuffedHolesTexts.empty()):
+		if(stuffedHolesTexts.is_empty()):
 			stuffedHolesTexts = ["butt"]
 		
 		saynn("The eggs that are inside your "+Util.humanReadableList(stuffedHolesTexts)+" really want to come out now..")
@@ -53,11 +53,11 @@ func _run():
 	if(state == "layOne"):
 		playAnimation(StageScene.EggLaying, "eggs", {eggQueue=eggQueue, shouldAutoFlop=false, bodyState={naked=true}})
 		
-		var stuffedHoles := [lastBodypartToLayEgg] if !lastBodypartToLayEgg.empty() else []
+		var stuffedHoles := [lastBodypartToLayEgg] if !lastBodypartToLayEgg.is_empty() else []
 		var stuffedHolesTexts:Array = []
 		for theHole in stuffedHoles:
 			stuffedHolesTexts.append(BodypartSlot.getVisibleNameNoCap(theHole))
-		if(stuffedHolesTexts.empty()):
+		if(stuffedHolesTexts.is_empty()):
 			stuffedHolesTexts = ["tailhole"]
 		
 		#if(eggsToLay <= 0 ):
@@ -81,7 +81,7 @@ func _run():
 		var stuffedHolesTexts:Array = []
 		for theHole in stuffedHoles:
 			stuffedHolesTexts.append(BodypartSlot.getVisibleNameNoCap(theHole))
-		if(stuffedHolesTexts.empty()):
+		if(stuffedHolesTexts.is_empty()):
 			stuffedHolesTexts = ["tailhole"]
 		
 		if(eggsToLay <= 0 ):

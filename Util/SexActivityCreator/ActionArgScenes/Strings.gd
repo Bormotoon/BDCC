@@ -40,7 +40,7 @@ func _on_RemoveFetishButton_pressed():
 	
 	var selectedVarIndex = $FetishList.get_selected_items()[0]
 	#var selectedVar = strings[selectedVarIndex]
-	strings.remove(selectedVarIndex)
+	strings.remove_at(selectedVarIndex)
 	updateStringsList()
 	emitChanged()
 

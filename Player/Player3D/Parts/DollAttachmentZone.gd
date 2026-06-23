@@ -11,9 +11,9 @@ func setProxy(attachmentProxy):
 	zoneName = attachmentProxy.zoneName
 
 func setScenes(scenes):
-	if(scenes.size() == 0 && savedScenes.empty()):
+	if(scenes.size() == 0 && savedScenes.is_empty()):
 		return
-	if(scenes.size() == 0 && !savedScenes.empty()):
+	if(scenes.size() == 0 && !savedScenes.is_empty()):
 		for scene in savedScenes:
 			savedScenes[scene].queue_free()
 		savedScenes.clear()

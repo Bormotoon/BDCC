@@ -33,7 +33,7 @@ func _run():
 				theItems.append(workCredits)
 			theItems.append_array(inv.getItems())
 			
-			var inventory = inventoryScreenScene.instance()
+			var inventory = inventoryScreenScene.instantiate()
 			inventory.shouldGrabInput = false
 			GM.ui.addFullScreenCustomControl("inventory", inventory)
 			inventory.setItems(theItems, "loot")

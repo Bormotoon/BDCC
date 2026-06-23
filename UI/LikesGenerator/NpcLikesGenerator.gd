@@ -19,7 +19,7 @@ func resetLines():
 		var topic: TopicBase = topicA
 		var handlesIDs = topic.handles_ids
 		for id in handlesIDs:
-			var uiLine = npcLikeLineUI.instance()
+			var uiLine = npcLikeLineUI.instantiate()
 			
 			uiLine.setInterestData(id, topic.getVisibleName(id))
 			uiLine.connect("onCurrentValueChange", self, "_on_NpcLikesLineUI_onCurrentValueChange")

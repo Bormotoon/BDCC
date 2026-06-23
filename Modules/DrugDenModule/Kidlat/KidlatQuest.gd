@@ -86,7 +86,7 @@ func getProgress():
 		whatDoStr = ""
 		result.append("You can now find Kidlat in the lilac cellblock!")
 	
-	if(whatDoStr != "" && !result.empty()):
+	if(whatDoStr != "" && !result.is_empty()):
 		result[result.size() - 1] += (" " + whatDoStr)
 
 	return result

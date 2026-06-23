@@ -43,7 +43,7 @@ func updatePerks():
 			if(perk.hiddenWhenLocked()):
 				continue
 		
-		var perkButton = perkButtonScene.instance()
+		var perkButton = perkButtonScene.instantiate()
 		flexGrid.add_child(perkButton)
 		perkButton.setPerk(perk)
 		var _ok = perkButton.connect("perkClicked", self, "onPerkButton")

@@ -15,7 +15,7 @@ func updateSaves():
 	var savesPaths = SAVE.getSavesSortedByDate()
 	
 	for savePath in savesPaths:
-		var saveGameElementObject = saveGameElemenetScene.instance()
+		var saveGameElementObject = saveGameElemenetScene.instantiate()
 		savesContainer.add_child(saveGameElementObject)
 		saveGameElementObject.setSaveFile(savePath)
 		saveGameElementObject.connect("onLoadButtonPressed", self, "onSaveLoadButtonClicked")

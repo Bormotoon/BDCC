@@ -43,7 +43,7 @@ func _run():
 			if(!theTraitObj):
 				continue
 			var theExclusive:String = theTraitObj.getTraitExclusiveType()
-			if(!theExclusive.empty()):
+			if(!theExclusive.is_empty()):
 				exclusives[theExclusive] = true
 			sayn(" - "+theTraitObj.getVisibleName()+": "+theTraitObj.getVisibleDescription())
 		
@@ -54,7 +54,7 @@ func _run():
 				continue
 			var theExclusive:String = theTraitObj.getTraitExclusiveType()
 			var canAddTrait:bool = true
-			if(!theExclusive.empty() && exclusives.has(theExclusive)):
+			if(!theExclusive.is_empty() && exclusives.has(theExclusive)):
 				canAddTrait = false
 			var hasThisTrait:bool = pickedTraits.has(traitID)
 			
@@ -66,7 +66,7 @@ func _run():
 				else:
 					addDisabledButton("+"+theTraitObj.getVisibleName(), "(Incompatible with other traits)\n"+theTraitObj.getVisibleDescription())
 		
-	setCharactersEasyList([pickedNPC] if !pickedNPC.empty() else [])
+	setCharactersEasyList([pickedNPC] if !pickedNPC.is_empty() else [])
 	
 func _react(_action: String, _args):
 	if(_action == "endthescene"):

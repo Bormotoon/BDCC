@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name SexToyEffectEntry
 
 var type:int = SexToyEffect.SIMPLE
@@ -25,7 +25,7 @@ func trigger(_layer:int, _shouldLoop:bool, _intensity:float = 1.0):
 		theGroup.vibration.setLayerIntensity(_layer, _intensity)
 
 func getSimple() -> Vector2: #[strength time]
-	if(sequence.empty()):
+	if(sequence.is_empty()):
 		return Vector2(1.0, 2.0)
 	if(sequence.size() == 1):
 		return Vector2(sequence[0], 2.0)
@@ -82,7 +82,7 @@ func saveCurve(_curve:Curve) -> Dictionary:
 	}
 
 func loadCurve(_data:Dictionary) -> Curve:
-	if(_data.empty()):
+	if(_data.is_empty()):
 		return Curve.new()
 	
 	var theCurve := Curve.new()

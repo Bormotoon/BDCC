@@ -67,7 +67,7 @@ func _run():
 		addButton("Step away", "Step away from the machine", "endthescene")
 	
 	if(state == "buymenu"):
-		var inventory = inventoryScreenScene.instance()
+		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(finalSellingItemsObjects, "buy")
 		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
@@ -76,7 +76,7 @@ func _run():
 		addButton("Back", "Don't buy anything", "")
 
 	if(state == "sellmenu"):
-		var inventory = inventoryScreenScene.instance()
+		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(GM.pc.getInventory().getAllSellableItems(), "sell")
 		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")

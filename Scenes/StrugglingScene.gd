@@ -169,7 +169,7 @@ func _run():
 			if(animToPlay != null && animToPlay != ""):
 				playAnimation(StageScene.Solo, animToPlay)
 		
-		var game = minigameScene.instance()
+		var game = minigameScene.instantiate()
 		GM.ui.addFullScreenCustomControl("minigame", game)
 		#GM.ui.addCustomControl("minigame", game)
 		if(OPTIONS.isHardStruggleEnabled()):

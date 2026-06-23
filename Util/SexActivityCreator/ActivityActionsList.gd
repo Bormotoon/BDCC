@@ -61,7 +61,7 @@ func updateActions():
 			actionIndex += 1
 	
 	for action in actions:
-		var newItem = actionItemScene.instance()
+		var newItem = actionItemScene.instantiate()
 		actionList.add_child(newItem)
 		newItem.setText(action[1])
 		newItem.id = action[0]
@@ -85,6 +85,6 @@ func onActionDownPressed(id, _data):
 	emit_signal("onDownPressed", id)
 func onActionDeletePressed(id, _data):
 	if(actionObjects != null):
-		actionObjects.remove(id)
+		actionObjects.remove_at(id)
 		updateActions()
 	emit_signal("onDeletePressed", id)

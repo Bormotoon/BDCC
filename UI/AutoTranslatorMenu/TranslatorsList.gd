@@ -31,7 +31,7 @@ func updateTranslators():
 
 	var _i = 0
 	for translator in translators:
-		var newItem = translatorItemScene.instance()
+		var newItem = translatorItemScene.instantiate()
 		translatorList.add_child(newItem)
 		newItem.setText(translator)
 		newItem.id = _i

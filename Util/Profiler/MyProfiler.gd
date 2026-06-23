@@ -16,7 +16,7 @@ func finish(_mark:String, _ignoreThreshold:float = -1.0):
 	var theStart:int = timeStack.pop_back()
 	
 	var workTimeMS:float = (end-theStart)/1000.0
-	if(workTimeMS < _ignoreThreshold && !stack.empty()):
+	if(workTimeMS < _ignoreThreshold && !stack.is_empty()):
 		return
 	var workTimeSec:float = workTimeMS/1000.0
 	var marks:String = "-".repeat(stack.size())
@@ -24,7 +24,7 @@ func finish(_mark:String, _ignoreThreshold:float = -1.0):
 	if(workTimeMS > 100.0):
 		theText = "[color=red]"+theText+"[/color]"
 	savedLines.append(theText)
-	if(stack.empty()):
+	if(stack.is_empty()):
 		Log.print(" ==== PROFILER ====")
 		for _i in range(savedLines.size()):
 			var _irev:int = savedLines.size() - _i - 1

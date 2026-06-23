@@ -136,7 +136,7 @@ func _on_StartEggTimer_timeout():
 	
 	if(state_machine.get_current_node() == "EggLayingDo-loop"):
 		return
-	if(eggTypeQueue.empty()):
+	if(eggTypeQueue.is_empty()):
 		if(shouldAutoFlop && didAtLeastOneEgg && state_machine.get_current_node() != "EggLayingAfter-loop"):
 			state_machine.travel("EggLayingAfter-loop")
 			state_machine2.travel("EggLayingAfter_2-loop")
@@ -152,9 +152,9 @@ func _on_StartEggTimer_timeout():
 func _on_EggTimer_timeout():
 	if(currentlyLaying == null):
 		return
-	var newEgg:RigidBody = EggPropScene.instance()
+	var newEgg:RigidBody = EggPropScene.instantiate()
 	add_child(newEgg)
-	#if(!eggTypeQueue.empty()):
+	#if(!eggTypeQueue.is_empty()):
 	var theEggTypeOrColor = currentlyLaying#eggTypeQueue.pop_front()
 	if(theEggTypeOrColor is int):
 		if(theEggTypeOrColor == BigEggType.Latex):

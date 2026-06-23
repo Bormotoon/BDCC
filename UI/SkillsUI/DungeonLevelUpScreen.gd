@@ -46,18 +46,18 @@ func setData(theLevel:int, thePerkList:Array = [], lastSelectedStat:String = "")
 	
 	updateSelectedStatButton()
 	
-	perks_panel.visible = !perkList.empty()
+	perks_panel.visible = !perkList.is_empty()
 	Util.delete_children(perk_list)
 	
-	if(!perkList.empty()):
-		var skipPerkButton = perkButtonScene.instance()
+	if(!perkList.is_empty()):
+		var skipPerkButton = perkButtonScene.instantiate()
 		perk_list.add_child(skipPerkButton)
 		skipPerkButton.setSkippedPerk()
 		perkToButton["SKIP"] = skipPerkButton
 		skipPerkButton.connect("perkClicked", self, "onPerkButtonPressed")
 		
 		for perkID in perkList:
-			var perkButton = perkButtonScene.instance()
+			var perkButton = perkButtonScene.instantiate()
 			perk_list.add_child(perkButton)
 			perkButton.setPerk(GlobalRegistry.getPerk(perkID), false)
 			perkToButton[perkID] = perkButton

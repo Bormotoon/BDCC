@@ -84,7 +84,7 @@ func _on_StatesList_item_selected(index):
 	
 	selectedState = interaction.states.keys()[index]
 	var state:CreatedInteractionState = interaction.states[selectedState]
-	if(!state.actions.empty()):
+	if(!state.actions.is_empty()):
 		selectedAction = state.actions.keys()[0]
 	else:
 		selectedAction = ""

@@ -38,7 +38,7 @@ func _run():
 			credsItem.setAmount(GM.pc.getCredits())
 			theItems.append(credsItem)
 		
-		var inventory = inventoryScreenScene.instance()
+		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(theItems, "stash")
 		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")
@@ -47,7 +47,7 @@ func _run():
 		addButton("Back", "Go back", "")
 	
 	if(state == "takeitemmenu"):
-		var inventory = inventoryScreenScene.instance()
+		var inventory = inventoryScreenScene.instantiate()
 		GM.ui.addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(GlobalRegistry.getCharacter("playerstash").getInventory().getAllItems(), "take")
 		var _ok = inventory.connect("onItemSelected", self, "onInventoryItemSelected")

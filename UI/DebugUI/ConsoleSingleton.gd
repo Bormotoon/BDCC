@@ -17,7 +17,7 @@ func _ready():
 	canvas_layer.add_child(control)
 	control.visible = false
 	
-	var console = consoleScene.instance()
+	var console = consoleScene.instantiate()
 	control.add_child(console)
 	var _ok = connect("onConsoleOutput", console, "printLine")
 	var _ok2 = console.connect("consoleClosed", self, "toggleConsole")
