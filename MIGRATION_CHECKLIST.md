@@ -436,7 +436,7 @@ PoolStringArray → PackedStringArray
 | SongJoHairsModule | 43 | 0 | 🟡 НЕ МИГРИРОВАН |
 | KaitModule | 5 | 0 | 🟢 НЕ МИГРИРОВАН |
 | AcePregExpac | 5 | 18 | 🟡 НЕ МИГРИРОВАН |
-| Module.gd (root) | 1 | 3 | 🔴 НЕ МИГРИРОВАН |
+| Module.gd (root) | 1 | 191 | ✅ МИГРИРОВАН (extends RefCounted, registration loop preserved) |
 
 **Итого по Modules**: 870 файлов, 4,000+ GM.* — 🔴 КРИТИЧНО
 

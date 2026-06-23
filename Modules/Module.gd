@@ -1,191 +1,161 @@
-extends Reference
+extends RefCounted
 class_name Module
 
-var scenes = []
-var characters = []
-var items = []
-var events = []
-var quests = []
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for all 22 game modules. Registration loop preserved.
 
-var attacks = []
-var bodyparts = []
-var species = []
-var skills = []
-var perks = []
-var lustActions = []
-var buffs = []
-var statusEffects = []
-var worldEdits = []
-var gameExtenders = []
-var computers = []
-var partSkins = []
-var stageScenes = []
-var lootTables = []
-var lootLists = []
-var fetishes = []
-var sexGoals = []
-var sexActivities = []
-var sexTypes = []
-var fluids = []
-var speechModifiers = []
-var slaveBreakTasks = []
-var slaveTypes = []
-var slaveActions = []
-var slaveEvents = []
-var slaveActivities = []
-var sexReactionHandlers = []
+var scenes: Array = []
+var characters: Array = []
+var items: Array = []
+var events: Array = []
+var quests: Array = []
+var attacks: Array = []
+var bodyparts: Array = []
+var species: Array = []
+var skills: Array = []
+var perks: Array = []
+var lust_actions: Array = []
+var buffs: Array = []
+var status_effects: Array = []
+var world_edits: Array = []
+var game_extenders: Array = []
+var computers: Array = []
+var part_skins: Array = []
+var stage_scenes: Array = []
+var loot_tables: Array = []
+var loot_lists: Array = []
+var fetishes: Array = []
+var sex_goals: Array = []
+var sex_activities: Array = []
+var sex_types: Array = []
+var fluids: Array = []
+var speech_modifiers: Array = []
+var slave_break_tasks: Array = []
+var slave_types: Array = []
+var slave_actions: Array = []
+var slave_events: Array = []
+var slave_activities: Array = []
+var sex_reaction_handlers: Array = []
 
-var id = "badmodule"
-var author = "no author"
-var flagsCache = null
+var id: String = "badmodule"
+var author: String = "no author"
+var flags_cache = null
 
-func _init():
-	flagsCache = getFlags()
+func _init() -> void:
+	flags_cache = get_flags()
 
-func getRegisterName() -> String:
-	if(str(author) != "Rahi"):
-		return id+" module by "+str(author)
-	return id+" module"
+func get_register_name() -> String:
+	if str(author) != "Rahi":
+		return id + " module by " + str(author)
+	return id + " module"
 
-func getAuthorName() -> String:
-	var theStrAuthor:String = str(author)
-	if(theStrAuthor == "Rahi" || theStrAuthor == "no author"):
+func get_author_name() -> String:
+	var the_author: String = str(author)
+	if the_author == "Rahi" or the_author == "no author":
 		return ""
-	return theStrAuthor
+	return the_author
 
-func preInit(): # Called before anything gets registered
+func pre_init() -> void:
 	pass
 
-func postInit(): # Called after everything is registered
+func post_init() -> void:
 	pass
 
-func register():
-	var theAuthorName:String = getAuthorName()
-	
+## Registration loop — registers all content arrays into GlobalRegistry
+func register() -> void:
+	var the_author_name: String = get_author_name()
+
 	for scene in scenes:
-		GlobalRegistry.registerScene(scene, author)
-	
+		GlobalRegistry.register_scene(scene, author)
 	for character in characters:
-		GlobalRegistry.registerCharacter(character)
-	
+		GlobalRegistry.register_character(character)
 	for item in items:
-		GlobalRegistry.registerItem(item)
-	
+		GlobalRegistry.register_item(item)
 	for event in events:
-		GlobalRegistry.registerEvent(event)
-
+		GlobalRegistry.register_event(event)
 	for quest in quests:
-		GlobalRegistry.registerQuest(quest)
-		
+		GlobalRegistry.register_quest(quest)
 	for attack in attacks:
-		GlobalRegistry.registerAttack(attack)
-		
+		GlobalRegistry.register_attack(attack)
 	for bodypart in bodyparts:
-		GlobalRegistry.registerBodypart(bodypart, theAuthorName)
-	
+		GlobalRegistry.register_bodypart(bodypart, the_author_name)
 	for specie in species:
-		GlobalRegistry.registerSpecies(specie)
-		
+		GlobalRegistry.register_species(specie)
 	for skill in skills:
-		GlobalRegistry.registerSkill(skill)
-		
+		GlobalRegistry.register_skill(skill)
 	for perk in perks:
-		GlobalRegistry.registerPerk(perk)
-	
-	for lustAction in lustActions:
-		GlobalRegistry.registerLustAction(lustAction)
-	
+		GlobalRegistry.register_perk(perk)
+	for lust_action in lust_actions:
+		GlobalRegistry.register_lust_action(lust_action)
 	for buff in buffs:
-		GlobalRegistry.registerBuff(buff)
-		
-	for statusEffect in statusEffects:
-		GlobalRegistry.registerStatusEffect(statusEffect)
-
-	for worldEdit in worldEdits:
-		GlobalRegistry.registerWorldEdit(worldEdit)
-	
-	for gameExtender in gameExtenders:
-		GlobalRegistry.registerGameExtender(gameExtender)
-	
+		GlobalRegistry.register_buff(buff)
+	for status_effect in status_effects:
+		GlobalRegistry.register_status_effect(status_effect)
+	for world_edit in world_edits:
+		GlobalRegistry.register_world_edit(world_edit)
+	for game_extender in game_extenders:
+		GlobalRegistry.register_game_extender(game_extender)
 	for computer in computers:
-		GlobalRegistry.registerComputer(computer)
-
-	for partSkin in partSkins:
-		GlobalRegistry.registerPartSkin(partSkin)
-		
-	for stageScene in stageScenes:
-		GlobalRegistry.registerStageScene(stageScene)
-		
-	for lootTable in lootTables:
-		GlobalRegistry.registerLootTable(lootTable)
-		
-	for lootList in lootLists:
-		GlobalRegistry.registerLootList(lootList)
-		
+		GlobalRegistry.register_computer(computer)
+	for part_skin in part_skins:
+		GlobalRegistry.register_part_skin(part_skin)
+	for stage_scene in stage_scenes:
+		GlobalRegistry.register_stage_scene(stage_scene)
+	for loot_table in loot_tables:
+		GlobalRegistry.register_loot_table(loot_table)
+	for loot_list in loot_lists:
+		GlobalRegistry.register_loot_list(loot_list)
 	for fetish in fetishes:
-		GlobalRegistry.registerFetish(fetish)
-		
-	for sexGoal in sexGoals:
-		GlobalRegistry.registerSexGoal(sexGoal)
-		
-	for sexActivity in sexActivities:
-		GlobalRegistry.registerSexActivity(sexActivity)
-		
-	for sexType in sexTypes:
-		GlobalRegistry.registerSexType(sexType)
-		
+		GlobalRegistry.register_fetish(fetish)
+	for sex_goal in sex_goals:
+		GlobalRegistry.register_sex_goal(sex_goal)
+	for sex_activity in sex_activities:
+		GlobalRegistry.register_sex_activity(sex_activity)
+	for sex_type in sex_types:
+		GlobalRegistry.register_sex_type(sex_type)
 	for fluid in fluids:
-		GlobalRegistry.registerFluid(fluid)
-		
-	for speechModifier in speechModifiers:
-		GlobalRegistry.registerSpeechModifier(speechModifier)
+		GlobalRegistry.register_fluid(fluid)
+	for speech_modifier in speech_modifiers:
+		GlobalRegistry.register_speech_modifier(speech_modifier)
+	for slave_break_task in slave_break_tasks:
+		GlobalRegistry.register_slave_break_task(slave_break_task)
+	for slave_type in slave_types:
+		GlobalRegistry.register_slave_type(slave_type)
+	for slave_action in slave_actions:
+		GlobalRegistry.register_slave_action(slave_action)
+	for slave_event in slave_events:
+		GlobalRegistry.register_slave_event(slave_event)
+	for slave_activity in slave_activities:
+		GlobalRegistry.register_slave_activity(slave_activity)
+	for sex_reaction_handler in sex_reaction_handlers:
+		GlobalRegistry.register_sex_reaction_handler(sex_reaction_handler)
 
-	for slaveBreakTask in slaveBreakTasks:
-		GlobalRegistry.registerSlaveBreakTask(slaveBreakTask)
-	
-	for slaveType in slaveTypes:
-		GlobalRegistry.registerSlaveType(slaveType)
-		
-	for slaveAction in slaveActions:
-		GlobalRegistry.registerSlaveAction(slaveAction)
-		
-	for slaveEvent in slaveEvents:
-		GlobalRegistry.registerSlaveEvent(slaveEvent)
-		
-	for slaveActivity in slaveActivities:
-		GlobalRegistry.registerSlaveActivity(slaveActivity)
-
-	for sexReactionHandler in sexReactionHandlers:
-		GlobalRegistry.registerSexReactionHandler(sexReactionHandler)
-
-func registerEventTriggers():
+func register_event_triggers() -> void:
 	pass
 
-func resetFlagsOnNewDay():
+func reset_flags_on_new_day() -> void:
 	pass
 
-func setFlag(flagID, value):
-	GM.main.setFlag(flagID, value)
+func set_flag(flag_id, value) -> void:
+	GM.main.set_flag(flag_id, value)
 
-func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
+func get_flag(flag_id, default_value = null):
+	return GM.main.get_flag(flag_id, default_value)
 
-func increaseFlag(flagID, addvalue = 1):
-	GM.main.increaseFlag(flagID, addvalue)
+func increase_flag(flag_id, add_value = 1) -> void:
+	GM.main.increase_flag(flag_id, add_value)
 
-func getRandomSceneFor(_sceneType):
+func get_random_scene_for(_scene_type) -> Array:
 	return []
 
-func isScienceUpgradeVisible(_upgradeID:String) -> bool:
+func is_science_upgrade_visible(_upgrade_id: String) -> bool:
 	return true
 
-func getFlags():
+func get_flags() -> Dictionary:
 	return {}
-	
-func getFlagsCache():
-	return flagsCache
 
-func flag(type):
-	return {
-		"type": type,
-	}
+func get_flags_cache():
+	return flags_cache
+
+func flag(type) -> Dictionary:
+	return {"type": type}
