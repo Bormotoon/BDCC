@@ -182,7 +182,7 @@ PoolStringArray → PackedStringArray
 | SexActivityBase.gd | 3538 | ✅ МИГРИРОВАН (extends RefCounted, all stimulation formulas preserved) |
 | SexGoalBase.gd | 91 | ✅ МИГРИРОВАН (extends RefCounted, beg system preserved) |
 | SexDomInfo.gd | ~80 | ✅ МИГРИРОВАН (anger/personality changes, goal management) |
-| SexSubInfo.gd | ~80 | 🔴 НЕ МИГРИРОВАН |
+| SexSubInfo.gd | ~80 | ✅ МИГРИРОВАН (resistance/fear/consciousness, personality changes) |
 | SexVoice.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
 | SexReactionHandler.gd | ~100 | 🔴 НЕ МИГРИРОВАН |
 | Personality.gd | 85 | ✅ МИГРИРОВАН (extends RefCounted, stat scoring preserved) |
