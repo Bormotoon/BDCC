@@ -1,76 +1,65 @@
-extends Reference
+extends RefCounted
 class_name GlobalTask
 
-var id:String = "error"
-var uniqueID:String = ""
-var goalID:String = InteractionGoal.Patrol
-var maxAssignedUnscaled:float = 1.0 # For 30 pawns
-var assigned:Array = [] # Pawn ids
-var assignedCached:int = 0
-var maxAssignedCached:int = 0
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Global task for NPC behavior management.
 
-func onPawnStoppedDoingTask(_pawn:CharacterPawn):
-	if(assigned.has(_pawn.charID)):
-		assigned.erase(_pawn.charID)
-		assignedCached -= 1
+var id: String = "error"
+var unique_id: String = ""
+var goal_id: String = InteractionGoal.Patrol
+var max_assigned_unscaled: float = 1.0
+var assigned: Array = []
+var assigned_cached: int = 0
+var max_assigned_cached: int = 0
 
-func onPawnStartedDoingTask(_pawn:CharacterPawn):
-	assigned.append(_pawn.charID)
-	assignedCached += 1
+func on_pawn_stopped_doing_task(pawn: CharacterPawn) -> void:
+	if assigned.has(pawn.charID):
+		assigned.erase(pawn.charID)
+		assigned_cached -= 1
 
-func getMaxAssigned(_maxPawnCount:int) -> int:
-	return Util.maxi(1, int(round(maxAssignedUnscaled*(_maxPawnCount/30.0))))
+func on_pawn_started_doing_task(pawn: CharacterPawn) -> void:
+	assigned.append(pawn.charID)
+	assigned_cached += 1
 
-func canDoTask(_pawn:CharacterPawn) -> bool:
+func get_max_assigned(max_pawn_count: int) -> int:
+	return maxi(1, roundi(max_assigned_unscaled * (max_pawn_count / 30.0)))
+
+func can_do_task(_pawn: CharacterPawn) -> bool:
 	return true
 
-func shouldIgnoreCharType(_pawn:CharacterPawn) -> bool:
-	if(_pawn.canDoTaskOverride(id, self)):
-		return true
-	return false
+func should_ignore_char_type(_pawn: CharacterPawn) -> bool:
+	return _pawn.canDoTaskOverride(id, self)
 
-func canDoTaskFinal(_pawn:CharacterPawn) -> bool:
-	if(assignedCached >= maxAssignedCached):
+func can_do_task_final(pawn: CharacterPawn) -> bool:
+	if assigned_cached >= max_assigned_cached:
 		return false
-	
-	if(!_pawn.canBeInterrupted()):
+	if not pawn.canBeInterrupted():
 		return false
-	
-	return canDoTask(_pawn)
-	
-func isAssigned(_pawn:CharacterPawn) -> bool:
-	#return _pawn.isDoingTask(id)
-	return assigned.has(_pawn.charID)
+	return can_do_task(pawn)
 
-func getAllAssignedPawns() -> Array:
-	var result:Array = []
-	
-	for pawnID in assigned:
-		var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
-		
-		if(pawn):
+func is_assigned(pawn: CharacterPawn) -> bool:
+	return assigned.has(pawn.charID)
+
+func get_all_assigned_pawns() -> Array:
+	var result: Array = []
+	for pawn_id in assigned:
+		var pawn: CharacterPawn = GM.main.IS.getPawn(pawn_id)
+		if pawn:
 			result.append(pawn)
-	
 	return result
 
-func sanityCheckPawns():
-	for pawnID in assigned:
-		var thePawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
-		assert(thePawn != null)
-		assert(thePawn.isDoingTask(id))
+func get_goal_id(_pawn: CharacterPawn) -> String:
+	return goal_id
 
-func getGoalID(_pawn:CharacterPawn):
-	return goalID
+func configure_goal_final(pawn: CharacterPawn, goal) -> void:
+	goal.globalTask = id
+	configure_goal(pawn, goal)
 
-func configureGoalFinal(_pawn:CharacterPawn, _goal):
-	_goal.globalTask = id
-	configureGoal(_pawn, _goal)
-
-func configureGoal(_pawn:CharacterPawn, _goal):
+func configure_goal(_pawn: CharacterPawn, _goal) -> void:
 	pass
 
-func processTime(_howMuch:int):
+func process_time(_how_much: int) -> void:
 	pass
 
-func resetTask():
+func reset_task() -> void:
 	pass
