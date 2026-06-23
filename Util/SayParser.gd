@@ -1,180 +1,138 @@
-extends Reference
+extends RefCounted
 class_name SayParser
+
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Dialogue tag parser for [say=pc]...[/say] commands.
+
 enum TagType {Text, Tag, CloseTag}
 
-# This thing parses [say=pc]text.[/say] commands while ignoring all other tags. Its messy but it works
-
-#input: text text [say=pc]hello world.[/say] text
-#output: [[TEXT, text text ], [TAG, say, pc], [TEXT, hello world], [CLOSETAG, say], [TEXT,  text]]
-func findTags(text: String):
-	var savedText = ""
-	var savedTag = ""
-	var result = []
-	
-	var pos = 0
+func findTags(text: String) -> Array:
+	var saved_text := ""
+	var saved_tag := ""
+	var result: Array = []
+	var pos := 0
 	while pos < text.length():
-		if(text[pos] == "["):
+		if text[pos] == "[":
 			pos += 1
-			var isCloseTag = false
-			if(text[pos] == "/"):
-				isCloseTag = true
+			var is_close_tag := false
+			if text[pos] == "/":
+				is_close_tag = true
 				pos += 1
-			
-			if(savedText != ""):
-				result.append([TagType.Text, savedText])
-				savedText = ""
-			
+			if saved_text != "":
+				result.append([TagType.Text, saved_text])
+				saved_text = ""
 			while pos < text.length():
-				if(text[pos] == "]"):
-					if(!isCloseTag):
-						var argStarts = savedTag.find("=")
-						var arg = ""
-						if(argStarts >= 0):
-							arg = savedTag.substr(argStarts+1)
-							savedTag = savedTag.substr(0, argStarts)
-						
-						result.append([TagType.Tag, savedTag, arg])
+				if text[pos] == "]":
+					if not is_close_tag:
+						var arg_starts := saved_tag.find("=")
+						var arg := ""
+						if arg_starts >= 0:
+							arg = saved_tag.substr(arg_starts + 1)
+							saved_tag = saved_tag.substr(0, arg_starts)
+						result.append([TagType.Tag, saved_tag, arg])
 					else:
-						result.append([TagType.CloseTag, savedTag])
-					savedTag = ""
+						result.append([TagType.CloseTag, saved_tag])
+					saved_tag = ""
 					pos += 1
 					break
 				else:
-					savedTag += text[pos]
+					saved_tag += text[pos]
 					pos += 1
-					
-			if(savedTag != ""):
-				Log.printerr("findTags(): Error: tag wasn't closed")
-				result.append([TagType.Text, savedTag])
-				savedTag = ""
+			if saved_tag != "":
+				Log.printerr("findTags(): tag wasn't closed")
+				result.append([TagType.Text, saved_tag])
+				saved_tag = ""
 		else:
-			savedText += text[pos]
+			saved_text += text[pos]
 			pos += 1
-			
-	if(savedText != ""):
-		result.append([TagType.Text, savedText])
-		
+	if saved_text != "":
+		result.append([TagType.Text, saved_text])
 	return result
 
-func combineTags(tags: Array):
-	var result = []
-	var pos = 0
-	var processThese = {
-		"say": true,
-		"sayShowName": true,
-		"sayMale": true,
-		"sayFemale": true,
-		"sayAndro": true,
-		"sayOther": true,
+func combineTags(tags: Array) -> Array:
+	var result: Array = []
+	var pos := 0
+	var process_these: Dictionary = {
+		"say": true, "sayShowName": true, "sayMale": true,
+		"sayFemale": true, "sayAndro": true, "sayOther": true,
 	}
-	
 	while pos < tags.size():
 		var tag = tags[pos]
-		if(tag[0] == TagType.Text):
+		if tag[0] == TagType.Text:
 			result.append(tag)
 			pos += 1
-			
-		elif(tag[0] == TagType.CloseTag):
-			result.append([TagType.Text, "[/"+tag[1]+"]"])
+		elif tag[0] == TagType.CloseTag:
+			result.append([TagType.Text, "[/" + tag[1] + "]"])
 			pos += 1
-		
-		elif(tag[0] == TagType.Tag):
-			if(processThese.has(tag[1])):
-				var tagCommand = tag[1]
-				var tagArg = tag[2]
-				var tagText = ""
+		elif tag[0] == TagType.Tag:
+			if process_these.has(tag[1]):
+				var tag_command := tag[1]
+				var tag_arg: String = tag[2]
+				var tag_text := ""
 				pos += 1
-
 				while pos < tags.size():
-					if(tags[pos][0] == TagType.Text):
-						tagText += tags[pos][1]
+					if tags[pos][0] == TagType.Text:
+						tag_text += tags[pos][1]
 						pos += 1
-					elif(tags[pos][0] == TagType.Tag):
-						if(tags[pos][2] == ""):
-							tagText += "["+tags[pos][1]+"]"
-						else:
-							tagText += "["+tags[pos][1]+"="+tags[pos][2]+"]"
-						pos += 1
-					elif(tags[pos][0] == TagType.CloseTag):
-						if(tags[pos][1] == tagCommand || tags[pos][1] == ""):
-							result.append([TagType.Tag, tagCommand, tagArg, tagText])
+					elif tags[pos][0] == TagType.CloseTag:
+						if tags[pos][1] == tag_command or tags[pos][1] == "":
+							result.append([TagType.Tag, tag_command, tag_arg, tag_text])
 							pos += 1
 							break
 						else:
-							tagText += "[/"+tags[pos][1]+"]"
+							tag_text += "[/" + tags[pos][1] + "]"
 							pos += 1
 					else:
 						pos += 1
 			else:
-				if(tag[2] == ""):
-					result.append([TagType.Text, "["+tag[1]+"]"])
+				if tag[2] == "":
+					result.append([TagType.Text, "[" + tag[1] + "]"])
 				else:
-					result.append([TagType.Text, "["+tag[1]+"="+tag[2]+"]"])
+					result.append([TagType.Text, "[" + tag[1] + "=" + tag[2] + "]"])
 				pos += 1
 		else:
 			pos += 1
-
 	return result
 
-func processString(text: String, overrides: Dictionary = {}):
-	var tags = findTags(text)
-	var combinedTags = combineTags(tags)
-	var result = ""
-	
-	for tag in combinedTags:
-		if(tag[0] == TagType.Text):
+func processString(text: String, overrides: Dictionary = {}) -> String:
+	var tags := findTags(text)
+	var combined := combineTags(tags)
+	var result := ""
+	for tag in combined:
+		if tag[0] == TagType.Text:
 			result += tag[1]
-		if(tag[0] == TagType.Tag):
+		if tag[0] == TagType.Tag:
 			result += processTag(tag[1], tag[2], tag[3], overrides)
-			
 	return result
 
-func processTag(tag, arg, text, overrides: Dictionary = {}):
-	if(tag == "say" || tag == "sayShowName"):
-		if(overrides.has(arg)):
+func processTag(tag: String, arg: String, text: String, overrides: Dictionary = {}) -> String:
+	if tag in ["say", "sayShowName"]:
+		if overrides.has(arg):
 			arg = overrides[arg]
-		
-		var resolvedName = GM.main.resolveCustomCharacterName(arg)
-		if(resolvedName != null):
-			arg = resolvedName
-		
+		var resolved_name = GM.main.resolveCustomCharacterName(arg)
+		if resolved_name != null:
+			arg = resolved_name
 		var object = null
-		if(arg == "pc"):
+		if arg == "pc":
 			object = GM.pc
-		elif(GlobalRegistry.getCharacter(arg) != null):
+		elif GlobalRegistry.getCharacter(arg) != null:
 			object = GlobalRegistry.getCharacter(arg)
-		
-		if(object == null):
-			return "!Error: "+arg+" character is not found to say text: "+text+"!"
-		
-		var prefix = ""
-		if(OPTIONS.shouldShowSpeakerName() || tag == "sayShowName"):
-			prefix = "[b]"+object.getName()+"[/b]: "
-		
-		return prefix+object.formatSay(text)
-	if(tag == "sayMale"):
-		var prefix = ""
-		if(OPTIONS.shouldShowSpeakerName()):
-			prefix = "[b]Someone[/b]: "
-		
-		return prefix+Util.sayMale(text)
-	if(tag == "sayFemale"):
-		var prefix = ""
-		if(OPTIONS.shouldShowSpeakerName()):
-			prefix = "[b]Someone[/b]: "
-			
-		return prefix+Util.sayFemale(text)
-	if(tag == "sayAndro"):
-		var prefix = ""
-		if(OPTIONS.shouldShowSpeakerName()):
-			prefix = "[b]Someone[/b]: "
-			
-		return prefix+Util.sayAndro(text)
-	if(tag == "sayOther"):
-		var prefix = ""
-		if(OPTIONS.shouldShowSpeakerName()):
-			prefix = "[b]Someone[/b]: "
-			
-		return prefix+Util.sayOther(text)
-	
-	return "!"+tag+"="+arg+":"+text+"!"
+		if object == null:
+			return "!Error: " + arg + " character not found!"
+		var prefix := ""
+		if OPTIONS.shouldShowSpeakerName() or tag == "sayShowName":
+			prefix = "[b]" + object.getName() + "[/b]: "
+		return prefix + object.formatSay(text)
+	if tag == "sayMale":
+		var prefix := "[b]Someone[/b]: " if OPTIONS.shouldShowSpeakerName() else ""
+		return prefix + Util.sayMale(text)
+	if tag == "sayFemale":
+		var prefix := "[b]Someone[/b]: " if OPTIONS.shouldShowSpeakerName() else ""
+		return prefix + Util.sayFemale(text)
+	if tag == "sayAndro":
+		var prefix := "[b]Someone[/b]: " if OPTIONS.shouldShowSpeakerName() else ""
+		return prefix + Util.sayAndro(text)
+	if tag == "sayOther":
+		var prefix := "[b]Someone[/b]: " if OPTIONS.shouldShowSpeakerName() else ""
+		return prefix + Util.sayOther(text)
+	return "!" + tag + "=" + arg + ":" + text + "!"
