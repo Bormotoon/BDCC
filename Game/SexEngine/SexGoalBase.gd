@@ -1,91 +1,75 @@
-extends Reference
+extends RefCounted
 class_name SexGoalBase
 
-var id = "error"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base class for sex goals. extends Reference → RefCounted.
 
-func getVisibleName():
+var id: String = "error"
+
+func get_visible_name() -> String:
 	return "Error"
 
-func isPossible(_sexEngine, _domInfo, _subInfo, _data):
+func is_possible(_sex_engine, _dom_info, _sub_info, _data) -> bool:
 	return true
 
-func isCompleted(_sexEngine, _domInfo, _subInfo, _data):
+func is_completed(_sex_engine, _dom_info, _sub_info, _data) -> bool:
 	return false
 
-func generateData(_sexEngine, _domInfo, _subInfo):
+func generate_data(_sex_engine, _dom_info, _sub_info) -> Array:
 	return []
 
-func progressGoal(_sexEngine, _domInfo, _subInfo, _data, _args = []):
+func progress_goal(_sex_engine, _dom_info, _sub_info, _data, _args: Array = []) -> void:
 	pass
 
-func getSubGoals(_sexEngine, _domInfo, _subInfo, _data):
+func get_sub_goals(_sex_engine, _dom_info, _sub_info, _data) -> Dictionary:
 	return {}
 
-func canLeadToSubsPregnancy(_sexEngine, _domInfo, _subInfo, _data):
+func can_lead_to_subs_pregnancy(_sex_engine, _dom_info, _sub_info, _data) -> bool:
 	return false
 
-func domWantsToCum():
+func dom_wants_to_cum() -> bool:
 	return false
 
-func getGoalDefaultWeight():
+func get_goal_default_weight() -> float:
 	return 1.0
 
-func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
+func do_fast_sex(_sex_engine, _dom_info, _sub_info, _data) -> void:
 	pass
 
-func sendSexEvent(_sexEngine, type, _sourceInfo, _targetInfo, data = {}):
-	var newSexEvent:SexEvent = SexEvent.new()
-	newSexEvent.type = type
-	newSexEvent.sourceCharID = _sourceInfo.charID
-	newSexEvent.targetCharID = _targetInfo.charID
-	newSexEvent.data = data
-	newSexEvent.isSexEngine = true
-	newSexEvent.sexEngine = _sexEngine
-	
-	_sourceInfo.getChar().sendSexEvent(newSexEvent)
-	if(_sourceInfo.getChar() != _targetInfo.getChar()):
-		_targetInfo.getChar().sendSexEvent(newSexEvent)
+func send_sex_event(_sex_engine, type, _source_info, _target_info, data: Dictionary = {}) -> void:
+	var new_event: SexEvent = SexEvent.new()
+	new_event.type = type
+	new_event.sourceCharID = _source_info.charID
+	new_event.targetCharID = _target_info.charID
+	new_event.data = data
+	new_event.isSexEngine = true
+	new_event.sexEngine = _sex_engine
+	_source_info.getChar().sendSexEvent(new_event)
+	if _source_info.getChar() != _target_info.getChar():
+		_target_info.getChar().sendSexEvent(new_event)
 
-func canBegFor() -> bool:
+func can_beg_for() -> bool:
 	return false
 
-func getBegName() -> String:
-	return getVisibleName()
+func get_beg_name() -> String:
+	return get_visible_name()
 
-const BegCategoryDefault = ["Beg"]
-const BegCategoryChoking = ["Beg", "Choking"]
-const BegCategoryExotic = ["Beg", "Exotic"]
-const BegCategorySex = ["Beg", "Sex"]
-func getBegCategory() -> Array:
+const BegCategoryDefault: Array = ["Beg"]
+const BegCategoryChoking: Array = ["Beg", "Choking"]
+const BegCategoryExotic: Array = ["Beg", "Exotic"]
+const BegCategorySex: Array = ["Beg", "Sex"]
+
+func get_beg_category() -> Array:
 	return BegCategoryDefault
 
-func getBegDesc() -> String:
+func get_beg_desc() -> String:
 	return "Ask the dom to do this to you!"
 
-func getBegMessage(_sexEngine, _domInfo, _subInfo) -> String:
-	return "{sub.You} {sub.youVerb('beg')} {dom.you} to '"+getVisibleName()+"'."
+func get_beg_agree_dialogue() -> String:
+	return RNG.pick(["Sure.", "Sounds good.", "Alright, let's do it.", "Okay, I hear you."])
 
-func getBegDialogue(_sexEngine, _domInfo, _subInfo) -> String:
-	return "Please?"
+func get_beg_deny_dialogue() -> String:
+	return RNG.pick(["Nope. I don't want to.", "I don't want to do that.", "No. Just no."])
 
-func getBegAgreeDialogue() -> String:
-	return RNG.pick([
-		"Sure.",
-		"Sounds good.",
-		"Alright, let's do it.",
-		"Hm. Okay, let's do it.",
-		"Sure, let's see.",
-		"Why not, let's do it.",
-		"Okay, I hear you.",
-	])
-
-func getBegDenyDialogue() -> String:
-	return RNG.pick([
-		"Nope. I don't want to.",
-		"I don't want to do that.",
-		"No, I'm not doing that.",
-		"No. Just no.",
-	])
-
-func getBegDomFetishes() -> Dictionary:
+func get_beg_dom_fetishes() -> Dictionary:
 	return {}
