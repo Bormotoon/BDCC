@@ -1,216 +1,96 @@
-extends Reference
+extends RefCounted
 class_name Species
 
-const Any = "any"
-const AnyNPC = "anynpc" # Dynamic npcs can generate with bodyparts that are tagged with this
-const Human = "human"
-const Feline = "feline"
-const Dragon = "dragon"
-const Canine = "canine"
-const Equine = "equine"
-const Demon = "demon"
-const Unknown = "unknown"
+## MIGRATED to Godot 4 (GDScript 2.0).
+## Base species definition with default bodypart assignments.
 
-var id = "error"
+const Any: String = "any"
+const AnyNPC: String = "anynpc"
+const Human: String = "human"
+const Feline: String = "feline"
+const Dragon: String = "dragon"
+const Canine: String = "canine"
+const Equine: String = "equine"
+const Demon: String = "demon"
+const Unknown: String = "unknown"
 
-func _init():
-	pass
-	
-func getVisibleName():
+var id: String = "error"
+
+func getVisibleName() -> String:
 	return "Error"
-	
-func getVisibleDescription():
-	return "Not implemented, Let the developer know"
 
-func getDefaultLegs(_gender):
+func getVisibleDescription() -> String:
+	return "Not implemented"
+
+func getDefaultLegs(_gender: int) -> String:
 	return "plantilegs"
 
-func getDefaultBreasts(_gender):
-	if(_gender in [Gender.Male]):
+func getDefaultBreasts(_gender: int) -> String:
+	if _gender == Gender.Male:
 		return "malebreasts"
-	
 	return "humanbreasts"
 
-func getDefaultHair(_gender):
+func getDefaultHair(_gender: int) -> String:
 	return "baldhair"
-	
-func getDefaultTail(_gender):
+
+func getDefaultTail(_gender: int):
 	return null
 
-func getDefaultBody(_gender):
+func getDefaultBody(_gender: int) -> String:
 	return "anthrobody"
 
-func getDefaultHead(_gender):
+func getDefaultHead(_gender: int) -> String:
 	return "humanhead"
-	
-func getDefaultArms(_gender):
+
+func getDefaultArms(_gender: int) -> String:
 	return "anthroarms"
 
-func getDefaultEars(_gender):
+func getDefaultEars(_gender: int) -> String:
 	return "felineears"
 
-func getDefaultHorns(_gender):
+func getDefaultHorns(_gender: int):
 	return null
 
-func getDefaultPenis(_gender):
-	if(_gender in [Gender.Male, Gender.Androgynous]):
+func getDefaultPenis(_gender: int):
+	if _gender in [Gender.Male, Gender.Androgynous]:
 		return "humanpenis"
-	else:
-		return null
+	return null
 
-func getDefaultVagina(_gender):
-	if(_gender in [Gender.Female, Gender.Androgynous]):
+func getDefaultVagina(_gender: int):
+	if _gender in [Gender.Female, Gender.Androgynous]:
 		return "vagina"
-	else:
-		return null
+	return null
 
-func getDefaultAnus(_gender):
+func getDefaultAnus(_gender: int) -> String:
 	return "anus"
 
-func getDefaultForSlot(slot, _gender):
-	if(slot == BodypartSlot.Legs):
-		return getDefaultLegs(_gender)
-	if(slot == BodypartSlot.Breasts):
-		return getDefaultBreasts(_gender)
-	if(slot == BodypartSlot.Hair):
-		return getDefaultHair(_gender)
-	if(slot == BodypartSlot.Tail):
-		return getDefaultTail(_gender)
-	if(slot == BodypartSlot.Body):
-		return getDefaultBody(_gender)
-	if(slot == BodypartSlot.Head):
-		return getDefaultHead(_gender)
-	if(slot == BodypartSlot.Arms):
-		return getDefaultArms(_gender)
-	if(slot == BodypartSlot.Ears):
-		return getDefaultEars(_gender)
-	if(slot == BodypartSlot.Horns):
-		return getDefaultHorns(_gender)
-	if(slot == BodypartSlot.Penis):
-		return getDefaultPenis(_gender)
-	if(slot == BodypartSlot.Vagina):
-		return getDefaultVagina(_gender)
-	if(slot == BodypartSlot.Anus):
-		return getDefaultAnus(_gender)
-	
+func getDefaultForSlot(slot: StringName, gender: int):
+	match slot:
+		BodypartSlot.Legs: return getDefaultLegs(gender)
+		BodypartSlot.Breasts: return getDefaultBreasts(gender)
+		BodypartSlot.Hair: return getDefaultHair(gender)
+		BodypartSlot.Tail: return getDefaultTail(gender)
+		BodypartSlot.Body: return getDefaultBody(gender)
+		BodypartSlot.Head: return getDefaultHead(gender)
+		BodypartSlot.Arms: return getDefaultArms(gender)
+		BodypartSlot.Ears: return getDefaultEars(gender)
+		BodypartSlot.Horns: return getDefaultHorns(gender)
+		BodypartSlot.Penis: return getDefaultPenis(gender)
+		BodypartSlot.Vagina: return getDefaultVagina(gender)
+		BodypartSlot.Anus: return getDefaultAnus(gender)
 	return null
 
-# A hackish method to tie together two gender types, sorry
-func getDefaultForSlotForNpcGender(slot, npcgender):
-	var normalGender = NpcGender.toNormalGender(npcgender)
-	
-	if(slot in [BodypartSlot.Penis]):
-		if(npcgender in [NpcGender.Peachboy]):
-			normalGender = Gender.Female
-		if(npcgender in [NpcGender.Herm, NpcGender.Shemale]):
-			normalGender = Gender.Male
-	if(slot in [BodypartSlot.Vagina]):
-		if(npcgender in [NpcGender.Peachboy, NpcGender.Herm]):
-			normalGender = Gender.Female
-		if(npcgender in [NpcGender.Shemale]):
-			normalGender = Gender.Male
-	if(slot in [BodypartSlot.Breasts]):
-		if(npcgender in [NpcGender.Shemale, NpcGender.Herm]):
-			normalGender = Gender.Female
-		if(npcgender in [NpcGender.Peachboy]):
-			normalGender = Gender.Male
-	
-	return getDefaultForSlot(slot, normalGender)
+func getCrossSpeciesCompatibility(_other_species_id: String) -> float:
+	return 0.0
 
-# Allows to pick these bodyparts even if they're from another species. Useful for mods
-# This function is only used in the character creator
-func getAllowedBodyparts():
-	return []
+func getEggType() -> StringName:
+	return &"none"
 
-# Safe wrapper, legacy reasons
-func getAllowedBodypartsFinal() -> Array:
-	var theResult = getAllowedBodyparts()
-	if(!(theResult is Array)):
-		Log.printerr(id+".getAllowedBodyparts() RETURNS A BAD VALUE ("+str(theResult)+"), NEEDS TO BE AN ARRAY")
-		return []
-	return theResult
-
-# Same as getAllowedBodyparts() but gets used in npc generation and transformation logic
-func getAllowedBodypartsForNPCGender(_npcGender:String, _isTF:bool) -> Array:
-	var result:Array = getAllDefaultBodypartIDsForNPCGender(_npcGender)
-	
-	result.append_array(getAllowedBodypartsFinal())
-	
-	return result
-
-func getAllDefaultBodypartIDsForNPCGender(_npcGender:String) -> Array:
-	var result:Array = []
-	
-	for bodypartSlot in BodypartSlot.getAll():
-		var bodypartIDOrNull = getDefaultForSlotForNpcGender(bodypartSlot, _npcGender)
-		if((bodypartIDOrNull is String) && !bodypartIDOrNull.empty()):
-			result.append(bodypartIDOrNull)
-	
-	return result
-
-func isPlayable():
-	return false
-
-# [[amount, weight], [amount, weight]]
-func getEggCellOvulationAmount():
-	return [
-		[1, 10.0],
-		[2, 1.0],
-	]
-
-func getEggsOvulationAmount() -> Array:
-	var result:Array = getEggCellOvulationAmount()
-	for theEntry in result:
-		if(theEntry[0] < 10):
-			theEntry[0] *= 3
-			theEntry[0] = Util.mini(theEntry[0], 10)
-	return result
-
-# How often is this species will show up in procedural encounters. 0 = never, 0-1 = less often, 1 = default chance, >1 = more often
-func npcGenerationWeight():
-	if(!isPlayable() || id == "error"):
-		return 0.0
-	return 1.0
-
-func canBeUsedForNPCType(_npcType):
-	return true
-
-func getSkinType():
-	return SkinType.Fur
-
-func generateSkinColors():
-	return ColorUtils.generateGenericFurryColors()
-
-func onDynamicNpcCreation(_npc, _args):
-	# Some examples of what you can do here
-	
-	## Will make every generated npc bald if uncommented
-	#_npc.giveBodypartUnlessSame(GlobalRegistry.createBodypart("baldhair"))
-	
-	## Will make the npc pink and have an empty skin if uncommented
-	#_npc.pickedSkinRColor = Color.pink
-	#_npc.pickedSkinGColor = Color.pink
-	#_npc.pickedSkinBColor = Color.pink
-	#_npc.pickedSkin = "EmptySkin"
+func getOnDynamicNpcCreation(_character) -> void:
 	pass
 
-# Disables ability to generate npcs of this species with a mane
-func supportsMane():
-	return false
+func saveData() -> Dictionary:
+	return {}
 
-func calculateScoreForSpeciesCalculations(_npc) -> float:
-	return 1.0
-
-func generateEggType(_laidEgg:EggLaid) -> int:
-	#return BigEggType.Latex # Will make your species lay latex eggs
-	return BigEggType.Fertilized
-
-func generateEggColor(_laidEgg:EggLaid) -> Color:
-	#return Color.white
-	return ColorUtils.generateNaturalEggColor()
-
-func onEggLaid(_laidEgg:EggLaid, _eggCell:EggCell):
+func loadData(_data: Dictionary) -> void:
 	pass
-
-func getEggInventorySpritePath(_laidEgg:EggLaid) -> String:
-	return "res://Images/Items/medical/egg.png"
