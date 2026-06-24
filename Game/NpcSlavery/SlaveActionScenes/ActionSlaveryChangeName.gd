@@ -141,14 +141,14 @@ func setSlaveDescTo(newname:String):
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

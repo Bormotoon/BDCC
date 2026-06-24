@@ -43,9 +43,9 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 			sub.cummedOnBy(dom.getID(), FluidSource.Penis)
 	elif(dom.hasReachableVagina()):
 		if(RNG.chance(50)):
-			sub.cummedInMouthBy(dom.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			sub.cummedInMouthBy(dom.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 		else:
-			sub.cummedOnBy(dom.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			sub.cummedOnBy(dom.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 
 	if(sub.hasReachablePenis() && RNG.chance(50)):
 		dom.gotThroatFuckedBy(sub.getID())
@@ -55,12 +55,12 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 			dom.cummedOnBy(sub.getID(), FluidSource.Penis)
 	elif(sub.hasReachableVagina()):
 		if(RNG.chance(50)):
-			dom.cummedInMouthBy(sub.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			dom.cummedInMouthBy(sub.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 		else:
-			dom.cummedOnBy(sub.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			dom.cummedOnBy(sub.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 
 	if(RNG.chance(50)):
-		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=RNG.randi_range(1, 20),isDefense=false,intentional=false})
+		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=randi_range(1, 20),isDefense=false,intentional=false})
 
 	if(RNG.chance(20)):
 		var zone = BodyWritingsZone.getRandomZone()

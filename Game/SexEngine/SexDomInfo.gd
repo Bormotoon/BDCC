@@ -74,7 +74,7 @@ func init_from_personality() -> void:
 	var personality: Personality = character.getPersonality()
 	var mean := personality.getStat(PersonalityStat.Mean)
 	if mean > 0.0:
-		anger = RNG.randf_range(0.0, mean) / 5.0
+		anger = randf_range(0.0, mean) / 5.0
 
 func process_turn() -> void:
 	arousal_natural_fade()
@@ -117,24 +117,24 @@ func affect_personality(_personality: Personality, _fetish_holder: FetishHolder)
 	var changes: Array = []
 	if not can_do_actions():
 		if RNG.chance(50):
-			if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(0.05, 0.1)):
+			if _personality.addStat(PersonalityStat.Subby, randf_range(0.05, 0.1)):
 				changes.append("{npc.name} became less dominant because {npc.he} got beaten up by a sub.")
 		if RNG.chance(50):
-			if _personality.addStat(PersonalityStat.Coward, RNG.randf_range(0.01, 0.1)):
+			if _personality.addStat(PersonalityStat.Coward, randf_range(0.01, 0.1)):
 				changes.append("{npc.name} became more cowardly because {npc.he} got beaten up by a sub.")
 	else:
 		if RNG.chance(30):
-			if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(-0.05, -0.01)):
+			if _personality.addStat(PersonalityStat.Subby, randf_range(-0.05, -0.01)):
 				changes.append("{npc.name} became slightly more dominant.")
 		if RNG.chance(30):
-			if _personality.addStat(PersonalityStat.Impatient, RNG.randf_range(-0.05, -0.01)):
+			if _personality.addStat(PersonalityStat.Impatient, randf_range(-0.05, -0.01)):
 				changes.append("{npc.name} became less impatient.")
 		if RNG.chance(30):
-			if _personality.addStat(PersonalityStat.Coward, RNG.randf_range(-0.05, -0.01)):
+			if _personality.addStat(PersonalityStat.Coward, randf_range(-0.05, -0.01)):
 				changes.append("{npc.name} became more brave.")
 		if getTimesCame() >= 1 and getAverageAnger() < 0.3:
 			if RNG.chance(50):
-				if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(-0.1, -0.01)):
+				if _personality.addStat(PersonalityStat.Subby, randf_range(-0.1, -0.01)):
 					changes.append("{npc.name} became more dominant after a good sex.")
 	return GM.ui.processString(Util.join(changes, "\n"), {"npc": charID})
 

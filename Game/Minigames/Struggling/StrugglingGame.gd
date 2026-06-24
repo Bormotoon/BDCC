@@ -87,7 +87,7 @@ func generateFullPattern():
 	
 	Util.delete_children($Patterns)
 	
-	var amountOfPatterns = RNG.randi_range(amountOfPatternsMin, amountOfPatternsMax)
+	var amountOfPatterns = randi_range(amountOfPatternsMin, amountOfPatternsMax)
 	for _i in range(amountOfPatterns):
 		var patternFileName = RNG.pick(patternFolderFiles)
 		var pattern = load(patternFileName)

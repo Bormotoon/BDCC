@@ -29,7 +29,7 @@ func execute(_contex:CodeContex):
 		throwError(_contex, "Value is not a number: "+str(theNumber2))
 		return 0.0
 
-	return RNG.randf_range(theNumber, theNumber2)
+	return randf_range(theNumber, theNumber2)
 
 func getTemplate():
 	return [

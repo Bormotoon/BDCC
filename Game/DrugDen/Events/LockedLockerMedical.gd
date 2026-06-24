@@ -8,10 +8,10 @@ func getMaxPerFloor() -> int:
 	return 1
 
 func getCooldown() -> int:
-	return RNG.randi_range(2, 6)
+	return randi_range(2, 6)
 
 func getStartCooldown() -> int:
-	return RNG.randi_range(2, 6)
+	return randi_range(2, 6)
 
 func getInteractInfo() -> Dictionary:
 	return {

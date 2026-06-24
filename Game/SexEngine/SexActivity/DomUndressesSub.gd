@@ -137,7 +137,7 @@ func getItemToRemove(character):
 	return RNG.pick(canRemoveItems)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["itemIDToRemove"] = itemIDToRemove
 	data["tick"] = tick
@@ -145,7 +145,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	itemIDToRemove = SAVE.loadVar(data, "itemIDToRemove", "")
 	tick = SAVE.loadVar(data, "tick", 0)

@@ -126,7 +126,7 @@ func afterLocked():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["pickedLocks"] = pickedLocks
 	data["pickedLock"] = pickedLock
@@ -134,7 +134,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	pickedLocks = SAVE.loadVar(_data, "pickedLocks", [])
 	pickedLock = SAVE.loadVar(_data, "pickedLock", "")

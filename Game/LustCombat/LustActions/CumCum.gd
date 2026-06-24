@@ -104,4 +104,4 @@ func getExperience(_lustState: LustCombatState, _args):
 	return [[Skill.CumLover, 5]]
 
 func getVisibility():
-	return RNG.randf_range(0.1, 0.4)
+	return randf_range(0.1, 0.4)

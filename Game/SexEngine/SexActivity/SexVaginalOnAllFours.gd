@@ -727,7 +727,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			addText(text)
 			return
 	if(_id == "resist"):
-		var howMuchPainAdded:int = RNG.randi_range(2, 6)
+		var howMuchPainAdded:int = randi_range(2, 6)
 		getDomInfo().addPain(howMuchPainAdded)
 		sendSexEvent(SexEvent.PainInflicted, SUB_0, DOM_0, {pain=howMuchPainAdded,isDefense=true,intentional=true})
 		if(RNG.chance(getSubResistChance(30.0, 25.0))):
@@ -932,7 +932,7 @@ func doJoinAction(_sexInfo:SexInfoBase, _args):
 		switchCurrentActivityTo("ThreeDDS_Train", [usedBodypart, S_ANUS, _sexInfo.getCharID()])
 	
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["times"] = times
 	data["gonnaCumOutside"] = gonnaCumOutside
@@ -943,7 +943,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	times = SAVE.loadVar(data, "times", 0)
 	gonnaCumOutside = SAVE.loadVar(data, "gonnaCumOutside", false)

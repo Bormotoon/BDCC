@@ -165,7 +165,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pumpID"] = pumpID
 	data["timesMilked"] = timesMilked
@@ -173,7 +173,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pumpID = SAVE.loadVar(data, "pumpID", "")
 	timesMilked = SAVE.loadVar(data, "timesMilked", 0)

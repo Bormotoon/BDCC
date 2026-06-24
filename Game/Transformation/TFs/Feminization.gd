@@ -166,7 +166,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			step = nextStep,
 			effects = [
-				charEffect("fem", "AddFemininity", [RNG.randi_range(15, 25)]),
+				charEffect("fem", "AddFemininity", [randi_range(15, 25)]),
 			]
 		}
 		
@@ -221,7 +221,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			step = nextStep,
 			effects = [
 				charEffect("fem", "AddFemininity", [10]),
-				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [-RNG.randi_range(2,4)*mod]),
+				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [-randi_range(2,4)*mod]),
 			]
 		}
 	if(nextStep == "rempenis"):
@@ -292,7 +292,7 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(1.0)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["av"] = addedVag
 	data["rp"] = removedPenis
@@ -302,7 +302,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	addedVag = SAVE.loadVar(_data, "av", false)
 	removedPenis = SAVE.loadVar(_data, "rp", false)

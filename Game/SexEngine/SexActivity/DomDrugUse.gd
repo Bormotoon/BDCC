@@ -495,7 +495,7 @@ func generatePillVariants(theItemID:String):
 				pillVariants.append(newTFID)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["usedItemID"] = usedItemID
 	data["usedUniqueItemID"] = usedUniqueItemID
@@ -505,7 +505,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	usedItemID = SAVE.loadVar(data, "usedItemID", "")
 	usedUniqueItemID = SAVE.loadVar(data, "usedUniqueItemID", "")

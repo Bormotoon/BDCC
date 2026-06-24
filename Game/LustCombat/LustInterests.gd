@@ -175,7 +175,7 @@ func reactLustAction(_pc, _actionInterests, _maxUnlocks = 1):
 		if(playerValue >= 0.01):
 			bestTopics.append([topicID, interestLikes, abs(addValue)])
 		
-	bestTopics.sort_custom(self, "customBestTopicComparison")
+	bestTopics.sort_custom(customBestTopicComparison)
 	#print(bestTopics)
 	
 	var pcLearned = []

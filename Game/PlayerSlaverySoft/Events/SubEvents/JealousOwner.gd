@@ -107,7 +107,7 @@ func afterSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["sexSatisfaction"] = sexSatisfaction
 	data["instantSurrender"] = instantSurrender
@@ -115,7 +115,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sexSatisfaction = SAVE.loadVar(_data, "sexSatisfaction", 1.0)
 	instantSurrender = SAVE.loadVar(_data, "instantSurrender", false)

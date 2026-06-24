@@ -52,14 +52,14 @@ func getActivityIcon():
 	return RoomStuff.PawnActivity.Struggle
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["t"] = lastText
 	data["a"] = lastAnim
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	lastText = SAVE.loadVar(_data, "t", "")
 	lastAnim = SAVE.loadVar(_data, "a", "")

@@ -322,7 +322,7 @@ func cuddling():
 	
 func cuddling_do(_id:String, _args:Array):
 	if(_id == "doChill"):
-		GM.main.processTime(RNG.randi_range(30, 60) * 60)
+		GM.main.processTime(randi_range(30, 60) * 60)
 		questionID = RNG.pick(QuestionDB)
 		setState("askedQuestion")
 	
@@ -348,7 +348,7 @@ func askedQuestion_do(_id:String, _args:Array):
 		answerIndx = _args[0]
 		var theEntry: Dictionary = QuestionDB[questionID]
 		var theAnswers:Array = theEntry[qanswers]
-		ownerAnswerIndx = RNG.randi_range(0, theAnswers[answerIndx][2].size()-1)
+		ownerAnswerIndx = randi_range(0, theAnswers[answerIndx][2].size()-1)
 		setState("ownerAnswers")
 
 func ownerAnswers():
@@ -373,7 +373,7 @@ func cuddleEnded():
 	addContinue("endEvent")
 	
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["questionID"] = questionID
 	data["answerIndx"] = answerIndx
@@ -382,7 +382,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	questionID = SAVE.loadVar(_data, "questionID", "")
 	answerIndx = SAVE.loadVar(_data, "answerIndx", 0)

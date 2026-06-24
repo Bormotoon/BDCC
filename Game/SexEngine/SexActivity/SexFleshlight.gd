@@ -331,7 +331,7 @@ func clearTargetIndx():
 		subs.remove_at(1)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["targetID"] = targetID
 	data["targetHole"] = targetHole
@@ -339,7 +339,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	targetID = SAVE.loadVar(data, "targetID", "")
 	targetHole = SAVE.loadVar(data, "targetHole", S_ANUS)

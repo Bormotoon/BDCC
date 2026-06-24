@@ -21,7 +21,7 @@ func genTasks():
 	if(RNG.chance(50)):
 		theNpcOwner.generateTasks(2, 1.5, 3.0) # 2 hard tasks
 	else:
-		theNpcOwner.generateTasks(RNG.randi_range(3, 5), 1.0, 1.5) # 3-5 simple tasks
+		theNpcOwner.generateTasks(randi_range(3, 5), 1.0, 1.5) # 3-5 simple tasks
 	GM.main.addMessage("Tasks menu updated.")
 
 func start():
@@ -55,13 +55,13 @@ func askedDifferent_do(_id:String, _args:Array):
 		setState("askedDifferent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	#data["creditsAmount"] = creditsAmount
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	#creditsAmount = SAVE.loadVar(_data, "creditsAmount", 10)

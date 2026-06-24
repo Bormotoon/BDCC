@@ -45,13 +45,13 @@ func allcompleted():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	#data["creditsAmount"] = creditsAmount
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	#creditsAmount = SAVE.loadVar(_data, "creditsAmount", 10)

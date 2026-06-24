@@ -117,13 +117,13 @@ func generateTransformText(_result:Dictionary):
 #	addText(describeBreastTransformation(origSize, size, breastsCovered))
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["howMuch"] = howMuch
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	howMuch = SAVE.loadVar(_data, "howMuch", 1)

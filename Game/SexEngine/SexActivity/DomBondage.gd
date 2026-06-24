@@ -253,7 +253,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 		reactSub(SexReaction.Resisting, [50])
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pcUniqueID"] = pcUniqueID
 	data["npcItemID"] = npcItemID
@@ -261,7 +261,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pcUniqueID = SAVE.loadVar(data, "pcUniqueID", "")
 	npcItemID = SAVE.loadVar(data, "npcItemID", "")

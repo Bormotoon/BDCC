@@ -14,15 +14,15 @@ func getVisibleName():
 func onStart(_args = []):
 	slutSkill = getSlave().getSlaveSkill(SlaveType.Slut)
 	
-	workHoursLeft = RNG.randi_range(3,4)
+	workHoursLeft = randi_range(3,4)
 	if(slutSkill >= 8):
-		workHoursLeft += RNG.randi_range(2,4)
+		workHoursLeft += randi_range(2,4)
 	if(slutSkill >= 11):
-		workHoursLeft += RNG.randi_range(3,5)
+		workHoursLeft += randi_range(3,5)
 	if(slutSkill >= 13):
-		workHoursLeft += RNG.randi_range(3,6)
+		workHoursLeft += randi_range(3,6)
 	if(slutSkill >= 15):
-		workHoursLeft += RNG.randi_range(4,6)
+		workHoursLeft += randi_range(4,6)
 	workHoursRemember = workHoursLeft
 	
 	var pawn = GM.main.IS.spawnPawnIfNeeded(getCharID())
@@ -99,7 +99,7 @@ func getCustomInteractAnimInfo():
 	return [StageScene.Solo, "stand", {pc="pc"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["workHoursLeft"] = workHoursLeft
 	data["earnedCreds"] = earnedCreds
@@ -109,7 +109,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	workHoursLeft = SAVE.loadVar(_data, "workHoursLeft", 12)
 	earnedCreds = SAVE.loadVar(_data, "earnedCreds", 0)

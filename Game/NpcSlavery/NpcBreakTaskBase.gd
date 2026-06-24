@@ -121,7 +121,7 @@ static func generateTasksFor(theChar, slaveType, _isSlaveLevelup, taskAmount, di
 func scaledRangeWithDifficulty(minv:int, maxv:int, _difficulty:float):
 	var newminv:int = int(round(minv * _difficulty))
 	var newmaxv:int = int(round(maxv * _difficulty))
-	return RNG.randi_range(newminv, newmaxv)
+	return randi_range(newminv, newmaxv)
 
 func getSexGoalWeightModifier(_sexGoalID:String) -> float:
 	return 0.0

@@ -7,14 +7,14 @@ func _initScene(_args = []):
 	RC = _args[0]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["RC"] = RC.saveData()
 	
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	RC = RecruitContext.new()
 	RC.loadData(SAVE.loadVar(data, "RC", {}))

@@ -217,7 +217,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["boredTimer"] = boredTimer
 	data["waitTimer"] = waitTimer
@@ -225,7 +225,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	boredTimer = SAVE.loadVar(_data, "boredTimer", 0)
 	waitTimer = SAVE.loadVar(_data, "waitTimer", 0)

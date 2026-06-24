@@ -1,4 +1,4 @@
-tool
+@tool
 extends Sprite
 
 var _order_number := 1

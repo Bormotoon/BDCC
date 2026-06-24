@@ -4,7 +4,7 @@ var goal:InteractionGoalBase
 var nextGoalTestIn:int = 200
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["ngti"] = nextGoalTestIn
 	if(goal != null):
@@ -19,7 +19,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	nextGoalTestIn = SAVE.loadVar(_data, "ngti", 200)
 	goal = null
@@ -189,7 +189,7 @@ func doesStealControlFromPC() -> bool:
 	return false
 
 func getDebugInfo():
-	var res:Array = .getDebugInfo()
+	var res:Array = super.getDebugInfo()
 	
 	if(goal != null):
 		res.append("")

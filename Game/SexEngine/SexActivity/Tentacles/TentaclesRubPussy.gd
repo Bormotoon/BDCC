@@ -256,7 +256,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["waitTimer"] = waitTimer
 	data["altPose"] = altPose
@@ -264,7 +264,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	waitTimer = SAVE.loadVar(data, "waitTimer", 0)
 	altPose = SAVE.loadVar(data, "altPose", POSE_GROPE)

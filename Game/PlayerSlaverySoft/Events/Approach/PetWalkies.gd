@@ -350,7 +350,7 @@ func simpleTrickWrong():
 func simonsSaysTricks():
 	playAnimation(StageScene.PuppyDuo, "stand", {pc=getOwnerID(), npcBodyState={naked=true}})
 	if(onlyOnce()):
-		trickQueue = generateTrickQueue(RNG.randi_range(3, 5))
+		trickQueue = generateTrickQueue(randi_range(3, 5))
 		pcPickedTrick = ""
 	
 	saynn("Your owner turns towards you.")
@@ -534,7 +534,7 @@ func fakeStickFound():
 	paradedOutcome()
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	data["timesLeft"] = timesLeft
 	data["isFirst"] = isFirst
 	data["wantsTrick"] = wantsTrick
@@ -549,7 +549,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	timesLeft = SAVE.loadVar(_data, "timesLeft", 3)
 	isFirst = SAVE.loadVar(_data, "isFirst", true)

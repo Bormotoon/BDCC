@@ -93,13 +93,13 @@ func applyRawValue(_id, _value):
 		op = _value
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["op"] = op
 	
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	op = loadVar(_data, "op", "milk")

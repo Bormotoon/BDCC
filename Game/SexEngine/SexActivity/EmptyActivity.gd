@@ -95,13 +95,13 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	#data["tick"] = tick
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	#tick = SAVE.loadVar(data, "tick", 0)

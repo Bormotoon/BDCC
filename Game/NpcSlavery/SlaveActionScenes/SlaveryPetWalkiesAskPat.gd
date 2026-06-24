@@ -431,8 +431,8 @@ func _react(_action: String, _args):
 	
 	if(_action == "let_pat_lick"):
 		processTime(5*60)
-		npc.cummedOnBy(npc2ID, FluidSource.Vagina, RNG.randf_range(0.3, 0.5))
-		npc.cummedInMouthBy(npc2ID, FluidSource.Vagina, RNG.randf_range(0.3, 0.7))
+		npc.cummedOnBy(npc2ID, FluidSource.Vagina, randf_range(0.3, 0.5))
+		npc.cummedInMouthBy(npc2ID, FluidSource.Vagina, randf_range(0.3, 0.7))
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):
 			npcSlavery.getActivity().satisfyWant("food")
@@ -489,7 +489,7 @@ func _react_scene_end(_tag, _result):
 			npcSlavery.addTrust(-0.05)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["npc2ID"] = npc2ID
@@ -499,7 +499,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

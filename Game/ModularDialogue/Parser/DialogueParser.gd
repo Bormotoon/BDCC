@@ -226,7 +226,7 @@ func checkReplacement(theText:String, replacements:Dictionary):
 func throwError(token, errorText:String):
 	errored = true
 	errorText = "Token: "+tokenToString(token)+" "+errorText
-	Log.printerr("[DialogueParser error]: "+errorText)
+	Log.err("[DialogueParser error]: "+errorText)
 	resultString += "[color=red]"+errorText+"[/color]"
 	
 	# Skipping to the next raw text

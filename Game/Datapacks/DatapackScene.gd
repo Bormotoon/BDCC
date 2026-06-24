@@ -137,11 +137,11 @@ func loadVar(_data, thekey, defaultValue = null):
 	return defaultValue
 
 func loadImageVar(_data, thekey):
-	var imageData = loadVar(_data, thekey, PoolByteArray())
+	var imageData = loadVar(_data, thekey, PackedByteArray())
 	if(imageData != null):
 		if(imageData is Image):
 			return imageData
-		elif(imageData is PoolByteArray):
+		elif(imageData is PackedByteArray):
 			if(imageData.is_empty()):
 				return null
 			else:

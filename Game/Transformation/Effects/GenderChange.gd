@@ -18,13 +18,13 @@ func applyEffect(_data:Dictionary) -> Dictionary:
 	}
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["gender"] = newGender
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	newGender = SAVE.loadVar(_data, "gender", Gender.Male)

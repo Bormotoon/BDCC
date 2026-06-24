@@ -54,14 +54,14 @@ func getAnimData() -> Array:
 	return [StageScene.Solo, "stand", {pc="main"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["nt"] = nextTarget
 	data["z"] = zone
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	nextTarget = SAVE.loadVar(_data, "nt", "")
 	zone = SAVE.loadVar(_data, "z", WorldZone.Greenhouses)

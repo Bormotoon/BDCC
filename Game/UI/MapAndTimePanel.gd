@@ -10,7 +10,7 @@ signal onDevComButton
 @onready var custom_viewport_control = $"%CustomViewportControl"
 
 
-export var compactMode:bool = false
+@export var compactMode:bool = false
 
 func _ready():
 #	if(OS.get_name() == "Android"):

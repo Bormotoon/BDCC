@@ -498,13 +498,13 @@ func generateNurseryTasks():
 					credReward = 1 + (1 if RNG.chance(20) else 0)
 					pointReward = 5
 				if(diff == DIFFICULTY_MEDIUM):
-					credReward = RNG.randi_range(3, 5)
+					credReward = randi_range(3, 5)
 					pointReward = 10
 				if(diff == DIFFICULTY_HARD):
-					credReward = RNG.randi_range(5, 10)
+					credReward = randi_range(5, 10)
 					pointReward = 15
 				if(diff == DIFFICULTY_VERY_HARD):
-					credReward = RNG.randi_range(10, 20)
+					credReward = randi_range(10, 20)
 					pointReward = 25
 				
 				if(!newTaskInfo.has("credits")):
@@ -1044,7 +1044,7 @@ func doMilkCharacter(theChar:BaseCharacter):
 			fluidsGotTotal[fluidType] += fluidsGot[fluidType]
 	
 	for fluidType in fluidsGotTotal:
-		fluidsGotTotal[fluidType] *= RNG.randf_range(0.8, 1.0) # Simulates milking in-efficiency
+		fluidsGotTotal[fluidType] *= randf_range(0.8, 1.0) # Simulates milking in-efficiency
 		addFluid(fluidType, fluidsGotTotal[fluidType])
 	
 	return fluidsGotTotal

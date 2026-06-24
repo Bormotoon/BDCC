@@ -31,9 +31,9 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 			dom.cummedOnBy(sub.getID(), FluidSource.Penis)
 	elif(sub.hasReachableVagina()):
 		if(RNG.chance(50)):
-			dom.cummedInMouthBy(sub.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			dom.cummedInMouthBy(sub.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 		else:
-			dom.cummedOnBy(sub.getID(), FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+			dom.cummedOnBy(sub.getID(), FluidSource.Vagina, randf_range(0.4, 0.8))
 
 func canBegFor() -> bool:
 	return true

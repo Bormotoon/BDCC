@@ -53,13 +53,13 @@ func afterSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["sexSatisfaction"] = sexSatisfaction
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sexSatisfaction = SAVE.loadVar(_data, "sexSatisfaction", 1.0)

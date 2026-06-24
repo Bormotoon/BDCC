@@ -136,13 +136,13 @@ func getAnimation():
 	return [StageScene.TentaclesCuddle, "cuddle", {pc=SUB_0}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["waitTimer"] = waitTimer
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	waitTimer = SAVE.loadVar(data, "waitTimer", 0)

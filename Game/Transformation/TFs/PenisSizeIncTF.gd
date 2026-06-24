@@ -90,7 +90,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		}
 	return {
 		effects = [
-			partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [RNG.randi_range(2, 4)])
+			partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [randi_range(2, 4)])
 		]
 	}
 
@@ -106,7 +106,7 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(1.0)
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ht"] = hasTarget
 	data["tt"] = target
@@ -114,7 +114,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	hasTarget = SAVE.loadVar(_data, "ht", false)
 	target = SAVE.loadVar(_data, "tt", 18.0)

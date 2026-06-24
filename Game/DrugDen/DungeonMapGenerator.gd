@@ -49,7 +49,7 @@ func generate(theSettings:Dictionary):
 		if(deadEndStartPos == Vector2()):
 			continue
 		
-		var extraPath:Array = generateStrand(deadEndStartPos, RNG.randi_range(deadendMinLen, deadendMaxLen), false)
+		var extraPath:Array = generateStrand(deadEndStartPos, randi_range(deadendMinLen, deadendMaxLen), false)
 		if(extraPath.size() > 1):
 			deadends.append(extraPath.back())
 	

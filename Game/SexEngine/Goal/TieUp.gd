@@ -44,7 +44,7 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 	var sub = _subInfo.getChar()
 	var dom = _domInfo.getChar()
 	
-	for _i in range(RNG.randi_range(0, 2)):
+	for _i in range(randi_range(0, 2)):
 		var itemTagToUse = ItemTag.CanBeForcedByGuards
 		if(_sexEngine.getSexTypeID() == SexType.StocksSex):
 			itemTagToUse = ItemTag.CanBeForcedInStocks

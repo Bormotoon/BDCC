@@ -138,14 +138,14 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["surrendered"] = surrendered
 	data["askCredits"] = askCredits
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	surrendered = SAVE.loadVar(_data, "surrendered", false)
 	askCredits = SAVE.loadVar(_data, "askCredits", 0)

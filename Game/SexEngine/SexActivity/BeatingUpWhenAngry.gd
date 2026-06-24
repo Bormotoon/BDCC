@@ -80,7 +80,7 @@ func init_processTurn():
 		]
 	
 	var text:Array = []
-	var amount = RNG.randi_range(1, Util.mini(3, texts.size()))
+	var amount = randi_range(1, Util.mini(3, texts.size()))
 	for _i in range(amount):
 		text.append(RNG.grab(texts))
 	
@@ -137,13 +137,13 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 			doWound(DOM_0, SUB_0)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["ticks"] = ticks
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	ticks = SAVE.loadVar(data, "ticks", 0)

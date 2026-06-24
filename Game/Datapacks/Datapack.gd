@@ -300,13 +300,13 @@ func loadFromResource(datapack:DatapackResource):
 			return true
 		return false
 	else:
-		Log.printerr("Tried to load a datapack with a bad version: "+str(version))
+		Log.err("Tried to load a datapack with a bad version: "+str(version))
 		return false
 
 func saveToDisk() -> bool:
 	var theResource:DatapackResource = saveToResource()
 	
-	var result = ResourceSaver.save(getLoadedPath(), theResource)
+	var result = ResourceSaver.save(theResource, getLoadedPath())
 	if(result == OK):
 		return true
 	return false

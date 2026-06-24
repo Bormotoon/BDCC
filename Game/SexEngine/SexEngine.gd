@@ -390,7 +390,7 @@ func internal_generateGoalsFor(domID:String, amountToGenerate:int, _minFetishVal
 			var randomGoalInfo = RNG.pickWeightedPairs(breedingGoals)
 			personDomInfo.goals.append(randomGoalInfo.duplicate(true))
 		
-	Log.printVerbose("Goals added to NPC: "+str(personDomInfo.goals))
+	Log.verbose("Goals added to NPC: "+str(personDomInfo.goals))
 	personDomInfo.afterGoalsAssigned()
 	return generatedAnyGoals
 
@@ -608,10 +608,10 @@ func checkFailedAndCompletedGoals():
 			
 			var sexGoal:SexGoalBase = GlobalRegistry.getSexGoal(goalInfo[0])
 			if(sexGoal.isCompleted(self, domInfo, subInfo, goalInfo[2])):
-				Log.printVerbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" got completed")
+				Log.verbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" got completed")
 				domInfo.goals.remove_at(i)
 			elif(!sexGoal.isPossible(self, domInfo, subInfo, goalInfo[2])):
-				Log.printVerbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" is impossible, removed")
+				Log.verbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" is impossible, removed")
 				domInfo.goals.remove_at(i)
 
 func removeEndedActivities():
@@ -956,11 +956,11 @@ func getActionsForCharID(_charID:String, isForMenu:bool = false) -> Array:
 		
 	if(importantActions.size() > 0):
 		if(_isPC && isForMenu):
-			importantActions.sort_custom(self, "sortActionsByPriority")
+			importantActions.sort_custom(sortActionsByPriority)
 		return importantActions
 	
 	if(_isPC && isForMenu):
-		result.sort_custom(self, "sortActionsByPriority")
+		result.sort_custom(sortActionsByPriority)
 	return result
 
 func sortActionsByPriority(a, b):

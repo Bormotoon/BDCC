@@ -14,7 +14,7 @@ func _init():
 func start(_pawns:Dictionary, _args:Dictionary):
 	doInvolvePawn("starter", _pawns["starter"])
 	doInvolvePawn("reacter", _pawns["reacter"])
-	deterministicOrderHashInt = RNG.randi_range(1, 1000000)
+	deterministicOrderHashInt = randi_range(1, 1000000)
 	if(_args.has("reacterStarted") && _args["reacterStarted"]):
 		reacterStarted = true
 		setState("init_eager_to_help", "starter")
@@ -264,7 +264,7 @@ func getRestraintIsPlural(item:ItemBase) -> bool:
 	return ( item.getClothingSlot() in [InventorySlot.Wrists, InventorySlot.Hands, InventorySlot.Ankles] )
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["surrendered"] = surrendered
 	data["struggleText"] = struggleText
@@ -276,7 +276,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	surrendered = SAVE.loadVar(_data, "surrendered", false)
 	struggleText = SAVE.loadVar(_data, "struggleText", "")

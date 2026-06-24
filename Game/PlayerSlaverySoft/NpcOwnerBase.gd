@@ -540,7 +540,7 @@ func doTalkAction(_event, _actionID:String, _args:Array):
 		_event.runEvent("", "AskSex")
 
 func generateFreedomPrice() -> int:
-	return RNG.randi_range(500, 2000)
+	return randi_range(500, 2000)
 
 # Automatically gets scaled down
 func getFullFreedomPrice() -> int:
@@ -572,11 +572,11 @@ func getDaysBeforeNextApproach() -> int:
 	if(theLevel <= 0):
 		return 2
 	elif(theLevel <= 2):
-		return RNG.randi_range(2, 3)
+		return randi_range(2, 3)
 	elif(theLevel <= 4):
-		return RNG.randi_range(2, 5)
+		return randi_range(2, 5)
 	else:
-		return RNG.randi_range(2, 6)
+		return randi_range(2, 6)
 
 func checkNextApproachDay(_doAnnounce:bool = true):
 	#var oldNextApproachDay:int = nextApproachDay

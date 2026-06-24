@@ -217,14 +217,14 @@ func getSupportedSexTypes():
 	}
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["boredTimer"] = boredTimer
 
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	boredTimer = SAVE.loadVar(_data, "boredTimer", 0)
 

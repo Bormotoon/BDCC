@@ -238,9 +238,9 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			]
 			var theSub:BaseCharacter = getSub()
 			var hasEggs:bool = theSub.hasEggsIn(fuckHole, true)
-			getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+			getDom().fillBalls(randf_range(0.9, 1.0))
 			cumInsideNoText(DOM_0, SUB_0, fuckHole)
-			getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+			getDom().fillBalls(randf_range(0.9, 1.0))
 			getSub().cummedOnBy(getDomID(), FluidSource.Penis)
 			possible.append_array([
 				"Slick tip of a tentacle swell inside {sub.your} "+RNG.pick(fuckHoleNames)+", then begin to pulse, pumping thick {dom.cum} deep into {sub.yourHis} fuckhole"+(", [b]fertilizing the eggs[/b]" if hasEggs else "")+"!",
@@ -355,7 +355,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return 10
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["currentPose"] = currentPose
 	data["isStuffing"] = isStuffing
@@ -363,7 +363,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	currentPose = SAVE.loadVar(data, "currentPose", "")
 	if(currentPose == ""):

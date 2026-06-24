@@ -240,7 +240,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			var theSub:BaseCharacter = getSub()
 			var hasEggs:bool = theSub.hasEggsIn(BodypartSlot.Vagina, true) || theSub.hasEggsIn(BodypartSlot.Anus, true) || theSub.hasEggsIn(BodypartSlot.Head, true)
 			if(getSub().hasReachableVagina()):
-				getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+				getDom().fillBalls(randf_range(0.9, 1.0))
 				cumInsideNoText(DOM_0, SUB_0, S_VAGINA)
 				possible.append_array([
 					"Slick tips swell inside {sub.your} mouth, pussy, and ass, then begin to pulse, pumping thick {dom.cum} deep into {sub.yourHis} holes all at once"+(", [b]fertilizing the eggs[/b]" if hasEggs else "")+".",
@@ -253,11 +253,11 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 					"The tendrils twitch and pulse, then unload. A gush of sticky {dom.cum} hits the back of {sub.your} throat while anothre floods {sub.yourHis} ass, filling it up."+(" [b]The nectar helps to fertilize the eggs[/b]." if hasEggs else "")+"",
 					"All at once, the tentacles erupt. Hot {dom.cum} pours down {sub.your} throat gets pumped into {sub.yourHis} {sub.analStretch} ass, stuffing it full."+(" [b]The nectar helps to fertilize the eggs[/b]." if hasEggs else "")+"",
 				])
-			getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+			getDom().fillBalls(randf_range(0.9, 1.0))
 			cumInsideNoText(DOM_0, SUB_0, S_ANUS)
-			getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+			getDom().fillBalls(randf_range(0.9, 1.0))
 			cumInsideNoText(DOM_0, SUB_0, S_MOUTH)
-			getDom().fillBalls(RNG.randf_range(0.9, 1.0))
+			getDom().fillBalls(randf_range(0.9, 1.0))
 			getSub().cummedOnBy(getDomID(), FluidSource.Penis)
 			
 			addTextPick(possible)
@@ -385,7 +385,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return 10
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["currentPose"] = currentPose
 	data["isStuffing"] = isStuffing
@@ -393,7 +393,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	currentPose = SAVE.loadVar(data, "currentPose", "")
 	if(currentPose == ""):

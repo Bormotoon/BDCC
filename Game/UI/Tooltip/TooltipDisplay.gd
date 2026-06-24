@@ -1,7 +1,9 @@
 extends MarginContainer
 
-var is_active := false setget set_is_active
-export var showBelow = false
+var is_active := false:
+	set(value):
+		set_is_active(value)
+var showBelow = false
 
 @onready var _tween := $Tween
 @onready var _title := $VBoxContainer/Title
@@ -9,27 +11,27 @@ export var showBelow = false
 
 
 func _ready() -> void:
-	modulate = Color.transparent
+	modulate = Color.TRANSPARENT
 	set_is_active(false)
 
 
 func _process(_delta: float) -> void:
 	if(showBelow):
-		rect_global_position = get_global_mouse_position() - Vector2(size.x/2.0, 0) + rect_pivot_offset
+		global_position = get_global_mouse_position() - Vector2(size.x/2.0, 0) + pivot_offset
 	else:
-		rect_global_position = get_global_mouse_position() - Vector2(size.x/2.0, size.y) - rect_pivot_offset
-	rect_global_position.x = max(10, rect_global_position.x)
-	rect_global_position.x = min(get_viewport_rect().size.x - 10 - size.x, rect_global_position.x)
-	rect_global_position.y = max(10, rect_global_position.y)
-	rect_global_position.y = min(get_viewport_rect().size.y - 10 - size.y, rect_global_position.y)
-	#rect_global_position.x = clamp(rect_global_position.x, 0, ProjectSettings.get("display/window/size/width") - size.x)
-	#rect_global_position.y = clamp(rect_global_position.y, 0, ProjectSettings.get("display/window/size/height") - size.y)
+		global_position = get_global_mouse_position() - Vector2(size.x/2.0, size.y) - pivot_offset
+	global_position.x = max(10, global_position.x)
+	global_position.x = min(get_viewport_rect().size.x - 10 - size.x, global_position.x)
+	global_position.y = max(10, global_position.y)
+	global_position.y = min(get_viewport_rect().size.y - 10 - size.y, global_position.y)
+	#global_position.x = clamp(global_position.x, 0, ProjectSettings.get("display/window/size/width") - size.x)
+	#global_position.y = clamp(global_position.y, 0, ProjectSettings.get("display/window/size/height") - size.y)
 
 func setIsWide(newWide: bool):
 	if(newWide):
-		rect_min_size.x = 500
+		custom_minimum_size.x = 500
 	else:
-		rect_min_size.x = 250
+		custom_minimum_size.x = 250
 
 func set_is_active(value: bool, delayShow = false):
 	is_active = value
@@ -45,7 +47,7 @@ func set_is_active(value: bool, delayShow = false):
 			_tween.remove_all()
 	else:
 		_tween.remove_all()
-		_tween.interpolate_property(self, "modulate", modulate, Color.transparent, 0.2)
+		_tween.interpolate_property(self, "modulate", modulate, Color.TRANSPARENT, 0.2)
 		_tween.start()
 
 func is_tooltip_active():

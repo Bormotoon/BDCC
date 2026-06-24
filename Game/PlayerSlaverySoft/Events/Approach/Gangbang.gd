@@ -193,13 +193,13 @@ func about_to_sex_sexResult(_sex:SexEngineResult):
 	sexSatisfaction = _sex.getAverageDomSatisfaction()
 	earnedCredits = 0
 	if(_sex.didSubsWin()):
-		earnedCredits = RNG.randi_range(5, 10)
+		earnedCredits = randi_range(5, 10)
 	elif(sexSatisfaction < 0.4):
-		earnedCredits = RNG.randi_range(5, 10)
+		earnedCredits = randi_range(5, 10)
 	else:
 		var minExtra:float = pow(sexSatisfaction, 0.3)*10.0
 		var maxExtra:float = pow(sexSatisfaction, 0.5)*20.0
-		earnedCredits = RNG.randi_range(5, 10) + int(RNG.randf_range(minExtra, maxExtra))
+		earnedCredits = randi_range(5, 10) + int(randf_range(minExtra, maxExtra))
 	if(earnedCredits > 0):
 		GM.pc.addCredits(earnedCredits)
 	setState("afterSex")
@@ -214,7 +214,7 @@ func afterSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["curTarget"] = curTarget
 	data["triedCharIDs"] = triedCharIDs
@@ -226,7 +226,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	curTarget = SAVE.loadVar(_data, "curTarget", "")
 	triedCharIDs = SAVE.loadVar(_data, "triedCharIDs", {})

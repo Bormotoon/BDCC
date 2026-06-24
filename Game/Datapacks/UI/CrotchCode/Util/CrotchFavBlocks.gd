@@ -83,7 +83,7 @@ func saveToFile():
 	var newDatapackResource:CrotchFavBlocksResource = CrotchFavBlocksResource.new()
 	newDatapackResource.version = 1
 	newDatapackResource.data = saveData()
-	var result = ResourceSaver.save(filepath, newDatapackResource)
+	var result = ResourceSaver.save(newDatapackResource, filepath)
 	if(result == OK):
 		return true
 	return false

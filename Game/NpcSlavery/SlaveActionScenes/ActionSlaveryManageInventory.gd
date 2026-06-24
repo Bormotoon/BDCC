@@ -266,7 +266,7 @@ func onInventoryItemInteracted(item: ItemBase):
 		inv.setItems(npc.getInventory().getItemsAndEquippedItemsTogetherGrouped(), "equiptake")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["itemPutonMessage"] = itemPutonMessage
@@ -274,7 +274,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	itemPutonMessage = SAVE.loadVar(data, "itemPutonMessage", "")

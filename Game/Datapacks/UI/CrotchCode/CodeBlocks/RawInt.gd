@@ -32,14 +32,14 @@ func applyRawValue(_id, _value):
 		rawValue = _value
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["rawValue"] = rawValue
 	
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	rawValue = loadVar(_data, "rawValue", 0)
 	

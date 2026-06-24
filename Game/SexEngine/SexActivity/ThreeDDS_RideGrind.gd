@@ -353,14 +353,14 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return 10
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["usedBodypart"] = usedBodypart
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	usedBodypart = SAVE.loadVar(data, "usedBodypart", S_VAGINA)
 	usedFetish = Fetish.VaginalSexGiving if (usedBodypart == S_VAGINA) else Fetish.AnalSexGiving

@@ -80,7 +80,7 @@ func setFlag(theVar:String, newValue, _codeblock):
 	GM.main.setFlag(theVar, newValue)
 
 func throwError(_codeBlock, _errorText):
-	.throwError(_codeBlock, _errorText)
+	super.throwError(_codeBlock, _errorText)
 	
 	if(_codeBlock == null):
 		storedErrors.append("[CrotchScript Error] "+str(_errorText))
@@ -175,7 +175,7 @@ func addDisabledButton(_nameText, _descText):
 
 func onButton(_method, _args):
 	if(!buttons.has(_method)):
-		Log.printerr("Was unable to find code for the "+str(_method)+" button")
+		Log.err("Was unable to find code for the "+str(_method)+" button")
 		return
 	
 	reactMode = true

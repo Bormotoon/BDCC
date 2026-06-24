@@ -75,11 +75,11 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		return
 	
 	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		showAlert("[DatapackBrowser] Couldn't parse json data from github.")
 		return
 	
-	var modsData = jsonResult.result
+	var modsData = jsonResult
 	
 	resetMods()
 	
@@ -134,7 +134,7 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		allDatapacks.append(newDatapackEntry)
 
 	sortType = "newest"
-	allDatapacks.sort_custom(self, "sort_newest")
+	allDatapacks.sort_custom(sort_newest)
 	updateModList()
 
 func getPickedEntry():
@@ -217,7 +217,7 @@ func _on_DownloadModButton_pressed():
 	if error != OK:
 		showAlert("[DatapackBrowser] An error occurred in the HTTP request.")
 	else:
-		Log.print("Downloading datapack: "+str(pickedModEntry.download))
+		Log.msg("Downloading datapack: "+str(pickedModEntry.download))
 
 
 func _on_HTTPRequestMod_request_completed(result, _response_code, _headers, _body):
@@ -227,7 +227,7 @@ func _on_HTTPRequestMod_request_completed(result, _response_code, _headers, _bod
 		showAlert("[DatapackBrowser] Couldn't download datapack. Sorry")
 		return
 	
-	Log.print("Datapack downloaded")
+	Log.msg("Datapack downloaded")
 
 func showMessage(text):
 	messageDialog.dialog_text = text
@@ -251,19 +251,19 @@ static func sort_oldest(a, b):
 
 func _on_SortNameButton_pressed():
 	sortType = "name"
-	allDatapacks.sort_custom(self, "sort_name")
+	allDatapacks.sort_custom(sort_name)
 	updateModList()
 
 
 func _on_SortNewestFirstButton_pressed():
 	sortType = "newest"
-	allDatapacks.sort_custom(self, "sort_newest")
+	allDatapacks.sort_custom(sort_newest)
 	updateModList()
 
 
 func _on_SortOldestFirstButton_pressed():
 	sortType = "oldest"
-	allDatapacks.sort_custom(self, "sort_oldest")
+	allDatapacks.sort_custom(sort_oldest)
 	updateModList()
 
 func _on_CloseButton_pressed():
@@ -297,25 +297,25 @@ func startDownloadingPreview(index, url:String):
 		isDownloadingPNG = true
 	var error = http_request_preview.request(url)
 	if error != OK:
-		Log.printerr("Datapack browser failed to start loading a preview image")
+		Log.err("Datapack browser failed to start loading a preview image")
 		return
 
 func _on_HTTPRequestPreview_request_completed(result, _response_code, _headers, body):
 	isDownloadingPreview = false
 	if result != HTTPRequest.RESULT_SUCCESS:
-		Log.printerr("Datapack browser failed to download a preview image")
+		Log.err("Datapack browser failed to download a preview image")
 		return
 	
 	var image = Image.new()
 	if(isDownloadingPNG):
 		var error = image.load_png_from_buffer(body)
 		if error != OK:
-			Log.printerr("Datapack browser failed to load up a preview image (not a png?)")
+			Log.err("Datapack browser failed to load up a preview image (not a png?)")
 			return
 	else:
 		var error = image.load_jpg_from_buffer(body)
 		if error != OK:
-			Log.printerr("Datapack browser failed to load up a preview image (not a jpg?)")
+			Log.err("Datapack browser failed to load up a preview image (not a jpg?)")
 			return
 	
 	var texture := ImageTexture.new()

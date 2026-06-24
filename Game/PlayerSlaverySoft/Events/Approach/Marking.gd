@@ -164,7 +164,7 @@ func begGiveCredits_do(_id:String, _args:Array):
 		GM.pc.addCredits(-5)
 		setState("begGiveCreditsPaid")
 	if(_id == "getmarked"):
-		for _i in range(RNG.randi_range(3, 5)):
+		for _i in range(randi_range(3, 5)):
 			incMarked()
 		setState("begGiveCreditsMarked")
 
@@ -198,7 +198,7 @@ func begKissFoot():
 
 func begKissFoot_do(_id:String, _args:Array):
 	if(_id == "getmarked"):
-		for _i in range(RNG.randi_range(3, 5)):
+		for _i in range(randi_range(3, 5)):
 			incMarked()
 		setState("begKissFootMarked")
 
@@ -235,7 +235,7 @@ func begHumiliateSelf_do(_id:String, _args:Array):
 	if(_id == "admit"):
 		setState("begHumiliateSelfAdmit")
 	if(_id == "getmarked"):
-		for _i in range(RNG.randi_range(3, 5)):
+		for _i in range(randi_range(3, 5)):
 			incMarked()
 		setState("begHumiliateSelfMarked")
 
@@ -375,7 +375,7 @@ func cumMarkUrinalMarked():
 	addContinue("endEvent")
 	
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["markedAmount"] = markedAmount
 	data["enough"] = enough
@@ -383,7 +383,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	markedAmount = SAVE.loadVar(_data, "markedAmount", 0)
 	enough = SAVE.loadVar(_data, "enough", false)

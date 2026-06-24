@@ -77,7 +77,7 @@ func _react(_action: String, _args):
 		npcSlavery.stopActivity()
 	
 	if(_action == "do_watch"):
-		processTime(60*RNG.randi_range(10, 30))
+		processTime(60*randi_range(10, 30))
 		var characterPool = RNG.pick([CharacterPool.Guards, CharacterPool.Inmates])
 		var generator = null
 		if(characterPool == CharacterPool.Guards):
@@ -112,14 +112,14 @@ func _react_scene_end(_tag, _result):
 		setState("")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

@@ -9,7 +9,7 @@ func _init():
 	eventWeight = 0.5
 
 func onSpawn(_drugDen):
-	trapType = RNG.randi_range(0, 2)
+	trapType = randi_range(0, 2)
 	
 	trapLevel = 0
 	if(RNG.chance(50)):
@@ -168,7 +168,7 @@ func getMaxPerFloor() -> int:
 	return 1
 
 func getCooldown() -> int:
-	return 0 #RNG.randi_range(1, 2)
+	return 0 #randi_range(1, 2)
 
 func getInteractInfo() -> Dictionary:
 	return {
@@ -194,10 +194,10 @@ func doInteract(_actionID:String, _args:Array = []) -> Dictionary:
 	if(RNG.chance(trapChance)):
 		var beginText:String = "[b]It was trapped ("+str(Util.roundF(trapChance, 1))+"% chance)![/b] "
 		if(trapType == 0):
-			GM.pc.addPain(RNG.randi_range(20, 40))
+			GM.pc.addPain(randi_range(20, 40))
 			return {text=beginText+"You got shocked as soon as you touched the stash. Ow!", ended=true, anim=[StageScene.Solo, "hurt"]}
 		elif(trapType == 1):
-			GM.pc.addLust(RNG.randi_range(40, 80))
+			GM.pc.addLust(randi_range(40, 80))
 			return {text=beginText+"A cloud of aprorosiac gas surrounds you, making you extremely horny!", ended=true, anim=[StageScene.Solo, "stand"]}
 		else:
 			GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, 2)

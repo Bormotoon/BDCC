@@ -102,11 +102,11 @@ func afterLostSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	data["isThreesome"] = isThreesome
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	isThreesome = SAVE.loadVar(_data, "isThreesome", false)

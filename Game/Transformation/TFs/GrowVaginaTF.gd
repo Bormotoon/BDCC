@@ -80,13 +80,13 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 	playAnim(StageScene.TFLook, "crotch", {bodyState={exposedCrotch=true,hard=true}})
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["av"] = addedVag
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	addedVag = SAVE.loadVar(_data, "av", false)

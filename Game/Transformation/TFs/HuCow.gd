@@ -115,7 +115,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			step = nextStep,
 			effects = [
-				charEffect("thi", "AddThickness", [RNG.randi_range(7, 13)]),
+				charEffect("thi", "AddThickness", [randi_range(7, 13)]),
 			],
 		}
 	
@@ -145,9 +145,9 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		
 		var sizesToAdd:int = 1
 		if(breastSize < BreastsSize.C):
-			sizesToAdd = RNG.randi_range(2, 4)
+			sizesToAdd = randi_range(2, 4)
 		elif(breastSize < BreastsSize.K):
-			sizesToAdd = RNG.randi_range(1, 3)
+			sizesToAdd = randi_range(1, 3)
 		
 		return {
 			step = nextStep,
@@ -184,7 +184,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 	}
 
 func reactProgressShort(_context:Dictionary, _result:TFResult):
-	.reactProgressShort(_context, _result)
+	super.reactProgressShort(_context, _result)
 	
 	if(_result.getField("nipStageInc", false)):
 		addText("{npc.YourHis} nipples are now more sensitive!")
@@ -252,7 +252,7 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(0.4)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["sb"] = switchedbreasts
 	data["ah"] = addedhorns
@@ -261,7 +261,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	switchedbreasts = SAVE.loadVar(_data, "sb", false)
 	addedhorns = SAVE.loadVar(_data, "ah", false)

@@ -96,7 +96,7 @@ func shouldHaveAuraOfDominance() -> bool:
 	return npcOwner.shouldHaveAuraOfDominance()
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	if(npcOwner):
 		data["ownerType"] = npcOwner.id
@@ -108,7 +108,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	var theOwnerType:String = SAVE.loadVar(_data, "ownerType", "")
 	if(theOwnerType.is_empty() || !GlobalRegistry.getNpcOwnerTypeRef(theOwnerType)):

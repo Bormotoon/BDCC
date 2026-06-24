@@ -98,7 +98,7 @@ func getCustomInteractAnimInfo():
 	return [StageScene.Solo, "stand", {pc="pc"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["petWants"] = petWants
 	data["petLastWant"] = petLastWant
@@ -107,7 +107,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	petWants = SAVE.loadVar(_data, "petWants", "")
 	petLastWant = SAVE.loadVar(_data, "petLastWant", "")

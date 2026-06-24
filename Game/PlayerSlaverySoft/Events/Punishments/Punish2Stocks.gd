@@ -47,7 +47,7 @@ func foundSomeone():
 	saynn("And soon.. a person approaches you.")
 	
 	talkModular(C_EXTRA1, C_OWNER, "SoftSlaveryPunishStocksAsk")
-	var credAm:int = RNG.randi_range(1,4)*5
+	var credAm:int = randi_range(1,4)*5
 	talkOwner(getModularDialogue(C_OWNER, C_EXTRA1, "SoftSlaveryPunishStocksAskNope").replace("<CREDITS>", str(credAm)))
 	
 	var attackInsteadChance:float = 30.0 + personality(C_EXTRA1, PersonalityStat.Mean)*30.0 + personality(C_EXTRA1, PersonalityStat.Impatient)*10.0 - personality(C_EXTRA1, PersonalityStat.Coward)*10.0

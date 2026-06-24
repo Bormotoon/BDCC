@@ -53,7 +53,7 @@ func init_processTurn():
 			])
 	affectDom(getDomInfo().fetishScore({Fetish.HypnosisHypnotist: 1.0})+0.0, 0.1, 0.0)
 	affectSub(getSubInfo().fetishScore({Fetish.HypnosisSubject: 1.0})+0.0, 0.1, -0.02, 0.0)
-	HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), RNG.randi_range(4,6))
+	HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), randi_range(4,6))
 	fetishAffect(SUB_0, Fetish.HypnosisSubject)
 	fetishAffect(DOM_0, Fetish.HypnosisHypnotist)
 
@@ -88,7 +88,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 
 	if(_id == "surrender"):
 		var subSay:String = ""
-		HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), RNG.randi_range(4,16))
+		HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), randi_range(4,16))
 		
 		if(isSubInTrance()):
 			if(RNG.chance(75)):
@@ -120,7 +120,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 		getDomInfo().addAnger(0.04)
 		
 		if(isSubInTrance()):
-			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), RNG.randi_range(4,16))
+			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), randi_range(4,16))
 			if(RNG.chance(75)):
 				subSay = RNG.pick([
 					"Nnh...", 
@@ -128,7 +128,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 					"Can't...",
 				])
 		elif(isSubHypnotized()):
-			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), RNG.randi_range(-4,2))
+			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), randi_range(-4,2))
 			if(RNG.chance(75)):
 				subSay = RNG.pick([
 					"I don't...",
@@ -138,7 +138,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 					"I can't..."
 				])
 		else:
-			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), -RNG.randi_range(1, 16))
+			HypnokinkUtil.changeSuggestibilityBy(getSubInfo().getChar(), -randi_range(1, 16))
 			if(RNG.chance(75)):
 				subSay = RNG.pick([
 					"What are you doing?",

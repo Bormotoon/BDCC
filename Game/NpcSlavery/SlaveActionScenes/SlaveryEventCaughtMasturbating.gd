@@ -484,7 +484,7 @@ func _react_scene_end(_tag, _result):
 		return
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["npcID"] = npcID
 	data["npc"] = npc
@@ -494,7 +494,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

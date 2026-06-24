@@ -16,7 +16,7 @@ func saveData():
 func loadData(data):
 	artist = loadVar(data, "artist", "")
 	imageScale = loadVar(data, "imageScale", 1.0)
-	image.loadData(loadVar(data, "image", PoolByteArray()))
+	image.loadData(loadVar(data, "image", PackedByteArray()))
 
 func loadVar(_data, thekey, defaultValue = null):
 	if(_data.has(thekey)):

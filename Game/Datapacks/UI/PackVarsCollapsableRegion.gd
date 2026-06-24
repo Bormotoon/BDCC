@@ -1,8 +1,8 @@
 extends PanelContainer
 
 var prefix = "Test"
-export var collapseName:String = ""
-export var keepText:bool = false
+@export var collapseName:String = ""
+@export var keepText:bool = false
 
 var codeBlockMode = false
 var editor

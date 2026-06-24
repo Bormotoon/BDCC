@@ -80,7 +80,7 @@ func getTotalHoles(_npc):
 	return result
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["fuckedMouth"] = fuckedMouth
 	data["fuckedVag"] = fuckedVag
 	data["fuckedAnus"] = fuckedAnus
@@ -88,7 +88,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	fuckedMouth = SAVE.loadVar(data, "fuckedMouth", false)
 	fuckedVag = SAVE.loadVar(data, "fuckedVag", false)

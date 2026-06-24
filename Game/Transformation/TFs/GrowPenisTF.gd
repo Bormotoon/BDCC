@@ -70,7 +70,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			return {
 				showPenis = true,
 				effects = [
-					partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [RNG.randi_range(3, 6)])
+					partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [randi_range(3, 6)])
 				],
 			}
 		
@@ -98,13 +98,13 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 	playAnim(StageScene.TFLook, "crotch", {bodyState={exposedCrotch=true,hard=true}})
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ap"] = addedPenis
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	addedPenis = SAVE.loadVar(_data, "ap", false)

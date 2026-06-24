@@ -15,7 +15,7 @@ func init_from_personality() -> void:
 	var personality: Personality = character.getPersonality()
 	var bratiness := personality.getStat(PersonalityStat.Brat)
 	if bratiness > 0.0:
-		resistance = RNG.randf_range(0.0, bratiness)
+		resistance = randf_range(0.0, bratiness)
 	if getChar().getBuffsHolder().hasBuff(Buff.ActiveResistanceInSexBuff):
 		resistance = 1.0
 	if getChar().isSlaveToPlayer():
@@ -159,31 +159,31 @@ func affect_personality(_personality: Personality, _fetish_holder: FetishHolder)
 	var changes: Array = []
 	if isUnconscious():
 		if RNG.chance(50):
-			if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(0.05, 0.1)):
+			if _personality.addStat(PersonalityStat.Subby, randf_range(0.05, 0.1)):
 				changes.append("{npc.name} became less dominant because {npc.he} finished unconscious.")
 		if RNG.chance(30):
-			if _personality.addStat(PersonalityStat.Coward, RNG.randf_range(0.05, 0.1)):
+			if _personality.addStat(PersonalityStat.Coward, randf_range(0.05, 0.1)):
 				changes.append("{npc.name} became more cowardly because {npc.he} finished unconscious.")
 	else:
 		if getTimesCame() <= 0:
 			if RNG.chance(50):
-				if _personality.addStat(PersonalityStat.Brat, RNG.randf_range(-0.1, -0.01)):
+				if _personality.addStat(PersonalityStat.Brat, randf_range(-0.1, -0.01)):
 					changes.append("{npc.name} became less bratty because of the frustration.")
 		if getTimesCame() >= 4:
 			if RNG.chance(50):
-				if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(0.05, 0.15)):
+				if _personality.addStat(PersonalityStat.Subby, randf_range(0.05, 0.15)):
 					changes.append("{npc.name} became more subby after so many orgasms.")
 		if getAverageResistance() > 0.5:
 			if RNG.chance(50):
-				if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(-0.1, -0.01)):
+				if _personality.addStat(PersonalityStat.Subby, randf_range(-0.1, -0.01)):
 					changes.append("{npc.name} became slightly more dominant after resisting so much.")
 		if getTimesCame() >= 1 and getAverageLust() > 0.5 and getAverageResistance() < 0.3:
 			if RNG.chance(50):
-				if _personality.addStat(PersonalityStat.Subby, RNG.randf_range(0.01, 0.1)):
+				if _personality.addStat(PersonalityStat.Subby, randf_range(0.01, 0.1)):
 					changes.append("{npc.name} became more subby after a good sex.")
 		if getAverageFear() > 0.6:
 			if RNG.chance(70):
-				if _personality.addStat(PersonalityStat.Coward, RNG.randf_range(0.01, 0.1)):
+				if _personality.addStat(PersonalityStat.Coward, randf_range(0.01, 0.1)):
 					changes.append("{npc.name} became more cowardly after so much intimidation.")
 	return GM.ui.processString(Util.join(changes, "\n"), {"npc": charID})
 

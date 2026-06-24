@@ -171,14 +171,14 @@ func feeding_processTurn():
 		var fluidByAmount:Dictionary = fluids.getFluidAmountByType()
 		var totalAmount:float = fluids.getFluidAmount()
 
-		var minAmount:float = RNG.randf_range(1.0, 10.0)
+		var minAmount:float = randf_range(1.0, 10.0)
 		var minRatio:float = 0.001
 		if(kneadBonus > 0):
 			if(kneadBonus == 1):
-				minAmount = RNG.randf_range(10.0, 20.0)
+				minAmount = randf_range(10.0, 20.0)
 				minRatio = 0.02
 			else:
-				minAmount = RNG.randf_range(5.0, 50.0)
+				minAmount = randf_range(5.0, 50.0)
 				minRatio = 0.01
 		var howMuchCollected = getSub().getBodypart(BodypartSlot.Breasts).getFluids().transferTo(getDom().getBodypart(BodypartSlot.Head), minRatio, minAmount)
 		var howMuchCollectedStr = str(Util.roundF(howMuchCollected, 1))+" ml"
@@ -417,7 +417,7 @@ func getAnimation():
 	return [StageScene.BreastFeeding, "feed", {npc=DOM_0, pc=SUB_0}]
 	
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["gropeAmount"] = gropeAmount
 	data["kneadBonus"] = kneadBonus
@@ -426,7 +426,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	gropeAmount = SAVE.loadVar(data, "gropeAmount", 0)
 	kneadBonus = SAVE.loadVar(data, "kneadBonus", 0)

@@ -34,7 +34,7 @@ func generatePossibleTasks() -> Array:
 	var importantID:String = RNG.pick(possibleFluids)
 	
 	for possibleFluidID in possibleFluids:
-		var aneed:float = (RNG.randi_range(1, 5)+RNG.randi_range(1, 5))*50.0
+		var aneed:float = (randi_range(1, 5)+randi_range(1, 5))*50.0
 		if(possibleFluidID == "Cum"):
 			aneed *= 0.25
 		result.append({
@@ -57,7 +57,7 @@ func handleBountyFluid(_fluidType:String, _amount:float):
 			completeSelf()
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["fluidID"] = fluidID
 	data["curAmount"] = curAmount
@@ -66,7 +66,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	fluidID = SAVE.loadVar(_data, "fluidID", "Milk")
 	curAmount = SAVE.loadVar(_data, "curAmount", 0.0)

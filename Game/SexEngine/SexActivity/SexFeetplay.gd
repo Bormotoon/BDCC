@@ -148,7 +148,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 	if(_id == "stompchest"):
 		affectSub(getSubInfo().fetishScore({Fetish.Masochism: 1.0})-0.5, 0.1, -0.05, 0.0)
 		affectDom(getDomInfo().fetishScore({Fetish.Sadism: 1.0})+0.5, 0.2, 0.0)
-		var howMuchAddPain = RNG.randi_range(10, 20)
+		var howMuchAddPain = randi_range(10, 20)
 		getSubInfo().addPain(howMuchAddPain)
 		sendSexEvent(SexEvent.PainInflicted, DOM_0, SUB_0, {pain=howMuchAddPain,isDefense=false,intentional=true})
 		getDomInfo().addAnger(-0.1)
@@ -197,7 +197,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 	if(_id == "stomppussy"):
 		affectDom(getDomInfo().fetishScore({Fetish.Sadism: 1.0})+0.0, 0.1, 0.0)
 		affectSub(getSubInfo().fetishScore({Fetish.Masochism: 1.0})-0.5, 0.1, -0.01, 0.0)
-		var howMuchAddPain = RNG.randi_range(13, 25)
+		var howMuchAddPain = randi_range(13, 25)
 		getSubInfo().addPain(howMuchAddPain)
 		sendSexEvent(SexEvent.PainInflicted, DOM_0, SUB_0, {pain=howMuchAddPain,isDefense=false,intentional=true})
 		getDomInfo().addAnger(-0.1)
@@ -214,7 +214,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 	if(_id == "stompcock"):
 		affectDom(getDomInfo().fetishScore({Fetish.Sadism: 1.0})+0.0, 0.1, 0.0)
 		affectSub(getSubInfo().fetishScore({Fetish.Masochism: 1.0})-0.5, 0.1, -0.01, 0.0)
-		var howMuchAddPain = RNG.randi_range(13, 25)
+		var howMuchAddPain = randi_range(13, 25)
 		getSubInfo().addPain(howMuchAddPain)
 		sendSexEvent(SexEvent.PainInflicted, DOM_0, SUB_0, {pain=howMuchAddPain,isDefense=false,intentional=true})
 		getDomInfo().addAnger(-0.1)
@@ -313,7 +313,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["teasingTimes"] = teasingTimes
 	data["didTeasing"] = didTeasing
@@ -322,7 +322,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	teasingTimes = SAVE.loadVar(_data, "teasingTimes", 0)
 	didTeasing = SAVE.loadVar(_data, "didTeasing", false)

@@ -63,7 +63,7 @@ func setFlag(theVar:String, newValue, _codeblock):
 	GM.main.setFlag(theVar, newValue)
 
 func throwError(_codeBlock, _errorText):
-	.throwError(_codeBlock, _errorText)
+	super.throwError(_codeBlock, _errorText)
 	
 	if(_codeBlock == null):
 		storedErrors.append("[CrotchScript Error] "+str(_errorText))

@@ -7,16 +7,16 @@ func _init():
 	id = "BrokenVendomat"
 
 func onSpawn(_drugDen):
-	useCost = RNG.randi_range(1, 3)
+	useCost = randi_range(1, 3)
 
 func getMaxPerFloor() -> int:
 	return 1
 
 func getCooldown() -> int:
-	return RNG.randi_range(2, 3)
+	return randi_range(2, 3)
 
 func getStartCooldown() -> int:
-	return RNG.randi_range(1, 3)
+	return randi_range(1, 3)
 
 func getInteractInfo() -> Dictionary:
 	return {

@@ -37,13 +37,13 @@ func getCustomInteractAnimInfo():
 	return [StageScene.Solo, "stand", {pc="pc"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["otherSlaveID"] = otherSlaveID
 	
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	otherSlaveID = SAVE.loadVar(_data, "otherSlaveID", "")

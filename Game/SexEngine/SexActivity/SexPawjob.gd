@@ -180,13 +180,13 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["isThrusting"] = isThrusting
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	isThrusting = SAVE.loadVar(data, "isThrusting", false)

@@ -72,7 +72,7 @@ func canTransformFurther() -> bool:
 	return .canTransformFurther()
 
 func doProgress(_context:Dictionary) -> Dictionary:
-	var result:Dictionary = .doProgress(_context)
+	var result:Dictionary = super.doProgress(_context)
 	
 	if(!result.is_empty()):
 		return result
@@ -82,7 +82,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			showPenis = true,
 			effects = [
-				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [RNG.randi_range(4, 5)])
+				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [randi_range(4, 5)])
 			],
 		}
 	return {}

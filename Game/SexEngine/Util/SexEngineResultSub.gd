@@ -21,7 +21,7 @@ func grabInfo(_sexEngine, _subInfo):
 
 func doFastSex(_sexEngine, _subInfo):
 	id = _subInfo.getCharID()
-	timesCame = RNG.randi_range(0, 3)
+	timesCame = randi_range(0, 3)
 	averageLust = RNG.randf_rangeX2(0.0, 1.0)
 	satisfaction = RNG.randf_rangeX2(0.0, 1.0)
 	averageResistance = RNG.randf_rangeX2(0.0, 1.0)

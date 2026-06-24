@@ -314,7 +314,7 @@ class Dude:
 				path.pop_front()
 		
 		if(path.is_empty()):
-			Log.printerr("Dude path is empty, something is wrong!")
+			Log.err("Dude path is empty, something is wrong!")
 			return false
 		
 		var nextLoc:String = path.pop_front()
@@ -528,18 +528,18 @@ func getMiningZonesMod() -> int:
 func updateMiningZones():
 	oreLeft.clear()
 	for zone in MiningLocs:
-		var toAdd:int = RNG.randi_range(2, 4)
+		var toAdd:int = randi_range(2, 4)
 		if(RNG.chance(80)):
-			toAdd += RNG.randi_range(1, 2)
+			toAdd += randi_range(1, 2)
 		if(RNG.chance(60)):
-			toAdd += RNG.randi_range(1, 2)
+			toAdd += randi_range(1, 2)
 		if(RNG.chance(40)):
-			toAdd += RNG.randi_range(1, 2)
+			toAdd += randi_range(1, 2)
 		oreLeft[zone] = toAdd * getMiningZonesMod()
 		
-	for _i in range(RNG.randi_range(1, 2)*getMiningZonesMod()):
+	for _i in range(randi_range(1, 2)*getMiningZonesMod()):
 		var randomZone:String = RNG.pick(MiningLocs)
-		for _i2 in range(RNG.randi_range(1, 3)):
+		for _i2 in range(randi_range(1, 3)):
 			spawnNugget(randomZone)
 
 func sleep():

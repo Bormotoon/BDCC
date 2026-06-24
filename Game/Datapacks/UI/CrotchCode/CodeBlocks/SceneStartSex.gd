@@ -100,14 +100,14 @@ func applyRawValue(_id, _value):
 		sexType = _value
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["sexType"] = sexType
 	
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sexType = loadVar(_data, "sexType", SexType.DefaultSex)
 

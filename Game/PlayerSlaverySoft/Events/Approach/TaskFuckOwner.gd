@@ -63,7 +63,7 @@ func obey():
 	
 	saynn("You agree.. and so.. Your owner submits to you!")
 	saynn("Time to have some fun.")
-	#addInfluenceObey(RNG.randf_range(0.05, 0.1))
+	#addInfluenceObey(randf_range(0.05, 0.1))
 	addButton("Continue", "See what happens next", "startSex", ["pc", getRoleID(C_OWNER), SexType.DefaultSex, {}])
 	
 func obey_sexResult(_sexResult:SexEngineResult):
@@ -120,7 +120,7 @@ func failedSex_do(_id:String, _args:Array):
 		runResist()
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["sexSatisfaction"] = sexSatisfaction
 	data["resultText"] = resultText
@@ -128,7 +128,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sexSatisfaction = SAVE.loadVar(_data, "sexSatisfaction", 1.0)
 	resultText = SAVE.loadVar(_data, "resultText", "")

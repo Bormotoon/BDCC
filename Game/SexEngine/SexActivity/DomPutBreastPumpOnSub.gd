@@ -98,7 +98,7 @@ func milkingSub_processTurn():
 	if(getSub().canBeMilked()):
 		var howMuchToExtract:float = 10.0
 		if(pumpItem.has_method("getMilkSpeedPerMinuteMin")):
-			howMuchToExtract = RNG.randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax()) / (5.0 - min(4.0, getSub().getArousal()*10.0))
+			howMuchToExtract = randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax()) / (5.0 - min(4.0, getSub().getArousal()*10.0))
 		
 		var howMuchCollected:float = getSub().getBodypart(BodypartSlot.Breasts).getFluids().transferAmountTo(pumpItem, howMuchToExtract)
 		
@@ -137,7 +137,7 @@ func milkingSub_processTurn():
 		text += " {sub.YourHis} nipples [b]got sore[/b] from so much milking!"
 	
 	if(_isSore):
-		var howMuchPainAdd = RNG.randi_range(2, 5)
+		var howMuchPainAdd = randi_range(2, 5)
 		getSubInfo().addPain(howMuchPainAdd)
 		sendSexEvent(SexEvent.PainInflicted, DOM_0, SUB_0, {pain=howMuchPainAdd,isDefense=false,intentional=false})
 		text += RNG.pick([
@@ -227,7 +227,7 @@ func isAnimOptional() -> bool:
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pumpID"] = pumpID
 	data["timesMilked"] = timesMilked
@@ -236,7 +236,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pumpID = SAVE.loadVar(data, "pumpID", "")
 	timesMilked = SAVE.loadVar(data, "timesMilked", 0)

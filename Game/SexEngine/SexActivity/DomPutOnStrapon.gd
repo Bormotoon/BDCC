@@ -60,7 +60,7 @@ func fuelStraponRandomly(strapon):
 	
 	var fluids = strapon.getFluids()
 	if(RNG.chance(33)):
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 	# 5% chance of there being someone's real cum
 	elif(RNG.chance(5) && OPTIONS.isContentEnabled(ContentType.CumStealing)):
 		var npcPools = CharacterPool.getPrisonPopulationPools()
@@ -71,7 +71,7 @@ func fuelStraponRandomly(strapon):
 			if(characterID != null):
 				var character = GlobalRegistry.getCharacter(characterID)
 				if(character != null):
-					fluids.addFluid(character.getFluidType(FluidSource.Penis), RNG.randi_range(1, 20)*10.0, character.getFluidDNA(FluidSource.Penis))
+					fluids.addFluid(character.getFluidType(FluidSource.Penis), randi_range(1, 20)*10.0, character.getFluidDNA(FluidSource.Penis))
 					return
 					
 func startActivity(_args):

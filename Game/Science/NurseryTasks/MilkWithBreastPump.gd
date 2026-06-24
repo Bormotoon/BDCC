@@ -43,7 +43,7 @@ func generatePossibleTasks() -> Array:
 		result.append({
 			difficulty = RNG.pick([DIFFICULTY_HARD, DIFFICULTY_MEDIUM]),
 			charID = randomDynamicCharID,
-			days = RNG.randi_range(1, 2),
+			days = randi_range(1, 2),
 		})
 		
 	return result
@@ -71,7 +71,7 @@ func shouldBeCancelled() -> bool:
 	return false
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["charID"] = charID
 	data["curAmount"] = curAmount
@@ -79,7 +79,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	charID = SAVE.loadVar(_data, "charID", "")
 	curAmount = SAVE.loadVar(_data, "curAmount", 0.0)

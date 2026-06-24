@@ -43,7 +43,7 @@ func obey():
 	playAnimation(StageScene.Duo, "kneel", {npc=getRoleID(C_OWNER)})
 	
 	saynn("You obey and submit to {npc.name} and {npc.his} friend!")
-	addInfluenceObey(RNG.randf_range(0.05, 0.1))
+	addInfluenceObey(randf_range(0.05, 0.1))
 	addButton("Continue", "See what happens next", "startSex", [[getRoleID(C_OWNER), getRoleID(C_EXTRA1)], "pc", SexType.DefaultSex, {SexMod.DisableDynamicJoiners:true}])
 	
 func obey_sexResult(_sexResult:SexEngineResult):
@@ -66,13 +66,13 @@ func afterSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["sexSatisfaction"] = sexSatisfaction
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sexSatisfaction = SAVE.loadVar(_data, "sexSatisfaction", 1.0)

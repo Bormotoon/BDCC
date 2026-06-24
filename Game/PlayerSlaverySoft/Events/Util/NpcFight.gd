@@ -71,11 +71,11 @@ func didWin() -> bool:
 	return whoWon == "npc1"
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	data["whoWon"] = whoWon
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	whoWon = SAVE.loadVar(_data, "whoWon", "")

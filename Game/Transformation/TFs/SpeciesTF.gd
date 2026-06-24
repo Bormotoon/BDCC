@@ -188,7 +188,7 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 #			accelerateTimer(0.5)
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ns"] = newSpecies
 	data["as"] = affectedSlots
@@ -196,7 +196,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	newSpecies = SAVE.loadVar(_data, "ns", [])
 	affectedSlots = SAVE.loadVar(_data, "as", {})

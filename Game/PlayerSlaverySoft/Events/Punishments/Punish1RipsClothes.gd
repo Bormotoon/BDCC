@@ -16,7 +16,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	if(!GM.pc.canDamageClothes()):
 		return false
 	
-	for _i in range(RNG.randi_range(2, 4)):
+	for _i in range(randi_range(2, 4)):
 		var theResult:Array = GM.pc.damageClothes()
 		var didDamage:bool = theResult[0]
 		if(!didDamage):
@@ -46,13 +46,13 @@ func start():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["damageTexts"] = damageTexts
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	damageTexts = SAVE.loadVar(_data, "damageTexts", [])

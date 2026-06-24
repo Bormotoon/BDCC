@@ -9,7 +9,7 @@ func getText():
 	return "{main.name} is wandering!"
 
 func onGoalStart():
-	stepsAmount = RNG.randi_range(3, 6)
+	stepsAmount = randi_range(3, 6)
 
 func getActions() -> Array:
 	return [
@@ -42,12 +42,12 @@ func getAnimData() -> Array:
 	return [StageScene.Solo, "walk", {pc="main"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["sa"] = stepsAmount
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	stepsAmount = SAVE.loadVar(_data, "sa", 1)

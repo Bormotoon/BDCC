@@ -237,7 +237,7 @@ func checkExtras():
 #			extra[theId] = 0#theChoiceEntry["options"][0][0]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["selectedExtra"] = selectedExtra
 	data["choices"] = choices
@@ -248,7 +248,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	selectedExtra = SAVE.loadVar(data, "selectedExtra", 0)
 	choices = SAVE.loadVar(data, "choices", [])

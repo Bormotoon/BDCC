@@ -12,6 +12,6 @@ func drop_data(_position, _data):
 	onBlockDraggedOnto.emit(_data, dropIndex)
 
 func _ready():
-	rect_min_size.y = OPTIONS.getBlockCatcherPanelHeight()
+	custom_minimum_size.y = OPTIONS.getBlockCatcherPanelHeight()
 	#var _ok = GlobalSignals.onDragEnded.connect(onDragEnded)
 	#var _ok2 = GlobalSignals.onDragStarted.connect(onDragStarted)

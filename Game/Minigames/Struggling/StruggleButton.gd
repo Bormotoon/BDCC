@@ -22,8 +22,8 @@ func _process(delta: float):
 		return
 	progress += delta / waitTime
 	
-	$Panel.rect_scale.x = 1.0 - progress / 2.0
-	$Panel.rect_scale.y = 1.0 - progress / 2.0
+	$Panel.scale.x = 1.0 - progress / 2.0
+	$Panel.scale.y = 1.0 - progress / 2.0
 	
 	if(progress >= 1.2):
 		gotHit(true)

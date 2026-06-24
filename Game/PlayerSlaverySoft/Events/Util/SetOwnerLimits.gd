@@ -90,7 +90,7 @@ func ownerAgreeLimits():
 	addContinue("endEvent")
 	
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["pickedSexLimits"] = pickedSexLimits
 	data["didIntro"] = didIntro
@@ -98,7 +98,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	pickedSexLimits = SAVE.loadVar(_data, "pickedSexLimits", [])
 	didIntro = SAVE.loadVar(_data, "didIntro", false)

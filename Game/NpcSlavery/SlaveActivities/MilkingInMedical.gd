@@ -57,13 +57,13 @@ func getCustomInteractAnimInfo():
 	return [StageScene.Duo, "stand", {pc="pc", npc=getCharID()}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["lastReport"] = lastReport
 	
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	lastReport = SAVE.loadVar(_data, "lastReport", "")

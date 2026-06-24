@@ -144,7 +144,7 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 	#playAnim(StageScene.TFLook, "crotch", {bodyState={exposedCrotch=true,hard=true}})
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ap"] = addedPart
 	#data["tl"] = targetLen
@@ -153,7 +153,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	addedPart = SAVE.loadVar(_data, "ap", false)
 	#targetLen = SAVE.loadVar(_data, "tl", 15.0)

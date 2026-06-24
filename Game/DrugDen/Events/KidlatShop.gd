@@ -138,10 +138,10 @@ func getMaxPerFloor() -> int:
 	return 1
 
 func getCooldown() -> int:
-	return 2#0#RNG.randi_range(2, 10)
+	return 2#0#randi_range(2, 10)
 
 func getStartCooldown() -> int:
-	return 1#RNG.randi_range(1, 2)
+	return 1#randi_range(1, 2)
 
 func getInteractInfo() -> Dictionary:
 	return {
@@ -339,14 +339,14 @@ func generateItemsToSell():
 		var nextEntryID:String = RNG.pickWeightedDict(weightList if !isBetterItems() else weightBetterList)
 		
 		if(!sellList.has(nextEntryID)):
-			Log.printerr("MISSING ENTRY IN KIDLAT SHOP: "+str(nextEntryID))
+			Log.err("MISSING ENTRY IN KIDLAT SHOP: "+str(nextEntryID))
 			continue
 		
 		var entryInfo:Dictionary = sellList[nextEntryID]
 		
 		var cost:int = entryInfo["cost"] if entryInfo.has("cost") else 5
 		if(entryInfo.has("costMin") && entryInfo.has("costMax")):
-			cost = RNG.randi_range(entryInfo["costMin"], entryInfo["costMax"])
+			cost = randi_range(entryInfo["costMin"], entryInfo["costMax"])
 		
 		if(getModuleFlag("Kidlat6Hap", false)):
 			cost = int(round(cost*0.7))

@@ -101,7 +101,7 @@ func getRoleID(_role:int) -> String:
 	if(_role == C_OWNER):
 		return getRunner().getOwnerID()
 	if(!roles.has(_role)):
-		Log.printerr("The npc owner event "+str(id)+" is using a role "+str(_role)+" that wasn't defined!")
+		Log.err("The npc owner event "+str(id)+" is using a role "+str(_role)+" that wasn't defined!")
 		return ""
 	return roles[_role]
 
@@ -135,7 +135,7 @@ func resolveCustomCharacterName(_charID):
 func convertRoleToAlias(_role:int) -> String:
 	if(RoleToAlias.has(_role)):
 		return RoleToAlias[_role]
-	Log.printerr("Wrong role: "+str(_role))
+	Log.err("Wrong role: "+str(_role))
 	return "npc"
 
 func getOwnerID() -> String:
@@ -184,7 +184,7 @@ func runEvent(_tag:String, _id:String, _args:Array = []):
 
 func runCurrentState():
 	if(!has_method(state)):
-		Log.printerr("Npc Event "+str(id)+" has no state '"+str(state)+"'!")
+		Log.err("Npc Event "+str(id)+" has no state '"+str(state)+"'!")
 		return
 	call(state)
 
@@ -244,7 +244,7 @@ func doAction(_actionID:String, _args:Array) -> Array:
 	
 	var theDoState:String = getDoState()
 	if(!has_method(theDoState+"_do")):
-		Log.printerr("Npc Event "+str(id)+" has no '_do()' function for the state '"+str(state)+"'!")
+		Log.err("Npc Event "+str(id)+" has no '_do()' function for the state '"+str(state)+"'!")
 		return [NpcOwnerActionType.NOTHING, howMuchToPass]
 	call(theDoState+"_do", _actionID, _args)
 	return [NpcOwnerActionType.NOTHING, howMuchToPass]

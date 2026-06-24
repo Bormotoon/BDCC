@@ -50,7 +50,7 @@ func isEffectBadShouldRemove() -> bool:
 	return false
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["species"] = species
 	data["pickedSkin"] = pickedSkin
@@ -62,7 +62,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	species = SAVE.loadVar(_data, "species", [])
 	pickedSkin = SAVE.loadVar(_data, "pickedSkin", "")

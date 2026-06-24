@@ -31,7 +31,7 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
 	if(!_domInfo.getChar().isPlayer()):
-		.getStartActions(_sexEngine, _domInfo, _subInfo)
+		super.getStartActions(_sexEngine, _domInfo, _subInfo)
 		return
 	
 	var permanentMarkerAmount:int = _domInfo.getChar().getInventory().getAmountOf("PermanentMarker")
@@ -140,7 +140,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 		return
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["customWritingID"] = customWritingID
 	data["customWritingZone"] = customWritingZone
@@ -149,7 +149,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	customWritingID = SAVE.loadVar(data, "customWritingID", "")
 	customWritingZone = SAVE.loadVar(data, "customWritingZone", -1)

@@ -400,7 +400,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return 10
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["sub0Hole"] = sub0Hole
 	data["sub1Hole"] = sub1Hole
@@ -410,7 +410,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	sub0Hole = SAVE.loadVar(data, "sub0Hole", S_ANUS)
 	sub1Hole = SAVE.loadVar(data, "sub1Hole", S_ANUS)

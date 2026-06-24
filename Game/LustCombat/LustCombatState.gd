@@ -21,7 +21,7 @@ func processLewdTurn(didSomethingLewd = false):
 	var popSize = population.size()
 	
 	var exposure = pc.getExposure()
-	var ambientVisibility = -RNG.randf_range(0.01, 0.02) # 0.0
+	var ambientVisibility = -randf_range(0.01, 0.02) # 0.0
 	if(didSomethingLewd):
 		ambientVisibility = 0.0
 	#if(exposure <= 0.0):
@@ -38,9 +38,9 @@ func processLewdTurn(didSomethingLewd = false):
 	
 func processDanger(didSomethingLewd = false):
 	if(currentVisibility >= 1.0 && didSomethingLewd):
-		currentDanger += RNG.randf_range(0.15, 0.25)
+		currentDanger += randf_range(0.15, 0.25)
 	else:
-		currentDanger -= RNG.randf_range(0.11, 0.4)
+		currentDanger -= randf_range(0.11, 0.4)
 	currentDanger = clamp(currentDanger, 0.0, 1.0)
 
 func getVisibility():
@@ -83,14 +83,14 @@ static func myactionsorter(a, b):
 func getActionsSorted():
 	var actions:Array = getActions()
 	
-	actions.sort_custom(self, "myactionsorter")
+	actions.sort_custom(myactionsorter)
 	
 	return actions
 
 func getOrgasmActionsSorted():
 	var actions:Array = getOrgasmActions()
 	
-	actions.sort_custom(self, "myactionsorter")
+	actions.sort_custom(myactionsorter)
 	
 	return actions
 

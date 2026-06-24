@@ -49,7 +49,7 @@ func start(_args:Dictionary):
 	if(_args.has("targetLen")):
 		targetLen = _args["targetLen"]
 	else:
-		targetLen = round(RNG.randf_range(15.0, 25.0))
+		targetLen = round(randf_range(15.0, 25.0))
 	if(_args.has("specificPartID")):
 		specificPartID = _args["specificPartID"]
 
@@ -137,7 +137,7 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 	playAnim(StageScene.TFLook, "crotch", {bodyState={exposedCrotch=true,hard=true}})
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ap"] = addedPenis
 	data["tl"] = targetLen
@@ -146,7 +146,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	addedPenis = SAVE.loadVar(_data, "ap", false)
 	targetLen = SAVE.loadVar(_data, "tl", 15.0)

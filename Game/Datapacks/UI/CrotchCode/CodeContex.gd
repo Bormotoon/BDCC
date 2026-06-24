@@ -88,7 +88,7 @@ func hasFlagRaw(theVar:String, _codeblock = null):
 
 func doPrint(text):
 	onPrint.emit(text)
-	Log.print(str(text))
+	Log.msg(str(text))
 
 func doDebugPrint(text):
 	doPrint(text)
@@ -113,10 +113,10 @@ func throwError(_codeblock, _errorText):
 	
 	if(_codeblock == null):
 		onGenericError.emit(str(_errorText))
-		Log.printerr("[CrotchScript Error] "+str(_errorText))
+		Log.err("[CrotchScript Error] "+str(_errorText))
 		return
 	onError.emit(_codeblock, str(_errorText))
-	Log.printerr("[CrotchScript Error at line "+str(_codeblock.lineNum)+"] "+str(_errorText))
+	Log.err("[CrotchScript Error at line "+str(_codeblock.lineNum)+"] "+str(_errorText))
 
 func execute(slotCalls):
 	#clearVars()

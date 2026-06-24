@@ -61,12 +61,12 @@ func getSexGoalWeightModifier(_sexGoalID:String) -> float:
 	return 0.0
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["didForce"] = didForce
 	
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	didForce = SAVE.loadVar(data, "didForce", [])

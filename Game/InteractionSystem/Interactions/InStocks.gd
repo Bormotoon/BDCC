@@ -438,7 +438,7 @@ func affectAffectionOnSave() -> void:
 	affectAffection("inmate", "saver", affectionGain)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["punisherID"] = punisherID
 	data["struggleText"] = struggleText
@@ -449,7 +449,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	punisherID = SAVE.loadVar(_data, "punisherID", "")
 	struggleText = SAVE.loadVar(_data, "struggleText", "")

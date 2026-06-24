@@ -183,7 +183,7 @@ func afterSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["curTarget"] = curTarget
 	data["triedCharIDs"] = triedCharIDs
@@ -193,7 +193,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	curTarget = SAVE.loadVar(_data, "curTarget", "")
 	triedCharIDs = SAVE.loadVar(_data, "triedCharIDs", {})

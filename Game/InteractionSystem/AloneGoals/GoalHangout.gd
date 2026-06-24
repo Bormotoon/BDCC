@@ -9,7 +9,7 @@ func getText():
 	return "{main.name} is hanging around!"
 
 func onGoalStart():
-	stepsAmount = RNG.randi_range(2, 5)
+	stepsAmount = randi_range(2, 5)
 
 func getActions() -> Array:
 	return [
@@ -32,12 +32,12 @@ func doAction(_id:String, _args:Dictionary):
 		completeGoal()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["sa"] = stepsAmount
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	stepsAmount = SAVE.loadVar(_data, "sa", 1)

@@ -61,12 +61,12 @@ func getActivityIcon():
 	return RoomStuff.PawnActivity.Help
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["p"] = pawnIDTarget
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	pawnIDTarget = SAVE.loadVar(_data, "p", "")

@@ -142,7 +142,7 @@ func getCustomInteractAnimInfo():
 		return .getCustomInteractAnimInfo()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["willWashSlaves"] = willWashSlaves
 	data["willHelpGiveBirth"] = willHelpGiveBirth
@@ -152,7 +152,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	willWashSlaves = SAVE.loadVar(_data, "willWashSlaves", false)
 	willHelpGiveBirth = SAVE.loadVar(_data, "willHelpGiveBirth", false)

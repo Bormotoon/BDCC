@@ -245,7 +245,7 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["foundIllegalItems"] = foundIllegalItems
 	data["throwOutLoc"] = throwOutLoc
@@ -253,7 +253,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	foundIllegalItems = SAVE.loadVar(_data, "foundIllegalItems", false)
 	throwOutLoc = SAVE.loadVar(_data, "throwOutLoc", "")

@@ -42,7 +42,7 @@ func start(_args:Dictionary):
 	if(_args.has("stages")):
 		stages = _args["stages"]
 	else:
-		stages = RNG.randi_range(3, 5)
+		stages = randi_range(3, 5)
 
 func getPillOptions() -> Dictionary:
 	return {
@@ -98,13 +98,13 @@ func onSexEvent(_event : SexEvent):
 				accelerateTimer(0.4)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["st"] = stages
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	stages = SAVE.loadVar(_data, "st", 3)

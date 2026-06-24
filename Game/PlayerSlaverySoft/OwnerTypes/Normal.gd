@@ -12,7 +12,7 @@ func getVisibleName() -> String:
 
 func onLevelUp():
 	addRandomTraitChecked() # Trait should happen first because new picked name depends on traits
-	.onLevelUp()
+	super.onLevelUp()
 
 func getEventTags() -> Dictionary:
 	var theTags:Dictionary = {}
@@ -111,7 +111,7 @@ func getMaxAmountOfTraits() -> int:
 	return 3
 
 func getPossiblePCNamesForLevel(_level:int) -> Array:
-	var result:Array = .getPossiblePCNamesForLevel(_level)
+	var result:Array = super.getPossiblePCNamesForLevel(_level)
 	for traitID in traits:
 		var theTrait:NpcOwnerTraitBase = GlobalRegistry.getNpcOwnerTrait(traitID)
 		if(!theTrait):
@@ -120,7 +120,7 @@ func getPossiblePCNamesForLevel(_level:int) -> Array:
 	return result
 
 func getRelationshipFullInfo() -> Array:
-	var theInfo := .getRelationshipFullInfo()
+	var theInfo := super.getRelationshipFullInfo()
 	if(!traits.is_empty()):
 		theInfo.append("")
 		var traitNames:Array = []
@@ -137,7 +137,7 @@ func getRelationshipFullInfo() -> Array:
 	return theInfo
 
 func getExtraCategoryText() -> String:
-	var theText:String = .getExtraCategoryText()
+	var theText:String = super.getExtraCategoryText()
 	if(!traits.is_empty()):
 		var traitNames:Array = []
 		for traitID in traits:
@@ -190,7 +190,7 @@ func getNOM(_nom:String) -> float:
 	return clamp(result, 0.0, 1.0)
 
 func getTalkActions(_event) -> Array:
-	var theActions:Array = .getTalkActions(_event)
+	var theActions:Array = super.getTalkActions(_event)
 	
 	for traitID in traits:
 		var theTrait = GlobalRegistry.getNpcOwnerTrait(traitID)
@@ -201,7 +201,7 @@ func getTalkActions(_event) -> Array:
 	return theActions
 
 func doTalkAction(_event, _actionID:String, _args:Array):
-	.doTalkAction(_event, _actionID, _args)
+	super.doTalkAction(_event, _actionID, _args)
 	
 	for traitID in traits:
 		var theTrait = GlobalRegistry.getNpcOwnerTrait(traitID)
@@ -219,14 +219,14 @@ func shouldHaveAuraOfDominance() -> bool:
 	return true
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["tr"] = traits
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	var newTraits:Array = SAVE.loadVar(_data, "tr", [])
 	traits.clear()

@@ -66,10 +66,10 @@ func generateFatalZone(_difficulty = 1.0):
 		failArea.add_child(rectangle)
 		var newFailAreaData = {
 			"rect": rectangle,
-			"pos": RNG.randf_range(0.0, 1.0),
+			"pos": randf_range(0.0, 1.0),
 			"scale": 0.02,
 			"annoy": RNG.pick(["move", "scale", "jitter"]),
-			"timeskip": RNG.randf_range(0.0, 100.0),
+			"timeskip": randf_range(0.0, 100.0),
 		}
 		failZoneData.append(newFailAreaData)
 		setZonePosition(rectangle, newFailAreaData["pos"], 0.02)
@@ -197,15 +197,15 @@ var zonePos = 0.0
 var zoneSize = 0.0
 var zoneOrangeSize = 0.0
 func generateZone(thedifficulty = 1.0):
-	zonePos = RNG.randf_range(0.0, 1.0)
+	zonePos = randf_range(0.0, 1.0)
 	zoneSize = 0.005 + 1.0/(11.0 + thedifficulty * 2.0)
 	zoneOrangeSize = 0.1 + 1.0/(2.0 + thedifficulty)
 	setZone(zonePos, zoneSize, zoneOrangeSize)
 	zonePos = (orangeZone.anchor_left + orangeZone.anchor_right)/2.0
 	zoneOrangeSize = (orangeZone.anchor_right - orangeZone.anchor_left)
 	
-	#setGoldenZone(pos + RNG.randf_range(-orangeSize/2.0, orangeSize/2.0), 0.03)
-	setGoldenZone(RNG.randf_range(0.0, 1.0), 0.05)
+	#setGoldenZone(pos + randf_range(-orangeSize/2.0, orangeSize/2.0), 0.03)
+	setGoldenZone(randf_range(0.0, 1.0), 0.05)
 
 func setZone(pos, size, orangeSize):
 	redZone.anchor_left = clamp(pos-size/2.0, 0.0, 1.0)
@@ -311,7 +311,7 @@ func doCommitClick():
 	freeze = true
 	await get_tree().create_timer(0.5).timeout
 	freeze = false
-	#generateZone(RNG.randf_range(1.0, 10.0))
+	#generateZone(randf_range(1.0, 10.0))
 	#setDifficulty(5)
 	#print(finalScore)
 

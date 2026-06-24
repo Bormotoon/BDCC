@@ -25,7 +25,7 @@ func start():
 	talkModularOwnerToPC("SoftSlaveryPunishCredits2")
 	
 	if(onlyOnce()):
-		var credAmount:int = RNG.randi_range(5, 10)
+		var credAmount:int = randi_range(5, 10)
 		GM.pc.addCredits(-credAmount)
 		GM.main.addMessage("You lost "+str(credAmount)+" credits!")
 	

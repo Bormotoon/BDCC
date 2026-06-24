@@ -51,7 +51,7 @@ func satisfiesCondition(event:WorldHistoryEvent, condInfo:Array, _i:int = 0) -> 
 		WHCond.Not:
 			return !satisfiesCondition(event, condInfo, _i+1)
 
-	Log.printerr("Unknown condition info found: "+str(condInfo))
+	Log.err("Unknown condition info found: "+str(condInfo))
 	return false
 
 func queryHappened(eventID:String, conditions:Array = []) -> bool:

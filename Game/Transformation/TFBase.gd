@@ -135,7 +135,7 @@ func getTimerDeviation() -> float:
 
 func resetTimer():
 	var deviation:float = getTimerDeviation()
-	setTimer( int(round(float(getTimerForStage(getStage())) * (1.0 + RNG.randf_range(-deviation, deviation)))) )
+	setTimer( int(round(float(getTimerForStage(getStage())) * (1.0 + randf_range(-deviation, deviation)))) )
 
 func doProgressFinal(_context:Dictionary) -> Dictionary:
 	timer = 999999

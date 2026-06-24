@@ -46,7 +46,7 @@ func getCheckTagsSub() -> Array:
 	return [SexActivityTag.AnusUsed, SexActivityTag.VaginaUsed, SexActivityTag.PenisUsed, SexActivityTag.HavingSex]
 
 func startActivity(_args):
-	targetSpanks = RNG.randi_range(5, 16)
+	targetSpanks = randi_range(5, 16)
 	affectSub(getSubInfo().fetishScore({Fetish.Masochism: 1.0})+0.0, 0.1, -0.1, -0.01)
 	addText("{dom.You} {dom.youVerb('prepare')} to spank {sub.you}.")
 	talkText(DOM_0, RNG.pick([
@@ -136,7 +136,7 @@ func getActions(_indx:int):
 		if(subShouldCount && awaitsAnswer):
 			var answers = [correctSpankAmount]
 			while(answers.size() < 3):
-				var randomNumber = RNG.randi_range(Util.maxi(correctSpankAmount-3, 0), correctSpankAmount+3)
+				var randomNumber = randi_range(Util.maxi(correctSpankAmount-3, 0), correctSpankAmount+3)
 				if(!answers.has(randomNumber)):
 					answers.append(randomNumber)
 			answers.shuffle()
@@ -459,7 +459,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return -1
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["subShouldCount"] = subShouldCount
 	data["correctSpankAmount"] = correctSpankAmount
@@ -475,7 +475,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	subShouldCount = SAVE.loadVar(_data, "subShouldCount", false)
 	correctSpankAmount = SAVE.loadVar(_data, "correctSpankAmount", 0)

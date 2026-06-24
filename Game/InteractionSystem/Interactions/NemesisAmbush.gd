@@ -134,7 +134,7 @@ func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 			if(room != null && !room.isOfflimitsForInmates()):
 				var theDist := GM.world.simpleRingDistance(getLocation(), GM.pc.getLocation())
 				if(theDist <= 2.0):
-					preparation += RNG.randf_range(0.0, 0.1)
+					preparation += randf_range(0.0, 0.1)
 					if(preparation >= 1.0 && !goingAfter && RNG.chance(10)):
 						goingAfter = true
 				if(goingAfter):
@@ -185,7 +185,7 @@ func getActivityIconForRole(_role:String):
 	return RoomStuff.PawnActivity.None
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["hasExtra1"] = hasExtra1
 	data["hasExtra2"] = hasExtra2
@@ -195,7 +195,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	hasExtra1 = SAVE.loadVar(_data, "hasExtra1", false)
 	hasExtra2 = SAVE.loadVar(_data, "hasExtra2", false)

@@ -13,7 +13,7 @@ var swipe_mouse_times = []
 var swipe_mouse_positions = []
 
 func _gui_input(ev):
-	if(!OS.has_touchscreen_ui_hint()):
+	if(!DisplayServer.is_touchscreen_available()):
 		return
 	
 	if ev is InputEventMouseButton:

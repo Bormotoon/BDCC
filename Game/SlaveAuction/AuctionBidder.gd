@@ -159,7 +159,7 @@ func onAction(_auction, _action:AuctionAction, _result:Dictionary):
 		if(!_auction.slaveTraits.has(traitID) || _auction.slaveTraits[traitID] <= 0.0):
 			continue
 		
-		var mult:float = traits[traitID] * (clamp(_auction.slaveTraits[traitID] * RNG.randf_range(0.9, 1.1), 0.4, 1.0) if _auction.slaveTraits.has(traitID) else 1.0)
+		var mult:float = traits[traitID] * (clamp(_auction.slaveTraits[traitID] * randf_range(0.9, 1.1), 0.4, 1.0) if _auction.slaveTraits.has(traitID) else 1.0)
 		if(likes.has(traitID)):
 			desireDelta += 1.0 * mult
 			#desire += 0.5 * mult

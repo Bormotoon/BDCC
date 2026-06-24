@@ -193,14 +193,14 @@ func afterLostSex():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	data["walkiesEvent"] = walkiesEvent
 	data["npcWantsSex"] = npcWantsSex
 	data["ownerProtectedPC"] = ownerProtectedPC
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	walkiesEvent = SAVE.loadVar(_data, "walkiesEvent", "pet")
 	npcWantsSex = SAVE.loadVar(_data, "npcWantsSex", false)

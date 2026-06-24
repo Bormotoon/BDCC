@@ -38,7 +38,7 @@ func applyEffect(_data:Dictionary) -> Dictionary:
 	}
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["inter"] = interpolate
 	data["pickedSkin"] = pickedSkin
@@ -50,7 +50,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	interpolate = SAVE.loadVar(_data, "inter", 0.0)
 	pickedSkin = SAVE.loadVar(_data, "pickedSkin", "")

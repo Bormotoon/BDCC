@@ -262,7 +262,7 @@ func about_to_sex_do(_id:String, _args:Dictionary, _context:Dictionary):
 			else:
 				clientSatisfaction = _result.getDomSatisfaction(getRoleID("client"))
 		else:
-			Log.printerr("Prostitution interaction received null sex result")
+			Log.err("Prostitution interaction received null sex result")
 		setState("after_sex", "client")
 
 
@@ -536,7 +536,7 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["jobTime"] = jobTime
 	data["minTime"] = minTime
@@ -550,7 +550,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	jobTime = SAVE.loadVar(_data, "jobTime", 0)
 	minTime = SAVE.loadVar(_data, "minTime", 0)

@@ -130,10 +130,10 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		var thick:int = theChar.getThickness()
 		
 		if(fem < 80):
-			effects.append(charEffect("fem", "AddFemininity", [RNG.randi_range(7, 13)]))
+			effects.append(charEffect("fem", "AddFemininity", [randi_range(7, 13)]))
 		
 		if(thick < 75):
-			effects.append(charEffect("thi", "AddThickness", [RNG.randi_range(7, 13)]))
+			effects.append(charEffect("thi", "AddThickness", [randi_range(7, 13)]))
 		
 		return {
 			step = nextStep,
@@ -154,7 +154,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			penStageInc = true
 			theChar.increaseBodypartSensitivity(BodypartSlot.Penis, -0.2*penisStage)
 		
-		var toRemove:float = -RNG.randf_range(2,4)*mod
+		var toRemove:float = -randf_range(2,4)*mod
 		if(currentPenLen+toRemove <= 10.0):
 			toRemove = 10.0 - currentPenLen
 		
@@ -246,7 +246,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 	}
 
 func reactProgressShort(_context:Dictionary, _result:TFResult):
-	.reactProgressShort(_context, _result)
+	super.reactProgressShort(_context, _result)
 	
 	if(_result.getField("penStageInc", false)):
 		addText("{npc.YourHis} penis is now less sensitive!")
@@ -347,7 +347,7 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(1.0)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["sb"] = switchedbreasts
 	data["sh"] = switchedhair
@@ -359,7 +359,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	switchedbreasts = SAVE.loadVar(_data, "sb", false)
 	switchedhair = SAVE.loadVar(_data, "sh", false)

@@ -242,7 +242,7 @@ func getAnimation():
 	
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["gropeAmount"] = gropeAmount
 	data["alsoCock"] = alsoCock
@@ -251,7 +251,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	gropeAmount = SAVE.loadVar(data, "gropeAmount", 0)
 	alsoCock = SAVE.loadVar(data, "alsoCock", false)

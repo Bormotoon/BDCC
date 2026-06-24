@@ -364,7 +364,7 @@ func about_to_flirt_text():
 
 func about_to_flirt_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "pickup_line"):
-		pickedLineIndx = RNG.randi_range(0, PickupLineDB.DB.size()-1)
+		pickedLineIndx = randi_range(0, PickupLineDB.DB.size()-1)
 		#setState("flirt_pickupline", "reacter")
 		setState("flirt_pickupline_start", "starter")
 	if(_id == "flirt_do"):
@@ -650,7 +650,7 @@ func doHelpStruggleForStarter():
 		struggleText = struggleData["text"]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["chat"] = chat
 	data["lust"] = lust
@@ -668,7 +668,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	chat = SAVE.loadVar(_data, "chat", {})
 	lust = SAVE.loadVar(_data, "lust", {})
@@ -686,4 +686,4 @@ func loadData(_data):
 	if(pickedLineIndx < 0):
 		pickedLineIndx = 0
 	if(pickedLineIndx >= PickupLineDB.DB.size()):
-		pickedLineIndx = RNG.randi_range(0, PickupLineDB.DB.size()-1)
+		pickedLineIndx = randi_range(0, PickupLineDB.DB.size()-1)

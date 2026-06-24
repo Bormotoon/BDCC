@@ -1,7 +1,7 @@
 extends Node2D
 class_name WorldFloor
 
-export var id = ""
+@export var id = ""
 var canMeetNPCs:bool = false
 
 func _ready():

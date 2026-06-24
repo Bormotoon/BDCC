@@ -85,7 +85,7 @@ static func breastSizeToNameProcedural(bsize:int, cupEnding:String="-cup"):
 	if(names.has(bsize)):
 		return names[bsize]+cupEnding
 	
-	var base_char:int = ord('A')
+	var base_char:int = 'A'.unicode_at(0)
 	var cup_char_ind:int = (bsize)
 	var finalCupLetter:String = ""
 	while(cup_char_ind >= 26):

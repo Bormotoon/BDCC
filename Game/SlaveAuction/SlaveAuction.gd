@@ -135,7 +135,7 @@ func doBestAction():
 				maxScore = theScore
 	
 	if(actionToScore.is_empty()):
-		Log.printerr("Something is wrong, we can't pick an auction action to do")
+		Log.err("Something is wrong, we can't pick an auction action to do")
 		return
 	
 	var filterScore:float = maxScore * 0.7
@@ -492,7 +492,7 @@ func doRoundOfBidding() -> int:
 				if(totalBidTimes != 0):
 					currentBid += getBidIncrease()
 				if(willRaise):
-					currentBid += RNG.randi_range(2, 5) * getBidIncrease()
+					currentBid += randi_range(2, 5) * getBidIncrease()
 					for otherBidder in bidders:
 						if(otherBidder == bidder):
 							continue

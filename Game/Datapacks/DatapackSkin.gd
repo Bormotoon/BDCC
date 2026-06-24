@@ -56,7 +56,7 @@ func saveData():
 
 func loadData(data):
 	name = loadVar(data, "name", "No name")
-	skinImage.loadData(loadVar(data, "skinImage", PoolByteArray()))
+	skinImage.loadData(loadVar(data, "skinImage", PackedByteArray()))
 	skinTypeWeights = loadVar(data, "skinTypeWeights", {})
 
 func loadVar(_data, thekey, defaultValue = null):

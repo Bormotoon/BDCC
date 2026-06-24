@@ -11,7 +11,7 @@ var selectedValue
 #var isListVals = false
 
 func _ready():
-#	if(OS.has_touchscreen_ui_hint()):
+#	if(DisplayServer.is_touchscreen_available()):
 #		isListVals = true
 #		add_item_list.visible = true
 #		$HBoxContainer/OptionButton.visible = false

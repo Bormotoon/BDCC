@@ -1,17 +1,17 @@
 extends Button
 class_name BetterButton
 
-export var myButtonText:String = ""
-export var myTooltipName:String = ""
-export var myTooltipDesc:String = ""
+@export var myButtonText:String = ""
+@export var myTooltipName:String = ""
+@export var myTooltipDesc:String = ""
 
-export var shouldScaleToUIButtonSize:bool = true
-export var shouldShowShortcut:bool = true
-export var allowDoubleTabSetting:bool = false
-export var instantTooltip:bool = false
+@export var shouldScaleToUIButtonSize:bool = true
+@export var shouldShowShortcut:bool = true
+@export var allowDoubleTabSetting:bool = false
+@export var instantTooltip:bool = false
 
-export var myShortcutKey:String = ""
-export var myShortcutCtrl:bool = false
+@export var myShortcutKey:String = ""
+@export var myShortcutCtrl:bool = false
 
 @onready var key_label = $"%KeyLabel"
 @onready var button_label = $"%ButtonLabel"
@@ -50,13 +50,13 @@ func updateButtonSize():
 	if(shouldScaleToUIButtonSize):
 		var minButtonSize:float = OPTIONS.getUiButtonSize()
 		if(minButtonSize > 0):
-			rect_min_size = Vector2(0, 20 + minButtonSize * 16)
+			custom_minimum_size = Vector2(0, 20 + minButtonSize * 16)
 		else:
-			rect_min_size = Vector2(0.0, 0.0)
+			custom_minimum_size = Vector2(0.0, 0.0)
 	else:
-		rect_min_size = Vector2(0.0, 0.0)
+		custom_minimum_size = Vector2(0.0, 0.0)
 	if(OPTIONS.isTouchFriendlyUI()):
-		rect_min_size.y = max(rect_min_size.y, 68.0)
+		custom_minimum_size.y = max(custom_minimum_size.y, 68.0)
 		
 	
 func setButtonText(_text:String):
@@ -102,7 +102,7 @@ func setTooltipText(_name:String, _desc:String):
 
 
 func _on_BetterButton_pressed():
-	if(OS.has_touchscreen_ui_hint() && OPTIONS.shouldRequireDoubleTapOnMobile() && allowDoubleTabSetting):
+	if(DisplayServer.is_touchscreen_available() && OPTIONS.shouldRequireDoubleTapOnMobile() && allowDoubleTabSetting):
 		if(!showingDescription):
 			showingDescription = true
 			mouse_entered.emit()

@@ -51,10 +51,10 @@ func loadData(_data):
 	pawnTypeID = SAVE.loadVar(_data, "pt", "")
 
 func onSpawn():
-	hunger = RNG.randf_range(0.0, 0.3)
-	timeSinceLastWork = RNG.randi_range(0, 6000)
+	hunger = randf_range(0.0, 0.3)
+	timeSinceLastWork = randi_range(0, 6000)
 	social = RNG.randf_rangeX2(0.0, 0.6)
-	tiredness = RNG.randf_range(0.0, 0.1)
+	tiredness = randf_range(0.0, 0.1)
 	
 	var pawnType = getPawnType()
 	if(pawnType != null):

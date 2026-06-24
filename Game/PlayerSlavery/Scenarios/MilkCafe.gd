@@ -453,7 +453,7 @@ func doFinalAction(_finalActionEntry:Array) -> Dictionary:
 	return {}
 	
 func processTurn():
-	GM.main.processTime(60*RNG.randi_range(60, 180))
+	GM.main.processTime(60*randi_range(60, 180))
 	idleState += 1
 	if(idleState > IDLE_MAX):
 		idleState = 0
@@ -569,7 +569,7 @@ func onDayEnd():
 		var earnMult:float = getCreditsEarnMult()
 		var earnedCredsMin:int = milkedToday * 100 + milkedTotal * milkedTotal
 		var earnedCredsMax:int = milkedToday * 300 + milkedTotal * milkedTotal
-		earned += RNG.randi_range(int(earnedCredsMin*earnMult), int(earnedCredsMax*earnMult))
+		earned += randi_range(int(earnedCredsMin*earnMult), int(earnedCredsMax*earnMult))
 	
 	if(pcGaveMilkOrSeed <= 0):
 		needsPunishment = true
@@ -635,7 +635,7 @@ func addStrapon(_charID:String, _cumID:String = "") -> bool:
 	if(_cumID != ""):
 		var cumChar:BaseCharacter = GlobalRegistry.getCharacter(_cumID)
 		var fluids:Fluids = theStrapon.getFluids()
-		fluids.addFluid(cumChar.getFluidType(FluidSource.Penis), RNG.randf_range(400.0, 700.0), cumChar.getFluidDNA(FluidSource.Penis))
+		fluids.addFluid(cumChar.getFluidType(FluidSource.Penis), randf_range(400.0, 700.0), cumChar.getFluidDNA(FluidSource.Penis))
 	theChar.getInventory().forceEquipStoreOtherUnlessRestraint(theStrapon)
 	return true
 	
@@ -1169,11 +1169,11 @@ func main_do(_id:String, _args:Array):
 		saynn("You wait for a good moment and hit the door!")
 		addStamina(-30)
 		
-		addPadlockDamage(RNG.randf_range(1.0, 3.0))
+		addPadlockDamage(randf_range(1.0, 3.0))
 		
 		if(cageRemoved):
 			saynn("Pip joins and kicks the door with his powerful hooves as well!")
-			addPadlockDamage(RNG.randf_range(1.0, 3.0))
+			addPadlockDamage(randf_range(1.0, 3.0))
 		
 		if(padlockDamage >= 1.0):
 			saynn("[b]The padlock got broken![/b] But there is not enough time to do anything about it now.")
@@ -1378,7 +1378,7 @@ func main_do(_id:String, _args:Array):
 			"You sharpen a twig that you have found in the garden and try to use it as a lockpick inside Pip's chastity cage.",
 			"You get a good grip on the metal pieces of Pip's chastity cage and use your full strength to try to bend them.",
 		]))
-		cageDamage += RNG.randf_range(0.2, 0.3)
+		cageDamage += randf_range(0.2, 0.3)
 		addStamina(-20)
 		addBullTrust(1)
 		
@@ -3377,7 +3377,7 @@ func eHelpCage_do(_id:String, _args:Array):
 			"You sharpen a twig that you have found in the garden and try to use it as a lockpick inside Pip's chastity cage.",
 			"You get a good grip on the metal pieces of Pip's chastity cage and use your full strength to try to bend them.",
 		]))
-		cageDamage += RNG.randf_range(0.1, 0.25)
+		cageDamage += randf_range(0.1, 0.25)
 		addStamina(-20)
 		addBullTrust(1)
 		

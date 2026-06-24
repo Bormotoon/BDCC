@@ -62,7 +62,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 			return {
 				showPenis = true,
 				effects = [
-					partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [-RNG.randi_range(3, 6)])
+					partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [-randi_range(3, 6)])
 				],
 			}
 	removedPenis = true
@@ -85,13 +85,13 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(1.0)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["rp"] = removedPenis
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	removedPenis = SAVE.loadVar(_data, "rp", false)

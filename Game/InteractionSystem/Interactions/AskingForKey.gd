@@ -164,13 +164,13 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["domSatisfaction"] = domSatisfaction
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 
 	domSatisfaction = SAVE.loadVar(_data, "domSatisfaction", 0.0)
 

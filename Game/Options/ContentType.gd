@@ -45,3 +45,6 @@ static func isDisabledByDefault(contentType):
 		return true
 	
 	return false
+
+static func is_disabled_by_default(contentType):
+	return isDisabledByDefault(contentType)

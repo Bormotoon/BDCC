@@ -1,7 +1,7 @@
 extends VBoxContainer
 
 @export_flags("SCENE", "EVENT", "QUEST") var filter: int = CrotchBlockEditorType.ALL
-export var favKind:String = "scene"
+@export var favKind:String = "scene"
 
 var editor
 

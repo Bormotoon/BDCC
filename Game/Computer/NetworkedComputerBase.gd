@@ -158,7 +158,7 @@ func newCompFile(n:String,cat:String="it's a file!",f:String="",down:bool=true,i
 # add a file to server as a public/private file, setting a new id if i==-1. keeps file array sorted, which is necessary
 func addFileToServer(server:NetworkedComputerServer,file:ComputerFile,private:bool=false) -> void:
 	if !server: # just in case
-		Log.printerr("tried to add file with name %s (id %s) to a non-existent server!" % [file.name,file.id])
+		Log.err("tried to add file with name %s (id %s) to a non-existent server!" % [file.name,file.id])
 		return
 	
 	if file.id==-1: # assign new
@@ -333,7 +333,7 @@ func getServersData() -> Dictionary:
 	return sd
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["serversData"] = getServersData()
 	data["connectedTo"]=connectedTo
@@ -341,7 +341,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	connectedTo = SAVE.loadVar(_data, "connectedTo", "")
 	var sd:Dictionary = SAVE.loadVar(_data, "serversData", {})

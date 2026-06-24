@@ -21,7 +21,7 @@ func run(_triggerID, _args):
 	if(cooldown > 0):
 		increaseFlag("NpcSlaveryModule.slutEventCooldown", -1)
 	if(getFlag("NpcSlaveryModule.slutEventCooldown", 0) <= 0):
-		setFlag("NpcSlaveryModule.slutEventCooldown", RNG.randi_range(8, 15))
+		setFlag("NpcSlaveryModule.slutEventCooldown", randi_range(8, 15))
 	else:
 		return
 
@@ -86,7 +86,7 @@ func react(_triggerID, _args):
 	if((RNG.chance(20) || isLookingForTrouble) && allWorkingSluts.size() > 0 && (getFlag("NpcSlaveryModule.slutBigEventCooldown", 0)<=0 || isLookingForTrouble)):
 		var randomChar = RNG.pick(allWorkingSluts)
 		
-		setFlag("NpcSlaveryModule.slutBigEventCooldown", RNG.randi_range(20, 100))
+		setFlag("NpcSlaveryModule.slutBigEventCooldown", randi_range(20, 100))
 		#runScene("SlutProstitutionWatch", [randomChar.getID(), true])
 		if(GM.ES.triggerReact(Trigger.SlaverySlutImportantEvent, [randomChar.getID()])):
 			return true

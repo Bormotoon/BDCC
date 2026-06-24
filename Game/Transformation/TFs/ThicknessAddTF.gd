@@ -91,7 +91,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		
 	return {
 		effects = [
-			charEffect("thi", "AddThickness", [RNG.randi_range(7, 13)]),
+			charEffect("thi", "AddThickness", [randi_range(7, 13)]),
 		]
 	}
 
@@ -107,7 +107,7 @@ func onSexEvent(_event : SexEvent):
 			accelerateTimer(0.4)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ht"] = hasTarget
 	data["tt"] = target
@@ -115,7 +115,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	hasTarget = SAVE.loadVar(_data, "ht", false)
 	target = SAVE.loadVar(_data, "tt", 50)

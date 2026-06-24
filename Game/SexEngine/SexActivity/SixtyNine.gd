@@ -459,7 +459,7 @@ func getSubBiteChance(baseChance:float, domAngerRemoval:float) -> float:
 	return max(theChance, 5.0)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["cumAmount"] = cumAmount
 	data["domFocus"] = domFocus
@@ -468,7 +468,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	cumAmount = SAVE.loadVar(data, "cumAmount", 0)
 	domFocus = SAVE.loadVar(data, "domFocus", BodypartSlot.Vagina)

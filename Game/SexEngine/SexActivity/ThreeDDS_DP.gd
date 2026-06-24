@@ -352,13 +352,13 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 	return 10
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["straponTimer"] = straponTimer
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	straponTimer = SAVE.loadVar(data, "straponTimer", 0)

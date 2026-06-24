@@ -56,12 +56,12 @@ func getActivityIcon():
 	return RoomStuff.PawnActivity.LayEggs
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["aa"] = announced
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	announced = SAVE.loadVar(_data, "aa", false)

@@ -156,7 +156,7 @@ func shouldPreferToSpawnPawn() -> bool:
 	return gonnaAmbush
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["gonnaAmbush"] = gonnaAmbush
 	data["reason"] = reason
@@ -165,7 +165,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	gonnaAmbush = SAVE.loadVar(_data, "gonnaAmbush", false)
 	reason = SAVE.loadVar(_data, "reason", NemesisReason.Generic)

@@ -131,7 +131,7 @@ func isEffectBadShouldRemove() -> bool:
 	return false
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["newPartID"] = newPartID
 	data["partArts"] = partArts
@@ -139,7 +139,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	newPartID = SAVE.loadVar(_data, "newPartID", "")
 	partArts = SAVE.loadVar(_data, "partArts", {})

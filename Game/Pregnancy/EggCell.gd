@@ -27,11 +27,11 @@ func _init() -> void:
 	options_lifespan = maxi(options_lifespan, 1)
 	var min_range: int = int(options_lifespan / 4)
 	var max_range: int = int(options_lifespan / 2)
-	life_span = 60 * 60 * options_lifespan + RNG.randi_range(-60 * 60 * min_range, 60 * 60 * max_range)
+	life_span = 60 * 60 * options_lifespan + randi_range(-60 * 60 * min_range, 60 * 60 * max_range)
 
 ## Monozygotic splitting (9% chance, lines 35-48)
 func setMonozygotic() -> void:
-	var chance := RNG.randf_range(0.00, 100.00)
+	var chance := randf_range(0.00, 100.00)
 	if chance > 9.00:
 		return
 	elif chance <= 0.01:

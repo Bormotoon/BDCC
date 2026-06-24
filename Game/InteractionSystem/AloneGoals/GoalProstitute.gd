@@ -47,12 +47,12 @@ func getAnimData() -> Array:
 	return [StageScene.Solo, "walk", {pc="main"}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["nt"] = nextTarget
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	nextTarget = SAVE.loadVar(_data, "nt", "")

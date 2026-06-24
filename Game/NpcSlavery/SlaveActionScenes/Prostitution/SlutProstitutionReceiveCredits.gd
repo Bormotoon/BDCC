@@ -119,7 +119,7 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["howMuchEarned"] = howMuchEarned
@@ -127,7 +127,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	howMuchEarned = SAVE.loadVar(data, "howMuchEarned", 0)

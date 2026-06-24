@@ -44,7 +44,7 @@ func loadData(_data):
 	var pawnData = SAVE.loadVar(_data, "pawns", {})
 	for charID in pawnData:
 		if(charID == "" || GlobalRegistry.getCharacter(charID) == null):
-			Log.printerr("Unable to load pawn with character id "+str(charID)+" as the character is missing!")
+			Log.err("Unable to load pawn with character id "+str(charID)+" as the character is missing!")
 			continue
 		var pawnEntry:Dictionary = SAVE.loadVar(pawnData, charID, {})
 		
@@ -65,12 +65,12 @@ func loadData(_data):
 		
 		var interaction = GlobalRegistry.createInteraction(interactionID)
 		if(interaction == null):
-			Log.printerr("Unable to load interaction with the id "+str(interactionID)+" because it's not registered.")
+			Log.err("Unable to load interaction with the id "+str(interactionID)+" because it's not registered.")
 			continue
 		interaction.loadData(SAVE.loadVar(interactionEntry, "data", {}))
 		
 		if(interaction.hasMissingCharacters()):
-			Log.printerr("Unable to load interaction with the id "+str(interactionID)+" because it has missing characters.")
+			Log.err("Unable to load interaction with the id "+str(interactionID)+" because it has missing characters.")
 			continue
 		interactions.append(interaction)
 
@@ -147,7 +147,7 @@ func decideNextAction(interaction, _context:Dictionary = {}):
 	var actions = interaction.getActionsFinal()
 	
 	if(actions == null || !(actions is Array) || actions.size() <= 0):
-		Log.printerr("No actions found for interaction: "+str(interaction.id))
+		Log.err("No actions found for interaction: "+str(interaction.id))
 		return
 	
 	var maxScore:float = 0.0
@@ -164,7 +164,7 @@ func decideNextAction(interaction, _context:Dictionary = {}):
 			possibleActions.append([action, action["finalScore"]])
 	
 	if(possibleActions.size() <= 0):
-		Log.printerr("No possible actions found for interaction: "+str(interaction.id))
+		Log.err("No possible actions found for interaction: "+str(interaction.id))
 		interaction.setPickedAction(RNG.pick(actions), _context)
 		return
 	
@@ -639,7 +639,7 @@ func spawnMorningWave():
 	if(pawnDistribution.is_empty()):
 		return
 	var howManyToSpawnF:float = getMaxPawnCount()
-	howManyToSpawnF *= RNG.randf_range(0.7, 0.9)
+	howManyToSpawnF *= randf_range(0.7, 0.9)
 	var howManyToSpawn:int = int(howManyToSpawnF)
 	
 	var totalDistAm:float = 0
@@ -654,7 +654,7 @@ func spawnMorningWave():
 			trySpawnPawn(charType)
 	
 	#print("THERE ARE NOW "+str(getPawnCount())+" PAWNS")
-	processAllPawnsNoInteractions(60*RNG.randi_range(150,170))
+	processAllPawnsNoInteractions(60*randi_range(150,170))
 
 func checkAddNewPawns():
 	if(GM.main.getTime() >= 19*60*60): # No new pawns in the evening

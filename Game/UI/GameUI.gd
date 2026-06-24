@@ -97,7 +97,7 @@ func _ready() -> void:
 	load_button.disabled = true
 	update_buttons()
 
-	if OS.has_touchscreen_ui_hint():
+	if DisplayServer.is_touchscreen_available():
 		text_output.selection_enabled = false
 	set_is_right_handed_layout(OPTIONS.is_ui_layout_right_handed())
 

@@ -499,7 +499,7 @@ func _react(_action: String, _args):
 		if(npc.isWearingChastityCage() || npc.hasReachablePenis()):
 			npc.cummedOnBy(npcID)
 		elif(npc.hasReachableVagina()):
-			npc.cummedOnBy(npcID, FluidSource.Vagina, RNG.randf_range(0.2, 0.4))
+			npc.cummedOnBy(npcID, FluidSource.Vagina, randf_range(0.2, 0.4))
 		npc.orgasmFrom("pc")
 		
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
@@ -531,14 +531,14 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

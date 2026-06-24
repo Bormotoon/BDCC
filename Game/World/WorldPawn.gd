@@ -18,7 +18,7 @@ func move_to_pos(target_pos: Vector2) -> void:
 	# Godot 4: create_tween() instead of node-based Tween
 	var tween := create_tween()
 	tween.tween_property(self, "global_position",
-		target_pos + Vector2(RNG.randi_range(-16, 16), RNG.randi_range(-16, 16)), 0.5)
+		target_pos + Vector2(randi_range(-16, 16), randi_range(-16, 16)), 0.5)
 
 func set_pawn_texture(pawn_texture) -> void:
 	match pawn_texture:

@@ -74,11 +74,11 @@ func getNearbyCheckAllChance() -> float:
 	return 3.0
 
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	data["targetLoc"] = targetLoc
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	targetLoc = SAVE.loadVar(_data, "targetLoc", "")

@@ -120,13 +120,13 @@ func getLeashes() -> Dictionary:
 	}
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["leashTimer"] = leashTimer
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	leashTimer = SAVE.loadVar(data, "leashTimer", 0)

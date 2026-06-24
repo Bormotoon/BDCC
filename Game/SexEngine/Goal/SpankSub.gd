@@ -25,8 +25,8 @@ func getGoalDefaultWeight():
 	return 0.4
 
 func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
-	for _i in range(RNG.randi_range(0, 5)):
-		sendSexEvent(_sexEngine, SexEvent.Spanked, _domInfo, _subInfo, {strongSpank=RNG.chance(20), pain=RNG.randi_range(0, 1)})
+	for _i in range(randi_range(0, 5)):
+		sendSexEvent(_sexEngine, SexEvent.Spanked, _domInfo, _subInfo, {strongSpank=RNG.chance(20), pain=randi_range(0, 1)})
 
 func canBegFor() -> bool:
 	return true

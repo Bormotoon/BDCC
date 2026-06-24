@@ -80,9 +80,9 @@ func rollback():
 		Log.error("Something went wrong, rollbacker doesn't have a state to rollback to.")
 		return
 	
-	Log.print("ROLLBACK")
+	Log.msg("ROLLBACK")
 	rollbacking = true
 	SAVE.loadData(rollbackStates.back())
 	rollbackStates.pop_back()
 	rollbacking = false
-	Log.print("ROLLBACK FINISHED")
+	Log.msg("ROLLBACK FINISHED")

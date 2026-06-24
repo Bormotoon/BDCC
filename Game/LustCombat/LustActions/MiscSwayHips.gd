@@ -74,7 +74,7 @@ func doAction(_lustState: LustCombatState, _args):
 		if(RNG.chance(stacks)):
 			var enemy:BaseCharacter = _lustState.getEnemyCharacter()
 			if(enemy != null):
-				enemy.addEffect(StatusEffect.Suggestible, [RNG.randi_range(5,15)])
+				enemy.addEffect(StatusEffect.Suggestible, [randi_range(5,15)])
 				text += "[b]Enemy is mesmerized by your hips![/b]"
 				text += "\n\n"
 

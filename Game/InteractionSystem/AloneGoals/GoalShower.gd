@@ -74,12 +74,12 @@ func getActivityIcon():
 	return RoomStuff.PawnActivity.Shower
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["s"] = sstate
 	return data
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	sstate = SAVE.loadVar(_data, "s", "")

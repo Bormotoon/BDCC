@@ -50,7 +50,7 @@ func registerAdder(theFiller:DialogueFillerAdder):
 
 func registerForm(theForm:DialogueForm):
 	if(forms.has(theForm.id)):
-		Log.printerr("Dialogue form with ID "+str(theForm.id)+" is being registered more than once")
+		Log.err("Dialogue form with ID "+str(theForm.id)+" is being registered more than once")
 		return
 	forms[theForm.id] = theForm
 
@@ -65,7 +65,7 @@ func generate(ID:String, _args:Dictionary, _defaultText:String = "") -> String:
 	var theForm:DialogueForm = forms[ID]
 	var checkData:Array = theForm.checkArgs(_args)
 	if(!checkData[0]):
-		Log.printerr(checkData[1])
+		Log.err(checkData[1])
 		return "[color=red]MD ERROR ("+ID+"): "+checkData[1]+"[/color]"
 	
 	var resultLine:String = ""
@@ -123,7 +123,7 @@ func generate(ID:String, _args:Dictionary, _defaultText:String = "") -> String:
 			var randomAdder:DialogueFillerAdder = RNG.pick(possibleAdders)
 			var randomTextsToAdd:Array = randomAdder.getTextsFinal(ID, _args)
 			var isPrefix:bool = randomAdder.isPrefix(ID)
-			addersCooldown[randomAdder] = RNG.randi_range(5, 15)
+			addersCooldown[randomAdder] = randi_range(5, 15)
 			
 			if(randomTextsToAdd.size() > 0):
 				var randomText:String = RNG.pick(randomTextsToAdd)

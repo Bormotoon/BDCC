@@ -39,7 +39,7 @@ func domWantsToCum():
 	return true
 
 func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
-	for _i in range(RNG.randi_range(0, 3)):
+	for _i in range(randi_range(0, 3)):
 		sendSexEvent(_sexEngine, SexEvent.Choking, _domInfo, _subInfo, {strongChoke=RNG.chance(20)})
 	
 	var sub = _subInfo.getChar()
@@ -51,7 +51,7 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 			sub.cummedInAnusBy(dom.getID())
 
 	if(RNG.chance(50)):
-		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=RNG.randi_range(1, 20),isDefense=false,intentional=false})
+		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=randi_range(1, 20),isDefense=false,intentional=false})
 
 func canBegFor() -> bool:
 	return true

@@ -36,7 +36,7 @@ func saveToFile():
 func loadFromFile():
 	var file = FileAccess.open(path, FileAccess.READ)
 	if(file.open(SavePath, FileAccess.READ) != OK):
-		Log.printerr("Something bad happened")
+		Log.err("Something bad happened")
 		return
 	var content:String = file.get_as_text()
 	data = str_to_var(content)

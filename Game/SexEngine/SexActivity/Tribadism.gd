@@ -214,13 +214,13 @@ func getAnimation():
 	return [StageScene.SexTribadism, "sex", {pc=DOM_0, npc=SUB_0}]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["cumAmount"] = cumAmount
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	cumAmount = SAVE.loadVar(data, "cumAmount", 0)

@@ -71,7 +71,7 @@ func getEndedArgs():
 	return endedArgs
 
 func saveData():
-	#var data = .saveData()
+	#var data = super.saveData()
 	
 	#data["waitTimer"] = waitTimer
 

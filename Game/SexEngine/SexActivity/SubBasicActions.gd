@@ -161,7 +161,7 @@ func startActivity(_args):
 				"{sub.You} {sub.youVerb('kick')} {dom.youHim}!",
 			])
 		getDomInfo().addAnger(0.2 + 0.1 * getDomInfo().fetishScore({Fetish.Masochism: -1.0}))
-		var howMuchPainAdded = RNG.randi_range(4, 6)
+		var howMuchPainAdded = randi_range(4, 6)
 		getDomInfo().addPain(howMuchPainAdded)
 		sendSexEvent(SexEvent.PainInflicted, SUB_0, DOM_0, {pain=howMuchPainAdded,isDefense=true,intentional=true})
 		

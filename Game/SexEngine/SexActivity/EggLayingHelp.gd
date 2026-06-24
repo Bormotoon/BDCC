@@ -218,7 +218,7 @@ func hasAnimsToPlay() -> bool:
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	var eggData:Array = []
 	for theEgg in eggsOut:
@@ -229,7 +229,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	eggsOut.clear()
 	var eggData:Array = SAVE.loadVar(data, "eggsOut", [])

@@ -34,7 +34,7 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 	sendSexEvent(_sexEngine, SexEvent.UniqueOrgasm, _domInfo, _subInfo, {orgasmType=UniqueOrgasm.Feet})
 
 	if(RNG.chance(50)):
-		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=RNG.randi_range(1, 20),isDefense=false,intentional=false})
+		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=randi_range(1, 20),isDefense=false,intentional=false})
 
 func canBegFor() -> bool:
 	return true

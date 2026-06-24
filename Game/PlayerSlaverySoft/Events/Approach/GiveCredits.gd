@@ -13,7 +13,7 @@ func _init():
 
 func start():
 	if(onlyOnce()):
-		creditsAmount = RNG.randi_range(5, 10)
+		creditsAmount = randi_range(5, 10)
 	
 	playAnimation(StageScene.Duo, "stand", {npc=getRoleID(C_OWNER)})
 	saynn("Your owner approaches you, {npc.his} eyes shine with a need for something.")
@@ -64,13 +64,13 @@ func amShort_eventResult(_event, _id:String, _args:Array):
 		setState("obey")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["creditsAmount"] = creditsAmount
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	creditsAmount = SAVE.loadVar(_data, "creditsAmount", 10)

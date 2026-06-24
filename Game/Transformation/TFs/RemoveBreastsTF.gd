@@ -62,11 +62,11 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		removedBreasts = true
 	var toRemove:int = 1
 	if(breastSize > BreastsSize.O):
-		toRemove = RNG.randi_range(2,5)
+		toRemove = randi_range(2,5)
 	elif(breastSize > BreastsSize.DD):
-		toRemove = RNG.randi_range(2,3)
+		toRemove = randi_range(2,3)
 	elif(breastSize > BreastsSize.C):
-		toRemove = RNG.randi_range(1,2)
+		toRemove = randi_range(1,2)
 	return {
 		effects = [
 			partEffect("breasts", BodypartSlot.Breasts, "BreastSizeChange", [-toRemove]),
@@ -87,13 +87,13 @@ func onSexEvent(_event : SexEvent):
 				accelerateTimer(0.4)
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["rb"] = removedBreasts
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	removedBreasts = SAVE.loadVar(_data, "rb", false)

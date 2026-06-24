@@ -114,14 +114,14 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			step = nextStep,
 			effects = [
-				charEffect("fem", "AddFemininity", [RNG.randi_range(10, 20) if RNG.chance(50) else -RNG.randi_range(10, 20)]),
+				charEffect("fem", "AddFemininity", [randi_range(10, 20) if RNG.chance(50) else -randi_range(10, 20)]),
 			]
 		}
 	if(nextStep == "thick"):
 		return {
 			step = nextStep,
 			effects = [
-				charEffect("thi", "AddThickness", [RNG.randi_range(7, 20) if RNG.chance(50) && getChar().getThickness() < 130 else -RNG.randi_range(7, 20)]),
+				charEffect("thi", "AddThickness", [randi_range(7, 20) if RNG.chance(50) && getChar().getThickness() < 130 else -randi_range(7, 20)]),
 			]
 		}
 	if(nextStep == "hair"):
@@ -175,7 +175,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			step = nextStep,
 			effects = [
-				partEffect("breasts", BodypartSlot.Breasts, "BreastSizeChange", [RNG.randi_range(1, 3) if (RNG.chance(50) || !canDecrease) else -RNG.randi_range(1, 3)]),
+				partEffect("breasts", BodypartSlot.Breasts, "BreastSizeChange", [randi_range(1, 3) if (RNG.chance(50) || !canDecrease) else -randi_range(1, 3)]),
 			]
 		}
 	if(nextStep == "penlen"):
@@ -183,7 +183,7 @@ func doProgress(_context:Dictionary) -> Dictionary:
 		return {
 			step = nextStep,
 			effects = [
-				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [RNG.randi_range(1, 4) if (RNG.chance(50) || !canDecrease) else -RNG.randi_range(1, 4)]),
+				partEffect("penLen", BodypartSlot.Penis, "PenisLengthChange", [randi_range(1, 4) if (RNG.chance(50) || !canDecrease) else -randi_range(1, 4)]),
 			]
 		}
 	if(nextStep == "skin"):
@@ -245,7 +245,7 @@ func reactProgress(_context:Dictionary, _result:TFResult):
 		playAnim(StageScene.TFLook, "hands")
 	
 func saveData() -> Dictionary:
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	
 	data["ls"] = lastStep
 	data["hot"] = howOftenTime
@@ -253,7 +253,7 @@ func saveData() -> Dictionary:
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	lastStep = SAVE.loadVar(_data, "ls", "")
 	howOftenTime = SAVE.loadVar(_data, "hot", -1)

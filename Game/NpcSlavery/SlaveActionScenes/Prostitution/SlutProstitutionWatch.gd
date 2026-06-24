@@ -35,7 +35,7 @@ func _reactInit():
 	var npcSlave:NpcSlave = npc.getNpcSlavery()
 	
 	var subStat = npcSlave.personalityScore({PersonalityStat.Subby:1.0})
-	var subbyness = RNG.randf_range(-1.0, 1.0) + subStat
+	var subbyness = randf_range(-1.0, 1.0) + subStat
 	slutIsDom = (subbyness < 0.0)
 	
 	if(instantConflict):
@@ -234,7 +234,7 @@ func _react_scene_end(_tag, _result):
 			npcSlavery.addTrust(-0.2)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["npc2ID"] = npc2ID
@@ -245,7 +245,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

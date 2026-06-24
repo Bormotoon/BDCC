@@ -92,13 +92,13 @@ func start():
 	addContinue("endEvent")
 
 func saveData() -> Dictionary:
-	var data := .saveData()
+	var data := super.saveData()
 	
 	data["pickedLock"] = pickedLock
 	
 	return data
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	pickedLock = SAVE.loadVar(_data, "pickedLock", "")

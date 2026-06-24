@@ -14,7 +14,7 @@ func _ready():
 		
 	var minButtonSize = OPTIONS.getUiButtonSize()
 	if(minButtonSize > 0):
-		rect_min_size = Vector2(0, 20 + minButtonSize * 16)
+		custom_minimum_size = Vector2(0, 20 + minButtonSize * 16)
 
 func setShortcutPhysicalScancode(code, reqControl:bool = false):
 	var newShortcut = ShortCut.new()
@@ -38,7 +38,7 @@ func setShortcutPhysicalScancode(code, reqControl:bool = false):
 
 
 func _on_SceneOptionButton_pressed():
-	if(OS.has_touchscreen_ui_hint() && OPTIONS.shouldRequireDoubleTapOnMobile()):
+	if(DisplayServer.is_touchscreen_available() && OPTIONS.shouldRequireDoubleTapOnMobile()):
 		if(!showingDescription):
 			showingDescription = true
 			mouse_entered.emit()

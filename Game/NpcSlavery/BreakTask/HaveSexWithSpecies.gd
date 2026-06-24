@@ -66,12 +66,12 @@ func getNpcOwnerDialogueLines() -> Array:
 	]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["speciesID"] = speciesID
 	
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	speciesID = SAVE.loadVar(data, "speciesID", Species.Human)

@@ -32,7 +32,7 @@ func saveData():
 	return data
 
 func loadData(_data):
-	image.loadData(loadVar(_data, "image", PoolByteArray()))
+	image.loadData(loadVar(_data, "image", PackedByteArray()))
 	
 func loadVar(_data, thekey, defaultValue = null):
 	if(_data.has(thekey)):

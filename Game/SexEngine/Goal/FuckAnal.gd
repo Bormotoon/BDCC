@@ -42,7 +42,7 @@ func doFastSex(_sexEngine, _domInfo, _subInfo, _data):
 			sub.cummedInAnusBy(dom.getID())
 
 	if(RNG.chance(50)):
-		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=RNG.randi_range(1, 20),isDefense=false,intentional=false})
+		sendSexEvent(_sexEngine, SexEvent.PainInflicted, _domInfo, _subInfo, {pain=randi_range(1, 20),isDefense=false,intentional=false})
 
 	if(RNG.chance(20)):
 		var zone = BodyWritingsZone.getRandomZone()
