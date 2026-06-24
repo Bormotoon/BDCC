@@ -53,9 +53,9 @@ func start(_args:Dictionary = {}):
 static func calculateSlaveTraitsStatic(theChar:BaseCharacter) -> Dictionary:
 	var theTraits:Dictionary = {}
 	for traitID in GlobalRegistry.getAuctionTraits():
-		var trait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
+		var auctionTrait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
 		
-		var score:float = trait.calculateScore(traitID, theChar)
+		var score:float = auctionTrait.calculateScore(traitID, theChar)
 		theTraits[traitID] = score
 	return theTraits
 
@@ -80,10 +80,10 @@ func getText() -> String:
 	var slavesTraitsTexts:Array = []
 	for traitID in slaveTraits:
 		var score:float = slaveTraits[traitID]
-		var trait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
+		var auctionTrait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
 		
 		if(score > 0.0):
-			var theName:String = trait.getName(traitID)
+			var theName:String = auctionTrait.getName(traitID)
 			if(usedTraits.has(traitID)):
 				theName = "[color=#FF63E7]"+theName+"[/color]"
 			

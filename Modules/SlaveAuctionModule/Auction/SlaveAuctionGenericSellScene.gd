@@ -167,9 +167,9 @@ func printSlaveTraits():
 	var slaveTraits = SlaveAuction.calculateSlaveTraitsStatic(getCharacter(slaveID))
 	for traitID in slaveTraits:
 		var score:float = slaveTraits[traitID]
-		var trait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
+		var auctionTrait:AuctionTrait = GlobalRegistry.getAuctionTrait(traitID)
 		if(score > 0.0):
-			var theName:String = trait.getName(traitID)
+			var theName:String = auctionTrait.getName(traitID)
 			sayn("- "+theName+": "+str(Util.roundF(score*100.0, 1))+"%")
 	sayn("")
 

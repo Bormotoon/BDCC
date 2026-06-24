@@ -1,4 +1,4 @@
-extends "res://Util/SimpleParser.gd"
+extends RefCounted
 class_name GameParser
 
 ## MIGRATED to Godot 4 (GDScript 2.0).
