@@ -276,7 +276,7 @@ func tryToPopulateFilesList():
 	if(zipToLoad.get_file() == "BDCC.pck"):
 		return "This file is required for mods to function on Android version. On other platforms this file is Not required and will be disabled automatically"
 	
-	var gdunzip = GDUnzip.new()
+	var gdunzip = load("res://Util/gdunzip.gd").new()
 	
 	var loaded = gdunzip.load(zipToLoad)
 	

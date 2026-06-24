@@ -269,7 +269,7 @@ func _handle_get_toys_response(response:Dictionary):
 		var _group:int = 0
 		var _i:int = 0
 #		for theFeature in theDBToyInfo["features"]: # Didn't really work sadly
-#			var newToy := SexToyVibrator.new()
+#			var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 #			newToy.setBackend(id, str(theToyKey), theReportedName, str(_i))
 #			newToy.name = theFinalName+" ("+theFeature["name"]+")"
 #			newToy.group = _group
@@ -308,7 +308,7 @@ func _handle_get_toys_response(response:Dictionary):
 			else:
 				continue
 			
-			var newToy := SexToyVibrator.new()
+			var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 			newToy.setBackend(id, str(theToyKey), theReportedName, str(_i))
 			newToy.name = theFinalName+" ("+theFullFunction+")"
 			newToy.group = _group

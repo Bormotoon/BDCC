@@ -200,7 +200,7 @@ func processButtplugIOMessage(_message:Dictionary):
 					
 					var _minMaxValues:Array = theOutput[theVibrateType].get("Value", [0, 1])
 					
-					var newToy := SexToyVibrator.new()
+					var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 					newToy.setBackend(id, _deviceName, _featureDesc, "vib"+featureStrIndx)
 					newToy.name = _deviceName
 					if(_featureDesc.is_empty()):

@@ -237,7 +237,7 @@ func loadData(_data:Dictionary):
 	for theToyEntry in toysData:
 		var theType:int = SAVE.loadVar(theToyEntry, "type", SexToyType.Unknown)
 		if(theType == SexToyType.Vibrator):
-			var theToy = SexToyVibrator.new()
+			var theToy = load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 			theToy.loadData(SAVE.loadVar(theToyEntry, "data", {}))
 			theToy.missing = true
 			toys.append(theToy)

@@ -67,7 +67,7 @@ func _ready():
 func onEnabled():
 	var theToys:Array = []
 	for theGroup in SexToyGroup.ALL:
-		var newToy := SexToyVibrator.new()
+		var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 		newToy.setBackend(id, "some", "", str(theGroup + 1))
 		var toyData:Dictionary = {}
 		newToy.backendData = toyData
