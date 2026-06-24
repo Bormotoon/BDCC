@@ -3165,7 +3165,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["canBreed"] = canBreed
 	data["usedCondom"] = usedCondom
@@ -3176,7 +3176,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	canBreed = SAVE.loadVar(data, "canBreed", false)
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)

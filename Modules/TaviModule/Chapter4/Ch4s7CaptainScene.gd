@@ -846,13 +846,13 @@ func _react_scene_end(_tag, _result):
 			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["skar_added_blindfold"] = skar_added_blindfold
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	skar_added_blindfold = SAVE.loadVar(data, "skar_added_blindfold", false)

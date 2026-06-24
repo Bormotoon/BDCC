@@ -22,13 +22,13 @@ func _doAttack(_attacker, _receiver, _context = {}):
 
 	var text = ""
 	if((_receiver.isPlayer() && _receiver.hasPenis()) || (!_receiver.isPlayer() && _receiver.getGender() != Gender.Female)):
-		_damage = RNG.randi_range(30, 50)
+		_damage = randi_range(30, 50)
 		text += "{attacker.name} kicks {receiver.name} in the balls! It was incredibly painful.\n"
 		
 		if(!_receiver.hasEffect(StatusEffect.Collapsed) && _receiver.addEffect(StatusEffect.Collapsed)):
 			text += "{receiver.name} holds onto {receiver.his} crotch and [b]hits the floor.[/b]\n"
 	else:
-		_damage = RNG.randi_range(10, 10)
+		_damage = randi_range(10, 10)
 		text += "{attacker.name} manages to land a kick on {receiver.name} crotch but it wasn’t very painful.\n"
 		
 	return {

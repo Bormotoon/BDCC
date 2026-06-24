@@ -25,14 +25,14 @@ func getDescription():
 	return text
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["charges"] = charges
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	charges = SAVE.loadVar(data, "charges", 3)
 

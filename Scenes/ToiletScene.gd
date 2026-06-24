@@ -116,7 +116,7 @@ func _react(_action: String, _args):
 		
 		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
 		if(item != null):
-			var howMuch = GM.pc.getBodypart(BodypartSlot.Vagina).getFluids().transferTo(item, RNG.randf_range(0.1, 0.3))
+			var howMuch = GM.pc.getBodypart(BodypartSlot.Vagina).getFluids().transferTo(item, randf_range(0.1, 0.3))
 			usedItemName = item.getVisibleName()
 			
 			addMessage("You manage to fill the "+usedItemName+" with "+str(Util.roundF(howMuch, 1))+" ml of stuff")
@@ -126,7 +126,7 @@ func _react(_action: String, _args):
 		
 		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
 		if(item != null):
-			var howMuch = GM.pc.getBodypart(BodypartSlot.Anus).getFluids().transferTo(item, RNG.randf_range(0.1, 0.3))
+			var howMuch = GM.pc.getBodypart(BodypartSlot.Anus).getFluids().transferTo(item, randf_range(0.1, 0.3))
 			usedItemName = item.getVisibleName()
 			
 			addMessage("You manage to fill the "+usedItemName+" with "+str(Util.roundF(howMuch, 1))+" ml of stuff")
@@ -139,13 +139,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["usedItemName"] = usedItemName
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	usedItemName = SAVE.loadVar(data, "usedItemName", "")

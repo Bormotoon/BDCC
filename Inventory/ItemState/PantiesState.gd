@@ -32,11 +32,11 @@ func getActions():
 		]
 
 func resetState():
-	.resetState()
+	super.resetState()
 	shiftedAside = false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["shiftedAside"] = shiftedAside
 	data["removed"] = removed
@@ -47,7 +47,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	shiftedAside = SAVE.loadVar(_data, "shiftedAside", false)
 	removed = SAVE.loadVar(_data, "removed", false)
 	casualName = SAVE.loadVar(_data, "casualName", "panties")

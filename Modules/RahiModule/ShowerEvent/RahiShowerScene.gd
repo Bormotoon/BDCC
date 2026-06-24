@@ -402,10 +402,10 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["intervene", "rub_her_back", "crouch", "cum_inside"]):
-		processTime(RNG.randi_range(3, 10)*60)
+		processTime(randi_range(3, 10)*60)
 		
 	if(_action in ["make_her_cum", "use_condom", "just_kiss", "no_condom"]):
-		processTime(RNG.randi_range(20, 40)*60)
+		processTime(randi_range(20, 40)*60)
 	
 	if(_action == "rub_her_back"):
 		GM.pc.afterTakingAShower()
@@ -451,7 +451,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["usedCondom"] = usedCondom
 	data["condomBroke"] = condomBroke
@@ -460,7 +460,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)
 	condomBroke = SAVE.loadVar(data, "condomBroke", false)

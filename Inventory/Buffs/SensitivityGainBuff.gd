@@ -51,7 +51,7 @@ func getBuffColor():
 	return Color.greenyellow
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["sensType"] = sensType
 	data["amount"] = amount
@@ -59,7 +59,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	sensType = SAVE.loadVar(_data, "sensType", BuffAttribute.SensitivityGainAll)
 	amount = SAVE.loadVar(_data, "amount", 0)
 

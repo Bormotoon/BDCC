@@ -711,7 +711,7 @@ func _on_GenerateCodeButton_pressed():
 		result.append("")
 		
 		result.append("func saveData():")
-		result.append("\tvar data = .saveData()")
+		result.append("\tvar data = super.saveData()")
 		result.append("")
 		for varID in customVariables:
 			result.append("\tdata[\""+varID+"\"] = "+varID)
@@ -927,7 +927,7 @@ func _on_SaveButton_pressed():
 		"customCodeText": customCodeText,
 	}
 	
-	var resultText = JSON.print(data)#, "\t"
+	var resultText = JSON.stringify(data)#, "\t"
 	exportedCodeTextEdit.text = resultText
 	exportedCodeDialog.show_modal()
 

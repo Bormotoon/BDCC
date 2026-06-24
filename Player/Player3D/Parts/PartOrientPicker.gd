@@ -1,7 +1,7 @@
 extends Spatial
 class_name PartOrientPicker
 
-@export var var invert = false
+@export var invert = false
 
 var _theDoll:Spatial
 # stores the doll itself by sarching in loop

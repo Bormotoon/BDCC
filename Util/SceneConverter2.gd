@@ -368,7 +368,7 @@ func _on_Button_pressed():
 	
 	if(!trackedVariables.is_empty()):
 		result.append("func saveData():")
-		result.append("\tvar data = .saveData()")
+		result.append("\tvar data = super.saveData()")
 		result.append("")
 		
 		for variableName in trackedVariables:

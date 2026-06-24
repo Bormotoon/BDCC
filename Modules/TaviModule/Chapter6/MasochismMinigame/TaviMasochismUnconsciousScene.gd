@@ -321,7 +321,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCorrupt"] = isCorrupt
 	data["isPure"] = isPure
@@ -332,7 +332,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCorrupt = SAVE.loadVar(data, "isCorrupt", false)
 	isPure = SAVE.loadVar(data, "isPure", false)

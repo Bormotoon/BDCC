@@ -77,7 +77,7 @@ func getDevCommentary():
 	return datapackScene.devcomment
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["datapackID"] = datapackID
 	data["datapackSceneID"] = datapackSceneID
@@ -86,7 +86,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	datapackID = SAVE.loadVar(data, "datapackID", "")
 	datapackSceneID = SAVE.loadVar(data, "datapackSceneID", "")

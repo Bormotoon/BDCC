@@ -323,7 +323,7 @@ func _react(_action: String, _args):
 			GM.pc.getInventory().addItem(item)
 			addMessage("You received "+item.getAStackName())
 		if(subOffered == "some credits"):
-			var credAmount = RNG.randi_range(2, 5)
+			var credAmount = randi_range(2, 5)
 			GM.pc.addCredits(credAmount)
 			addMessage("You received "+str(credAmount)+" credits")
 	
@@ -373,7 +373,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["sawBefore"] = sawBefore
@@ -384,7 +384,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	sawBefore = SAVE.loadVar(data, "sawBefore", false)

@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 const version:String = "1.0"

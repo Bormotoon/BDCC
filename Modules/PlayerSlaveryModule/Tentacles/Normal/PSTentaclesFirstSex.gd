@@ -200,13 +200,13 @@ func _react_scene_end(_tag, _result):
 			setState("8_after")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["biggestStat"] = biggestStat
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	biggestStat = SAVE.loadVar(data, "biggestStat", -1)

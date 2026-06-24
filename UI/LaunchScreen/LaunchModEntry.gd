@@ -52,8 +52,8 @@ func getPreview():
 	var l = Label.new()
 	l.text = label.text
 	panel.add_stylebox_override("panel",preload("res://UI/LaunchScreen/LaunchModEntryPanel.tres"))
-	lp.rect_min_size = size
-	panel.rect_min_size = size
+	lp.custom_minimum_size = size
+	panel.custom_minimum_size = size
 	lp.add_child(panel)
 	l.add_color_override("font_color",label.get_color("font_color"))
 	panel.add_child(l)

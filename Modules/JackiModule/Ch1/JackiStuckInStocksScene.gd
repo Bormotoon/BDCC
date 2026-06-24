@@ -690,7 +690,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["just_leave", "ask", "cum_inside", "continue", "make_her_cum", "lie", "help", "stocks", "attack", "help1", "bullies_cum", "help_her", "break_stocks", "bathroom", "use_a_restraint_key", "seduce"]):
-		processTime(RNG.randi_range(1,5) * 60)
+		processTime(randi_range(1,5) * 60)
 	
 	if(_action in ["anal", "anal_fingering", "stay"]):
 		processTime(20 * 60)

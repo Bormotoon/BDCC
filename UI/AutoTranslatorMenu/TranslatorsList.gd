@@ -14,9 +14,9 @@ var translatorItemScene = preload("res://UI/AutoTranslatorMenu/TranslatorItem.ts
 
 func _ready():
 	if(smallContainer):
-		$ScrollContainer.rect_min_size.y = 100
+		$ScrollContainer.custom_minimum_size.y = 100
 	else:
-		$ScrollContainer.rect_min_size.y = 200
+		$ScrollContainer.custom_minimum_size.y = 200
 
 func clearTranslators():
 	translators.clear()

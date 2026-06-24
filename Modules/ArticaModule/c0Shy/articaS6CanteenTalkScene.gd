@@ -1809,7 +1809,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isFirstTime"] = isFirstTime
 	data["shyness"] = shyness
@@ -1820,7 +1820,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isFirstTime = SAVE.loadVar(data, "isFirstTime", false)
 	shyness = SAVE.loadVar(data, "shyness", 0.0)

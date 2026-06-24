@@ -46,7 +46,7 @@ func createBodyparts():
 	giveBodypartUnlessSame(breasts)
 
 func onGivingBirth(_impregnatedEggCells: Array, _newkids: Array):
-	.onGivingBirth(_impregnatedEggCells, _newkids)
+	super.onGivingBirth(_impregnatedEggCells, _newkids)
 	
 	GM.main.increaseModuleFlag("RahiModule", "Rahi_GaveBirthTimes", 1)
 

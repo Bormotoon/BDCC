@@ -1,8 +1,8 @@
 extends Spatial
 class_name PartStatePicker
 
-@export var var state = ""
-@export var var defaultValue = ""
+@export var state = ""
+@export var defaultValue = ""
 
 func _ready():
 	setValue(defaultValue)

@@ -23,7 +23,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	_receiver.addEffect(StatusEffect.Bleeding)
 	return {
 		text = text,
-		pain = RNG.randi_range(20, 30),
+		pain = randi_range(20, 30),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

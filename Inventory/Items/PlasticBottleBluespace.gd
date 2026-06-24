@@ -16,7 +16,7 @@ func getTags():
 	var canBuyBottle:bool = false
 	if(GM.main != null && GM.main.SCI != null && GM.main.SCI.hasUpgrade("advPlasticBottle")):
 		canBuyBottle = true
-	var result:Array = .getTags()
+	var result:Array = super.getTags()
 	if(!canBuyBottle):
 		result.erase(ItemTag.SoldByMedicalVendomat)
 	return result

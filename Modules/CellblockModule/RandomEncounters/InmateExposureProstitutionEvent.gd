@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.HighExposureInmateEvent)
 
 func react(_triggerID, _args):
-	var encounterLevel = RNG.randi_range(0, 5)
+	var encounterLevel = randi_range(0, 5)
 	if(_args.size() > 0):
 		encounterLevel = _args[0]
 	

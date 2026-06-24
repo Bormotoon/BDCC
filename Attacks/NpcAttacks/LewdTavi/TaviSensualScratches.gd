@@ -24,8 +24,8 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	
 	return {
 		text = text,
-		lust = RNG.randi_range(5, 10),
-		pain = RNG.randi_range(40, 50),
+		lust = randi_range(5, 10),
+		pain = randi_range(40, 50),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

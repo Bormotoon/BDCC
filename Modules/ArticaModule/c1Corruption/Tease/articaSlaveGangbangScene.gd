@@ -529,7 +529,7 @@ func _react(_action: String, _args):
 				onlyCocksGlobal = false
 				var strapon = GlobalRegistry.createItem(RNG.pick(GlobalRegistry.getItemIDsByTag(ItemTag.Strapon)))
 				var fluids = strapon.getFluids()
-				fluids.addFluid("CumLube", RNG.randi_range(2, 5)*RNG.randf_range(80.0, 100.0))
+				fluids.addFluid("CumLube", randi_range(2, 5)*randf_range(80.0, 100.0))
 				character.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 			else:
 				onlyStraponsGlobal = false
@@ -610,7 +610,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isNaked"] = isNaked
 	data["isCaged"] = isCaged
@@ -633,7 +633,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isNaked = SAVE.loadVar(data, "isNaked", false)
 	isCaged = SAVE.loadVar(data, "isCaged", false)

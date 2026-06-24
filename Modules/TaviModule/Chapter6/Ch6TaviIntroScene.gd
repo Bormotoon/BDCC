@@ -366,7 +366,7 @@ func _react(_action: String, _args):
 	if(_action == "do_fuck_strapon"):
 		var strapon = GlobalRegistry.createItem("StraponCanine")
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 		setFlag("TaviModule.TaviIsNotVirgin", true)
 

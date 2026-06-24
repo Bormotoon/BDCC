@@ -112,7 +112,7 @@ func getSupportedStates():
 	return ["tease", "inside", "sex", "fast", "finger", "lick", "stroke"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["hideNPC"] = {
 		type = "bool",

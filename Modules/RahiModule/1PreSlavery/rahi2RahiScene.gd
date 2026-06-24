@@ -494,14 +494,14 @@ func _react_scene_end(_tag, _result):
 			setFlag("RahiModule.rahi2WonGuard", false)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["guard_id"] = guard_id
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	guard_id = SAVE.loadVar(data, "guard_id", "")
 

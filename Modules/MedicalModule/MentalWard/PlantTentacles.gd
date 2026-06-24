@@ -23,7 +23,7 @@ func getCustomFluidType(_fluidSource) -> String:
 	return "IvyNectar"
 
 func getFluidAmount(_fluidSource):
-	return RNG.randf_range(350.0, 750.0)
+	return randf_range(350.0, 750.0)
 
 func getBaseFertility() -> float:
 	return 0.0

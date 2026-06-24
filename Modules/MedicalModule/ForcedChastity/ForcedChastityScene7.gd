@@ -492,7 +492,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(true):
-		processTime(RNG.randi_range(3,8)*60)
+		processTime(randi_range(3,8)*60)
 
 	if(_action == "bottom"):
 		GM.pc.addExperience(300)
@@ -516,7 +516,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["isSuccessful"] = isSuccessful
 	data["optionalScenesBadBehaviorAmount"] = optionalScenesBadBehaviorAmount
@@ -528,7 +528,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	isSuccessful = SAVE.loadVar(data, "isSuccessful", false)
 	optionalScenesBadBehaviorAmount = SAVE.loadVar(data, "optionalScenesBadBehaviorAmount", 0)

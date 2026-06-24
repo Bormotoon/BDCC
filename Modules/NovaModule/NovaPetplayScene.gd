@@ -787,10 +787,10 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["meow", "bark", "get_on_all_fours", "follow", "follow1", "let_it_happen", "hissgrowl", "follow2"]):
-		processTime(RNG.randi_range(3, 10)*60)
+		processTime(randi_range(3, 10)*60)
 		
 	if(_action in ["oral", "vaginal", "anal", "vagrest", "analrest"]):
-		processTime(RNG.randi_range(30, 60)*60)
+		processTime(randi_range(30, 60)*60)
 	
 	if(_action == "vaginalCondom"):
 		usedCondom = true
@@ -864,7 +864,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["isPuppy"] = isPuppy
 	data["usedCondom"] = usedCondom
@@ -873,7 +873,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	isPuppy = SAVE.loadVar(data, "isPuppy", false)
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)

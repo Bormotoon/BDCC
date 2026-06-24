@@ -218,7 +218,7 @@ func spottedMessages():
 			
 			var randomPop = RNG.pick(population)
 			if(randomPop == WorldPopulation.Inmates):
-				var randI = RNG.randi_range(0, 5)
+				var randI = randi_range(0, 5)
 				match(randI):
 					0:
 						spottedText = "You catch a lewd gaze of one of the inmates that stares at you and your {pc.masc} body."
@@ -258,7 +258,7 @@ func spottedMessages():
 							"[sayFemale]What a slut![/sayFemale]",
 						])
 			if(randomPop == WorldPopulation.Guards):
-				var randI = RNG.randi_range(0, 7)
+				var randI = randi_range(0, 7)
 				match(randI):
 					0:
 						spottedText = "One of the staff members glances at you. You quickly turn away but you’re almost certain he saw you doing something lewd."
@@ -318,7 +318,7 @@ func resolveCustomCharacterName(_charID):
 	return null
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedActionText"] = savedActionText
 	data["isInPublic"] = isInPublic
@@ -327,7 +327,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedActionText = SAVE.loadVar(data, "savedActionText", "")
 	isInPublic = SAVE.loadVar(data, "isInPublic", false)

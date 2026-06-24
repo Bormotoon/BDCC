@@ -844,7 +844,7 @@ func doDebugAction(_id, _args = {}):
 		GM.main.SCI.testedTFs.clear()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pickedUpgrade"] = pickedUpgrade
 	data["pickedTF"] = pickedTF
@@ -855,7 +855,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pickedUpgrade = SAVE.loadVar(data, "pickedUpgrade", "")
 	pickedTF = SAVE.loadVar(data, "pickedTF", "")

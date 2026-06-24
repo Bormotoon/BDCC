@@ -19,7 +19,7 @@ func _init():
 
 func _ready():
 	#print(makeToken("test"))
-	#print(ord('a'))
+	#print('a'.unicode_at(0))
 	#pass
 	if(true):
 		return
@@ -33,9 +33,9 @@ func _ready():
 		"X-Naver-Client-Secret: E41Lj1N0V_",
 	]
 	
-	var stuffToSend = "source=en&target=de&text="+("Hello world").percent_encode()
+	var stuffToSend = "source=en&target=de&text="+("Hello world").uri_encode()
 	
-	req.request("https://openapi.naver.com/v1/papago/n2mt", theheaders, true, HTTPClient.METHOD_POST, stuffToSend)
+	req.request("https://openapi.naver.com/v1/papago/n2mt", theheaders, HTTPClient.METHOD_POST, stuffToSend)
 
 func _http_request_completed(_result, _response_code, _headers, _body):
 	print(_body.get_string_from_utf8())
@@ -58,9 +58,9 @@ func translate(_targetLanguage, _inputText):
 		"X-Naver-Client-Secret: E41Lj1N0V_",
 	]
 	
-	var stuffToSend = "source=en&target="+_targetLanguage+"&text="+_inputText.percent_encode()
+	var stuffToSend = "source=en&target="+_targetLanguage+"&text="+_inputText.uri_encode()
 	
-	var reqerror = newreq.request("https://openapi.naver.com/v1/papago/n2mt", theheaders, true, HTTPClient.METHOD_POST, stuffToSend)
+	var reqerror = newreq.request("https://openapi.naver.com/v1/papago/n2mt", theheaders, HTTPClient.METHOD_POST, stuffToSend)
 
 	if(reqerror != OK):
 		theResult["error"] = true
@@ -94,12 +94,12 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "Empty response"
 		return theResult
 	var jsonResult = JSON.parse_string(theResultText)
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"
 		return theResult
 	
-	var translateData = jsonResult.result
+	var translateData = jsonResult
 	#print(translateData)
 	
 	#var translatedInputArray = []

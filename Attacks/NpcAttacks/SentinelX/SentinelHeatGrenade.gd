@@ -24,7 +24,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	text += "[say=attacker]"+RNG.pick(["Target is hit.", "Attack successful.", "Intruder is almost ready.", "Lust damage inflicted successfully."])+"[/say]"
 	return {
 		text = text,
-		lust = RNG.randi_range(30, 80),
+		lust = randi_range(30, 80),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

@@ -20,7 +20,6 @@ func _get_token(req: HTTPRequest, force_refresh = false):
 	var response = req.request(
 		"https://edge.microsoft.com/translate/auth",
 		header,
-		true,
 		HTTPClient.METHOD_GET
 	)
 	if(response != OK):
@@ -56,13 +55,7 @@ func translate(_targetLanguage, _inputText):
 	theurl += "&api-version=3.0"
 	theurl += "&includeSentenceLength=true"
 	
-	var get_token = _get_token(newreq)
-	var tk  = ""
-	
-	if get_token is GDScriptFunctionState:
-		tk = await get_token
-	else:
-		tk = get_token
+	var tk = await _get_token(newreq)
 	
 	var header = [
 		"accept: */*",
@@ -78,12 +71,12 @@ func translate(_targetLanguage, _inputText):
 		"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42",
 	]
 	
-	var body = JSON.print([{
+	var body = JSON.stringify([{
 		"Text": _inputText
 	}])
 	
 	
-	var reqerror = newreq.request(theurl, header, true, HTTPClient.METHOD_POST, body)
+	var reqerror = newreq.request(theurl, header, HTTPClient.METHOD_POST, body)
 	if(reqerror != OK):
 		theResult["error"] = true
 		theResult["errorMessage"] = "An error occurred in the HTTP request."
@@ -112,12 +105,12 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "Empty response"
 		return theResult
 	var jsonResult = JSON.parse_string(theResultText)
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"
 		return theResult
 	
-	var translateData = jsonResult.result[0]["translations"]
+	var translateData = jsonResult[0]["translations"]
 	#print(translateData)
 	
 	var translatedInputArray = []

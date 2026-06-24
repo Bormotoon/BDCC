@@ -8,7 +8,7 @@ func _init():
 	isSexEngineOnly = false
 	
 func setCharacter(c):
-	.setCharacter(c)
+	super.setCharacter(c)
 	character.pain_changed.connect(_on_pain_changed)
 	
 func initArgs(_args = []):

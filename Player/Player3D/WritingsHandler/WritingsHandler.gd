@@ -15,7 +15,7 @@ var randomSeed:int = 0
 var cacheArray:Array = []
 
 func _ready():
-	randomSeed = RNG.randi_range(1, 10000)
+	randomSeed = randi_range(1, 10000)
 	random.seed = randomSeed
 	random.state = randomSeed
 
@@ -33,7 +33,7 @@ func setData(_mesh):
 func triggerUpdate():
 	if(!update_timer.is_stopped()):
 		return
-	update_timer.start(RNG.randf_range(0.05, 0.1))
+	update_timer.start(randf_range(0.05, 0.1))
 
 func doUpdate():
 	random.state = randomSeed
@@ -68,10 +68,10 @@ func doUpdate():
 			
 			var vbox:VBoxContainer = VBoxContainer.new()
 			layers.add_child(vbox)
-			vbox.position = zoneInfo.pos#(zoneInfo.pos + Vector2(RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread), RNG.randf_range(-zoneInfo.posSpread, zoneInfo.posSpread)))/meshTextureSizeDiv
-			vbox.rect_rotation = zoneInfo.rot + random.randf_range(-zoneInfo.rotSpread, zoneInfo.rotSpread)
+			vbox.position = zoneInfo.pos#(zoneInfo.pos + Vector2(randf_range(-zoneInfo.posSpread, zoneInfo.posSpread), randf_range(-zoneInfo.posSpread, zoneInfo.posSpread)))/meshTextureSizeDiv
+			vbox.rotation = zoneInfo.rot + random.randf_range(-zoneInfo.rotSpread, zoneInfo.rotSpread)
 			vbox["custom_constants/separation"] = -5.0
-			vbox.rect_scale = Vector2(zoneInfo.scale, zoneInfo.scale)
+			vbox.scale = Vector2(zoneInfo.scale, zoneInfo.scale)
 			
 			var _i:int = 0
 			for writingInfo in dataInfo:
@@ -101,16 +101,16 @@ func doUpdate():
 		mesh.fancyMaterial.set_shader_param("texture_writings", EmptyTexture)
 
 func fixVbox(vbox:VBoxContainer, scaleRightMod:float, squish:Vector2):
-	vbox.rect_pivot_offset = vbox.get_rect().size / 2.0
-	vbox.position -= vbox.rect_pivot_offset
-	vbox.rect_scale.x = abs(vbox.rect_scale.x) * scaleRightMod
-	vbox.rect_scale *= squish
+	vbox.pivot_offset = vbox.get_rect().size / 2.0
+	vbox.position -= vbox.pivot_offset
+	vbox.scale.x = abs(vbox.scale.x) * scaleRightMod
+	vbox.scale *= squish
 	call_deferred("randomizeLabels", vbox)
 
 func randomizeLabels(vbox:VBoxContainer):
 	for labelA in vbox.get_children():
 		var newLabel:Label = labelA
-		newLabel.rect_rotation = random.randf_range(-3.0, 3.0)
+		newLabel.rotation = random.randf_range(-3.0, 3.0)
 		newLabel.position.x = random.randf_range(-10.0, 10.0)
 
 func _on_UpdateTimer_timeout():

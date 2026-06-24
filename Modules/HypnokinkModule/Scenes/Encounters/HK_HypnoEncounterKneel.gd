@@ -507,19 +507,19 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "kneel"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
 		processTime(5 * 60)
 		if(doneWhenIterations == -1):
-			doneWhenIterations = RNG.randi_range(3,6)
+			doneWhenIterations = randi_range(3,6)
 		iterations += 1
 		if(iterations >= doneWhenIterations):
 			setState("kneeled_enough")
 			return
 			
 	if(_action == "get_gagged"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
 		processTime(1 * 60)
-		GM.pc.addLust(RNG.randi_range(2,6))
+		GM.pc.addLust(randi_range(2,6))
 		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
 			var preexistingGag = GM.pc.getInventory().removeItemFromSlot(InventorySlot.Mouth)
 			removedOtherGag = preexistingGag.id
@@ -527,7 +527,7 @@ func _react(_action: String, _args):
 		gotGagged = true
 		
 	if(_action == "get_fucked_oral_1"):
-		GM.pc.addLust(RNG.randi_range(10,15))
+		GM.pc.addLust(randi_range(10,15))
 		if(npcVariation == "kind" && GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
 			GM.pc.getInventory().removeItemFromSlot(InventorySlot.Mouth)
 		if(!npc.hasPenis() && npcVariation == "mean"):
@@ -535,10 +535,10 @@ func _react(_action: String, _args):
 			npc.getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
 		
 	if(_action == "get_fucked_oral_2"):
-		GM.pc.addLust(RNG.randi_range(10,15))
+		GM.pc.addLust(randi_range(10,15))
 		
 	if(_action == "get_fucked_oral_3"):
-		GM.pc.addLust(RNG.randi_range(20,25))
+		GM.pc.addLust(randi_range(20,25))
 		if(npc.hasPenis()):
 			GM.pc.cummedInMouthBy(npcID)
 		else:
@@ -548,7 +548,7 @@ func _react(_action: String, _args):
 				GM.pc.cummedInMouthBy(npcID, FluidSource.Vagina)
 				
 	if(_action == "oral_afterward"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(20,30))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(20,30))
 		processTime(10 * 60)
 		if(removedOtherGag != ""):
 			GM.pc.getInventory().removeEquippedItemsWithBuff(Buff.RingGagBuff)
@@ -571,7 +571,7 @@ func _react_scene_end(_tag, _result):
 	pass
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["npcVariation"] = npcVariation
@@ -583,7 +583,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npcVariation = SAVE.loadVar(data, "npcVariation", "")

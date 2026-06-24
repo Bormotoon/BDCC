@@ -751,7 +751,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(20)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["first_npc_id"] = first_npc_id
 	data["second_npc_id"] = second_npc_id
@@ -759,7 +759,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	first_npc_id = SAVE.loadVar(data, "first_npc_id", "")
 	second_npc_id = SAVE.loadVar(data, "second_npc_id", "")

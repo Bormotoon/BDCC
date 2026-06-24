@@ -130,14 +130,14 @@ func resolveCustomCharacterName(_charID):
 	return .resolveCustomCharacterName(_charID)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pawnID"] = pawnID
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pawnID = SAVE.loadVar(data, "pawnID", "")
 

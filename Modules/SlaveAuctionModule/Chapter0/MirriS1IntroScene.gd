@@ -1047,7 +1047,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["hasContraband"] = hasContraband
 	data["slaveAmount"] = slaveAmount
@@ -1057,7 +1057,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	hasContraband = SAVE.loadVar(data, "hasContraband", false)
 	slaveAmount = SAVE.loadVar(data, "slaveAmount", 0)

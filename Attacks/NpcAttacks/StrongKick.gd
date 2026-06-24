@@ -24,7 +24,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 		text += " {receiver.name} collapsed onto the ground."
 	return {
 		text = text,
-		pain = RNG.randi_range(50, 60),
+		pain = randi_range(50, 60),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

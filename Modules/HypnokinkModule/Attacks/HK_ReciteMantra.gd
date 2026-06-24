@@ -21,7 +21,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	var text = RNG.pick(texts)
 	
 	var amount = HypnokinkUtil.getSuggestibleStacks(_attacker) / 2
-	amount = RNG.randi_range(amount * 0.65, amount)
+	amount = randi_range(amount * 0.65, amount)
 	
 	text += "\n[b]{attacker.name} is revitalised! (+"+str(amount)+" stamina)[/b]"
 		

@@ -25,7 +25,7 @@ func _on_ModBrowser_visibility_changed():
 		downloadedMods = true
 		var error = http_request.request("https://raw.githubusercontent.com/Alexofp/BDCCMods/main/allmods.json")
 		if error != OK:
-			Log.printerr("[ModBrowser] An error occurred in the HTTP request.")
+			Log.err("[ModBrowser] An error occurred in the HTTP request.")
 
 func resetMods():
 	pickedModEntry = null
@@ -46,15 +46,15 @@ func updateModList(modsArray = allMods):
 
 func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		Log.printerr("[ModBrowser] Couldn't download mods data from github")
+		Log.err("[ModBrowser] Couldn't download mods data from github")
 		return
 	
 	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
-	if(jsonResult.error != OK):
-		Log.printerr("[ModBrowser] Couldn't parse json data from github.")
+	if(jsonResult == null):
+		Log.err("[ModBrowser] Couldn't parse json data from github.")
 		return
 	
-	var modsData = jsonResult.result
+	var modsData = jsonResult
 	
 	resetMods()
 	
@@ -91,7 +91,7 @@ func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 		allMods.append(newModEntry)
 
 	sortType = "newest"
-	allMods.sort_custom(self, "sort_newest")
+	allMods.sort_custom(sort_newest)
 	updateModList()
 
 func updatePickedModEntry():
@@ -139,21 +139,21 @@ func _on_DownloadModButton_pressed():
 	http_request_mod.download_file = GlobalRegistry.getModsFolder().path_join(fileName)
 	var error = http_request_mod.request(pickedModEntry.download)
 	if error != OK:
-		Log.printerr("[ModBrowser] An error occurred in the HTTP request.")
+		Log.err("[ModBrowser] An error occurred in the HTTP request.")
 		showMessage("An error occurred in the HTTP request.")
 	else:
-		Log.print("Downloading mod: "+str(pickedModEntry.download))
+		Log.msg("Downloading mod: "+str(pickedModEntry.download))
 
 
 func _on_HTTPRequestMod_request_completed(result, _response_code, _headers, _body):
 	downloadingContainer.visible = false
 
 	if result != HTTPRequest.RESULT_SUCCESS:
-		Log.printerr("[ModBrowser] Couldn't download mod")
+		Log.err("[ModBrowser] Couldn't download mod")
 		showMessage("Couldn't download mod")
 		return
 	
-	Log.print("Mod downloaded")
+	Log.msg("Mod downloaded")
 
 func showMessage(text):
 	messageDialog.dialog_text = text
@@ -177,19 +177,19 @@ static func sort_oldest(a, b):
 
 func _on_SortNameButton_pressed():
 	sortType = "name"
-	allMods.sort_custom(self, "sort_name")
+	allMods.sort_custom(sort_name)
 	updateModList()
 
 
 func _on_SortNewestFirstButton_pressed():
 	sortType = "newest"
-	allMods.sort_custom(self, "sort_newest")
+	allMods.sort_custom(sort_newest)
 	updateModList()
 
 
 func _on_SortOldestFirstButton_pressed():
 	sortType = "oldest"
-	allMods.sort_custom(self, "sort_oldest")
+	allMods.sort_custom(sort_oldest)
 	updateModList()
 
 func _on_CloseButton_pressed():

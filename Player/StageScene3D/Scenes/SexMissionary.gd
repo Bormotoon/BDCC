@@ -99,7 +99,7 @@ func getVarNpcs():
 	return ["pc", "npc"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["uncon"] = {
 		type = "bool",

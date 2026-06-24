@@ -341,7 +341,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["visited_cell"] = visited_cell
 	data["visited_medical"] = visited_medical
@@ -349,7 +349,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	visited_cell = SAVE.loadVar(data, "visited_cell", false)
 	visited_medical = SAVE.loadVar(data, "visited_medical", false)

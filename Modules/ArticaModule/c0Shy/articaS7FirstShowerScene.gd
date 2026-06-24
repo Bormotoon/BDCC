@@ -457,13 +457,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isAfterSex"] = isAfterSex
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isAfterSex = SAVE.loadVar(data, "isAfterSex", false)

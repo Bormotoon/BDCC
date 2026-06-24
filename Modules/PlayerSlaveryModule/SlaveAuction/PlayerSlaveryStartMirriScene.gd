@@ -371,7 +371,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["helpedMirri"] = helpedMirri
 	data["mirriTimes"] = mirriTimes
@@ -379,7 +379,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	helpedMirri = SAVE.loadVar(data, "helpedMirri", false)
 	mirriTimes = SAVE.loadVar(data, "mirriTimes", 0)

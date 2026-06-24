@@ -271,7 +271,7 @@ func _generate_block_code(block: Dictionary) -> String:
 		"RNGInt":
 			var min_val: String = _resolve_value(block.get("min", "0"))
 			var max_val: String = _resolve_value(block.get("max", "100"))
-			return 'RNG.randi_range(%s, %s)' % [min_val, max_val]
+			return 'randi_range(%s, %s)' % [min_val, max_val]
 
 		# --- Type conversion ---
 		"ToString":

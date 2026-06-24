@@ -405,7 +405,7 @@ func _react(_action: String, _args):
 	if(_action == "next_milk_cycle"):
 		processTime(1*60)
 		milkCollected = 0.0
-		getCharacter("artica").addLust(RNG.randi_range(8, 12))
+		getCharacter("artica").addLust(randi_range(8, 12))
 		getCharacter("artica").addArousal(getCharacter("artica").getLustLevel()*0.2)
 		if(breastMilking):
 			var beganLactatingNow = getCharacter("artica").stimulateLactation()
@@ -413,7 +413,7 @@ func _react(_action: String, _args):
 				beganLactating = true
 			var pumpItem = getCharacter("artica").getInventory().getItemByUniqueID(breastPumpID)
 			if(pumpItem != null):
-				var howMuchToExtract = RNG.randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax()) / (6.0 - getCharacter("artica").getArousal()*4.0)
+				var howMuchToExtract = randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax()) / (6.0 - getCharacter("artica").getArousal()*4.0)
 				var howMuchCollected = getCharacter("artica").getBodypart(BodypartSlot.Breasts).getFluids().transferAmountTo(pumpItem, howMuchToExtract)
 				milkCollected = howMuchCollected
 		milkTotal += milkCollected
@@ -433,7 +433,7 @@ func _react(_action: String, _args):
 		if(breastMilking):
 			var pumpItem = getCharacter("artica").getInventory().getItemByUniqueID(breastPumpID)
 			if(pumpItem != null):
-				var howMuchToExtract = RNG.randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax())
+				var howMuchToExtract = randf_range(pumpItem.getMilkSpeedPerMinuteMin(), pumpItem.getMilkSpeedPerMinuteMax())
 				var howMuchCollected = getCharacter("artica").getBodypart(BodypartSlot.Breasts).getFluids().transferAmountTo(pumpItem, howMuchToExtract)
 				milkCollected = howMuchCollected
 		milkTotal += milkCollected
@@ -461,7 +461,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isNaked"] = isNaked
 	data["isCaged"] = isCaged
@@ -487,7 +487,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isNaked = SAVE.loadVar(data, "isNaked", false)
 	isCaged = SAVE.loadVar(data, "isCaged", false)

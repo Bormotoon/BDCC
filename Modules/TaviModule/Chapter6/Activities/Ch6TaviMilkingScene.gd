@@ -558,9 +558,9 @@ func _react(_action: String, _args):
 		processTime(18*60)
 		var progress = getFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		if(isEfficient):
-			progress += RNG.randi_range(20, 30)
+			progress += randi_range(20, 30)
 		else:
-			progress += RNG.randi_range(3, 10)
+			progress += randi_range(3, 10)
 		setFlag("TaviModule.Ch6TaviLactationProgress", progress)
 		if(progress >= 100 && RNG.chance(progress / 2)):
 			beganLactating = true
@@ -573,9 +573,9 @@ func _react(_action: String, _args):
 		processTime(18*60)
 		var progress = getFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		if(isEfficient):
-			progress += RNG.randi_range(20, 40)
+			progress += randi_range(20, 40)
 		else:
-			progress += RNG.randi_range(3, 10)
+			progress += randi_range(3, 10)
 		setFlag("TaviModule.Ch6TaviLactationProgress", progress)
 		if(progress >= 100 && RNG.chance(progress / 2)):
 			beganLactating = true
@@ -595,9 +595,9 @@ func _react(_action: String, _args):
 		processTime(18*60)
 		var progress = getFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		if(isEfficient):
-			progress += RNG.randi_range(50, 60)
+			progress += randi_range(50, 60)
 		else:
-			progress += RNG.randi_range(20, 30)
+			progress += randi_range(20, 30)
 		setFlag("TaviModule.Ch6TaviLactationProgress", progress)
 		if(progress >= 100 && RNG.chance(progress / 2)):
 			beganLactating = true
@@ -617,7 +617,7 @@ func _react(_action: String, _args):
 
 	if(_action == "lact_handmilking_do"):
 		processTime(10*60)
-		var milkAmount = getCharacter("tavi").milk(RNG.randf_range(0.2,0.3))
+		var milkAmount = getCharacter("tavi").milk(randf_range(0.2,0.3))
 		GM.pc.addSkillExperience(Skill.Milking, 20)
 		
 		addMessage("You milked Tavi for "+str(Util.roundF(milkAmount, 1))+" ml of milk")
@@ -690,7 +690,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCorrupt"] = isCorrupt
 	data["isPure"] = isPure
@@ -705,7 +705,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCorrupt = SAVE.loadVar(data, "isCorrupt", false)
 	isPure = SAVE.loadVar(data, "isPure", false)

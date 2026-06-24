@@ -429,7 +429,7 @@ func getSlipByChance():
 	return max(5.0, baseChance)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["sawBefore"] = sawBefore
@@ -439,7 +439,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	sawBefore = SAVE.loadVar(data, "sawBefore", false)

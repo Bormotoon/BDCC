@@ -30,7 +30,7 @@ func getBuffColor():
 	return DamageType.getColor(DamageType.Stamina)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["skill"] = skill
 	data["amount"] = amount
@@ -38,7 +38,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	skill = SAVE.loadVar(_data, "skill", "")
 	amount = SAVE.loadVar(_data, "amount", 0)
 

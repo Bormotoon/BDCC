@@ -59,7 +59,7 @@ func supportsSkin():
 	return false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["fluidType"] = fluidType
 	
 	return data
@@ -67,10 +67,10 @@ func saveData():
 func loadData(_data):
 	fluidType = SAVE.loadVar(_data, "fluidType", "GirlCum")
 	
-	.loadData(_data)
+	super.loadData(_data)
 
 func applyTFData(_data):
-	.applyTFData(_data)
+	super.applyTFData(_data)
 	
 	fluidType = loadTFVar(_data, "fluidType", fluidType)
 

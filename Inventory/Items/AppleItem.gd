@@ -60,14 +60,14 @@ func getItemCategory():
 	return ItemCategory.Medical
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["isLegal"] = isLegal
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	isLegal = SAVE.loadVar(data, "isLegal", false)
 

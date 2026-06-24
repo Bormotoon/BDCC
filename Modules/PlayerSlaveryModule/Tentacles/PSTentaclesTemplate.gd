@@ -26,13 +26,13 @@ func supportsShowingPawns() -> bool:
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	#data["ambushType"] = ambushType
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	#ambushType = SAVE.loadVar(data, "ambushType", "")

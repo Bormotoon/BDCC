@@ -275,7 +275,7 @@ func _react(_action: String, _args):
 		amountRequested = Util.maxi(2, amountRequested)
 
 	if(_action in ["ask_to_dom", "ask_to_sub"]):
-		amountRequested *= RNG.randi_range(2, 4)
+		amountRequested *= randi_range(2, 4)
 
 	if(_action == "endthescene"):
 		endScene()
@@ -357,7 +357,7 @@ func _react_scene_end(_tag, _result):
 				addMessage("You lost the stolen credits..")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["sawBefore"] = sawBefore
@@ -369,7 +369,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	sawBefore = SAVE.loadVar(data, "sawBefore", false)

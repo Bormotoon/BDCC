@@ -245,7 +245,7 @@ func _react(_action: String, _args):
 	if(_action == "artica_gets_stuffed_with_eggs"):
 		processTime(10*60)
 		getModule("ArticaModule").triggerCorruption(0.1)
-		getCharacter("artica").addEffect(StatusEffect.ArticaFullWithPlantEggs, [RNG.randi_range(7, 12)])
+		getCharacter("artica").addEffect(StatusEffect.ArticaFullWithPlantEggs, [randi_range(7, 12)])
 		getCharacter("artica").cummedInVaginaBy("plantTentacles")
 		getCharacter("artica").cummedInAnusBy("plantTentacles")
 		getCharacter("artica").cummedInMouthBy("plantTentacles")
@@ -257,7 +257,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isNaked"] = isNaked
 	data["isCaged"] = isCaged
@@ -270,7 +270,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isNaked = SAVE.loadVar(data, "isNaked", false)
 	isCaged = SAVE.loadVar(data, "isCaged", false)

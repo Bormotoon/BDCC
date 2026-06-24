@@ -120,7 +120,7 @@ func _run():
 		elif(npcVariation == "mean"):
 			saynn("[say=npc]"+descriptionsDemanding[endLocation]+"[/say]")
 		else:
-			if(RNG.randi_range(0,100) > 50):
+			if(randi_range(0,100) > 50):
 				saynn("[say=npc]"+descriptionsPolite[endLocation]+"[/say]")
 			else:
 				saynn("[say=npc]"+descriptionsDemanding[endLocation]+"[/say]")
@@ -230,7 +230,7 @@ func _react(_action: String, _args):
 		
 	if(_action == "skip_towards"):
 		while path.size() > 0:
-			HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(1,3))
+			HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
 			processTime(1 * 60)
 			path.remove_at(0)
 		if(!headingBack):
@@ -244,7 +244,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "moving_towards"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(1,3))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
 		processTime(1 * 60)
 		var nextLoc = path[0]
 		path.remove_at(0)
@@ -281,7 +281,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["npcVariation"] = npcVariation
@@ -293,7 +293,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npcVariation = SAVE.loadVar(data, "npcVariation", "")

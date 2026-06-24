@@ -35,7 +35,7 @@ func doStruggle(_pc, _minigame:MinigameResult):
 		
 		if(failChance(_pc, 10)):
 			text += " Ow! {user.name} accidently smashed them against "+RNG.pick(["the wall", "the ground", "something"])
-			pain = scaleDamage(RNG.randi_range(5, 10))
+			pain = scaleDamage(randi_range(5, 10))
 	
 	#damage = calcDamage()
 	

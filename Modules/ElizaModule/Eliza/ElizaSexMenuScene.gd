@@ -2574,7 +2574,7 @@ func _react(_action: String, _args):
 		getCharacter("eliza").addEffect(StatusEffect.SoreNipplesAfterMilking)
 
 	if(_action == "milk_more"):
-		getCharacter("eliza").fillBreasts(RNG.randf_range(0.7, 1.0))
+		getCharacter("eliza").fillBreasts(randf_range(0.7, 1.0))
 		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
 		GM.pc.addSkillExperience(Skill.Milking, 20)
 
@@ -2872,7 +2872,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isStrapon"] = isStrapon
 	data["hasCumInStrapon"] = hasCumInStrapon
@@ -2888,7 +2888,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isStrapon = SAVE.loadVar(data, "isStrapon", false)
 	hasCumInStrapon = SAVE.loadVar(data, "hasCumInStrapon", false)

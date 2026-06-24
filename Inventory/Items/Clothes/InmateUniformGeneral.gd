@@ -36,7 +36,7 @@ func getTags():
 		]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["prisonerNumber"] = prisonerNumber
 	data["inmateType"] = inmateType
@@ -44,7 +44,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	prisonerNumber = SAVE.loadVar(data, "prisonerNumber", "")
 	inmateType = SAVE.loadVar(data, "inmateType", InmateType.General)

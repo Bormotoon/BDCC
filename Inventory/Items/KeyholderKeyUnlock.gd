@@ -29,10 +29,10 @@ func getInventoryImage():
 	return "res://Images/Items/bdsm/key.png"
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["npcID"] = npcID
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	npcID = SAVE.loadVar(_data, "npcID", "")

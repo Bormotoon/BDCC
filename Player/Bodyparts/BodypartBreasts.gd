@@ -21,14 +21,14 @@ func setupSensitiveZone():
 	sensitiveZone.setBodypart(self)
 	
 func applyTFData(_data):
-	.applyTFData(_data)
+	super.applyTFData(_data)
 	
 	size = loadTFVar(_data, "size", size)
 	cached_size = getSize()
 	fluidType = loadTFVar(_data, "fluidType", fluidType)
 	
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["size"] = size
 	data["fluidType"] = fluidType
 	
@@ -38,11 +38,11 @@ func loadData(_data):
 	size = SAVE.loadVar(_data, "size", 0)
 	fluidType = SAVE.loadVar(_data, "fluidType", "Milk")
 	
-	.loadData(_data)
+	super.loadData(_data)
 	cached_size = getSize()
 
 func loadDataNPC(_data):
-	.loadDataNPC(_data)
+	super.loadDataNPC(_data)
 	cached_size = getSize()
 
 func getTraits():
@@ -103,7 +103,7 @@ func getLewdDescriptionAndName():
 	return text
 
 func getPickableAttributes():
-	var result = .getPickableAttributes()
+	var result = super.getPickableAttributes()
 	var breastVariants = [
 		[BreastsSize.FOREVER_FLAT, "Forever Flat", "Your breasts will never produce milk or increase in size"],
 		[BreastsSize.FLAT, "Flat", "Flat breasts"],
@@ -126,7 +126,7 @@ func setBreastSizeSafe(newValue):
 	size = newValue
 	
 func applyAttribute(_attrID: String, _attrValue):
-	.applyAttribute(_attrID, _attrValue)
+	super.applyAttribute(_attrID, _attrValue)
 	if(_attrID == "breastsize"):
 		size = _attrValue
 
@@ -158,7 +158,7 @@ func induceLactation():
 		fluidProduction.induceLactation()
 
 func processTime(_seconds: int):
-	.processTime(_seconds)
+	super.processTime(_seconds)
 	
 	var newSize = getSize()
 	if(cached_size != newSize):

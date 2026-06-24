@@ -27,7 +27,7 @@ func _reactInit():
 		return
 	
 	processTime(10*60)
-	var amount = GM.pc.getFluids().transferTo(item, RNG.randf_range(0.1, 0.2))
+	var amount = GM.pc.getFluids().transferTo(item, randf_range(0.1, 0.2))
 	
 	addMessage("You managed to collect "+str(Util.roundF(amount))+" ml")
 
@@ -55,14 +55,14 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["uniqueItemID"] = uniqueItemID
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
 	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)

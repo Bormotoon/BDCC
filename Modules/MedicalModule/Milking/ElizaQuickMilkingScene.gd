@@ -66,7 +66,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["breastsMilked"] = breastsMilked
 	data["penisMilked"] = penisMilked
@@ -77,7 +77,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	breastsMilked = SAVE.loadVar(data, "breastsMilked", false)
 	penisMilked = SAVE.loadVar(data, "penisMilked", false)

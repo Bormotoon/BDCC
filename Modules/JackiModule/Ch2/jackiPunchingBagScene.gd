@@ -709,7 +709,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["anger"] = anger
 	data["corruption"] = corruption
@@ -721,7 +721,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	anger = SAVE.loadVar(data, "anger", 0.0)
 	corruption = SAVE.loadVar(data, "corruption", 0.0)

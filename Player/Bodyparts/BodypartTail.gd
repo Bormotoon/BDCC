@@ -19,12 +19,12 @@ func getLewdName():
 	return RNG.pick(["tail"])
 
 func applyTFData(_data):
-	.applyTFData(_data)
+	super.applyTFData(_data)
 	
 	tailScale = loadTFVar(_data, "tailScale", tailScale)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["tailScale"] = tailScale
 	
 	return data
@@ -32,11 +32,11 @@ func saveData():
 func loadData(_data):
 	tailScale = SAVE.loadVar(_data, "tailScale", 1.0)
 	
-	.loadData(_data)
+	super.loadData(_data)
 	
 
 func getPickableAttributes():
-	var result = .getPickableAttributes()
+	var result = super.getPickableAttributes()
 	result["tailscale"] = {
 		"text": "Pick your tail's scale",
 		"textButton": "Tail scale",
@@ -63,7 +63,7 @@ func getPickableAttributes():
 	return result
 	
 func applyAttribute(_attrID: String, _attrValue):
-	.applyAttribute(_attrID, _attrValue)
+	super.applyAttribute(_attrID, _attrValue)
 	if(_attrID == "tailscale"):
 		tailScale = _attrValue
 

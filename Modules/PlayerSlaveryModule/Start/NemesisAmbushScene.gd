@@ -463,7 +463,7 @@ func _react(_action: String, _args):
 		GM.main.RS.stopSpecialRelationship(npcMain)
 		
 		if(willSoftSlavery):
-			processTime(RNG.randi_range(60, 180)*60)
+			processTime(randi_range(60, 180)*60)
 			GM.main.RS.startSpecialRelantionship("SoftSlavery", npcMain)
 			runScene("NpcOwnerEventRunnerScene", [npcMain, "Intro", ["ambush"]])
 			return
@@ -528,7 +528,7 @@ func sayOutcomeIfFail():
 		saynn("If you lose or submit, you will probably be [b]sold off on an auction[/b]..")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["ambushType"] = ambushType
 	data["ambushPlace"] = ambushPlace
@@ -541,7 +541,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	ambushType = SAVE.loadVar(data, "ambushType", "")
 	ambushPlace = SAVE.loadVar(data, "ambushPlace", "")

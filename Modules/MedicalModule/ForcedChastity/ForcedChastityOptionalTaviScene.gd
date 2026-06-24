@@ -322,7 +322,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(true):
-		processTime(RNG.randi_range(3,8)*60)
+		processTime(randi_range(3,8)*60)
 
 	if(_action == "givetavistrapon"):
 		var tavi = getCharacter("tavi")

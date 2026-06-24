@@ -427,7 +427,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 			
 			
-			for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, RNG.randi_range(1, 2)):
+			for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
 				addMessage(item.getForcedOnMessage())
 
 func getDevCommentary():

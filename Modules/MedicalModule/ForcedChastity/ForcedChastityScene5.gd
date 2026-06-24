@@ -492,7 +492,7 @@ func addChoices():
 
 func _react(_action: String, _args):
 	if(true):
-		processTime(RNG.randi_range(3,8)*60)
+		processTime(randi_range(3,8)*60)
 
 	if(_action == "continue1"):
 		GM.pc.addPain(20)

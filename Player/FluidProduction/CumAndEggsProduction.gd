@@ -33,7 +33,7 @@ func getNextEggProgress() -> float:
 	return eggProgress
 
 func processTime(seconds: int):
-	.processTime(seconds)
+	super.processTime(seconds)
 	
 	if(eggs >= maxEggs):
 		eggProgress = 0.0
@@ -57,7 +57,7 @@ func boostEggProduction():
 	eggs = maxEggs
 
 func saveData():
-	var data:Dictionary = .saveData()
+	var data:Dictionary = super.saveData()
 	data["eggs"] = eggs
 	#data["maxEggs"] = maxEggs # Set by the penis
 	data["eggProgress"] = eggProgress
@@ -66,7 +66,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	eggs = SAVE.loadVar(data, "eggs", 0)
 	eggProgress = SAVE.loadVar(data, "eggProgress", 0.0)

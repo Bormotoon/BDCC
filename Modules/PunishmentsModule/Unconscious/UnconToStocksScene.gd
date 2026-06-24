@@ -35,7 +35,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "do_drag_pc_off"):
 		GM.pc.setLocation("main_punishment_spot")
-		processTime(RNG.randi_range(120, 300)*60)
+		processTime(randi_range(120, 300)*60)
 
 			
 	

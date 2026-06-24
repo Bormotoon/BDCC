@@ -578,7 +578,7 @@ func _react(_action: String, _args):
 				damageBalanceMod = pow(damageBalanceMod, 0.7)
 			if(damageBalanceMod < 0.0):
 				damageBalanceMod = -pow(abs(damageBalanceMod), 0.7)
-			var theDamage = damageBalanceMod*10.0*RNG.randf_range(0.9, 1.1)
+			var theDamage = damageBalanceMod*10.0*randf_range(0.9, 1.1)
 			
 			var extraText = ""
 			if(isTease && enemyCharacter.getLustLevel() < 0.6 && theDamage > 0.0):
@@ -763,7 +763,7 @@ func aiTurn():
 		var attack: Attack = GlobalRegistry.getAttack(attackID)
 
 		if(attack == null):
-			Log.printerr("Bad attack "+str(attackID))
+			Log.err("Bad attack "+str(attackID))
 			attackID = "blunderAttack"
 			attack = GlobalRegistry.getAttack(attackID)
 			
@@ -1014,7 +1014,7 @@ func supportsBattleTurns():
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["enemyID"] = enemyID
 	data["whatPlayerDid"] = whatPlayerDid
@@ -1037,7 +1037,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	enemyID = SAVE.loadVar(data, "enemyID", "")
 	whatPlayerDid = SAVE.loadVar(data, "whatPlayerDid", "")

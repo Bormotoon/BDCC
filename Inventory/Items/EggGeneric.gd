@@ -82,14 +82,14 @@ func createEggCellForOviposition() -> EggCell:
 	return theEggCell
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["egg"] = egg.saveData()
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	egg = EggLaid.new()
 	egg.loadData(SAVE.loadVar(data, "egg", {}))

@@ -39,7 +39,7 @@ func playAnimation(animID, _args = {}):
 	elif(animID == "idle2"):
 		state_machine.travel("UrinalIdle2-loop")
 	else:
-		Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+		Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func getSupportedStates():
 	return ["idle", "idle2"]

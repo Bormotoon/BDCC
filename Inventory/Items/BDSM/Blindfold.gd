@@ -34,7 +34,7 @@ func isRestraint():
 
 func generateRestraintData():
 	restraintData = RestraintBlindfold.new()
-	restraintData.setLevel(RNG.randi_range(1, 2))
+	restraintData.setLevel(randi_range(1, 2))
 	
 func getForcedOnMessage(isPlayer = true):
 	if(isPlayer):

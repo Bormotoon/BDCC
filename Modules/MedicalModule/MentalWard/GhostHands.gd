@@ -23,7 +23,7 @@ func getCustomFluidType(_fluidSource) -> String:
 	return "WhiteGoo"
 
 func getFluidAmount(_fluidSource):
-	return RNG.randf_range(100.0, 200.0)
+	return randf_range(100.0, 200.0)
 
 func getBaseFertility() -> float:
 	return 0.0

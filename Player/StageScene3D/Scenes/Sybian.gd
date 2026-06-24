@@ -53,7 +53,7 @@ func playAnimation(animID, _args = {}):
 	elif(animID == "humpfast"):
 		state_machine.travel("SybianHumpFast-loop")
 	else:
-		Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+		Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func getSupportedStates():
 	return ["idle", "ride", "intense", "hump", "humpfast"]
@@ -62,7 +62,7 @@ func getVarNpcs():
 	return ["pc"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["chained"] = {
 		type = "bool",

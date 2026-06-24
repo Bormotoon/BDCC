@@ -177,7 +177,7 @@ func _send_local_command(payload:Dictionary) -> bool:
 		"X-platform: BDCC",
 	]
 
-	var body := JSON.print(payload)
+	var body := JSON.stringify(payload)
 	if DEBUG_LOVENSE:
 		logDebug("SENDING   " + str(body))
 
@@ -191,7 +191,7 @@ func _send_local_command(payload:Dictionary) -> bool:
 
 	return true
 
-func _on_local_request_completed(result:int, response_code:int, _headers:Array, body:PoolByteArray, req:HTTPRequest, kind:String):
+func _on_local_request_completed(result:int, response_code:int, _headers:Array, body:PackedByteArray, req:HTTPRequest, kind:String):
 	if is_instance_valid(req):
 		req.queue_free()
 
@@ -203,12 +203,12 @@ func _on_local_request_completed(result:int, response_code:int, _headers:Array, 
 	var text := body.get_string_from_utf8()
 
 	var parsed := JSON.parse_string(text)
-	if(parsed.error != OK):
+	if(parsed == null):
 		connectionStatus = STATUS_DISCONNECTED
-		logError("Invalid JSON response: "+str(parsed.error_string))
+		logError("Invalid JSON response")
 		return
 
-	var response = parsed.result
+	var response = parsed
 	if(DEBUG_LOVENSE):
 		logDebug("GOT   " + str(response))
 	
@@ -340,11 +340,11 @@ func onError(msg):
 func logDebug(_text:String):
 	if(!DEBUG_LOVENSE):
 		return
-	Log.print("[LovenseConnect] " + str(_text))
+	Log.msg("[LovenseConnect] " + str(_text))
 
 
 func logError(_text:String):
-	Log.printerr("[LovenseConnect] " + str(_text))
+	Log.err("[LovenseConnect] " + str(_text))
 	lastErrors.append(_text)
 
 const FEATURE_TO_COMMAND:Dictionary = {
@@ -400,13 +400,13 @@ func getToyInfo(_name:String) -> Dictionary:
 	
 
 func saveData() -> Dictionary:
-	var theData := .saveData()
+	var theData := super.saveData()
 	theData["localHost"] = localHost
 	return theData
 
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 
 	localHost = SAVE.loadVar(_data, "localHost", DEFAULT_LOCAL_HOST)
 

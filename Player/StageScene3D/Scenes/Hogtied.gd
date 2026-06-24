@@ -37,7 +37,7 @@ func playAnimation(animID, _args = {}):
 	if(animID == "idle"):
 		state_machine.travel("Hogtied-loop")
 	else:
-		Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+		Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func getSupportedStates():
 	return ["idle"]

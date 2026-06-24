@@ -176,7 +176,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["fight1", "startfight"]):
-		processTime(RNG.randi_range(5, 10) * 60)
+		processTime(randi_range(5, 10) * 60)
 	
 	if(_action == "startfight"):
 		var arenaFighter:FightClubFighter = GlobalRegistry.getFightClubFighter(savedFighterID)
@@ -211,20 +211,20 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedFighterID"] = savedFighterID
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedFighterID = SAVE.loadVar(data, "savedFighterID", "")
 
 func _react_scene_end(_tag, _result):
 	if(_tag == "arenafight"):
-		processTime(RNG.randi_range(30, 60) * 60)
+		processTime(randi_range(30, 60) * 60)
 		var battlestate = _result[0]
 		#var wonHow = _result[1]
 		var arenaFighter:FightClubFighter = GlobalRegistry.getFightClubFighter(savedFighterID)

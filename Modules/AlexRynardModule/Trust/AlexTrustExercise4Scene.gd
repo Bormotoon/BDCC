@@ -1670,7 +1670,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["bratCounter"] = bratCounter
 	data["usedCondom"] = usedCondom
@@ -1680,7 +1680,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	bratCounter = SAVE.loadVar(data, "bratCounter", 0)
 	usedCondom = SAVE.loadVar(data, "usedCondom", true)

@@ -322,7 +322,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["bornString"] = bornString
 	data["bornChildAmount"] = bornChildAmount
@@ -330,7 +330,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	bornString = SAVE.loadVar(data, "bornString", "")
 	bornChildAmount = SAVE.loadVar(data, "bornChildAmount", 0)

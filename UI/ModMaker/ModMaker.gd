@@ -37,9 +37,9 @@ func _on_Tree_item_selected():
 	pass
 
 func fillFolder(root:TreeItem, folder, filter):
-	var dir = DirAccess.new()
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true, false)
+	var dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -66,7 +66,7 @@ func fillFolder(root:TreeItem, folder, filter):
 					child1.set_metadata(0, full_path)
 			file_name = dir.get_next()
 	else:
-		Log.printerr("An error occurred when trying to access the path "+folder)
+		Log.err("An error occurred when trying to access the path "+folder)
 
 
 func _on_Button_pressed():
@@ -96,7 +96,7 @@ func addSelected(selected):
 	if(metadata == null):
 		return
 	var path = metadata
-	var dir = DirAccess.new()
+	var dir = DirAccess.open(".")
 	if(dir.dir_exists(path)):
 		print(path)
 		addFilesRec(path)
@@ -114,9 +114,9 @@ func addSelected(selected):
 	print("NOT FOUND")
 
 func addFilesRec(folder):
-	var dir = DirAccess.new()
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true, false)
+	var dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():

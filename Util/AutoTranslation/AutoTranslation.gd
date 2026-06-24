@@ -116,8 +116,6 @@ func translate(inputText):
 			if(!usedTranslators.has(translator)):
 				usedTranslators.append(translator)
 			var theResult = translator.translate(targetLanguage, theText)
-			if(theResult is GDScriptFunctionState):
-				theResult = await theResult
 			if(theResult == null || !(theResult is Dictionary) || !(theResult.has("success")) || !theResult["success"]):
 				continue
 			if(translator.id == "googlebatch"):
@@ -224,7 +222,7 @@ func saveToFile():
 	var save_game = FileAccess.open(configFilePath, FileAccess.WRITE)
 	save_game.open(configFilePath, FileAccess.WRITE)
 	
-	save_game.store_line(JSON.print(saveData, "\t", true))
+	save_game.store_line(JSON.stringify(saveData, "\t", true))
 	
 	save_game.close()
 
@@ -237,10 +235,10 @@ func loadFromFile():
 	save_game.open(configFilePath, FileAccess.READ)
 	#var saveData = JSON.parse_string(save_game.get_as_text())
 	var jsonResult = JSON.parse_string(save_game.get_as_text())
-	if(jsonResult.error != OK):
-		Log.printerr("AutoTranslation: Error while loading the options file, the file is not a valid json")
+	if(jsonResult == null):
+		Log.err("AutoTranslation: Error while loading the options file, the file is not a valid json")
 		return
 	
-	var saveData = jsonResult.result
+	var saveData = jsonResult
 	loadData(saveData)
 	save_game.close()

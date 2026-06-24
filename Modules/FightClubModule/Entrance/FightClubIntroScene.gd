@@ -135,7 +135,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["continue", "watch_the_fight", "stay"]):
-		processTime(RNG.randi_range(5, 10) * 60)
+		processTime(randi_range(5, 10) * 60)
 	
 	if(_action == "stay"):
 		getCharacter("kait").cummedInVaginaBy("avy")

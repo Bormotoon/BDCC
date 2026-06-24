@@ -85,7 +85,7 @@ func get_description() -> String:
 func get_visible_description() -> String:
 	var text := get_description()
 	if not (text is String):
-		Log.printerr(id + ".getDescription() RETURNS A BAD VALUE")
+		Log.err(id + ".getDescription() RETURNS A BAD VALUE")
 		text = ""
 	if item_state != null:
 		var extra_desc = item_state.get_extra_description()

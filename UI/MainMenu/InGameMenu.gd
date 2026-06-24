@@ -24,10 +24,10 @@ func resizeButtons():
 	]
 	if(OPTIONS.isTouchFriendlyUI()):
 		for theButton in theButtons:
-			theButton.rect_min_size = Vector2(200, 50)
+			theButton.custom_minimum_size = Vector2(200, 50)
 	else:
 		for theButton in theButtons:
-			theButton.rect_min_size = Vector2(0, 0)
+			theButton.custom_minimum_size = Vector2(0, 0)
 
 func _ready():
 	resizeButtons()

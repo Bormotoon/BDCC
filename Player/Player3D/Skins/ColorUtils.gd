@@ -6,9 +6,9 @@ static func mutateColorRandomly(theColor:Color, similliarChance = 33, complement
 	var pickedMutation = RNG.pickWeighted(possible, [similliarChance, complementChance, hugeShiftChance])
 	if(pickedMutation == "s"):
 		var newColor = Color(
-			theColor.r + RNG.randf_range(-0.1, 0.1),
-			theColor.g + RNG.randf_range(-0.1, 0.1),
-			theColor.b + RNG.randf_range(-0.1, 0.1)
+			theColor.r + randf_range(-0.1, 0.1),
+			theColor.g + randf_range(-0.1, 0.1),
+			theColor.b + randf_range(-0.1, 0.1)
 		)
 		return newColor
 	if(pickedMutation == "c"):
@@ -21,7 +21,7 @@ static func mutateColorRandomly(theColor:Color, similliarChance = 33, complement
 		#	return newColor.blend(theColor)
 		return newColor
 	if(pickedMutation == "h"):
-		theColor.h = theColor.h + RNG.randf_range(-0.3, 0.3)
+		theColor.h = theColor.h + randf_range(-0.3, 0.3)
 		return theColor
 	
 	return theColor
@@ -30,7 +30,7 @@ static func mutateColorSlightly(theColor:Color):
 	return mutateColorRandomly(theColor, 33.0, 0.0, 10.0)
 
 static func generateUnrealisticHairColors():
-	var primaryColor = Color(RNG.randf_range(0.0, 0.9), RNG.randf_range(0.0, 0.9), RNG.randf_range(0.0, 0.9)) # Random primary color
+	var primaryColor = Color(randf_range(0.0, 0.9), randf_range(0.0, 0.9), randf_range(0.0, 0.9)) # Random primary color
 
 	var secondaryColor: Color = mutateColorRandomly(primaryColor)
 	var tertiaryColor: Color = mutateColorRandomly(primaryColor)
@@ -61,9 +61,9 @@ static func generateGenericFurryColors():
 	var strategies = ["Toxic", "BrownColorColor", "WhiteGrayColor"]
 	var pickedStrategy = RNG.pick(strategies)
 	if(pickedStrategy == "WhiteGrayColor"):
-		var primaryColor = Color(RNG.randf_range(0.9, 1.0), RNG.randf_range(0.9, 1.0), RNG.randf_range(0.9, 1.0))
-		var secondaryColor = Color(RNG.randf_range(0.6, 0.8), RNG.randf_range(0.6, 0.8), RNG.randf_range(0.6, 0.8))
-		var tertiaryColor = Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 0.8), RNG.randf_range(0.3, 0.8))
+		var primaryColor = Color(randf_range(0.9, 1.0), randf_range(0.9, 1.0), randf_range(0.9, 1.0))
+		var secondaryColor = Color(randf_range(0.6, 0.8), randf_range(0.6, 0.8), randf_range(0.6, 0.8))
+		var tertiaryColor = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.6, 0.8), randf_range(0.3, 0.8))
 		primaryColor.h = tertiaryColor.h
 		secondaryColor.h = tertiaryColor.h
 		if(RNG.chance(50)):
@@ -72,9 +72,9 @@ static func generateGenericFurryColors():
 			tertiaryColor = copyColor
 		return [primaryColor, secondaryColor, tertiaryColor]
 	elif(pickedStrategy == "WhiteBlackColor"):
-		var primaryColor = Color(RNG.randf_range(0.8, 1.0), RNG.randf_range(0.8, 1.0), RNG.randf_range(0.8, 1.0))
-		var secondaryColor = Color(RNG.randf_range(0.1, 0.25), RNG.randf_range(0.1, 0.25), RNG.randf_range(0.1, 0.25))
-		var tertiaryColor = generateRandomPleasingFurColor().lerp(Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0)), RNG.randf_range(0.0, 1.0))
+		var primaryColor = Color(randf_range(0.8, 1.0), randf_range(0.8, 1.0), randf_range(0.8, 1.0))
+		var secondaryColor = Color(randf_range(0.1, 0.25), randf_range(0.1, 0.25), randf_range(0.1, 0.25))
+		var tertiaryColor = generateRandomPleasingFurColor().lerp(Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.6, 1.0), randf_range(0.9, 1.0)), randf_range(0.0, 1.0))
 		primaryColor.s /= 4.0
 		secondaryColor.s /= 4.0
 		if(RNG.chance(50)):
@@ -96,21 +96,21 @@ static func generateGenericFurryColors():
 			primaryColor = primaryColor.inverted()
 		if(primaryColor.v < 0.3):
 			primaryColor.v = 0.3
-		#var secondaryColor = Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0))
+		#var secondaryColor = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.6, 1.0), randf_range(0.9, 1.0))
 		var secondaryColor = generateRandomPleasingFurColor()
 		if(RNG.chance(30)):
-			secondaryColor = Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0))
+			secondaryColor = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.6, 1.0), randf_range(0.9, 1.0))
 		primaryColor.h = secondaryColor.h
 		var tertiaryColor = primaryColor.lerp(secondaryColor, RNG.randf_rangeX2(0.2, 0.5))
 		
 		return [primaryColor, secondaryColor, tertiaryColor]
 	elif(pickedStrategy == "BrownColorColor"):
-		var primaryColor = generateRandomPleasingFurColor()#generateRandomBrownishFurColor()#Color(RNG.randf_range(0.0, 0.9), RNG.randf_range(0.0, 0.9), RNG.randf_range(0.0, 0.9)) # Random primary color
+		var primaryColor = generateRandomPleasingFurColor()#generateRandomBrownishFurColor()#Color(randf_range(0.0, 0.9), randf_range(0.0, 0.9), randf_range(0.0, 0.9)) # Random primary color
 		var secondaryColor: Color = primaryColor
 		var tertiaryColor: Color = primaryColor
-		secondaryColor.v -= RNG.randf_range(0.1, 0.3)
-		tertiaryColor.s -= RNG.randf_range(0.1, 0.3)
-		tertiaryColor.v += RNG.randf_range(0.1, 0.3)
+		secondaryColor.v -= randf_range(0.1, 0.3)
+		tertiaryColor.s -= randf_range(0.1, 0.3)
+		tertiaryColor.v += randf_range(0.1, 0.3)
 		
 		#if(RNG.chance(30)):
 		#	primaryColor = mutateColorRandomly(primaryColor)
@@ -118,12 +118,12 @@ static func generateGenericFurryColors():
 		#if(RNG.chance(10)):
 		#	secondaryColor.h += 0.33
 		#elif(RNG.chance(30)):
-		#	secondaryColor.h += RNG.randf_range(-0.1, 0.1)
+		#	secondaryColor.h += randf_range(-0.1, 0.1)
 			
 		#if(RNG.chance(10)):
 		#	tertiaryColor.h += 0.66
 		#elif(RNG.chance(30)):
-		#	tertiaryColor.h += RNG.randf_range(-0.1, 0.1)
+		#	tertiaryColor.h += randf_range(-0.1, 0.1)
 
 		#secondaryColor = mutateColorSlightly(secondaryColor)
 		#tertiaryColor = mutateColorSlightly(tertiaryColor)
@@ -157,14 +157,14 @@ static func generateRandomPleasingFurColor():
 	return Color.from_hsv(RNG.randf_rangeX2(-0.1, 0.2), RNG.randf_rangeX2(0.2, 0.8), RNG.randf_rangeX2(0.2, 0.8))
 
 static func generateRandomVibrantColor():
-	return Color.from_hsv(RNG.randf_range(0.0, 1.0), RNG.randf_range(0.6, 1.0), RNG.randf_range(0.9, 1.0))
+	return Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.6, 1.0), randf_range(0.9, 1.0))
 
 static func generate3ColorsFromMainColor(primaryColor: Color):
 	var secondaryColor: Color = primaryColor
 	var tertiaryColor: Color = primaryColor
-	secondaryColor.v -= RNG.randf_range(0.1, 0.3)
-	tertiaryColor.s -= RNG.randf_range(0.1, 0.3)
-	tertiaryColor.v += RNG.randf_range(0.1, 0.3)
+	secondaryColor.v -= randf_range(0.1, 0.3)
+	tertiaryColor.s -= randf_range(0.1, 0.3)
+	tertiaryColor.v += randf_range(0.1, 0.3)
 	
 	return [primaryColor, secondaryColor, tertiaryColor]
 
@@ -182,8 +182,8 @@ const NaturalEggColors:Array = [
 static func generateNaturalEggColor() -> Color:
 	var someColor:Color = Color("#"+RNG.pick(NaturalEggColors))
 	
-	someColor.h += RNG.randf_range(-0.02, 0.02)
-	someColor.s += RNG.randf_range(-0.1, 0.1)
-	someColor.v += RNG.randf_range(-0.1, 0.1)
+	someColor.h += randf_range(-0.02, 0.02)
+	someColor.s += randf_range(-0.1, 0.1)
+	someColor.v += randf_range(-0.1, 0.1)
 	
 	return someColor

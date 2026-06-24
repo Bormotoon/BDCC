@@ -158,7 +158,7 @@ func getVarNpcs():
 	return ["pc", "npc", "npc2"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["onlyLeft"] = {
 		type = "bool",

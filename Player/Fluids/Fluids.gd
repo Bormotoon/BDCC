@@ -133,7 +133,7 @@ func transferTo(otherFluids, fraction = 0.5, minAmount = 0.0, causerID:String = 
 			assert(false, "Bad fluids object")
 	
 	if(otherFluids == null):
-		Log.printerr("transferTo() null Fluids object encountered")
+		Log.err("transferTo() null Fluids object encountered")
 		return 0.0
 	
 	if(minAmount > 0.0 && getFluidAmount() > 0.0):
@@ -163,7 +163,7 @@ func transferAmountTo(otherFluids, howMuch, causerID:String = ""):
 			assert(false, "Bad fluids object")
 	
 	if(otherFluids == null):
-		Log.printerr("transferAmountTo() null Fluids object encountered")
+		Log.err("transferAmountTo() null Fluids object encountered")
 		return 0.0
 	
 	var fluidAmount = getFluidAmount()
@@ -193,7 +193,7 @@ func shareFluids(otherFluids, fraction = 0.5, causerID:String = ""):
 			assert(false, "Bad fluids object")
 	
 	if(otherFluids == null):
-		Log.printerr("shareFluids() null Fluids object encountered")
+		Log.err("shareFluids() null Fluids object encountered")
 		return false
 	
 	var result = false
@@ -227,7 +227,7 @@ func doDrainObsorb(howMuchToDrain: float, howMuchGotObsorbed: float):
 	var shouldRemoveInternal = false
 	
 	for fluidData in contents:
-		var share: float = fluidData["amount"] / fluidAmount * RNG.randf_range(0.8, 1.1)
+		var share: float = fluidData["amount"] / fluidAmount * randf_range(0.8, 1.1)
 		var toRemove = share * howMuchToDrain
 		var toObsorb = share * howMuchGotObsorbed
 		if(fluidData["amount"] < 0.1):
@@ -258,7 +258,7 @@ func drain(howMuchToDrain: float, randMin:float = 1.0, randMax:float = 1.0):
 	var result = 0.0
 	
 	for fluidData in contents:
-		var share: float = fluidData["amount"] / fluidAmount * RNG.randf_range(randMin, randMax)
+		var share: float = fluidData["amount"] / fluidAmount * randf_range(randMin, randMax)
 		var toRemove = share * howMuchToDrain
 		if(fluidData["amount"] < 0.1):
 			toRemove = fluidData["amount"]

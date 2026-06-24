@@ -1338,8 +1338,8 @@ func _react(_action: String, _args):
 	
 	if(_action == "anus_lick_swallow"):
 		processTime(60*2)
-		#GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, RNG.randf_range(0.3,0.5))
-		#GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, RNG.randf_range(0.1,0.4))
+		#GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
+		#GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.orgasmFrom(portalCharID)
 		connectedChar.setArousal(0.0)
@@ -1375,8 +1375,8 @@ func _react(_action: String, _args):
 	
 	if(_action == "vagina_lick_swallow"):
 		processTime(60*2)
-		GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, RNG.randf_range(0.3,0.5))
-		GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, RNG.randf_range(0.1,0.4))
+		GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
+		GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.orgasmFrom(portalCharID)
 		connectedChar.setArousal(0.0)
@@ -1489,7 +1489,7 @@ func getNpcsWithPortalPanties():
 	return result
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["uniqueItemID"] = uniqueItemID
 	data["portalCharID"] = portalCharID
@@ -1501,7 +1501,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
 	portalCharID = SAVE.loadVar(data, "portalCharID", "pc")

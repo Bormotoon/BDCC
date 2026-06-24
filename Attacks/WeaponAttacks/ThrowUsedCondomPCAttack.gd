@@ -58,7 +58,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	
 	var extraText = Util.join(extraMessages, "\n\n")
 	#_receiver.addEffect(StatusEffect.Stunned, [2])
-	item.getFluids().transferTo(_receiver, RNG.randf_range(0.5, 1.0))
+	item.getFluids().transferTo(_receiver, randf_range(0.5, 1.0))
 	
 	var text = RNG.pick(texts)
 	if(extraText != ""):
@@ -67,7 +67,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	
 	var resultStuff = {
 		text = text,
-		pain = RNG.randi_range(2, 5) + howMuchPainToAdd,
+		pain = randi_range(2, 5) + howMuchPainToAdd,
 	}
 	if(howMuchLustToAdd != 0):
 		resultStuff["lust"] = howMuchLustToAdd

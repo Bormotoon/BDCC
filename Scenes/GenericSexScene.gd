@@ -229,7 +229,7 @@ func doDebugAction(_id, _args = {}):
 		sexEngine.endSex()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["currentCategory"] = currentCategory
 	data["sexEngine"] = sexEngine.saveData()
@@ -237,7 +237,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	sexEngine = SexEngine.new()
 	sexEngine.setInventoryToUse(sceneSavedItemsInv)

@@ -926,7 +926,7 @@ func _react(_action: String, _args):
 	if(_action == "train_be_first"):
 		processTime(3*60)
 		var strapon = GlobalRegistry.createItem("StraponFeeldoe")
-		strapon.getFluids().addFluid("CumLube", RNG.randi_range(2, 5)*RNG.randf_range(80.0, 100.0))
+		strapon.getFluids().addFluid("CumLube", randi_range(2, 5)*randf_range(80.0, 100.0))
 		getCharacter("rahi").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "train_be_last"):
@@ -1053,7 +1053,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isNaked"] = isNaked
 	data["isCaged"] = isCaged
@@ -1073,7 +1073,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isNaked = SAVE.loadVar(data, "isNaked", false)
 	isCaged = SAVE.loadVar(data, "isCaged", false)

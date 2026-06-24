@@ -23,9 +23,9 @@ func getKeysAmountToUnlock() -> int:
 	return keyAmount
 
 func onLocked(_contex):
-	keyAmount = RNG.randi_range(2, 5)
+	keyAmount = randi_range(2, 5)
 	if(OPTIONS.isHardStruggleEnabled()): #Evil
-		keyAmount = RNG.randi_range(2, 8)
+		keyAmount = randi_range(2, 8)
 
 func saveData():
 	return {

@@ -346,7 +346,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isBound"] = isBound
 	data["buyLine"] = buyLine
@@ -354,7 +354,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isBound = SAVE.loadVar(data, "isBound", false)
 	buyLine = SAVE.loadVar(data, "buyLine", "")

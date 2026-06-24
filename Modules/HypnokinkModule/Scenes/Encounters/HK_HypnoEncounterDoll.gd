@@ -709,7 +709,7 @@ func _react(_action: String, _args):
 	npc = npc #dont bother me godot
 	
 	if(doneWhenIterations == -1):
-		doneWhenIterations = RNG.randi_range(2,4)
+		doneWhenIterations = randi_range(2,4)
 	
 	if(_action == "pick_subscene"):
 		_action = pickSubscene()
@@ -719,21 +719,21 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == ""):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
-		GM.pc.addLust(RNG.randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		GM.pc.addLust(randi_range(3,6))
 		processTime(1 * 60)
 			
 	if(_action == "stripped"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
-		GM.pc.addLust(RNG.randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		GM.pc.addLust(randi_range(3,6))
 		processTime(1 * 60)
 		strippedItemID = pcInventory.getEquippedItem(InventorySlot.Body).id
 		pcInventory.unequipSlot(InventorySlot.Body)
 		gotStripped = true
 
 	if(_action == "cuffs_wrists_post"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
-		GM.pc.addLust(RNG.randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		GM.pc.addLust(randi_range(3,6))
 		processTime(1 * 60)
 		var cuff
 		if(npcVariation == "mean"):
@@ -746,8 +746,8 @@ func _react(_action: String, _args):
 		_action = pickSubscene()
 		
 	if(_action == "cuffs_ankles_post"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
-		GM.pc.addLust(RNG.randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		GM.pc.addLust(randi_range(3,6))
 		processTime(1 * 60)
 		var cuff
 		if(npcVariation == "mean"):
@@ -760,11 +760,11 @@ func _react(_action: String, _args):
 		_action = pickSubscene()
 
 	if(_action == "bodywriting"):
-		GM.pc.addLust(RNG.randi_range(3,6))
+		GM.pc.addLust(randi_range(3,6))
 		
 	if(_action == "bodywriting_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(5,10))
-		GM.pc.addLust(RNG.randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
+		GM.pc.addLust(randi_range(5,10))
 		processTime(1 * 60)
 		lastBodywritingZone = BodyWritingsZone.getRandomZone()
 		if(npcVariation == "subby"):
@@ -778,51 +778,51 @@ func _react(_action: String, _args):
 		GM.pc.addBodywriting(lastBodywritingZone, lastBodywritingID)
 		
 	if(_action == "kneel"):
-		GM.pc.addLust(RNG.randi_range(5,10))
+		GM.pc.addLust(randi_range(5,10))
 		
 	if(_action == "kneel_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(5,10))
-		GM.pc.addLust(RNG.randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
+		GM.pc.addLust(randi_range(5,10))
 		processTime(1 * 60)
 		
 	if(_action == "punch"):
-		GM.pc.addLust(RNG.randi_range(3,6))
-		GM.pc.addPain(RNG.randi_range(4,10))
+		GM.pc.addLust(randi_range(3,6))
+		GM.pc.addPain(randi_range(4,10))
 		
 	if(_action == "punch_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(5,10))
-		GM.pc.addLust(RNG.randi_range(3,6))
-		GM.pc.addPain(RNG.randi_range(12,25))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
+		GM.pc.addLust(randi_range(3,6))
+		GM.pc.addPain(randi_range(12,25))
 		processTime(1 * 60)
 	
 	if(_action == "tease"):
-		GM.pc.addLust(RNG.randi_range(5,10))
+		GM.pc.addLust(randi_range(5,10))
 		
 	if(_action == "tease_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(5,10))
-		GM.pc.addLust(RNG.randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
+		GM.pc.addLust(randi_range(5,10))
 		processTime(1 * 60)
 
 	if(_action == "hands_free_orgasm"):
-		GM.pc.addLust(RNG.randi_range(10,15))
+		GM.pc.addLust(randi_range(10,15))
 		
 	if(_action == "hands_free_orgasm_2"):
-		GM.pc.addLust(RNG.randi_range(15,20))
+		GM.pc.addLust(randi_range(15,20))
 		
 	if(_action == "hands_free_orgasm_3"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(20,30))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(20,30))
 		GM.pc.cumOnFloor()
 		GM.pc.addArousal(-1.0)
 		GM.pc.addLust(-int(GM.pc.getLust()/2.0))
 		processTime(2 * 60)
 		
 	if(_action == "hands_free_orgasm_3_selfdeny"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(10,20))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(10,20))
 		GM.pc.addArousal(-0.1)
 		GM.pc.addLust(-10)
 	
 	if(_action == "finale"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
 		processTime(2 * 60)
 		if(gotStripped and npcVariation != "mean"):
 			var item = pcInventory.getFirstOf(strippedItemID)
@@ -836,7 +836,7 @@ func _react_scene_end(_tag, _result):
 	pass
 	
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["npcVariation"] = npcVariation
@@ -851,7 +851,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npcVariation = SAVE.loadVar(data, "npcVariation", "")

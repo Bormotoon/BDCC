@@ -216,13 +216,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["s4Outcome"] = s4Outcome
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	s4Outcome = SAVE.loadVar(data, "s4Outcome", "")

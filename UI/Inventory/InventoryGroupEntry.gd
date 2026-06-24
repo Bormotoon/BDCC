@@ -24,8 +24,8 @@ var isEquipTake = false
 
 func _ready():
 	var minSizeInv = OPTIONS.getInventoryIconSize()
-	$VBoxContainer/HBoxContainer/Control/Info/TextureRect.rect_min_size.x = minSizeInv
-	$VBoxContainer/HBoxContainer/Control/Info/TextureRect.rect_min_size.y = minSizeInv
+	$VBoxContainer/HBoxContainer/Control/Info/TextureRect.custom_minimum_size.x = minSizeInv
+	$VBoxContainer/HBoxContainer/Control/Info/TextureRect.custom_minimum_size.y = minSizeInv
 	setSelected(false)
 	Util.delete_children(entryList)
 	entryMargin.visible = false

@@ -59,7 +59,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedText"] = savedText
 	data["animData"] = animData
@@ -67,7 +67,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedText = SAVE.loadVar(data, "savedText", "")
 	animData = SAVE.loadVar(data, "animData", [])

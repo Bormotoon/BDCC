@@ -91,7 +91,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["kiss_her", "milk_her"]):
-		processTime(RNG.randi_range(5, 20)*60)
+		processTime(randi_range(5, 20)*60)
 	
 	if(_action == "milk_her"):
 		GM.pc.addSkillExperience(Skill.Milking, 30, "rahi_handmilking")

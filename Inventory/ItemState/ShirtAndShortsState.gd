@@ -33,12 +33,12 @@ func getActions():
 	]
 
 func resetState():
-	.resetState()
+	super.resetState()
 	shortsPulledDown = false
 	shirtOpened = false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["shortsPulledDown"] = shortsPulledDown
 	data["shirtOpened"] = shirtOpened
@@ -49,7 +49,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	shortsPulledDown = SAVE.loadVar(_data, "shortsPulledDown", false)
 	shirtOpened = SAVE.loadVar(_data, "shirtOpened", false)

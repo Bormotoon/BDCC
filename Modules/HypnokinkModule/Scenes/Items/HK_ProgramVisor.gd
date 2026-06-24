@@ -69,7 +69,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedText"] = savedText
 	data["uniqueItemID"] = uniqueItemID
@@ -77,7 +77,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedText = SAVE.loadVar(data, "savedText", "")
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")

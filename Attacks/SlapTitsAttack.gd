@@ -21,16 +21,16 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	var _damage = 0
 	var text = ""
 	if((_receiver.isPlayer() && _receiver.hasBigBreasts()) || (!_receiver.isPlayer() && _receiver.getGender() != Gender.Male)):
-		_damage = RNG.randi_range(20, 20)
+		_damage = randi_range(20, 20)
 		text += "{receiver.name}’s big tits received a painful smack! {attacker.name} also managed to hit the sensitive nips.\n"
 	else:
-		_damage = RNG.randi_range(1, 5)
+		_damage = randi_range(1, 5)
 		text += "{receiver.name} didn’t even feel the smack but {attacker.name}’s hand did manage to hit the sensitive nips.\n"
 	
 	return {
 		text = text,
 		pain = _damage,
-		lust = RNG.randi_range(20, 30),
+		lust = randi_range(20, 30),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

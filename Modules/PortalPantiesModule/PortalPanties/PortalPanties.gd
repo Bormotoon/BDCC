@@ -115,7 +115,7 @@ func getInventoryImage():
 	return "res://Images/Items/underwear/portalpanties.png"
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["coversPenis"] = coversPenis
 	data["unlocked"] = unlocked
@@ -123,7 +123,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	coversPenis = SAVE.loadVar(data, "coversPenis", true)
 	unlocked = SAVE.loadVar(data, "unlocked", false)

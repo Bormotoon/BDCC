@@ -94,7 +94,7 @@ func useInSex(_receiver):
 		npcSlavery.addBrokenSpirit(0.4)
 		npcSlavery.addSpoiling(-0.7)
 		npcSlavery.addAwareness(0.2)
-		npcSlavery.addDespair(RNG.randf_range(0.1, 0.3) + 0.05 * npcSlavery.tiredness)
+		npcSlavery.addDespair(randf_range(0.1, 0.3) + 0.05 * npcSlavery.tiredness)
 		npcSlavery.addTired(1.0)
 		if(npcSlavery.isReadyToBeLeveledUp()):
 			npcSlavery.doLevelup()

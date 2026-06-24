@@ -19,7 +19,7 @@ func _init():
 
 func _ready():
 	#print(makeToken("test"))
-	#print(ord('a'))
+	#print('a'.unicode_at(0))
 	pass
 	#req = HTTPRequest.new()
 	#add_child(req)
@@ -36,7 +36,7 @@ func makeToken(inputText):
 	var b = a
 	
 	for c in inputText:
-		a = workToken(a + ord(c), _salt1)
+		a = workToken(a + c.unicode_at(0), _salt1)
 		
 	a = workToken(a, _salt2)
 	if(a < 0):
@@ -49,10 +49,10 @@ func workToken(num, someseed):
 	var i = 0
 	var seedLen = someseed.length()
 	while(i < (seedLen - 2)):
-		var d = ord(someseed[i+2])
+		var d = someseed[i+2].unicode_at(0)
 		
-		if(d >= ord('a')):
-			d -= ord('W')
+		if(d >= 'a'.unicode_at(0)):
+			d -= 'W'.unicode_at(0)
 		
 		if(someseed[i + 1] == '+'):
 			num = (num + (num >> d)) & 4294967295
@@ -73,7 +73,7 @@ func translate(_targetLanguage, _inputText):
 		resultText = "No text provided",
 	}
 	
-	#var textToTranslate = _inputText.percent_encode()
+	#var textToTranslate = _inputText.uri_encode()
 	
 #	var params = {
 #		sl = "en",
@@ -81,8 +81,8 @@ func translate(_targetLanguage, _inputText):
 #		q = _inputText,
 #	}
 	
-	#var reqerror = newreq.request('https://translate.google.com/translate_a/single?client=at&dt=t&dt=rm&dj=1', headers2, true, HTTPClient.METHOD_POST, to_json(params))
-	#var reqerror = newreq.request('https://translate.google.com/translate_a/single?client=gtx&sl=en&tl='+_targetLanguage+"&dt=t&q="+_inputText.percent_encode())
+	#var reqerror = newreq.request('https://translate.google.com/translate_a/single?client=at&dt=t&dt=rm&dj=1', headers2, HTTPClient.METHOD_POST, JSON.stringify(params))
+	#var reqerror = newreq.request('https://translate.google.com/translate_a/single?client=gtx&sl=en&tl='+_targetLanguage+"&dt=t&q="+_inputText.uri_encode())
 	var theurl = 'https://translate.googleapis.com/translate_a/single'
 	theurl += "?client=gtx"
 	theurl += "&sl="+"en"
@@ -92,7 +92,7 @@ func translate(_targetLanguage, _inputText):
 	theurl += "&dj=1"
 	theurl += "&source=input"
 	theurl += "&tk="+makeToken(_inputText)
-	var reqerror = newreq.request(theurl, headers2, true, HTTPClient.METHOD_POST, "q="+_inputText.percent_encode())
+	var reqerror = newreq.request(theurl, headers2, HTTPClient.METHOD_POST, "q="+_inputText.uri_encode())
 	if(reqerror != OK):
 		theResult["error"] = true
 		theResult["errorMessage"] = "An error occurred in the HTTP request."
@@ -125,12 +125,12 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "Empty response"
 		return theResult
 	var jsonResult = JSON.parse_string(theResultText)
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"
 		return theResult
 	
-	var translateData = jsonResult.result
+	var translateData = jsonResult
 	#print(translateData)
 	
 	var translatedInputArray = []

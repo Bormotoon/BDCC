@@ -87,10 +87,10 @@ func onDisabled():
 func logDebug(_text:String):
 	if(!DEBUG_XTOYSAPP):
 		return
-	Log.print("["+id+"] "+str(_text))
+	Log.msg("["+id+"] "+str(_text))
 
 func logError(_text:String):
-	Log.printerr("["+id+"] "+str(_text))
+	Log.err("["+id+"] "+str(_text))
 	lastErrors.append(_text)
 
 #	sendToButtplugIO("OutputCmd", {
@@ -124,7 +124,7 @@ func _process(_delta:float):
 		newHttpRequest.request_completed.connect(deleteRequestAfterDone.bind([newHttpRequest]))
 		newHttpRequest.request(
 			"https://webhook.xtoys.app/"+webhookID, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST,
-			JSON.print(_data)
+			JSON.stringify(_data)
 		)
 		if(DEBUG_XTOYSAPP):
 			logDebug("Sent: "+str(_data))
@@ -144,12 +144,12 @@ func scanForToys():
 	pass
 
 func saveData() -> Dictionary:
-	var theData := .saveData()
+	var theData := super.saveData()
 	theData["webhookID"] = webhookID
 	return theData
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	webhookID = SAVE.loadVar(_data, "webhookID", DEFAULT_WEBHOOK)
 

@@ -37,14 +37,14 @@ func getTooltipInfo():
 	return Util.join(result, "\n")
 
 func applyTFData(_data):
-	.applyTFData(_data)
+	super.applyTFData(_data)
 	
 	lengthCM = loadTFVar(_data, "lengthCM", lengthCM)
 	ballsScale = loadTFVar(_data, "ballsScale", ballsScale)
 	fluidType = loadTFVar(_data, "fluidType", fluidType)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["lengthCM"] = lengthCM
 	data["ballsScale"] = ballsScale
 	data["fluidType"] = fluidType
@@ -56,7 +56,7 @@ func loadData(_data):
 	ballsScale = SAVE.loadVar(_data, "ballsScale", 1.0)
 	fluidType = SAVE.loadVar(_data, "fluidType", "Cum")
 	
-	.loadData(_data)
+	super.loadData(_data)
 
 func getLewdSizeAdjective():
 	var theCharacter = getCharacter()
@@ -85,7 +85,7 @@ func getLewdName():
 	return RNG.pick(["cock", "cock", "dick", "dick", "member", "shaft"])
 
 func getPickableAttributes():
-	var result = .getPickableAttributes()
+	var result = super.getPickableAttributes()
 	result["cocksize"] = {
 		"text": "Pick your cock's length",
 		"textButton": "Length",
@@ -131,7 +131,7 @@ func getPickableAttributes():
 	return result
 	
 func applyAttribute(_attrID: String, _attrValue):
-	.applyAttribute(_attrID, _attrValue)
+	super.applyAttribute(_attrID, _attrValue)
 	if(_attrID == "cocksize"):
 		lengthCM = _attrValue
 	if(_attrID == "ballsscale"):
@@ -165,33 +165,33 @@ func getRevealMessage():
 	return Util.capitalizeFirstLetter(getLewdDescriptionAndName()) + " got revealed."
 
 func generateDataFor(_dynamicCharacter):
-	lengthCM = RNG.randf_range(10.0, 25.0)
+	lengthCM = randf_range(10.0, 25.0)
 	if(RNG.chance(5)):
-		lengthCM = RNG.randf_range(5.0, 10.0)
+		lengthCM = randf_range(5.0, 10.0)
 	if(RNG.chance(5)):
-		lengthCM = RNG.randf_range(25.0, 30.0)
+		lengthCM = randf_range(25.0, 30.0)
 	lengthCM = Util.roundF(lengthCM, 1)
 	
 	if(fluidProduction != null):
-		fluidProduction.fillPercent(min(1.0, RNG.randf_range(0.8, 1.2)))
+		fluidProduction.fillPercent(min(1.0, randf_range(0.8, 1.2)))
 	generateRandomColors(_dynamicCharacter)
 
 func hasCustomSkinPattern():
 	return true
 
 func generateRandomColors(_dynamicCharacter):
-	var theHue = RNG.randf_range(0.0, 0.1)
+	var theHue = randf_range(0.0, 0.1)
 	if(_dynamicCharacter != null):
 		theHue = _dynamicCharacter.pickedSkinRColor.h
 	if(RNG.chance(30)):
-		pickedGColor = Color.from_hsv(RNG.randf_rangeX2(-0.1, 0.1), RNG.randf_range(0.7, 0.9), RNG.randf_range(0.5, 0.9))
+		pickedGColor = Color.from_hsv(RNG.randf_rangeX2(-0.1, 0.1), randf_range(0.7, 0.9), randf_range(0.5, 0.9))
 		pickedBColor = pickedGColor
 		pickedBColor.v = RNG.randf_rangeX2(0.3, 0.6)
 	elif(RNG.chance(30) && _dynamicCharacter!=null):
 		pickedGColor = RNG.pick([_dynamicCharacter.pickedSkinRColor, _dynamicCharacter.pickedSkinGColor, _dynamicCharacter.pickedSkinBColor])
 		pickedGColor.h += RNG.randf_rangeX2(-0.1, 0.1)
-		pickedGColor.s = RNG.randf_range(0.7, 0.9)
-		pickedGColor.v = RNG.randf_range(0.7, 0.9)
+		pickedGColor.s = randf_range(0.7, 0.9)
+		pickedGColor.v = randf_range(0.7, 0.9)
 		pickedBColor = pickedGColor
 		pickedBColor.v = RNG.randf_rangeX2(0.3, 0.6)
 	else:
@@ -200,7 +200,7 @@ func generateRandomColors(_dynamicCharacter):
 		pickedBColor.v = RNG.randf_rangeX2(0.3, 0.6)
 
 	if(RNG.chance(30)):
-		pickedGColor = Color.from_hsv(theHue, RNG.randf_range(0.3, 0.6), RNG.randf_rangeX2(0.1, 0.3))
+		pickedGColor = Color.from_hsv(theHue, randf_range(0.3, 0.6), RNG.randf_rangeX2(0.1, 0.3))
 		pickedBColor.v = RNG.randf_rangeX2(0.7, 0.95)
 		pickedBColor.s = RNG.randf_rangeX2(0.7, 0.95)
 

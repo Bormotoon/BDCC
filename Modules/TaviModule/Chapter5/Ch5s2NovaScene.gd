@@ -1836,10 +1836,10 @@ func _react(_action: String, _args):
 		if(npcID != ""):
 			removeCharacter(npcID)
 			npcID = ""
-		npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: RNG.randi_range(1, 10), NpcGen.HasPenis: true})
+		npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: randi_range(1, 10), NpcGen.HasPenis: true})
 		addCharacter(npcID)
 		
-		corruption += RNG.randf_range(0.05, 0.1)
+		corruption += randf_range(0.05, 0.1)
 		corruption = clamp(corruption, 0.0, 1.0)
 		
 		getCharacter("nova").addTallymarkButt()
@@ -1963,7 +1963,7 @@ func _react_scene_end(_tag, _result):
 			GM.pc.doWound("nova")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["usedCondom"] = usedCondom
 	data["condomBroke"] = condomBroke
@@ -1979,7 +1979,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)
 	condomBroke = SAVE.loadVar(data, "condomBroke", false)

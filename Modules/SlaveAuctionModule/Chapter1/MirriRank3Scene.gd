@@ -618,7 +618,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["lastChoice"] = lastChoice
 	data["isStrapon"] = isStrapon
@@ -626,7 +626,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	lastChoice = SAVE.loadVar(data, "lastChoice", "")
 	isStrapon = SAVE.loadVar(data, "isStrapon", false)

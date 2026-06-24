@@ -20,13 +20,13 @@ var isEquipTake = false
 
 func _ready():
 	var minSizeInv = OPTIONS.getInventoryIconSize()
-	$HBoxContainer/Control/Info/TextureRect.rect_min_size.x = minSizeInv
-	$HBoxContainer/Control/Info/TextureRect.rect_min_size.y = minSizeInv
+	$HBoxContainer/Control/Info/TextureRect.custom_minimum_size.x = minSizeInv
+	$HBoxContainer/Control/Info/TextureRect.custom_minimum_size.y = minSizeInv
 	setSelected(false)
 
 func setItem(theItem:ItemBase, theMode):
 	if(!theItem):
-		Log.printerr("InventoryEntry has received a bad item: "+str(theItem))
+		Log.err("InventoryEntry has received a bad item: "+str(theItem))
 	isFightMode = (theMode == "fight")
 	isBuy = (theMode == "buy")
 	isSell = (theMode == "sell")

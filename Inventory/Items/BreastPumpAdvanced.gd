@@ -52,7 +52,7 @@ func getUnriggedParts(_character):
 		}
 
 func generateFluids():
-	.generateFluids()
+	super.generateFluids()
 	fluids.setCapacity(20000.0)
 
 func getInventoryImage():

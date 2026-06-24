@@ -856,7 +856,7 @@ func _react(_action: String, _args):
 		var straponTypes = ["Strapon", "StraponCanine", "StraponDragon", "StraponFeeldoe", "StraponFeline"]
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 
 	if(_action == "pup_facefuck_rahi"):
@@ -926,13 +926,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["success"] = success
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	success = SAVE.loadVar(data, "success", 0)

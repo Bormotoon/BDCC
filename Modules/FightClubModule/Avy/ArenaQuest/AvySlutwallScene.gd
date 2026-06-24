@@ -631,7 +631,7 @@ func addStraponButtons():
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "strapon_anus_with", [strapon])
 
 func addBroke(howMuchMin, howMuchMax):
-	var howMuch = RNG.randf_range(howMuchMin, howMuchMax)
+	var howMuch = randf_range(howMuchMin, howMuchMax)
 	howBroken += howMuch
 	setFlag("FightClubModule.AvySlutWallBroken", howBroken)
 
@@ -794,7 +794,7 @@ func _react_scene_end(_tag, _result):
 			getCharacter("avy").getInventory().removeItemFromSlot(InventorySlot.Penis)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCaged"] = isCaged
 	data["howBroken"] = howBroken
@@ -804,7 +804,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCaged = SAVE.loadVar(data, "isCaged", false)
 	howBroken = SAVE.loadVar(data, "howBroken", 0.0)

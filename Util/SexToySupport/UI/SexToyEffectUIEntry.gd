@@ -117,10 +117,10 @@ func _on_SequenceLineEdit_text_changed(_new_text:String):
 	var didFail:bool = false
 	var theArStr:String = "["+sequence_line_edit.text+"]"
 	var theJsonRes := JSON.parse_string(theArStr)
-	if(!theJsonRes || theJsonRes.error != OK):
+	if(!theJsonRes || theJsonRes == null):
 		didFail = true
 	else:
-		var theVal = theJsonRes.result
+		var theVal = theJsonRes
 		if(!(theVal is Array)):
 			didFail = true
 		elif(theVal.size() % 2 != 0):

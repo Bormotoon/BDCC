@@ -48,7 +48,7 @@ func updateSellingItems():
 		}
 		sortedItemsIds.append(itemID)
 		finalSellingItemsObjects.append(itemObject)
-	sortedItemsIds.sort_custom(self, "sort_stock")	
+	sortedItemsIds.sort_custom(sort_stock)	
 	
 func sort_stock(a, b):
 	if sellItemsData[a]["price"] < sellItemsData[b]["price"]:
@@ -168,14 +168,14 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["lockedInto"] = lockedInto
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	lockedInto = SAVE.loadVar(data, "lockedInto", false)
 	

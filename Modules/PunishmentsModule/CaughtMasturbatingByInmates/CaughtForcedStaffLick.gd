@@ -123,7 +123,7 @@ func _react(_action: String, _args):
 	if(_action == "attack_her"):
 		GM.pc.addPain(100)
 		
-		for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, RNG.randi_range(1, 2)):
+		for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
 			addMessage(item.getForcedOnMessage())
 
 	if(_action in ["cummedon"]):

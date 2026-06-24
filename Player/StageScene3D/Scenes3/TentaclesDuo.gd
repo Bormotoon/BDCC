@@ -124,7 +124,7 @@ func playAnimation(animID, _args = {}):
 			#$Chair2.visible = true
 		
 		if(!stateMachineTravel(doll, state_machine, fullNpcAnimID)):
-			Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+			Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 	else:
 		stateMachineTravel(doll, state_machine, "stand")
 
@@ -144,7 +144,7 @@ func getVarNpcs():
 	return ["pc"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["plant"] = {
 		type = "bool",

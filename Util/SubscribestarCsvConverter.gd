@@ -2,7 +2,7 @@ extends Control
 
 
 func _on_Button_pressed():
-	$VBoxContainer/TextEdit2.text = JSON.print(getData(), "\t", true)
+	$VBoxContainer/TextEdit2.text = JSON.stringify(getData(), "\t", true)
 	
 func getData():
 	var text = $VBoxContainer/TextEdit.text
@@ -32,7 +32,7 @@ func getData():
 			
 		data.append(newData)
 	
-	data.sort_custom(self, "sort_my")
+	data.sort_custom(sort_my)
 	
 	return data
 	
@@ -75,7 +75,7 @@ func _on_Button3_pressed():
 		"entries": newdata,
 	}
 	
-	$VBoxContainer/TextEdit2.text = JSON.print(result, "\t", true)
+	$VBoxContainer/TextEdit2.text = JSON.stringify(result, "\t", true)
 
 static func tierSortFunc(a:String, b:String):
 	if float(a.trim_prefix("$")) > float(b.trim_prefix("$")):
@@ -99,12 +99,12 @@ func _on_Button4_pressed():
 		})
 		
 	var tiers = newdata.keys()
-	tiers.sort_custom(self, "tierSortFunc")
+	tiers.sort_custom(tierSortFunc)
 	var result = {
 		"dateString": dateStr,
-		"unixTime": OS.get_unix_time(),
+		"unixTime": Time.get_unix_time_from_system(),
 		"entries": newdata,
 		"tiers": tiers,
 	}
 	
-	$VBoxContainer/TextEdit2.text = JSON.print(result, "\t", true)
+	$VBoxContainer/TextEdit2.text = JSON.stringify(result, "\t", true)

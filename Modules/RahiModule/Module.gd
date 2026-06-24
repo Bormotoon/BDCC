@@ -194,7 +194,7 @@ func resetFlagsOnNewDay():
 
 		if(GM.main.getModuleFlag("RahiModule", "Rahi_ChillCooldown", 0) == 0 && GM.main.getModuleFlag("RahiModule", "Rahi_GaveApple", false)):
 			GM.main.setModuleFlag("RahiModule", "Rahi_ChillWillHappen", true)
-			GM.main.setModuleFlag("RahiModule", "Rahi_ChillCooldown", RNG.randi_range(1, 3))
+			GM.main.setModuleFlag("RahiModule", "Rahi_ChillCooldown", randi_range(1, 3))
 		else:
 			GM.main.setModuleFlag("RahiModule", "Rahi_ChillWillHappen", false)
 

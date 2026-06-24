@@ -1562,7 +1562,7 @@ func _react(_action: String, _args):
 		GM.pc.addCredits(1)
 
 	if(_action == "workend_check"):
-		processTime(RNG.randi_range(6,9) * 60 * 60)
+		processTime(randi_range(6,9) * 60 * 60)
 		GM.pc.addCredits(1)
 		
 		if(GM.main.isVeryLate()):
@@ -1640,7 +1640,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["howManyTimes"] = howManyTimes
 	data["toldFuckoff"] = toldFuckoff
@@ -1651,7 +1651,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	howManyTimes = SAVE.loadVar(data, "howManyTimes", 0)
 	toldFuckoff = SAVE.loadVar(data, "toldFuckoff", false)

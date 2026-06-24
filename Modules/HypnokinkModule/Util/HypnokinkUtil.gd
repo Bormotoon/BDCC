@@ -43,7 +43,7 @@ static func addHypnoButtons(scene: SceneBase, submitAction: String, resistAction
 	
 	var buttonSlots = 11.0 - preexistingButtons
 	var submitButtonsToAdd = 2 + floor((min(getSuggestibleStacks(GM.pc), 100.0) / 100.0) * buttonSlots)
-	var resistButtonIndex = RNG.randi_range(resistButtonIndexMin, submitButtonsToAdd)
+	var resistButtonIndex = randi_range(resistButtonIndexMin, submitButtonsToAdd)
 	
 	for i in range(submitButtonsToAdd + 1):
 		if(i == resistButtonIndex):

@@ -24,7 +24,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	
 	return {
 		text = text,
-		lust = RNG.randi_range(20, 20),
+		lust = randi_range(20, 20),
 	}
 
 func canBeDodgedByPlayer(_attacker, _receiver):

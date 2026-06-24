@@ -771,7 +771,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["wasKind"] = wasKind
 	data["orderedOrUndressed"] = orderedOrUndressed
@@ -785,7 +785,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	wasKind = SAVE.loadVar(data, "wasKind", false)
 	orderedOrUndressed = SAVE.loadVar(data, "orderedOrUndressed", false)

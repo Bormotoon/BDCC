@@ -215,13 +215,13 @@ func _react_scene_end(_tag, _result):
 		setState("escape_loop")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["socketLine"] = socketLine
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	socketLine = SAVE.loadVar(data, "socketLine", "")

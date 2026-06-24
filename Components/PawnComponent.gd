@@ -59,14 +59,14 @@ func add_social(how_much: float) -> void:
 
 func after_social_interaction() -> void:
 	if social <= 1.0:
-		social -= RNG.randf_range(0.2, 0.4)
+		social -= randf_range(0.2, 0.4)
 		social = maxf(0.0, social)
 	else:
 		social *= 0.5
 
 func after_failed_social_interaction() -> void:
 	after_social_interaction()
-	add_anger(RNG.randf_range(0.2, 0.4))
+	add_anger(randf_range(0.2, 0.4))
 
 func add_anger(new_ang: float) -> void:
 	anger = maxf(0.0, anger + new_ang)

@@ -858,7 +858,7 @@ func _react(_action: String, _args):
 
 	if(_action == "bathroom_urinal_leave_return"):
 		processTime(10*60)
-		for _i in range(RNG.randi_range(3, 5)):
+		for _i in range(randi_range(3, 5)):
 			var randEvent = RNG.pick(["on", "in", "writing"])
 			if(randEvent == "on"):
 				var charID = NpcFinder.grabNpcIDFromPool(RNG.pick([CharacterPool.Inmates, CharacterPool.Guards]))
@@ -885,7 +885,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCorrupt"] = isCorrupt
 	data["isPure"] = isPure
@@ -899,7 +899,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCorrupt = SAVE.loadVar(data, "isCorrupt", false)
 	isPure = SAVE.loadVar(data, "isPure", false)

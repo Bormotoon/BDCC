@@ -181,10 +181,10 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["continue"]):
-		processTime(RNG.randi_range(3, 5)*60)
+		processTime(randi_range(3, 5)*60)
 	
 	if(_action in ["vaginal", "anal"]):
-		processTime(RNG.randi_range(40, 60)*60)
+		processTime(randi_range(40, 60)*60)
 	
 	if(_action == "vaginal"):
 		GM.pc.gotVaginaFuckedBy("risha")

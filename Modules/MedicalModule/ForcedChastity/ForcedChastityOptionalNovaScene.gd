@@ -307,7 +307,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(true):
-		processTime(RNG.randi_range(3,8)*60)
+		processTime(randi_range(3,8)*60)
 
 	if(_action == "beg_to_cum"):
 		GM.pc.cummedInAnusBy("nova")
@@ -315,7 +315,7 @@ func _react(_action: String, _args):
 		GM.pc.gotAnusFuckedBy("nova")
 	
 	if(_action == "continue4"):
-		processTime(RNG.randi_range(3,8)*60)
+		processTime(randi_range(3,8)*60)
 		GM.pc.gotAnusFuckedBy("nova")
 
 	if(_action == "demand"):
@@ -334,7 +334,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["isGoodGirl"] = isGoodGirl
 	data["isBadGirl"] = isBadGirl
@@ -343,7 +343,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	isGoodGirl = SAVE.loadVar(data, "isGoodGirl", false)
 	isBadGirl = SAVE.loadVar(data, "isBadGirl", false)

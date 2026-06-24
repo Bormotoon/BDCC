@@ -1566,14 +1566,14 @@ func _react(_action: String, _args):
 
 	if(_action == "par_good"):
 		var someValue = 1.0 - getSuccChance(5, 15, 0.0, 0.6)
-		parConf = parConf + RNG.randf_range(0.1, 0.2)
-		parShame = parShame + RNG.randf_range(someValue/5.0, someValue/3.0)
+		parConf = parConf + randf_range(0.1, 0.2)
+		parShame = parShame + randf_range(someValue/5.0, someValue/3.0)
 		setState("par_loop")
 		return
 
 	if(_action == "continueafterundress"):
 		parConf = 0.5#parConf + 0.1
-		#parShame = parShame + RNG.randf_range(0.01, 0.2)
+		#parShame = parShame + randf_range(0.01, 0.2)
 		setState("par_loop")
 		return
 
@@ -1585,16 +1585,16 @@ func _react(_action: String, _args):
 
 	if(_action == "par_very_good"):
 		parConf = parConf + 0.3
-		parShame = max(0.0, parShame - RNG.randf_range(0.01, 0.05))
+		parShame = max(0.0, parShame - randf_range(0.01, 0.05))
 		setState("par_loop")
 		return
 
 	if(_action == "par_bad"):
 		var someValue = 1.0 - getSuccChance(5, 15, 0.0, 0.6)
 		parConf = parConf + 0.05
-		var newShame = parShame + RNG.randf_range(someValue/3.0, someValue/2.0)
+		var newShame = parShame + randf_range(someValue/3.0, someValue/2.0)
 		if(parShame < 0.9 && newShame >= 0.9):
-			parShame = 0.9 + RNG.randf_range(0.01, 0.05)
+			parShame = 0.9 + randf_range(0.01, 0.05)
 		else:
 			parShame = newShame
 		setState("par_loop")
@@ -1694,7 +1694,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["deserved"] = deserved
 	data["parConf"] = parConf
@@ -1706,7 +1706,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	deserved = SAVE.loadVar(data, "deserved", true)
 	parConf = SAVE.loadVar(data, "parConf", 0.0)

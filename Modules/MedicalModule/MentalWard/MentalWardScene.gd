@@ -175,7 +175,7 @@ func _react(_action: String, _args):
 		else:
 			setState("resting")
 			processTime(60*60*2)
-		MedicalModule.addPCSanity(RNG.randf_range(0.02, 0.04))
+		MedicalModule.addPCSanity(randf_range(0.02, 0.04))
 		GM.main.showLog()
 		return
 

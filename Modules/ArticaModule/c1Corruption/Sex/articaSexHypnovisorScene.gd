@@ -1069,8 +1069,8 @@ func _react(_action: String, _args):
 
 	if(_action == "artica_returns_to_normal"):
 		processTime(5*60)
-		getCharacter("artica").getBodypart(BodypartSlot.Vagina).addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
-		getCharacter("artica").getBodypart(BodypartSlot.Anus).addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
+		getCharacter("artica").getBodypart(BodypartSlot.Vagina).addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
+		getCharacter("artica").getBodypart(BodypartSlot.Anus).addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
 
 	if(_action == "in_lobby"):
 		processTime(3*60)
@@ -1078,7 +1078,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isNaked"] = isNaked
 	data["isCaged"] = isCaged
@@ -1094,7 +1094,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isNaked = SAVE.loadVar(data, "isNaked", false)
 	isCaged = SAVE.loadVar(data, "isCaged", false)

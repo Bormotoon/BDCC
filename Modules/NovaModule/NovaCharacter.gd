@@ -136,12 +136,12 @@ func getThickness():
 	return 115
 
 func onGivingBirth(_impregnatedEggCells: Array, _newkids: Array):
-	.onGivingBirth(_impregnatedEggCells, _newkids)
+	super.onGivingBirth(_impregnatedEggCells, _newkids)
 	
 	GM.main.increaseModuleFlag("NovaModule", "Nova_GaveBirthTimes", 1)
 
 func onCharacterVisiblyPregnant():
-	.onCharacterVisiblyPregnant()
+	super.onCharacterVisiblyPregnant()
 	
 	if(!GM.main.getModuleFlag("NovaModule", "Nova_FirstTimePregnantHappened", false)):
 		GM.main.setModuleFlag("NovaModule", "Nova_NotThereToday", true)

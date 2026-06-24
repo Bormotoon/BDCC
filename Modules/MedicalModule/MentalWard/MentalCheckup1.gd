@@ -105,13 +105,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedBehavior"] = savedBehavior
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedBehavior = SAVE.loadVar(data, "savedBehavior", 0.0)

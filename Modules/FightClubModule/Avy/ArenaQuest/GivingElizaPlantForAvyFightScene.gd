@@ -466,14 +466,14 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["kickedMask"] = kickedMask
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	kickedMask = SAVE.loadVar(data, "kickedMask", false)
 

@@ -26,7 +26,7 @@ extends Control
 @onready var vertical_github_release_label = $"%VerticalGithubReleaseLabel"
 var verticalModsStr:String = ""
 
-@export var var GlobalTheme
+@export var GlobalTheme: Theme
 
 func updateVerticalGithubReleaseVisibility():
 	if(OPTIONS.shouldFetchGithubRelease() && OPTIONS.isVerticalOrientation()):
@@ -125,26 +125,26 @@ func _on_GithubButton_pressed():
 func getNewRelease():
 	var error = http_request.request("https://api.github.com/repos/Alexofp/BDCC/releases")
 	if error != OK:
-		Log.printerr("[MainMenu] An error occurred in the HTTP request.")
+		Log.err("[MainMenu] An error occurred in the HTTP request.")
 		setGithubLabelStr("Latest github release: Error", "")
 
 func _on_HTTPRequest_request_completed(result, _response_code, _headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		Log.printerr("[MainMenu] Couldn't get the latest release from github")
+		Log.err("[MainMenu] Couldn't get the latest release from github")
 		setGithubLabelStr("Latest github release: Error", "")
 		return
 	
 	var jsonResult = JSON.parse_string(body.get_string_from_utf8())
-	if(jsonResult.error != OK):
-		Log.printerr("[MainMenu] Couldn't parse json data from github.")
+	if(jsonResult == null):
+		Log.err("[MainMenu] Couldn't parse json data from github.")
 		setGithubLabelStr("Latest github release: Error", "")
 		return
 	
-	var releasesData = jsonResult.result
+	var releasesData = jsonResult
 
 	if(!(releasesData is Array)):
-		Log.printerr("[MainMenu] Bad data from github")
-		Log.printerr(body.get_string_from_utf8())
+		Log.err("[MainMenu] Bad data from github")
+		Log.err(body.get_string_from_utf8())
 		setGithubLabelStr("Latest github release: Error", "")
 		return
 		

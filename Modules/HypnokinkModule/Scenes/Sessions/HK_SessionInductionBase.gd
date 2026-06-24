@@ -13,11 +13,11 @@ func afterInduction():
 	runScene(bodyId)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["bodyId"] = bodyId
 	
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	bodyId = SAVE.loadVar(bodyId, "bodyId", null)

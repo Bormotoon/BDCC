@@ -41,11 +41,11 @@ func doStruggle(_pc, _minigame:MinigameResult):
 	else:
 		text = "{user.name} tries to helplessly wiggle the mittens off."
 		damage = calcDamage(_pc, _minigame, 0.4)
-		stamina = RNG.randi_range(10, 20)
+		stamina = randi_range(10, 20)
 		
 		if(failChance(_pc, 20)):
 			text += " Ow! {user.name} accidently smashed them against "+RNG.pick(["the wall", "the ground", "something"])
-			pain = scaleDamage(RNG.randi_range(5, 10))
+			pain = scaleDamage(randi_range(5, 10))
 	
 	return {"text": text, "damage": damage, "lust": lust, "pain": pain, "stamina": stamina}
 

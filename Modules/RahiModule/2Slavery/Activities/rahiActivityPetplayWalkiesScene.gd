@@ -1160,13 +1160,13 @@ func _react(_action: String, _args):
 			var randEvent = RNG.pick(possibleEvents)
 			lastEvent = randEvent
 			if(randEvent in ["ev2"]):
-				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {NpcGen.Level: RNG.randi_range(1, 10)})
+				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {NpcGen.Level: randi_range(1, 10)})
 				addCharacter(npc_id)
 			if(randEvent in ["ev4"]):
-				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: RNG.randi_range(1, 10)})
+				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: randi_range(1, 10)})
 				addCharacter(npc_id)
 			if(randEvent in ["ev5"]):
-				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: RNG.randi_range(1, 10), NpcGen.HasPenis: true})
+				npc_id = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.Level: randi_range(1, 10), NpcGen.HasPenis: true})
 				addCharacter(npc_id)
 			setState(randEvent)
 			return
@@ -1196,7 +1196,7 @@ func _react(_action: String, _args):
 		var straponTypes = ["Strapon", "StraponCanine", "StraponDragon", "StraponFeeldoe", "StraponFeline"]
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		#var fluids = strapon.getFluids()
-		#fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 
 	if(_action == "yard1_anal"):
@@ -1207,7 +1207,7 @@ func _react(_action: String, _args):
 		var straponTypes = ["Strapon", "StraponCanine", "StraponDragon", "StraponFeeldoe", "StraponFeline"]
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		#var fluids = strapon.getFluids()
-		#fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 
 	if(_action == "returntocell"):
@@ -1352,7 +1352,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["pickedLoc"] = pickedLoc
 	data["endLocation"] = endLocation
@@ -1364,7 +1364,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	pickedLoc = SAVE.loadVar(data, "pickedLoc", "")
 	endLocation = SAVE.loadVar(data, "endLocation", "")

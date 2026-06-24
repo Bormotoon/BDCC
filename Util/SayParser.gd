@@ -39,7 +39,7 @@ func findTags(text: String) -> Array:
 					saved_tag += text[pos]
 					pos += 1
 			if saved_tag != "":
-				Log.printerr("findTags(): tag wasn't closed")
+				Log.err("findTags(): tag wasn't closed")
 				result.append([TagType.Text, saved_tag])
 				saved_tag = ""
 		else:

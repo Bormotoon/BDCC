@@ -1001,14 +1001,14 @@ func playRandomSexAnim():
 		return
 
 	while(true):
-		var domID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.HasPenis:true, NpcGen.Level: RNG.randi_range(1, 10)}, true)
-		var subID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.AvoidIDs, [domID ]]], InmateGenerator.new(), {NpcGen.Level: RNG.randi_range(1, 10)}, true)
+		var domID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.NoChastity], [NpcCon.HasPenis]], InmateGenerator.new(), {NpcGen.NoChastity: true, NpcGen.HasPenis:true, NpcGen.Level: randi_range(1, 10)}, true)
+		var subID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.AvoidIDs, [domID ]]], InmateGenerator.new(), {NpcGen.Level: randi_range(1, 10)}, true)
 		if(domID == null || domID == "" || subID == null || subID == ""):
 			return
 		var randomSexID = RNG.pick([StageScene.SexCowgirl, StageScene.SexAllFours, StageScene.SexMissionary, StageScene.SexFreeStanding, StageScene.SexReverseCowgirl, StageScene.SexFullNelson])
 		playAnimation(randomSexID, RNG.pick(["sex", "fast"]), {pc=domID, npc=subID, bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
 		randomSexIsPlaying = true
-		await get_tree().create_timer(5.0 + RNG.randf_range(0.0, 4.0)).timeout
+		await get_tree().create_timer(5.0 + randf_range(0.0, 4.0)).timeout
 		if(!(state in ["kait_lost_random_sex1", "kait_lost_random_sex2", "kait_lost_random_sex3", "kait_lost_random_sex4", "kait_won_randomsex1", "kait_won_randomsex2", "kait_won_randomsex3", "kait_won_randomsex4"])):
 			randomSexIsPlaying = false
 			return

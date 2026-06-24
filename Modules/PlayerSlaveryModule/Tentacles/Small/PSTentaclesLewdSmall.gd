@@ -487,14 +487,14 @@ func _react(_action: String, _args):
 	if(_action == "6_cum"):
 		GM.pc.orgasmFrom("pc")
 		var tentID:String = _tentacles.getTentaclesCharID()
-		getCharacter(tentID).fillBalls(RNG.randf_range(0.2, 0.5))
+		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
 		GM.pc.cummedOnBy(tentID, FluidSource.Penis)
-		getCharacter(tentID).fillBalls(RNG.randf_range(0.2, 0.5))
+		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
 		GM.pc.cummedInMouthBy(tentID, FluidSource.Penis)
 
 	if(_action == "7_cum"):
 		var tentID:String = _tentacles.getTentaclesCharID()
-		getCharacter(tentID).fillBalls(RNG.randf_range(0.2, 0.5))
+		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
 		GM.pc.cummedInMouthBy(tentID, FluidSource.Penis)
 
 	if(_action == "8_startSex"):

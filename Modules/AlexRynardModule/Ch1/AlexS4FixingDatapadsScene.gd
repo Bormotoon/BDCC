@@ -318,7 +318,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "skiphours_check"):
-		processTime(RNG.randi_range(6,9) * 60 * 60)
+		processTime(randi_range(6,9) * 60 * 60)
 		
 		if(GM.main.isVeryLate()):
 			setState("toolate")
@@ -353,7 +353,7 @@ func _react(_action: String, _args):
 		processTime(10*60)
 
 	if(_action == "skiphours_special_check"):
-		processTime(RNG.randi_range(6,9) * 60 * 60)
+		processTime(randi_range(6,9) * 60 * 60)
 		
 		if(GM.main.isVeryLate()):
 			setState("offer_hypno")
@@ -370,13 +370,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["howManyTimes"] = howManyTimes
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	howManyTimes = SAVE.loadVar(data, "howManyTimes", 0)

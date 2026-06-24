@@ -107,7 +107,7 @@ func _init():
 	]
 
 func register():
-	.register()
+	super.register()
 	
 	GlobalRegistry.registerFightClubFighter("res://Modules/FightClubModule/Fighters/Rubi/RubiFighter.gd")
 	GlobalRegistry.registerFightClubFighter("res://Modules/FightClubModule/Fighters/Volk/VolkFighter.gd")

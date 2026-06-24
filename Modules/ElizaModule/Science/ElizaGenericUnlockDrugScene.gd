@@ -167,7 +167,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["drugUniqueID"] = drugUniqueID
 	data["tfID"] = tfID
@@ -175,7 +175,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	drugUniqueID = SAVE.loadVar(data, "drugUniqueID", "")
 	tfID = SAVE.loadVar(data, "tfID", "")

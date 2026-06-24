@@ -22,7 +22,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 			_receiver.addEffect(StatusEffect.Bleeding)
 			return {
 				text = text,
-				pain = RNG.randi_range(5, 10),
+				pain = randi_range(5, 10),
 			}
 		
 		return genericDodgeMessage(_attacker, _receiver)
@@ -34,7 +34,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 			text += " The furious attack made {receiver.name} [b]fall[/b]."
 	return {
 		text = text,
-		pain = RNG.randi_range(30, 50),
+		pain = randi_range(30, 50),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

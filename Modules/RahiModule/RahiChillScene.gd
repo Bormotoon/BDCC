@@ -40,7 +40,7 @@ func _run():
 		addButton("Continue", "Continue on your way", "endthescene")
 
 	if(state == "busy"):
-		setModuleFlag("RahiModule", "Rahi_ChillCooldown", RNG.randi_range(4, 10))
+		setModuleFlag("RahiModule", "Rahi_ChillCooldown", randi_range(4, 10))
 		
 		saynn("[say=pc]I’m deeply sorry but can you find me some other time?[/say]")
 
@@ -206,7 +206,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["follow", "continue", "continue1", "take_a_sip", "hug_her", "kiss_her", "bring_her_home"]):
-		processTime(RNG.randi_range(3, 10)*60)
+		processTime(randi_range(3, 10)*60)
 	
 	if(_action == "take_a_sip"):
 		GM.pc.addIntoxication(0.3)

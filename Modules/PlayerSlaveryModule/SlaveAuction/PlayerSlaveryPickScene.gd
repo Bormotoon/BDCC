@@ -60,13 +60,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	#data["knowsMirri"] = knowsMirri
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	#knowsMirri = SAVE.loadVar(data, "knowsMirri", false)

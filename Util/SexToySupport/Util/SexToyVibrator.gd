@@ -23,7 +23,7 @@ func vibrate(_intensity:float):
 	theBackend.vibrate(self, _intensity * strengthMult)
 
 func getSettings() -> Dictionary:
-	var theSettings := .getSettings()
+	var theSettings := super.getSettings()
 	theSettings.merge({
 		"strengthMult": {
 			name = "Strength multiplier",
@@ -42,11 +42,11 @@ func applySetting(_varid:String, _value):
 	return .applySetting(_varid, _value)
 
 func saveData() -> Dictionary:
-	var theData := .saveData()
+	var theData := super.saveData()
 	theData["strengthMult"] = strengthMult
 	return theData
 	
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	strengthMult = SAVE.loadVar(_data, "strengthMult", 1.0)
 	

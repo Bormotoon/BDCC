@@ -15,7 +15,7 @@ func getTraits():
 	return {}
 
 func generateRandomColors(_dynamicCharacter):
-	.generateRandomColors(_dynamicCharacter)
+	super.generateRandomColors(_dynamicCharacter)
 	
 	if(_dynamicCharacter != null):
 		pickedRColor = _dynamicCharacter.pickedSkinRColor

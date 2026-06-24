@@ -88,13 +88,13 @@ func doDebugAction(_id, _args = {}):
 		endScene()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["runner"] = runner.saveData()
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	runner.loadData(SAVE.loadVar(data, "runner", {}))

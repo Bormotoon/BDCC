@@ -467,7 +467,7 @@ func addButtonsForActionsOfType(actionsType):
 		if(theAction == null):
 			continue
 		actionsSorted.append(theAction)
-	actionsSorted.sort_custom(self, "sortSlaveActions")
+	actionsSorted.sort_custom(sortSlaveActions)
 	
 	for theAction in actionsSorted:
 		#var theAction:SlaveActionBase = GlobalRegistry.getSlaveAction(actionID)
@@ -518,7 +518,7 @@ func checkSlaveResist(resistChance, onlyActiveResist = false):
 			var randomResist = RNG.pick(possibleResists)
 			# Do add pain
 			if(slaveResistedSuc):
-				GM.pc.addPain(RNG.randi_range(3, 6))
+				GM.pc.addPain(randi_range(3, 6))
 			activeResistType = randomResist
 			setState("resisting_actively")
 			return true
@@ -761,7 +761,7 @@ func _react_scene_end(_tag, _result):
 			
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["resultText"] = resultText
@@ -776,7 +776,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	npc = GlobalRegistry.getCharacter(npcID)

@@ -3,7 +3,11 @@ class_name TextureRectLayered
 
 var currentSprites = []
 var spriteObjects = []
-var textures setget setTextures, getTextures
+var textures:
+	set(value):
+		setTextures(value)
+	get:
+		return getTextures()
 
 func setTextures(value):
 	setSprites(value)
@@ -67,4 +71,4 @@ func hydrateSize(sizeMult:float = 1.0):
 		return
 	var wantSizeH = wantSizeW / aspect
 	
-	rect_min_size.y = wantSizeH
+	custom_minimum_size.y = wantSizeH

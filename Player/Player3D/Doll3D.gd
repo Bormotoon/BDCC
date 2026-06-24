@@ -47,8 +47,8 @@ var sceneChains = []
 var chainObjects = []
 var rememberedChains = []
 
-@export var var addTestBody = false
-@export var var isOnlyPenis = false
+@export var addTestBody = false
+@export var isOnlyPenis = false
 
 var dollAttachmentZoneScene = preload("res://Player/Player3D/Parts/DollAttachmentZone.tscn")
 
@@ -81,7 +81,7 @@ func _ready():
 	if(addTestBody):
 		testBody()
 	if(random_leak_timer):
-		random_leak_timer.start(RNG.randf_range(3, 20))
+		random_leak_timer.start(randf_range(3, 20))
 	
 	if(GM.main != null && is_instance_valid(GM.main)):
 		var _ok = GM.main.saveLoadingFinished.connect(reconnect)
@@ -627,7 +627,7 @@ func setupCumParticles(particlesNode:CPUParticles, intensity:float, howoften:flo
 	particlesNode.initial_velocity = clamp(intensity*1.1*velocityMod, 0.5, 1.2*velocityMod)
 	particlesNode.initial_velocity_random = velocityRandom
 	particlesNode.explosiveness = clamp(0.7 + howoften / 30.0, 0.0, 0.92)
-	particlesNode.preprocess = howoften - RNG.randf_range(0.0, 1.0)
+	particlesNode.preprocess = howoften - randf_range(0.0, 1.0)
 	particlesNode.speed_scale = 2.0
 
 @onready var penis_cum_particles = $BoneAttachments/PenisTipAttachment/PenisCumParticles
@@ -665,7 +665,7 @@ func setupCumParticlesInside(particlesNode:CPUParticles, intensity:float, howoft
 	particlesNode.initial_velocity = clamp(intensity*1.1*velocityMod, 0.5, 2.0*velocityMod)
 	particlesNode.initial_velocity_random = velocityRandom
 	particlesNode.explosiveness = clamp(0.4 + howoften / 20.0, 0.0, 0.8)
-	particlesNode.preprocess = howoften - RNG.randf_range(0.0, 0.3)
+	particlesNode.preprocess = howoften - randf_range(0.0, 0.3)
 	particlesNode.speed_scale = 1.0
 	particlesNode.spread = 15.0
 
@@ -722,7 +722,7 @@ func _on_RandomLeakTimer_timeout():
 	if(anusLeaking):
 		waitTime -= 5.0
 	
-	random_leak_timer.start(RNG.randf_range(waitTime * 0.5, waitTime * 1.5))
+	random_leak_timer.start(randf_range(waitTime * 0.5, waitTime * 1.5))
 
 func setCockTemporaryHard():
 	var currentCockState = getFinalState("cock")

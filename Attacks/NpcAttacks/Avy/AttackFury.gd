@@ -22,7 +22,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 			_receiver.addEffect(StatusEffect.Collapsed)
 			return {
 				text = text,
-				pain = RNG.randi_range(5, 10),
+				pain = randi_range(5, 10),
 			}
 		
 		return genericDodgeMessage(_attacker, _receiver)
@@ -33,7 +33,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 		text += " Sharp claws caused {receiver.name} to start [color=red]bleeding[/color]."
 	return {
 		text = text,
-		pain = RNG.randi_range(20, 40),
+		pain = randi_range(20, 40),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

@@ -133,13 +133,13 @@ func supportsShowingPawns() -> bool:
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["selectedCharID"] = selectedCharID
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	selectedCharID = SAVE.loadVar(data, "selectedCharID", "")

@@ -287,7 +287,7 @@ func progressTutorial():
 			shouldSpoilHint = true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["connectedTo"] = connectedTo
 	data["plugSpeed"] = plugSpeed
@@ -298,7 +298,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	connectedTo = SAVE.loadVar(data, "connectedTo", "")
 	plugSpeed = SAVE.loadVar(data, "plugSpeed", 0)

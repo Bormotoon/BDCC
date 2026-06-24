@@ -92,7 +92,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["startLocation"] = startLocation
 	data["endLocation"] = endLocation
@@ -105,7 +105,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	startLocation = SAVE.loadVar(data, "startLocation", "")
 	endLocation = SAVE.loadVar(data, "endLocation", "")

@@ -1,11 +1,13 @@
-tool
+@tool
 class_name FlexGridContainer
 extends Container
 
 # Huge thanks to Eza0o07 for this container
 # https://www.reddit.com/r/godot/comments/gj0wxz/made_a_responsive_grid_container_changes_number/
 
-var columns: int = 1 setget set_columns
+var columns: int = 1:
+	set(value):
+		set_columns(value)
 
 
 func _notification(p_what):

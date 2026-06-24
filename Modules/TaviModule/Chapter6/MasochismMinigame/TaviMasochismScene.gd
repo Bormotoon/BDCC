@@ -132,13 +132,13 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["minigame"] = minigame.saveData()
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	minigame.loadData(SAVE.loadVar(data, "minigame", {}))

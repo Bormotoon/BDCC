@@ -46,7 +46,7 @@ func playAnimation(animID, _args = {}):
 	elif(animID == "rub"):
 		state_machine.travel("ShoweringRub_1-loop")
 	else:
-		Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+		Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func canTransitionTo(_actionID, _args = []):
 	var firstDoll = "pc"

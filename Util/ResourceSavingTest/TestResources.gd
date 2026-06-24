@@ -10,7 +10,7 @@ func _on_Button_pressed():
 	#newTestRes.dataaa = newTestRes.anTexture.get_data()
 	newTestRes.testDic = {"SOME FIELD": "YAAA TEXT", "somenum": 10.69, "imageinhere": load("res://Util/ResourceSavingTest/testres.png").get_data()}
 
-	var result = ResourceSaver.save("user://MYTEST.tres", newTestRes,  ResourceSaver.FLAG_COMPRESS)
+	var result = ResourceSaver.save(newTestRes, "user://MYTEST.tres", ResourceSaver.FLAG_COMPRESS)
 	assert(result == OK)
 
 

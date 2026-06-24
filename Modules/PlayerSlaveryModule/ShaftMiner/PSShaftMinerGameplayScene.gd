@@ -551,7 +551,7 @@ func genSlaveID() -> String:
 	return theID
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["nuggetButtons"] = nuggetButtons
 	data["npc1ID"] = npc1ID
@@ -559,7 +559,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	nuggetButtons = SAVE.loadVar(data, "nuggetButtons", [])
 	npc1ID = SAVE.loadVar(data, "npc1ID", "")

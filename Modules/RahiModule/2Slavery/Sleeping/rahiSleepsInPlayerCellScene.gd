@@ -389,7 +389,7 @@ func _react(_action: String, _args):
 			if(newState in ["pegging"]):
 				var strapon = GlobalRegistry.createItem("StraponCanine")
 				#var fluids = strapon.getFluids()
-				#fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+				#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 				getCharacter("rahi").getInventory().equipItem(strapon)
 		
 			if(newState in ["blowjob", "chastitycum"]):
@@ -425,7 +425,7 @@ func _react(_action: String, _args):
 		else:
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			#var fluids = strapon.getFluids()
-			#fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+			#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 			GM.pc.getInventory().equipItem(strapon)
 			setState("pegging_stealstrapon")
 		return
@@ -455,14 +455,14 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["condomBroke"] = condomBroke
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	condomBroke = SAVE.loadVar(data, "condomBroke", false)
 

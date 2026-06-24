@@ -75,7 +75,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 
 	return {
 		text = text,
-		pain = RNG.randi_range(5, maxDamage),
+		pain = randi_range(5, maxDamage),
 		lust = addLust,
 	}
 	

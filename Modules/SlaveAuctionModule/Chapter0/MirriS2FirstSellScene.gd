@@ -537,7 +537,7 @@ func _react_scene_end(_tag, _result):
 			setState("failed_to_sell")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["slaveID"] = slaveID
 	data["creditsToGive"] = creditsToGive
@@ -545,7 +545,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	slaveID = SAVE.loadVar(data, "slaveID", "")
 	creditsToGive = SAVE.loadVar(data, "creditsToGive", 0)

@@ -15,7 +15,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	var text = "You feel aroused after thinking about what {attacker.name} said.."
 	return {
 		text = text,
-		lust = RNG.randi_range(40, 50),
+		lust = randi_range(40, 50),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

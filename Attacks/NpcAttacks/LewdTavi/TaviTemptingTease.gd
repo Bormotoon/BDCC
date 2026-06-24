@@ -23,15 +23,15 @@ func _doAttack(_attacker, _receiver, _context = {}):
 			
 		return {
 			text = text,
-			lust = RNG.randi_range(5, 10),
-			pain = RNG.randi_range(30, 40),
+			lust = randi_range(5, 10),
+			pain = randi_range(30, 40),
 		}
 	else:
 		var text = "{attacker.name}'s seductive display distracts {receiver.name}, allowing {attacker.him} to rub {attacker.his} body on {receiver.name}."
 			
 		return {
 			text = text,
-			lust = RNG.randi_range(30, 40),
+			lust = randi_range(30, 40),
 		}
 	
 func _canUse(_attacker, _receiver, _context = {}):

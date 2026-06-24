@@ -20,7 +20,7 @@ var currentModOrder:Array = []
 var selectedEntry = null
 var launchModEntries:Array = []
 
-@export var var GlobalTheme
+@export var GlobalTheme: Theme
 
 const modOrderPath = "user://modOrder.json"
 const pckversionPath = "user://bdccpckversion.txt"
@@ -40,7 +40,7 @@ func _ready():
 	building_pck_panel.visible = false
 	
 	if(GlobalTheme != null):
-		if(OS.has_touchscreen_ui_hint()):
+		if(DisplayServer.is_touchscreen_available()):
 			GlobalTheme.rename_stylebox("scrollTouch", "scroll", "VScrollBar")
 	
 	var rawModList := GlobalRegistry.getRawModList()
@@ -113,7 +113,7 @@ func saveOrderIntoFile(saveData):
 			"disabled": modEntry["disabled"],
 		})
 	
-	save_game.store_line(JSON.print(finalData, "\t", true))
+	save_game.store_line(JSON.stringify(finalData, "\t", true))
 	
 	save_game.close()
 
@@ -126,11 +126,11 @@ func loadOrderFromFile() -> Array:
 	save_game.open(modOrderPath, FileAccess.READ)
 	#var saveData = JSON.parse_string(save_game.get_as_text())
 	var jsonResult = JSON.parse_string(save_game.get_as_text())
-	if(jsonResult.error != OK):
-		Log.printerr("LaunchScreen: Error while loading the mod order file, the file is not a valid json")
+	if(jsonResult == null):
+		Log.err("LaunchScreen: Error while loading the mod order file, the file is not a valid json")
 		return []
 	
-	var saveData = jsonResult.result
+	var saveData = jsonResult
 	save_game.close()
 	
 	# Sanity checking
@@ -293,10 +293,10 @@ func tryToPopulateFilesList():
 				var stuff = uncompressed.get_string_from_utf8()
 				
 				var jsonResult = JSON.parse_string(stuff)
-				if(jsonResult.error != OK):
+				if(jsonResult == null):
 					return "'"+str(jsonFile)+"' is wrong or corrupted"
 				
-				var jsonData = jsonResult.result
+				var jsonData = jsonResult
 				if(!(jsonData is Dictionary)):
 					return "'"+str(jsonFile)+"' is wrong or corrupted"
 				
@@ -309,7 +309,7 @@ func tryToPopulateFilesList():
 		else:
 			return "No '"+str(jsonFile)+"' file provided inside the mod"
 	else:
-		Log.print('Failed loading zip file')
+		Log.msg('Failed loading zip file')
 		modFileList.add_item("Couldn't load any files")
 	return "Failed to load info"
 
@@ -379,8 +379,8 @@ func _on_ConfirmationDialog_confirmed():
 	if(selectedEntry == null):
 		return
 	
-	var theFile = DirAccess.new()
-	theFile.remove_at(selectedEntry["path"])
+	var theFile = DirAccess.open(".")
+	theFile.remove(selectedEntry["path"])
 	currentModOrder.erase(selectedEntry)
 	selectedEntry = null
 	
@@ -422,9 +422,9 @@ const ignorePaths = {
 }
 
 func fillFolder(packer, folder):
-	var dir = DirAccess.new()
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true, false)
+	var dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -453,7 +453,7 @@ func fillFolder(packer, folder):
 				#	child1.set_metadata(0, full_path)
 			file_name = dir.get_next()
 	else:
-		Log.printerr("An error occurred when trying to access the path "+folder)
+		Log.err("An error occurred when trying to access the path "+folder)
 
 
 func _on_ModBrowserButton_pressed():
@@ -524,10 +524,10 @@ func isOurVersionAffection(_modVersion:String) -> bool:
 	return true
 
 func getFileSize(_path:String) -> int:
-	var file = FileAccess.open(path, FileAccess.READ)
-	if(file.open(_path, FileAccess.READ) != OK):
+	var file = FileAccess.open(_path, FileAccess.READ)
+	if(file == null):
 		return 0
-	var theSize := file.get_len()
+	var theSize: int = file.get_len()
 	file.close()
 	return theSize
 
@@ -581,17 +581,17 @@ func _on_BusyCloseButton_pressed():
 func _on_BusyLabel_meta_clicked(meta):
 	var _ok = Util.fixed_shell_open(meta)
 
-func _on_HTTPRequestMods_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PoolByteArray):
+func _on_HTTPRequestMods_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray):
 	if _result != HTTPRequest.RESULT_SUCCESS:
 		setBusyPanel("[center]Couldn't download a broken mods list from github.[/center]", true)
 		return
 	
 	var jsonResult = JSON.parse_string(_body.get_string_from_utf8())
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		setBusyPanel("[center]Failed to parse broken mods list from github.[/center]", true)
 		return
 	
-	var modsDataA = jsonResult.result
+	var modsDataA = jsonResult
 	if(!(modsDataA is Dictionary)):
 		setBusyPanel("[center]Bad broken mod list.[/center]", true)
 		return

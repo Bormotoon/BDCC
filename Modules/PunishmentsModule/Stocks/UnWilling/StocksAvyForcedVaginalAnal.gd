@@ -207,10 +207,10 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["beg", "breed_me!", "fuck_off"]):
-		processTime(RNG.randi_range(2, 5)*60)
+		processTime(randi_range(2, 5)*60)
 		
 	if(_action in ["fucking", "analSex"]):
-		processTime(RNG.randi_range(30, 60)*60)
+		processTime(randi_range(30, 60)*60)
 
 	if(_action == "beg"):
 		if(RNG.chance(50)):
@@ -259,7 +259,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["usedCondom"] = usedCondom
 	data["condomBroke"] = condomBroke
@@ -268,7 +268,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)
 	condomBroke = SAVE.loadVar(data, "condomBroke", false)

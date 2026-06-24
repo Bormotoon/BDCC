@@ -71,7 +71,7 @@ func _react_scene_end(_tag, _result):
 	
 			
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["sawBefore"] = sawBefore
@@ -80,7 +80,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	sawBefore = SAVE.loadVar(data, "sawBefore", false)

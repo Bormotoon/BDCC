@@ -13,7 +13,7 @@ func addLoot(chance, items):
 func generateCredits():
 	if(!RNG.chance(creditsChance)):
 		return 0
-	return RNG.randi_range(minCredits, maxCredits)
+	return randi_range(minCredits, maxCredits)
 
 func getPossibleLoot(characterID, battleName):
 	var resultLoot = loot
@@ -83,7 +83,7 @@ func generate(characterID = null, battleName = null):
 			elif(amountOfData == 2):
 				items.append([possibleItemData[0], possibleItemData[1]])
 			elif(amountOfData > 2):
-				items.append([possibleItemData[0], RNG.randi_range(possibleItemData[1], possibleItemData[2])])
+				items.append([possibleItemData[0], randi_range(possibleItemData[1], possibleItemData[2])])
 	
 	return {"items": items, "credits": generateCredits()}
 

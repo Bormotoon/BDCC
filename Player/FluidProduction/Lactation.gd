@@ -6,7 +6,7 @@ var lactationProgress = 0.0
 
 func induceLactation():
 	if(lactationTimer <= 0.0):
-		fillPercent(RNG.randf_range(0.3, 0.5))
+		fillPercent(randf_range(0.3, 0.5))
 	lactationTimer = Util.maxi(lactationTimer, 60*60*24*7)
 
 func afterMilked():
@@ -18,7 +18,7 @@ func afterMilked():
 	lactationTimer = Util.maxi(lactationTimer, 60*60*24*2)
 
 func stimulate():
-	lactationProgress += RNG.randf_range(0.03, 0.10)
+	lactationProgress += randf_range(0.03, 0.10)
 	if(lactationProgress > 0.3 && RNG.chance(lactationProgress * 10.0)):
 		if(!shouldProduce()):
 			induceLactation()
@@ -92,7 +92,7 @@ func getFluidLevelForOptimalSize() -> float:
 	return clamp(getFluidAmount() / capacity, 0.0, 1.0)
 
 func processTime(seconds: int):
-	.processTime(seconds)
+	super.processTime(seconds)
 	
 	var pc = getCharacter()
 	if(pc != null):
@@ -126,7 +126,7 @@ func getFluidSource():
 	return FluidSource.Breasts
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	data["lactationTimer"] = lactationTimer
 	data["lactationProgress"] = lactationProgress
 	
@@ -136,4 +136,4 @@ func loadData(_data):
 	lactationTimer = SAVE.loadVar(_data, "lactationTimer", 0)
 	lactationProgress = SAVE.loadVar(_data, "lactationProgress", 0.0)
 	
-	.loadData(_data)
+	super.loadData(_data)

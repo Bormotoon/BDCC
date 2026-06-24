@@ -15,7 +15,7 @@ func showMessageOnScreen(msg: String) -> void: #do not spam with messages only i
 		tween.interpolate_property(
 			richTextLabel, "percent_visible", 0.0, 1.0, 4.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		tween.interpolate_property(
-			richTextLabel, "rect_scale", Vector2( 1.0, 1.0 ), Vector2( 1.8, 1.6 ), 6.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			richTextLabel, "scale", Vector2( 1.0, 1.0 ), Vector2( 1.8, 1.6 ), 6.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween.interpolate_property(
 			richTextLabel, "modulate:a", 0, 1, 5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween.interpolate_property(

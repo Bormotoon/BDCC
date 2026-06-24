@@ -193,7 +193,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["try_to_hold_it", "let_it_happen", "no", "yes"]):
-		processTime(RNG.randi_range(5, 20)*60)
+		processTime(randi_range(5, 20)*60)
 	
 	if(_action == "let_it_happen"):
 		GM.pc.orgasmFrom("tavi")

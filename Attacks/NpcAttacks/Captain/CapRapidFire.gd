@@ -19,7 +19,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	if(checkDodged(_attacker, _receiver, DamageType.Physical)):
 		return genericDodgeMessage(_attacker, _receiver)
 	
-	var amountOfShots = RNG.randi_range(1, 5) + RNG.randi_range(1, 5)
+	var amountOfShots = randi_range(1, 5) + randi_range(1, 5)
 	
 	var text = "{attacker.name} fires off a rapid succession of energy shots, hitting {receiver.name} "+str(amountOfShots)+" times. Each impact sends jolts of pain through {receiver.his} body."
 	

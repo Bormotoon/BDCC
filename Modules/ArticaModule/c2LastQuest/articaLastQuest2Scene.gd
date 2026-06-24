@@ -488,7 +488,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isSlave"] = isSlave
 	data["isFullSlave"] = isFullSlave
@@ -496,7 +496,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isSlave = SAVE.loadVar(data, "isSlave", false)
 	isFullSlave = SAVE.loadVar(data, "isFullSlave", false)

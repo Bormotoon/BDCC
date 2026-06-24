@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name JiggleBone
 
 # Modified version of https://github.com/Bauxitedev/godot-jigglebones
@@ -7,18 +7,19 @@ enum Axis {
 	X_Plus, Y_Plus, Z_Plus, X_Minus, Y_Minus, Z_Minus
 }
 
-export							var enabled: bool = true
-export (String) 				var bone_name: String
-export (float, 0.01, 100, 0.01) 	var stiffness: float = 1
-export (float, 0, 100, 0.01) 	var damping: float = 0
-export 							var use_gravity: bool = false
-export 							var gravity := Vector3(0, -9.81, 0)
-export (Axis) 					var forward_axis: int = Axis.Z_Minus
-export (NodePath) 				var collision_shape: NodePath setget set_collision_shape
-@export var var directionVector = Vector3(0, 1, 0)
+@export var enabled: bool = true
+@export var bone_name: String
+@export var stiffness: float = 1
+@export var damping: float = 0
+@export var use_gravity: bool = false
+@export var gravity := Vector3(0, -9.81, 0)
+@export var forward_axis: int = Axis.Z_Minus
+@export var collision_shape: NodePath:
+	set(value):
+		set_collision_shape(value)
 
 var skeleton: Skeleton
-@export var var skeletonPath: NodePath
+@export var skeletonPath: NodePath
 var bone_id: int
 var bone_id_parent: int
 var collision_sphere: CollisionShape

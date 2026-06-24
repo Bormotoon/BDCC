@@ -25,4 +25,4 @@ func generateDataFor(_dynamicCharacter):
 	
 	var fetishValue = fetishHolder.getFetishValue(Fetish.VaginalSexGiving) + fetishHolder.getFetishValue(Fetish.AnalSexGiving)
 	if(fetishValue > 0.0):
-		sensitivity = 1.0 + RNG.randf_range(0.0, fetishValue*0.3)
+		sensitivity = 1.0 + randf_range(0.0, fetishValue*0.3)

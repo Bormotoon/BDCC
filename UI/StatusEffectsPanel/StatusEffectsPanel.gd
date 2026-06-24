@@ -6,7 +6,7 @@ var uiblockScene = preload("res://UI/StatusEffectsPanel/EffectUIBlock.tscn")
 var battleEffects = []
 var statusEffects = []
 
-@export var var showTooltipBelow = false
+@export var showTooltipBelow = false
 @onready var flexContainer = $FlexGridContainer
 
 # Called when the node enters the scene tree for the first time.

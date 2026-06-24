@@ -72,7 +72,7 @@ func getStraponTraits() -> Dictionary:
 	}
 
 func getPossibleActions():
-	var theActions:Array = .getPossibleActions()
+	var theActions:Array = super.getPossibleActions()
 	
 	theActions.append({
 		name = "Load with eggs",
@@ -98,12 +98,12 @@ func getTags():
 	return theTags
 
 func saveData():
-	var theData:Dictionary = .saveData()
+	var theData:Dictionary = super.saveData()
 	theData["eggInv"] = eggInv.saveData()
 	return theData
 
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	eggInv.loadData(SAVE.loadVar(_data, "eggInv", {}))
 

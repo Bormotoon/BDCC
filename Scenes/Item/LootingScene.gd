@@ -143,7 +143,7 @@ func onInventoryItemInteracted(item: ItemBase):
 		GM.main.pickOption("grabItem", [item.getUniqueID()])
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["inventory"] = inv.saveData()
 	data["savedCredits"] = savedCredits
@@ -151,7 +151,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	inv.loadData(SAVE.loadVar(data, "inventory", {}))
 	savedCredits = SAVE.loadVar(data, "savedCredits", 0)

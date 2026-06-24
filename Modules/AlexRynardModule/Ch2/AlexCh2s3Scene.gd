@@ -1814,7 +1814,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "after_work_check"):
-		processTime(RNG.randi_range(3,5) * 60 * 60)
+		processTime(randi_range(3,5) * 60 * 60)
 		GM.pc.addCredits(2)
 		addMessage("You received 2 credits")
 		
@@ -2005,7 +2005,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(10)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["howManyTimes"] = howManyTimes
 	data["usedCondom"] = usedCondom
@@ -2016,7 +2016,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	howManyTimes = SAVE.loadVar(data, "howManyTimes", 0)
 	usedCondom = SAVE.loadVar(data, "usedCondom", false)

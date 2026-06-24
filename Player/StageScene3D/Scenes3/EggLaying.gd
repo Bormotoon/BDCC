@@ -130,7 +130,7 @@ func getVarNpcs():
 	return ["pc", "npc"]
 
 func _on_StartEggTimer_timeout():
-	start_egg_timer.start(RNG.randf_range(0.5, 1.5))
+	start_egg_timer.start(randf_range(0.5, 1.5))
 	var state_machine:AnimationNodeStateMachinePlayback = animationTree["parameters/StateMachine/playback"]
 	var state_machine2:AnimationNodeStateMachinePlayback = animationTree2["parameters/StateMachine/playback"]
 	
@@ -165,16 +165,16 @@ func _on_EggTimer_timeout():
 		newEgg.setWhite(theEggTypeOrColor)
 	currentlyLaying = null
 	
-	newEgg.global_position = egg_spawner_node.global_position + Vector3(0.0, 0.0, -RNG.randf_range(0.0, 0.2))
+	newEgg.global_position = egg_spawner_node.global_position + Vector3(0.0, 0.0, -randf_range(0.0, 0.2))
 	newEgg.global_rotation = egg_spawner_node.global_rotation
 	
-	newEgg.apply_central_impulse(Vector3( RNG.randf_range(-3.0, -1.0), RNG.randf_range(-1.0, 1.0), 0.0 ))
+	newEgg.apply_central_impulse(Vector3( randf_range(-3.0, -1.0), randf_range(-1.0, 1.0), 0.0 ))
 	
 	squirt_egg_particles.emitting = true
 	eggs.append(newEgg)
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["hideNPC"] = {
 		type = "bool",

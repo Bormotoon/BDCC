@@ -26,7 +26,7 @@ var shouldGroup:bool = true
 var shouldGrabInput = true
 
 func _ready():
-	if(shouldGrabInput && !OS.has_touchscreen_ui_hint()):
+	if(shouldGrabInput && !DisplayServer.is_touchscreen_available()):
 		searchInput.grab_focus()
 
 #func setInventory(inv, isFight = false):

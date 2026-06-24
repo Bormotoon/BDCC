@@ -114,6 +114,6 @@ func getDefaultEquipment():
 	return ["OfficialClothesRed", "plainBriefs"]
 
 func beforeFightStarted():
-	.beforeFightStarted()
+	super.beforeFightStarted()
 	
 	addEffect("LuxeRage")

@@ -397,7 +397,7 @@ func _react(_action: String, _args):
 			keyGameTries = 3
 			if(GM.pc.hasPerk(Perk.BDSMBetterKeys)):
 				keyGameTries += 2
-			keyGameValue = RNG.randi_range(1, 15)
+			keyGameValue = randi_range(1, 15)
 			keyText = ""
 			setState("keyminigame")
 		return
@@ -468,7 +468,7 @@ func resolveCustomCharacterName(_charID):
 		return "pc"
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["unlockedRestraintID"] = unlockedRestraintID
 	data["actionText"] = actionText
@@ -486,7 +486,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	unlockedRestraintID = SAVE.loadVar(data, "unlockedRestraintID", "")
 	actionText = SAVE.loadVar(data, "actionText", "")

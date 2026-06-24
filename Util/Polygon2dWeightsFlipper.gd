@@ -1,9 +1,15 @@
-tool
+@tool
 extends Polygon2D
 
-export var flipWeights = false setget setFlipWeights
-export var flipLegPos = false setget SetFlipLegPos
-export var flipArmPos = false setget SetFlipArmPos
+@export var flipWeights = false:
+	set(value):
+		setFlipWeights(value)
+@export var flipLegPos = false:
+	set(value):
+		SetFlipLegPos(value)
+@export var flipArmPos = false:
+	set(value):
+		SetFlipArmPos(value)
 var legsSwitchDifference = Vector2(9.38516, 7.681711)
 
 const flipWords = [

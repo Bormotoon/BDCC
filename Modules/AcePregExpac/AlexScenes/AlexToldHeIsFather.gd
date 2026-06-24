@@ -150,7 +150,7 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action in ["AlexYesFather", "AlexNotFather"]):
-#		processTime(RNG.randi_range(3, 5)*30)
+#		processTime(randi_range(3, 5)*30)
 		setModuleFlag("AcePregExpac", "Alex_ToldIsFather", 0)
 
 	if(_action == "endthescene"):

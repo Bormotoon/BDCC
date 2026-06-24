@@ -30,7 +30,7 @@ func getBuffColor():
 	return Color.greenyellow
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["stat"] = stat
 	data["amount"] = amount
@@ -38,7 +38,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	stat = SAVE.loadVar(_data, "stat", "")
 	amount = SAVE.loadVar(_data, "amount", 0)
 

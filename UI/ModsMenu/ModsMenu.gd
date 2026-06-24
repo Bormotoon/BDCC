@@ -55,7 +55,7 @@ func _on_ModsFolderButton_pressed():
 
 func _on_ImportModDialog_file_selected(path:String):
 	print(path)
-	var d = DirAccess.new()
+	var d = DirAccess.open(".")
 	d.copy(path, "user://mods/"+path.get_file())
 	if(!showedModDialog):
 		showedModDialog = true
@@ -158,7 +158,7 @@ func _on_AddModButton_pressed():
 #				else:
 #					has_permissions = true
 					
-			var d = DirAccess.new()
+			var d = DirAccess.open(".")
 			var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 			var finalDir = externalDir.path_join("BDCCMods")
 			d.make_dir_recursive(finalDir)
@@ -177,8 +177,8 @@ func _on_RemoveModsButton_pressed():
 func _on_ConfirmationDialog_confirmed():
 	var modsFolder = "user://mods"
 	
-	var dir = DirAccess.new()
-	if dir.open(modsFolder) == OK:
+	var dir = DirAccess.open(modsFolder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -187,11 +187,11 @@ func _on_ConfirmationDialog_confirmed():
 			else:
 				if(file_name.get_extension() in ["pck", "zip"]):
 					var full_path = modsFolder.path_join(file_name)
-					dir.remove_at(full_path)
+					dir.remove(full_path)
 			file_name = dir.get_next()
 		OPTIONS.saveToFile()
 	else:
-		Log.printerr("An error occurred when trying to access the path "+modsFolder)
+		Log.err("An error occurred when trying to access the path "+modsFolder)
 
 
 func _on_WikiButton_pressed():

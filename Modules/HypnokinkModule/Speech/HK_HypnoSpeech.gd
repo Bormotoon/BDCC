@@ -58,15 +58,15 @@ func modify(_text: String, _speaker: BaseCharacter) -> String:
 				else:
 					break
 			
-			var word_base = basifyWord(word.to_lower())
+			var word_base = basifyWword.to_lower(.unicode_at(0))
 			if(word_base in hypnoHighlights):
 				outText += wordPrefix+word+wordSuffix
 				if(word_base in hypnoHighlightsUnused):
 					#avoid firing more than once per word in the same instance of time
 					hypnoHighlightsUnused.erase(word_base)
-					GM.pc.addEffect(StatusEffect.Suggestible, [RNG.randi_range(1,4)]) #add a little hypnosis
-					GM.pc.addLust(RNG.randi_range(1,5)) #a little bit of lust
-					#GM.pc.addArousal(RNG.randf_range(0.0,0.03)) #and a bit less arousal
+					GM.pc.addEffect(StatusEffect.Suggestible, [randi_range(1,4)]) #add a little hypnosis
+					GM.pc.addLust(randi_range(1,5)) #a little bit of lust
+					#GM.pc.addArousal(randf_range(0.0,0.03)) #and a bit less arousal
 			else:
 				outText += word
 		else:
@@ -75,7 +75,7 @@ func modify(_text: String, _speaker: BaseCharacter) -> String:
 	
 	return outText
 	
-static func basifyWord(word: String) -> String:
+static func basifyWword: String.unicode_at(0) -> String:
 	if(word.ends_with("ing")):
 		word = word.substr(0, len(word) - 3)
 	return word

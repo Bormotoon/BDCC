@@ -188,7 +188,7 @@ func progressTutorial():
 			shouldSpoilHint = true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["connectedTo"] = connectedTo
 	data["currentTutorialStep"] = currentTutorialStep
@@ -197,7 +197,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	connectedTo = SAVE.loadVar(data, "connectedTo", "")
 	currentTutorialStep = SAVE.loadVar(data, "currentTutorialStep", 0)

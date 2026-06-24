@@ -96,7 +96,7 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action in ["are_you_sure", "embrace_her"]):
-		processTime(RNG.randi_range(3, 10)*60)
+		processTime(randi_range(3, 10)*60)
 
 	if(_action == "endthescene"):
 		endScene()

@@ -965,7 +965,7 @@ func playRandomSexAnim():
 		return
 
 	while(true):
-		var domID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {NpcGen.Level: RNG.randi_range(1, 10)}, true)
+		var domID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {NpcGen.Level: randi_range(1, 10)}, true)
 		if(domID == null || domID == "" || getCharacter(domID) == null):
 			return
 		if(getCharacter(domID).hasPenis()):
@@ -973,7 +973,7 @@ func playRandomSexAnim():
 		else:
 			playAnimation(StageScene.UrinalPeeing, RNG.pick(["peefemale"]), {pc="pc", npc=domID, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		randomSexIsPlaying = true
-		await get_tree().create_timer(3.0 + RNG.randf_range(0.0, 4.0)).timeout
+		await get_tree().create_timer(3.0 + randf_range(0.0, 4.0)).timeout
 		if(!(state in ["after_first_two"])):
 			randomSexIsPlaying = false
 			return
@@ -1066,20 +1066,20 @@ func _react(_action: String, _args):
 
 	if(_action == "pc_used_first"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("gymbully3", FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
-		GM.pc.cummedInMouthBy("gymbully3", FluidSource.Vagina, RNG.randf_range(0.4, 0.8))
+		GM.pc.cummedOnBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
+		GM.pc.cummedInMouthBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
 		if(OPTIONS.isContentEnabled(ContentType.Watersports)):
-			GM.pc.cummedOnBy("gymbully3", FluidSource.Pissing, RNG.randf_range(0.5, 1.0))
-			GM.pc.cummedInMouthBy("gymbully3", FluidSource.Pissing, RNG.randf_range(0.2, 0.3))
+			GM.pc.cummedOnBy("gymbully3", FluidSource.Pissing, randf_range(0.5, 1.0))
+			GM.pc.cummedInMouthBy("gymbully3", FluidSource.Pissing, randf_range(0.2, 0.3))
 
 	if(_action == "pc_used_second"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("gymbully", FluidSource.Penis, RNG.randf_range(0.4, 0.8))
+		GM.pc.cummedOnBy("gymbully", FluidSource.Penis, randf_range(0.4, 0.8))
 		GM.pc.cummedInMouthBy("gymbully", FluidSource.Penis, 1.0)
 
 	if(_action == "second_pees_too"):
-		GM.pc.cummedOnBy("gymbully", FluidSource.Pissing, RNG.randf_range(0.5, 1.0))
-		GM.pc.cummedInMouthBy("gymbully", FluidSource.Pissing, RNG.randf_range(0.2, 0.3))
+		GM.pc.cummedOnBy("gymbully", FluidSource.Pissing, randf_range(0.5, 1.0))
+		GM.pc.cummedInMouthBy("gymbully", FluidSource.Pissing, randf_range(0.2, 0.3))
 
 	if(_action == "after_first_two"):
 		processTime(30*60)
@@ -1112,7 +1112,7 @@ func _react(_action: String, _args):
 
 	if(_action == "pick_stroke_cum"):
 		processTime(5*60)
-		getCharacter("jacki").cummedOnBy("pc", FluidSource.Penis, RNG.randf_range(0.6, 0.8))
+		getCharacter("jacki").cummedOnBy("pc", FluidSource.Penis, randf_range(0.6, 0.8))
 		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Penis)
 		GM.pc.orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
@@ -1128,22 +1128,22 @@ func _react(_action: String, _args):
 
 	if(_action == "pick_stroke_piss"):
 		processTime(5*60)
-		getCharacter("jacki").cummedOnBy("pc", FluidSource.Pissing, RNG.randf_range(0.5, 1.0))
-		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Pissing, RNG.randf_range(0.2, 0.3))
+		getCharacter("jacki").cummedOnBy("pc", FluidSource.Pissing, randf_range(0.5, 1.0))
+		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Pissing, randf_range(0.2, 0.3))
 		getModule("JackiModule").advanceSkill("jackiSkillWatersports")
 		swallowedPiss = true
 
 	if(_action == "pick_rubpussy_squirt"):
 		processTime(5*60)
-		getCharacter("jacki").cummedOnBy("pc", FluidSource.Vagina, RNG.randf_range(0.6, 0.8))
-		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Vagina, RNG.randf_range(0.2, 0.4))
+		getCharacter("jacki").cummedOnBy("pc", FluidSource.Vagina, randf_range(0.6, 0.8))
+		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Vagina, randf_range(0.2, 0.4))
 		GM.pc.orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
 
 	if(_action == "pick_pussrub_piss"):
 		processTime(5*60)
-		getCharacter("jacki").cummedOnBy("pc", FluidSource.Pissing, RNG.randf_range(0.5, 1.0))
-		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Pissing, RNG.randf_range(0.2, 0.3))
+		getCharacter("jacki").cummedOnBy("pc", FluidSource.Pissing, randf_range(0.5, 1.0))
+		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Pissing, randf_range(0.2, 0.3))
 		getModule("JackiModule").advanceSkill("jackiSkillWatersports")
 		swallowedPiss = true
 
@@ -1224,7 +1224,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["anger"] = anger
 	data["corruption"] = corruption
@@ -1242,7 +1242,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	anger = SAVE.loadVar(data, "anger", 0.0)
 	corruption = SAVE.loadVar(data, "corruption", 0.0)

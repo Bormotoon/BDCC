@@ -38,7 +38,7 @@ func isRestraint():
 
 func generateRestraintData():
 	restraintData = RestraintChastityCage.new()
-	restraintData.setLevel(RNG.randi_range(3, 5))
+	restraintData.setLevel(randi_range(3, 5))
 
 func getForcedOnMessage(isPlayer = true):
 	if(isPlayer):

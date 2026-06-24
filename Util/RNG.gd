@@ -6,20 +6,16 @@ class_name RNG
 
 static func randi_range(from: int, to: int) -> int:
 	if from > to:
-		Log.printerr("randi_range() from > to")
+		Log.err("randi_range() from > to")
 		to = from
-	var rand_value := randi_range(from, to + 1)
-	if rand_value < from:
-		rand_value = from
-	if rand_value > to:
-		rand_value = to
+	var rand_value := randi() % (to - from + 1) + from
 	return rand_value
 
 static func randf_range_custom(from: float, to: float) -> float:
-	return randf_range(from, to)
+	return randf() * (to - from) + from
 
 static func randf_rangeX2(from: float, to: float) -> float:
-	return (randf_range(from, to) + randf_range(from, to)) / 2.0
+	return (randf() * (to - from) + from + randf() * (to - from) + from) / 2.0
 
 ## chance(100) = always true, chance(3) = 3% of the time
 static func chance(ch: float) -> bool:
@@ -39,7 +35,7 @@ static func grab(ar) -> Variant:
 		ar = ar.keys()
 	if ar.is_empty():
 		return null
-	var element_i := randi() % ar.size()
+	var element_i: int = randi() % ar.size()
 	var value = ar[element_i]
 	ar.remove_at(element_i)
 	return value
@@ -51,7 +47,7 @@ static func pickWeighted(ar, weights: Array) -> Variant:
 	if ar.is_empty():
 		return null
 	if ar.size() != weights.size():
-		Log.printerr("RNG.pickWeighted: arrays differ in size")
+		Log.err("RNG.pickWeighted: arrays differ in size")
 		return null
 	var total := 0.0
 	for w in weights:
@@ -87,10 +83,10 @@ static func pickWeightedPairs(pairs: Array) -> Variant:
 static func pickN(ar, n: int) -> Array:
 	if ar is Dictionary:
 		ar = ar.keys()
-	var copy := ar.duplicate()
+	var copy: Array = ar.duplicate()
 	var result: Array = []
 	for _i in mini(n, copy.size()):
-		var idx := randi() % copy.size()
+		var idx: int = randi() % copy.size()
 		result.append(copy[idx])
 		copy.remove_at(idx)
 	return result

@@ -390,7 +390,7 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pickingBodypartType"] = pickingBodypartType
 	data["pickedFirstSpeciesHybrid"] = pickedFirstSpeciesHybrid
@@ -402,7 +402,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pickingBodypartType = SAVE.loadVar(data, "pickingBodypartType", BodypartSlot.Legs)
 	pickedFirstSpeciesHybrid = SAVE.loadVar(data, "pickedFirstSpeciesHybrid", "")

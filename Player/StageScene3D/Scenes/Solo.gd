@@ -61,7 +61,7 @@ func playAnimation(animID, _args = {}):
 		
 		var state_machine = animationTree["parameters/AnimationNodeStateMachine/playback"]
 		if(!stateMachineTravel(doll, state_machine, fullAnimID)):
-			Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+			Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func getSupportedStates():
 	return getSupportedStatesSolo()

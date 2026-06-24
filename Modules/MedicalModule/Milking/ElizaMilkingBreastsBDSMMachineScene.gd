@@ -316,7 +316,7 @@ func _react(_action: String, _args):
 		GM.pc.orgasmFrom("pc")
 		var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina if !isAnal else BodypartSlot.Anus)
 		if(thebodypart != null):
-			thebodypart.addFluidOrifice("CumLube", RNG.randf_range(250.0, 350.0), null)
+			thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
 
 	if(_action == "vag_process"):
 		processTime(5*60)
@@ -328,14 +328,14 @@ func _react(_action: String, _args):
 		if(isAnal):
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("CumLube", RNG.randf_range(250.0, 350.0)*2.0, null)
+				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0)*2.0, null)
 		else:
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("CumLube", RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
 			thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("CumLube", RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
 
 	if(_action == "double_process"):
 		processTime(5*60)
@@ -344,7 +344,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isAnal"] = isAnal
 	data["amountCollected"] = amountCollected
@@ -352,7 +352,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isAnal = SAVE.loadVar(data, "isAnal", false)
 	amountCollected = SAVE.loadVar(data, "amountCollected", 0.0)

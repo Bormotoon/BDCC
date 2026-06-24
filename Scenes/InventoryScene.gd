@@ -238,7 +238,7 @@ func onInventoryItemSelected(item: ItemBase):
 			addButton(action["name"], action["description"], "doitemaction", [action["scene"]])
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedItemUniqueID"] = savedItemUniqueID
 	data["fightMode"] = fightMode
@@ -246,7 +246,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedItemUniqueID = SAVE.loadVar(data, "savedItemUniqueID", "")
 	fightMode = SAVE.loadVar(data, "fightMode", false)

@@ -49,10 +49,10 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "get_into_wall"):
-		queueSize = RNG.randi_range(3,6)
+		queueSize = randi_range(3,6)
 
 	if(_action == "generate_next"):
-		processTime(RNG.randi_range(2, 10)*60)
+		processTime(randi_range(2, 10)*60)
 		if(queueSize <= 0):
 			setState("isFree")
 			return
@@ -72,14 +72,14 @@ func _react_scene_end(_tag, _result):
 			addMessage("Someone decided to put 1 credit into the tip box after using you")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["queueSize"] = queueSize
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	queueSize = SAVE.loadVar(data, "queueSize", 3)
 

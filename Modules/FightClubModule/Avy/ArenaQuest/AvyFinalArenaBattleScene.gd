@@ -705,7 +705,7 @@ func _react_scene_end(_tag, _result):
 			endScene()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCaged"] = isCaged
 	data["isCBT"] = isCBT
@@ -717,7 +717,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCaged = SAVE.loadVar(data, "isCaged", false)
 	isCBT = SAVE.loadVar(data, "isCBT", false)

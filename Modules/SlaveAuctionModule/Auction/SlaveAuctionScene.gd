@@ -88,7 +88,7 @@ func resolveCustomCharacterName(_charID):
 	return .resolveCustomCharacterName(_charID)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["charID"] = charID
 	data["currentActionType"] = currentActionType
@@ -98,7 +98,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	charID = SAVE.loadVar(data, "charID", "")
 	currentActionType = SAVE.loadVar(data, "currentActionType", AuctionActionType.NoType)

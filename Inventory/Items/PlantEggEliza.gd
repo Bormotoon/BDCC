@@ -14,7 +14,7 @@ func getInventoryImage():
 	return "res://Images/Items/medical/egg-shell.png"
 
 func getDescription():
-	var theDesc:String = .getDescription()
+	var theDesc:String = super.getDescription()
 	
 	if(whoGaveBirth == "eliza"):
 		return theDesc + "\n\n\"[i]Treasure it. Or eat it the moment I leave. But if you get poisoned, don’t come to me.[/i] \""

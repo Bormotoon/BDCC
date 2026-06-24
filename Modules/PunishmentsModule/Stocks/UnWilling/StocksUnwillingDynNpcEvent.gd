@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, "StocksUnWillingSex")
 
 func react(_triggerID, _args):
-	var encounterLevel = RNG.randi_range(0, GM.pc.getLevel())
+	var encounterLevel = randi_range(0, GM.pc.getLevel())
 	if(_args.size() > 0):
 		encounterLevel = _args[0]
 	

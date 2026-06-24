@@ -245,13 +245,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["didArtica"] = didArtica
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	didArtica = SAVE.loadVar(data, "didArtica", false)

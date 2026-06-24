@@ -11,7 +11,11 @@ extends PanelContainer
 @onready var showNpcButton = $ShowNPC
 signal onForgetButtonPressed(npcID, name, node)
 signal onMeetButtonPressed(npcID, occupation)
-var _npcID setget setNpcID, getNpcID
+var _npcID:
+	set(value):
+		setNpcID(value)
+	get:
+		return getNpcID()
 var _npcOccupation: String
 var _npcSubbyStatRaw: float
 var _amountOfChildrenRaw: int

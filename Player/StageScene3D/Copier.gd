@@ -1,7 +1,9 @@
-tool
+@tool
 extends Node
 
-export var copyy = false setget doCopy
+@export var copyy = false:
+	set(value):
+		doCopy(value)
 
 func doCopy(a):
 	if(!a):
@@ -9,7 +11,7 @@ func doCopy(a):
 	
 	var doll = $"../Doll3D"
 	
-	var text = 'playAnimation(StageScene.Solo, "custom", {anim='+to_json(calculateDifferences(doll))+'  })'
+	var text = 'playAnimation(StageScene.Solo, "custom", {anim='+JSON.stringify(calculateDifferences(doll))+'  })'
 	OS.clipboard = text
 	
 

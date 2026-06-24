@@ -107,14 +107,14 @@ func isSpyingOnInteractionsWith(_charID:String):
 	return false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pawnID"] = pawnID
 
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pawnID = SAVE.loadVar(data, "pawnID", "")
 

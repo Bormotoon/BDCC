@@ -1,7 +1,7 @@
 extends Spatial
 
 var isIn = false
-@export var var bodypartID = ""
+@export var bodypartID = ""
 
 signal mouseEntered(bodypartID)
 signal mouseExited(bodypartID)

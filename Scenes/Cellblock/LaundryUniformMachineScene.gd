@@ -171,7 +171,7 @@ func changebasecolormenu_colorchanged(_theColor):
 	isChanging = false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["dyingItemUniqueID"] = dyingItemUniqueID
 	data["savedDyedColor"] = savedDyedColor
@@ -179,7 +179,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	dyingItemUniqueID = SAVE.loadVar(data, "dyingItemUniqueID", "")
 	savedDyedColor = SAVE.loadVar(data, "savedDyedColor", "")

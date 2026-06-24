@@ -380,7 +380,7 @@ func _react(_action: String, _args):
 		_action = RNG.pick(["run_away!", "uhh.."])
 	
 	if(_action in ["cum!", "run_away!", "uhh..", "heatdrug", "inmatesFirstLoad", "inmatesSecondLoad"]):
-		processTime(RNG.randi_range(5, 10) * 60)
+		processTime(randi_range(5, 10) * 60)
 	
 	if(_action == "cum!"):
 		if(GM.pc.hasVagina()):
@@ -475,7 +475,7 @@ func _react(_action: String, _args):
 		GM.pc.orgasmFrom("inmateMale")
 		
 		for _i in range(5):
-			var thing = RNG.randf_range(0.0, 50.0)
+			var thing = randf_range(0.0, 50.0)
 			if(thing < 10.0):
 				GM.pc.cummedInMouthBy(RNG.pick(["inmateMale", "inmateMale2", "inmateMale3", "inmateShemale"]))
 				GM.pc.addTallymarkFace()

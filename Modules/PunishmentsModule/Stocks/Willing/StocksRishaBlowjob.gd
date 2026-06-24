@@ -109,7 +109,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["nod"]):
-		processTime(RNG.randi_range(30, 60)*60)
+		processTime(randi_range(30, 60)*60)
 
 	if(_action == "nod"):
 		if(GM.pc.hasTallymarks()):
@@ -141,7 +141,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["rishaRemovedGag"] = rishaRemovedGag
 	data["rishaPayed"] = rishaPayed
@@ -150,7 +150,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	rishaRemovedGag = SAVE.loadVar(data, "rishaRemovedGag", false)
 	rishaPayed = SAVE.loadVar(data, "rishaPayed", false)

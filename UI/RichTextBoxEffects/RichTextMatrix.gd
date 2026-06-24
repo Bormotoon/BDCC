@@ -1,4 +1,4 @@
-tool
+@tool
 extends RichTextEffect
 
 # Syntax: [matrix clean=2.0 dirty=1.0 span=50][/matrix]

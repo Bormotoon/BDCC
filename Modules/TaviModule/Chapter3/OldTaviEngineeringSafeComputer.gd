@@ -263,7 +263,7 @@ func reactToCommand(_command:String, _args:Array, _commandStringRaw:String):
 		return "Error, unknown command. Use 'help' to list all available commands"
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["connectedTo"] = connectedTo
 	data["loggedAsAdmin"] = loggedAsAdmin
@@ -274,7 +274,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	connectedTo = SAVE.loadVar(data, "connectedTo", "")
 	loggedAsAdmin = SAVE.loadVar(data, "loggedAsAdmin", false)

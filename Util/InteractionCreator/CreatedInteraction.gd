@@ -106,14 +106,14 @@ func loadVar(_data, thekey, defaultValue = null):
 
 func saveToFile():
 	var folder:String = "user://createdInteractions"
-	var dir:DirAccess = DirAccess.new()
+	var dir:DirAccess = DirAccess.open(".")
 	var _ok = dir.make_dir(folder)
 	
 	var finalFilePath:String = folder.path_join(id+".json")
 	var file:File = FileAccess
 	var _ok2 = file.open(finalFilePath, FileAccess.WRITE)
 	
-	file.store_string(JSON.print(saveData(), "\t"))
+	file.store_string(JSON.stringify(saveData(), "\t"))
 	file.close()
 
 func loadFromFile(filePath:String):
@@ -276,7 +276,7 @@ func generateCode() -> String:
 		
 	if(vars != ""):
 		text += "func saveData():\n"
-		text += "\tvar data = .saveData()\n"
+		text += "\tvar data = super.saveData()\n"
 		for varEntry in vars.split("\n"):
 			var varData = Util.splitOnFirst(varEntry, " ")
 			var varName = varData[0]

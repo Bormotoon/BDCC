@@ -17,7 +17,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	]
 	var text = RNG.pick(texts)
 	
-	if(_receiver.addEffect(StatusEffect.Stunned, [RNG.randi_range(1,2)])):
+	if(_receiver.addEffect(StatusEffect.Stunned, [randi_range(1,2)])):
 		text += "\n[b]{receiver.name} is briefly too disoriented to act![/b]"
 	
 	_receiver.addEffect(StatusEffect.PosthypnoticTriggerUsedUp)

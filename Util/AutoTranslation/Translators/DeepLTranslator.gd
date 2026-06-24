@@ -34,10 +34,10 @@ func _ready():
 
 func _http_request_completed(_result, _response_code, _headers, _body):
 	var jsonResult = (JSON.parse_string(_body.get_string_from_utf8()))
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		printerr(jsonResult)
 	else:
-		print(jsonResult.result)
+		print(jsonResult)
 	pass
 
 func fixLang(theLang):
@@ -61,7 +61,7 @@ func translate(_targetLanguage, _inputText):
 	var targetLang = fixLang(_targetLanguage).to_upper()
 	var theText = _inputText
 	var iAmount = theText.count("i")
-	var unixMilli = OS.get_unix_time()*1000000
+	var unixMilli = Time.get_unix_time_from_system()*1000000
 	var timeStamp = unixMilli
 	if(iAmount > 0):
 		iAmount += 1
@@ -91,14 +91,14 @@ func translate(_targetLanguage, _inputText):
 		},
 		"id": randomid,
 	}
-	var jsonString:String = JSON.print(postData)
+	var jsonString:String = JSON.stringify(postData)
 	if((randomid + 5)%29 == 0 || (randomid + 3)%13 == 0):
 		jsonString = jsonString.replace("\"method\":\"", "\"method\" : \"")
 	else:
 		jsonString = jsonString.replace("\"method\":\"", "\"method\": \"")
 		
 	#print(jsonString)
-	var reqerror = newreq.request("https://www2.deepl.com/jsonrpc", headers, true, HTTPClient.METHOD_POST, jsonString)
+	var reqerror = newreq.request("https://www2.deepl.com/jsonrpc", headers, HTTPClient.METHOD_POST, jsonString)
 
 	if(reqerror != OK):
 		theResult["error"] = true
@@ -125,12 +125,12 @@ func translate(_targetLanguage, _inputText):
 	newreq.queue_free()
 	
 	var jsonResult = JSON.parse_string(resultText)
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"
 		return theResult
 	
-	var translateData = jsonResult.result
+	var translateData = jsonResult
 	
 	if(!translateData.has("result") || !translateData["result"].has("texts")):
 		theResult["success"] = false

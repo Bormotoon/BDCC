@@ -62,17 +62,17 @@ func translate(_targetLanguage, _inputText):
 		resultText = "No text provided",
 	}
 	
-	#var textToTranslate = _inputText.percent_encode()
+	#var textToTranslate = _inputText.uri_encode()
 	
 	var extraParams = "rpcids=MkEWBc&source-path=%2F&f.sid="+fd+"&bl="+cf+"&hl=en-US&soc-app=1&soc-platform=1&soc-device=1&_reqid="+str(randi() % 9000 + 1000)+"&rt=c"
 	#print(extraParams)
 	
 	var payload = [[
-		['MkEWBc', to_json([[_inputText, "en", _targetLanguage, true], [null]]), null, "generic"],
+		['MkEWBc', JSON.stringify([[_inputText, "en", _targetLanguage, true], [null]]), null, "generic"],
 	]]
-	var payloadString = "f.req="+to_json(payload).http_escape()+"&"
+	var payloadString = "f.req="+JSON.stringify(payload).uri_encode()+"&"
 	#print(payloadString)
-	var reqerror = newreq.request('https://translate.google.com/_/TranslateWebserverUi/data/batchexecute?'+extraParams, headers2, true, HTTPClient.METHOD_POST, payloadString)
+	var reqerror = newreq.request('https://translate.google.com/_/TranslateWebserverUi/data/batchexecute?'+extraParams, headers2, HTTPClient.METHOD_POST, payloadString)
 	
 	
 
@@ -155,12 +155,12 @@ func translate(_targetLanguage, _inputText):
 		theResult["errorMessage"] = "Empty response"
 		return theResult
 	var jsonResult = JSON.parse_string(theResultText)
-	if(jsonResult.error != OK):
+	if(jsonResult == null):
 		theResult["error"] = true
 		theResult["errorMessage"] = "Couldn't parse json data"
 		return theResult
 	
-	var translateData = jsonResult.result
+	var translateData = jsonResult
 	#print(translateData)
 	
 	var translatedInputArray = []

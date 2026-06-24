@@ -813,7 +813,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["corruption"] = corruption
 	data["isNaked"] = isNaked
@@ -827,7 +827,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	corruption = SAVE.loadVar(data, "corruption", 0.0)
 	isNaked = SAVE.loadVar(data, "isNaked", false)

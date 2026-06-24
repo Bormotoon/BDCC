@@ -639,7 +639,7 @@ func _react_scene_end(_tag, _result):
 			setState("lost_captain")
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["isCorrupt"] = isCorrupt
 	data["isPure"] = isPure
@@ -650,7 +650,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	isCorrupt = SAVE.loadVar(data, "isCorrupt", false)
 	isPure = SAVE.loadVar(data, "isPure", false)

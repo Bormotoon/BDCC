@@ -216,9 +216,9 @@ func _run():
 		addButton("Back", "Go back to the previous menu", "")
 
 func onMinigameTest(_score:MinigameResult):
-	Log.print("SCORE: "+str(_score.score))
-	Log.print("INSTANT UNLOCK: "+str(_score.instantUnlock))
-	Log.print("FAILED HARD: "+str(_score.failedHard))
+	Log.msg("SCORE: "+str(_score.score))
+	Log.msg("INSTANT UNLOCK: "+str(_score.instantUnlock))
+	Log.msg("FAILED HARD: "+str(_score.failedHard))
 	GM.main.pickOption("", [])
 
 func _react(_action: String, _args):

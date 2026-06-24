@@ -18,14 +18,14 @@ func getBuffColor():
 	return DamageType.getColor(DamageType.Lust)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["amount"] = amount
 
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	amount = SAVE.loadVar(_data, "amount", 0.0)
 
 func combine(_otherBuff):

@@ -911,7 +911,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["tellChoice"] = tellChoice
 	data["didAny"] = didAny
@@ -922,7 +922,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	tellChoice = SAVE.loadVar(data, "tellChoice", "")
 	didAny = SAVE.loadVar(data, "didAny", false)

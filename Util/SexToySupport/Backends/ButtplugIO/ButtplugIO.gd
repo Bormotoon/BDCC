@@ -122,10 +122,10 @@ func disconnectFromServer():
 func onButtplugIOData():
 	var msg = _client.get_peer(1).get_packet().get_string_from_utf8()
 	var theJson := JSON.parse_string(msg)
-	if(theJson.error != OK):
-		onError(theJson.error_string)
+	if(theJson == null):
+		onError("JSON parse error")
 		return
-	var _content = theJson.result
+	var _content = theJson
 	#print_debug(msg)
 	if(DEBUG_BUTTPLUGIO):
 		logDebug("GOT   "+str(_content))
@@ -259,7 +259,7 @@ func onSocketClosed(_clean:bool):
 func sendToButtplugIO(command:String, body:Dictionary = {}):
 	body["Id"] = messageID
 	messageID += 1
-	var msg = JSON.print([{
+	var msg = JSON.stringify([{
 		command: body
 	}])
 	if(DEBUG_BUTTPLUGIO):
@@ -305,10 +305,10 @@ func onError(msg):
 func logDebug(_text:String):
 	if(!DEBUG_BUTTPLUGIO):
 		return
-	Log.print("[Buttplug.IO] "+str(_text))
+	Log.msg("[Buttplug.IO] "+str(_text))
 
 func logError(_text:String):
-	Log.printerr("[Buttplug.IO] "+str(_text))
+	Log.err("[Buttplug.IO] "+str(_text))
 	lastErrors.append(_text)
 
 
@@ -356,11 +356,11 @@ func scanForToys():
 		sendToButtplugIO("RequestDeviceList")
 
 func saveData() -> Dictionary:
-	var theData := .saveData()
+	var theData := super.saveData()
 	theData["websocketURL"] = websocketURL
 	return theData
 
 func loadData(_data:Dictionary):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	websocketURL = SAVE.loadVar(_data, "websocketURL", DEFAULT_WEBSOCKET_URL)

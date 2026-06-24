@@ -15,4 +15,4 @@ func setText(newtext):
 
 func _ready():
 	if(OPTIONS.isTouchFriendlyUI()):
-		rect_min_size = Vector2(0.0, 44.0)
+		custom_minimum_size = Vector2(0.0, 44.0)

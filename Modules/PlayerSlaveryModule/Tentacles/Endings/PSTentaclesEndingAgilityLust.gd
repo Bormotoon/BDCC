@@ -562,13 +562,13 @@ func _react(_action: String, _args):
 			theMenstrualCycle.addTentacleEgg(_tentacles.getTentaclesCharID(), BigEggType.Plant, 12*60*60, OrificeType.Anus)
 		for _i in range(3):
 			theMenstrualCycle.addTentacleEgg(_tentacles.getTentaclesCharID(), BigEggType.Plant, 12*60*60, OrificeType.Throat)
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInVaginaBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInAnusBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInMouthBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedOnBy(_tentacles.getTentaclesCharID())
 
 	if(_action == "guy_fuck_cum"):
@@ -579,13 +579,13 @@ func _react(_action: String, _args):
 			theMenstrualCycle.addTentacleEgg(_tentacles.getTentaclesCharID(), BigEggType.Plant, 12*60*60, OrificeType.Anus)
 		for _i in range(3):
 			theMenstrualCycle.addTentacleEgg(_tentacles.getTentaclesCharID(), BigEggType.Plant, 12*60*60, OrificeType.Throat)
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInVaginaBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInAnusBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInMouthBy(_tentacles.getTentaclesCharID())
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedOnBy(_tentacles.getTentaclesCharID())
 
 	if(_action == "fastforward"):
@@ -605,13 +605,13 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["choseBoth"] = choseBoth
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	choseBoth = SAVE.loadVar(data, "choseBoth", false)

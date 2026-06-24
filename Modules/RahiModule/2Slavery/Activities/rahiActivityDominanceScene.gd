@@ -1852,7 +1852,7 @@ func _react(_action: String, _args):
 	if(_action == "sex2_start"):
 		var strapon = GlobalRegistry.createItem("StraponCanine")
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 
 	if(_action == "sex2_cum"):
@@ -1877,7 +1877,7 @@ func _react(_action: String, _args):
 		processTime(2*60)
 		var strapon = GlobalRegistry.createItem("StraponFeeldoe")
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		getCharacter("rahi").getInventory().forceEquipRemoveOther(strapon)
 
 	if(_action == "sex3_rahiinserts"):
@@ -1923,7 +1923,7 @@ func _react(_action: String, _args):
 		processTime(2*60)
 		var strapon = GlobalRegistry.createItem("StraponFeeldoe")
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		getCharacter("rahi").getInventory().forceEquipRemoveOther(strapon)
 
 	if(_action == "peg1_rahiinserts"):
@@ -1948,7 +1948,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		var strapon = GlobalRegistry.createItem("StraponFeeldoe")
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		getCharacter("rahi").getInventory().forceEquipRemoveOther(strapon)
 
 	if(_action == "peg2_begansex"):

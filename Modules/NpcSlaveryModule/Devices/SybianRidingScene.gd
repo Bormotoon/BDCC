@@ -472,8 +472,8 @@ func _react(_action: String, _args):
 				theNpc.getNpcSlavery().addUnhappiness(-10.0)
 		if(rideMode == "lick"):
 			var theNpc = getCharacter(npcID)
-			GM.pc.cummedInMouthBy(npcID, FluidSource.Vagina, RNG.randf_range(0.3, 0.7))
-			GM.pc.cummedOnBy(npcID, FluidSource.Vagina, RNG.randf_range(0.3, 0.7))
+			GM.pc.cummedInMouthBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
+			GM.pc.cummedOnBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
 			theNpc.orgasmFrom("pc")
 			if(theNpc.isSlaveToPlayer()):
 				theNpc.getNpcSlavery().addUnhappiness(-10.0)
@@ -498,7 +498,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["npcID"] = npcID
 	data["rideMode"] = rideMode
@@ -507,7 +507,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	npcID = SAVE.loadVar(data, "npcID", "")
 	rideMode = SAVE.loadVar(data, "rideMode", "")

@@ -550,7 +550,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["ready", "continue1", "wow", "follow", "enter_code", "hide", "follow1", "telecomms", "continue2", "grab_him", "preparetogo"]):
-		processTime(RNG.randi_range(3,5)*60)
+		processTime(randi_range(3,5)*60)
 	
 	if(_action == "preparetogo"):
 		addExperienceToPlayer(50)

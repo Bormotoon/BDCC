@@ -566,13 +566,13 @@ func _react(_action: String, _args):
 			theMenstrualCycle.addTentacleEgg("PCTentacles", BigEggType.Plant, 12*60*60, OrificeType.Vagina)
 		for _i in range(6):
 			theMenstrualCycle.addTentacleEgg("PCTentacles", BigEggType.Plant, 12*60*60, OrificeType.Anus)
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInVaginaBy("PCTentacles")
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInAnusBy("PCTentacles")
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedInMouthBy("PCTentacles")
-		theTentacles.fillBalls(RNG.randf_range(0.5, 1.0))
+		theTentacles.fillBalls(randf_range(0.5, 1.0))
 		theChar.cummedOnBy("PCTentacles")
 
 	if(_action == "eliza_flops"):
@@ -597,7 +597,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["creditsPaid"] = creditsPaid
 	data["creditsPaidStr"] = creditsPaidStr
@@ -605,7 +605,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	creditsPaid = SAVE.loadVar(data, "creditsPaid", 0)
 	creditsPaidStr = SAVE.loadVar(data, "creditsPaidStr", "")

@@ -1143,12 +1143,12 @@ func _react(_action: String, _args):
 		socketLust -= 5
 		if(socketLust<0):
 			socketLust = 0
-		overstim += RNG.randi_range(3, 6)
+		overstim += randi_range(3, 6)
 
 	if(_action == "do_grope_and_rub"):
 		processTime(10*60)
 		socketLust += 30
-		overstim += RNG.randi_range(3, 6)
+		overstim += randi_range(3, 6)
 
 	if(_action == "do_share_play"):
 		npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new())
@@ -1164,7 +1164,7 @@ func _react(_action: String, _args):
 			possible.append("npc_balls")
 		var selectedRand = RNG.pick(possible)
 		if(selectedRand in ["npc_grope", "npc_gropefast", "npc_gropebreasts"]):
-			overstim += RNG.randi_range(5, 10)
+			overstim += randi_range(5, 10)
 			socketLust += 30
 			shouldCum = false
 			if(socketLust >= 100):
@@ -1172,7 +1172,7 @@ func _react(_action: String, _args):
 				shouldCum = true
 				overstim += 10
 		else:
-			overstim += RNG.randi_range(5, 10)
+			overstim += randi_range(5, 10)
 			socketLust += 15
 			if(socketLust > 100):
 				socketLust = 100
@@ -1206,7 +1206,7 @@ func _react(_action: String, _args):
 		
 		if(possible.size() == 0):
 			setState("npc_grope")
-			overstim += RNG.randi_range(5, 10)
+			overstim += randi_range(5, 10)
 			socketLust += 30
 			shouldCum = false
 			if(socketLust >= 100):
@@ -1239,7 +1239,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
 		GM.pc.orgasmFrom("socket")
-		overstim += RNG.randi_range(10, 25)
+		overstim += randi_range(10, 25)
 		socketLust = 0
 
 	if(_action == "do_sex_pussy1_dp_fast"):
@@ -1250,7 +1250,7 @@ func _react(_action: String, _args):
 		getCharacter("socket").cummedInVaginaBy("pc")
 		getCharacter("socket").cummedInAnusBy(npcID)
 		GM.pc.orgasmFrom("socket")
-		overstim += RNG.randi_range(15, 25)
+		overstim += randi_range(15, 25)
 		socketLust = 0
 
 	if(_action == "ov_menu"):
@@ -1275,7 +1275,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
 		GM.pc.orgasmFrom("socket")
-		overstim += RNG.randi_range(10, 25)
+		overstim += randi_range(10, 25)
 		socketLust = 0
 
 	if(_action == "do_sex_pussy2_spitroast_fast"):
@@ -1286,7 +1286,7 @@ func _react(_action: String, _args):
 		getCharacter("socket").cummedInVaginaBy("pc")
 		getCharacter("socket").cummedInMouthBy(npcID)
 		GM.pc.orgasmFrom("socket")
-		overstim += RNG.randi_range(15, 25)
+		overstim += randi_range(15, 25)
 		socketLust = 0
 
 	if(_action == "do_sex_trib_faster"):
@@ -1296,19 +1296,19 @@ func _react(_action: String, _args):
 	if(_action == "do_sex_trib_cum"):
 		processTime(5*60)
 		GM.pc.orgasmFrom("socket")
-		overstim += RNG.randi_range(10, 25)
+		overstim += randi_range(10, 25)
 		socketLust = 0
 
 	if(_action == "npc_fuck_cum"):
 		processTime(8*60)
 		getCharacter("socket").cummedInVaginaBy(npcID)
-		overstim += RNG.randi_range(15, 25)
+		overstim += randi_range(15, 25)
 		socketLust = 0
 
 	if(_action == "npc_bj_cum"):
 		processTime(8*60)
 		getCharacter("socket").cummedInMouthBy(npcID)
-		overstim += RNG.randi_range(5, 15)
+		overstim += randi_range(5, 15)
 
 	if(_action == "npc_dp_cum"):
 		processTime(8*60)
@@ -1317,12 +1317,12 @@ func _react(_action: String, _args):
 			getCharacter("socket").cummedInAnusBy(npc2ID)
 		else:
 			getCharacter("socket").cummedInMouthBy(npc2ID)
-		overstim += RNG.randi_range(20, 25)
+		overstim += randi_range(20, 25)
 		socketLust = 0
 
 	if(_action == "npc_trib_cum"):
 		processTime(8*60)
-		overstim += RNG.randi_range(10, 25)
+		overstim += randi_range(10, 25)
 		socketLust = 0
 		getCharacter(npcID).rubsVaginasWith("socket")
 
@@ -1398,7 +1398,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["hasAccess"] = hasAccess
 	data["knowsBull"] = knowsBull
@@ -1413,7 +1413,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	hasAccess = SAVE.loadVar(data, "hasAccess", false)
 	knowsBull = SAVE.loadVar(data, "knowsBull", false)

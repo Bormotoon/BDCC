@@ -22,7 +22,7 @@ func _doAttack(_attacker, _receiver, _context = {}):
 	
 	return {
 		text = text,
-		pain = RNG.randi_range(40, 50),
+		pain = randi_range(40, 50),
 	}
 	
 func _canUse(_attacker, _receiver, _context = {}):

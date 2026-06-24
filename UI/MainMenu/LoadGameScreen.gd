@@ -81,7 +81,7 @@ func onExportButtonClicked(savePath: String):
 #			else:
 #				has_permissions = true
 		
-		var d = DirAccess.new()
+		var d = DirAccess.open(".")
 		var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 		var finalDir = externalDir.path_join("BDCCSaves/")
 		d.make_dir_recursive(finalDir)
@@ -99,7 +99,7 @@ func onExportButtonClicked(savePath: String):
 func _on_ExportSaveDialog_file_selected(path):
 	if(currentExportedPath == null || currentExportedPath == ""):
 		return
-	var d = DirAccess.new()
+	var d = DirAccess.open(".")
 	d.copy(currentExportedPath, path)
 
 func _notification(notification: int) -> void:
@@ -192,7 +192,7 @@ func _on_ImportButton_pressed():
 #				else:
 #					has_permissions = true
 		
-			var d = DirAccess.new()
+			var d = DirAccess.open(".")
 			var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 			var finalDir = externalDir.path_join("BDCCSaves")
 			d.make_dir_recursive(finalDir)
@@ -201,7 +201,7 @@ func _on_ImportButton_pressed():
 
 func _on_ImportSaveDialog_file_selected(path: String):
 	print(path.get_file().get_basename())
-	var d = DirAccess.new()
+	var d = DirAccess.open(".")
 	d.copy(path, "user://saves/"+path.get_file().get_basename()+".save")
 	updateSaves()
 

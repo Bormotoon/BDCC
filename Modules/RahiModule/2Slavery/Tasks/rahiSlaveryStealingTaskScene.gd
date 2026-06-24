@@ -173,14 +173,14 @@ func _react(_action: String, _args):
 				var zone = BodyWritingsZone.getRandomZone()
 				rahi.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 		else:
-			var creditAmount = RNG.randi_range(2, 5)
+			var creditAmount = randi_range(2, 5)
 			addMessage("You receive "+str(creditAmount)+" credits!")
 			GM.pc.addCredits(creditAmount)
 
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["chanceEasy"] = chanceEasy
 	data["chanceMedium"] = chanceMedium
@@ -190,7 +190,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	chanceEasy = SAVE.loadVar(data, "chanceEasy", 0.0)
 	chanceMedium = SAVE.loadVar(data, "chanceMedium", 0.0)

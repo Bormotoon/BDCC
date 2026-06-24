@@ -745,7 +745,7 @@ func _react(_action: String, _args):
 		GM.pc.afterSleepingInBed()
 	
 	if(_action in ["time_passes_again", "time?", "time_passes_again", "time_passes"]):
-		processTime(RNG.randi_range(70,120)*60)
+		processTime(randi_range(70,120)*60)
 		
 	
 	if(_action == "use_stun_baton"):

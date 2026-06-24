@@ -1,4 +1,4 @@
-tool
+@tool
 extends RichTextEffect
 
 # Syntax: [console freq=5.0 span=10.0][/ghost]
@@ -6,7 +6,7 @@ extends RichTextEffect
 # Define the tag name.
 var bbcode = "console"
 
-const CURSOR = ord("█")
+const CURSOR = "█".unicode_at(0)
 
 func _process_custom_fx(char_fx):
 	# Get parameters, or use the provided default value if missing.

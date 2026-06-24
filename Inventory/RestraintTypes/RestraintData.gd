@@ -68,7 +68,7 @@ func calcDamage(_pc, _minigame:MinigameResult, mult = 1.0):
 	var levelDamage:float = getLevelDamage()
 	var statDamageMult:float = getStatDamageMult(_pc)
 	
-	return mult * levelDamage * statDamageMult * RNG.randf_range(0.8, 1.0) * _minigame.score
+	return mult * levelDamage * statDamageMult * randf_range(0.8, 1.0) * _minigame.score
 
 func takeDamage(howMuch):
 	tightness -= howMuch

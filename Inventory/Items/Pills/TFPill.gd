@@ -174,7 +174,7 @@ func getInventoryImage():
 	return "res://Images/Items/medical/tfpill.png"
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["tfID"] = tfID
 	data["tfArgs"] = tfArgs
@@ -183,7 +183,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	tfID = SAVE.loadVar(data, "tfID", "")
 	tfArgs = SAVE.loadVar(data, "tfArgs", {})

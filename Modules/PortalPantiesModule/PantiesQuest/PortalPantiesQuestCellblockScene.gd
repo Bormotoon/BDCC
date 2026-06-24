@@ -643,7 +643,7 @@ func playRandomSexAnim():
 			playAnimation(StageScene.SexPortal, RNG.pick(["sex", "fast"]), {pc=randNPC, npc="pc", npcBodyState={naked=true}, bodyState={exposedCrotch=true,hard=true}})
 		
 		randomSexIsPlaying = true
-		await get_tree().create_timer(4.0 + RNG.randf_range(0.0, 4.0)/Util.maxi(1, npcsToUse.size())).timeout
+		await get_tree().create_timer(4.0 + randf_range(0.0, 4.0)/Util.maxi(1, npcsToUse.size())).timeout
 		if(randomSexShouldStop):
 			randomSexIsPlaying = false
 			return
@@ -737,8 +737,8 @@ func _react(_action: String, _args):
 		addMessage("Someone also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 	
 	if(_action == "more"):
-		for _i in range(RNG.randi_range(3,5)):
-			var randValue = RNG.randi_range(0, 100)
+		for _i in range(randi_range(3,5)):
+			var randValue = randi_range(0, 100)
 			if(randValue < 40 && GM.pc.hasVagina()):
 				var pickedInmate = getSomeoneWithDick()
 				npcsToUse.append(pickedInmate)
@@ -809,7 +809,7 @@ func hasDevCommentary():
 	return true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcsToUse"] = npcsToUse
 	data["femaleNpcID"] = femaleNpcID
@@ -817,7 +817,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcsToUse = SAVE.loadVar(data, "npcsToUse", [])
 	femaleNpcID = SAVE.loadVar(data, "femaleNpcID", "inmateMaleCanine")

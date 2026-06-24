@@ -1284,13 +1284,13 @@ func _react(_action: String, _args):
 			GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
 		else:
 			GM.pc.afterHealingGelTreatment()
 			GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 30)
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
 		GM.pc.addPain(-200)
 		GM.pc.addStamina(100)
 
@@ -1326,14 +1326,14 @@ func _react(_action: String, _args):
 		if(GM.pc.hasReachableVagina()):
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
 			var thebodypart2 = GM.pc.getBodypart(BodypartSlot.Anus)
 			if(thebodypart2 != null):
-				thebodypart2.addFluidOrifice("HealingGel", RNG.randf_range(250.0, 350.0), null)
+				thebodypart2.addFluidOrifice("HealingGel", randf_range(250.0, 350.0), null)
 		else:
 			var thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
-				thebodypart.addFluidOrifice("HealingGel", 2.0*RNG.randf_range(250.0, 350.0), null)
+				thebodypart.addFluidOrifice("HealingGel", 2.0*randf_range(250.0, 350.0), null)
 
 	if(_action == "9_after_brat_cuddle"):
 		processTime(20*60)
@@ -1344,7 +1344,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["bratCounter"] = bratCounter
 	data["breastPumpID"] = breastPumpID
@@ -1358,7 +1358,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	bratCounter = SAVE.loadVar(data, "bratCounter", 0)
 	breastPumpID = SAVE.loadVar(data, "breastPumpID", "")

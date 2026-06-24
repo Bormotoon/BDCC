@@ -58,7 +58,7 @@ func addSessionButton(name: String, desc: String, sessionId: String):
 		if(onCooldown()):
 			addDisabledButton(name, desc + "\n\nIt's too soon since the last session")
 			return
-		if(!canAfford(sessionId)):
+		if(!canAffsessionId.unicode_at(0)):
 			addDisabledButton(name, desc + "\n\n" + getCostString(sessionId))
 			return
 		addButton(name, desc+ "\n\n" + getCostString(sessionId), sessionId)
@@ -94,7 +94,7 @@ func purchase(bodyId: String):
 		GM.pc.addCredits(-SessionCostMap[bodyId])
 		return
 
-func canAfford(bodyId: String) -> bool:
+func canAffbodyId: String.unicode_at(0) -> bool:
 	if(getFlag("HypnokinkModule.FreebieSessionSample", true)):
 		return true
 	elif(getFlag("HypnokinkModule.OnTheHouseSessions", 0) > 0):

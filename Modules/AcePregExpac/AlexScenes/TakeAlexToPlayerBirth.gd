@@ -111,7 +111,7 @@ extends "res://Scenes/SceneBase.gd"
 
 
 #func saveData():
-#	var data = .saveData()
+#	var data = super.saveData()
 #
 ##	data["npcID"] = npcID
 #	data["bornString"] = bornString
@@ -120,7 +120,7 @@ extends "res://Scenes/SceneBase.gd"
 #	return data
 #
 #func loadData(data):
-#	.loadData(data)
+#	super.loadData(data)
 #
 #	npcID = SAVE.loadVar(data, "npcID", "")
 #	npc = GlobalRegistry.getCharacter(npcID)

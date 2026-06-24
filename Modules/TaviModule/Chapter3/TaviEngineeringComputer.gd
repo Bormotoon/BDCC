@@ -81,7 +81,7 @@ func progressTutorial():
 			shouldSpoilHint = true
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["currentTutorialStep"] = currentTutorialStep
 	data["shouldSpoilHint"] = shouldSpoilHint
@@ -89,7 +89,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	currentTutorialStep = SAVE.loadVar(data, "currentTutorialStep", 0)
 	shouldSpoilHint = SAVE.loadVar(data, "shouldSpoilHint", false)

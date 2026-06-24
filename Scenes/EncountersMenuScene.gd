@@ -477,7 +477,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["pickedPoolToShow"] = pickedPoolToShow
 	data["pickedFetishToChange"] = pickedFetishToChange
@@ -490,7 +490,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	pickedPoolToShow = SAVE.loadVar(data, "pickedPoolToShow", "")
 	pickedFetishToChange = SAVE.loadVar(data, "pickedFetishToChange", "")

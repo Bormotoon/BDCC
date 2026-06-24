@@ -24,7 +24,7 @@ func play(sceneID, actionID, args = {}, skipFade = false, forceReset = false):
 	
 	var newScene:BaseStageScene3D = GlobalRegistry.createStageScene(sceneID)
 	if(newScene == null):
-		Log.printerr("STAGE: Scene "+str(sceneID)+" wasn't found")
+		Log.err("STAGE: Scene "+str(sceneID)+" wasn't found")
 		return
 	currentScene = newScene
 	add_child(newScene)

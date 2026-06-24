@@ -62,7 +62,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["savedText"] = savedText
 	data["tfCount"] = tfCount
@@ -70,7 +70,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	savedText = SAVE.loadVar(data, "savedText", "")
 	tfCount = SAVE.loadVar(data, "tfCount", 0)

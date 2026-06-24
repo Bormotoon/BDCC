@@ -107,19 +107,19 @@ func onDatapackFlagChangeButton(moduleID, flagID):
 func _on_FlagEditWindow_clearFlag(moduleID, flagID):
 	if(moduleID == null || moduleID == ""):
 		GM.main.clearFlag(flagID)
-		Log.print("Cleared flag "+str(flagID))
+		Log.msg("Cleared flag "+str(flagID))
 	else:
 		GM.main.clearModuleFlag(moduleID, flagID)
-		Log.print("Cleared flag "+str(flagID)+" in module "+str(moduleID))
+		Log.msg("Cleared flag "+str(flagID)+" in module "+str(moduleID))
 	updateFlags()
 
 func _on_FlagEditWindow_setFlagValue(moduleID, flagID, value):
 	if(moduleID == null || moduleID == ""):
 		GM.main.setFlag(flagID, value)
-		Log.print("Setting flag "+str(flagID)+" to "+str(value))
+		Log.msg("Setting flag "+str(flagID)+" to "+str(value))
 	else:
 		GM.main.setModuleFlag(moduleID, flagID, value)
-		Log.print("Setting flag "+str(flagID)+" in module "+str(moduleID)+" to "+str(value))
+		Log.msg("Setting flag "+str(flagID)+" in module "+str(moduleID)+" to "+str(value))
 	updateFlags()
 
 
@@ -129,10 +129,10 @@ func _on_LineEdit_text_entered(_new_text):
 
 func _on_FlagEditWindow_setDatapackFlagValue(moduleID, flagID, value):
 	GM.main.setDatapackFlag(moduleID, flagID, value)
-	Log.print("Setting datapack flag "+str(flagID)+" in datapack "+str(moduleID)+" to "+str(value))
+	Log.msg("Setting datapack flag "+str(flagID)+" in datapack "+str(moduleID)+" to "+str(value))
 	updateFlags()
 
 func _on_FlagEditWindow_clearDatapackFlag(moduleID, flagID):
 	GM.main.clearDatapackFlag(moduleID, flagID)
-	Log.print("Cleared flag "+str(flagID)+" in datapack "+str(moduleID))
+	Log.msg("Cleared flag "+str(flagID)+" in datapack "+str(moduleID))
 	updateFlags()

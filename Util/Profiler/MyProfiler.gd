@@ -25,9 +25,9 @@ func finish(_mark:String, _ignoreThreshold:float = -1.0):
 		theText = "[color=red]"+theText+"[/color]"
 	savedLines.append(theText)
 	if(stack.is_empty()):
-		Log.print(" ==== PROFILER ====")
+		Log.msg(" ==== PROFILER ====")
 		for _i in range(savedLines.size()):
 			var _irev:int = savedLines.size() - _i - 1
-			Log.print(savedLines[_irev])
+			Log.msg(savedLines[_irev])
 		savedLines.clear()
-		Log.print(" ==== PROFILER END ====")
+		Log.msg(" ==== PROFILER END ====")

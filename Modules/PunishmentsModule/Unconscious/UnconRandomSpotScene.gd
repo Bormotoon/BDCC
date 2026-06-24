@@ -39,7 +39,7 @@ func _react(_action: String, _args):
 			"med_mental5",
 		]
 		GM.pc.setLocation(RNG.pick(possibleLocs))
-		processTime(RNG.randi_range(120, 300)*60)
+		processTime(randi_range(120, 300)*60)
 		
 		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom)):
 			var panties:ItemBase = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
@@ -50,10 +50,10 @@ func _react(_action: String, _args):
 					pantiesStolen = true
 		if(RNG.chance(50)):
 			if(GM.pc.getCredits() > 5):
-				GM.pc.addCredits(RNG.randi_range(2, 5))
+				GM.pc.addCredits(randi_range(2, 5))
 				addMessage("A few of your credits were stolen..")
 		if(RNG.chance(50)):
-			for _i in range(RNG.randi_range(2, 6)):
+			for _i in range(randi_range(2, 6)):
 				GM.pc.addBodywritingRandom()
 			addMessage("Your body has something scribbled on it..")
 		if(OPTIONS.isContentEnabled(ContentType.Watersports)):
@@ -78,13 +78,13 @@ func _react(_action: String, _args):
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["pantiesStolen"] = pantiesStolen
 
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	pantiesStolen = SAVE.loadVar(data, "pantiesStolen", false)

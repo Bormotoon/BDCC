@@ -105,19 +105,19 @@ func getPossibleActions():
 	]
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["currentColor"] = currentColor
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	currentColor = SAVE.loadVar(data, "currentColor", 0)
 
 func getDatapackEditVars():
-	var result = .getDatapackEditVars()
+	var result = super.getDatapackEditVars()
 
 	result["currentColor"] = {
 		"name": "Color",
@@ -132,7 +132,7 @@ func getDatapackEditVars():
 	return result
 
 func applyDatapackEditVar(_id, _value):
-	.applyDatapackEditVar(_id, _value)
+	super.applyDatapackEditVar(_id, _value)
 	
 	if(_id == "currentColor"):
 		currentColor = _value

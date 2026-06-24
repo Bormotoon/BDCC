@@ -32,7 +32,7 @@ func startSpellCheck(theText:String):
 		text = theText,
 	}
 	
-	http_request.request(SPELLCHECK_URL, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, JSON.print(data))
+	http_request.request(SPELLCHECK_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, JSON.stringify(data))
 	
 
 func _ready():
@@ -75,16 +75,16 @@ func updateSelectedSpellError():
 func _on_HTTPRequest_request_completed(_result, _response_code, _headers, _body):
 	spellErrors = []
 	var jsonResult = (JSON.parse_string(_body.get_string_from_utf8()))
-	if(jsonResult.error != OK):
-		Log.printerr(jsonResult)
+	if(jsonResult == null):
+		Log.err(jsonResult)
 		updateSpellErrorsList()
 		rich_text_label.text = "Error.. "+str(_response_code)
 		return
 	#print(_body.get_string_from_utf8())
-	var resultData:Dictionary = jsonResult.result
+	var resultData:Dictionary = jsonResult
 	
 	if(!resultData.has("corrections")):
-		Log.printerr("No corrections found")
+		Log.err("No corrections found")
 		updateSpellErrorsList()
 		return
 	

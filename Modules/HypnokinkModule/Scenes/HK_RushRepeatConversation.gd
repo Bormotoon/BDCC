@@ -347,7 +347,7 @@ func _react(_action: String, _args):
 		
 	if(_action == "get_fucked_after"):
 		setFlag("HypnokinkModule.RushDealStruckAtLeastOnce", true)
-		setFlag("HypnokinkModule.OnTheHouseSessions", RNG.randi_range(1,3))
+		setFlag("HypnokinkModule.OnTheHouseSessions", randi_range(1,3))
 		
 	if(_action == "debug_fight"):
 		runScene("FightScene", ["rush"], "guardfight")
@@ -359,7 +359,7 @@ func _react(_action: String, _args):
 		
 	if(_action == "leave_victorious"):
 		setFlag("HypnokinkModule.RushDealStruckAtLeastOnce", true)
-		setFlag("HypnokinkModule.OnTheHouseSessions", RNG.randi_range(1,3))
+		setFlag("HypnokinkModule.OnTheHouseSessions", randi_range(1,3))
 		
 	if(_action == "drag_rush"):
 		endScene()
@@ -394,7 +394,7 @@ func _react_scene_end(_tag, _result):
 			setState("if_won_serious")
 			addExperienceToPlayer(50)
 			setFlag("HypnokinkModule.RushDealStruckAtLeastOnce", true)
-			setFlag("HypnokinkModule.OnTheHouseSessions", RNG.randi_range(1,3))
+			setFlag("HypnokinkModule.OnTheHouseSessions", randi_range(1,3))
 		else:
 			setState("if_lost_serious")
 		

@@ -215,7 +215,7 @@ func _run():
 
 
 func _react(_action: String, _args):
-	processTime(RNG.randi_range(3, 5)*60)
+	processTime(randi_range(3, 5)*60)
 	
 	if(_action == "obey"):
 		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [

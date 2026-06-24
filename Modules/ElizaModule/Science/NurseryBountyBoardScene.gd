@@ -146,7 +146,7 @@ func doDebugAction(_id, _args = {}):
 			task.completeSelf()
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["donateText"] = donateText
 	data["recallMode"] = recallMode
@@ -154,7 +154,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	donateText = SAVE.loadVar(data, "donateText", "")
 	recallMode = SAVE.loadVar(data, "recallMode", false)

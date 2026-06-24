@@ -32,7 +32,7 @@ func getBuffColor():
 	return Color.PURPLE
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["fetishID"] = fetishID
 	data["amount"] = amount
@@ -40,7 +40,7 @@ func saveData():
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	fetishID = SAVE.loadVar(_data, "fetishID", "")
 	amount = SAVE.loadVar(_data, "amount", 0)
 

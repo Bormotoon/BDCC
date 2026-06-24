@@ -341,7 +341,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 
 	data["rewardLewd"] = rewardLewd
 	data["socketCame"] = socketCame
@@ -349,7 +349,7 @@ func saveData():
 	return data
 
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 
 	rewardLewd = SAVE.loadVar(data, "rewardLewd", false)
 	socketCame = SAVE.loadVar(data, "socketCame", false)

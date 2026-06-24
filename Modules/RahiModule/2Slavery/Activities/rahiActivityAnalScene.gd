@@ -722,7 +722,7 @@ func _react(_action: String, _args):
 		var straponTypes = ["Strapon", "StraponCanine", "StraponDragon", "StraponFeeldoe", "StraponFeline"]
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		var fluids = strapon.getFluids()
-		fluids.addFluid("CumLube", RNG.randi_range(3, 5)*100.0)
+		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
 		GM.pc.getInventory().equipItem(strapon)
 
 	if(_action == "sex2_start"):

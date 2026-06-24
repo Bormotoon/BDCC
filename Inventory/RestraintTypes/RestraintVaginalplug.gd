@@ -82,25 +82,25 @@ func processStruggleTurn(_pc, _isActivelyStruggling):
 	
 	
 func resetOnNewDay():
-	.resetOnNewDay()
+	super.resetOnNewDay()
 	turnedOn = false
 
 func resetOnNewTry():
-	.resetOnNewTry()
+	super.resetOnNewTry()
 	#tightness = 1
 
 func onStruggleRemoval():
-	.onStruggleRemoval()
+	super.onStruggleRemoval()
 	turnedOn = false
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["turnedOn"] = turnedOn
 
 	return data
 	
 func loadData(_data):
-	.loadData(_data)
+	super.loadData(_data)
 	
 	turnedOn = SAVE.loadVar(_data, "turnedOn", false)

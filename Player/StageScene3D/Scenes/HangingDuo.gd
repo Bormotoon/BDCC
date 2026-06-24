@@ -72,7 +72,7 @@ func playAnimation(animID, _args = {}):
 		
 	#var state_machine = animationTree["parameters/AnimationNodeStateMachine/playback"]
 	#if(!stateMachineTravel(doll, state_machine, fullAnimID)):
-	#	Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+	#	Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 	
 	$Chair2.visible = false
 	if(_args.has("npcAction")):
@@ -86,7 +86,7 @@ func playAnimation(animID, _args = {}):
 		
 		var state_machine2 = animationTree2["parameters/AnimationNodeStateMachine/playback"]
 		if(!stateMachineTravel(doll2, state_machine2, fullNpcAnimID)):
-			Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+			Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 	else:
 		var state_machine2 = animationTree2["parameters/AnimationNodeStateMachine/playback"]
 		stateMachineTravel(doll2, state_machine2, "stand")
@@ -110,7 +110,7 @@ func getVarNpcs():
 	return ["pc", "npc"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["flipNPC"] = {
 		type = "bool",

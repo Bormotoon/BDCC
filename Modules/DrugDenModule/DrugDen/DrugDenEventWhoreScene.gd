@@ -126,7 +126,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func _react_scene_end(_tag, _result):
-	._react_scene_end(_tag, _result)
+	super._react_scene_end(_tag, _result)
 	
 	if(_tag == "prostitutionSex"):
 		var sexResult:SexEngineResult = _result[0]
@@ -146,13 +146,13 @@ func _react_scene_end(_tag, _result):
 		
 		
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["offerItemID"] = offerItemID
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	offerItemID = SAVE.loadVar(data, "offerItemID", "")

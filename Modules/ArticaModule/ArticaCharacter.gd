@@ -99,7 +99,7 @@ func canDoSelfCare():
 	return false
 
 func onGivingBirth(_impregnatedEggCells: Array, _newkids: Array):
-	.onGivingBirth(_impregnatedEggCells, _newkids)
+	super.onGivingBirth(_impregnatedEggCells, _newkids)
 	
 	GM.main.increaseFlag("ArticaModule.gaveBirthTimes")
 	GM.main.setFlag("ArticaModule.canReactGaveBirth", true)

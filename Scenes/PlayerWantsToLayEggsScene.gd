@@ -186,7 +186,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["eggsToLay"] = eggsToLay
 	data["eggReport"] = eggReport
@@ -199,7 +199,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	eggsToLay = SAVE.loadVar(data, "eggsToLay", 0)
 	eggReport = SAVE.loadVar(data, "eggReport", "")

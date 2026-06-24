@@ -29,7 +29,7 @@ func getCondomBreakChance():
 	return breakChance
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["breakChance"] = breakChance
 	data["lastUser"] = lastUser
@@ -37,7 +37,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	breakChance = SAVE.loadVar(data, "breakChance", 20.0)
 	lastUser = SAVE.loadVar(data, "lastUser", "")

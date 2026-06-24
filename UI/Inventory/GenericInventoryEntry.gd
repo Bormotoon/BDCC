@@ -17,8 +17,8 @@ signal onActionPressed(_id, _actionID, _args)
 
 func _ready():
 	var minSizeInv = OPTIONS.getInventoryIconSize()
-	$HBoxContainer/Control/Info/TextureRect.rect_min_size.x = minSizeInv
-	$HBoxContainer/Control/Info/TextureRect.rect_min_size.y = minSizeInv
+	$HBoxContainer/Control/Info/TextureRect.custom_minimum_size.x = minSizeInv
+	$HBoxContainer/Control/Info/TextureRect.custom_minimum_size.y = minSizeInv
 	setSelected(false)
 
 func setSelected(isNewSelected):

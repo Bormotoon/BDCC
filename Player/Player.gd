@@ -91,19 +91,19 @@ func getID():
 
 func addPain(_p: int):
 	var initialPain := pain
-	.addPain(_p)
+super.addPain(_p)
 	if(SexToyManager.enabled && initialPain != pain):
 		SexToyManager.sendTrigger(SexToyTrigger.OnPainGain, [pain-initialPain])
 
 func addLust(_l: int):
 	var initialLust := lust
-	.addLust(_l)
+super.addLust(_l)
 	if(SexToyManager.enabled && initialLust != lust):
 		SexToyManager.sendTrigger(SexToyTrigger.OnLustGain, [lust-initialLust])
 
 func addArousal(adda:float):
 	var initialArousal := arousal
-	.addArousal(adda)
+super.addArousal(adda)
 	if(SexToyManager.enabled && initialArousal != arousal):
 		SexToyManager.sendTrigger(SexToyTrigger.OnArousalGain, [arousal-initialArousal])
 
@@ -238,20 +238,20 @@ func updateNonBattleEffects():
 		removeEffect(StatusEffect.Exposed)
 
 func processBattleTurn():
-	.processBattleTurn()
+super.processBattleTurn()
 	skillsHolder.giveSkillExperienceBattleTurn()
 
 	GM.GES.callGameExtenders(ExtendGame.pcProcessBattleTurn, [self])
 
 func beforeFightStarted():
-	.beforeFightStarted()
+	super.beforeFightStarted()
 	if(lustCombatState != null):
 		lustCombatState.enteredBattle()
 	
 	GM.GES.callGameExtenders(ExtendGame.pcBeforeFightStarted, [self])
 
 func afterFightEnded():
-	.afterFightEnded()
+	super.afterFightEnded()
 	
 	if(lustCombatState != null):
 		lustCombatState.exitedBattle()
@@ -493,7 +493,7 @@ func loadData(data):
 		if(bodypart == null):
 			var replacementID = BodypartSlot.findReplacement(slot, id, getSpecies(), getGender())
 			if(replacementID == null || replacementID == ""):
-				Log.printerr("Couldn't find an replacement bodypart for slot "+str(slot))
+				Log.err("Couldn't find an replacement bodypart for slot "+str(slot))
 				continue
 			bodypart = GlobalRegistry.createBodypart(replacementID)
 			
@@ -533,7 +533,7 @@ func loadData(data):
 func checkLocation():
 	var _roomInfo = GM.world.getRoomByID(getLocation())
 	if(_roomInfo == null):
-		Log.printerr("Player's location '"+str(location)+"' doesn't exists, reseting them to their cell")
+		Log.err("Player's location '"+str(location)+"' doesn't exists, reseting them to their cell")
 		location = getCellLocation()
 
 
@@ -794,14 +794,14 @@ func calculateBestRestraintLevel():
 		levelsTotal += restraintData.getLevel()
 	
 	if(restraintsCount < 2 || RNG.chance(20)):
-		return RNG.randi_range(1, 5)
+		return randi_range(1, 5)
 	
 	var average = float(levelsTotal) / float(restraintsCount)
 
 	if(average >= 2.5):
-		return RNG.randi_range(1, 3)
+		return randi_range(1, 3)
 	else:
-		return RNG.randi_range(3, 5)
+		return randi_range(3, 5)
 
 func addIntoxication(howmuch: float):
 	intoxication += howmuch
@@ -919,7 +919,7 @@ func getEncounterChanceModifierInmates():
 	return clamp(buffsHolder.getCustom(BuffAttribute.EncounterChanceModifierInmates) + 1.0, 0.1, 10.0)
 
 func giveBirth():
-	var bornChildren = .giveBirth()
+	var bornChildren = super.giveBirth()
 	
 	var bornChildAmount:int = bornChildren.size()
 	addSkillExperience(Skill.Fertility, 90 + Util.mini(210, bornChildAmount * 10))
@@ -994,7 +994,7 @@ func applyTFData(_data):
 		bodypart.applySkinData(partSkinData[bodypartSlot] if partSkinData.has(bodypartSlot) else {})
 
 func onSexEvent(_event : SexEvent):
-	.onSexEvent(_event)
+	super.onSexEvent(_event)
 	
 	if(GM.main != null && GM.main.SCI != null):
 		GM.main.SCI.handleSexEvent(_event)

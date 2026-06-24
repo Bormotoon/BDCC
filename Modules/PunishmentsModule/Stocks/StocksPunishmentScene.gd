@@ -146,14 +146,14 @@ func _onSceneEnd():
 
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["amountOfEventsPassed"] = amountOfEventsPassed
 	
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	amountOfEventsPassed = SAVE.loadVar(data, "amountOfEventsPassed", 0)
 

@@ -103,7 +103,7 @@ func getVarNpcs():
 	return ["pc"]
 
 func getVarOptions():
-	var options = .getVarOptions()
+	var options = super.getVarOptions()
 	
 	options["plant"] = {
 		type = "bool",

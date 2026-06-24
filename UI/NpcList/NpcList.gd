@@ -90,9 +90,9 @@ func _on_Name_pressed():
 	var nodesSortedArr = container.get_children()
 	
 	if(_nameBtnState):
-		nodesSortedArr.sort_custom(self, "sortNameAscending")
+		nodesSortedArr.sort_custom(sortNameAscending)
 	else:
-		nodesSortedArr.sort_custom(self, "sortNameDescending")
+		nodesSortedArr.sort_custom(sortNameDescending)
 		
 	for nodeNum in nodesSortedArr.size():
 		container.move_child(nodesSortedArr[nodeNum], nodeNum)
@@ -115,9 +115,9 @@ func _on_Gender_pressed():
 	var nodesSortedArr = container.get_children()
 	
 	if(_genderBtnState):
-		nodesSortedArr.sort_custom(self, "sortGenderAscending")
+		nodesSortedArr.sort_custom(sortGenderAscending)
 	else:
-		nodesSortedArr.sort_custom(self, "sortGenderDescending")
+		nodesSortedArr.sort_custom(sortGenderDescending)
 		
 	for nodeNum in nodesSortedArr.size():
 		container.move_child(nodesSortedArr[nodeNum], nodeNum)
@@ -140,9 +140,9 @@ func _on_Personality_pressed():
 	var nodesSortedArr = container.get_children()
 	
 	if(_personalityBtnState):
-		nodesSortedArr.sort_custom(self, "sortPersonalityAscending")
+		nodesSortedArr.sort_custom(sortPersonalityAscending)
 	else:
-		nodesSortedArr.sort_custom(self, "sortPersonalityDescending")
+		nodesSortedArr.sort_custom(sortPersonalityDescending)
 		
 	for nodeNum in nodesSortedArr.size():
 		container.move_child(nodesSortedArr[nodeNum], nodeNum)
@@ -165,9 +165,9 @@ func _on_ChildrenAmount_pressed():
 	var nodesSortedArr = container.get_children()
 	
 	if(_childrenBtnState):
-		nodesSortedArr.sort_custom(self, "sortChildrenAmountAscending")
+		nodesSortedArr.sort_custom(sortChildrenAmountAscending)
 	else:
-		nodesSortedArr.sort_custom(self, "sortChildrenAmountDescending")
+		nodesSortedArr.sort_custom(sortChildrenAmountDescending)
 		
 	for nodeNum in nodesSortedArr.size():
 		container.move_child(nodesSortedArr[nodeNum], nodeNum)
@@ -198,9 +198,9 @@ func _on_Relationship_pressed():
 	var nodesSortedArr = container.get_children()
 	
 	if(_childrenBtnState):
-		nodesSortedArr.sort_custom(self, "sortRelationship")
+		nodesSortedArr.sort_custom(sortRelationship)
 	else:
-		nodesSortedArr.sort_custom(self, "sortRelationshipDescending")
+		nodesSortedArr.sort_custom(sortRelationshipDescending)
 		
 	for nodeNum in nodesSortedArr.size():
 		container.move_child(nodesSortedArr[nodeNum], nodeNum)

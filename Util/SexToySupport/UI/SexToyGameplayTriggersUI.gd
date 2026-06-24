@@ -151,7 +151,7 @@ func _on_TestEffectButton_pressed():
 
 func _on_ExportConfigButton_pressed():
 	info_accept_dialog.popup_centered()
-	export_text_edit.text = JSON.print(SexToyManager.gameplay.saveData(), "", true)
+	export_text_edit.text = JSON.stringify(SexToyManager.gameplay.saveData(), "", true)
 
 func _on_CopyExportTextButton_pressed():
 	OS.clipboard = export_text_edit.text
@@ -187,4 +187,4 @@ func _on_ScaleWithValueSlider_value_changed(_value:float):
 	updateScaleWithValueSlider()
 
 func _on_LoadDefaultConfigButton_pressed():
-	import_text_edit.text = JSON.print(SexToyManager.DEFAULT_GAMEPLAY_CONFIG)
+	import_text_edit.text = JSON.stringify(SexToyManager.DEFAULT_GAMEPLAY_CONFIG)

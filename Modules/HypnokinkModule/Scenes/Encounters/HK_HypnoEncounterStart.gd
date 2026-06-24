@@ -222,7 +222,7 @@ func _react(_action: String, _args):
 		
 		
 	if(_action == "submit"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(15,30))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(15,30))
 		endScene()
 		
 		var options= []
@@ -236,11 +236,11 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "decline"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
 		pass
 		
 	if(_action == "startfight"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, RNG.randi_range(1,3))
+		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
 		runScene("FightScene", [npcID], "guardfight")
 		
 
@@ -283,7 +283,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 
 func saveData():
-	var data = .saveData()
+	var data = super.saveData()
 	
 	data["npcID"] = npcID
 	data["sawBefore"] = sawBefore
@@ -292,7 +292,7 @@ func saveData():
 	return data
 	
 func loadData(data):
-	.loadData(data)
+	super.loadData(data)
 	
 	npcID = SAVE.loadVar(data, "npcID", "")
 	sawBefore = SAVE.loadVar(data, "sawBefore", false)

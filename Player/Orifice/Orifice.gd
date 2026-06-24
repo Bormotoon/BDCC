@@ -259,20 +259,20 @@ func generateDataFor(_dynamicCharacter):
 	if(fetishHolder == null):
 		return
 	
-	looseness = max(0.0, RNG.randf_range(-0.1, 0.3))
+	looseness = max(0.0, randf_range(-0.1, 0.3))
 	
 	if(orificeType == OrificeType.Vagina):
 		var fetishValue = fetishHolder.getFetishValue(Fetish.VaginalSexReceiving)
 		if(fetishValue > 0.0):
-			looseness = RNG.randf_range(0.0, fetishValue*5.0)
+			looseness = randf_range(0.0, fetishValue*5.0)
 	if(orificeType == OrificeType.Anus):
 		var fetishValue = fetishHolder.getFetishValue(Fetish.AnalSexReceiving)
 		if(fetishValue > 0.0):
-			looseness = RNG.randf_range(0.0, fetishValue*5.0)
+			looseness = randf_range(0.0, fetishValue*5.0)
 	if(orificeType == OrificeType.Throat):
 		var fetishValue = fetishHolder.getFetishValue(Fetish.OralSexGiving)
 		if(fetishValue > 0.0):
-			looseness = RNG.randf_range(0.0, fetishValue*5.0)
+			looseness = randf_range(0.0, fetishValue*5.0)
 
 func setCauserID(_charID:String):
 	fluids.setCauserID(_charID)

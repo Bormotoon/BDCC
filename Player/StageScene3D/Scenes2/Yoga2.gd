@@ -37,7 +37,7 @@ func playAnimation(animID, _args = {}):
 	if(animID == "plow"):
 		state_machine.travel("YogaPlow-loop")
 	else:
-		Log.printerr("Action "+str(animID)+" is not found for stage "+str(id))
+		Log.err("Action "+str(animID)+" is not found for stage "+str(id))
 
 func canTransitionTo(_actionID, _args = []):
 	var firstDoll = "pc"

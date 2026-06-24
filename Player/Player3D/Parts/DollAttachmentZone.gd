@@ -1,7 +1,7 @@
 extends MyBoneAttachment
 class_name DollAttachmentZone
 
-@export var var zoneName = ""
+@export var zoneName = ""
 var savedScenes = {}
 var temporaryScenes = []
 
