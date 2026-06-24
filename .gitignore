@@ -17,4 +17,5 @@ logs/
 
 # Substance painter files
 *.spp
-*.assbin
+*.assbin*.uid
+.godot/
