@@ -7,10 +7,10 @@ var savedLines:Array = []
 
 func start(_mark:String):
 	stack.append(_mark)
-	timeStack.append(OS.get_ticks_usec())
+	timeStack.append(Time.get_ticks_usec())
 
 func finish(_mark:String, _ignoreThreshold:float = -1.0):
-	var end := OS.get_ticks_usec()
+	var end := Time.get_ticks_usec()
 	assert(stack.back() == _mark)
 	stack.pop_back()
 	var theStart:int = timeStack.pop_back()

@@ -350,7 +350,8 @@ func getRawModList() -> Array:
 	var modsFolder = getModsFolder()
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(modsFolder) == OK:
+	dir = DirAccess.open(modsFolder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -555,7 +556,7 @@ const totalStages = 19.0
 
 func registerEverything():
 	createLoadLockFile()
-	var start = OS.get_ticks_usec()
+	var start = OS.Time.get_ticks_usec()
 	loadRegistryCacheFromFile()
 	
 	startLoadingDonationData()
@@ -573,7 +574,7 @@ func registerEverything():
 	await get_tree().process_frame
 	
 	if(true):
-		var start2 = OS.get_ticks_usec()
+		var start2 = OS.Time.get_ticks_usec()
 		registerBodypartFolder("res://Player/Bodyparts/Legs/")
 		registerBodypartFolder("res://Player/Bodyparts/Breasts/")
 		registerBodypartFolder("res://Player/Bodyparts/Hair/")
@@ -586,7 +587,7 @@ func registerEverything():
 		registerBodypartFolder("res://Player/Bodyparts/Penis/")
 		registerBodypartFolder("res://Player/Bodyparts/Anus/")
 		registerBodypartFolder("res://Player/Bodyparts/Vagina/")
-		var end2 = OS.get_ticks_usec()
+		var end2 = OS.Time.get_ticks_usec()
 		var worker_time2 = (end2-start2)/1000000.0
 		Log.print("BODYPARTS initialized in: %s seconds" % [worker_time2])
 	
@@ -636,7 +637,7 @@ func registerEverything():
 	await get_tree().process_frame
 	
 	if(true):
-		var start2 = OS.get_ticks_usec()
+		var start2 = OS.Time.get_ticks_usec()
 		registerSceneFolder("res://Scenes/")
 		registerSceneFolder("res://Scenes/Intro/")
 		registerSceneFolder("res://Scenes/Item/")
@@ -646,7 +647,7 @@ func registerEverything():
 		registerSceneFolder("res://Game/NpcSlavery/SlaveActionScenes/Prostitution/")
 		registerSceneFolder("res://Game/DomRoute/RecruitScenes/")
 		
-		var end2 = OS.get_ticks_usec()
+		var end2 = OS.Time.get_ticks_usec()
 		var worker_time2 = (end2-start2)/1000000.0
 		Log.print("SCENES initialized in: %s seconds" % [worker_time2])
 	
@@ -719,11 +720,11 @@ func registerEverything():
 	await get_tree().process_frame
 	
 	if(true):
-		var start2 = OS.get_ticks_usec()
+		var start2 = OS.Time.get_ticks_usec()
 		registerStageSceneFolder("res://Player/StageScene3D/Scenes3/")
 		registerStageSceneFolder("res://Player/StageScene3D/Scenes2/")
 		registerStageSceneFolder("res://Player/StageScene3D/Scenes/")
-		var end2 = OS.get_ticks_usec()
+		var end2 = OS.Time.get_ticks_usec()
 		var worker_time2 = (end2-start2)/1000000.0
 		Log.print("STAGE SCENES initialized in: %s seconds" % [worker_time2])
 		
@@ -776,7 +777,7 @@ func registerEverything():
 	
 	saveRegistryCacheToFile()
 	
-	var end = OS.get_ticks_usec()
+	var end = OS.Time.get_ticks_usec()
 	var worker_time = (end-start)/1000000.0
 	Log.print("GlobalRegistry fully initialized in: %s seconds" % [worker_time])
 	isInitialized = true
@@ -896,7 +897,8 @@ func createScene(id: String):
 
 func registerSceneFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -955,7 +957,8 @@ func getBodypartsIdsBySlotForTF(_slot:String) -> Array:
 
 func registerBodypartFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -984,7 +987,8 @@ func registerCharacter(path: String):
 
 func registerCharacterFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1073,8 +1077,9 @@ func registerAttack(path: String):
 	
 func registerAttackFolder(folder: String, recursive = false):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -1118,7 +1123,8 @@ func registerStatusEffect(path: String):
 
 func registerStatusEffectFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1164,9 +1170,9 @@ static func sortRegisteredStatusEffectsByPriority_sortFunc(a, b):
 	return false
 
 func sortRegisteredStatusEffectsByPriority():
-	statusEffectsCheckedForPC.sort_custom(self, "sortRegisteredStatusEffectsByPriority_sortFunc")
-	statusEffectsCheckedForNPC.sort_custom(self, "sortRegisteredStatusEffectsByPriority_sortFunc")
-	statusEffectsCheckedOnFightStart.sort_custom(self, "sortRegisteredStatusEffectsByPriority_sortFunc")
+	statusEffectsCheckedForPC.sort_custom(Callable(self, "sortRegisteredStatusEffectsByPriority_sortFunc"))
+	statusEffectsCheckedForNPC.sort_custom(Callable(self, "sortRegisteredStatusEffectsByPriority_sortFunc"))
+	statusEffectsCheckedOnFightStart.sort_custom(Callable(self, "sortRegisteredStatusEffectsByPriority_sortFunc"))
 
 func sortPlayerAttacks_sortFunc(a, b):
 	if getAttack(a).attackPriority > getAttack(b).attackPriority:
@@ -1174,7 +1180,7 @@ func sortPlayerAttacks_sortFunc(a, b):
 	return false
 
 func sortPlayerAttacks():
-	playerAttacksIDS.sort_custom(self, "sortPlayerAttacks_sortFunc")
+	playerAttacksIDS.sort_custom(Callable(self, "sortPlayerAttacks_sortFunc"))
 
 func registerSpecies(path: String):
 	var species = load(path)
@@ -1183,7 +1189,8 @@ func registerSpecies(path: String):
 
 func registerSpeciesFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1228,7 +1235,8 @@ func registerItem(path: String):
 
 func registerItemFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1284,7 +1292,8 @@ func registerBuff(path: String):
 
 func registerBuffFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1317,7 +1326,8 @@ func registerEvent(path: String):
 
 func registerEventFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1386,7 +1396,8 @@ func registerQuest(path: String):
 
 func registerQuestFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1433,7 +1444,8 @@ func registerSkill(path: String):
 
 func registerSkillFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1472,7 +1484,8 @@ func registerPerk(path: String):
 
 func registerPerkFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1520,7 +1533,8 @@ func registerLustTopic(path: String):
 
 func registerLustTopicFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1564,7 +1578,8 @@ func registerStageScene(path: String):
 
 func registerStageSceneFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1624,7 +1639,8 @@ func registerLustAction(path: String):
 
 func registerLustActionFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1673,7 +1689,8 @@ func registerLootList(path: String):
 	
 func registerLootListFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1703,11 +1720,12 @@ func getLootListsByCharacter(charID: String):
 	return lootListsByCharacter[charID]
 
 func preinitModulesHooks(folder: String):
-	var start = OS.get_ticks_usec()
+	var start = OS.Time.get_ticks_usec()
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -1723,19 +1741,20 @@ func preinitModulesHooks(folder: String):
 	else:
 		Log.printerr("An error occurred when trying to access the path "+folder)
 
-	var end = OS.get_ticks_usec()
+	var end = OS.Time.get_ticks_usec()
 	var worker_time = (end-start)/1000000.0
 	Log.print("MODULES pre-initialion hooks run in: %s seconds" % [worker_time])
 
 func preinitModulesFolder(folder: String):
 	var progressBase = 1.0/totalStages
 	var progressStep = 2.0/totalStages
-	var start = OS.get_ticks_usec()
+	var start = OS.Time.get_ticks_usec()
 	
 	var moduleFiles: Array = []
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -1758,7 +1777,7 @@ func preinitModulesFolder(folder: String):
 	else:
 		Log.printerr("An error occurred when trying to access the path "+folder)
 
-	var end = OS.get_ticks_usec()
+	var end = OS.Time.get_ticks_usec()
 	var worker_time = (end-start)/1000000.0
 	Log.print("MODULES pre-initialized in: %s seconds" % [worker_time])
 
@@ -1793,7 +1812,7 @@ func sortFightClubFighterFunc(a, b):
 
 func sortFightClubFighters():
 	for rank in fightClubFightersByRank:
-		fightClubFightersByRank[rank].sort_custom(self, "sortFightClubFighterFunc")
+		fightClubFightersByRank[rank].sort_custom(Callable(self, "sortFightClubFighterFunc"))
 
 
 func registerMapFloor(id: String, path: String):
@@ -1803,7 +1822,8 @@ func registerMapFloor(id: String, path: String):
 
 func registerMapFloorFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1830,8 +1850,9 @@ func registerImagePack(path: String):
 
 func registerImagePackFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -1867,7 +1888,8 @@ func registerWorldEdit(path: String):
 
 func registerWorldEditFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1908,7 +1930,8 @@ func registerSexActivity(path: String):
 
 func registerSexActivitiesFolder(folder: String):
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1953,7 +1976,8 @@ func getScriptsInFolder(folder: String):
 	var result = []
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -1974,8 +1998,9 @@ func getScriptsInSubFolders(folder: String):
 	var result = []
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -1997,8 +2022,9 @@ func getScriptsInFoldersRecursive(folder: String, ignoreBaseDir = false):
 	var result = []
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
-		dir.list_dir_begin(true)
+	dir = DirAccess.open(folder)
+	if dir != null:
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
@@ -2022,7 +2048,8 @@ func getDatapacksInFolder(folder: String):
 	var result:Array = []
 	
 	var dir = DirAccess.open(modsFolder)
-	if dir.open(folder) == OK:
+	dir = DirAccess.open(folder)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -2311,7 +2338,7 @@ static func sortSpeechModifiersByPriority_sortFunc(a, b):
 	return false
 
 func sortSpeechModifiersByPriority():
-	speechModifiers.sort_custom(self, "sortSpeechModifiersByPriority_sortFunc")
+	speechModifiers.sort_custom(Callable(self, "sortSpeechModifiersByPriority_sortFunc"))
 
 
 
