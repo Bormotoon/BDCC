@@ -98,7 +98,7 @@ func pickEquipment(character:DynamicCharacter, _args = {}):
 		character.npcLootOverride["creditsMax"] += 10
 
 func pickNonStaticEquipment(_character:DynamicCharacter, _args = {}):
-	for _i in range(0, RNG.randi_range(1, 5)):
+	for _i in range(0, randi_range(1, 5)):
 		_character.damageClothes()
 
 func pickLevel(character:DynamicCharacter, _args = {}):
@@ -122,7 +122,7 @@ func pickLevel(character:DynamicCharacter, _args = {}):
 		if(theDiff < 5.0):
 			maxLevel = Util.maxi(int(float(maxLevel) * theDiff/5.0), minLevel + 2)
 		
-		character.npcLevel = RNG.randi_range(minLevel, maxLevel)
+		character.npcLevel = randi_range(minLevel, maxLevel)
 	character.getSkillsHolder().setLevel(character.npcLevel)
 	character.autoSpendFreeStatPoints()
 
@@ -158,29 +158,29 @@ func pickStats(character:DynamicCharacter, _args = {}):
 	character.npcBaseStamina = 100
 	
 	if(pickedType == "tank"):
-		character.npcBasePain = 40 + pow(level, 0.6) * 10 + RNG.randi_range(0, level*2)
+		character.npcBasePain = 40 + pow(level, 0.6) * 10 + randi_range(0, level*2)
 		character.npcBaseLust = 20 + pow(level, 0.5) * 3
-		character.npcBaseStamina = RNG.randi_range(7, 12)*10 + pow(level, 0.3) * 3
+		character.npcBaseStamina = randi_range(7, 12)*10 + pow(level, 0.3) * 3
 	if(pickedType == "luster"):
-		character.npcBaseLust = 40 + pow(level, 0.6) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 20 + pow(level, 0.5) * 3 + RNG.randi_range(0, level)
-		character.npcBaseStamina = RNG.randi_range(7, 12)*10 + pow(level, 0.25) * 5
+		character.npcBaseLust = 40 + pow(level, 0.6) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 20 + pow(level, 0.5) * 3 + randi_range(0, level)
+		character.npcBaseStamina = randi_range(7, 12)*10 + pow(level, 0.25) * 5
 	if(pickedType == "balanced"):
-		character.npcBaseLust = 30 + pow(level, 0.5) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 30 + pow(level, 0.5) * 10 + RNG.randi_range(0, level*2)
-		character.npcBaseStamina = RNG.randi_range(5, 12)*10 + pow(level, 0.5) * 10
+		character.npcBaseLust = 30 + pow(level, 0.5) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 30 + pow(level, 0.5) * 10 + randi_range(0, level*2)
+		character.npcBaseStamina = randi_range(5, 12)*10 + pow(level, 0.5) * 10
 	if(pickedType == "weak"):
-		character.npcBaseLust = 20 + pow(level, 0.3) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 20 + pow(level, 0.3) * 10 + RNG.randi_range(0, level*2)
-		character.npcBaseStamina = RNG.randi_range(5, 7)*10 + pow(level, 0.5) * 10
+		character.npcBaseLust = 20 + pow(level, 0.3) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 20 + pow(level, 0.3) * 10 + randi_range(0, level*2)
+		character.npcBaseStamina = randi_range(5, 7)*10 + pow(level, 0.5) * 10
 
 	character.npcBasePain = int(round(character.npcBasePain*runDifficulty/5)*5)
 	character.npcBaseLust = int(round(character.npcBaseLust*runDifficulty/5)*5)
 	character.npcBaseStamina = int(round(character.npcBaseStamina*runDifficulty/5)*5)
 
 func pickFetishes(character:DynamicCharacter, _args = {}):
-	.pickFetishes(character, _args)
+	super.pickFetishes(character, _args)
 	var fetishHolder:FetishHolder = character.getFetishHolder()
 	
-	fetishHolder.addFetish(Fetish.DrugUse, RNG.randf_range(0.75, 1.5))
+	fetishHolder.addFetish(Fetish.DrugUse, randf_range(0.75, 1.5))
 	

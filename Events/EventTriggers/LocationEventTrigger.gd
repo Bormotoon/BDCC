@@ -25,9 +25,9 @@ func addEvent(event, args):
 		eventsByLocation[locID].append(event)
 
 func onAllEventsAdded():
-	eventsWithoutLocation.sort_custom(self, "sortPriority")
+	eventsWithoutLocation.sort_custom(sortPriority)
 	for locID in eventsByLocation:
-		eventsByLocation[locID].sort_custom(self, "sortPriority")
+		eventsByLocation[locID].sort_custom(sortPriority)
 
 func triggerReact(args):
 	var locID = args[0]

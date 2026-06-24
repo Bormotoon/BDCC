@@ -12,7 +12,7 @@ func addEvent(event, _args):
 	events.push_back(event)
 
 func onAllEventsAdded():
-	events.sort_custom(self, "sortPriority")
+	events.sort_custom(sortPriority)
 
 func triggerReact(args):
 	for event in events:

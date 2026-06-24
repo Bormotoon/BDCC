@@ -73,15 +73,15 @@ func getName():
 	return _getName()
 
 func beforeFightStarted():
-	.beforeFightStarted()
-	lust = RNG.randi_range(0, getAmbientLust())
-	pain = RNG.randi_range(0, getAmbientPain())
+	super.beforeFightStarted()
+	lust = randi_range(0, getAmbientLust())
+	pain = randi_range(0, getAmbientPain())
 	stamina = getMaxStamina()
 	
 	GM.GES.callGameExtenders(ExtendGame.npcBeforeFightStarted, [self])
 
 func afterFightEnded():
-	.afterFightEnded()
+	super.afterFightEnded()
 	#pain = 0
 	#lust = 0
 	#stamina = getMaxStamina()
@@ -146,7 +146,7 @@ func loadData(data):
 			continue
 		var bodypart = getBodypart(slot)
 		if(bodypartid != bodypart.id):
-			Log.printerr("Bodypart changed for "+getName()+"'s "+str(slot)+", ignoring data (was "+bodypartid+", became "+bodypart.id+")")
+			Log.err("Bodypart changed for "+getName()+"'s "+str(slot)+", ignoring data (was "+bodypartid+", became "+bodypart.id+")")
 			continue
 		bodypart.loadDataNPC(bodypartData)
 	
@@ -180,7 +180,7 @@ func loadData(data):
 	updateNonBattleEffects()
 
 func getArmor(_damageType):
-	var calculatedArmor = .getArmor(_damageType)
+	var calculatedArmor = super.getArmor(_damageType)
 	
 	if(npcArmor.has(_damageType)):
 		calculatedArmor += npcArmor[_damageType]
@@ -605,6 +605,6 @@ func getCharacterType():
 	return npcCharacterType
 
 func processBattleTurn():
-	.processBattleTurn()
+	super.processBattleTurn()
 
 	GM.GES.callGameExtenders(ExtendGame.npcProcessBattleTurn, [self])

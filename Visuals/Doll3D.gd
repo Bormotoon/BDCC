@@ -244,7 +244,7 @@ func _setup_cum_particles(particles: GPUParticles3D, intensity: float, how_often
 	particles.initial_velocity_min = clampf(intensity * 1.1 * velocity_mod, 0.5, 1.2 * velocity_mod)
 	particles.initial_velocity_max = particles.initial_velocity_min
 	particles.explosiveness = clampf(0.7 + how_often / 30.0, 0.0, 0.92)
-	particles.preprocess = how_often - RNG.randf_range(0.0, 1.0)
+	particles.preprocess = how_often - randf_range(0.0, 1.0)
 	particles.speed_scale = 2.0
 
 ## Line 637-650: Start cum penis particles

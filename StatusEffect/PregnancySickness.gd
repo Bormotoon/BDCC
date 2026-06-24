@@ -8,7 +8,7 @@ func initArgs(_args = []):
 	if(_args.size() > 0):
 		turns = _args[0]
 	else:
-		turns = 2*60*60 + RNG.randi_range(0, 60*60)
+		turns = 2*60*60 + randi_range(0, 60*60)
 
 func processTime(_secondsPassed: int):
 	turns -= _secondsPassed

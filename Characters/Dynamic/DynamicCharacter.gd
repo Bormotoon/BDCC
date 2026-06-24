@@ -90,7 +90,7 @@ func deleteSelf():
 	GM.main.removeDynamicCharacter(getID())
 
 func onStoppedProcessing():
-	.onStoppedProcessing()
+	super.onStoppedProcessing()
 	if(temporaryCharacter):
 		deleteSelf()
 
@@ -180,7 +180,7 @@ func setNpcSlavery(newSlav):
 	npcSlavery = newSlav
 
 func onSexEvent(_event : SexEvent):
-	.onSexEvent(_event)
+	super.onSexEvent(_event)
 	
 	if(enslaveQuest != null):
 		enslaveQuest.handleSexEvent(_event)
@@ -521,14 +521,14 @@ func loadData(data):
 		if(thePartID.is_empty() || !GlobalRegistry.getBodypartRef(thePartID)):
 			var replacementID = BodypartSlot.findReplacement(slot, thePartID, getSpecies(), getGender())
 			if(replacementID == null || replacementID == ""):
-				Log.printerr("Couldn't find an replacement bodypart for slot "+str(slot))
+				Log.err("Couldn't find an replacement bodypart for slot "+str(slot))
 				continue
 			bodypart = GlobalRegistry.createBodypart(replacementID)
 		else:
 			bodypart = GlobalRegistry.createBodypart(thePartID)
 		
 		if(!bodypart):
-			Log.printerr("Something went very wrong while trying to give "+str(getID())+" a bodypart for the slot: "+slot)
+			Log.err("Something went very wrong while trying to give "+str(getID())+" a bodypart for the slot: "+slot)
 			continue
 			
 		giveBodypart(bodypart, false)
@@ -700,7 +700,7 @@ func loadFromDatapackCharacter(_datapack:Datapack, _datapackChar:DatapackCharact
 		if(bodypart == null):
 			var replacementID = BodypartSlot.findReplacement(slot, id, getSpecies(), getGender())
 			if(replacementID == null || replacementID == ""):
-				Log.printerr("Couldn't find an replacement bodypart for slot "+str(slot))
+				Log.err("Couldn't find an replacement bodypart for slot "+str(slot))
 				continue
 			bodypart = GlobalRegistry.createBodypart(replacementID)
 			

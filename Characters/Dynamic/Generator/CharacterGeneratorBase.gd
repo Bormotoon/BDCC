@@ -97,24 +97,24 @@ func createBodyparts(character:DynamicCharacter, _args = {}):
 
 func pickBodyAttributes(character:DynamicCharacter, _args = {}):
 	if(character.getGender() == Gender.Male):
-		character.npcThickness = RNG.randi_range(0, 60)
-		character.npcFeminity = RNG.randi_range(0, 50)
+		character.npcThickness = randi_range(0, 60)
+		character.npcFeminity = randi_range(0, 50)
 	if(character.getGender() == Gender.Female):
-		character.npcThickness = RNG.randi_range(0, 110)
-		character.npcFeminity = RNG.randi_range(50, 100)
+		character.npcThickness = randi_range(0, 110)
+		character.npcFeminity = randi_range(50, 100)
 	if(character.getGender() == Gender.Androgynous):
-		character.npcThickness = RNG.randi_range(0, 100)
-		character.npcFeminity = RNG.randi_range(25, 75)
+		character.npcThickness = randi_range(0, 100)
+		character.npcFeminity = randi_range(25, 75)
 	if(character.getGender() == Gender.Other):
-		character.npcThickness = RNG.randi_range(0, 100)
-		character.npcFeminity = RNG.randi_range(0, 100)
+		character.npcThickness = randi_range(0, 100)
+		character.npcFeminity = randi_range(0, 100)
 
 func pickArchetypes(character:DynamicCharacter, _args = {}):
 	var possible = CharacterArchetype.getAll()
 	
 	var picked = []
 	
-	var amount = RNG.randi_range(2, 4)
+	var amount = randi_range(2, 4)
 	for _i in range(amount):
 		picked.append(RNG.pick(possible))
 	character.npcArchetypes = picked
@@ -138,9 +138,9 @@ func pickFetishes(character:DynamicCharacter, _args = {}):
 		for fetishID in fetishes:
 			var addValue:float = fetishes[fetishID]
 			if(addValue > 0.0):
-				fetishHolder.addFetish(fetishID, RNG.randf_range(0.0, addValue))
+				fetishHolder.addFetish(fetishID, randf_range(0.0, addValue))
 			elif(addValue < 0.0):
-				fetishHolder.addFetish(fetishID, -RNG.randf_range(0.0, -addValue))
+				fetishHolder.addFetish(fetishID, -randf_range(0.0, -addValue))
 
 	fetishHolder.removeImpossibleFetishes()
 
@@ -183,9 +183,9 @@ func pickPersonality(character:DynamicCharacter, _args = {}):
 	
 	personality.clear()
 	for statID in PersonalityStat.getAll():
-		personality.setStat(statID, RNG.randf_range(-0.3, 0.3))
+		personality.setStat(statID, randf_range(-0.3, 0.3))
 		if(RNG.chance(5)):
-			personality.setStat(statID, RNG.randf_range(-0.3, 0.3)*5.0)
+			personality.setStat(statID, randf_range(-0.3, 0.3)*5.0)
 	
 	for archetype in character.npcArchetypes:
 		var personalityChanges = CharacterArchetype.getPersonalityChanges(archetype)
@@ -193,9 +193,9 @@ func pickPersonality(character:DynamicCharacter, _args = {}):
 			var howMuchMax = personalityChanges[personalityStat]
 			
 			if(howMuchMax > 0.0):
-				personality.addStat(personalityStat, RNG.randf_range(0.0, howMuchMax))
+				personality.addStat(personalityStat, randf_range(0.0, howMuchMax))
 			elif(howMuchMax < 0.0):
-				personality.addStat(personalityStat, -RNG.randf_range(0.0, -howMuchMax))
+				personality.addStat(personalityStat, -randf_range(0.0, -howMuchMax))
 
 func pickSmallDescription(character:DynamicCharacter, _args = {}):
 	var thedesc = ""
@@ -212,7 +212,7 @@ func pickLevel(character:DynamicCharacter, _args = {}):
 		if(GM.pc == null || !is_instance_valid(GM.pc)):
 			character.npcLevel = 1
 		else:
-			character.npcLevel = Util.maxi(GM.pc.getLevel() + RNG.randi_range(-3,3), 0)# Just some random lvl
+			character.npcLevel = Util.maxi(GM.pc.getLevel() + randi_range(-3,3), 0)# Just some random lvl
 	character.getSkillsHolder().setLevel(character.npcLevel)
 
 func pickStats(character:DynamicCharacter, _args = {}):
@@ -231,21 +231,21 @@ func pickStats(character:DynamicCharacter, _args = {}):
 	character.npcBaseStamina = 100
 	
 	if(pickedType == "tank"):
-		character.npcBasePain = 70 + pow(level, 0.6) * 10 + RNG.randi_range(0, level*2)
+		character.npcBasePain = 70 + pow(level, 0.6) * 10 + randi_range(0, level*2)
 		character.npcBaseLust = 50 + pow(level, 0.5) * 3
-		character.npcBaseStamina = RNG.randi_range(7, 12)*10 + pow(level, 0.3) * 3
+		character.npcBaseStamina = randi_range(7, 12)*10 + pow(level, 0.3) * 3
 	if(pickedType == "luster"):
-		character.npcBaseLust = 70 + pow(level, 0.6) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 50 + pow(level, 0.5) * 3 + RNG.randi_range(0, level)
-		character.npcBaseStamina = RNG.randi_range(7, 12)*10 + pow(level, 0.25) * 5
+		character.npcBaseLust = 70 + pow(level, 0.6) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 50 + pow(level, 0.5) * 3 + randi_range(0, level)
+		character.npcBaseStamina = randi_range(7, 12)*10 + pow(level, 0.25) * 5
 	if(pickedType == "balanced"):
-		character.npcBaseLust = 60 + pow(level, 0.5) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 60 + pow(level, 0.5) * 10 + RNG.randi_range(0, level*2)
-		character.npcBaseStamina = RNG.randi_range(5, 12)*10 + pow(level, 0.5) * 10
+		character.npcBaseLust = 60 + pow(level, 0.5) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 60 + pow(level, 0.5) * 10 + randi_range(0, level*2)
+		character.npcBaseStamina = randi_range(5, 12)*10 + pow(level, 0.5) * 10
 	if(pickedType == "weak"):
-		character.npcBaseLust = 50 + pow(level, 0.3) * 10 + RNG.randi_range(0, level*2)
-		character.npcBasePain = 50 + pow(level, 0.3) * 10 + RNG.randi_range(0, level*2)
-		character.npcBaseStamina = RNG.randi_range(5, 7)*10 + pow(level, 0.5) * 10
+		character.npcBaseLust = 50 + pow(level, 0.3) * 10 + randi_range(0, level*2)
+		character.npcBasePain = 50 + pow(level, 0.3) * 10 + randi_range(0, level*2)
+		character.npcBaseStamina = randi_range(5, 7)*10 + pow(level, 0.5) * 10
 
 	character.npcBasePain = int(round(character.npcBasePain/5)*5)
 	character.npcBaseLust = int(round(character.npcBaseLust/5)*5)
