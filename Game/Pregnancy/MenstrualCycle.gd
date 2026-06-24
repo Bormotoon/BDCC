@@ -138,14 +138,14 @@ func getCharacter():
 	return character.get_ref()
 
 func initCycle():
-	cycleProgress = RNG.randf_range(0.0, 1.0)
+	cycleProgress = randf_range(0.0, 1.0)
 	
 func newCycle(shouldClearNonPregEggs:bool = true):
 #	print(getCharacter().getName(), " Entered new cycle" )
 	if(shouldClearNonPregEggs):
 		for orificeType in OrificeType.getAll():
 			eggCells[orificeType] = []
-	willOvulateAt = RNG.randf_range(0.3, 0.6)
+	willOvulateAt = randf_range(0.3, 0.6)
 	ovulatedThisCycle = false
 	
 # in seconds
@@ -284,7 +284,7 @@ func ovulate():
 		var amountOfEggs:int = RNG.pickWeightedPairs(possibleEggAmounts) if !ovulatingWithBigEggs else RNG.pickWeightedPairs(possibleBigEggAmounts)
 		amountOfEggs = Util.maxi(ch.getMinEggsAmount(), int(ceil(amountOfEggs * ch.getEggsBonusMod())))
 		if(ch.hasPerk(Perk.FertilityBetterOvulation) && amountOfEggs < 10):
-			amountOfEggs += RNG.randi_range(0, 4) #otherwise species with low base eggs like humans, won't get much bonus
+			amountOfEggs += randi_range(0, 4) #otherwise species with low base eggs like humans, won't get much bonus
 		
 		print(ch.getName(), " OVULATED WITH "+str(amountOfEggs)+" AMOUNT OF EGGS")
 		#print(ch.getName(), " Bonus eggs modifier: ", ch.getEggsBonusMod() *100, "%")
@@ -485,7 +485,7 @@ func addTentacleEgg(_charID:String, _tentacleType:int, _growTime:int, _orifice:i
 	egg.laidType = _tentacleType
 	if(_tentacleType == BigEggType.Unfertilized):
 		#egg.laidType = BigEggType.Fertilized
-		egg.laidColor = Color.whitesmoke
+		egg.laidColor = Color.WHITE_SMOKE
 	egg.bigEgg = true
 	egg.bigEggType = _tentacleType
 	egg.lifeSpan = _growTime
@@ -510,14 +510,14 @@ func getRoughLitterEstimateMinMax(_ar:Array, veryAccurate:bool = false) -> Array
 	var disp:int = 3 + int(trueValue/2)
 	if(veryAccurate):
 		disp = disp / 2
-	var minValue = RNG.randi_range(trueValue - int(disp * (1.0 - averageProgress)), trueValue)
+	var minValue = randi_range(trueValue - int(disp * (1.0 - averageProgress)), trueValue)
 	minValue = Util.maxi(0, minValue)
 	var maxValueMin = trueValue + int(disp * (1.0 - averageProgress))
 	var maxValue = 0
 	if (maxValueMin > trueValue):
-		maxValue = RNG.randi_range(trueValue, maxValueMin)
+		maxValue = randi_range(trueValue, maxValueMin)
 	else:
-		maxValue = RNG.randi_range(maxValueMin, trueValue)
+		maxValue = randi_range(maxValueMin, trueValue)
 	
 	return [minValue, maxValue]
 
@@ -534,14 +534,14 @@ func getRoughLitterEstimateString(veryAccurate:bool = false) -> String:
 	var disp:int = 3 + int(trueValue/2)
 	if(veryAccurate):
 		disp = disp / 2
-	var minValue = RNG.randi_range(trueValue - int(disp * (1.0 - averageProgress)), trueValue)
+	var minValue = randi_range(trueValue - int(disp * (1.0 - averageProgress)), trueValue)
 	minValue = Util.maxi(0, minValue)
 	var maxValueMin = trueValue + int(disp * (1.0 - averageProgress))
 	var maxValue = 0
 	if (maxValueMin > trueValue):
-		maxValue = RNG.randi_range(trueValue, maxValueMin)
+		maxValue = randi_range(trueValue, maxValueMin)
 	else:
-		maxValue = RNG.randi_range(maxValueMin, trueValue)
+		maxValue = randi_range(maxValueMin, trueValue)
 		
 	if(minValue == maxValue):
 		if(maxValue == 1):

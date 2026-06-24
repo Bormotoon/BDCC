@@ -68,7 +68,7 @@ func score_fetish(fetishes: Dictionary, only_positive: bool = false) -> float:
 	var result := 0.0
 	for fetish_id in fetishes:
 		var fetish_value: float = get_fetish_value(fetish_id)
-		var add_value := fetish_value * fetishes[fetish_id]
+		var add_value: float = fetish_value * fetishes[fetish_id]
 		if not only_positive or add_value > 0.0:
 			result += add_value
 		max_possible += 1.0
@@ -111,4 +111,4 @@ func load_data(data: Dictionary) -> void:
 			if not fetish_map.has(fetish_id):
 				var fetish_obj = GlobalRegistry.getFetish(fetish_id)
 				if fetish_obj.isPossibleFor(the_char):
-					fetish_map[fetish_id] = RNG.randf_range(-1.0, 1.0)
+					fetish_map[fetish_id] = randf_range(-1.0, 1.0)

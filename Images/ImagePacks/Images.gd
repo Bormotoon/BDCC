@@ -43,3 +43,6 @@ static func getSceneArt(scene):
 		var imageData = pack.getSceneImage(scene)
 		if(imageData != null):
 			return imageData
+
+static func get_scene_art(scene) -> Variant:
+	return getSceneArt(scene)

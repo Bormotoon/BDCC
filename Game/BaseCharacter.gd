@@ -55,8 +55,6 @@ var picked_skin_b_color: Color = Color.DARK_GRAY
 # Backward-compatible aliases for old code that references these names
 var statusEffects: Dictionary:
 	get: return status_effects
-var inventory: Inventory:
-	get: return inventory
 var buffsHolder: BuffsHolder:
 	get: return buffs_holder
 var skillsHolder: SkillsHolder:
@@ -164,6 +162,18 @@ func get_lust() -> int:
 func get_stamina() -> int:
 	return stamina
 
+func _on_equipped_items_change() -> void:
+	pass
+
+func _on_stat_change(_stat: StringName, _new_value: int, _old_value: int) -> void:
+	stat_changed.emit()
+
+func _on_level_change(_new_level: int) -> void:
+	level_changed.emit()
+
+func _on_skill_level_change(_skill_id: StringName, _new_level: int) -> void:
+	skill_level_changed.emit(_skill_id)
+
 func get_base_max_stamina() -> int:
 	return 100
 
@@ -171,8 +181,11 @@ func get_base_max_stamina() -> int:
 func get_max_stamina() -> int:
 	return int(maxf(0.0, float(get_base_max_stamina()) + skills_holder.get_extra_stamina() + buffs_holder.get_extra_stamina()))
 
-func get_name() -> String:
+func getCharacterName() -> StringName:
 	return name
+
+func getName() -> String:
+	return str(name)
 
 ## Line 158-162: hard floor min 10
 func get_base_pain_threshold() -> int:
@@ -635,11 +648,11 @@ func get_fluid_amount(fluid_source) -> float:
 		if has_bodypart(BodypartSlot.Penis):
 			var penis: BodypartPenis = get_bodypart(BodypartSlot.Penis)
 			return penis.get_fluid_production().get_fluid_amount()
-		return RNG.randf_range(100.0, 500.0)
+		return randf_range(100.0, 500.0)
 	if fluid_source == &"Vagina":
-		return RNG.randf_range(50.0, 200.0)
+		return randf_range(50.0, 200.0)
 	if fluid_source == &"Strapon":
-		return RNG.randf_range(100.0, 500.0)
+		return randf_range(100.0, 500.0)
 	if fluid_source == &"Pissing":
 		return pee_production.get_fluid_amount()
 	return 0.0
@@ -652,8 +665,8 @@ func get_penetrate_chance(bodypart_slot, insertion_size: float) -> float:
 	var orifice: Orifice = the_bodypart.get_orifice()
 	if orifice == null:
 		return 0.0
-	var good_size := orifice.get_comfortable_insertion()
-	var diff := insertion_size - good_size
+	var good_size: float = orifice.get_comfortable_insertion()
+	var diff: float = insertion_size - good_size
 	if diff <= 0.0:
 		return 100.0
 	return maxf(500.0 / (5.0 + diff), 30.0)
@@ -697,7 +710,7 @@ func rubs_vaginas_with(character_id: String, chance_to_steal_cum: int = 100, sho
 	var npc_orifice: Orifice = ch.get_bodypart(BodypartSlot.Vagina).get_orifice()
 	if orifice == null or npc_orifice == null:
 		return
-	var success := orifice.share_fluids(npc_orifice, RNG.randf_range(0.2, 0.4), get_id())
+	var success: bool = orifice.share_fluids(npc_orifice, randf_range(0.2, 0.4), get_id())
 	if show_messages and success:
 		exchanged_cum_during_rubbing.emit(get_name(), ch.get_name())
 
@@ -964,9 +977,6 @@ func get_penis_size() -> float:
 func is_player() -> bool:
 	return false
 
-func add_skill_experience(_skill_id: StringName, _amount: int) -> void:
-	pass
-
 func get_thickness() -> float:
 	return 50.0
 
@@ -993,3 +1003,12 @@ func clear_orifice_fluids() -> void:
 
 func update_doll(doll: Doll3D) -> void:
 	soft_update_doll(doll)
+
+func get_skin_data() -> Dictionary:
+	return {}
+
+func get_pregnancy_progress_doll() -> float:
+	return 0.0
+
+func get_pregnancy_litter_size() -> int:
+	return 1

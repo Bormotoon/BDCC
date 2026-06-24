@@ -54,7 +54,7 @@ func doStuffEggInto(_targetChar, _bodypart:String) -> Dictionary:
 	unfertilizedEggCell.bigEgg = true
 	unfertilizedEggCell.bigEggType = BigEggType.Unfertilized
 	unfertilizedEggCell.laidType = BigEggType.Unfertilized
-	unfertilizedEggCell.laidColor = Color.whitesmoke
+	unfertilizedEggCell.laidColor = Color.WHITE_SMOKE
 	unfertilizedEggCell.isimpregnated = false
 	unfertilizedEggCell.lifeSpan = 12*60*60 # 12 hours
 	

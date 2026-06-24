@@ -39,7 +39,7 @@ func personality_score(personality_stats: Dictionary = {}, only_positive: bool =
 	var result := 0.0
 	for stat_id in personality_stats:
 		var personality_value := get_stat(stat_id)
-		var add_value := personality_value * personality_stats[stat_id]
+		var add_value: float = personality_value * personality_stats[stat_id]
 		if only_positive and add_value <= 0.0:
 			continue
 		result += add_value
@@ -49,7 +49,7 @@ func personality_score_max(personality_stats: Dictionary = {}, min_value: float 
 	var result := min_value
 	for stat_id in personality_stats:
 		var personality_value := get_stat(stat_id)
-		var add_value := personality_value * personality_stats[stat_id]
+		var add_value: float = personality_value * personality_stats[stat_id]
 		if add_value > result:
 			result = add_value
 	return result

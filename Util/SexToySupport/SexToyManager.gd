@@ -97,7 +97,7 @@ func provideToy(_backend, _toy) -> bool:
 			return false
 	
 	_toy.uniqueID = generateUniqueID()
-	#Log.print("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
+	#Log.msg("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
 	toys.append(_toy)
 	markShouldSave()
 	onToyListChange.emit()
@@ -110,7 +110,7 @@ func provideToyGet(_backend, _toy):
 			return theToy
 	
 	_toy.uniqueID = generateUniqueID()
-	#Log.print("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
+	#Log.msg("NEW TOY ADDED: "+str(_toy.backendDeviceToyID))
 	toys.append(_toy)
 	markShouldSave()
 	#onToyListChange.emit()
@@ -193,7 +193,7 @@ func sendTrigger(_triggerID:int, _args:Array = []):
 	gameplay.sendTrigger(_triggerID, _args)
 
 func saveToFile():
-	Util.writeFile(TOY_SETTINGS_FILE, JSON.print(saveData(), "\t", true))
+	Util.writeFile(TOY_SETTINGS_FILE, JSON.stringify(saveData(), "\t", true))
 
 func loadFromFile():
 	var theStr := Util.readFile(TOY_SETTINGS_FILE)
@@ -201,11 +201,11 @@ func loadFromFile():
 		gameplay.loadData(DEFAULT_GAMEPLAY_CONFIG) # Give the player a default gameplay config on the first load
 		return
 		
-	var jsonResult := JSON.parse_string(theStr)
-	if(jsonResult.error != OK):
-		Log.printerr("SexToyManager: Error while loading the options file, the file is not a valid json")
+	var jsonResult = JSON.parse_string(theStr)
+	if(jsonResult == null):
+		Log.err("SexToyManager: Error while loading the options file, the file is not a valid json")
 		return
-	var saveData = jsonResult.result
+	var saveData = jsonResult
 	loadData(saveData)
 
 func saveData() -> Dictionary:
@@ -237,7 +237,7 @@ func loadData(_data:Dictionary):
 	for theToyEntry in toysData:
 		var theType:int = SAVE.loadVar(theToyEntry, "type", SexToyType.Unknown)
 		if(theType == SexToyType.Vibrator):
-			var theToy := SexToyVibrator.new()
+			var theToy = SexToyVibrator.new()
 			theToy.loadData(SAVE.loadVar(theToyEntry, "data", {}))
 			theToy.missing = true
 			toys.append(theToy)

@@ -393,3 +393,9 @@ static func getPrefix(checks: Array):
 	if(result != ""):
 		result += " "
 	return result
+
+static func get_prefix(checks: Array) -> String:
+	return getPrefix(checks)
+
+static func get_reason_text(reason) -> String:
+	return getReasonText(reason)

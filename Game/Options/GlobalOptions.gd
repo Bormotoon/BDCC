@@ -95,7 +95,7 @@ var gender_names_overrides: Dictionary = {}
 # --- Initialization ---
 
 func _init() -> void:
-	my_project_settings = load("res://Game/Options/MyProjectSettings.gd").new()
+	my_project_settings = MyProjectSettings.new()
 	my_project_settings.save()
 	reset_to_defaults()
 	load_from_file()
@@ -264,7 +264,7 @@ func load_from_file() -> void:
 	save_file.close()
 	var data = JSON.parse_string(json_text)
 	if data == null:
-		Log.printerr("GlobalOptions: Invalid json in options file")
+		Log.err("GlobalOptions: Invalid json in options file")
 		return
 	load_data(data)
 

@@ -166,7 +166,7 @@ func add_dynamic_character(character, print_debug: bool = true) -> void:
 	dynamic_characters[new_char_id] = character
 	dynamic_characters_node.add_child(character)
 	if print_debug:
-		Log.print("addDynamicCharacter(): Adding " + str(new_char_id))
+		Log.msg("addDynamicCharacter(): Adding " + str(new_char_id))
 
 func remove_dynamic_character(character_id, print_debug: bool = true) -> void:
 	if not (character_id is String):
@@ -294,7 +294,7 @@ func process_time(seconds: int) -> void:
 ## Line 727-772: core time loop with 1-hour chunks
 func _do_time_process(seconds: int) -> void:
 	if seconds < 0:
-		Log.printerr("doTimeProcess() called with negative seconds: " + str(seconds))
+		Log.err("doTimeProcess() called with negative seconds: " + str(seconds))
 		return
 
 	if not PS:
@@ -375,12 +375,12 @@ func set_flag(flag_id: String, value) -> void:
 		set_datapack_flag(split_data2[0], split_data2[1], value)
 		return
 	if not flags_cache.has(flag_id):
-		Log.printerr("setFlag(): Unknown flag: " + str(flag_id))
+		Log.err("setFlag(): Unknown flag: " + str(flag_id))
 		return
 	if "type" in flags_cache[flag_id]:
 		var flag_type = flags_cache[flag_id]["type"]
 		if not FlagType.is_correct_type(flag_type, value):
-			Log.printerr("setFlag(): Wrong type for flag " + str(flag_id))
+			Log.err("setFlag(): Wrong type for flag " + str(flag_id))
 			return
 	flags[flag_id] = value
 
@@ -401,6 +401,45 @@ func increase_flag(flag_id: String, amount = 1) -> void:
 		set_flag(flag_id, current + amount)
 	elif current is float:
 		set_flag(flag_id, current + float(amount))
+
+func set_module_flag(module_id: String, flag_id: String, value) -> void:
+	var modules = GlobalRegistry.get_modules()
+	if not modules.has(module_id):
+		Log.err("set_module_flag(): Module " + str(module_id) + " doesn't exist")
+		return
+	var module: Module = modules[module_id]
+	var module_flags_cache = module.get_flags_cache()
+	if not module_flags_cache.has(flag_id):
+		Log.err("set_module_flag(): Unknown flag: " + str(flag_id))
+		return
+	if "type" in module_flags_cache[flag_id]:
+		var flag_type = module_flags_cache[flag_id]["type"]
+		if not FlagType.is_correct_type(flag_type, value):
+			Log.err("set_module_flag(): Wrong type for flag " + str(flag_id))
+			return
+	if not module_flags.has(module_id):
+		module_flags[module_id] = {}
+	module_flags[module_id][flag_id] = value
+
+func get_module_flag(module_id: String, flag_id: String, default_value = null):
+	if module_flags.has(module_id) and module_flags[module_id].has(flag_id):
+		return module_flags[module_id][flag_id]
+	return default_value
+
+func set_datapack_flag(datapack_id: String, flag_id: String, value) -> void:
+	if not loaded_datapacks.has(datapack_id):
+		Log.err("set_datapack_flag(): Datapack " + str(datapack_id) + " not loaded")
+		return
+	var datapack: Datapack = GlobalRegistry.get_datapack(datapack_id)
+	if datapack == null:
+		Log.err("set_datapack_flag(): Datapack " + str(datapack_id) + " not found")
+		return
+	if not datapack.flags.has(flag_id):
+		Log.err("set_datapack_flag(): Unknown flag: " + str(flag_id))
+		return
+	if not datapack_flags.has(datapack_id):
+		datapack_flags[datapack_id] = {}
+	datapack_flags[datapack_id][flag_id] = value
 
 # ==========================================
 # HELPER METHODS
@@ -462,3 +501,18 @@ func _on_player_exchanged_cum_during_rubbing(_s, _r) -> void:
 	pass
 func _on_player_skill_level_changed(_s) -> void:
 	pass
+
+var _next_unique_scene_id: int = 0
+
+func run_scene(id: String, args: Array = [], parent_scene_unique_id: int = -1, tag: String = ""):
+	var scene = GlobalRegistry.create_scene(id)
+	assert(scene != null, "SCENE WITH ID " + str(id) + " IS NOT FOUND.")
+	_next_unique_scene_id += 1
+	scene.unique_scene_id = _next_unique_scene_id
+	scene.scene_tag = tag
+	if parent_scene_unique_id >= 0:
+		scene.parent_scene_unique_id = parent_scene_unique_id
+	add_child(scene)
+	scene_stack.append(scene)
+	scene.init_scene(args)
+	return scene

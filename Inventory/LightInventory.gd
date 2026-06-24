@@ -4,7 +4,7 @@ class_name LightInventory
 
 var items:Array = []
 
-func addItem(item: Reference):
+func addItem(item: RefCounted):
 	if(item.currentInventory != null):
 		assert(false)
 	
@@ -159,7 +159,7 @@ func loadData(data:Dictionary):
 		
 		var newItem: ItemBase = GlobalRegistry.createItem(id, false)
 		if(!newItem):
-			Log.printerr("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
+			Log.err("ITEM WITH ID "+str(id)+" WASN'T FOUND IN REGISTRY")
 			continue
 		newItem.uniqueID = uniqueID
 		newItem.loadData(itemLoadedData)

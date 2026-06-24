@@ -46,7 +46,7 @@ func add_x_of_item_id(item_id: String, amount: int) -> bool:
 	var the_ref = GlobalRegistry.get_item_ref(item_id)
 	if the_ref == null:
 		return false
-	var can_stack := the_ref.can_combine()
+	var can_stack: bool = the_ref.can_combine()
 	if can_stack:
 		var new_item = GlobalRegistry.create_item(item_id)
 		new_item.set_amount(Util.maxi(0, amount))
@@ -248,7 +248,7 @@ func equip_item(item) -> bool:
 		remove_item(item)
 	var slot: String = item.get_clothing_slot()
 	if equipped_items.has(slot):
-		Log.printerr("Trying to equip to slot " + str(slot) + " when already occupied")
+		Log.err("Trying to equip to slot " + str(slot) + " when already occupied")
 		return false
 	if not can_equip_slot(slot):
 		return false
@@ -422,7 +422,7 @@ func load_data(data: Dictionary) -> void:
 		var item_data = SAVE.load_var(loaded_item, "data", {})
 		var new_item: ItemBase = GlobalRegistry.create_item(item_id, false)
 		if not new_item:
-			Log.printerr("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
+			Log.err("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
 			continue
 		if uid == null or uid == "":
 			uid = "item" + str(GlobalRegistry.generate_unique_id())
@@ -439,7 +439,7 @@ func load_data(data: Dictionary) -> void:
 		var item_data = SAVE.load_var(loaded_item, "data", {})
 		var new_item: ItemBase = GlobalRegistry.create_item(item_id, false)
 		if not new_item:
-			Log.printerr("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
+			Log.err("ITEM WITH ID " + str(item_id) + " NOT FOUND IN REGISTRY")
 			continue
 		if uid == null or uid == "":
 			uid = "item" + str(GlobalRegistry.generate_unique_id())

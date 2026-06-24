@@ -102,6 +102,11 @@ func end_scene(result = []) -> void:
 	scene_ended_args = result
 	check_scene_ended()
 
+func run_scene(id: String, args: Array = [], tag: String = ""):
+	var scene = GM.main.run_scene(id, args, unique_scene_id)
+	scene.scene_tag = tag
+	return scene
+
 # ==========================================
 # UI HELPERS (lines 119-265)
 # ==========================================

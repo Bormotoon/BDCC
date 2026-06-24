@@ -37,3 +37,6 @@ static func getVisibleName(flag_type: int) -> String:
 		Dict: return "Dict"
 		Anything: return "Anything"
 	return "Error?"
+
+static func is_correct_type(flag_type: int, value) -> bool:
+	return isCorrectType(flag_type, value)

@@ -140,8 +140,8 @@ func _on_ManageFileList_item_selected(index:int):
 	
 	file_info_label.text = selectedManageFile
 	
-	var file:File = FileAccess
-	if(file.open(selectedManageFile, FileAccess.READ) == OK):
+	var file = FileAccess.open(selectedManageFile, FileAccess.READ)
+	if(file != null):
 		var theSize:int = file.get_len()
 		file_info_label.text += "\nSize: "+ String.humanize_size(theSize)
 		file.close()
@@ -151,7 +151,7 @@ func _on_ManageFileList_item_selected(index:int):
 func _on_DeleteFileButton_pressed():
 	if(selectedManageFile == ""):
 		return
-	var d:DirAccess = DirAccess.new()
+	var d:DirAccess = DirAccess.open(".")
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return
@@ -165,7 +165,7 @@ func _on_ExportFileButton_pressed():
 		return
 	var externalDir:String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	var finalDir:String = externalDir.path_join(selectedManageFile.get_file())
-	var d:DirAccess = DirAccess.new()
+	var d:DirAccess = DirAccess.open(".")
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return
@@ -178,7 +178,7 @@ func showMessage(mes:String):
 func _on_EditFileContentsButton_pressed():
 	if(selectedManageFile == ""):
 		return
-	var d:DirAccess = DirAccess.new()
+	var d:DirAccess = DirAccess.open(".")
 	if(!d.file_exists(selectedManageFile)):
 		showMessage("Error: File doesn't exist")
 		return

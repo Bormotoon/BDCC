@@ -28,3 +28,6 @@ static func resetFlagsOnNewDay() -> void:
 
 static func flag(type) -> Dictionary:
 	return {"type": type}
+
+static func reset_flags_on_new_day() -> void:
+	resetFlagsOnNewDay()

@@ -2,7 +2,7 @@ extends RefCounted
 class_name DatapackImage
 
 var image:Image
-var imageRaw:PoolByteArray
+var imageRaw:PackedByteArray
 var texture:ImageTexture
 
 func isEmpty() -> bool:
@@ -18,28 +18,28 @@ func getImage() -> Image:
 	var _ok = newIm.load_png_from_buffer(imageRaw)
 	if(_ok == OK):
 		image = newIm
-		imageRaw = PoolByteArray()
+		imageRaw = PackedByteArray()
 	return image
 
 func setImage(newIm:Image):
 	if(image == newIm):
 		return
 	image = newIm
-	imageRaw = PoolByteArray()
+	imageRaw = PackedByteArray()
 	texture = null
 
 func getTexture() -> ImageTexture:
 	if(texture == null):
 		if(getImage() != null):
 			texture = ImageTexture.new()
-			texture.create_from_image(getImage(), 4)
+			texture.create_from_image(getImage())
 	return texture
 
-func saveData() -> PoolByteArray:
-	return (getImage().save_png_to_buffer() if getImage() else PoolByteArray())
+func saveData() -> PackedByteArray:
+	return (getImage().save_png_to_buffer() if getImage() else PackedByteArray())
 
 func loadData(_data):
-	if(!(_data is PoolByteArray)):
+	if(!(_data is PackedByteArray)):
 		setImage(null)
 		return
 	imageRaw = _data

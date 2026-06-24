@@ -515,7 +515,7 @@ func _draw():
 	var max_edge: Vector2 = get_world_pos(Vector2(size.x, 0))
 	
 	# FIXME: Get editor theme colors, not GraphEdit, can't find how to get them
-	var grid_color_primary: Color = Color.whitesmoke*Color(1, 1, 1, 0.25)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.25)
+	var grid_color_primary: Color = Color.WHITE_SMOKE*Color(1, 1, 1, 0.25)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.25)
 	var grid_color: Color = Color.GRAY*Color(1, 1, 1, 0.1)#get_theme_color(&"mono_color", &"Editor") * Color(1, 1, 1, 0.1)
 	
 	var grid_steps: Vector2 = Vector2(4, 2)

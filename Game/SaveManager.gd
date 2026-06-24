@@ -38,10 +38,10 @@ func save_data() -> Dictionary:
 
 func load_data(data: Dictionary) -> void:
 	if not data.has("savefile_version"):
-		Log.printerr("Save file doesn't have a version")
+		Log.err("Save file doesn't have a version")
 		return
 	if data["savefile_version"] > current_savefile_version:
-		Log.printerr("Savefile not supported. Version: " + str(data["savefile_version"]))
+		Log.err("Savefile not supported. Version: " + str(data["savefile_version"]))
 		return
 	loaded_savefile_version = data["savefile_version"]
 	GlobalRegistry.currentUniqueID = SAVE.load_var(data, "currentUniqueID_DONT_TOUCH", 0)
@@ -72,12 +72,12 @@ func can_save() -> bool:
 ## Line 71-84: saveGame with FileAccess
 func save_game(path: String) -> void:
 	if not can_save():
-		Log.printerr("Can't save")
+		Log.err("Can't save")
 		return
 	var save_data_dict := save_data()
 	var save_file = FileAccess.open(path, FileAccess.WRITE)
 	if save_file == null:
-		Log.printerr("Failed to open save file: " + path)
+		Log.err("Failed to open save file: " + path)
 		return
 	save_file.store_line(JSON.stringify(save_data_dict, "\t"))
 	save_file.close()
@@ -137,7 +137,7 @@ func _recursive_quick_save_make_backup(current_i: int = 1) -> void:
 	if dir.file_exists(quick_save_fullname):
 		_recursive_quick_save_make_backup(current_i + 1)
 		if current_i >= max_backup_quicksaves:
-			dir.remove_at(quick_save_fullname)
+			dir.remove(quick_save_fullname)
 			_invalidate_cached_save_info_by_path(quick_save_fullname)
 			return
 		var new_name := "quicksave backup" + str(current_i + 1)
@@ -251,14 +251,14 @@ func _load_save_info_cache_from_file() -> void:
 	save_file.close()
 	var json_result = JSON.parse_string(json_text)
 	if json_result == null:
-		Log.printerr("Save info cache is not valid json")
+		Log.err("Save info cache is not valid json")
 		return
 	var cache_data: Dictionary = json_result
 	if not cache_data.has("version") or not cache_data.has("saves"):
-		Log.printerr("Save info cache is not valid")
+		Log.err("Save info cache is not valid")
 		return
 	if cache_data["version"] != 1:
-		Log.printerr("Unsupported save info cache version")
+		Log.err("Unsupported save info cache version")
 		return
 	save_info_cache = cache_data["saves"]
 
@@ -284,7 +284,7 @@ func _invalidate_cached_save_info_by_path(path: String) -> void:
 ## Line 195-210: loadVar — safe dictionary access
 func load_var(data, key: String, null_value = null):
 	if not (data is Dictionary):
-		Log.printerr("Warning: Loaded key " + key + " is not a dictionary")
+		Log.err("Warning: Loaded key " + key + " is not a dictionary")
 		return null_value
 	if not data.has(key):
 		return null_value
@@ -294,7 +294,7 @@ func load_var(data, key: String, null_value = null):
 func delete_save(path: String) -> void:
 	var dir := DirAccess.open("user://saves/")
 	if dir:
-		dir.remove_at(path)
+		dir.remove(path)
 	_invalidate_cached_save_info_by_path(path)
 
 func load_var_method(data, key: String, null_value = null):

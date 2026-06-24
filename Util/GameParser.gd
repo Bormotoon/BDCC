@@ -68,7 +68,7 @@ func callObjectFuncWrapper(_obj: String, _command: String, _args: Array) -> Stri
 		return "[color=red]!NO METHOD " + _command + " ON " + _obj + "![/color]"
 	return str(object.callv(_command, _args))
 
-func executeString(text: String) -> String:
+func executeString(text: String, _overrides: Dictionary = {}) -> String:
 	var result := _executeStringInternal(text)
 	return result
 

@@ -85,7 +85,7 @@ func addSelfToNursery() -> Array:
 	var theEggCell := createEggCell()
 	if(!theEggCell || !theEggCell.isImpregnated()):
 		return []
-	var bornChildren := theEggCell.makeChilds()
+	var bornChildren: Array = theEggCell.makeChilds()
 	for child in bornChildren:
 		child.setLaidByID(laidBy)
 		GM.CS.addChild(child)
@@ -230,7 +230,7 @@ func getEggColorOrType():
 	elif(laidType == BigEggType.Latex):
 		return laidType
 	elif(laidType == BigEggType.Unfertilized):
-		return Color.whitesmoke
+		return Color.WHITE_SMOKE
 	else:
 		return laidColor
 

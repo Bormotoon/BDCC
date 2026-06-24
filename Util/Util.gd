@@ -23,7 +23,7 @@ static func remove_all_signals(node: Node) -> void:
 	for cur_signal in signals:
 		var conns = node.get_signal_connection_list(cur_signal.name)
 		for cur_conn in conns:
-			node.disconnect(cur_conn.signal, cur_conn.target, cur_conn.method)
+			node.disconnect(cur_signal.name, cur_conn.callable)
 
 static func maxi(value1: int, value2: int) -> int:
 	return max(value1, value2)
@@ -69,7 +69,7 @@ static func getFilesInFolder(folder: String) -> Array:
 				result.append(folder.path_join(file_name))
 			file_name = dir.get_next()
 	else:
-		Log.printerr("Cannot access path " + folder)
+		Log.err("Cannot access path " + folder)
 	return result
 
 ## Recursive file listing (line 98-119)
@@ -124,6 +124,12 @@ static func getTimeStringHHMM(t) -> String:
 	var _minutes := floorf(fmod(float(t) / 60.0, 60.0))
 	var _hours := floorf(float(t) / 3600.0)
 	return "%02d:%02d" % [_hours, _minutes]
+
+static func get_time_string_hhmm(t) -> String:
+	return getTimeStringHHMM(t)
+
+static func get_time_string_hhmmss(t) -> String:
+	return getTimeStringHHMMSS(t)
 
 ## Math utilities (lines 206-220)
 static func roundF(number: float, digits_amount: int = 0) -> float:
@@ -186,3 +192,74 @@ static func variantTypeToString(type_id: int) -> String:
 
 static func cmToString(cm: float) -> String:
 	return str(roundF(cm * 10.0, 1)) + " cm"
+
+static func readFile(path: String) -> String:
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return ""
+	var content = file.get_as_text()
+	file.close()
+	return content
+
+static func writeFile(path: String, content: String) -> void:
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		return
+	file.store_string(content)
+	file.close()
+
+static func strip_bad_filename_characters(text: String) -> String:
+	return stripBadFilenameCharacters(text)
+
+static func get_file_modified_time(path: String, correct_timezone: bool = true) -> int:
+	return getFileModifiedTime(path, correct_timezone)
+
+static func splitOnFirst(text: String, delimiter: String) -> Array:
+	var idx = text.find(delimiter)
+	if idx == -1:
+		return [text]
+	return [text.substr(0, idx), text.substr(idx + delimiter.length())]
+
+static func folderExists(folder: String) -> bool:
+	return DirAccess.dir_exists_absolute(folder)
+
+static func hasCommandLineArgument(argument: String) -> bool:
+	return OS.get_cmdline_args().has(argument)
+
+static func removeFile(path: String) -> Error:
+	return DirAccess.remove_absolute(path)
+
+static func sayMale(text: String) -> String:
+	return "[color=#3E84E0]\""+text+"\"[/color]"
+
+static func sayFemale(text: String) -> String:
+	return "[color=#FF837A]\""+text+"\"[/color]"
+
+static func sayAndro(text: String) -> String:
+	return "[color=#BA82FF]\""+text+"\"[/color]"
+
+static func sayOther(text: String) -> String:
+	return "[color=#77D86C]\""+text+"\"[/color]"
+
+static func sayPlayer(text: String) -> String:
+	if GM.pc == null:
+		return sayFemale(text)
+	return GM.pc.formatSay(text)
+
+static func capitalizeFirstLetter(text: String) -> String:
+	if text.is_empty():
+		return text
+	return text[0].to_upper() + text.substr(1)
+
+static func tryFixColor(colorString: String) -> Color:
+	var c: Color = Color.html(colorString)
+	return c if c != Color.TRANSPARENT else Color.WHITE
+
+static func split_on_first(text: String, delimiter: String) -> Array:
+	var idx: int = text.find(delimiter)
+	if idx == -1:
+		return [text, ""]
+	return [text.substr(0, idx), text.substr(idx + delimiter.length())]
+
+static func round_f(number: float, digits_amount: int = 0) -> float:
+	return roundF(number, digits_amount)
