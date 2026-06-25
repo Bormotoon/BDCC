@@ -17,11 +17,11 @@ func _init():
 		saveThread = Thread.new()
 
 func onDestroy():
-	if(usesThread && saveThread.is_active()):
+	if(usesThread && saveThread.is_alive()):
 		saveThread.wait_to_finish()
 
 func notifyMadeChoice():
-	if(usesThread && saveThread.is_active()):
+	if(usesThread && saveThread.is_alive()):
 		saveThread.wait_to_finish()
 	
 	if(OPTIONS.isRollbackEnabled() && needsExtraRollback):
@@ -38,10 +38,10 @@ func pushRollbackState():
 	currentChoice = 0
 		
 	if(usesThread):
-		if(saveThread.is_active()):
+		if(saveThread.is_alive()):
 			saveThread.wait_to_finish()
 		saveThread = Thread.new()
-		saveThread.start(self, "pushRollbackState_THREAD")
+		saveThread.start(pushRollbackState_THREAD)
 	else:
 		pushRollbackState_THREAD()
 	hasPointlessRollback = true
@@ -66,7 +66,7 @@ func clear():
 	rollbackStates.clear()
 	
 func rollback():
-	if(usesThread && saveThread.is_active()):
+	if(usesThread && saveThread.is_alive()):
 		saveThread.wait_to_finish()
 	if(!canRollback()):
 		return
