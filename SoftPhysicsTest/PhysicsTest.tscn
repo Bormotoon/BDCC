@@ -19,7 +19,7 @@ gravity_scale = 0.0
 linear_damp = 10.0
 script = ExtResource( 2 )
 
-[node name="PenisCanine" type="Sprite" parent="Cock"]
+[node name="PenisCanine" type="Sprite2D" parent="Cock"]
 scale = Vector2( -4, 4 )
 texture = ExtResource( 1 )
 

@@ -362,7 +362,7 @@ offset_right = 198.0
 offset_bottom = 20.0
 text = "Generate Code"
 
-[node name="WindowDialog" type="WindowDialog" parent="."]
+[node name="WindowDialog" type="Window" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -406,7 +406,7 @@ offset_right = 1089.0
 offset_bottom = 66.0
 text = "Add"
 
-[node name="ActionEditingDialog" type="WindowDialog" parent="."]
+[node name="ActionEditingDialog" type="Window" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -448,7 +448,7 @@ offset_right = 62.0
 offset_bottom = 20.0
 text = "Confirm"
 
-[node name="ExportedCodeDialog" type="WindowDialog" parent="."]
+[node name="ExportedCodeDialog" type="Window" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -470,7 +470,7 @@ size_flags_vertical = 3
 show_line_numbers = true
 draw_tabs = true
 
-[node name="LoadCodeDialog" type="WindowDialog" parent="."]
+[node name="LoadCodeDialog" type="Window" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -205,7 +205,7 @@ position = Vector2( 178.388, 61.1039 )
 rotation = 3.14159
 bonePath = NodePath("../DollSkeleton/Main/DFlesh8")
 
-[node name="Internalsbackground" type="Sprite" parent="."]
+[node name="Internalsbackground" type="Sprite2D" parent="."]
 visible = false
 position = Vector2( 24.5088, -7.77817 )
 z_index = -1
