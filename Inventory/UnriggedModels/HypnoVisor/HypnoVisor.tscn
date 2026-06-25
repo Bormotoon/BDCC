@@ -51,7 +51,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 1.0, 1.0, 0.0, 0.0 ]
 }
 
-[node name="HypnovisorModel" type="Spatial"]
+[node name="HypnovisorModel" type="Node3D"]
 script = ExtResource( 3 )
 
 [node name="Lines1" type="Sprite3D" parent="."]

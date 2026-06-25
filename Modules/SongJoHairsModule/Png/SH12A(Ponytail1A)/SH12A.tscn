@@ -111,7 +111,7 @@ albedo_texture = ExtResource( 5 )
 
 [node name="sh12A" instance=ExtResource( 2 )]
 
-[node name="sh12A" type="MeshInstance" parent="." index="0"]
+[node name="sh12A" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028 )
 mesh = SubResource( 2 )
 skin = SubResource( 3 )

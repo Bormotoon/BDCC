@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Inventory/UnriggedModels/HypnoVisor/hypnovisor.png" type="Texture" id=2]
 
-[node name="HypnovisorModel" type="Spatial"]
+[node name="HypnovisorModel" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 texture = ExtResource( 2 )

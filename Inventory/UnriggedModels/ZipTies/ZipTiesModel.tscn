@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Inventory/UnriggedModels/ZipTies/ZipTies.png" type="Texture" id=1]
 
-[node name="ZipTiesModel" type="Spatial"]
+[node name="ZipTiesModel" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )

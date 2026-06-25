@@ -4,7 +4,7 @@
 [ext_resource path="res://Modules/HypnokinkModule/Items/HypnoRestraints/IconSpinner.gd" type="Script" id=2]
 [ext_resource path="res://Modules/HypnokinkModule/Items/HypnoRestraints/imaginaryCuff.png" type="Texture" id=3]
 
-[node name="CuffModel" type="Spatial"]
+[node name="CuffModel" type="Node3D"]
 
 [node name="LockIcon" type="Sprite3D" parent="."]
 transform = Transform( 0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0.185, 0.075 )

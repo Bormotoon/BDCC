@@ -14,7 +14,7 @@ animations = [ {
 "speed": 3.0
 } ]
 
-[node name="VisorModel" type="Spatial"]
+[node name="VisorModel" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0618707 )
