@@ -6,7 +6,7 @@
 
   "main_goal": {
     "summary": "Миграция 3215 .gd файлов, 645 .tscn, 73 .tres с Godot 3.x на Godot 4.4.1",
-          "current_phase": "Phase 4 COMPLETE — 0 SCRIPT ERRORs. Ready for Phase 5.",
+    "current_phase": "Phase 1 COMPLETE — stubs filled. Phase 5 ready.",
     "phases": [
       {
         "id": 0,
@@ -19,8 +19,16 @@
         "id": 1,
         "name": "Core scripts migration",
         "status": "DONE",
-        "description": "Миграция ключевых файлов: BaseCharacter, MainScene, SceneBase, GameUI, Module, ItemBase, Inventory",
-        "instructions": null
+        "description": "Миграция ключевых файлов: BaseCharacter, MainScene, SceneBase, GameUI, Module, ItemBase, Inventory + stub completion",
+        "instructions": null,
+        "details": {
+          "stubs_completed": [
+            "BaseCharacter: send_sex_event, onSexEvent, got_orifice_stretched_with, clear_orifice_fluids",
+            "MainScene: apply_all_world_edits, _room_memories_process_day",
+            "GameUI: 15+ methods (tooltips, pagination, scene management, UI textboxes)"
+          ],
+          "commit": "d2aa4114"
+        }
       },
       {
         "id": 2,
@@ -62,10 +70,10 @@
           "commit": "f7e0defb"
         }
       },
-      {
-        "id": 5,
-        "name": "Deep architecture migration",
-        "status": "READY",
+    {
+      "id": 5,
+      "name": "Deep architecture migration",
+      "status": "IN_PROGRESS",
         "description": "Перенос реальной логики из ~3178 файлов: Modules (870), NpcSlavery (113), Scenes (64), SexEngine, InteractionSystem",
         "instructions": null
       }
@@ -222,6 +230,12 @@
       "agent": "opencode",
       "action": "T4: scanned all .gd files for duplicate function definitions — none found beyond the already-fixed BaseCharacter.gd",
       "result": "No duplicates. Codebase clean."
+    },
+    {
+      "timestamp": "2026-06-25T15:00:00Z",
+      "agent": "opencode",
+      "action": "Phase2 (C# Simulation system): filled all placeholders in SimulationBridge.gd with real implementations. _check_add_new_pawns, _get_affection, _get_lust, _score_personality, _get_chars_rep_mult, _try_spawn_pawn, on_pawn_moved meet check all wired to existing systems (GM.main.RS, OPTIONS, GlobalRegistry, CharacterPawn)",
+      "result": "0 SCRIPT ERRORs. Commit e5bf1e8a."
     }
   ]
 }
