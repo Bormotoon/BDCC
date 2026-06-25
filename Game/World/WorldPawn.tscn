@@ -28,8 +28,6 @@ scale = Vector2( 0.282, 0.282 )
 z_index = 5
 texture = ExtResource( 3 )
 
-[node name="MoveTween" type="Tween" parent="."]
-
 [node name="RelationshipLabel" type="Label" parent="."]
 offset_left = 5.0
 offset_top = -1.0

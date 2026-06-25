@@ -53,7 +53,7 @@ func _run():
 		
 		var textBox:LineEdit = addTextbox("npc_name")
 		textBox.text = npc.getName()
-		var _ok = textBox.text_entered.connect(onNameTextBoxEnterPressed)
+		var _ok = textBox.text_submitted.connect(onNameTextBoxEnterPressed)
 		
 		addButton("Confirm", "Change the name", "do_pick_name")
 		addButton("Cancel", "You changed your mind", "")
@@ -63,7 +63,7 @@ func _run():
 		
 		var textBox = addBigTextbox("npc_desc")
 		textBox.text = npc.getSmallDescription()
-		#var _ok = textBox.text_entered.connect(onNameTextBoxEnterPressed)
+		#var _ok = textBox.text_submitted.connect(onNameTextBoxEnterPressed)
 		
 		addButton("Confirm", "Change the description", "do_pick_desc")
 		addButton("Cancel", "You changed your mind", "")

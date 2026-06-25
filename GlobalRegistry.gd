@@ -477,7 +477,7 @@ func startLoadingDonationData():
 		file.close()
 		
 		var jsonResult = JSON.parse_string(content)
-		if(jsonResult.error == OK):
+		if jsonResult != null:
 			cachedLocalDonationData = jsonResult
 	
 	donationDataRequest = HTTPRequest.new()

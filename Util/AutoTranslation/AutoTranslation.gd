@@ -227,18 +227,20 @@ func saveToFile():
 	save_game.close()
 
 func loadFromFile():
-	var save_game = FileAccess.open(configFilePath, FileAccess.WRITE)
-	if not save_game.file_exists(configFilePath):
+	if not FileAccess.file_exists(configFilePath):
 		print("AutoTranslation: No saved options found, default values will be used")
 		return
 	
-	save_game.open(configFilePath, FileAccess.READ)
-	#var saveData = JSON.parse_string(save_game.get_as_text())
-	var jsonResult = JSON.parse_string(save_game.get_as_text())
-	if(jsonResult == null):
-		Log.err("AutoTranslation: Error while loading the options file, the file is not a valid json")
+	var save_game = FileAccess.open(configFilePath, FileAccess.READ)
+	if save_game == null:
+		Log.err("AutoTranslation: Failed to open options file")
 		return
 	
-	var saveData = jsonResult
+	var saveData = JSON.parse_string(save_game.get_as_text())
+	if saveData == null:
+		Log.err("AutoTranslation: Error while loading the options file, the file is not a valid json")
+		save_game.close()
+		return
+	
 	loadData(saveData)
 	save_game.close()

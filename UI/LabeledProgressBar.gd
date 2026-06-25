@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@@export var colorGradient: Gradient
+@export var colorGradient: Gradient
 @export var propertyName = "Property"
 var currentValue = null
 var currentBarValue = 0.0
@@ -20,8 +20,8 @@ func setProgressBarValue(value):
 		return
 	
 	currentValue = value
-	$Tween.interpolate_method(self, "updateBarValue", currentBarValue, currentValue, 1.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	$Tween.start()
+	var tween := create_tween()
+	tween.tween_method(updateBarValue, currentBarValue, currentValue, 1.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 func updateBarValue(value):
 	$ProgressBar.value = value

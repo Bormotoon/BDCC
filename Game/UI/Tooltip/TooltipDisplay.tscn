@@ -116,4 +116,3 @@ bbcode_enabled = true
 fit_content_height = true
 scroll_active = false
 
-[node name="Tween" type="Tween" parent="."]

@@ -127,12 +127,11 @@ func loadFromFile(filePath:String):
 	var text = file.get_as_text()
 	file.close()
 	
-	var json = JSON.parse_string(text)
+	var data = JSON.parse_string(text)
 	
-	if(json.error != OK):
+	if data == null:
 		return
 	
-	var data = json.result
 	loadData(data)
 
 func generateCode() -> String:

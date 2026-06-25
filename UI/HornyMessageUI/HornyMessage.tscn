@@ -49,6 +49,4 @@ bbcode_enabled = true
 scroll_active = false
 scroll_following = true
 
-[node name="Tween" type="Tween" parent="CanvasLayer/RichTextLabel"]
 
-[connection signal="tween_all_completed" from="CanvasLayer/RichTextLabel/Tween" to="." method="_on_Tween_tween_all_completed"]

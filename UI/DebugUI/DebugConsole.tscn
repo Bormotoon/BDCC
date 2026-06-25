@@ -83,4 +83,4 @@ selection_enabled = true
 [connection signal="pressed" from="PanelContainer/HBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/ClearButton" to="." method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/ProfileButton" to="." method="_on_ProfileButton_pressed"]
-[connection signal="text_entered" from="PanelContainer/ConsoleInput" to="." method="_on_ConsoleInput_text_entered"]
+[connection signal="text_submitted" from="PanelContainer/ConsoleInput" to="." method="_on_ConsoleInput_text_entered"]

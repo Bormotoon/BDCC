@@ -38,7 +38,7 @@ func _run():
 		if(inputMode == "keyboard"):
 			say(">")
 			var textBox:LineEdit = addTextbox("textcommand")
-			var _ok = textBox.text_entered.connect(onTextBoxEnterPressed)
+			var _ok = textBox.text_submitted.connect(onTextBoxEnterPressed)
 			addButtonAt(0, "SEND", "Send the command", "sendkeyboard")
 			addButtonAt(14, "COMMANDS", "Switch to the commands", "buttons")
 		

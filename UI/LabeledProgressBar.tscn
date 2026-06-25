@@ -78,4 +78,3 @@ offset_right = 1270.0
 offset_bottom = 366.0
 text = "100 / 100"
 
-[node name="Tween" type="Tween" parent="."]

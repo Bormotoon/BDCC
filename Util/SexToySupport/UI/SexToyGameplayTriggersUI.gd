@@ -163,13 +163,13 @@ func _on_LoadConfigButton_pressed():
 	config_import_dialog.popup_centered()
 
 func _on_ConfigImportDialog_confirmed():
-	var theJsonResult := JSON.parse_string(import_text_edit.text if !import_text_edit.text.is_empty() else "{}")
-	if(!theJsonResult || theJsonResult.error != OK || !(theJsonResult.result is Dictionary)):
+	var theJsonResult = JSON.parse_string(import_text_edit.text if !import_text_edit.text.is_empty() else "{}")
+	if !(theJsonResult is Dictionary):
 		info_final_accept_dialog.dialog_text = "Bad config. Make sure it looks like JSON."
 		info_final_accept_dialog.popup_centered()
 		return
 	
-	SexToyManager.gameplay.loadData(theJsonResult.result)
+	SexToyManager.gameplay.loadData(theJsonResult)
 	updateSelectedTrigger()
 
 func _on_ScaleWithValueCheckbox_pressed():

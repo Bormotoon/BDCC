@@ -11,4 +11,4 @@ script = ExtResource( 1 )
 scale = Vector2( 0.282, 0.282 )
 texture = ExtResource( 4 )
 
-[node name="MoveTween" type="Tween" parent="."]
+

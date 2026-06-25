@@ -92,7 +92,7 @@ offset_bottom = 24.0
 size_flags_horizontal = 3
 text = "NewMod"
 
-[connection signal="text_entered" from="HBoxContainer/VBoxContainer/FilterLine" to="." method="_on_FilterLine_text_entered"]
+[connection signal="text_submitted" from="HBoxContainer/VBoxContainer/FilterLine" to="." method="_on_FilterLine_text_entered"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/Tree" to="." method="_on_Tree_item_selected"]
 [connection signal="multi_selected" from="HBoxContainer/VBoxContainer/Tree" to="." method="_on_Tree_multi_selected"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
