@@ -2,8 +2,8 @@ extends VBoxContainer
 
 @onready var translatorList = $ScrollContainer/TranslatorList
 
-export var labelText = "Some text"
-export var smallContainer = true
+@export var labelText = "Some text"
+@export var smallContainer = true
 
 signal onUpPressed(id)
 signal onDownPressed(id)

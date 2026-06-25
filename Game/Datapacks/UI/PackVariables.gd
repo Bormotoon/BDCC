@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-export var addSeparators = true
+@export var addSeparators = true
 signal onVariableChange(id, value)
 
 var collapseRegionScene = preload("res://Game/Datapacks/UI/PackVarsCollapsableRegion.tscn")

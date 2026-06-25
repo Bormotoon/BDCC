@@ -1,22 +1,22 @@
 extends MeshInstance
 class_name MeshInstanceWithPattern
 
-export var pattern_start:Vector2
-export var pattern_size:Vector2 = Vector2(1.0, 1.0)
+@export var pattern_start:Vector2
+@export var pattern_size:Vector2 = Vector2(1.0, 1.0)
 @export_enum("head", "hair", "ears", "horns", "body", "arms", "breasts", "penis", "vagina", "anus", "tail", "legs") var bodypartSlot: String
-@export var customOverlay = null
-@export var customSkinPattern = null
-@export var customAlbedo = null
-@export var showCumLayer = true
-@export var cumLayerScale = Vector2(1.0, 1.0)
-@export var custonSkinVariant = ""
+@@export var customOverlay = null
+@@export var customSkinPattern = null
+@@export var customAlbedo = null
+@@export var showCumLayer = true
+@@export var cumLayerScale = Vector2(1.0, 1.0)
+@@export var custonSkinVariant = ""
 var partRef
 var fancyMaterial
 var defaultOverlay = preload("res://Player/Player3D/Skins/defaultoverlay.png")
 
 var materialWithSkin = preload("res://Player/Player3D/Skins/MaterialForPartWithSkin.tres")
 
-@export var supportsWritings = false
+@@export var supportsWritings = false
 var writingsHandler
 var writingZoneInfos:Dictionary = {}
 var albedoTextureSize:Vector2

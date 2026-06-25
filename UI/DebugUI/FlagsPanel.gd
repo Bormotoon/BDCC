@@ -5,8 +5,8 @@ var flagPanelDividerScene = preload("res://UI/DebugUI/FlagPanelDivider.tscn")
 @onready var flagEditWindow = $FlagEditWindow
 @onready var filterEdit = $ScrollContainer/VBoxContainer/HBoxContainer/LineEdit
 
-export var addGameFlags = true
-export var addDatapackFlags = false
+@export var addGameFlags = true
+@export var addDatapackFlags = false
 
 func updateFlags():
 	var filterText = filterEdit.text.to_lower()
