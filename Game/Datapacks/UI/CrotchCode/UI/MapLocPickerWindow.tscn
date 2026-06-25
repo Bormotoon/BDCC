@@ -3,7 +3,7 @@
 [ext_resource path="res://Game/Datapacks/UI/CrotchCode/UI/MapLocPickerWidget.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game/Datapacks/UI/CrotchCode/UI/MapLocPickerWindow.gd" type="Script" id=2]
 
-[node name="MapLocPickerWindow" type="WindowDialog"]
+[node name="MapLocPickerWindow" type="Window"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 54.0

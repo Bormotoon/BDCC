@@ -5,7 +5,7 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
 
-[node name="CrotchBigTextEditWindow" type="WindowDialog"]
+[node name="CrotchBigTextEditWindow" type="Window"]
 visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0

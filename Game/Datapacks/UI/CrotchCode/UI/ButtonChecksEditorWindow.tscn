@@ -4,7 +4,7 @@
 [ext_resource path="res://Game/Datapacks/UI/PackVariables.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Datapacks/UI/CrotchCode/UI/ButtonChecksEditorWindow.gd" type="Script" id=3]
 
-[node name="ButtonChecksEditorWindow" type="WindowDialog"]
+[node name="ButtonChecksEditorWindow" type="Window"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -19,7 +19,7 @@ offset_bottom = 14.0
 text = "You can load or unload datapacks here. Loading a datapack will add its characters and scenes into your save. Unloading a datapack will remove them and erase any progress!"
 autowrap = true
 
-[node name="KeepFlagsWindowDialog" type="WindowDialog" parent="VBoxContainer/Label"]
+[node name="KeepFlagsWindowDialog" type="Window" parent="VBoxContainer/Label"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
