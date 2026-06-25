@@ -8,51 +8,51 @@ func _init():
 
 func _run():
 	if(state == ""):
-		#GM.pc.cummedInVaginaBy("nova")
-		if(GM.main.getFlag("Game_CompletedPrologue")):
+		#ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("nova")
+		if(ServiceLocator.safe_get_service(&"MainScene").getFlag("Game_CompletedPrologue")):
 			var genderSTR = "a male"
-			if(GM.pc.getGender() == Gender.Female):
+			if(ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female):
 				genderSTR = "a female"
-			if(GM.pc.getGender() == Gender.Androgynous):
+			if(ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Androgynous):
 				genderSTR = "an androgynous"
-			if(GM.pc.getGender() == Gender.Other):
+			if(ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Other):
 				genderSTR = "a non-gender"
 			var badThingName = "was imprisoned for the crime of theft"
-			if(GM.main.getFlag("Player_Crime_Type") == Flag.Crime_Type.Innocent):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag("Player_Crime_Type") == Flag.Crime_Type.Innocent):
 				badThingName = "was wrongly imprisoned"
-			if(GM.main.getFlag("Player_Crime_Type") == Flag.Crime_Type.Murder):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag("Player_Crime_Type") == Flag.Crime_Type.Murder):
 				badThingName = "was imprisoned for the crime of murder"
-			if(GM.main.getFlag("Player_Crime_Type") == Flag.Crime_Type.Prostitution):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag("Player_Crime_Type") == Flag.Crime_Type.Prostitution):
 				badThingName = "was imprisoned for the crime of prostitution"
-			saynn(GM.pc.getName() +" is "+genderSTR+" "+GM.pc.getSpeciesFullName() + " that "+badThingName+". Sentence length is indefinite")
+			saynn(ServiceLocator.safe_get_service(&"Player").getName() +" is "+genderSTR+" "+ServiceLocator.safe_get_service(&"Player").getSpeciesFullName() + " that "+badThingName+". Sentence length is indefinite")
 		
 		sayn("[b]Personal information:[/b]")
-		sayn("Name: "+GM.pc.getName())
-		sayn("Species: "+GM.pc.getSpeciesFullName())
-		sayn("Gender: "+Gender.genderToString(GM.pc.getGender()).capitalize())
-		sayn("Pronouns: "+Gender.genderToPronouns(GM.pc.getPronounGender()))
+		sayn("Name: "+ServiceLocator.safe_get_service(&"Player").getName())
+		sayn("Species: "+ServiceLocator.safe_get_service(&"Player").getSpeciesFullName())
+		sayn("Gender: "+Gender.genderToString(ServiceLocator.safe_get_service(&"Player").getGender()).capitalize())
+		sayn("Pronouns: "+Gender.genderToPronouns(ServiceLocator.safe_get_service(&"Player").getPronounGender()))
 		
-		sayn("Femininity: "+str(GM.pc.getFemininity())+"%")
-		sayn("Thickness: "+str(GM.pc.getThickness())+"%")
+		sayn("Femininity: "+str(ServiceLocator.safe_get_service(&"Player").getFemininity())+"%")
+		sayn("Thickness: "+str(ServiceLocator.safe_get_service(&"Player").getThickness())+"%")
 		
 		sayn("")
 		
 		sayn("[b]Bio information:[/b]")
-		sayn("Intoxication: "+str(round(GM.pc.getIntoxicationLevel()*100.0))+"%")
-		sayn("Intoxication tolerance: "+str(round(GM.pc.getIntoxicationTolerance()*100.0))+"%")
-		var menstrualCycle: MenstrualCycle = GM.pc.getMenstrualCycle()
+		sayn("Intoxication: "+str(round(ServiceLocator.safe_get_service(&"Player").getIntoxicationLevel()*100.0))+"%")
+		sayn("Intoxication tolerance: "+str(round(ServiceLocator.safe_get_service(&"Player").getIntoxicationTolerance()*100.0))+"%")
+		var menstrualCycle: MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 		if(menstrualCycle != null && menstrualCycle.hasAnyWomb()):
 			sayn("Menstruation cycle: "+str(CycleStage.getVisibleActionName(menstrualCycle.getCurrentStage())))
 			sayn("Cycle length: "+str(Util.roundF(menstrualCycle.getCycleLength()/60.0/60.0/24.0, 1))+" days")
 			sayn("Visibly pregnant: "+str(menstrualCycle.isVisiblyPregnant()))
 			sayn("Is in heat: "+str(menstrualCycle.isInHeat()))
 			sayn("Estimate chance of becoming pregnant after sex: "+str(Util.roundF(menstrualCycle.getRoughChanceOfBecomingPregnant(), 1))+"%")
-			sayn("Fertility: "+str(Util.roundF(GM.pc.getFertility()*100.0, 1))+"%")
-		if(GM.pc.hasPenis()):
-			sayn("Virility: "+str(Util.roundF(GM.pc.getVirility()*100.0, 1))+"%")
+			sayn("Fertility: "+str(Util.roundF(ServiceLocator.safe_get_service(&"Player").getFertility()*100.0, 1))+"%")
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			sayn("Virility: "+str(Util.roundF(ServiceLocator.safe_get_service(&"Player").getVirility()*100.0, 1))+"%")
 		sayn("")
 		
-		var bodyparts = GM.pc.getBodyparts()
+		var bodyparts = ServiceLocator.safe_get_service(&"Player").getBodyparts()
 		for bodypartSlot in bodyparts:
 			var slotName = BodypartSlot.getVisibleName(bodypartSlot)
 			var bodypart: Bodypart = bodyparts[bodypartSlot]
@@ -80,15 +80,15 @@ func _run():
 		
 		sayn("[b]Stats:[/b]")
 		for statID in Stat.getAll():
-			var howmuch = GM.pc.getStat(statID)
-			var howMuchExtra = GM.pc.getBuffsHolder().getExtraStat(statID)
+			var howmuch = ServiceLocator.safe_get_service(&"Player").getStat(statID)
+			var howMuchExtra = ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getExtraStat(statID)
 			var howMuchExtraStr = (str(howMuchExtra) if howMuchExtra < 0 else "+"+str(howMuchExtra))
 			var statObject:StatBase = GlobalRegistry.getStat(statID)
 			sayn(statObject.getVisibleName()+": "+str(howmuch)+(" ("+howMuchExtraStr+")" if howMuchExtra != 0 else ""))
 				
 		sayn("")
 		sayn("[b]Skills:[/b]")
-		var skills = GM.pc.getSkillsHolder().getSkills()
+		var skills = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkills()
 		if(skills.size() == 0):
 			sayn("No learned skills")
 		for skillID in skills:
@@ -97,12 +97,12 @@ func _run():
 		
 		sayn("")
 		sayn("[b]Reputation:[/b]")
-		for line in GM.pc.getReputation().getInfoLines():
+		for line in ServiceLocator.safe_get_service(&"Player").getReputation().getInfoLines():
 			sayn(line)
 				
 		addButton("Close", "Continue on your way", "endthescene")
 		addButtonUnlessLate("Wait here", "Spend some time idling", "wait")
-		if(GM.main.isInDungeon()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()):
 			addDisabledButton("Masturbate", "It's too dark and gross in here to masturbate. Find a resting spot!")
 		else:
 			addButton("Masturbate", "Do the thing", "domasturbate")
@@ -110,16 +110,16 @@ func _run():
 		addButton("Pronouns", "Pick your pronouns", "pickpronouns")
 		addButton("Encounters", "Info about your previous encounters", "encountersMenu")
 		addButton("Reputation", "Look at your reputation", "reputationMenu")
-		if(!GM.main.isInDungeon()):
+		if(!ServiceLocator.safe_get_service(&"MainScene").isInDungeon()):
 			addButton("Look for trouble", "Try to find an encounter", "lookfortrouble")
 		if(!getFlag("Game_PickedStartingPerks", false)):
 			addButton("Pick Perks!", "Pick your starting perks. You can only do this once", "pickstartingperks")
 		#addButton("[debug] Struggle", "Test the struggle minigame", "teststruggle")
-		if(GM.main.RS.special.is_empty()):
+		if(ServiceLocator.safe_get_service(&"MainScene").RS.special.is_empty()):
 			addDisabledButton("Relationships", "You don't have any special relationships with others")
 		else:
 			addButton("Relationships", "Look at all the special relationships that you have", "specialMenu")
-		if(GM.main.isInDungeon()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()):
 			addButton("Tasks", "Look at your tasks", "tasks")
 		
 		
@@ -130,7 +130,7 @@ func _run():
 		
 	if(state == "teststruggle"):
 		var game = minigameScene.instantiate()
-		GM.ui.addFullScreenCustomControl("minigame", game)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("minigame", game)
 		game.setDifficulty(4)
 		game.minigameCompleted.connect(onMinigameTest)
 
@@ -138,7 +138,7 @@ func _run():
 
 	if(state == "pickgender"):
 		saynn("Pick your character's gender. This will affect the color of your speech and how others treat you.")
-		saynn("Current gender: [color="+GM.pc.getChatColor()+"]"+Gender.genderToString(GM.pc.getGender()).capitalize()+"[/color]")
+		saynn("Current gender: [color="+ServiceLocator.safe_get_service(&"Player").getChatColor()+"]"+Gender.genderToString(ServiceLocator.safe_get_service(&"Player").getGender()).capitalize()+"[/color]")
 
 		addButton("Male", "You're a guy", "setgender", [Gender.Male])
 		addButton("Female", "You're a girl", "setgender", [Gender.Female])
@@ -148,7 +148,7 @@ func _run():
 
 	if(state == "pickpronouns"):
 		saynn("Pick your character's pronouns.")
-		saynn("Current pronouns: "+GM.pc.heShe()+"/"+GM.pc.hisHer()+(" (derived from gender)" if(GM.pc.pronounsGender == null) else ""))
+		saynn("Current pronouns: "+ServiceLocator.safe_get_service(&"Player").heShe()+"/"+ServiceLocator.safe_get_service(&"Player").hisHer()+(" (derived from gender)" if(ServiceLocator.safe_get_service(&"Player").pronounsGender == null) else ""))
 
 		addButton("Derive from gender", "Automatically adjust pronouns based on gender", "setpronouns", [null])
 		addButton("he/his", "Choose masculine pronouns", "setpronouns", [Gender.Male])
@@ -176,7 +176,7 @@ func _run():
 		addButton("Continue", "Oh well", "")
 	
 	if(state == "reputationMenu"):
-		var reputation:Reputation = GM.pc.getReputation()
+		var reputation:Reputation = ServiceLocator.safe_get_service(&"Player").getReputation()
 		
 		saynn("Your current prison reputation:")
 		for repID in GlobalRegistry.getRepStats():
@@ -219,7 +219,7 @@ func onMinigameTest(_score:MinigameResult):
 	Log.msg("SCORE: "+str(_score.score))
 	Log.msg("INSTANT UNLOCK: "+str(_score.instantUnlock))
 	Log.msg("FAILED HARD: "+str(_score.failedHard))
-	GM.main.pickOption("", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("", [])
 
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
@@ -227,7 +227,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "lookfortrouble"):
-		if(GM.ES.triggerReact(Trigger.PCLookingForTrouble)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.PCLookingForTrouble)):
 			endScene()
 		else:
 			setState("failedtofindtrouble")
@@ -238,12 +238,12 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "setgender"):
-		GM.pc.setGender(_args[0])
+		ServiceLocator.safe_get_service(&"Player").setGender(_args[0])
 		setState("")
 		return
 		
 	if(_action == "setpronouns"):
-		GM.pc.setPronounGender(_args[0])
+		ServiceLocator.safe_get_service(&"Player").setPronounGender(_args[0])
 		setState("")
 		return
 	if(_action == "tasks"):
@@ -256,14 +256,14 @@ func _react(_action: String, _args):
 		endScene()
 		return
 		#processTime(5*60)
-		#GM.pc.orgasmFrom("pc")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 	
 	if(_action == "dowait"):
 		var newt = _args[0]
 		
-		GM.main.processTime(newt)
+		ServiceLocator.safe_get_service(&"MainScene").processTime(newt)
 		
-		if(GM.ES.triggerReact(Trigger.Waiting, [newt])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.Waiting, [newt])):
 			endScene()
 			return
 		

@@ -39,7 +39,7 @@ func getActions() -> Array:
 
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "go"):
-		var pawn = GM.main.IS.getPawn(pawnIDTarget)
+		var pawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnIDTarget)
 		if(pawn == null):
 			completeGoal()
 			return
@@ -52,7 +52,7 @@ func doAction(_id:String, _args:Dictionary):
 		var loc:String = pawn.getLocation()
 		goTowards(loc)
 		if(getLocation() == loc):
-			GM.main.IS.startInteraction("NurseSave", {nurse=getPawn().charID, inmate=pawnIDTarget})
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("NurseSave", {nurse=getPawn().charID, inmate=pawnIDTarget})
 		
 func getAnimData() -> Array:
 	return [StageScene.Solo, "jog", {pc="main"}]

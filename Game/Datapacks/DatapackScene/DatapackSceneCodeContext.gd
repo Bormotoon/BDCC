@@ -40,7 +40,7 @@ func saynn(text):
 	scene.saynn(processOutputString(text))
 
 func hasFlag(theVar:String, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .hasFlag(theVar, _codeblock)
 	
 	if(!datapack.flags.has(theVar)):
@@ -48,16 +48,16 @@ func hasFlag(theVar:String, _codeblock = null):
 	return true
 
 func getFlag(theVar:String, defaultValue = null, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .getFlag(theVar, defaultValue, _codeblock)
 	
 	if(datapack.flags.has(theVar)):
-		return GM.main.getDatapackFlag(datapack.id, theVar, defaultValue)
+		return ServiceLocator.safe_get_service(&"MainScene").getDatapackFlag(datapack.id, theVar, defaultValue)
 	
-	return GM.main.getFlag(theVar, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(theVar, defaultValue)
 
 func setFlag(theVar:String, newValue, _codeblock):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .setFlag(theVar, newValue, _codeblock)
 	
 	if(datapack.flags.has(theVar)):
@@ -72,9 +72,9 @@ func setFlag(theVar:String, newValue, _codeblock):
 		if(varType == DatapackSceneVarType.NUMBER && !(newValue is int) && !(newValue is float)):
 			throwError(_codeblock, "Trying to assign a '"+str(newValue)+"' value to a NUMBER flag "+str(theVar))
 			return
-		GM.main.setDatapackFlag(datapack.id, theVar, newValue)
+		ServiceLocator.safe_get_service(&"MainScene").setDatapackFlag(datapack.id, theVar, newValue)
 		return
-	GM.main.setFlag(theVar, newValue)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag(theVar, newValue)
 
 func throwError(_codeBlock, _errorText):
 	super.throwError(_codeBlock, _errorText)
@@ -180,7 +180,7 @@ func addButton(_nameText, _descText, _state, _codeSlot, _buttonChecks):
 	return newButtonID
 
 func addStraponButtonsFor(_charName, _nextState, _codeSlot):
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		var buttonID = addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), _nextState, _codeSlot, [])
 		buttons[buttonID]["wearstraponon"] = [strapon, _charName]
@@ -190,7 +190,7 @@ func returnStraponToPcFrom(_charName):
 	if(character != null && character.isWearingStrapon()):
 		var strapon = character.getWornStrapon()
 		character.getInventory().removeEquippedItem(strapon)
-		GM.pc.getInventory().addItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(strapon)
 		return true
 	return false
 
@@ -362,7 +362,7 @@ func runGenericSexScene(domID:String, subID:String, sexType:String, _codeSlot = 
 	runScene("GenericSexScene", [getCharacterActualID(domID), getCharacterActualID(subID), sexType], _codeSlot)
 
 func runLeashParadeScene(domID:String, finalLoc:String, _codeSlot = null):
-	runScene("ParadedOnALeashScene", [getCharacterActualID(domID), GM.pc.getLocation(), finalLoc], _codeSlot)
+	runScene("ParadedOnALeashScene", [getCharacterActualID(domID), ServiceLocator.safe_get_service(&"Player").getLocation(), finalLoc], _codeSlot)
 
 func getUniqueSceneTag():
 	usind += 1
@@ -405,8 +405,8 @@ func addImageByID(_imageID:String):
 		return
 	
 	var entry:DatapackSceneImage = datapackScene.images[_imageID]
-	if(GM.ui != null && is_instance_valid(GM.ui)):
-		GM.ui.setSceneArtWork({
+	if(ServiceLocator.safe_get_service(&"UI") != null && is_instance_valid(ServiceLocator.safe_get_service(&"UI"))):
+		ServiceLocator.safe_get_service(&"UI").setSceneArtWork({
 			artist = entry.artist,
 			imagePath = entry.image.getTexture(),
 			imageScale = entry.imageScale,

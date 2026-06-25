@@ -58,7 +58,7 @@ func _run():
 			npcBodyState={exposedCrotch=true,hard=true},
 		})
 		
-		if(GM.pc.isFullyNaked()):
+		if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Conveniently, you've come already naked, including your cute {pc.analStretch} tailhole.")
 		else:
 			saynn("You quickly {pc.undressMessage}, leaving your cute {pc.analStretch} tailhole exposed.")
@@ -126,11 +126,11 @@ func _run():
 			npcBodyState={exposedCrotch=true,hard=true},
 		})
 		
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} weakly pulses inside your chastity cage and shoots strings of {pc.cum} at the wall you're leaning on!")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} throbs and shoots {pc.cum} all over the wall you're leaning on!")
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your neglected pussy squirts your juices onto the wall and down your thighs!")
 		
 		saynn("As your ring clenches and pulses around his "+RNG.pick(["cock", "dick", "member"])+", he groans and finally cums too, slamming you against the wall and your own mess, filling you up to the brim! You feel your insides stretch and expand to accomodate, and distantly wonder if it's going to end up spraying out of your mouth. Even while he cums, your own orgasm still continues as you shiver and squirm, helplessly impaled and held in place against the wall.")
@@ -228,7 +228,7 @@ func _run():
 		addButton("Done here", "Good enough for now", "leave_victorious")
 		if(getFlag("HypnokinkModule.RushDealStruckAtLeastOnce")):
 			saynn("A thought occurs to you. If you were to knock Rush out, there might be a more permanent solution to this problem.")
-			if(GM.pc.getInventory().hasItemID("inmatewristcuffs") and GM.pc.getInventory().hasItemID("inmateanklecuffs")):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("inmatewristcuffs") and ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("inmateanklecuffs")):
 				addButton("Solution", "Keep fighting", "put_em_up_again")
 			else:
 				addDisabledButton("Solution", "Keep fighting\n\nYou'll need a set of wrist and ankle cuffs for this")
@@ -326,8 +326,8 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "get_fucked_check"):
-		GM.pc.addLust(50)
-		var anus: Orifice = GM.pc.getBodypart(BodypartSlot.Anus).getOrifice()
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
+		var anus: Orifice = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus).getOrifice()
 		anus.setLooseness(anus.getLooseness() + 1.0)
 		if(anus.getLooseness() > 3.0 and anus.getComfortableInsertion() > 25.0):
 			_action = "get_fucked_pass"
@@ -335,15 +335,15 @@ func _react(_action: String, _args):
 			_action = "get_fucked_fail"
 			
 	if(_action == "get_fucked_pass"):
-		var anus: Orifice = GM.pc.getBodypart(BodypartSlot.Anus).getOrifice()
+		var anus: Orifice = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus).getOrifice()
 		if(not (anus.getLooseness() > 3.0 and anus.getComfortableInsertion() > 25.0)):
-			GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "rush")
+			ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "rush")
 			
 	if(_action == "get_fucked_orgasm"):
-		GM.pc.gotAnusFuckedBy("rush")
-		GM.pc.cummedInAnusBy("rush")
-		GM.pc.orgasmFrom("rush")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("rush")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("rush")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rush")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 		
 	if(_action == "get_fucked_after"):
 		setFlag("HypnokinkModule.RushDealStruckAtLeastOnce", true)
@@ -363,13 +363,13 @@ func _react(_action: String, _args):
 		
 	if(_action == "drag_rush"):
 		endScene()
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		aimCamera("cellblock_lilac_nearcell")
 		runScene("VionSolvesRush")
 		return
 		
 	if(_action == "if_lost_serious_2"):
-		GM.pc.addEffect(StatusEffect.Wounded)
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Wounded)
 		
 	if(_action == "endthescene"):
 		endScene()

@@ -25,4 +25,4 @@ func getPriority() -> int:
 	return 0
 
 func getFlag(flag_id, default_value = null):
-	return GM.main.getFlag(flag_id, default_value)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(flag_id, default_value)

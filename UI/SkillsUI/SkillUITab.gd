@@ -29,7 +29,7 @@ func setSkillID(newskillid):
 func updateInfo():
 	if(skillID == null):
 		return
-	var skill: SkillBase = GM.pc.getSkillsHolder().getSkill(skillID)
+	var skill: SkillBase = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkill(skillID)
 	if(skill == null):
 		return
 	
@@ -54,14 +54,14 @@ func getTabName():
 func updatePerks():
 	Util.delete_children(tiersContainer)
 	
-	var skill: SkillBase = GM.pc.getSkillsHolder().getSkill(skillID)
+	var skill: SkillBase = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkill(skillID)
 	if(skill == null):
 		return
 	
 	if(skill.scripted()):
 		perksLabel.text = ""
 	else:
-		perksLabel.text = "Free perk points: "+str(GM.pc.getSkillsHolder().getFreePerkPoints(skillID))
+		perksLabel.text = "Free perk points: "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(skillID))
 	
 	var tiers = skill.getPerkTiers()
 	
@@ -85,9 +85,9 @@ func updatePerkText():
 	var perk: PerkBase = GlobalRegistry.getPerk(perkID)
 	
 	perkNameLabel.text = perk.getVisibleName()
-	if(GM.pc.getSkillsHolder().hasPerk(perkID)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerk(perkID)):
 		perkNameLabel.text += " (Learned)"
-	elif(GM.pc.getSkillsHolder().isPerkDisabled(perkID)):
+	elif(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().isPerkDisabled(perkID)):
 		perkNameLabel.text += " (Disabled)"
 	
 	perkDescLabel.text = perk.getVisibleDescription()
@@ -99,12 +99,12 @@ func updatePerkText():
 		var reqText = "Requirements:\n"
 		var perkCost = perk.getCost()
 		if(perkCost == 1):
-			if(GM.pc.getSkillsHolder().getFreePerkPoints(perk.getSkillGroup()) >= perkCost):
+			if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(perk.getSkillGroup()) >= perkCost):
 				reqText += str(perkCost)+" perk point"
 			else:
 				reqText += "[color=red]"+str(perkCost)+" perk point[/color]"
 		else:
-			if(GM.pc.getSkillsHolder().getFreePerkPoints(perk.getSkillGroup()) >= perkCost):
+			if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(perk.getSkillGroup()) >= perkCost):
 				reqText += str(perkCost)+" perk points"
 			else:
 				reqText += "[color=red]"+str(perkCost)+" perk points[/color]"
@@ -114,7 +114,7 @@ func updatePerkText():
 			var requiredperk: PerkBase = GlobalRegistry.getPerk(requiredPerkID)
 			if(requiredperk == null):
 				continue
-			if(GM.pc.hasPerk(requiredPerkID)):
+			if(ServiceLocator.safe_get_service(&"Player").hasPerk(requiredPerkID)):
 				reqText += "\n"+str(requiredperk.getVisibleName())+" perk"
 			else:
 				reqText += "\n[color=red]"+str(requiredperk.getVisibleName())+" perk[/color]"
@@ -125,13 +125,13 @@ func updatePerkText():
 	
 	unlockPerkButton.visible = false
 	togglePerkButton.visible = false
-	if(GM.pc.getSkillsHolder().hasPerkDisabledOrNot(perkID)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerkDisabledOrNot(perkID)):
 		if(perk.toggleable()):
 			togglePerkButton.visible = true
 	else:
 		if(perk.unlockable()):
 			unlockPerkButton.visible = true
-			if(GM.pc.getSkillsHolder().canUnlockPerk(perkID)):
+			if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().canUnlockPerk(perkID)):
 				unlockPerkButton.disabled = false
 			else:
 				unlockPerkButton.disabled = true
@@ -142,10 +142,10 @@ func _on_UnlockPerkButton_pressed():
 	if(selectedPerkID == null || selectedPerkID == ""):
 		return
 	
-	if(GM.pc.getSkillsHolder().hasPerk(selectedPerkID) || !GM.pc.getSkillsHolder().canUnlockPerk(selectedPerkID)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerk(selectedPerkID) || !ServiceLocator.safe_get_service(&"Player").getSkillsHolder().canUnlockPerk(selectedPerkID)):
 		return
 	
-	GM.pc.getSkillsHolder().addPerk(selectedPerkID)
+	ServiceLocator.safe_get_service(&"Player").getSkillsHolder().addPerk(selectedPerkID)
 	GlobalRegistry.getPerk(selectedPerkID).runOnceWhenLearned()
 	updatePerks()
 	updatePerkText()
@@ -156,6 +156,6 @@ func _on_TogglePerkButton_pressed():
 	if(selectedPerkID == null || selectedPerkID == ""):
 		return
 	
-	GM.pc.getSkillsHolder().togglePerk(selectedPerkID)
+	ServiceLocator.safe_get_service(&"Player").getSkillsHolder().togglePerk(selectedPerkID)
 	updatePerks()
 	updatePerkText()

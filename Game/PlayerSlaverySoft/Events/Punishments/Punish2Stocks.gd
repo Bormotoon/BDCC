@@ -87,7 +87,7 @@ func startTheStocks():
 	endEvent()
 	stopRunner()
 	
-	GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+	ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 
 func afterSex():
 	playAnimation(StageScene.StocksSexOral, "tease", {npc=getOwnerID()})
@@ -147,7 +147,7 @@ func ownerLost_do(_id:String, _args:Array):
 	if(_id == "endMakeOwnerStocked"):
 		var theOwnerID:String = getOwnerID()
 		startTheStocks()
-		GM.main.IS.startInteraction("InStocks", {inmate=theOwnerID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate=theOwnerID})
 
 func ownerLost_sexResult(_sex:SexEngineResult):
 	setState("afterSexDomLost")
@@ -175,7 +175,7 @@ func ownerWon_do(_id:String, _args:Array):
 	if(_id == "startTheStocks"):
 		var theCharID:String = getRoleID(C_EXTRA1)
 		startTheStocks()
-		GM.main.IS.startInteraction("InStocks", {inmate=theCharID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate=theCharID})
 
 func ownerWon_sexResult(_sex:SexEngineResult):
 	setState("afterSexDomWon")
@@ -190,7 +190,7 @@ func afterSexDomLost_do(_id:String, _args:Array):
 	if(_id == "endMakeOwnerStocked"):
 		var theOwnerID:String = getOwnerID()
 		startTheStocks()
-		GM.main.IS.startInteraction("InStocks", {inmate=theOwnerID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate=theOwnerID})
 
 func afterSexDomWon():
 	playAnimation(StageScene.StocksSexOral, "tease", {npc=getOwnerID(), pc=getRoleID(C_EXTRA1)})
@@ -202,4 +202,4 @@ func afterSexDomWon_do(_id:String, _args:Array):
 	if(_id == "endMakeOwnerStocked"):
 		var theCharID:String = getRoleID(C_EXTRA1)
 		startTheStocks()
-		GM.main.IS.startInteraction("InStocks", {inmate=theCharID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate=theCharID})

@@ -18,7 +18,7 @@ func _run():
 
 		saynn("[say=risha]Lazy time is over, inmate, I want you to go to the mineshafts level and do actual work.[/say]")
 
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)):
 			saynn("The guard also takes a note of your head harness.")
 
 			saynn("[say=risha]Ha, it seems like no one has taken it off since yesterday. And so won’t I, that's what you get for being bitey, brat.[/say]")
@@ -52,7 +52,7 @@ func _run():
 
 		saynn("[say=risha]You want me to put a leash on you and personally drag you off to the mines myself? I can also just put you into stocks and let every inmate have a turn at using you, sex toys are very popular here, you lazy slut.[/say]")
 
-		saynn("You grit your teeth but stay quiet, messing with the guard doesn’t seem like the best idea." + (" And besides, being muzzled doesn't help with that either." if (GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)) else "") ) # same but cleaner(?)
+		saynn("You grit your teeth but stay quiet, messing with the guard doesn’t seem like the best idea." + (" And besides, being muzzled doesn't help with that either." if (ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)) else "") ) # same but cleaner(?)
 
 		saynn("[say=risha]Another fuck up like that near me and I will personally put you into stocks for everyone to fuck, that will show how big of a whore you are. Now go and use the lift to get to the mineshafts.[/say]")
 
@@ -64,7 +64,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "endTheScene"):
-		GM.main.setFlag("Game_CompletedPrologue", true)
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("Game_CompletedPrologue", true)
 		runScene("WorldScene")
 		endScene()
 		

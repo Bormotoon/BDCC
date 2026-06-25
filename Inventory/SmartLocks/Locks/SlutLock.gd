@@ -76,7 +76,7 @@ func generateTasks(howManyTasks = 2):
 		
 		if(!taskRef.isPossibleForSlutlock(theChar)):
 			continue
-		#if(!taskRef.isPossibleForPC(GM.pc, theChar, _isSlaveLevelup)):
+		#if(!taskRef.isPossibleForPC(ServiceLocator.safe_get_service(&"Player"), theChar, _isSlaveLevelup)):
 		#	continue
 		
 		var taskWeight = taskRef.getSlutlockWeight()
@@ -105,11 +105,11 @@ func isEverythingCompleted():
 	return true
 
 func onSlutTaskCompleted(_theTask):
-	if(!canRemoveReminded && isEverythingCompleted() && GM.pc == getWearer()):
+	if(!canRemoveReminded && isEverythingCompleted() && ServiceLocator.safe_get_service(&"Player") == getWearer()):
 		canRemoveReminded = true
 		
-		if(GM.main != null):
-			GM.main.addMessage("One of your SlutLocks beeps and turns green!")
+		if(ServiceLocator.safe_get_service(&"MainScene") != null):
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("One of your SlutLocks beeps and turns green!")
 
 func handleSexEvent(sexEvent:SexEvent):
 	var theChar = getWearer()

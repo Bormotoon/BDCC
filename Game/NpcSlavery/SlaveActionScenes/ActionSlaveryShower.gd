@@ -16,10 +16,10 @@ func _reactInit():
 	if(isFastServing):
 		addCharacter(npcID)
 		setState("sub_shower_pc")
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter(npcID).afterTakingAShower()
-		GM.pc.addStamina(200)
-		GM.pc.addPain(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-200)
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
@@ -51,7 +51,7 @@ func _run():
 		addButton("Cancel", "You changed your mind", "endthescene")
 
 	if(state == "sub_shower_pc"):
-		if(GM.pc.getLocation() == "main_dressing2"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_dressing2"):
 			aimCameraAndSetLocName("main_shower2")
 		else:
 			aimCameraAndSetLocName("main_shower1")
@@ -96,29 +96,29 @@ func _run():
 		if(npcSlavery.getLove() < 0.5 && npcSlavery.getObedience() < 0.5):
 			saynn("{npc.He} doesn’t dare.. or is not eager enough.. to touch your chest, so {npc.he} avoids your {pc.breasts} and instead just focuses on washing your {pc.masc} back and sides. At least {npc.he} {npc.isAre} doing a good job there, you feel the tension in your muscles going away.")
 
-			if(GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your sub hesitates to touch your {pc.penis} too, just quickly washing around it, sliding {npc.his} hands over your {pc.thick} thighs and legs. Maybe {npc.he} needs some more training. Either way, you are clean by the end of it, just not exactly satisfied.")
-			elif(GM.pc.hasReachableVagina()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				saynn("Your sub hesitates to touch your pussy too, just quickly washing around it, sliding {npc.his} hands over your {pc.thick} thighs and legs. Maybe {npc.he} needs some more training. Either way, you are clean by the end of it, just not exactly satisfied.")
 			else:
 				saynn("Your sub hesitates to touch your other private bits too, just quickly washing around, sliding {npc.his} hands over your {pc.thick} thighs and legs. Maybe {npc.he} needs some more training. Either way, you are clean by the end of it, just not exactly satisfied.")
 		else:
-			saynn("With a delicate touch, {npc.he} follows the contours of your {pc.breasts}, {npc.his} palms brushing over your"+(" lactating" if GM.pc.isLactating() else "")+" nips. Then {npc.he} gives some attention to your {pc.masc} back and sides too, properly washing everywhere, even under your armpits. You feel the tension in your muscles going away.")
+			saynn("With a delicate touch, {npc.he} follows the contours of your {pc.breasts}, {npc.his} palms brushing over your"+(" lactating" if ServiceLocator.safe_get_service(&"Player").isLactating() else "")+" nips. Then {npc.he} gives some attention to your {pc.masc} back and sides too, properly washing everywhere, even under your armpits. You feel the tension in your muscles going away.")
 			
-			if(GM.pc.isWearingChastityCage()):
-				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if GM.pc.isVisiblyPregnant() else "")+" belly and reach your {pc.penis}. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over your chastity cage and reach as close to your member as they can, trying to make sure every nook and cranny is clean.")
-			elif(GM.pc.hasReachablePenis()):
-				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if GM.pc.isVisiblyPregnant() else "")+" belly and reach your {pc.penis}. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure every nook and cranny is clean.")
-			elif(GM.pc.hasReachableVagina()):
-				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if GM.pc.isVisiblyPregnant() else "")+" belly and reach your {pc.vaginaStretch} pussy. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure every nook and cranny there is clean.")
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
+				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" belly and reach your {pc.penis}. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over your chastity cage and reach as close to your member as they can, trying to make sure every nook and cranny is clean.")
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
+				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" belly and reach your {pc.penis}. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure every nook and cranny is clean.")
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" belly and reach your {pc.vaginaStretch} pussy. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure every nook and cranny there is clean.")
 			else:
-				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if GM.pc.isVisiblyPregnant() else "")+" belly and reach your crotch. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure everywhere between your legs is clean.")
+				saynn("After washing the back, your sub’s hands slide down over your"+(" big pregnant" if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" belly and reach your crotch. The touch is tender enough for you to just let {npc.him} do it, {npc.his} digits carefully slide over the sensitive skin and make sure everywhere between your legs is clean.")
 		
 		saynn("Both you and your sub are now clean on the outside.")
 		
 		addButton("Enough", "Enough showering", "endthescene")
 		if(npcSlavery.getSlaveSkill(SlaveType.Submissive) >= 10):
-			if(GM.pc.hasEffect(StatusEffect.HasCumInsideAnus) || GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
 				addButton("Inside", "Order to clean inside too", "sub_cleans_inside_pc")
 			else:
 				addDisabledButton("Inside", "You don't have anything that the sub can clean")
@@ -126,34 +126,34 @@ func _run():
 			addDisabledButton("Inside", "Submissive skill rank A- or higher required")
 		
 	if(state == "sub_cleans_inside_pc"):
-		if(GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
 			playAnimation(StageScene.SexOral, "lick", {pc="pc", npc=npcID, pcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 			
 			saynn("Your sub’s eyes sparkle when you order {npc.him} that you need your pussy clean too. Rather than doing it with {npc.his} hands, your submissive decides to get on {npc.his} knees before you. {npc.His} palms land on the inner sides of your thighs and gently push them aside, allowing {npc.him} to dig {npc.his} face into your messy pussy slit.")
 			
 			saynn("{npc.He} slips {npc.his} tongue past your sensitive lips and eagerly starts lapping away at your inner walls, trying to gather as much mess as {npc.he} can into {npc.his} mouth.")
 			
-			if(GM.pc.hasEffect(StatusEffect.HasCumInsideAnus)):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus)):
 				saynn("While working on your pussy, {npc.his} hands spread your butt cheeks and help your butt leak fluids, {npc.his} tongue is making you clench and relax a lot, accelerating the process.")
 				
 			saynn("Each caress and calculated movement brings you closer and closer.. Until a quick little orgasm overwhelms you, your pussy releasing a shower of fluids onto your sub’s face.. until the other shower quickly cleans it again.")
 			
 			saynn("After all that, your sub spits all the collected mess out directly into the drain. It would be too gross to swallow it anyway.")
 			
-			GM.pc.clearOrificeFluidsCheckBlocked()
+			ServiceLocator.safe_get_service(&"Player").clearOrificeFluidsCheckBlocked()
 		else:
-			GM.pc.clearOrificeFluidsCheckBlocked()
+			ServiceLocator.safe_get_service(&"Player").clearOrificeFluidsCheckBlocked()
 			playAnimation(StageScene.SexRimming, "sex", {pc="pc", npc=npcID, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 			
 			saynn("Your sub’s eyes sparkle when you order {npc.him} that you need your ass cleaned inside too. Rather than doing it with {npc.his} hands, your submissive decides to get on {npc.his} knees behind you. {npc.His} palms land on your buttcheek and gently spread them, allowing {npc.him} to dig {npc.his} face in.")
 			
 			saynn("{npc.He} slips {npc.his} tongue past your sensitive anal ring and eagerly starts lapping away at your inner walls, trying to gather as much mess as {npc.he} can into {npc.his} mouth.")
 		
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Each caress and calculated movement brings you closer and closer.. Until a quick little orgasm overwhelms you, your locked member throbbing behind the metal cage and dripping {pc.cum} onto the floor while your prostate is getting milked dry.")
-			elif(GM.pc.hasReachablePenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Each caress and calculated movement brings you closer and closer.. Until a quick little orgasm overwhelms you, your {pc.penis} throbbing and shooting {pc.cum} onto the floor while your prostate is getting milked dry.")
-			elif(GM.pc.hasReachableVagina()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				saynn("Each caress and calculated movement brings you closer and closer.. Until a quick little orgasm overwhelms you, your neglected pussy pulsing and releasing a shower of fluids onto the floor.")
 			else:
 				saynn("Each caress and calculated movement brings you closer and closer.. Until a quick little orgasm overwhelms you, your body squirming and shaking.")
@@ -163,7 +163,7 @@ func _run():
 		addButton("Continue", "That was fun", "endthescene")
 		
 	if(state == "shower_together"):
-		if(GM.pc.getLocation() == "main_dressing2"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_dressing2"):
 			aimCameraAndSetLocName("main_shower2")
 		else:
 			aimCameraAndSetLocName("main_shower1")
@@ -188,7 +188,7 @@ func _run():
 		addButton("Enough", "That was fun", "endthescene")
 
 	if(state == "shower_alone"):
-		if(GM.pc.getLocation() == "main_dressing2"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_dressing2"):
 			aimCameraAndSetLocName("main_shower2")
 		else:
 			aimCameraAndSetLocName("main_shower1")
@@ -262,18 +262,18 @@ func _react(_action: String, _args):
 	if(_action == "shower_together"):
 		processTime(10*60)
 		npc.afterTakingAShower()
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 	
 	if(_action == "sub_shower_pc"):
 		processTime(10*60)
 		npc.afterTakingAShower()
-		GM.pc.afterTakingAShower()
-		GM.pc.addStamina(200)
-		GM.pc.addPain(-200)
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-200)
 	
 	if(_action == "sub_cleans_inside_pc"):
 		processTime(5*60)
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 	
 	if(_action == "together_cleaninside"):
 		processTime(10*60)

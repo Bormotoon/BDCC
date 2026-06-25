@@ -96,8 +96,8 @@ func _react(_action: String, _args):
 		processTime(35*60)
 		var bornChilds = getCharacter(npcID).giveBirth()
 		bornChildAmount = bornChilds.size()
-		bornString = GM.CS.getChildBirthInfoString(bornChilds)
-		GM.pc.addSkillExperience(Skill.Breeder, 50) # Reward for being near
+		bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 50) # Reward for being near
 		npc.getNpcSlavery().addExperience(50)
 		
 	setState(_action)

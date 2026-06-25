@@ -18,7 +18,7 @@ func _init():
 	sceneID = "CharacterCreatorScene"
 
 func _run():
-	#print(Bodypart.findPossibleBodypartIDs(BodypartSlot.Tail, GM.pc, [Species.Human]))
+	#print(Bodypart.findPossibleBodypartIDs(BodypartSlot.Tail, ServiceLocator.safe_get_service(&"Player"), [Species.Human]))
 	
 	if(state == "" || state == "pickgender"):
 		say("Pick your character's gender. This will affect the color of your speech and how others will treat you. This can be changed at any point")
@@ -77,10 +77,10 @@ func _run():
 		if(debugMode):
 			saynn("[b]Scene is running in debug mode, no bodypart restrictions are applied[/b]")
 		
-		say("You are a "+GM.pc.getSpeciesFullName())
+		say("You are a "+ServiceLocator.safe_get_service(&"Player").getSpeciesFullName())
 		say("\n----\n")
 		
-		var bodyparts = GM.pc.getBodyparts()
+		var bodyparts = ServiceLocator.safe_get_service(&"Player").getBodyparts()
 		var allSlots = BodypartSlot.getAll()
 		for slot in allSlots:
 			var slotName = BodypartSlot.getVisibleName(slot)
@@ -100,7 +100,7 @@ func _run():
 			#say("\n")
 		say("\n")
 		sayn("Body attributes:")
-		for curAttrib in GM.pc.getAttributesText():
+		for curAttrib in ServiceLocator.safe_get_service(&"Player").getAttributesText():
 			sayn(curAttrib[0]+": "+str(curAttrib[1]))
 			
 
@@ -115,14 +115,14 @@ func _run():
 		# DEBUG testing stuff, feel free to remove
 		if(false):
 			sayn("\nEXAMPLE DESCRIPTION:")
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				sayn("your dick is {pc.cockSize} and also {pc.cockDesc}")
 				saynn("You have {pc.aPenis}")
 			sayn("You have {pc.breasts}")
 			saynn("Your breasts are {pc.breastsSize} and they are also {pc.breastsDesc}")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("You have {pc.aVagina}")
-			if(GM.pc.hasTail()):
+			if(ServiceLocator.safe_get_service(&"Player").hasTail()):
 				saynn("You have {pc.aTail}")
 			saynn("Your body shape is {pc.thick}, you look {pc.feminine}")
 			
@@ -139,8 +139,8 @@ func _run():
 		
 		var playerBodypart = null
 		
-		if(GM.pc.hasBodypart(pickingBodypartType)):
-			playerBodypart = GM.pc.getBodypart(pickingBodypartType)
+		if(ServiceLocator.safe_get_service(&"Player").hasBodypart(pickingBodypartType)):
+			playerBodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(pickingBodypartType)
 			
 			sayn("Currently selected: "+playerBodypart.getCharacterCreatorName())
 			for curAttrib in playerBodypart.getAttributesText():
@@ -152,7 +152,7 @@ func _run():
 			
 			
 		
-		var playerSpecies: Array = GM.pc.getSpecies()
+		var playerSpecies: Array = ServiceLocator.safe_get_service(&"Player").getSpecies()
 			
 		if(!BodypartSlot.isEssential(pickingBodypartType)):
 			var bodypartIsMissing:bool = (playerBodypart == null)
@@ -188,12 +188,12 @@ func _run():
 				addButton(bodypartName, bodypartDesc, "setbodypart", [bodypart.id])
 
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 
 	if(state == "bodypartAttributes"):
 		playAnimation(StageScene.Solo, "stand", {bodyState={naked=true,hard=true}})
 		
-		var bodypart = GM.pc.getBodypart(pickingBodypartType)
+		var bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(pickingBodypartType)
 		var attributes = bodypart.getPickableAttributes()
 		
 		saynn("Change the attributes of "+bodypart.getCharacterCreatorName())
@@ -207,7 +207,7 @@ func _run():
 			addButton(attribute["textButton"], attribute["buttonDesc"], "attributeMenu", [attributeID])
 
 	if(state == "attributeMenu"):
-		var bodypart = GM.pc.getBodypart(pickingBodypartType)
+		var bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(pickingBodypartType)
 		var attributes = bodypart.getPickableAttributes()
 		var currentAttribute = attributes[pickedAttribID]
 		
@@ -216,7 +216,7 @@ func _run():
 			var attribType = currentAttribute["type"]
 			if(attribType == "color"):
 				var colorPicker = colorPickerScene.instantiate()
-				GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+				ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 				if(currentAttribute.has("currentColor") && currentAttribute["currentColor"] != null):
 					colorPicker.setCurrentColor(currentAttribute["currentColor"])
 		
@@ -226,10 +226,10 @@ func _run():
 		addButton("Back", "Go back a menu", "bodypartAttributes")
 	
 	if(state == "bodyAttributes"):
-		var attributes = GM.pc.getPickableAttributes()
+		var attributes = ServiceLocator.safe_get_service(&"Player").getPickableAttributes()
 		
 		saynn("Pick what do you wanna change about your body")
-		for curAttrib in GM.pc.getAttributesText():
+		for curAttrib in ServiceLocator.safe_get_service(&"Player").getAttributesText():
 			sayn(curAttrib[0]+": "+str(curAttrib[1]))
 		
 		addButton("Done", "You're done changing attributes", "pickedspecies")
@@ -239,7 +239,7 @@ func _run():
 			var attribute = attributes[attributeID]
 			addButton(attribute["textButton"], attribute["buttonDesc"], "bodyAttributeMenu", [attributeID])
 
-		var bodyparts = GM.pc.getBodyparts()
+		var bodyparts = ServiceLocator.safe_get_service(&"Player").getBodyparts()
 		var allSlots = BodypartSlot.getAll()
 		for slot in allSlots:
 			var bodypart = bodyparts[slot]
@@ -252,7 +252,7 @@ func _run():
 			
 
 	if(state == "bodyAttributeMenu"):
-		var attributes = GM.pc.getPickableAttributes()
+		var attributes = ServiceLocator.safe_get_service(&"Player").getPickableAttributes()
 		var currentAttribute = attributes[bodyPickedAttribID]
 		
 		saynn(currentAttribute["text"])
@@ -260,7 +260,7 @@ func _run():
 			var attribType = currentAttribute["type"]
 			if(attribType == "color"):
 				var colorPicker = colorPickerScene.instantiate()
-				GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+				ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 				if(currentAttribute.has("currentColor")):
 					colorPicker.setCurrentColor(currentAttribute["currentColor"])
 		
@@ -272,18 +272,18 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "setgender"):
-		GM.pc.setGender(_args[0])
+		ServiceLocator.safe_get_service(&"Player").setGender(_args[0])
 		setState("pickpronouns")
 		return
 		
 	if(_action == "setpronouns"):
-		GM.pc.setPronounGender(_args[0])
+		ServiceLocator.safe_get_service(&"Player").setPronounGender(_args[0])
 		setState("pickspecies")
 		return
 		
 	if(_action == "setspecies"):
-		GM.pc.setSpecies(_args[0])
-		GM.pc.resetBodypartsToDefault()
+		ServiceLocator.safe_get_service(&"Player").setSpecies(_args[0])
+		ServiceLocator.safe_get_service(&"Player").resetBodypartsToDefault()
 		setState("pickedspecies")
 		return
 		
@@ -293,18 +293,18 @@ func _react(_action: String, _args):
 	
 	if(_action == "setAttribute"):
 		var pickedValue = _args[0]
-		var bodypart = GM.pc.getBodypart(pickingBodypartType)
+		var bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(pickingBodypartType)
 		var attributes = bodypart.getPickableAttributes()
 		var currentAttribute = attributes[pickedAttribID]
 		
 		if(currentAttribute.has("type") && currentAttribute["type"] == "color" && pickedValue == 1):
-			var colorPicker = GM.ui.getCustomControl("colorpicker")
+			var colorPicker = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker")
 			bodypart.applyAttribute(pickedAttribID, colorPicker.getCurrentColor())
 		else:
 			bodypart.applyAttribute(pickedAttribID, pickedValue)
 		
 		#bodypart.applyAttribute(pickedAttribID, pickedValue)
-		GM.pc.updateAppearance()
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
 		setState("bodypartAttributes")
 		return
 	
@@ -314,15 +314,15 @@ func _react(_action: String, _args):
 	
 	if(_action == "bodySetAttribute"):
 		var pickedValue = _args[0]
-		var attributes = GM.pc.getPickableAttributes()
+		var attributes = ServiceLocator.safe_get_service(&"Player").getPickableAttributes()
 		var currentAttribute = attributes[bodyPickedAttribID]
 		
 		if(currentAttribute.has("type") && currentAttribute["type"] == "color" && pickedValue == 1):
-			var colorPicker = GM.ui.getCustomControl("colorpicker")
-			GM.pc.applyAttribute(bodyPickedAttribID, colorPicker.getCurrentColor())
+			var colorPicker = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker")
+			ServiceLocator.safe_get_service(&"Player").applyAttribute(bodyPickedAttribID, colorPicker.getCurrentColor())
 		else:
-			GM.pc.applyAttribute(bodyPickedAttribID, pickedValue)
-		GM.pc.updateAppearance()
+			ServiceLocator.safe_get_service(&"Player").applyAttribute(bodyPickedAttribID, pickedValue)
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
 		setState("bodyAttributes")
 		return
 	
@@ -338,23 +338,23 @@ func _react(_action: String, _args):
 			pickingBodypartType = _args[0]
 	
 	if(_action == "removebodypart"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 
 		var bodypartSlot = _args[0]
 
-		GM.pc.removeBodypart(bodypartSlot)
+		ServiceLocator.safe_get_service(&"Player").removeBodypart(bodypartSlot)
 		return
 	
 	if(_action == "setbodypart"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 
 		var savedRColor = null
 		var savedGColor = null
 		var savedBColor = null
 		var savedSkinId = null
 		var playerHadBodypartInSlot:bool = false
-		if(GM.pc.hasBodypart(pickingBodypartType)):
-			var playerBodypart:Bodypart = GM.pc.getBodypart(pickingBodypartType)
+		if(ServiceLocator.safe_get_service(&"Player").hasBodypart(pickingBodypartType)):
+			var playerBodypart:Bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(pickingBodypartType)
 			savedRColor = playerBodypart.pickedRColor
 			savedGColor = playerBodypart.pickedGColor
 			savedBColor = playerBodypart.pickedBColor
@@ -371,7 +371,7 @@ func _react(_action: String, _args):
 				newBodypart.pickedBColor = savedBColor
 				if(!newBodypart.hasCustomSkinPattern()):
 					newBodypart.pickedSkin = savedSkinId
-			GM.pc.giveBodypartUnlessSame(newBodypart)
+			ServiceLocator.safe_get_service(&"Player").giveBodypartUnlessSame(newBodypart)
 
 		return
 		

@@ -28,8 +28,8 @@ func _on_MedRoom7_onEnter(room):
 
 func _on_MedRoom7_onReact(_room, key):
 	if(key == "leave"):
-		GM.pc.setLocation("med_lobbynw")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbynw")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 
 
 func _on_MedRoom8_onEnter(room):
@@ -37,5 +37,5 @@ func _on_MedRoom8_onEnter(room):
 
 func _on_MedRoom8_onReact(_room, key):
 	if(key == "leave"):
-		GM.pc.setLocation("med_lobbyne")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyne")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

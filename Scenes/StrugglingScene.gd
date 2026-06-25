@@ -24,14 +24,14 @@ func _initScene(_args = []):
 	if(_args.size() > 1):
 		shouldPlayAnimations = _args[1]
 	
-	var allItems = GM.pc.getInventory().getAllEquippedItems()
+	var allItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 	for itemSlot in allItems:
 		var item: ItemBase = allItems[itemSlot]
 		if(item.isRestraint()):
 			item.getRestraintData().resetOnNewTry()
 
 func hasAnythingToInspect() -> bool:
-	for item in GM.pc.getInventory().getEquppedRestraints():
+	for item in ServiceLocator.safe_get_service(&"Player").getInventory().getEquppedRestraints():
 		var restraintData: RestraintData = item.getRestraintData()
 		if(restraintData.hasSmartLock()):
 			return true
@@ -45,16 +45,16 @@ func _run():
 		if(shouldPlayAnimations):
 			playAnimation(StageScene.Solo, "stand")
 		
-		var isBlind = GM.pc.isBlindfolded()
+		var isBlind = ServiceLocator.safe_get_service(&"Player").isBlindfolded()
 		saynn("Pick the restraint you wanna focus on. Keep in mind that some restraints will be harder to remove depending on what you have on.")
 		
-		if(GM.pc.getInventory().hasItemID("restraintkey")):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("restraintkey")):
 			addButtonAt(13, "Use key", "Use one of your restraint keys to unlock something", "usekey")
 		else:
 			addDisabledButtonAt(13, "Use key", "You don't have any restraint keys")
 		addButtonAt(14, "Back", "Stop struggling", "endthescenedidnothing")
 		
-		for item in GM.pc.getInventory().getEquppedRestraints():
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getEquppedRestraints():
 			var restraintData: RestraintData = item.getRestraintData()
 			
 			
@@ -79,7 +79,7 @@ func _run():
 			if(!restraintData.canStruggleFinal()):
 				continue
 			
-			if(GM.pc.getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 				addButton(item.getVisibleName(), "Focus on this restraint", "startStruggleAgainst", [item.getUniqueID()])
 			else:
 				addDisabledButton(item.getVisibleName(), "You are out of stamina")
@@ -88,7 +88,7 @@ func _run():
 		#generateActions()
 		
 	if(state == "tightlock"):
-		var item:ItemBase = GM.pc.getInventory().getItemByUniqueID(restraintID)
+		var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(restraintID)
 		var restraintData: RestraintData = item.getRestraintData()
 		var requiredItemID:String = restraintData.getTightLockRequiredItemID()
 		var reqItem:ItemBase = GlobalRegistry.getItemRef(requiredItemID)
@@ -105,7 +105,7 @@ func _run():
 		saynn("Which item do you want to use?")
 		
 		addButton("Cancel", "You changed your mind", "")
-		for invitem in GM.pc.getInventory().getItems():
+		for invitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(invitem.id == requiredItemID):
 				addButton(invitem.getVisibleName(), invitem.getVisibleDescription(), "tightlock_unlockwith", [invitem])
 	
@@ -115,11 +115,11 @@ func _run():
 		addButton("Continue", "See what happens next", "checkifokay")
 		
 	if(state == "usekey"):
-		var keyAmount = GM.pc.getInventory().getAmountOf("restraintkey")
+		var keyAmount = ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("restraintkey")
 		saynn("You have "+str(keyAmount)+" "+Util.multipleOrSingularEnding(keyAmount, "key")+". Each one can unlock one piece of gear (Unless it has a smart-lock attached to it).")
 		saynn("Which restraint do you wanna unlock.")
 
-		for item in GM.pc.getInventory().getEquppedRestraints():
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getEquppedRestraints():
 			var restraintData: RestraintData = item.getRestraintData()
 			if(restraintData.hasSmartLock()):
 				var smartLock:SmartLockBase = restraintData.getSmartLock()
@@ -161,7 +161,7 @@ func _run():
 		addButton("Continue", "Heck", "checkifokay")
 
 	if(state == "startStruggleAgainst"):
-		var item = GM.pc.getInventory().getItemByUniqueID(restraintID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(restraintID)
 		var restraintData: RestraintData = item.getRestraintData()
 		
 		if(shouldPlayAnimations):
@@ -170,15 +170,15 @@ func _run():
 				playAnimation(StageScene.Solo, animToPlay)
 		
 		var game = minigameScene.instantiate()
-		GM.ui.addFullScreenCustomControl("minigame", game)
-		#GM.ui.addCustomControl("minigame", game)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("minigame", game)
+		#ServiceLocator.safe_get_service(&"UI").addCustomControl("minigame", game)
 		if(OPTIONS.isHardStruggleEnabled()):
 			game.setHardStruggleEnabled(true)
-		if(GM.pc.hasPerk(Perk.BDSMInstantEscape) && game.has_method("instantEscapePerk")):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMInstantEscape) && game.has_method("instantEscapePerk")):
 			game.instantEscapePerk()
-		if(GM.pc.isBlindfolded() && game.has_method("setIsBlindfolded")):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && game.has_method("setIsBlindfolded")):
 			game.setIsBlindfolded(true)
-		if(GM.pc.hasPerk(Perk.BDSMPerfectStreak) && game.has_method("setHasAdvancedPerk")):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMPerfectStreak) && game.has_method("setHasAdvancedPerk")):
 			game.setHasAdvancedPerk(true)
 		
 		game.setDifficulty(restraintData.getLevel())
@@ -208,7 +208,7 @@ func _run():
 	if(state == "notspotted"):
 		saynn("Seems like no one saw or heard you. Phew")
 		
-		if(GM.pc.getPain() >= GM.pc.painThreshold()):
+		if(ServiceLocator.safe_get_service(&"Player").getPain() >= ServiceLocator.safe_get_service(&"Player").painThreshold()):
 			saynn("But you can't continue, you're in too much pain")
 			
 			addButton("Continue", "Aw", "endthescene")
@@ -231,7 +231,7 @@ func _run():
 		addButton("Continue", "Good", "checkifokay")
 
 func onMinigameCompleted(result:MinigameResult):
-	GM.main.pickOption("struggleAgainst", [restraintID, result])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("struggleAgainst", [restraintID, result])
 		
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
@@ -243,7 +243,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "giveupstruggle"):
-		GM.pc.addStamina(-10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-10)
 		restraintID = ""
 		setState("")
 		return
@@ -252,23 +252,23 @@ func _react(_action: String, _args):
 		restraintID = _args[0]
 		
 	if(_action == "startStruggleAgainst"):
-		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
 		var restraintData: RestraintData = item.getRestraintData()
 		
-		if(!restraintData.shouldDoStruggleMinigame(GM.pc)):
+		if(!restraintData.shouldDoStruggleMinigame(ServiceLocator.safe_get_service(&"Player"))):
 			_action = "struggleAgainst"
 		else:
 			restraintID = _args[0]
 
 	if(_action == "struggleAgainst"):
-		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
 		var restraintData: RestraintData = item.getRestraintData()
 		
 		var minigameResult:MinigameResult
 		if(_args.size() > 1):
 			minigameResult = _args[1]
 			
-			if(minigameResult.score >= 1.0 && GM.pc.hasPerk(Perk.BDSMBetterStruggling)):
+			if(minigameResult.score >= 1.0 && ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMBetterStruggling)):
 				minigameResult.score *= 2.0
 		else:
 			minigameResult = MinigameResult.new()
@@ -283,7 +283,7 @@ func _react(_action: String, _args):
 		var addPain = 0
 		var addStamina = 0
 
-		var struggleData = restraintData.doStruggle(GM.pc, minigameResult)
+		var struggleData = restraintData.doStruggle(ServiceLocator.safe_get_service(&"Player"), minigameResult)
 		
 		if(struggleData.has("damage")):
 			damage = struggleData["damage"]
@@ -299,7 +299,7 @@ func _react(_action: String, _args):
 		struggleText = struggleData["text"]
 		
 		if(!fightMode):
-			var turnData = GM.pc.processStruggleTurn(true)
+			var turnData = ServiceLocator.safe_get_service(&"Player").processStruggleTurn(true)
 			damage += turnData["damage"]
 			addLust += turnData["lust"]
 			addPain += turnData["pain"]
@@ -311,7 +311,7 @@ func _react(_action: String, _args):
 			var mult = 4
 			if fightMode:
 				mult = 5
-			GM.pc.addSkillExperience(Skill.BDSM, restraintData.getLevel() * mult)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.BDSM, restraintData.getLevel() * mult)
 			
 		if(fatallFail):
 			addMessage("You tried really hard but you completely failed.")
@@ -322,13 +322,13 @@ func _react(_action: String, _args):
 			restraintData.takeDamage(damage)
 			addMessage("You made "+str(Util.roundF(damage*100.0, 1))+"% of progress ("+str(Util.roundF(minigameScore*100.0, 1))+"% efficiency)")
 		if(addLust != 0):
-			addLust = GM.pc.receiveDamage(DamageType.Lust, addLust)
+			addLust = ServiceLocator.safe_get_service(&"Player").receiveDamage(DamageType.Lust, addLust)
 			addMessage("You received "+str(addLust)+" lust")
 		if(addPain != 0):
-			addPain = GM.pc.receiveDamage(DamageType.Physical, addPain)
+			addPain = ServiceLocator.safe_get_service(&"Player").receiveDamage(DamageType.Physical, addPain)
 			addMessage("You received "+str(addPain)+" pain")
 		if(addStamina != 0):
-			GM.pc.addStamina(-addStamina)
+			ServiceLocator.safe_get_service(&"Player").addStamina(-addStamina)
 			
 			if(addStamina < 0):
 				addMessage("You gained "+str(-addStamina)+" stamina")
@@ -339,32 +339,32 @@ func _react(_action: String, _args):
 		if(restraintData.shouldBeRemoved()):
 			struggleText += "\n[b]"+restraintData.getRemoveMessage()+"[/b]"
 			restraintData.onStruggleRemoval()
-			GM.pc.getInventory().removeEquippedItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItem(item)
 			
-			if(!restraintData.alwaysBreaksWhenStruggledOutOf() && (GM.pc.hasPerk(Perk.BDSMCollector) || restraintData.alwaysSavedWhenStruggledOutOf())):
+			if(!restraintData.alwaysBreaksWhenStruggledOutOf() && (ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMCollector) || restraintData.alwaysSavedWhenStruggledOutOf())):
 				canKeepTheRestraint = true
 			
-				GM.pc.getInventory().addItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 				keptRestraintID = item.getUniqueID()
 		
 		processTime(1*60)
 		
 	if(_action == "getridandcheckifokay"):
-		var item = GM.pc.getInventory().getItemByUniqueID(keptRestraintID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(keptRestraintID)
 		if(item != null):
-			GM.pc.getInventory().removeItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
 		
 	if(_action == "checkifokay" || _action == "getridandcheckifokay"):
 		if(fightMode):
 			endScene()
 			return
 		
-		#if(GM.pc.getLust() >= GM.pc.lustThreshold()):
+		#if(ServiceLocator.safe_get_service(&"Player").getLust() >= ServiceLocator.safe_get_service(&"Player").lustThreshold()):
 		#	setState("toolusty")
 			#setState("orgasm")
-			#GM.pc.orgasmFrom("pc")
+			#ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		#	return
-		#if(GM.pc.getPain() >= GM.pc.painThreshold()):
+		#if(ServiceLocator.safe_get_service(&"Player").getPain() >= ServiceLocator.safe_get_service(&"Player").painThreshold()):
 		#	setState("toopainful")
 		#	return
 		if(hasAnythingToInspect()):
@@ -379,23 +379,23 @@ func _react(_action: String, _args):
 		
 	if(_action == "dounlock"):
 		unlockedRestraintID = _args[0]
-		var item = GM.pc.getInventory().getItemByUniqueID(unlockedRestraintID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(unlockedRestraintID)
 		var restraintData: RestraintData = item.getRestraintData()
 		
 		var howManyKeysToRemove:int = 1
 		if(restraintData.hasSmartLock()):
 			howManyKeysToRemove = restraintData.getSmartLock().getKeysAmountToUnlock()
 		
-		GM.pc.getInventory().removeXOfOrDestroy("restraintkey", howManyKeysToRemove)
-		if(!GM.pc.hasBlockedHands() && !GM.pc.hasBoundArms()):
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("restraintkey", howManyKeysToRemove)
+		if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands() && !ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			if(restraintData == null || restraintData.alwaysBreaksWhenStruggledOutOf()):
-				GM.pc.getInventory().removeEquippedItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItem(item)
 			else:
-				GM.pc.getInventory().unequipItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(item)
 			setState("unlockedGear")
 		else:
 			keyGameTries = 3
-			if(GM.pc.hasPerk(Perk.BDSMBetterKeys)):
+			if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMBetterKeys)):
 				keyGameTries += 2
 			keyGameValue = randi_range(1, 15)
 			keyText = ""
@@ -403,10 +403,10 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "tightlock_unlockwith"):
-		var item = GM.pc.getInventory().getItemByUniqueID(restraintID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(restraintID)
 		var restraintData: RestraintData = item.getRestraintData()
-		GM.pc.getInventory().removeEquippedItem(item)
-		GM.pc.getInventory().removeItem(_args[0])
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItem(item)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(_args[0])
 		actionText = restraintData.getTightLockUnlockMessage()
 		setState("tightlock_unlocked")
 		return
@@ -421,12 +421,12 @@ func _react(_action: String, _args):
 		
 		var number = _args[0]#int(textboxText)
 		if(number == keyGameValue):
-			var item = GM.pc.getInventory().getItemByUniqueID(unlockedRestraintID)
+			var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(unlockedRestraintID)
 			var restraintData: RestraintData = item.getRestraintData()
 			if(restraintData == null || restraintData.alwaysBreaksWhenStruggledOutOf()):
-				GM.pc.getInventory().removeEquippedItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItem(item)
 			else:
-				GM.pc.getInventory().unequipItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(item)
 			setState("unlockedGear")
 			return
 		

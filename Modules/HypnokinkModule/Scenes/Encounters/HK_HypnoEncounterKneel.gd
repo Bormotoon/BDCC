@@ -153,10 +153,10 @@ func _run():
 			])+"[/say]")
 			
 			
-			if(!(GM.pc.buffsHolder.hasBuff(Buff.RingGagBuff))):
+			if(!(ServiceLocator.safe_get_service(&"Player").buffsHolder.hasBuff(Buff.RingGagBuff))):
 				saynn("{npc.He} {npc.verb('dangle')} a set of straps connected to a metal ring in front of you.")
 				saynn("[say=npc]I've brought a little gift for you.[/say]")
-				if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
+				if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)):
 					saynn("{npc.He} {npc.verb('remove')} your current gag.")
 					saynn("[say=npc]That'd just get in the way. Lucky you.[/say]")
 				saynn("{npc.He} {npc.verb('grab')} you by the jaw.")
@@ -180,10 +180,10 @@ func _run():
 				"Heh. You're such a slut.",
 			])+"[/say]")
 			
-			if(!(GM.pc.buffsHolder.hasBuff(Buff.RingGagBuff))):
+			if(!(ServiceLocator.safe_get_service(&"Player").buffsHolder.hasBuff(Buff.RingGagBuff))):
 				saynn("{npc.He} {npc.verb('dangle')} a set of straps connected to a metal ring in front of you.")
 				saynn("[say=npc]Sluts like you don't need to talk.[/say]")
-				if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
+				if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)):
 					saynn("{npc.He} roughly {npc.verb('remove')} your current gag.")
 					saynn("[say=npc]What good's a gag if I can't use your throat with it in the way?[/say]")
 				saynn("{npc.He} {npc.verb('grab')} you by the jaw, clearly intent on forcing it open.")
@@ -209,7 +209,7 @@ func _run():
 			])+"[/say]")
 			
 			saynn("[say=npc]I picked up a little reward for you, if you're obedient.[/say]")
-			if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && !(GM.pc.buffsHolder.hasBuff(Buff.RingGagBuff))):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && !(ServiceLocator.safe_get_service(&"Player").buffsHolder.hasBuff(Buff.RingGagBuff))):
 				saynn("{npc.He} carefully {npc.verb('remove')} your gag.")
 				saynn("[say=npc]Don't want that getting in the way, do we?[/say]")
 			saynn("{npc.He} {npc.verb('cup')} your jaw in {npc.his} hand.")
@@ -507,7 +507,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "kneel"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
 		processTime(5 * 60)
 		if(doneWhenIterations == -1):
 			doneWhenIterations = randi_range(3,6)
@@ -517,48 +517,48 @@ func _react(_action: String, _args):
 			return
 			
 	if(_action == "get_gagged"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
 		processTime(1 * 60)
-		GM.pc.addLust(randi_range(2,6))
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
-			var preexistingGag = GM.pc.getInventory().removeItemFromSlot(InventorySlot.Mouth)
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(2,6))
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)):
+			var preexistingGag = ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Mouth)
 			removedOtherGag = preexistingGag.id
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
 		gotGagged = true
 		
 	if(_action == "get_fucked_oral_1"):
-		GM.pc.addLust(randi_range(10,15))
-		if(npcVariation == "kind" && GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth)):
-			GM.pc.getInventory().removeItemFromSlot(InventorySlot.Mouth)
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(10,15))
+		if(npcVariation == "kind" && ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth)):
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Mouth)
 		if(!npc.hasPenis() && npcVariation == "mean"):
 			npc.getInventory().equipItem(GlobalRegistry.createItem("StraponFeeldoe"))
 			npc.getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
 		
 	if(_action == "get_fucked_oral_2"):
-		GM.pc.addLust(randi_range(10,15))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(10,15))
 		
 	if(_action == "get_fucked_oral_3"):
-		GM.pc.addLust(randi_range(20,25))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(20,25))
 		if(npc.hasPenis()):
-			GM.pc.cummedInMouthBy(npcID)
+			ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(npcID)
 		else:
 			if(npcVariation == "mean"):
 				npc.cumOnFloor()
 			else:
-				GM.pc.cummedInMouthBy(npcID, FluidSource.Vagina)
+				ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(npcID, FluidSource.Vagina)
 				
 	if(_action == "oral_afterward"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(20,30))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(20,30))
 		processTime(10 * 60)
 		if(removedOtherGag != ""):
-			GM.pc.getInventory().removeEquippedItemsWithBuff(Buff.RingGagBuff)
-			GM.pc.getInventory().equipItem(GlobalRegistry.createItem(removedOtherGag))
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItemsWithBuff(Buff.RingGagBuff)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem(removedOtherGag))
 		else:
 			if(npcVariation != "mean" && gotGagged):
-				GM.pc.getInventory().removeEquippedItemsWithBuff(Buff.RingGagBuff)		
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItemsWithBuff(Buff.RingGagBuff)		
 		if(npcVariation == "kind"):
-			GM.pc.addCredits(1)
-		GM.pc.addSkillExperience(Skill.Hypnosis, 10)
+			ServiceLocator.safe_get_service(&"Player").addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Hypnosis, 10)
 		
 		
 	if(_action == "resist"):

@@ -19,13 +19,13 @@ func _run():
 		addCharacter(npcID)
 		playAnimation(StageScene.StocksSexOral, "tease", {npc="pc", pc=npcID})
 		
-		if(GM.pc.getLocation() == "main_punishment_spot"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_punishment_spot"):
 			saynn("You decide to lock your slave into the stocks.")
 			
 			saynn("After all, why shouldn't other be able to have fun with {npc.him}?")
 		else:
 			aimCameraAndSetLocName("main_punishment_spot")
-			GM.pc.setLocation("main_punishment_spot")
+			ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 			
 			saynn("After {npc.name} serves {npc.his} punishment, you decide to leave {npc.him} stuck in there.")
 			

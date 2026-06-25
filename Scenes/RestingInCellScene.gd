@@ -15,7 +15,7 @@ func _run():
 
 		addButton("Sleep", "Sleep until the next day and recover your stamina", "gosleep")
 
-		var currentTime = GM.main.getTime()
+		var currentTime = ServiceLocator.safe_get_service(&"MainScene").getTime()
 		for t in [8, 10, 12, 14, 16, 18, 20, 22]:
 			if(currentTime < t*60*60):
 				addButton("Rest %02d:00" % [t], "Wake up when the time becomes %02d:00" % [t], "restuntil", [t])
@@ -34,20 +34,20 @@ func _run():
 		
 		saynn("You wake up when all the prison lights begin to turn on.")
 		
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence.")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence.")
 		
 		addButton("Continue", "Time to wake up", "endthesceneandtriggerevents")
 		
-		GM.ES.triggerRun(Trigger.WakeUpInCell)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.WakeUpInCell)
 
 func _react(_action: String, _args):
 	if(_action == "restuntil"):
 		var newt = _args[0]
 		
-		var timePassed = GM.main.processTimeUntil(newt * 60 * 60)
-		GM.pc.afterRestingInBed(timePassed)
+		var timePassed = ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(newt * 60 * 60)
+		ServiceLocator.safe_get_service(&"Player").afterRestingInBed(timePassed)
 		
-		if(GM.ES.triggerReact(Trigger.Waiting, [timePassed])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.Waiting, [timePassed])):
 			endScene()
 			return
 		
@@ -55,14 +55,14 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "gosleep"):
-		if(GM.ES.triggerReact(Trigger.AboutToSleepInCell)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.AboutToSleepInCell)):
 			endScene()
 			return
 		
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		
-		if(GM.ES.triggerReact(Trigger.SleepInCell)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.SleepInCell)):
 			pass
 		
 		setState("slept")
@@ -73,13 +73,13 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "endthesceneandtriggerevents"):
-		GM.pc.updateAppearance()
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
 		
-		if(GM.ES.triggerReact(Trigger.WakeUpInCell)):
-			GM.main.showLog()
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.WakeUpInCell)):
+			ServiceLocator.safe_get_service(&"MainScene").showLog()
 			endScene()
 			return
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 		
 		endScene()
 		return

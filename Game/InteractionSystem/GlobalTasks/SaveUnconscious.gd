@@ -27,7 +27,7 @@ func configureGoal(_pawn:CharacterPawn, _goal):
 		return
 
 func processTime(_howMuch:int):
-	allUnconPawns = GM.main.IS.getAllUnconsciousPawns()
+	allUnconPawns = ServiceLocator.safe_get_service(&"MainScene").IS.getAllUnconsciousPawns()
 	var allAssigned = getAllAssignedPawns()
 	
 	pawnIDHasSavior.clear()

@@ -25,7 +25,7 @@ func getSupportedSexTypes():
 	}
 
 func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	if(_subInfo.getChar().isPlayer() && GM.main.getEncounterSettings().isGoalDisabledForSubPC(SexGoal.AddBodywritings)):
+	if(_subInfo.getChar().isPlayer() && ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().isGoalDisabledForSubPC(SexGoal.AddBodywritings)):
 		return 0.0
 	return _domInfo.fetishScore({Fetish.Bodywritings: 0.05}) * (1.0 + _domInfo.personalityScore({PersonalityStat.Mean: 0.3}))
 
@@ -65,7 +65,7 @@ func startActivity(_args):
 		permanentChance += fetish(DOM_0, Fetish.Bodywritings)*5.0
 		permanentChance += personality(DOM_0, PersonalityStat.Mean)*2.0
 		permanentChance -= personality(DOM_0, PersonalityStat.Subby)*2.0
-		var theAffection:float = GM.main.RS.getAffection(getDomID(), getSubID())
+		var theAffection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(getDomID(), getSubID())
 		permanentChance -= theAffection * 3.0
 		permanentChance = clamp(permanentChance, 0.0, 3.0)
 		isPermanent = RNG.chance(permanentChance)

@@ -8,4 +8,4 @@ func apply(_world: GameWorld):
 	pass
 
 func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(flagID, defaultValue)

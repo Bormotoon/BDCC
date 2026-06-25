@@ -29,7 +29,7 @@ func updateList():
 			newEntry.setNothingToLoad()
 			newEntry.setCanUpdate(false)
 		else:
-			if(GM.main.isDatapackLoaded(datapackID)):
+			if(ServiceLocator.safe_get_service(&"MainScene").isDatapackLoaded(datapackID)):
 				newEntry.setIsLoaded(true)
 				newEntry.setCanUpdate(!datapack.characters.is_empty())
 			else:
@@ -37,7 +37,7 @@ func updateList():
 				newEntry.setCanUpdate(false)
 
 func onDatapackLoadPressed(datapackID):
-	GM.main.loadDatapackAndDependencies(datapackID)
+	ServiceLocator.safe_get_service(&"MainScene").loadDatapackAndDependencies(datapackID)
 	updateList()
 
 var datapackIDToUse = null
@@ -49,7 +49,7 @@ func onDatapackUnloadPressed(datapackID):
 			keep_flags_window_dialog.popup_centered()
 			return
 	
-	GM.main.unloadDatapack(datapackID)
+	ServiceLocator.safe_get_service(&"MainScene").unloadDatapack(datapackID)
 	updateList()
 
 func _on_DatapackIngameMenu_visibility_changed():
@@ -63,8 +63,8 @@ func _on_ClearFlagsButton_pressed():
 	if(datapackIDToUse == null):
 		return
 	
-	GM.main.clearDatapackFlags(datapackIDToUse)
-	GM.main.unloadDatapack(datapackIDToUse)
+	ServiceLocator.safe_get_service(&"MainScene").clearDatapackFlags(datapackIDToUse)
+	ServiceLocator.safe_get_service(&"MainScene").unloadDatapack(datapackIDToUse)
 	updateList()
 	datapackIDToUse = null
 	keep_flags_window_dialog.hide()
@@ -73,7 +73,7 @@ func _on_KeepFlagsButton_pressed():
 	if(datapackIDToUse == null):
 		return
 	
-	GM.main.unloadDatapack(datapackIDToUse)
+	ServiceLocator.safe_get_service(&"MainScene").unloadDatapack(datapackIDToUse)
 	updateList()
 	datapackIDToUse = null
 	keep_flags_window_dialog.hide()
@@ -86,6 +86,6 @@ func _on_UpdateWindowDialog_confirmed():
 	if(datapackIDToUse == null):
 		return
 	
-	GM.main.reloadDatapack(datapackIDToUse)
+	ServiceLocator.safe_get_service(&"MainScene").reloadDatapack(datapackIDToUse)
 	
 	datapackIDToUse = null

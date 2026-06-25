@@ -66,7 +66,7 @@ func _run():
 			
 			if(currentCategory != []):
 				addButton("Back", "Back to the previous menu", "backbutton")
-				if(GM.ui.getCurrentPage() > 0):
+				if(ServiceLocator.safe_get_service(&"UI").getCurrentPage() > 0):
 					addExtraButton("Back", "Back to the previous menu", "backbutton")
 			
 				

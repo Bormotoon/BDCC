@@ -29,7 +29,7 @@ func _run():
 		playAnimation(StageScene.PuppySexOral, "tease", {pc="pc", npc=npcID, npcBodyState={naked=true, leashedBy="pc"}})
 
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
-		if(GM.pc.getLocation() == "main_dressing2"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_dressing2"):
 			aimCameraAndSetLocName("main_shower2")
 		else:
 			aimCameraAndSetLocName("main_shower1")
@@ -161,7 +161,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		npc.gotThroatFuckedBy("pc")
 		npc.cummedInMouthBy("pc")
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):
 			npcSlavery.getActivity().satisfyWant("food")
@@ -169,7 +169,7 @@ func _react(_action: String, _args):
 	if(_action == "do_feed_girlcum"):
 		processTime(5*60)
 		npc.cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):
 			npcSlavery.getActivity().satisfyWant("food")

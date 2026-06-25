@@ -6,13 +6,13 @@ func _init():
 	handlesIds = ["guard", "inmate", "engineer", "medical", "junkie", "junkieStash"]
 
 func getLoot(_id, _characterID, _battleName):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return []
-	var restraintAmount:int = GM.pc.getInventory().getRemovableRestraintsAmount()
+	var restraintAmount:int = ServiceLocator.safe_get_service(&"Player").getInventory().getRemovableRestraintsAmount()
 	if(restraintAmount <= 0):
 		return []
-	var smartAmount:int = GM.pc.getInventory().getSmartLockedItemsAmount()
-	var keyAmount:int = GM.pc.getInventory().getAmountOf("restraintkey")
+	var smartAmount:int = ServiceLocator.safe_get_service(&"Player").getInventory().getSmartLockedItemsAmount()
+	var keyAmount:int = ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("restraintkey")
 	
 	var chanceMod:float = 0.0
 	

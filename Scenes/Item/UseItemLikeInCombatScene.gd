@@ -13,19 +13,19 @@ func _initScene(_args = []):
 func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
-	var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	
 	var intoxic = item.addsIntoxicationToPC()
-	if(intoxic > 0.0 && !GM.pc.canIntoxicateMore(intoxic)):
+	if(intoxic > 0.0 && !ServiceLocator.safe_get_service(&"Player").canIntoxicateMore(intoxic)):
 		setState("tooToxic")
 		return
 		
 	var currentEnemy = null
-	var theFightScene = GM.main.getCurrentFightScene()
+	var theFightScene = ServiceLocator.safe_get_service(&"MainScene").getCurrentFightScene()
 	if(theFightScene != null):
 		currentEnemy = theFightScene.enemyCharacter
 		
-	savedText = item.useInCombatWithBuffs(GM.pc, currentEnemy)
+	savedText = item.useInCombatWithBuffs(ServiceLocator.safe_get_service(&"Player"), currentEnemy)
 	setState("afteruse")
 
 func _run():

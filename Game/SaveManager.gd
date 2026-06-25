@@ -28,12 +28,12 @@ func save_data() -> Dictionary:
 		"currentTFID_DONT_TOUCH": GlobalRegistry.currentTFID,
 		"currentSave": GlobalRegistry.currentSave,
 	}
-	data["player"] = GM.main.get_original_pc().saveData()
-	if GM.main.get_overridden_pc() != null:
-		data["player_override"] = GM.main.get_overridden_pc().saveData()
-	data["characters"] = GM.main.save_characters_data()
-	data["dynamicCharacters"] = GM.main.save_dynamic_characters_data()
-	data["main"] = GM.main.save_data()
+	data["player"] = ServiceLocator.safe_get_service(&"MainScene").get_original_pc().saveData()
+	if ServiceLocator.safe_get_service(&"MainScene").get_overridden_pc() != null:
+		data["player_override"] = ServiceLocator.safe_get_service(&"MainScene").get_overridden_pc().saveData()
+	data["characters"] = ServiceLocator.safe_get_service(&"MainScene").save_characters_data()
+	data["dynamicCharacters"] = ServiceLocator.safe_get_service(&"MainScene").save_dynamic_characters_data()
+	data["main"] = ServiceLocator.safe_get_service(&"MainScene").save_data()
 	return data
 
 func load_data(data: Dictionary) -> void:
@@ -49,21 +49,21 @@ func load_data(data: Dictionary) -> void:
 	GlobalRegistry.currentNPCUniqueID = SAVE.load_var(data, "currentNPCUniqueID_DONT_TOUCH", 0)
 	GlobalRegistry.currentTFID = SAVE.load_var(data, "currentTFID_DONT_TOUCH", 0)
 	GlobalRegistry.currentSave = SAVE.load_var(data, "currentSave", 1)
-	GM.main.get_original_pc().loadData(data["player"])
-	if GM.main.get_overridden_pc() != null:
-		GM.main.clear_override_pc()
+	ServiceLocator.safe_get_service(&"MainScene").get_original_pc().loadData(data["player"])
+	if ServiceLocator.safe_get_service(&"MainScene").get_overridden_pc() != null:
+		ServiceLocator.safe_get_service(&"MainScene").clear_override_pc()
 	if data.has("player_override") and data["player_override"] != null:
-		GM.main.override_pc()
-		GM.main.get_overridden_pc().loadData(data["player_override"])
-	GM.main.load_dynamic_characters_data(SAVE.load_var(data, "dynamicCharacters", {}))
-	GM.main.load_data(SAVE.load_var(data, "main", {}))
-	GM.main.update_static_characters()
-	GM.main.load_characters_data(SAVE.load_var(data, "characters", {}))
-	GM.main.loading_savefile_finished()
-	GM.ui.loading_savefile_finished()
+		ServiceLocator.safe_get_service(&"MainScene").override_pc()
+		ServiceLocator.safe_get_service(&"MainScene").get_overridden_pc().loadData(data["player_override"])
+	ServiceLocator.safe_get_service(&"MainScene").load_dynamic_characters_data(SAVE.load_var(data, "dynamicCharacters", {}))
+	ServiceLocator.safe_get_service(&"MainScene").load_data(SAVE.load_var(data, "main", {}))
+	ServiceLocator.safe_get_service(&"MainScene").update_static_characters()
+	ServiceLocator.safe_get_service(&"MainScene").load_characters_data(SAVE.load_var(data, "characters", {}))
+	ServiceLocator.safe_get_service(&"MainScene").loading_savefile_finished()
+	ServiceLocator.safe_get_service(&"UI").loading_savefile_finished()
 
 func can_save() -> bool:
-	return GM.main.can_save()
+	return ServiceLocator.safe_get_service(&"MainScene").can_save()
 
 # ==========================================
 # FILE OPERATIONS (File → FileAccess, DirAccess → DirAccess)
@@ -160,12 +160,12 @@ func trigger_autosave() -> void:
 		return
 	is_auto_saving = true
 	await get_tree().create_timer(0.1).timeout
-	if GM.main == null or GM.pc == null:
+	if ServiceLocator.safe_get_service(&"MainScene") == null or ServiceLocator.safe_get_service(&"Player") == null:
 		is_auto_saving = false
 		return
-	save_game("user://saves/autosave_" + Util.strip_bad_filename_characters(GM.pc.getName()) + ".save")
-	if GM.ui != null:
-		GM.ui.say("\n\n[center][i]Autosave completed[/i][/center]\n")
+	save_game("user://saves/autosave_" + Util.strip_bad_filename_characters(ServiceLocator.safe_get_service(&"Player").getName()) + ".save")
+	if ServiceLocator.safe_get_service(&"UI") != null:
+		ServiceLocator.safe_get_service(&"UI").say("\n\n[center][i]Autosave completed[/i][/center]\n")
 	is_auto_saving = false
 
 ## Line 267-286: getAllSavePathsInFolder with DirAccess

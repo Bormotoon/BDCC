@@ -201,7 +201,7 @@ func hasSubmittedToPC():
 	return submitted
 func doSubmitToPC():
 	submitted = true
-	GM.pc.getReputation().handleSpecialEvent("makeobey")
+	ServiceLocator.safe_get_service(&"Player").getReputation().handleSpecialEvent("makeobey")
 
 # Has the slave snapped
 # If broken, slaves becomes a doll
@@ -210,7 +210,7 @@ func isMindBroken():
 	return broken
 func doMindBreak():
 	broken = true
-	GM.pc.getReputation().handleSpecialEvent("makeobey")
+	ServiceLocator.safe_get_service(&"Player").getReputation().handleSpecialEvent("makeobey")
 func unMindBreak():
 	broken = false
 var brokenWarnings = 0 # Might use this as a warning?
@@ -375,7 +375,7 @@ func onNewDay():
 	gotBeatenUpToday = false
 	
 	tickUnhappiness()
-	var daysWithoutOrgasm = GM.main.getDays() - lastDayOrgasmed
+	var daysWithoutOrgasm = ServiceLocator.safe_get_service(&"MainScene").getDays() - lastDayOrgasmed
 	if(daysWithoutOrgasm > 100):
 		neediness *= 0.5 # After 100 days of not cumming.. they no longer need to anymore.. Their libido starts to crash
 		pass
@@ -601,7 +601,7 @@ func getMainSlaveType():
 	return slaveType
 
 func onEnslave():
-	lastDayOrgasmed = GM.main.getDays()
+	lastDayOrgasmed = ServiceLocator.safe_get_service(&"MainScene").getDays()
 
 func getChar():
 	if(npc == null):
@@ -615,7 +615,7 @@ func handleSexEvent(_event:SexEvent):
 		addNeediness(0.03) # Any kind of sex event makes us sliiightly needier
 		if(_event.getType() == SexEvent.Orgasmed):
 			neediness = 0.0 # Orgasms reset it
-			lastDayOrgasmed = GM.main.getDays()
+			lastDayOrgasmed = ServiceLocator.safe_get_service(&"MainScene").getDays()
 	else:
 		addNeediness(0.01) # Watching others get fucked also makes us a bit needier
 			
@@ -805,8 +805,8 @@ func addExperience(howMuch:int):
 	if(slaveExperience >= experienceCap):
 		if(!readyForLevelup):
 			readyForLevelup = true
-			if(GM.main != null):
-				GM.main.addMessage("Your slave named "+getChar().getName()+" is ready to be leveled up.")
+			if(ServiceLocator.safe_get_service(&"MainScene") != null):
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Your slave named "+getChar().getName()+" is ready to be leveled up.")
 			generateLevelUpTasks()
 		
 		slaveExperience = experienceCap
@@ -837,13 +837,13 @@ func doLevelup():
 	slaveExperience = 0
 	slaveLevel += 1
 
-	if(GM.main != null):
-		GM.main.addMessage("Your slave named "+getChar().getName()+" has reached slave level "+str(slaveLevel)+"!")
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Your slave named "+getChar().getName()+" has reached slave level "+str(slaveLevel)+"!")
 		var howMuchExp = int(slaveLevel * 5)
-		GM.main.addMessage("You received "+str(howMuchExp)+" experience")
-		GM.pc.addExperience(howMuchExp)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You received "+str(howMuchExp)+" experience")
+		ServiceLocator.safe_get_service(&"Player").addExperience(howMuchExp)
 		
-		GM.pc.getReputation().addRep(RepStat.Alpha, 0.2*sqrt(slaveLevel))
+		ServiceLocator.safe_get_service(&"Player").getReputation().addRep(RepStat.Alpha, 0.2*sqrt(slaveLevel))
 		
 	onSlaveLevelup.emit(self)
 
@@ -1199,7 +1199,7 @@ func onInteractionEvent(_eventID:String, _args:Dictionary):
 		theActivity.onInteractionEvent(_eventID, _args)
 
 func pawnExist() -> bool:
-	return GM.main.IS.hasPawn(getChar().getID())
+	return ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(getChar().getID())
 
 func getSkillAmountFullyLearned() -> int:
 	var result:int = 0

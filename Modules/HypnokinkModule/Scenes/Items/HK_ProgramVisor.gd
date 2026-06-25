@@ -12,7 +12,7 @@ func _initScene(_args = []):
 
 func _run():
 	if(state == ""):
-		var visor = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var visor = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		
 		if(visor.programmedToSuppressPerk() == ""):
 			saynn("This visor is currently running the default program.")
@@ -27,11 +27,11 @@ func _run():
 		
 		if(visor.programmedToSuppressPerk() != ""):
 			addButton("Reset", "Reset the visor to its default settings", "reset")
-		if(GM.pc.hasPerk(Perk.HypnosisKeywordsDrawback)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisKeywordsDrawback)):
 			addButton("Keywords", "Program the visor to suppress your keyword fixation", "keywords")
-		if(GM.pc.hasPerk(Perk.HypnosisFamousDrawback)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisFamousDrawback)):
 			addButton("Famous", "Program the visor to suppress your publicly known triggers.", "famous")
-		if(GM.pc.hasPerk(Perk.HypnosisDeepTranceDrawback)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisDeepTranceDrawback)):
 			addButton("Deep trance", "Program the visor to reduce your vulnerability to hypnosis in general", "deep_trance")
 		addButton("Cancel", "Actually, this could be dangerous", "endthescene")
 		
@@ -46,22 +46,22 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "reset"):
-		var visor = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var visor = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		visor.programToSuppressPerk("")
 		setState("post_program")
 		return
 	if(_action == "keywords"):
-		var visor = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var visor = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		visor.programToSuppressPerk(Perk.HypnosisKeywordsDrawback)
 		setState("post_program")
 		return
 	if(_action == "famous"):
-		var visor = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var visor = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		visor.programToSuppressPerk(Perk.HypnosisFamousDrawback)
 		setState("post_program")
 		return
 	if(_action == "deep_trance"):
-		var visor = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var visor = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		visor.programToSuppressPerk(Perk.HypnosisDeepTranceDrawback)
 		setState("post_program")
 		return

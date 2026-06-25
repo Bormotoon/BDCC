@@ -83,8 +83,8 @@ func _ready():
 	if(random_leak_timer):
 		random_leak_timer.start(randf_range(3, 20))
 	
-	if(GM.main != null && is_instance_valid(GM.main)):
-		var _ok = GM.main.saveLoadingFinished.connect(reconnect)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		var _ok = ServiceLocator.safe_get_service(&"MainScene").saveLoadingFinished.connect(reconnect)
 	setState("facing", ("right" if isFacingRight else "left"))
 
 func testBody():

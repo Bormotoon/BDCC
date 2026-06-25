@@ -14,7 +14,7 @@ func getPrice():
 
 func getTags():
 	var canBuyBottle:bool = false
-	if(GM.main != null && GM.main.SCI != null && GM.main.SCI.hasUpgrade("advPlasticBottle")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("advPlasticBottle")):
 		canBuyBottle = true
 	var result:Array = super.getTags()
 	if(!canBuyBottle):

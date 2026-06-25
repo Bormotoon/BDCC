@@ -27,7 +27,7 @@ func getMilkSpeedPerMinuteMax():
 	return 300.0
 
 func getTags():
-	if(GM.main != null && GM.main.SCI != null && GM.main.SCI.hasUpgrade("advBreastPump")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("advBreastPump")):
 		return [ItemTag.SoldByMedicalVendomat, ItemTag.BreastPump]
 	return [ItemTag.BreastPump]
 

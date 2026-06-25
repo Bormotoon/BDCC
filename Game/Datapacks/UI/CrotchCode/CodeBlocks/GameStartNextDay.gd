@@ -7,8 +7,8 @@ func getType():
 	return CrotchBlocks.CALL
 
 func execute(_contex:CodeContex):
-	if(GM.main != null && is_instance_valid(GM.main)):
-		return GM.main.startNewDay()
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		return ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 	return 0
 
 func getTemplate():

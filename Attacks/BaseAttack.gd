@@ -152,7 +152,7 @@ func getRequirementText(req):
 		return "Lust must be above "+str(req[1])
 	if(reqtype == AttackRequirement.LustAbovePercent):
 		#return "Lust must be above "+str(int(req[1]*100))+"%"
-		return "Lust must be above "+str(int(req[1]*GM.pc.lustThreshold())) +" ("+str(int(req[1]*100))+"%)"
+		return "Lust must be above "+str(int(req[1]*ServiceLocator.safe_get_service(&"Player").lustThreshold())) +" ("+str(int(req[1]*100))+"%)"
 	if(reqtype == AttackRequirement.HasMilk):
 		return "Must have at least "+str(Util.roundF(req[1], 1))+"ml of milk stored in breasts"
 	if(reqtype == AttackRequirement.HasReachablePenis):
@@ -186,7 +186,7 @@ func getAttackerDamageMultiplierEfficiency(_attacker, _receiver, _damageType) ->
 func calcDamage(_attacker, _receiver, _damageType, _damage: int) -> int:
 	var damageMult = _attacker.getDamageMultiplier(_damageType) * getAttackerDamageMultiplierEfficiency(_attacker, _receiver, _damageType)
 	if(isWeaponAttack):
-		damageMult += GM.pc.getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
+		damageMult += ServiceLocator.safe_get_service(&"Player").getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
 	if(_damage < 0):
 		damageMult = -damageMult
 		
@@ -195,7 +195,7 @@ func calcDamage(_attacker, _receiver, _damageType, _damage: int) -> int:
 func doDamage(_attacker, _receiver, _damageType, _damage: int, _playGetHitAnimation = true):
 	var damageMult = _attacker.getDamageMultiplier(_damageType) * getAttackerDamageMultiplierEfficiency(_attacker, _receiver, _damageType)
 	if(isWeaponAttack):
-		damageMult += GM.pc.getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
+		damageMult += ServiceLocator.safe_get_service(&"Player").getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
 	if(_damage < 0):
 		damageMult = -damageMult
 	
@@ -305,18 +305,18 @@ func getAttackHitReactAnimation(_attacker, _receiver, _result):
 		return ""
 
 func scaledDmgStr(_damageType, _damage: int):
-	var damageMult = GM.pc.getDamageMultiplier(_damageType)
+	var damageMult = ServiceLocator.safe_get_service(&"Player").getDamageMultiplier(_damageType)
 	if(isWeaponAttack):
-		damageMult += GM.pc.getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
+		damageMult += ServiceLocator.safe_get_service(&"Player").getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
 	
 	var damage = round(_damage * (1.0 + damageMult))
 	
 	return str(damage)
 
 func scaledDmgRangeStr(_damageType, min_damage: int, max_damage: int):
-	var damageMult = GM.pc.getDamageMultiplier(_damageType)
+	var damageMult = ServiceLocator.safe_get_service(&"Player").getDamageMultiplier(_damageType)
 	if(isWeaponAttack):
-		damageMult += GM.pc.getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
+		damageMult += ServiceLocator.safe_get_service(&"Player").getCustomAttribute(BuffAttribute.MeleeWeaponsDamage)
 	
 	var damage1 = round(min_damage * (1.0 + damageMult))
 	var damage2 = round(max_damage * (1.0 + damageMult))

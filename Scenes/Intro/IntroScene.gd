@@ -6,7 +6,7 @@ func _init():
 func _initScene(_args = []):
 		var uniform = GlobalRegistry.createItem("CasualClothes")
 		
-		GM.pc.getInventory().equipItem(uniform)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(uniform)
 
 func _run():
 	if(state == ""):
@@ -317,14 +317,14 @@ func _run():
 		addButton("Look around", "Take a good look around", "endthisscene")
 
 func onTextBoxEnterPressed(_new_text:String):
-	GM.main.pickOption("setname", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("setname", [])
 
 func _react(_action: String, _args):
 	if(_action == "setname"):
 		if(getTextboxData("player_name") == ""):
 			return
 		
-		GM.pc.setName(getTextboxData("player_name"))
+		ServiceLocator.safe_get_service(&"Player").setName(getTextboxData("player_name"))
 		
 		#setState("pickgender")
 		runScene("CharacterCreatorScene", [], "character_creator")
@@ -337,7 +337,7 @@ func _react(_action: String, _args):
 		endScene()
 	
 	if(_action == "saidwhy"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("policecuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("policecuffs"))
 		processTime(1 * 60 * 60 + 15 * 60)
 	
 	if(_action == "waitmore"):
@@ -345,22 +345,22 @@ func _react(_action: String, _args):
 	
 	if(_action == "gocell"):
 		processTime(6 * 60 * 60)
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Wrists)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Wrists)
 	
 	#"crime_innocent", "crime_theft", "crime_murder", "crime_prostitution"
 	
 	if(_action == "crime_innocent"):
 		setFlag("Player_Crime_Type", Flag.Crime_Type.Innocent)
-		GM.pc.setInmateType(InmateType.General)
+		ServiceLocator.safe_get_service(&"Player").setInmateType(InmateType.General)
 	if(_action == "crime_theft"):
 		setFlag("Player_Crime_Type", Flag.Crime_Type.Theft)
-		GM.pc.setInmateType(InmateType.General)
+		ServiceLocator.safe_get_service(&"Player").setInmateType(InmateType.General)
 	if(_action == "crime_murder"):
 		setFlag("Player_Crime_Type", Flag.Crime_Type.Murder)
-		GM.pc.setInmateType(InmateType.HighSec)
+		ServiceLocator.safe_get_service(&"Player").setInmateType(InmateType.HighSec)
 	if(_action == "crime_prostitution"):
 		setFlag("Player_Crime_Type", Flag.Crime_Type.Prostitution)
-		GM.pc.setInmateType(InmateType.SexDeviant)
+		ServiceLocator.safe_get_service(&"Player").setInmateType(InmateType.SexDeviant)
 	
 	setState(_action)
 

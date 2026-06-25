@@ -88,10 +88,10 @@ func _react(_action: String, _args):
 		processTime(2*60*60)
 	
 	if(_action == "go_get_credits"):
-		GM.pc.addCredits(1)
-		GM.pc.addStamina(-40)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-40)
 		
-		GM.main.setFlag("Mining_IntroducedToMinning", true)
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("Mining_IntroducedToMinning", true)
 		
 		processTime(2*60)
 		

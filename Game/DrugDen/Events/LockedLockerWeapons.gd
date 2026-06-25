@@ -22,13 +22,13 @@ func getInteractInfo() -> Dictionary:
 				name = "Unlock with key",
 				desc = "Use 1 restraint key to unlock this locker!",
 				args = [],
-				disabled = !GM.pc.getInventory().hasItemID("restraintkey"),
+				disabled = !ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("restraintkey"),
 			},
 		],
 	}
 
 func doInteract(_actionID:String, _args:Array = []) -> Dictionary:
-	GM.pc.getInventory().removeXOfOrDestroy("restraintkey", 1)
+	ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("restraintkey", 1)
 	return {text="You use a key to open the weapons locker..", noLootText="Sadly, it's empty.", lootTable="junkieWeaponsLocker", ended=true}
 
 func getMapIcon():

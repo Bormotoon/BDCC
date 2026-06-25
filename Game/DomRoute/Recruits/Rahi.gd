@@ -40,7 +40,7 @@ func _init():
 func getExtraChoices(_choices:Array) -> Array:
 	var result:Array = []
 	if(_choices[1] == "sex"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			result.append({
 					id = "condom",
 					name = "Use condom",
@@ -58,7 +58,7 @@ func getExtraChoices(_choices:Array) -> Array:
 
 func isCombinationPossible(_choices:Array, _extras:Dictionary) -> Array:
 	if(_extras.get("condom", "") in ["worst", "best"]):
-		if(!GM.pc.hasCondoms()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasCondoms()):
 			return [false, "You don't have any condoms to do this"]
 	
 	return [true, ""]

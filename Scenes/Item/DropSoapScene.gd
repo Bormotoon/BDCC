@@ -21,7 +21,7 @@ func _run():
 		addButton("Leave it", "That soap is as good as gone", "leave_soap")
 	if(state == "do_bend"):
 		playAnimation(StageScene.Yoga, "dog", {pc="pc", bodyState={naked=true, hard=true}})
-		saynn("You bend down toward the soap in the most exaggerated, dramatic way possible, arching your back, swaying your hips, drawing out every motion, putting all your private bits out on display.. your {pc.analStretch} tailhole.. "+str(" your pussy.." if GM.pc.hasReachableVagina() else "")+""+str(" your {pc.penis}" if GM.pc.hasPenis() else "")+"")
+		saynn("You bend down toward the soap in the most exaggerated, dramatic way possible, arching your back, swaying your hips, drawing out every motion, putting all your private bits out on display.. your {pc.analStretch} tailhole.. "+str(" your pussy.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str(" your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+"")
 
 		saynn("You linger there, exposed, waiting.. for something to happen.")
 

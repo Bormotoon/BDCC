@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "cellblock_red_nearcell")
 	
 func run(_triggerID, _args):
-	if(GM.main.getFlag("HypnokinkModule.KnowAboutRush", false) and GM.main.getFlag("HypnokinkModule.OnTheHouseSessions", 0) <= 0):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("HypnokinkModule.KnowAboutRush", false) and ServiceLocator.safe_get_service(&"MainScene").getFlag("HypnokinkModule.OnTheHouseSessions", 0) <= 0):
 		addButtonUnlessLate("Find Rush", "Time to be a hero", "find_rush")
 
 func getPriority():

@@ -118,7 +118,7 @@ func reactToCommandCage(_command: String, _args:Array, _commandStringRaw:String)
 			lastCageCmd = _command
 			return \
 				"Status: locked\n"+\
-				"Days locked: "+str(GM.main.getDays() + 47)+"\n"+\
+				"Days locked: "+str(ServiceLocator.safe_get_service(&"MainScene").getDays() + 47)+"\n"+\
 				"Electromagnet lock strength: "+str(snapped(randf_range(3200, 3600),0.1))+" N\n"+\
 				"Battery charge: "+str(snapped(randf_range(1400, 1500),0.1))+" mAh\n"+\
 				"Bioreactor: Operating\n"+\

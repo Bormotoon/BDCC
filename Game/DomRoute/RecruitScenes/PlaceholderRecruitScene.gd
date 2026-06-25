@@ -13,7 +13,7 @@ func _run():
 		saynn("This is a placeholder recruit scene. Continue will end the scene.")
 		
 		var textEdit = textWidgetScene.instantiate()
-		GM.ui.addCustomControl("textedit", textEdit)
+		ServiceLocator.safe_get_service(&"UI").addCustomControl("textedit", textEdit)
 		
 		var outputText:Array = []
 		outputText.append("Chararacter id: "+str(RC.charID))

@@ -220,10 +220,10 @@ func getMapIcon():
 	return RoomStuff.RoomSprite.IMPORTANT
 
 func getModuleFlag(flagID:String, default):
-	return GM.main.getFlag("DrugDenModule."+flagID, default)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag("DrugDenModule."+flagID, default)
 
 func setModuleFlag(flagID:String, newVal):
-	return GM.main.setFlag("DrugDenModule."+flagID, newVal)
+	return ServiceLocator.safe_get_service(&"MainScene").setFlag("DrugDenModule."+flagID, newVal)
 
 func isFirstTimeThisFloor():
 	return getModuleFlag("KidlatShopFirstTimeFloor", false)
@@ -250,7 +250,7 @@ func addBuyButtons(_scene):
 		
 		if(wasSold):
 			_scene.addDisabledButton(itemRef.getVisibleName(), "You already bought this!\n\n"+itemRef.getVisibleDescription())
-		elif(GM.pc.getCredits() < cost):
+		elif(ServiceLocator.safe_get_service(&"Player").getCredits() < cost):
 			_scene.addDisabledButton(itemRef.getVisibleName(), "Cost: "+str(cost)+" credit"+("s" if cost != 1 else "")+"\nNot enough credits!\n\n"+itemRef.getVisibleDescription())
 		else:
 			_scene.addButton(itemRef.getVisibleName(), "Cost: "+str(cost)+" credit"+("s" if cost != 1 else "")+"\n\n"+itemRef.getVisibleDescription(), "buyKidlatItem", [entry])
@@ -262,10 +262,10 @@ func doBuyItem(entry:Dictionary):
 	
 	if(itemRef == null):
 		return "Something went wrong.."
-	GM.pc.getInventory().addItem(GlobalRegistry.createItem(itemID))
-	GM.pc.addCredits(-cost)
+	ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(itemID))
+	ServiceLocator.safe_get_service(&"Player").addCredits(-cost)
 	
-	GM.main.addMessage("You bought "+itemRef.getAStackName()+" from Kidlat!")
+	ServiceLocator.safe_get_service(&"MainScene").addMessage("You bought "+itemRef.getAStackName()+" from Kidlat!")
 	entry["sold"] = true
 	
 	setModuleFlag("KidlatItemsBought", getModuleFlag("KidlatItemsBought", 0)+1)
@@ -283,8 +283,8 @@ func doStealAll():
 		
 		if(itemRef == null):
 			continue
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem(itemID))
-		GM.main.addMessage("You stole "+itemRef.getAStackName()+" from Kidlat!")
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(itemID))
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You stole "+itemRef.getAStackName()+" from Kidlat!")
 		entry["sold"] = true
 		
 		#setModuleFlag("KidlatItemsBought", getModuleFlag("KidlatItemsBought", 0)+1)

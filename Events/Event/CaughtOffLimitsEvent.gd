@@ -9,43 +9,43 @@ func registerTriggers(es):
 
 func react(_triggerID, _args):
 	var isLookingForTrouble = (_triggerID == Trigger.PCLookingForTrouble)
-	var baseChance = 30 + 10.0*GM.pc.getExposure()
-	baseChance *= GM.pc.getEncounterChanceModifierStaff()
+	var baseChance = 30 + 10.0*ServiceLocator.safe_get_service(&"Player").getExposure()
+	baseChance *= ServiceLocator.safe_get_service(&"Player").getEncounterChanceModifierStaff()
 	
-	if(GM.main.getFlag("Trigger_CaughtOffLimitsCD", 0) > 0 && !isLookingForTrouble):
-		GM.main.increaseFlag("Trigger_CaughtOffLimitsCD", -1)
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("Trigger_CaughtOffLimitsCD", 0) > 0 && !isLookingForTrouble):
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("Trigger_CaughtOffLimitsCD", -1)
 		return
 	
 	# Replaced with interactions
-#	if(GM.world.getRoomByID(GM.pc.getLocation()).loctag_Greenhouses):
+#	if(ServiceLocator.safe_get_service(&"World").getRoomByID(ServiceLocator.safe_get_service(&"Player").getLocation()).loctag_Greenhouses):
 #		if(RNG.chance(baseChance) || isLookingForTrouble):
-#			GM.main.setFlag("Trigger_CaughtOffLimitsCD", 3)
+#			ServiceLocator.safe_get_service(&"MainScene").setFlag("Trigger_CaughtOffLimitsCD", 3)
 #
-#			var encounterLevel = randi_range(0, Util.maxi(0, GM.pc.getLevel() + randi_range(-1, 1)))
+#			var encounterLevel = randi_range(0, Util.maxi(0, ServiceLocator.safe_get_service(&"Player").getLevel() + randi_range(-1, 1)))
 #			encounterLevel = Util.maxi(encounterLevel, 0)
 #			encounterLevel = Util.mini(encounterLevel, 15+randi_range(-1, 1))
 #
-#			return GM.ES.triggerReact(Trigger.CaughtOffLimits, [encounterLevel])
+#			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.CaughtOffLimits, [encounterLevel])
 #
-	if(GM.world.getRoomByID(GM.pc.getLocation()).loctag_OldGuardsEncounter):
+	if(ServiceLocator.safe_get_service(&"World").getRoomByID(ServiceLocator.safe_get_service(&"Player").getLocation()).loctag_OldGuardsEncounter):
 		if(RNG.chance(baseChance) || isLookingForTrouble):
-			GM.main.setFlag("Trigger_CaughtOffLimitsCD", 3)
+			ServiceLocator.safe_get_service(&"MainScene").setFlag("Trigger_CaughtOffLimitsCD", 3)
 			
-			var encounterLevel = randi_range(0, Util.maxi(0, GM.pc.getLevel() + randi_range(-4, 1)))
+			var encounterLevel = randi_range(0, Util.maxi(0, ServiceLocator.safe_get_service(&"Player").getLevel() + randi_range(-4, 1)))
 			encounterLevel = Util.maxi(encounterLevel, 0)
 			encounterLevel = Util.mini(encounterLevel, 10+randi_range(-1, 1))
 			
-			return GM.ES.triggerReact(Trigger.CaughtOffLimits, [encounterLevel])
+			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.CaughtOffLimits, [encounterLevel])
 #
-#	if(GM.world.getRoomByID(GM.pc.getLocation()).loctag_EngineersEncounter):
+#	if(ServiceLocator.safe_get_service(&"World").getRoomByID(ServiceLocator.safe_get_service(&"Player").getLocation()).loctag_EngineersEncounter):
 #		if(RNG.chance(baseChance) || isLookingForTrouble):
-#			GM.main.setFlag("Trigger_CaughtOffLimitsCD", 3)
+#			ServiceLocator.safe_get_service(&"MainScene").setFlag("Trigger_CaughtOffLimitsCD", 3)
 #
-#			var encounterLevel = randi_range(0, Util.maxi(0, GM.pc.getLevel() + randi_range(-2, 3)))
+#			var encounterLevel = randi_range(0, Util.maxi(0, ServiceLocator.safe_get_service(&"Player").getLevel() + randi_range(-2, 3)))
 #			encounterLevel = Util.maxi(encounterLevel, 10)
 #			encounterLevel = Util.mini(encounterLevel, 20+randi_range(-1, 1))
 #
-#			return GM.ES.triggerReact(Trigger.CaughtOffLimitsByEnginner, [encounterLevel])
+#			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.CaughtOffLimitsByEnginner, [encounterLevel])
 #
 	return false
 

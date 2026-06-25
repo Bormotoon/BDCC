@@ -24,7 +24,7 @@ func _run():
 	if(state == ""):
 		addCharacter(npcID)
 		addCharacter(npc2ID)
-		if(GM.pc.getLocation() == "fight_slutwall"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "fight_slutwall"):
 			playAnimation(StageScene.SlutwallSex, "tease", {npc=npcID, pc=npc2ID, bodyState={naked=true}})
 		else:
 			playAnimation(StageScene.StocksSexOral, "tease", {npc=npcID, pc=npc2ID})
@@ -53,7 +53,7 @@ func _react(_action: String, _args):
 				npc2Slavery.addDespair(0.01)
 				npc2Slavery.addBrokenSpirit(0.05 * npc2Slavery.getWorkEfficiency())
 		
-		if(GM.pc.getLocation() == "fight_slutwall"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "fight_slutwall"):
 			npc2.lustStateFullyUndress()
 			runScene("GenericSexScene", [npcID, npc2ID, SexType.SlutwallSex, {SexMod.DisableDynamicJoiners:true}], "usesex")
 		else:

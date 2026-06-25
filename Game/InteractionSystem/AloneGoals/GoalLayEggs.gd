@@ -44,7 +44,7 @@ func getActions() -> Array:
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "announce"):
 		announced = true
-		GM.main.addLogMessage("News", "You just received news that "+getPawn().getChar().getName()+" began laying eggs somewhere. You can find them and help if you want.")
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "You just received news that "+getPawn().getChar().getName()+" began laying eggs somewhere. You can find them and help if you want.")
 	if(_id == "giveBirth"):
 		getPawn().getChar().layEggsByNPCWithNotificationIfNeeded()
 		completeGoal()

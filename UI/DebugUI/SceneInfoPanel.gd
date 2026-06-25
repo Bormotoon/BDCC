@@ -5,11 +5,11 @@ func _ready():
 	updateInfo()
 	
 func updateInfo():
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return
 	
 	var resultText = ""
-	var scenes = GM.main.sceneStack
+	var scenes = ServiceLocator.safe_get_service(&"MainScene").sceneStack
 	
 	var i = 1
 	resultText += "[b]Current Scene Stack:[/b]\n"

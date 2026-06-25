@@ -164,8 +164,8 @@ func getText(_id:String, _args:Dictionary):
 	if(_id == "AttackReact"):
 		var attackerID = getCharID(_args, "target")
 		var reacterID = getCharID(_args, "main")
-		var affection:float = GM.main.RS.getAffection(attackerID, reacterID)
-		var lust:float = GM.main.RS.getLust(attackerID, reacterID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(attackerID, reacterID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(attackerID, reacterID)
 		
 		if(affection > 0.1):
 			return [

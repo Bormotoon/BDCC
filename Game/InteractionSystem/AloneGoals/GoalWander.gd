@@ -26,8 +26,8 @@ func getActions() -> Array:
 func doAction(_id:String, _args:Dictionary):
 #	var randomDir = RNG.pick(GameWorld.getAllDirections())
 #
-#	if(GM.world.canGoID(location, randomDir)):
-#		setLocation(GM.world.applyDirectionID(location, randomDir))
+#	if(ServiceLocator.safe_get_service(&"World").canGoID(location, randomDir)):
+#		setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(location, randomDir))
 #		return {time = 0}
 	#var pawn = getPawn()
 	

@@ -20,7 +20,7 @@ func _reactInit():
 		return
 	var prostitution = npcSlave.getActivity()
 	howMuchEarned = prostitution.getEarnedCredits()
-	GM.pc.addCredits(howMuchEarned)
+	ServiceLocator.safe_get_service(&"Player").addCredits(howMuchEarned)
 	npcSlave.addTired(5)
 	if(howMuchEarned <= 1):
 		npcSlave.deservesPunishment(3)

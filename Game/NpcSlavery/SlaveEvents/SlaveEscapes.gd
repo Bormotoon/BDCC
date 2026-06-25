@@ -24,8 +24,8 @@ func runEvent(_npcSlavery:NpcSlave):
 
 	var slaveID:String = _npcSlavery.getChar().getID()
 	GlobalRegistry.getModule("NpcSlaveryModule").doFreeEnslavedCharacter(slaveID)
-	GM.pc.getReputation().addRep(RepStat.Alpha, -3.0)
-	GM.main.RS.sendSocialEvent("pc", slaveID, SocialEventType.EscapedSlavery)
+	ServiceLocator.safe_get_service(&"Player").getReputation().addRep(RepStat.Alpha, -3.0)
+	ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent("pc", slaveID, SocialEventType.EscapedSlavery)
 	
 	return {
 		text = theText,
@@ -37,6 +37,6 @@ func getAnimInfo(_npcSlavery:NpcSlave):
 func onEventSkipped(_npcSlavery:NpcSlave):
 	var slaveID:String = _npcSlavery.getChar().getID()
 	GlobalRegistry.getModule("NpcSlaveryModule").doFreeEnslavedCharacter(slaveID)
-	GM.main.addLogMessage("Oh no, anyway", "Looks like one of your slaves has managed to escape. Maybe you can try to track them down")
-	GM.pc.getReputation().addRep(RepStat.Alpha, -3.0)
-	GM.main.RS.sendSocialEvent("pc", slaveID, SocialEventType.EscapedSlavery)
+	ServiceLocator.safe_get_service(&"MainScene").addLogMessage("Oh no, anyway", "Looks like one of your slaves has managed to escape. Maybe you can try to track them down")
+	ServiceLocator.safe_get_service(&"Player").getReputation().addRep(RepStat.Alpha, -3.0)
+	ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent("pc", slaveID, SocialEventType.EscapedSlavery)

@@ -11,7 +11,7 @@ func registerTriggers(es):
 
 
 func run(_triggerID, _args):
-	var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 	
 	if(_args[0] == "main_punishment_spot"):
 		for charID in slaves:
@@ -46,7 +46,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "do_check"):
-		if(GM.ES.triggerReact("TalkedWithSlave", [_args[0].getID(), "PunishSlaveryStocksTalkScene"])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("TalkedWithSlave", [_args[0].getID(), "PunishSlaveryStocksTalkScene"])):
 			return
 		
 		runScene("PunishSlaveryStocksTalkScene", [_args[0].getID()])
@@ -55,7 +55,7 @@ func onButton(_method, _args):
 		runScene("SlaveryStocksLetFuck", [_args[0], _args[1]])
 
 	if(_method == "do_check_slut"):
-		if(GM.ES.triggerReact("TalkedWithSlave", [_args[0].getID(), "PunishSlaverySlutwallTalkScene"])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("TalkedWithSlave", [_args[0].getID(), "PunishSlaverySlutwallTalkScene"])):
 			return
 		
 		runScene("PunishSlaverySlutwallTalkScene", [_args[0].getID()])

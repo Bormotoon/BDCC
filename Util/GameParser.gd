@@ -36,9 +36,9 @@ func callFuncWrapper(_command: String, _args: Array) -> Variant:
 	if _command in ["asshole", "tailhole", "butthole", "anus"]:
 		return RNG.pick(["asshole", "tailhole", "anus"])
 	if _command == "rahiMaster":
-		return GM.main.getFlag("RahiModule.rahiPCName", GM.pc.getName())
+		return ServiceLocator.safe_get_service(&"MainScene").getFlag("RahiModule.rahiPCName", ServiceLocator.safe_get_service(&"Player").getName())
 	if _command == "taviCorruption":
-		return str(Util.roundF(GM.main.getFlag("TaviModule.Ch6Corruption", 1.0) * 100.0, 1)) + "%"
+		return str(Util.roundF(ServiceLocator.safe_get_service(&"MainScene").getFlag("TaviModule.Ch6Corruption", 1.0) * 100.0, 1)) + "%"
 	return "[color=red]!RUNTIME ERROR NO COMMAND FOUND " + _command + " " + str(_args) + "![/color]"
 
 func callObjectFunc(_obj: String, _command: String, _args: Array, overrides: Dictionary = {}) -> String:
@@ -54,12 +54,12 @@ func callObjectFunc(_obj: String, _command: String, _args: Array, overrides: Dic
 	return result
 
 func callObjectFuncWrapper(_obj: String, _command: String, _args: Array) -> String:
-	var resolved_name = GM.main.resolveCustomCharacterName(_obj)
+	var resolved_name = ServiceLocator.safe_get_service(&"MainScene").resolveCustomCharacterName(_obj)
 	if resolved_name != null:
 		_obj = resolved_name
 	var object = null
 	if _obj == "pc":
-		object = GM.pc
+		object = ServiceLocator.safe_get_service(&"Player")
 	else:
 		object = GlobalRegistry.getCharacter(_obj)
 	if object == null:

@@ -285,14 +285,14 @@ func about_to_sleep_text():
 
 func about_to_sleep_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "sleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 		getRoleChar("inmate").addStamina(50)
 		setState("after_sleep", "inmate")
 
 
 func after_sleep_text():
 	saynn("You open your eyes.. and realize that you are still bound in stocks.. Yep, it's not a dream, this is really happening..")
-	saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence.")
+	saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence.")
 
 	addAction("continue", "Continue", "See what happens next..", "default", 1.0, 60, {})
 
@@ -389,7 +389,7 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func checkSleep():
-	if(GM.main.isVeryLate() && getRolePawn("inmate").isPlayer()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate() && getRolePawn("inmate").isPlayer()):
 		setState("about_to_sleep", "inmate")
 
 func onStopped():

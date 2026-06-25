@@ -15,7 +15,7 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 
 func _run():
 	if(state == ""):
@@ -58,7 +58,7 @@ func _run():
 
 		addButton("Back", "Go back a menu", "")
 		
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			if(equippedItem == item):
@@ -66,7 +66,7 @@ func _run():
 			
 			if(equippedItem.getFluids() != null):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "pickFillFrom", [equippedItem.getUniqueID()])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem == item):
 				continue
 			
@@ -91,7 +91,7 @@ func _run():
 				saynn("Contents: Empty")
 		
 		sayn("From:")
-		var item2 = GM.pc.getInventory().getItemByUniqueID(interactionItemID)
+		var item2 = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(interactionItemID)
 		if(item2.getFluids() != null):
 			sayn(item2.getStackName())
 			var fluids = item2.getFluids()
@@ -126,7 +126,7 @@ func _run():
 		
 		addButton("Back", "Go back a menu", "")
 		
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			if(equippedItem == item):
@@ -134,7 +134,7 @@ func _run():
 			
 			if(equippedItem.getFluids() != null):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "pickTransferTo", [equippedItem.getUniqueID()])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem == item):
 				continue
 			
@@ -156,7 +156,7 @@ func _run():
 				saynn("Contents: Empty")
 		
 		sayn("To:")
-		var item2 = GM.pc.getInventory().getItemByUniqueID(interactionItemID)
+		var item2 = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(interactionItemID)
 		if(item2.getFluids() != null):
 			sayn(item2.getStackName())
 			var fluids = item2.getFluids()
@@ -186,10 +186,10 @@ func _run():
 			addButton("Specific amount", "Enter the amount of ml you wanna transfer", "enteramounttotransfer")
 			
 func onTransferMLEnterPressed(_new_text:String):
-	GM.main.pickOption("confirmtexttransfer", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("confirmtexttransfer", [])
 		
 func onFillMLEnterPressed(_new_text:String):
-	GM.main.pickOption("confirmtextfill", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("confirmtextfill", [])
 		
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
@@ -208,7 +208,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "doTransfer"):
 		var fluids:Fluids = item.getFluids()
-		var item2 = GM.pc.getInventory().getItemByUniqueID(interactionItemID)
+		var item2 = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(interactionItemID)
 		
 		var howMuch = fluids.transferAmountTo(item2, _args[0])
 		
@@ -222,7 +222,7 @@ func _react(_action: String, _args):
 		_args = [float(getTextboxData("transfer_ml"))]
 	
 	if(_action == "doFill"):
-		var item2 = GM.pc.getInventory().getItemByUniqueID(interactionItemID)
+		var item2 = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(interactionItemID)
 		var fluids:Fluids = item2.getFluids()
 		
 		var howMuch = fluids.transferAmountTo(item, _args[0])
@@ -254,4 +254,4 @@ func loadData(data):
 	
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
 	interactionItemID = SAVE.loadVar(data, "interactionItemID", "")
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)

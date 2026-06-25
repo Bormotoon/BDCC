@@ -39,7 +39,7 @@ func getTags(_indx:int):
 func getPossibleDrugsInfo(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
 	var thedrugs:Array = []
 	if(_domInfo.getChar().isPlayer()):
-		for item in GM.pc.getInventory().getItemsWithTag(ItemTag.SexEngineDrug):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.SexEngineDrug):
 			if(_sexEngine.disableTFPills && ItemTag.TFItem in item.getTags()):
 				continue
 			if(item.has_method("getSexEngineInfo")):
@@ -137,7 +137,7 @@ func addDrugButtons(possibleDrugsInfo:Array, _sexEngine: SexEngine, _domInfo: Se
 			addStartAction(["forcetosub", itemID, _isCanApply, item], drugInfo["name"], desc, forcetosubScore, {A_CATEGORY: getCategory()+["Force on sub" if !_isCanApply else "Apply on sub"]+drugSubcategory})
 
 func pcCanSeeText(ifcan, ifcant = "some pill"):
-	if(GM.pc.isBlindfolded()):
+	if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 		return ifcant
 	return ifcan
 

@@ -16,7 +16,7 @@ func _run():
 		saynn("What do you wanna do?")
 
 		addButton("Print uniform", "You want a fresh inmate uniform", "printUniform")
-		if(GM.pc.canRepairClothes()):
+		if(ServiceLocator.safe_get_service(&"Player").canRepairClothes()):
 			addButton("Repair clothes", "Repair everything that you are wearing.", "repairUniform")
 		else:
 			addDisabledButton("Repair clothes", "You are not wearing anything that needs to be repaired")
@@ -30,13 +30,13 @@ func _run():
 		
 		saynn("Cost: 5 credits")
 		
-		for item in GM.pc.getInventory().getAllItemsCanDye():
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getAllItemsCanDye():
 			addButtonWithChecks(item.getVisibleName(), item.getVisibleDescription(), "start_dye", [item], [[ButtonChecks.HasCredits, 5]])
 		
 		addButton("Back", "You changed your mind", "")
 	
 	if(state == "coloring_item"):
-		var theItem:ItemBase = GM.pc.getInventory().getItemByUniqueID(dyingItemUniqueID)
+		var theItem:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dyingItemUniqueID)
 		
 		if(theItem.hasTag(ItemTag.Strapon)):
 			playAnimation(StageScene.Solo, "stand", {bodyState={exposedCrotch=true}})
@@ -46,7 +46,7 @@ func _run():
 			playAnimation(StageScene.Solo, "stand")
 		
 		var colorPicker = colorPickerScene.instantiate()
-		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 		colorPicker.setCurrentColor(theItem.clothesColor)
 		colorPicker.color_changed.connect(changebasecolormenu_colorchanged)
 		
@@ -54,7 +54,7 @@ func _run():
 		addButton("Cancel", "You changed your mind", "cancel_dying")
 	
 	if(state == "notEnough"):
-		if(GM.pc.isBlindfolded()):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("The machine angrily beeps at you, the screen displays.. something. You can't really see it but it's probably something about you not having enough credits.")
 		else:
 			saynn("The machine angrily beeps at you, the screen displays: [b]Not enough credits, go work in the mines, lazy inmate[/b]")
@@ -69,9 +69,9 @@ func _run():
 		addButton("Walk away", "Sweet", "endthescene")
 	
 	if(state == "afterPrinting"):
-		if(GM.pc.isBlindfolded()):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("Even though you're blindfolded you somehow find the right button by pressing all of them. Then it withdraws some credits from you and prints you a fresh uniform. You can't tell if its the correct one but what can you do, you grab it and go")
-		elif(GM.pc.hasBoundArms()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			saynn("Interacting with the machine is really hard without being able to use your hands but you about manage, you just press the buttons with your nose and the machine looks up the noseprints database before printing you an uniform that is exactly your size and has your inmate number. You grab it with your chin and go")
 		else:
 			saynn("You press the button and the machine withdraws some credits from you. After that it hums and prints you a fresh inmate uniform that is exactly your size and has your inmate number. You grab it and go")
@@ -83,64 +83,64 @@ func _react(_action: String, _args):
 	if(_action == "repairUniform"):
 		processTime(30)
 		
-		if(GM.pc.getCredits() < 5):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() < 5):
 			setState("notEnough")
 			return
 		else:
-			GM.pc.addCredits(-5)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 			
-			GM.pc.repairAllClothes()
-			#var item:ItemBase = GM.pc.getInventory().getEquippedItem(InventorySlot.Body)
+			ServiceLocator.safe_get_service(&"Player").repairAllClothes()
+			#var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.Body)
 			#if(item!=null && item.id in ["inmateuniform", "inmateuniformHighsec", "inmateuniformSexDeviant"]):
 			#	item.repairDamage()
 	
 	if(_action == "do_pay_coloritem"):
-		var theItem:ItemBase = GM.pc.getInventory().getItemByUniqueID(dyingItemUniqueID)
-		var theColor = GM.ui.getUIdata("colorpicker")
+		var theItem:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dyingItemUniqueID)
+		var theColor = ServiceLocator.safe_get_service(&"UI").getUIdata("colorpicker")
 		theItem.onDyed(theColor)
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		setState("dye_clothes_menu")
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		return
 	
 	if(_action == "start_dye"):
 		var theItem = _args[0]
 		dyingItemUniqueID = _args[0].uniqueID
 		savedDyedColor = theItem.clothesColor.to_html()
-		if(!GM.pc.getInventory().hasEquippedItemWithUniqueID(dyingItemUniqueID)):
+		if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasEquippedItemWithUniqueID(dyingItemUniqueID)):
 			var theSlot = theItem.getClothingSlot()
 			if(theSlot != null):
-				if(GM.pc.getInventory().canEquipSlot(theSlot)):
-					if(GM.pc.getInventory().hasSlotEquipped(theSlot)):
-						if(!GM.pc.getInventory().getEquippedItem(theSlot).isRestraint()):
+				if(ServiceLocator.safe_get_service(&"Player").getInventory().canEquipSlot(theSlot)):
+					if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(theSlot)):
+						if(!ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(theSlot).isRestraint()):
 							# We have something equipped but it's not a restraint, can replace
-							GM.pc.getInventory().forceEquipStoreOther(theItem)
+							ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(theItem)
 					else:
 						# Nothing equipped there, can put on
-						GM.pc.getInventory().forceEquipStoreOther(theItem)
+						ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(theItem)
 		setState("coloring_item")
 		return
 	
 	if(_action == "cancel_dying"):
-		var theItem:ItemBase = GM.pc.getInventory().getItemByUniqueID(dyingItemUniqueID)
+		var theItem:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dyingItemUniqueID)
 		theItem.onDyed(Color(savedDyedColor))
 		setState("dye_clothes_menu")
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		return
 	
 	if(_action == "printUniform"):
 		processTime(30)
 		
-		if(GM.pc.getCredits() < 10):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() < 10):
 			setState("notEnough")
 			return
 		else:
-			GM.pc.addCredits(-10)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-10)
 			
 			var uniform = GlobalRegistry.createItem("inmateuniform")
-			uniform.setPrisonerNumber(GM.pc.getFullInmateNumber())
-			uniform.setInmateType(GM.pc.getInmateType())
-			GM.pc.getInventory().addItem(uniform)
+			uniform.setPrisonerNumber(ServiceLocator.safe_get_service(&"Player").getFullInmateNumber())
+			uniform.setInmateType(ServiceLocator.safe_get_service(&"Player").getInmateType())
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(uniform)
 			
 			addMessage("A fresh uniform was added to your inventory")
 			
@@ -159,12 +159,12 @@ func changebasecolormenu_colorchanged(_theColor):
 		return
 	isChanging = true
 	await get_tree().create_timer(0.3).timeout
-	if(GM.ui.getCustomControl("colorpicker") == null):
+	if(ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker") == null):
 		isChanging = false
 		return
-	var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+	var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 	
-	var theItem:ItemBase = GM.pc.getInventory().getItemByUniqueID(dyingItemUniqueID)
+	var theItem:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dyingItemUniqueID)
 	theItem.onDyed(theColor)
 
 	#thePC.updateAppearance()

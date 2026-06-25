@@ -28,19 +28,19 @@ var hypnoHighlightsUnused := []
 var lastReset := -1
 
 func appliesTo(_speaker: BaseCharacter) -> bool:
-	if(GM.pc != _speaker and GM.pc.hasPerk(Perk.HypnosisKeywordsDrawback)):
-		if(GM.pc.hasPerk(Perk.HypnosisDeepTranceDrawback)):
+	if(ServiceLocator.safe_get_service(&"Player") != _speaker and ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisKeywordsDrawback)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisDeepTranceDrawback)):
 			return true
-		elif(HypnokinkUtil.isHypnotized(GM.pc) and GM.pc.hasPerk(Perk.HypnosisFamousDrawback)):
+		elif(HypnokinkUtil.isHypnotized(ServiceLocator.safe_get_service(&"Player")) and ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisFamousDrawback)):
 			return true
-		elif(HypnokinkUtil.isInTrance(GM.pc)):
+		elif(HypnokinkUtil.isInTrance(ServiceLocator.safe_get_service(&"Player"))):
 			return true
 	return false
 	
 func modify(_text: String, _speaker: BaseCharacter) -> String:
-	if(lastReset != GM.main.getTime()):
+	if(lastReset != ServiceLocator.safe_get_service(&"MainScene").getTime()):
 		hypnoHighlightsUnused = hypnoHighlights.duplicate()
-		lastReset = GM.main.getTime()
+		lastReset = ServiceLocator.safe_get_service(&"MainScene").getTime()
 	
 	var pos = 0
 	var textLen = _text.length()
@@ -64,9 +64,9 @@ func modify(_text: String, _speaker: BaseCharacter) -> String:
 				if(word_base in hypnoHighlightsUnused):
 					#avoid firing more than once per word in the same instance of time
 					hypnoHighlightsUnused.erase(word_base)
-					GM.pc.addEffect(StatusEffect.Suggestible, [randi_range(1,4)]) #add a little hypnosis
-					GM.pc.addLust(randi_range(1,5)) #a little bit of lust
-					#GM.pc.addArousal(randf_range(0.0,0.03)) #and a bit less arousal
+					ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Suggestible, [randi_range(1,4)]) #add a little hypnosis
+					ServiceLocator.safe_get_service(&"Player").addLust(randi_range(1,5)) #a little bit of lust
+					#ServiceLocator.safe_get_service(&"Player").addArousal(randf_range(0.0,0.03)) #and a bit less arousal
 			else:
 				outText += word
 		else:

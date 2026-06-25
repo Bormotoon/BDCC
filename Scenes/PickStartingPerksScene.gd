@@ -43,7 +43,7 @@ func _react(_action: String, _args):
 			var perk: PerkBase = GlobalRegistry.getPerk(perkID)
 			if(perk == null):
 				continue
-			GM.pc.getSkillsHolder().addPerk(perkID)
+			ServiceLocator.safe_get_service(&"Player").getSkillsHolder().addPerk(perkID)
 		
 		endScene()
 		return

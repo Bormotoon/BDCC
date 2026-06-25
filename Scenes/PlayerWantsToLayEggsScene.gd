@@ -14,7 +14,7 @@ func _run():
 		playAnimation(StageScene.TFLook, "start")
 		saynn("You stop because you can't make another step..")
 		
-		var stuffedHoles := GM.pc.getEggStuffedHoles()
+		var stuffedHoles := ServiceLocator.safe_get_service(&"Player").getEggStuffedHoles()
 		var stuffedHolesTexts:Array = []
 		for theHole in stuffedHoles:
 			if(theHole == BodypartSlot.Vagina):
@@ -77,7 +77,7 @@ func _run():
 	if(state == "skipToEnd"):
 		playAnimation(StageScene.EggLaying, "eggs", {eggQueue=eggQueue, shouldAutoFlop=true, bodyState={naked=true}})
 		
-		var stuffedHoles := GM.pc.getEggStuffedHoles()
+		var stuffedHoles := ServiceLocator.safe_get_service(&"Player").getEggStuffedHoles()
 		var stuffedHolesTexts:Array = []
 		for theHole in stuffedHoles:
 			stuffedHolesTexts.append(BodypartSlot.getVisibleNameNoCap(theHole))
@@ -124,19 +124,19 @@ func _react(_action: String, _args):
 		endScene()
 		return
 	if(_action == "do_clench"):
-		if(GM.pc.getStamina() <= 0):
+		if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 			setState("no_stamina_must_lay")
 		else:
-			GM.pc.addStamina(-30)
+			ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 			setState("after_clenching")
-			var menstrualCycle:MenstrualCycle = GM.pc.getMenstrualCycle()
+			var menstrualCycle:MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 			if(menstrualCycle):
 				menstrualCycle.delayEggs()
 		return
 	
 	if(_action == "skipToEnd"):
 		processTime(30*60)
-		var menstrualCycle:MenstrualCycle = GM.pc.getMenstrualCycle()
+		var menstrualCycle:MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 		if(menstrualCycle):
 			#eggsToLay = menstrualCycle.getAmountOfEggsReadyToBeLaid()
 			var newEggs := menstrualCycle.layEggs()
@@ -148,7 +148,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "layOne"):
 		processTime(120)
-		var menstrualCycle:MenstrualCycle = GM.pc.getMenstrualCycle()
+		var menstrualCycle:MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 		if(menstrualCycle):
 			var theLaidEgg := menstrualCycle.laySingleEgg()
 			
@@ -177,7 +177,7 @@ func _react(_action: String, _args):
 			#menstrualCycle.giveEggItems(eggs)
 	
 #	if(_action == "doLay"):
-#		var menstrualCycle:MenstrualCycle = GM.pc.getMenstrualCycle()
+#		var menstrualCycle:MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 #		if(menstrualCycle):
 #			eggReport = menstrualCycle.generateLayEggsReport(eggs)
 #			menstrualCycle.giveEggItems(eggs)

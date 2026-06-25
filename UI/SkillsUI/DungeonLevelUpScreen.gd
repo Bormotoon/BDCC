@@ -91,7 +91,7 @@ func updateSelectedStatButton():
 		if(statID != "SKIP"):
 			var theStat:StatBase = GlobalRegistry.getStat(statID)
 			buttonName = theStat.getVisibleName()
-			buttonName += " ("+str(GM.pc.getStat(statID))+")"
+			buttonName += " ("+str(ServiceLocator.safe_get_service(&"Player").getStat(statID))+")"
 		
 		theButton.text = ("[ "+buttonName+" ]" if isSelected else buttonName)
 		theButton.disabled = isSelected

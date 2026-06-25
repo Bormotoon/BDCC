@@ -317,7 +317,7 @@ func obsorbCum(_cumType, amountML:float, fluidDNA, orificeType:int = OrificeType
 			egg.bigEggType = BigEggType.Fertilized
 			egg.impregnatedBy(fluidDNA)
 			
-			var theSexEngine = GM.main.getSexEngineForCharacterID(theCharacter.getID())
+			var theSexEngine = ServiceLocator.safe_get_service(&"MainScene").getSexEngineForCharacterID(theCharacter.getID())
 			if(theSexEngine): # Huge hack but ehh
 				theSexEngine.notifyBigEggGotFertilizedFor(theCharacter, egg)
 			return
@@ -478,7 +478,7 @@ func addTentacleEgg(_charID:String, _tentacleType:int, _growTime:int, _orifice:i
 	# Not needed for tentacle eggs but might as well
 	egg.resultSpecies = egg.motherSpecies.duplicate()
 	if(egg.fatherID == "pc" || egg.motherID == "pc"):
-		egg.resultGender = GM.main.getEncounterSettings().generateGender()
+		egg.resultGender = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateGender()
 	else:
 		egg.resultGender = NpcGender.generate()
 	
@@ -771,7 +771,7 @@ func giveEggItems(_laidEggs:Array, _isAtNursery:bool = false):
 		var theItem:ItemBase = theEgg.createItem()
 		if(!theItem):
 			continue
-		GM.pc.getInventory().addItem(theItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theItem)
 
 func generateLayEggsReport(_eggs:Array, _isAtNursery:bool = false) -> String:
 	return Util.join(EggLaid.generateEggReport(_eggs), "\n")

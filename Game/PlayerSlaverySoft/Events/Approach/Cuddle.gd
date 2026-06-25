@@ -322,7 +322,7 @@ func cuddling():
 	
 func cuddling_do(_id:String, _args:Array):
 	if(_id == "doChill"):
-		GM.main.processTime(randi_range(30, 60) * 60)
+		ServiceLocator.safe_get_service(&"MainScene").processTime(randi_range(30, 60) * 60)
 		questionID = RNG.pick(QuestionDB)
 		setState("askedQuestion")
 	

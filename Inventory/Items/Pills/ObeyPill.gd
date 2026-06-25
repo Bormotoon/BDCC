@@ -49,7 +49,7 @@ func getBuffsDurationTurns():
 
 func getTags():
 	var didUnlockThese := false
-	if(GM.main != null && GM.main.getFlag("SlaveAuctionModule.repLevel", 0) >= 3):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.repLevel", 0) >= 3):
 		didUnlockThese = true
 	
 	if(didUnlockThese):
@@ -71,7 +71,7 @@ func getSexEngineInfo(_sexEngine, _domInfo:SexDomInfo, _subInfo):
 	#var dom:BaseCharacter = _domInfo.getChar()
 	
 	var didUnlockThese := false
-	if(GM.main != null && GM.main.getFlag("SlaveAuctionModule.repLevel", 0) >= 3):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.repLevel", 0) >= 3):
 		didUnlockThese = true
 	
 	return {

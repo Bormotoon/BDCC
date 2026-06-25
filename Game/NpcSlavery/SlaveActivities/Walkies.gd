@@ -52,7 +52,7 @@ func satisfyWant(theWant):
 	#	petWants = ""
 	#	return
 	if(theWant == petWants):
-		GM.main.addMessage("Pet's want is satisfied!")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Pet's want is satisfied!")
 		petLastWant = petWants
 		petWants = ""
 		puppyPoints += 1
@@ -65,10 +65,10 @@ func onPat():
 func onEnd():
 	if(puppyPoints >= getRequiredPuppyPoints()):
 		if(getSlave().levelupSpecialization(SlaveType.Pet)):
-			GM.main.addMessage("Your pet got trained enough to reach the next pet skill rank.")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your pet got trained enough to reach the next pet skill rank.")
 		elif(getSlave().getSlaveSkill(SlaveType.Pet) >= 15):
 			getSlave().addExperience(50)
-			GM.main.addMessage("Your pet received 50 slave experience for great walkies.")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your pet received 50 slave experience for great walkies.")
 
 func _init():
 	id = "Walkies"

@@ -33,8 +33,8 @@ func getEffectDesc():
 	else:
 		addText = "Third trimester. Lactation. You experience shortness of breath, your belly is really dragging you down."+timeLeftText
 	
-	var hasFirstPerk:bool = GM.pc.hasPerk(Perk.FertilityBellySize)
-	var hasSecondPerk:bool = GM.pc.hasPerk(Perk.BreedExtraTooltipInfo)
+	var hasFirstPerk:bool = ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.FertilityBellySize)
+	var hasSecondPerk:bool = ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BreedExtraTooltipInfo)
 	if((hasFirstPerk || hasSecondPerk) && character.getMenstrualCycle() != null):
 		var kidAmount:String = character.getMenstrualCycle().getRoughLitterEstimateString(hasFirstPerk && hasSecondPerk)
 		addText += "\n\nYou think there are "+str(kidAmount)+" in this belly"

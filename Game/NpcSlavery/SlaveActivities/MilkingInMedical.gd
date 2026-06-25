@@ -20,7 +20,7 @@ func onStart(_args = []):
 	pass
 
 func onNewDay():
-	var fluidsGot:Dictionary = GM.main.SCI.doMilkCharacter(getChar())
+	var fluidsGot:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.doMilkCharacter(getChar())
 	
 	if(fluidsGot.is_empty()):
 		lastReport = " - Nothing"

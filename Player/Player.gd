@@ -37,7 +37,7 @@ func _init():
 	initialDodgeChance = 0.05 # Player has a small chance to dodge anything
 
 func _ready():
-	#GM.pc = self
+	#ServiceLocator.safe_get_service(&"Player") = self
 	name = "Player"
 	menstrualCycle = MenstrualCycle.new()
 	menstrualCycle.setCharacter(self)
@@ -111,23 +111,23 @@ func setLocation(newRoomID:String):
 	if(newRoomID == location):
 		return
 	location = newRoomID
-	#var roomInfo = GM.world.getRoomByID(location)
+	#var roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(location)
 	#if(roomInfo):
 	#	var roomName = roomInfo.getName()
-	#	GM.ui.setLocationName(roomName)
-	if(GM.main != null && is_instance_valid(GM.main) && GM.main.IS != null):
-		GM.main.IS.updatePCLocation()
+	#	ServiceLocator.safe_get_service(&"UI").setLocationName(roomName)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene")) && ServiceLocator.safe_get_service(&"MainScene").IS != null):
+		ServiceLocator.safe_get_service(&"MainScene").IS.updatePCLocation()
 	location_changed.emit(newRoomID)
 	
 func getLocation():
 	return location
 	
 func isInSecludedLocation() -> bool:
-	if(GM.main.isInDungeon()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()):
 		return true
-	if(GM.world == null):
+	if(ServiceLocator.safe_get_service(&"World") == null):
 		return false
-	var cell = GM.world.getRoomByID(location)
+	var cell = ServiceLocator.safe_get_service(&"World").getRoomByID(location)
 	if(cell == null):
 		return false
 	if(cell.population > 0):
@@ -135,9 +135,9 @@ func isInSecludedLocation() -> bool:
 	return true
 	
 func getLocationPopulation():
-	if(GM.world == null):
+	if(ServiceLocator.safe_get_service(&"World") == null):
 		return []
-	var cell = GM.world.getRoomByID(location)
+	var cell = ServiceLocator.safe_get_service(&"World").getRoomByID(location)
 	if(cell == null):
 		return []
 	return cell.getPopulation()
@@ -225,14 +225,14 @@ func updateNonBattleEffects():
 		else:
 			removeEffect(effect.id)
 
-	GM.GES.callGameExtenders(ExtendGame.pcUpdateNonBattleEffects, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcUpdateNonBattleEffects, [self])
 
 	stat_changed.emit()
 	
 	buffsHolder.calculateBuffs()
 	
 	# Exposed status effect depends on stats that are calculated from buffs so it needs to be here
-	if(GM.main != null && getExposure() > 0.0 && !GM.main.supportsSexEngine() && !GM.main.supportsBattleTurns()):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && getExposure() > 0.0 && !ServiceLocator.safe_get_service(&"MainScene").supportsSexEngine() && !ServiceLocator.safe_get_service(&"MainScene").supportsBattleTurns()):
 		addEffect(StatusEffect.Exposed)
 	else:
 		removeEffect(StatusEffect.Exposed)
@@ -241,14 +241,14 @@ func processBattleTurn():
 	super.processBattleTurn()
 	skillsHolder.giveSkillExperienceBattleTurn()
 
-	GM.GES.callGameExtenders(ExtendGame.pcProcessBattleTurn, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcProcessBattleTurn, [self])
 
 func beforeFightStarted():
 	super.beforeFightStarted()
 	if(lustCombatState != null):
 		lustCombatState.enteredBattle()
 	
-	GM.GES.callGameExtenders(ExtendGame.pcBeforeFightStarted, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcBeforeFightStarted, [self])
 
 func afterFightEnded():
 	super.afterFightEnded()
@@ -256,7 +256,7 @@ func afterFightEnded():
 	if(lustCombatState != null):
 		lustCombatState.exitedBattle()
 		
-	GM.GES.callGameExtenders(ExtendGame.pcAfterFightEnded, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcAfterFightEnded, [self])
 
 func processTime(_secondsPassed):
 	for bodypart in processingBodyparts:
@@ -289,7 +289,7 @@ func processTime(_secondsPassed):
 	if(!bodyFluids.isEmpty()):
 		bodyFluids.drain(0.1 * _secondsPassed / 60.0)
 	
-	GM.GES.callGameExtenders(ExtendGame.pcProcessTime, [self, _secondsPassed])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcProcessTime, [self, _secondsPassed])
 
 func hoursPassed(_howmuch):
 	var currentLust = getLust()
@@ -319,7 +319,7 @@ func hoursPassed(_howmuch):
 		if(intoxicationTolerance < 0.0):
 			intoxicationTolerance = 0.0
 
-	GM.GES.callGameExtenders(ExtendGame.pcHoursPassed, [self, _howmuch])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.pcHoursPassed, [self, _howmuch])
 
 func getGender():
 	return pickedGender
@@ -531,7 +531,7 @@ func loadData(data):
 	getInventory().removeBrokenDuplicatedItems()
 
 func checkLocation():
-	var _roomInfo = GM.world.getRoomByID(getLocation())
+	var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(_roomInfo == null):
 		Log.err("Player's location '"+str(location)+"' doesn't exists, reseting them to their cell")
 		location = getCellLocation()
@@ -577,7 +577,7 @@ func getBodypartTooltipInfo(_bodypartSlot):
 
 func afterSleeping(restoreStats:bool = true):
 	if(restoreStats):
-		var mult = max(1.0 + GM.pc.getBuffsHolder().getCustom(BuffAttribute.RestEffectiveness), 0.1) # 0.1 minimum to avoid softlock scenarios
+		var mult = max(1.0 + ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getCustom(BuffAttribute.RestEffectiveness), 0.1) # 0.1 minimum to avoid softlock scenarios
 		var staminaChange = mult * (getMaxStamina() - getStamina())
 		var painChange = mult * getPain()
 		addStamina(staminaChange)
@@ -590,7 +590,7 @@ func afterSleeping(restoreStats:bool = true):
 		statusEffects[statusEffectID].onSleeping()
 	
 	if(isPregnant(true, false) && getPregnancyProgress() <= 0.5 && RNG.chance(30)):
-		GM.main.addLogMessage("Nausea", "You wake up and feel kinda nauseous.")
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage("Nausea", "You wake up and feel kinda nauseous.")
 		addEffect(StatusEffect.PregnancySickness)
 
 func afterSleepingInBed():
@@ -599,15 +599,15 @@ func afterSleepingInBed():
 func afterRestingInBed(seconds):
 	var _hours = floor(seconds/3600.0)
 	
-	var mult = max(1.0 + GM.pc.getBuffsHolder().getCustom(BuffAttribute.RestEffectiveness), 0.1) # 0.1 minimum to avoid softlock scenarios
+	var mult = max(1.0 + ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getCustom(BuffAttribute.RestEffectiveness), 0.1) # 0.1 minimum to avoid softlock scenarios
 	addStamina(_hours * 10 * mult)
 
 func afterCryopodTreatment():
 	removeEffect(StatusEffect.Wounded)
 	removeEffect(StatusEffect.StretchedPainfullyAnus)
 	removeEffect(StatusEffect.StretchedPainfullyPussy)
-	addPain(-GM.pc.getPain())
-	addStamina(GM.pc.getMaxStamina())
+	addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+	addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 
 func afterHealingGelTreatment():
 	removeEffect(StatusEffect.StretchedPainfullyAnus)
@@ -868,12 +868,12 @@ func useWorstCondom():
 
 func onPlayerVisiblyPregnant():
 	if(isEggStuffedWithOffspring()): # Unique message?
-		GM.main.addLogMessage("Uh oh", "You notice that your belly is more inflated that normal. You can't deny it anymore, you are pregnant..")
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage("Uh oh", "You notice that your belly is more inflated that normal. You can't deny it anymore, you are pregnant..")
 	else:
-		GM.main.addLogMessage("Uh oh", "You notice that your belly is more inflated that normal. You can't deny it anymore, you are pregnant..")
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage("Uh oh", "You notice that your belly is more inflated that normal. You can't deny it anymore, you are pregnant..")
 
 func onPlayerReadyToGiveBirth():
-	GM.main.addLogMessage("It's time..", "Your belly is so swollen, it's hard to walk! You feel ready to give birth, maybe it's time to visit the nursery.")
+	ServiceLocator.safe_get_service(&"MainScene").addLogMessage("It's time..", "Your belly is so swollen, it's hard to walk! You feel ready to give birth, maybe it's time to visit the nursery.")
 
 func getLustCombatState():
 	return lustCombatState
@@ -929,7 +929,7 @@ func giveBirth():
 		var paycheck = Util.mini(20, bornChildAmount * 2)
 		addCredits(paycheck)
 		
-		GM.main.addMessage("AlphaCorp has transferred "+str(paycheck)+" credits to you for being a good mother.")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("AlphaCorp has transferred "+str(paycheck)+" credits to you for being a good mother.")
 	
 	if(bornChildAmount > 0):
 		SexToyManager.sendTrigger(SexToyTrigger.OnGivingBirth, [bornChildAmount])
@@ -996,12 +996,12 @@ func applyTFData(_data):
 func onSexEvent(_event : SexEvent):
 	super.onSexEvent(_event)
 	
-	if(GM.main != null && GM.main.SCI != null):
-		GM.main.SCI.handleSexEvent(_event)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null):
+		ServiceLocator.safe_get_service(&"MainScene").SCI.handleSexEvent(_event)
 		
-	if(GM.main && GM.main.RS):
-		for ownerID in GM.main.RS.special:
-			var theSpecialRelationship = GM.main.RS.special[ownerID]
+	if(ServiceLocator.safe_get_service(&"MainScene") && ServiceLocator.safe_get_service(&"MainScene").RS):
+		for ownerID in ServiceLocator.safe_get_service(&"MainScene").RS.special:
+			var theSpecialRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.special[ownerID]
 			if(theSpecialRelationship.id == "SoftSlavery" && theSpecialRelationship.npcOwner):
 				theSpecialRelationship.npcOwner.handleSexEvent(_event)
 
@@ -1009,9 +1009,9 @@ func onSexEvent(_event : SexEvent):
 		SexToyManager.sendSexEvent(_event)
 
 func isSlaveTo(_charID:String) -> bool:
-	if(!GM.main || !GM.main.RS):
+	if(!ServiceLocator.safe_get_service(&"MainScene") || !ServiceLocator.safe_get_service(&"MainScene").RS):
 		return false
-	var theSpecial = GM.main.RS.getSpecialRelationship(_charID)
+	var theSpecial = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(_charID)
 	if(!theSpecial):
 		return false
 	if(theSpecial.id == "SoftSlavery"):

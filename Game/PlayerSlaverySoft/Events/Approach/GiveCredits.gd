@@ -19,7 +19,7 @@ func start():
 	saynn("Your owner approaches you, {npc.his} eyes shine with a need for something.")
 	talkOwner(getModularDialogue(C_OWNER, C_PC, "SoftSlaveryGiveCreditsStart").replace("<CREDITS>", str(creditsAmount)+" credits"))
 	
-	if(GM.pc.getCredits() >= creditsAmount):
+	if(ServiceLocator.safe_get_service(&"Player").getCredits() >= creditsAmount):
 		addButton("Obey", "Allow them to take your credits", "obey")
 	else:
 		addDisabledButton("Obey", "You don't have enough!")
@@ -30,13 +30,13 @@ func start_do(_id:String, _args:Array):
 	if(_id == "obey"):
 		if(checkSubEvent("GiveCredits", "You were about to let {npc.name} take your credits..", [])):
 			return
-		GM.pc.addCredits(-creditsAmount)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-creditsAmount)
 		setState("obey")
 	if(_id == "resist"):
 		runResist()
 
 func start_eventResult(_event, _id:String, _args:Array):
-	GM.pc.addCredits(-creditsAmount)
+	ServiceLocator.safe_get_service(&"Player").addCredits(-creditsAmount)
 	setState("obey")
 
 func obey():

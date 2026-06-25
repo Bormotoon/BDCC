@@ -13,7 +13,7 @@ func start(_pawns:Dictionary, _args:Dictionary):
 func init_text():
 	saynn("{main.You} {main.youAre} doing something..")
 	
-	if(!GM.main.isCharacterInAnyScene(getCharIDByRole("main"))):
+	if(!ServiceLocator.safe_get_service(&"MainScene").isCharacterInAnyScene(getCharIDByRole("main"))):
 		addAction("go", "Go!", "Time to go", "default", 1.0, 30, {})
 	else:
 		addAction("wait", "Wait", "Maybe something will happen..", "default", 1.0, 60, {})

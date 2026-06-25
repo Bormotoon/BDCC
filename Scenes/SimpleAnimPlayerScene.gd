@@ -54,7 +54,7 @@ func _run():
 			addButton(stageScene, "Choose this", "pickcat", [stageScene])
 			
 		if(page > 0):
-			GM.ui.setCurrentPage(page)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(page)
 
 	if(state == "settingsmenu"):
 		playAnimation(StageScene.Duo, "stand", {pc=firstNPC, npc=secondNPC})
@@ -92,7 +92,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "pickcat"):
-		page = GM.ui.getCurrentPage()
+		page = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 		lastSceneString = ""
 		currentCategory = _args[0]
 	if(_action == "playa"):

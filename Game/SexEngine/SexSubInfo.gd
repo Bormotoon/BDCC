@@ -185,7 +185,7 @@ func affect_personality(_personality: Personality, _fetish_holder: FetishHolder)
 			if RNG.chance(70):
 				if _personality.addStat(PersonalityStat.Coward, randf_range(0.01, 0.1)):
 					changes.append("{npc.name} became more cowardly after so much intimidation.")
-	return GM.ui.processString(Util.join(changes, "\n"), {"npc": charID})
+	return ServiceLocator.safe_get_service(&"UI").processString(Util.join(changes, "\n"), {"npc": charID})
 
 func is_resisting_new_fetishes(_fetish_id: String) -> bool:
 	if is_resisting():

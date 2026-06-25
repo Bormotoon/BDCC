@@ -27,7 +27,7 @@ func _init():
 func _run():
 	if(debugMode && state != "changebasecolormenu" && state != "changepartcolormenu"):
 		var textEdit = textWidgetScene.instantiate()
-		GM.ui.addCustomControl("textedit", textEdit)
+		ServiceLocator.safe_get_service(&"UI").addCustomControl("textedit", textEdit)
 		
 		var outputText = []
 		outputText.append("pickedSkin=\""+thePC.pickedSkin+"\"")
@@ -95,11 +95,11 @@ func _run():
 			var theSkinDesc:String = "This is the currently selected skin" if(theSkinIsActive) else "Pick this skin"
 			addButton(theSkinName, theSkinDesc+theSkin.getExtraDesc(), "changebaseskinmenu_select", [skinID])
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 
 	if(state == "changebasecolormenu"):
 		var colorPicker = colorPickerScene.instantiate()
-		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(thePC.pickedSkinRColor)
 			rememberedColor = thePC.pickedSkinRColor
@@ -156,12 +156,12 @@ func _run():
 				var theSkinDesc:String = "This is the currently selected skin" if(theSkinIsActive) else "Pick this skin"
 				addButton(theSkinName, theSkinDesc+theSkin.getExtraDesc(), "changepartskinmenu_select", [skinID])
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 		
 	if(state == "changepartcolormenu"):
 		var bodypart = thePC.getBodypart(pickedBodypartSlot)
 		var colorPicker = colorPickerScene.instantiate()
-		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(bodypart.pickedRColor)
 			rememberedColor = bodypart.pickedRColor
@@ -183,10 +183,10 @@ func changebasecolormenu_colorchanged(_theColor):
 		return
 	isChanging = true
 	await get_tree().create_timer(0.3).timeout
-	if(GM.ui.getCustomControl("colorpicker") == null):
+	if(ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker") == null):
 		isChanging = false
 		return
-	var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+	var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 	if(whichColorIsEdited == 0):
 		thePC.pickedSkinRColor = theColor
 	if(whichColorIsEdited == 1):
@@ -201,10 +201,10 @@ func changepartcolormenu_colorchanged(_theColor):
 		return
 	isChanging = true
 	await get_tree().create_timer(0.3).timeout
-	if(GM.ui.getCustomControl("colorpicker") == null):
+	if(ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker") == null):
 		isChanging = false
 		return
-	var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+	var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 	var bodypart = thePC.getBodypart(pickedBodypartSlot)
 	if(whichColorIsEdited == 0):
 		bodypart.pickedRColor = theColor
@@ -256,13 +256,13 @@ func _react(_action: String, _args):
 			pickedBodypartSlot = _args[0]
 	
 	if(_action == "changebaseskinmenu_select"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 		thePC.pickedSkin = _args[0]
 		thePC.updateAppearance()
 		return
 	
 	if(_action == "changebasecolormenu_select"):
-		var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+		var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 		if(whichColorIsEdited == 0):
 			thePC.pickedSkinRColor = theColor
 		if(whichColorIsEdited == 1):
@@ -274,7 +274,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "changepartskinmenu_select"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 		var bodypart = thePC.getBodypart(pickedBodypartSlot)
 		if(_args.size() > 0 && _args[0] == null):
 			bodypart.pickedSkin = null
@@ -293,7 +293,7 @@ func _react(_action: String, _args):
 			if(whichColorIsEdited == 2):
 				bodypart.pickedBColor = null
 		else:
-			var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+			var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 			if(whichColorIsEdited == 0):
 				bodypart.pickedRColor = theColor
 			if(whichColorIsEdited == 1):

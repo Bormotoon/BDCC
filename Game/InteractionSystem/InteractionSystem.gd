@@ -86,18 +86,18 @@ func loadData(_data):
 	
 func getMaxPawnCount() -> int:
 	var settingsValue:int = OPTIONS.getSandboxPawnCount()
-#	if(GM.main.getDays() <= 1):
+#	if(ServiceLocator.safe_get_service(&"MainScene").getDays() <= 1):
 #		return Util.mini(10, settingsValue)
-#	elif(GM.main.getDays() <= 2):
+#	elif(ServiceLocator.safe_get_service(&"MainScene").getDays() <= 2):
 #		return Util.mini(15, settingsValue)
-#	elif(GM.main.getDays() <= 5): # First 5 days have reduced amount of pawns
+#	elif(ServiceLocator.safe_get_service(&"MainScene").getDays() <= 5): # First 5 days have reduced amount of pawns
 #		return Util.mini(20, settingsValue)
 	return settingsValue
 
 func TEST_DELETE_ME():
 	#spawnPawn("pc")
-	#spawnPawn(RNG.pick(GM.main.dynamicCharacters))
-	#spawnPawn(RNG.pick(GM.main.dynamicCharacters))
+	#spawnPawn(RNG.pick(ServiceLocator.safe_get_service(&"MainScene").dynamicCharacters))
+	#spawnPawn(RNG.pick(ServiceLocator.safe_get_service(&"MainScene").dynamicCharacters))
 	pass
 
 func _init():
@@ -107,9 +107,9 @@ func _init():
 	pawnDistribution = calculatePawnDistribution()
 
 func processTime(_howMuch:int):
-	if(GM.main.isInDungeon()): # No pawn activity while in a dungeon
+	if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()): # No pawn activity while in a dungeon
 		return
-	GM.PROFILE.start("IS.processTime")
+	ServiceLocator.safe_get_service(&"Profiler").start("IS.processTime")
 
 	for pawnID in pawns:
 		var pawn:CharacterPawn = pawns[pawnID]
@@ -133,7 +133,7 @@ func processTime(_howMuch:int):
 	
 	checkAddNewPawns()
 
-	GM.PROFILE.finish("IS.processTime")
+	ServiceLocator.safe_get_service(&"Profiler").finish("IS.processTime")
 	pass
 
 func decideNextAction(interaction, _context:Dictionary = {}):
@@ -186,21 +186,21 @@ func calcSpreadTickAmountForInteractions() -> int:
 func processBusyAllInteractions(howManySeconds:int):
 	if(howManySeconds <= 0):
 		return
-	GM.PROFILE.start("processBusyAllInteractions("+str(howManySeconds)+")")
-	GM.PROFILE.start("globalTasks")
+	ServiceLocator.safe_get_service(&"Profiler").start("processBusyAllInteractions("+str(howManySeconds)+")")
+	ServiceLocator.safe_get_service(&"Profiler").start("globalTasks")
 	var theMaxPawnCount:int = getMaxPawnCount()
 	for taskID in globalTasks:
 		var task = globalTasks[taskID]
 		task.processTime(howManySeconds)
 		task.maxAssignedCached = task.getMaxAssigned(theMaxPawnCount)
 		#task.sanityCheckPawns()
-	GM.PROFILE.finish("globalTasks")
-	GM.PROFILE.start("pawns")
+	ServiceLocator.safe_get_service(&"Profiler").finish("globalTasks")
+	ServiceLocator.safe_get_service(&"Profiler").start("pawns")
 	for pawnID in pawns:
 		var pawn:CharacterPawn = pawns[pawnID]
 		pawn.processTime(howManySeconds)
-	GM.PROFILE.finish("pawns")
-	GM.PROFILE.start("interactions")
+	ServiceLocator.safe_get_service(&"Profiler").finish("pawns")
+	ServiceLocator.safe_get_service(&"Profiler").start("interactions")
 	var howManyTicks:int = calcSpreadTickAmountForInteractions()
 	var howManyToProcess:int = int(ceil(float(interactions.size()) / float(howManyTicks)))
 	
@@ -212,7 +212,7 @@ func processBusyAllInteractions(howManySeconds:int):
 			continue
 		
 		var interaction:PawnInteractionBase = interactionsCopy[_indx]
-		GM.PROFILE.start(interaction.id)
+		ServiceLocator.safe_get_service(&"Profiler").start(interaction.id)
 		
 		var finalHowManySeconds:int = howManySeconds * howManyTicks
 		
@@ -223,12 +223,12 @@ func processBusyAllInteractions(howManySeconds:int):
 			interaction.doCurrentAction()
 			if(!interaction.wasDeleted && !interaction.getCurrentPawn().isPlayer()):
 				decideNextAction(interaction)
-		GM.PROFILE.finish(interaction.id, 1.0)
+		ServiceLocator.safe_get_service(&"Profiler").finish(interaction.id, 1.0)
 		
 	#print("PROCESSED: "+str(howManyToProcess))
 
 #	for interaction in interactionsCopy:
-#		#GM.PROFILE.start(interaction.id)
+#		#ServiceLocator.safe_get_service(&"Profiler").start(interaction.id)
 #		interaction.busyActionSeconds -= howManySeconds
 #		interaction.processTime(howManySeconds)
 #
@@ -237,14 +237,14 @@ func processBusyAllInteractions(howManySeconds:int):
 #			if(!interaction.wasDeleted && !interaction.getCurrentPawn().isPlayer()):
 #				decideNextAction(interaction)
 #
-#		#GM.PROFILE.finish(interaction.id, 0.1)
+#		#ServiceLocator.safe_get_service(&"Profiler").finish(interaction.id, 0.1)
 	
 	internalTick += 1
 	if(internalTick >= howManyTicks):
 		internalTick = 0
 	
-	GM.PROFILE.finish("interactions")
-	GM.PROFILE.finish("processBusyAllInteractions("+str(howManySeconds)+")")
+	ServiceLocator.safe_get_service(&"Profiler").finish("interactions")
+	ServiceLocator.safe_get_service(&"Profiler").finish("processBusyAllInteractions("+str(howManySeconds)+")")
 
 func getClosestInteraction() -> PawnInteractionBase:
 	var result = null
@@ -274,7 +274,7 @@ func spawnPawn(charID, pawnTypeID:String=""):
 	pawns[charID] = newPawn
 	
 	if(charID == "pc"):
-		newPawn.setLocation(GM.pc.getLocation())
+		newPawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
 	else:
 		var newLoc:String = "main_punishment_spot"
 		
@@ -283,7 +283,7 @@ func spawnPawn(charID, pawnTypeID:String=""):
 			if(possibleLocs.size() == 1):
 				newLoc = possibleLocs[0]
 			elif(possibleLocs.size() > 1):
-				newLoc = GM.world.getSafeFromPCRandomRoom(possibleLocs, GM.pc.getLocation())
+				newLoc = ServiceLocator.safe_get_service(&"World").getSafeFromPCRandomRoom(possibleLocs, ServiceLocator.safe_get_service(&"Player").getLocation())
 		
 		newPawn.setLocation(newLoc)
 	
@@ -373,9 +373,9 @@ func getPawnsNear(loc:String, maxDepth:int, maxDist:float=-1.0) -> Array:
 	var result:Array = []
 	var allRooms:Array
 	if(maxDist >= 0.0):
-		allRooms = GM.world.getConnectedRoomsNearLimitDistance(loc, maxDepth, maxDist)
+		allRooms = ServiceLocator.safe_get_service(&"World").getConnectedRoomsNearLimitDistance(loc, maxDepth, maxDist)
 	else:
-		allRooms = GM.world.getConnectedRoomsNear(loc, maxDepth)
+		allRooms = ServiceLocator.safe_get_service(&"World").getConnectedRoomsNear(loc, maxDepth)
 	
 	for roomID in allRooms:
 		result.append_array(getPawnsAt(roomID))
@@ -394,9 +394,9 @@ func getPawnIDsNear(loc:String, maxDepth:int, maxDist:float=-1.0) -> Array:
 	var result:Array = []
 	var allRooms:Array
 	if(maxDist >= 0.0):
-		allRooms = GM.world.getConnectedRoomsNearLimitDistance(loc, maxDepth, maxDist)
+		allRooms = ServiceLocator.safe_get_service(&"World").getConnectedRoomsNearLimitDistance(loc, maxDepth, maxDist)
 	else:
-		allRooms = GM.world.getConnectedRoomsNear(loc, maxDepth)
+		allRooms = ServiceLocator.safe_get_service(&"World").getConnectedRoomsNear(loc, maxDepth)
 	
 	for roomID in allRooms:
 		result.append_array(getPawnIDsAt(roomID))
@@ -552,7 +552,7 @@ func checkOnMeetInteractions(pawn1, pawn2, pawn2Moved:bool):
 			return true
 			
 	# Reacts here?
-	if(pawn2.isPlayer() && GM.main.canShowPawns()):
+	if(pawn2.isPlayer() && ServiceLocator.safe_get_service(&"MainScene").canShowPawns()):
 		var pcPawn = pawn2
 		var otherPawn = pawn1
 		#if(pawn2.isPlayer()):
@@ -590,7 +590,7 @@ func calculatePawnDistribution() -> Dictionary:
 	return result
 
 func trySpawnSpecialRelationshipPawn() -> bool:
-	var allSpecial:Dictionary = GM.main.RS.special
+	var allSpecial:Dictionary = ServiceLocator.safe_get_service(&"MainScene").RS.special
 	if(allSpecial.is_empty()):
 		return false
 	
@@ -657,9 +657,9 @@ func spawnMorningWave():
 	processAllPawnsNoInteractions(60*randi_range(150,170))
 
 func checkAddNewPawns():
-	if(GM.main.getTime() >= 19*60*60): # No new pawns in the evening
+	if(ServiceLocator.safe_get_service(&"MainScene").getTime() >= 19*60*60): # No new pawns in the evening
 		return
-	if(GM.main.isInDungeon()): # No pawn activity while in a dungeon
+	if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()): # No pawn activity while in a dungeon
 		return
 	
 	var maxPawns:int = getMaxPawnCount()
@@ -687,7 +687,7 @@ func updatePCLocation():
 	if(pawn == null):
 		return
 	
-	var latestPCLoc:String = GM.pc.getLocation()
+	var latestPCLoc:String = ServiceLocator.safe_get_service(&"Player").getLocation()
 	pawn.setLocation(latestPCLoc)
 
 func getAllUnconsciousPawns() -> Array: # The ones that can be saved

@@ -16,7 +16,7 @@ func configureGoal(_pawn:CharacterPawn, _goal):
 	_goal.zone = patrolZone
 
 func processTime(_howMuch:int):
-	if(GM.main.IS.getInteractionsOfTypeAmount("InSlutwall") > 0):
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("InSlutwall") > 0):
 		canHangout = true
 	else:
 		canHangout = false

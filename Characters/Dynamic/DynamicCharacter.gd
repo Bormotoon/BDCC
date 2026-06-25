@@ -87,7 +87,7 @@ func _getAttacks():
 
 func deleteSelf():
 	print(getID()+" SELF DELETED")
-	GM.main.removeDynamicCharacter(getID())
+	ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacter(getID())
 
 func onStoppedProcessing():
 	super.onStoppedProcessing()

@@ -72,19 +72,19 @@ func setFlag(theVar:String, newValue, _codeblock):
 	flags[theVar] = newValue
 
 func getFlagRaw(theVar:String, defaultValue = null, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return getFlag(theVar, defaultValue, _codeblock)
-	return GM.main.getFlag(theVar, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(theVar, defaultValue)
 
 func setFlagRaw(theVar:String, newValue, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return setFlag(theVar, newValue, _codeblock)
-	return GM.main.setFlag(theVar, newValue)
+	return ServiceLocator.safe_get_service(&"MainScene").setFlag(theVar, newValue)
 
 func hasFlagRaw(theVar:String, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return hasFlag(theVar, _codeblock)
-	return GM.main.hasFlag(theVar)
+	return ServiceLocator.safe_get_service(&"MainScene").hasFlag(theVar)
 
 func doPrint(text):
 	onPrint.emit(text)
@@ -221,7 +221,7 @@ func getCharacter(charID:String):
 	return result
 
 func isInGame():
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	return true
 
@@ -379,46 +379,46 @@ func giveBirth(charName):
 	
 	var bornChilds = theChar.giveBirth()
 	var bornChildAmount = bornChilds.size()
-	var bornString = GM.CS.getChildBirthInfoString(bornChilds)
+	var bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
 	
-	if(bornChildAmount > 0 && GM.main != null && is_instance_valid(GM.main)):
-		GM.main.addLogMessage("New life", ""+theChar.getName()+" gave birth to "+str(bornChildAmount)+" kid"+("s" if bornChildAmount != 1 else "")+":\n\n"+bornString)
-		GM.main.showLog()
+	if(bornChildAmount > 0 && ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage("New life", ""+theChar.getName()+" gave birth to "+str(bornChildAmount)+" kid"+("s" if bornChildAmount != 1 else "")+":\n\n"+bornString)
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 		
 		return true
 	return false
 
 func addLog(_logName, _logText):
-	if(GM.main != null && is_instance_valid(GM.main)):
-		GM.main.addLogMessage(_logName, _logText)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		ServiceLocator.safe_get_service(&"MainScene").addLogMessage(_logName, _logText)
 	else:
 		doPrint("Adding log with title: "+str(_logName))
 
 func showLog():
-	if(GM.main != null && is_instance_valid(GM.main)):
-		GM.main.showLog()
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 
 func characterExists(charID:String):
 	return GlobalRegistry.characterExists(getCharacterActualID(charID))
 
 func getChildAmount(charID:String):
-	if(GM.CS != null && is_instance_valid(GM.CS)):
-		return GM.CS.getChildrenAmountOf(getCharacterActualID(charID))
+	if(ServiceLocator.safe_get_service(&"ChildSystem") != null && is_instance_valid(ServiceLocator.safe_get_service(&"ChildSystem"))):
+		return ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOf(getCharacterActualID(charID))
 	
 	return 0
 func getChildAmountOnlyMother(charID:String):
-	if(GM.CS != null && is_instance_valid(GM.CS)):
-		return GM.CS.getChildrenAmountOfOnlyMother(getCharacterActualID(charID))
+	if(ServiceLocator.safe_get_service(&"ChildSystem") != null && is_instance_valid(ServiceLocator.safe_get_service(&"ChildSystem"))):
+		return ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOfOnlyMother(getCharacterActualID(charID))
 	
 	return 0
 func getChildAmountOnlyFather(charID:String):
-	if(GM.CS != null && is_instance_valid(GM.CS)):
-		return GM.CS.getChildrenAmountOfOnlyFather(getCharacterActualID(charID))
+	if(ServiceLocator.safe_get_service(&"ChildSystem") != null && is_instance_valid(ServiceLocator.safe_get_service(&"ChildSystem"))):
+		return ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOfOnlyFather(getCharacterActualID(charID))
 	
 	return 0
 func getChildAmountFatherMother(charID:String, charID2:String):
-	if(GM.CS != null && is_instance_valid(GM.CS)):
-		return GM.CS.getSharedChildrenAmountFatherMother(getCharacterActualID(charID), getCharacterActualID(charID2))
+	if(ServiceLocator.safe_get_service(&"ChildSystem") != null && is_instance_valid(ServiceLocator.safe_get_service(&"ChildSystem"))):
+		return ServiceLocator.safe_get_service(&"ChildSystem").getSharedChildrenAmountFatherMother(getCharacterActualID(charID), getCharacterActualID(charID2))
 	
 	return 0
 
@@ -426,9 +426,9 @@ func addImageByID(_imageID:String):
 	pass
 
 func shouldExecuteCodeOnce() -> bool:
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return true
-	return GM.main.shouldExecuteOnceCodeblocksRun()
+	return ServiceLocator.safe_get_service(&"MainScene").shouldExecuteOnceCodeblocksRun()
 
 func setBreastSize(charID:String, breastSize):
 	var character:BaseCharacter = getCharacter(charID)
@@ -506,79 +506,79 @@ func setExcludeNpcFromEncounters(charID:String, newVal:bool):
 	character.extraSettings.excludeEncounters = newVal
 	
 func isDatapackLoaded(_datapackID:String):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return true
 	
-	return GM.main.loadedDatapacks.has(_datapackID)
+	return ServiceLocator.safe_get_service(&"MainScene").loadedDatapacks.has(_datapackID)
 
 func addPCRep(_repID:String, howMuch:float):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return
 	
-	var reputation:ReputationPlaceholder = GM.pc.getReputation()
+	var reputation:ReputationPlaceholder = ServiceLocator.safe_get_service(&"Player").getReputation()
 	reputation.addRep(_repID, howMuch)
 	
 func setPCRepLevel(_repID:String, newLevel:int):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return
 	
-	var reputation:ReputationPlaceholder = GM.pc.getReputation()
+	var reputation:ReputationPlaceholder = ServiceLocator.safe_get_service(&"Player").getReputation()
 	reputation.setLevel(_repID, newLevel)
 	
 func getPCRepLevel(_repID:String):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return
 	
-	var reputation:ReputationPlaceholder = GM.pc.getReputation()
+	var reputation:ReputationPlaceholder = ServiceLocator.safe_get_service(&"Player").getReputation()
 	return reputation.getRepLevel(_repID)
 	
 func getPCRepScore(_repID:String):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return
 	
-	var reputation:ReputationPlaceholder = GM.pc.getReputation()
+	var reputation:ReputationPlaceholder = ServiceLocator.safe_get_service(&"Player").getReputation()
 	return reputation.getRepScore(_repID)
 	
 func addAffection(char1ID:String, char2ID:String, howMuch:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return
 	
-	GM.main.RS.addAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
+	ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
 	
 func setAffection(char1ID:String, char2ID:String, howMuch:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return
 	
-	GM.main.RS.setAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
+	ServiceLocator.safe_get_service(&"MainScene").RS.setAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
 
 func getAffection(char1ID:String, char2ID:String) -> float:
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return 0.0
 	
-	return GM.main.RS.getAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID))
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(getCharacterActualID(char1ID), getCharacterActualID(char2ID))
 
 func addRelationshipLust(char1ID:String, char2ID:String, howMuch:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return
 	
-	GM.main.RS.addLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
+	ServiceLocator.safe_get_service(&"MainScene").RS.addLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
 	
 func setRelationshipLust(char1ID:String, char2ID:String, howMuch:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return
 	
-	GM.main.RS.setLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
+	ServiceLocator.safe_get_service(&"MainScene").RS.setLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID), howMuch)
 
 func getRelationshipLust(char1ID:String, char2ID:String) -> float:
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return 0.0
 	
-	return GM.main.RS.getLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID))
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getLust(getCharacterActualID(char1ID), getCharacterActualID(char2ID))
 
 
 
 func canStartTF(charID:String, tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -589,7 +589,7 @@ func canStartTF(charID:String, tfID:String):
 	return tfHolder.canStartTransformation(tfID)
 
 func hasTF(charID:String, tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -600,7 +600,7 @@ func hasTF(charID:String, tfID:String):
 	return tfHolder.hasTF(tfID)
 
 func hasTFFinalStage(charID:String, tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -611,7 +611,7 @@ func hasTFFinalStage(charID:String, tfID:String):
 	return tfHolder.hasTFFinalStage(tfID)
 
 func startTF(charID:String, tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -622,7 +622,7 @@ func startTF(charID:String, tfID:String):
 	return tfHolder.startTransformation(tfID) != null
 
 func startSpeciesTF(charID:String, speciesID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -633,7 +633,7 @@ func startSpeciesTF(charID:String, speciesID:String):
 	return tfHolder.startTransformation("SpeciesTF", {species=[speciesID]}) != null
 
 func startHybridSpeciesTF(charID:String, speciesID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -644,7 +644,7 @@ func startHybridSpeciesTF(charID:String, speciesID:String):
 	return tfHolder.startTransformation("SpeciesTFMinor", {species=[speciesID]}) != null
 
 func forceProgressTFs(charID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -656,7 +656,7 @@ func forceProgressTFs(charID:String):
 	return true
 	
 func accelerateProgressTFs(charID:String, howMuch:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -668,7 +668,7 @@ func accelerateProgressTFs(charID:String, howMuch:float):
 	return true
 
 func makeTFsPermanent(charID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -680,7 +680,7 @@ func makeTFsPermanent(charID:String):
 	return true
 	
 func undoAllTFs(charID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
 	var character:BaseCharacter = getCharacter(charID)
 	if(character == null):
@@ -692,36 +692,36 @@ func undoAllTFs(charID:String):
 	return true
 
 func isTFEffectUnlocked(tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	return GM.main.SCI.isTransformationUnlocked(tfID)
+	return ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)
 
 func isTFEffectTested(tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	return GM.main.SCI.isTransformationTested(tfID)
+	return ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationTested(tfID)
 
 func hasAccessToTFLab():
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	return GM.main.SCI.hasAccessToLab()
+	return ServiceLocator.safe_get_service(&"MainScene").SCI.hasAccessToLab()
 
 func doUnlockTF(tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	GM.main.SCI.doUnlockTF(tfID)
+	ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF(tfID)
 
 func doTestTF(tfID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	GM.main.SCI.doTestTF(tfID)
+	ServiceLocator.safe_get_service(&"MainScene").SCI.doTestTF(tfID)
 
 func addTFLabFluid(fluidID:String, amount:float):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return false
-	GM.main.SCI.addFluid(fluidID, amount)
+	ServiceLocator.safe_get_service(&"MainScene").SCI.addFluid(fluidID, amount)
 
 func getTFLabFluid(fluidID:String):
-	if(GM.main == null || !is_instance_valid(GM.main)):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
 		return 0.0
-	return GM.main.SCI.getFluidAmount(fluidID)
+	return ServiceLocator.safe_get_service(&"MainScene").SCI.getFluidAmount(fluidID)

@@ -15,43 +15,43 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
-	if(!GM.pc.hasPenis()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 		setState("nopenis")
 		return
 
 	if(!item.isWornByWearer()):
-		if(!GM.pc.hasReachablePenis()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			setState("noreachpenis")
 			return
 
-		if(!GM.pc.hasBlockedHands()):
-			if(GM.pc.getInventory().hasSlotEquipped(item.getClothingSlot())):
-				var alreadyEquipped = GM.pc.getInventory().getEquippedItem(item.getClothingSlot())
+		if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(item.getClothingSlot())):
+				var alreadyEquipped = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(item.getClothingSlot())
 				if(alreadyEquipped != item && alreadyEquipped.isRestraint()):
 					setState("restraintequipped")
 					return
 				if(alreadyEquipped != item):
 					oldWornItemID = alreadyEquipped.getUniqueID()
-					GM.pc.getInventory().unequipItem(alreadyEquipped)
+					ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(alreadyEquipped)
 			
 			temporaryAdded = true
-			GM.pc.getInventory().removeItem(item)
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(item)
 			
 		else:
 			setState("blockedhands")
 
 	processTime(6*60)
-	GM.pc.addSkillExperience(Skill.Breeder, 20, "penis_pump")
+	ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 20, "penis_pump")
 
 	
-	var howMuchTransferred = GM.pc.getBodypart(BodypartSlot.Penis).getFluids().transferTo(item, 1.0)
+	var howMuchTransferred = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Penis).getFluids().transferTo(item, 1.0)
 	addMessage("The penis pump has collected "+str(Util.roundF(howMuchTransferred))+" ml of your {pc.cum}")
-	GM.pc.orgasmFrom("pc")
+	ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 func _run():
 	if(state == ""):
@@ -84,7 +84,7 @@ func _run():
 	if(state == "nopenis"):
 		saynn("You try to put on the penis pump.. But then you realize that you don't have a penis.. Oh no..")
 		
-		saynn("You make sure and check again.. nope.."+str(" All you have is a pussy.. You try to pump your pussy.. but this particular pump works by stroking rather than creating negative pressure.. so you fail spectacularly.." if GM.pc.hasReachableVagina() else ""))
+		saynn("You make sure and check again.. nope.."+str(" All you have is a pussy.. You try to pump your pussy.. but this particular pump works by stroking rather than creating negative pressure.. so you fail spectacularly.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else ""))
 		
 		addButton("Continue", "Aww", "endthescene")
 	
@@ -96,12 +96,12 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		if(temporaryAdded):
-			var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
-			GM.pc.getInventory().unequipItem(item)
+			var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
+			ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(item)
 			
 			if(oldWornItemID != ""):
-				var item2: ItemBase = GM.pc.getInventory().getItemByUniqueID(oldWornItemID)
-				GM.pc.getInventory().equipItem(item2)
+				var item2: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(oldWornItemID)
+				ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(item2)
 		
 		endScene()
 		return

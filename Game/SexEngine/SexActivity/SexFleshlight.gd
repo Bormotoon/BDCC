@@ -258,17 +258,17 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 func calculateNpcsWithPortalPanties() -> Array:
 	var result:Array = []
 	
-	if(GM.pc.isWearingPortalPanties()):
-		result.append(GM.pc)
+	if(ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
+		result.append(ServiceLocator.safe_get_service(&"Player"))
 	
-	var staticChars = GM.main.getCharacters()
+	var staticChars = ServiceLocator.safe_get_service(&"MainScene").getCharacters()
 	for charID in staticChars:
 		var character = staticChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):
 			character.updateNonBattleEffects()
 			result.append(character)
 	
-	var dynamicChars = GM.main.getDynamicCharacters()
+	var dynamicChars = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacters()
 	for charID in dynamicChars:
 		var character = dynamicChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):

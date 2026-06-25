@@ -43,7 +43,7 @@ func addSkipActions(_scene:SceneBase):
 	for entry in getDebugStages():
 		_scene.addButton(entry[1], "SKIP TO THIS STAGE", "skipStage", [entry[0]])
 func doSkipAction(_stage:int):
-	GM.pc.setLocation(LOC_BED)
+	ServiceLocator.safe_get_service(&"Player").setLocation(LOC_BED)
 	setStage(_stage)
 
 var growStage:int = STAGE_INTRO
@@ -298,10 +298,10 @@ func onSlaveryEnd():
 		theSci2.afterTakingAShower()
 		theSci2.cancelPregnancy()
 	
-	if(GM.pc.isEggStuffed()):
-		GM.main.setFlag("ElizaModule.tent_returnedegged", true)
+	if(ServiceLocator.safe_get_service(&"Player").isEggStuffed()):
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("ElizaModule.tent_returnedegged", true)
 	else:
-		GM.main.setFlag("ElizaModule.tent_returnedegged", false)
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("ElizaModule.tent_returnedegged", false)
 	
 # Gets called after onSlaveryStart()
 func getStartScene() -> String:
@@ -427,13 +427,13 @@ func getText(_loc:String) -> String:
 		Ar.append("mind: "+str(mind))
 		Ar.append("lust: "+str(lust))
 	if(isSmallOrNormal()):
-		if(GM.pc.getLocation() == monsterLoc):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == monsterLoc):
 			Ar.append("")
 			Ar.append(getMonsterName()+" is near.")
 			Ar.append_array(getStatDescriptions())
 	
 	if(isNormal() && daysNormal >= 1):
-		var timeLeft:int = getEndOfDayTime() - GM.main.getTime()
+		var timeLeft:int = getEndOfDayTime() - ServiceLocator.safe_get_service(&"MainScene").getTime()
 		Ar.append(""+Util.getTimeStringHumanReadable(timeLeft)+" left until the scientists return.")
 	
 	return Util.join(Ar, "\n")
@@ -478,26 +478,26 @@ func getActions(_loc:String) -> Array:
 
 func doAction(_scene, _action:Array):
 	if(_action[2] == "doEvent"):
-		GM.main.runScene(eventScene, eventArgs)
+		ServiceLocator.safe_get_service(&"MainScene").runScene(eventScene, eventArgs)
 		satisfyEventNeed()
 		eventScene = ""
 		eventTarget = ""
 		eventArgs = []
 		eventGiveupTimer = 0
-		#GM.main.processTime(60*60)
+		#ServiceLocator.safe_get_service(&"MainScene").processTime(60*60)
 		return
-	GM.main.runScene(_action[2], _action[3])
+	ServiceLocator.safe_get_service(&"MainScene").runScene(_action[2], _action[3])
 
 func getEndOfDayTime() -> int:
 	return 20*60*60
 
 func checkEvent(_scene, _loc:String) -> Array:
 	if(growStage == STAGE_SMALL):
-		if(GM.main.getTime() > getEndOfDayTime()):
+		if(ServiceLocator.safe_get_service(&"MainScene").getTime() > getEndOfDayTime()):
 			return ["PSTentaclesSmallEndOfDay"]
 	
 	if(growStage == STAGE_NORMAL):
-		if(GM.main.getTime() > getEndOfDayTime()):
+		if(ServiceLocator.safe_get_service(&"MainScene").getTime() > getEndOfDayTime()):
 			if(daysNormal >= 1):
 				return ["PSTentaclesEndingChoice"]
 			return ["PSTentaclesNormalSleep"]
@@ -560,13 +560,13 @@ func getMonsterLoc() -> String:
 	return monsterLoc
 
 func createIcons():
-	GM.world.createEntity("ps_scientist1", IconDudeFem, scientist1Loc)
-	GM.world.createEntity("ps_scientist2", IconDudeMasc, scientist2Loc)
+	ServiceLocator.safe_get_service(&"World").createEntity("ps_scientist1", IconDudeFem, scientist1Loc)
+	ServiceLocator.safe_get_service(&"World").createEntity("ps_scientist2", IconDudeMasc, scientist2Loc)
 	updateIcons()
 
 func deleteIcons():
-	GM.world.deleteEntity("ps_scientist1")
-	GM.world.deleteEntity("ps_scientist2")
+	ServiceLocator.safe_get_service(&"World").deleteEntity("ps_scientist1")
+	ServiceLocator.safe_get_service(&"World").deleteEntity("ps_scientist2")
 
 func getMonsterIcon():
 	if(growStage >= STAGE_NORMAL):
@@ -574,45 +574,45 @@ func getMonsterIcon():
 	return IconTentaclesSmall
 
 func updateIcons(_force:bool = false):
-	GM.world.moveEntity("ps_scientist1", scientist1Loc)
-	GM.world.moveEntity("ps_scientist2", scientist2Loc)
+	ServiceLocator.safe_get_service(&"World").moveEntity("ps_scientist1", scientist1Loc)
+	ServiceLocator.safe_get_service(&"World").moveEntity("ps_scientist2", scientist2Loc)
 	if(growStage in [STAGE_EGG]):
-		if(!GM.world.hasEntity("ps_egg")):
-			GM.world.createEntity("ps_egg", IconEgg, LOC_MIDDLE, true)
+		if(!ServiceLocator.safe_get_service(&"World").hasEntity("ps_egg")):
+			ServiceLocator.safe_get_service(&"World").createEntity("ps_egg", IconEgg, LOC_MIDDLE, true)
 	else:
-		GM.world.deleteEntity("ps_egg")
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_egg")
 	
 	#Nest
 	if(growStage >= STAGE_TINY):
-		if(!GM.world.hasEntity("ps_nest")):
-			GM.world.createEntity("ps_nest", IconEggNest, LOC_MIDDLE, true)
+		if(!ServiceLocator.safe_get_service(&"World").hasEntity("ps_nest")):
+			ServiceLocator.safe_get_service(&"World").createEntity("ps_nest", IconEggNest, LOC_MIDDLE, true)
 	else:
-		GM.world.deleteEntity("ps_nest")
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nest")
 	
 	#Tiny version
 	if(growStage in [STAGE_TINY, STAGE_TINY_AFTERTEST]):
-		if(!GM.world.hasEntity("ps_tiny") || _force):
-			GM.world.createEntity("ps_tiny", IconTentaclesTiny, monsterLoc, true)
+		if(!ServiceLocator.safe_get_service(&"World").hasEntity("ps_tiny") || _force):
+			ServiceLocator.safe_get_service(&"World").createEntity("ps_tiny", IconTentaclesTiny, monsterLoc, true)
 	else:
-		GM.world.deleteEntity("ps_tiny")
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_tiny")
 	
 	#Small/Normal version
 	if(growStage in [STAGE_SMALL, STAGE_SMALL_ENDDAY, STAGE_NORMAL]):
-		if(!GM.world.hasEntity("ps_small") || _force):
-			GM.world.createEntity("ps_small", getMonsterIcon(), monsterLoc, true)
+		if(!ServiceLocator.safe_get_service(&"World").hasEntity("ps_small") || _force):
+			ServiceLocator.safe_get_service(&"World").createEntity("ps_small", getMonsterIcon(), monsterLoc, true)
 		else:
-			GM.world.moveEntity("ps_small", monsterLoc, true)
+			ServiceLocator.safe_get_service(&"World").moveEntity("ps_small", monsterLoc, true)
 	else:
-		GM.world.deleteEntity("ps_small")
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_small")
 	
 	if(isSmallOrNormal()):
 		if(shouldDisplayWarningAboveMonster()):
-			if(!GM.world.hasEntity("ps_warning")):
-				GM.world.createEntity("ps_warning", IconWarning, monsterLoc, true, Vector2(0.0, -20.0))
+			if(!ServiceLocator.safe_get_service(&"World").hasEntity("ps_warning")):
+				ServiceLocator.safe_get_service(&"World").createEntity("ps_warning", IconWarning, monsterLoc, true, Vector2(0.0, -20.0))
 			else:
-				GM.world.moveEntity("ps_warning", monsterLoc, true, Vector2(0.0, -20.0))
+				ServiceLocator.safe_get_service(&"World").moveEntity("ps_warning", monsterLoc, true, Vector2(0.0, -20.0))
 		else:
-			GM.world.deleteEntity("ps_warning")
+			ServiceLocator.safe_get_service(&"World").deleteEntity("ps_warning")
 
 func shouldDisplayWarningAboveMonster() -> bool:
 	if(isSmallOrNormal()):
@@ -701,7 +701,7 @@ func processTurn():
 					setEvent(theRandomEvent[0], theRandomEvent[1], theRandomEvent[2], theRandomEvent[3])
 		
 		if(isAngry):
-			monsterLoc = goToSlow(monsterLoc, GM.pc.getLocation())
+			monsterLoc = goToSlow(monsterLoc, ServiceLocator.safe_get_service(&"Player").getLocation())
 		elif(!eventTarget.is_empty()):
 			if(monsterLoc == eventTarget):
 				eventGiveupTimer += 1
@@ -727,18 +727,18 @@ func doTurn():
 
 func afterWalkCheck():
 	if(didScientistsApproach() && !getPendingScientistScene().is_empty()):
-		GM.main.addMessage("You hear knocking on the glass..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You hear knocking on the glass..")
 
 func goToSlow(_startLoc:String, theTargetLoc:String) -> String:
 	if(theTargetLoc == "pc"):
-		theTargetLoc = GM.pc.getLocation()
+		theTargetLoc = ServiceLocator.safe_get_service(&"Player").getLocation()
 	if(theTargetLoc.is_empty()):
 		Log.err("EMPTY TARGET LOC")
 		return _startLoc
 	if(_startLoc == theTargetLoc):
 		return theTargetLoc
 	
-	var path:Array = GM.world.calculatePath(_startLoc, theTargetLoc)
+	var path:Array = ServiceLocator.safe_get_service(&"World").calculatePath(_startLoc, theTargetLoc)
 	if(!path.is_empty() && path[0] == _startLoc):
 		path.pop_front()
 	
@@ -794,13 +794,13 @@ func incStat(_statID:int, showMessage:bool = true) -> bool:
 	if(theStat > statLimit):
 		theStat = statLimit
 		if(showMessage):
-			GM.main.addMessage(getMonsterName()+"'s "+getStatName(_statID)+" has reached the"+("" if statLimit > 5 else " today's")+" limit.")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage(getMonsterName()+"'s "+getStatName(_statID)+" has reached the"+("" if statLimit > 5 else " today's")+" limit.")
 	setStat(_statID, theStat)
 	if(theStat == theOldStat):
 		return false
 	
 	if(showMessage):
-		GM.main.addMessage(getMonsterName()+"'s "+getStatName(_statID)+" got increased!")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(getMonsterName()+"'s "+getStatName(_statID)+" got increased!")
 	
 	return true
 
@@ -808,17 +808,17 @@ const TRAIN_MINUTES = 80
 
 func train(_statID:int, _passTime:bool = true) -> bool:
 	if(_passTime):
-		GM.main.processTime(TRAIN_MINUTES*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTime(TRAIN_MINUTES*60)
 	return incStat(_statID)
 
 func trainUntilFive(_statID:int, _passTime:bool = true):
 	if(_passTime):
-		GM.main.processTime(TRAIN_MINUTES*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTime(TRAIN_MINUTES*60)
 	while(getStat(_statID) < 5):
 		incStat(_statID)
 
 func trainNothing() -> bool:
-	GM.main.processTime(TRAIN_MINUTES*30) # Less punishing
+	ServiceLocator.safe_get_service(&"MainScene").processTime(TRAIN_MINUTES*30) # Less punishing
 	return true
 
 func getTentaclesCharID() -> String:
@@ -896,7 +896,7 @@ func processTalkText(_text:String) -> String:
 func talk(_text:String):
 	if(mind < 5):
 		return
-	var _scene:SceneBase = GM.main.getCurrentScene()
+	var _scene:SceneBase = ServiceLocator.safe_get_service(&"MainScene").getCurrentScene()
 	# Hides/scambles text depending on mind value
 	
 	# 1-6 GIBBERISH
@@ -920,7 +920,7 @@ func doAnimDuo(_anim:String, _otherArgs:Dictionary = {}):
 	for argID in _otherArgs:
 		theArgs[argID] = _otherArgs[argID]
 	
-	GM.main.getCurrentScene().playAnimation(StageScene.TentaclesDuo, _anim, theArgs)
+	ServiceLocator.safe_get_service(&"MainScene").getCurrentScene().playAnimation(StageScene.TentaclesDuo, _anim, theArgs)
 
 func doAnim(_anim:String, _otherArgs:Dictionary = {}):
 	doAnimDuo(_anim, _otherArgs)
@@ -931,15 +931,15 @@ func setPrefer(_eventType:int):
 	preferEvent = _eventType
 	
 	if(preferEvent == EVENT_LEWD):
-		GM.main.addMessage("The tentacles will now prefer to be lusty..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The tentacles will now prefer to be lusty..")
 	if(preferEvent == EVENT_PLAY):
-		GM.main.addMessage("The tentacles will now prefer to be active..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The tentacles will now prefer to be active..")
 	if(preferEvent == EVENT_WINDOW):
-		GM.main.addMessage("The tentacles will now prefer to be mindful..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The tentacles will now prefer to be mindful..")
 	if(preferEvent == EVENT_BREAK):
-		GM.main.addMessage("The tentacles will now prefer to be destructive..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The tentacles will now prefer to be destructive..")
 	if(preferEvent == -1):
-		GM.main.addMessage("The tentacles forgot the preference towards any activity that they had..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The tentacles forgot the preference towards any activity that they had..")
 
 func getPrefer() -> int:
 	return preferEvent
@@ -987,15 +987,15 @@ func getStatDescriptions() -> Array:
 	]
 	
 func strippedByDetective():
-	GM.pc.getInventory().clearSlot(InventorySlot.Body)
+	ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Body)
 
 func doJog():
 	var theLoc:String = RNG.pick([
 		LOC_BED, LOC_FRIDGE, LOC_IMPORTANT, LOC_SHOWER, LOC_PLAY, LOC_MIDDLE, LOC_WINDOW, LOC_DOOR,
 	])
-	GM.pc.setLocation(theLoc)
+	ServiceLocator.safe_get_service(&"Player").setLocation(theLoc)
 	setMonsterLoc(theLoc)
-	GM.main.getCurrentScene().aimCameraAndSetLocName(theLoc)
+	ServiceLocator.safe_get_service(&"MainScene").getCurrentScene().aimCameraAndSetLocName(theLoc)
 
 func getDebugActions():
 	return [

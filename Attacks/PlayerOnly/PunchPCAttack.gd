@@ -13,7 +13,7 @@ func canScratch(_pc) -> bool:
 	return false
 
 func getVisibleName(_context = {}):
-	if(GM.pc != null && is_instance_valid(GM.pc) && canScratch(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") != null && is_instance_valid(ServiceLocator.safe_get_service(&"Player")) && canScratch(ServiceLocator.safe_get_service(&"Player"))):
 		return "Scratch"
 	return "Punch"
 	

@@ -8,9 +8,9 @@ func _init():
 	id = "TFPill"
 
 func getVisibleName():
-	if(GM.main != null && GM.main.SCI != null && uniqueID!=null):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && uniqueID!=null):
 		var theID:String = getTFID()
-		if(GM.main.SCI.isTransformationUnlocked(theID)):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(theID)):
 			var tf = GlobalRegistry.getTransformationRef(theID)
 			if(tf != null):
 				return tf.getPillName()
@@ -18,10 +18,10 @@ func getVisibleName():
 	return "Strange Pill"
 
 #func getInventoryGroupID() -> String:
-#	if(GM.main == null):
+#	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 #		return .getInventoryGroupID()
 #	var theID:String = getTFID()
-#	if(GM.main != null && GM.main.SCI.isTransformationUnlocked(theID)):
+#	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(theID)):
 #		return .getInventoryGroupID()+"_"+theID
 #	return .getInventoryGroupID()
 
@@ -33,7 +33,7 @@ func getSexEngineSubcategory() -> Array:
 
 func getDescription():
 	var theDesc:String = "A pill that lacks any labels or instructions. Who knows what it will do..\n"
-	if(tfID == "" || !GM.main.SCI.isTransformationUnlocked(tfID)):
+	if(tfID == "" || !ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)):
 		theDesc += "[color=#"+Color.CYAN.to_html()+"]This pill might have some kind of transformative effect on your body.[/color]"
 	else:
 		var theTF:TFBase = GlobalRegistry.getTransformationRef(tfID)

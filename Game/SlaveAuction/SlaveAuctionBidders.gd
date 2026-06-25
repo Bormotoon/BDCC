@@ -23,7 +23,7 @@ func generateBidders():
 		bidders.append(newBidder)
 
 func applyUpgradeEffects():
-	var unlockAmount:int = GM.main.getFlag("SlaveAuctionModule.upgradeSeePrefs", 0)
+	var unlockAmount:int = ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.upgradeSeePrefs", 0)
 	
 	for bidder in bidders:
 		var totalAmountUnlocked:int = bidder.getAmountOfDiscoveredTraits()

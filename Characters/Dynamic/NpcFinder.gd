@@ -72,7 +72,7 @@ static func npcCanBeUsedAtAll(character:BaseCharacter, allConditions):
 		if(!hasCond(allConditions, NpcCon.IgnoreDisabledEncountersSetting)):
 			return false
 	if(!hasCond(allConditions, NpcCon.AllowBusy)):
-		var thePawn:CharacterPawn = GM.main.IS.getPawn(character.getID())
+		var thePawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(character.getID())
 		if(thePawn && !thePawn.canBeInterrupted()):
 			return false
 	return true
@@ -87,7 +87,7 @@ static func grabNpcIDFromPool(poolID, _conditions = []):
 	if(!(_conditions is Array) || _conditions == null):
 		_conditions = []
 	
-	var characters:Array = GM.main.getDynamicCharacterIDsFromPool(poolID)
+	var characters:Array = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(poolID)
 	
 	if(characters.size() > 0):
 		if(_conditions.size() == 0):
@@ -121,13 +121,13 @@ static func grabNpcIDFromPool(poolID, _conditions = []):
 
 static func generateNpcForPool(poolID, generator, _args = {}):
 	var newCharacter = generator.generate(_args)
-	GM.main.addDynamicCharacterToPool(newCharacter.id, poolID)
+	ServiceLocator.safe_get_service(&"MainScene").addDynamicCharacterToPool(newCharacter.id, poolID)
 	return newCharacter.id
 
 static func chanceToMeetOldNPC(poolID, preferOld = false):
-	var poolSize = GM.main.getDynamicCharactersPoolSize(poolID)
+	var poolSize = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPoolSize(poolID)
 	var chanceToMeetOld = sqrt(float(poolSize)) * 20.0
-	if(GM.main.getEncounterSettings().doesPreferKnownEncounters() || preferOld):
+	if(ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().doesPreferKnownEncounters() || preferOld):
 		chanceToMeetOld = 100
 	return chanceToMeetOld
 

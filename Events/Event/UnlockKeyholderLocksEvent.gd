@@ -10,7 +10,7 @@ func run(_triggerID, _args):
 	var npcID = _args[0]
 	#var character:DynamicCharacter = getCharacter(npcID)
 	
-	if(GM.pc.hasKeyholderLocksFrom(npcID)):
+	if(ServiceLocator.safe_get_service(&"Player").hasKeyholderLocksFrom(npcID)):
 		addButton("Unique key", "Unlock your smart-locked restraints that were locked by this person", "dounlock", [npcID])
 
 func getPriority():
@@ -19,7 +19,7 @@ func getPriority():
 func onButton(_method, _args):
 	if(_method == "dounlock"):
 		var npcID = _args[0]
-		var _howMany = GM.pc.unlockAllKeyholderLocksFrom(npcID)
+		var _howMany = ServiceLocator.safe_get_service(&"Player").unlockAllKeyholderLocksFrom(npcID)
 		
 		if(_howMany > 0):
 			addMessage("The key unlocked "+str(_howMany)+" restraint"+("s" if _howMany != 1 else ""))

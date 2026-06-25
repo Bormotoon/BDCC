@@ -14,17 +14,17 @@ func _run():
 		
 		addButton("Continue", "Finally rest", "endthescene")
 
-		GM.ES.triggerRun(Trigger.WorkingInMines)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.WorkingInMines)
 
 func _react(_action: String, _args):
 	if(_action == "work"):
 		
-		GM.pc.addCredits(1)
-		GM.pc.addStamina(-40)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-40)
 		
 		processTime(2*60*60)
 		
-		if(GM.ES.triggerReact(Trigger.WorkingInMines)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.WorkingInMines)):
 			endScene()
 			return
 		

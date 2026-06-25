@@ -16,12 +16,12 @@ func canBeUsed(_id:String, _args:Dictionary, _form) -> bool:
 	var mainCharID:String = getCharID(_args, _form.mainRole)
 	var dirToCharID:String = getCharID(_args, _form.dirToRole)
 	
-	if(GM.main.WHS.queryHappened(WHEvent.WonFight, [
+	if(ServiceLocator.safe_get_service(&"MainScene").WHS.queryHappened(WHEvent.WonFight, [
 		[WHCond.Who, mainCharID],
 		[WHCond.Target, dirToCharID],
 		[WHCond.Today],
 		])):
-		if(!GM.main.WHS.queryHappened(WHEvent.WonFight, [
+		if(!ServiceLocator.safe_get_service(&"MainScene").WHS.queryHappened(WHEvent.WonFight, [
 			[WHCond.Who, dirToCharID],
 			[WHCond.Target, mainCharID],
 			[WHCond.Today],

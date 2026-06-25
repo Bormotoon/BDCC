@@ -26,8 +26,8 @@ func start():
 	
 	if(onlyOnce()):
 		var credAmount:int = randi_range(5, 10)
-		GM.pc.addCredits(-credAmount)
-		GM.main.addMessage("You lost "+str(credAmount)+" credits!")
+		ServiceLocator.safe_get_service(&"Player").addCredits(-credAmount)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You lost "+str(credAmount)+" credits!")
 	
 	addContinue("endEvent")
 	

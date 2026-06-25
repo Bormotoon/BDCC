@@ -51,14 +51,14 @@ func _run():
 		addButton("Step away", "You're done", "endthescene")
 	if(state == "hideitemmenu"):
 		var theItems = []
-		theItems.append_array(GM.pc.getInventory().getItems())
-		#if(GM.pc.getCredits() > 0):
+		theItems.append_array(ServiceLocator.safe_get_service(&"Player").getInventory().getItems())
+		#if(ServiceLocator.safe_get_service(&"Player").getCredits() > 0):
 		#	var credsItem = GlobalRegistry.createItem("WorkCredit")
-		#	credsItem.setAmount(GM.pc.getCredits())
+		#	credsItem.setAmount(ServiceLocator.safe_get_service(&"Player").getCredits())
 		#	theItems.append(credsItem)
 		
 		var inventory = inventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(theItems, "give")
 		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
 		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
@@ -67,7 +67,7 @@ func _run():
 	
 	if(state == "takeitemmenu"):
 		var inventory = inventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(npc.getInventory().getItemsAndEquippedItemsTogetherGrouped(), "equiptake")
 		#inventory.setItems(npc.getInventory().getAllItems(), "take")
 		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
@@ -82,8 +82,8 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "hideitem"):
-		var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(_args[0])
-		GM.pc.getInventory().removeItem(item)
+		var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
 		npc.getInventory().addItem(item)
 		
 		#setState("")
@@ -91,7 +91,7 @@ func _react(_action: String, _args):
 	if(_action == "takeitem"):
 		var item: ItemBase = npc.getInventory().getItemByUniqueID(_args[0])
 		npc.getInventory().removeItem(item)
-		GM.pc.getInventory().addItem(item)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 		
 		#setState("")
 		return
@@ -101,7 +101,7 @@ func _react(_action: String, _args):
 		var newItem = item.splitAmount(_args[1])
 		
 		if(newItem != null):
-			GM.pc.addCredits(-newItem.getAmount())
+			ServiceLocator.safe_get_service(&"Player").addCredits(-newItem.getAmount())
 			npc.getInventory().addItem(newItem)
 		
 		return
@@ -109,7 +109,7 @@ func _react(_action: String, _args):
 	if(_action == "taketheitem"):
 		var item: ItemBase = _args[0]
 		npc.getInventory().removeItem(item)
-		GM.pc.getInventory().addItem(item)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 		return
 		
 	if(_action == "takex"):
@@ -119,17 +119,17 @@ func _react(_action: String, _args):
 		
 		if(newItem != null):
 			if(item.id == "WorkCredit"):
-				GM.pc.addCredits(newItem.getAmount())
+				ServiceLocator.safe_get_service(&"Player").addCredits(newItem.getAmount())
 			else:
-				GM.pc.getInventory().addItem(newItem)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newItem)
 		
 		return
 		
 	if(_action == "hideallitems"):
-		var itemsToCheck = GM.pc.getInventory().getItems().duplicate()
+		var itemsToCheck = ServiceLocator.safe_get_service(&"Player").getInventory().getItems().duplicate()
 		for item in itemsToCheck:
 			if(item.id == _args[0]):
-				GM.pc.getInventory().removeItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
 				npc.getInventory().addItem(item)
 		return
 		
@@ -138,7 +138,7 @@ func _react(_action: String, _args):
 		for item in itemsToCheck:
 			if(item.id == _args[0]):
 				npc.getInventory().removeItem(item)
-				GM.pc.getInventory().addItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 		return
 		
 	if(_action == "endthescene"):
@@ -149,7 +149,7 @@ func _react(_action: String, _args):
 
 func onInventoryItemSelected(item: ItemBase):
 	if(state == "hideitemmenu"):
-		GM.ui.clearButtons()
+		ServiceLocator.safe_get_service(&"UI").clearButtons()
 		addButton("Back", "Go back", "")
 		
 		if(item.canCombine() && item.getAmount() > 1):
@@ -165,7 +165,7 @@ func onInventoryItemSelected(item: ItemBase):
 				
 				addButton("Give "+str(amount), "Give this amount", "stashx", [item, amount])
 	if(state == "takeitemmenu"):
-		GM.ui.clearButtons()
+		ServiceLocator.safe_get_service(&"UI").clearButtons()
 		addButton("Back", "Go back", "")
 		
 		if(item.canCombine() && item.getAmount() > 1):
@@ -215,28 +215,28 @@ func tryToggleWornItem(item:ItemBase):
 
 func onInventoryItemGroupInteracted(item: ItemBase):
 	if(state == "hideitemmenu"):
-		GM.main.pickOption("hideallitems", [item.id])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("hideallitems", [item.id])
 	if(state == "takeitemmenu"):
-		GM.main.pickOption("takeallitems", [item.id])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("takeallitems", [item.id])
 
 func onInventoryItemInteracted(item: ItemBase):
 	if(state == "hideitemmenu"):
-		#GM.main.pickOption("hideitem", [item.getUniqueID()])
+		#ServiceLocator.safe_get_service(&"MainScene").pickOption("hideitem", [item.getUniqueID()])
 		if(item.id == "WorkCredit"):
-			GM.pc.addCredits(-GM.pc.getCredits())
-		GM.pc.getInventory().removeItem(item)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-ServiceLocator.safe_get_service(&"Player").getCredits())
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
 		npc.getInventory().addItem(item)
-		var inv = GM.ui.getCustomControl("inventory")
+		var inv = ServiceLocator.safe_get_service(&"UI").getCustomControl("inventory")
 		if(inv.selectedItem == item):
 			inv.selectedItem = null
 			inv.updateSelectedInfo()
-			GM.ui.clearButtons()
+			ServiceLocator.safe_get_service(&"UI").clearButtons()
 			addButton("Back", "Don't do anything", "")
 		var theItems = []
-		theItems.append_array(GM.pc.getInventory().getItems())
-		#if(GM.pc.getCredits() > 0):
+		theItems.append_array(ServiceLocator.safe_get_service(&"Player").getInventory().getItems())
+		#if(ServiceLocator.safe_get_service(&"Player").getCredits() > 0):
 		#	var credsItem = GlobalRegistry.createItem("WorkCredit")
-		#	credsItem.setAmount(GM.pc.getCredits())
+		#	credsItem.setAmount(ServiceLocator.safe_get_service(&"Player").getCredits())
 		#	theItems.append(credsItem)
 		inv.setItems(theItems, "give")
 	if(state == "takeitemmenu"):
@@ -245,22 +245,22 @@ func onInventoryItemInteracted(item: ItemBase):
 			itemPutonMessage = theResult[1]
 			if(!theResult[0]):
 				setState("item_toggle_message")
-				GM.main.reRun()
+				ServiceLocator.safe_get_service(&"MainScene").reRun()
 				return
 			#npc.updateNonBattleEffects()
 		else:
-			#GM.main.pickOption("takeitem", [item.getUniqueID()])
+			#ServiceLocator.safe_get_service(&"MainScene").pickOption("takeitem", [item.getUniqueID()])
 			npc.getInventory().removeItem(item)
 			if(item.id == "WorkCredit"):
-				GM.pc.addCredits(item.getAmount())
+				ServiceLocator.safe_get_service(&"Player").addCredits(item.getAmount())
 			else:
-				GM.pc.getInventory().addItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 				
-		var inv = GM.ui.getCustomControl("inventory")
+		var inv = ServiceLocator.safe_get_service(&"UI").getCustomControl("inventory")
 		if(inv.selectedItem == item):
 			inv.selectedItem = null
 			inv.updateSelectedInfo()
-			GM.ui.clearButtons()
+			ServiceLocator.safe_get_service(&"UI").clearButtons()
 			addButton("Back", "Don't do anything", "")
 		#inv.setItems(npc.getInventory().getAllItems(), "take")
 		inv.setItems(npc.getInventory().getItemsAndEquippedItemsTogetherGrouped(), "equiptake")

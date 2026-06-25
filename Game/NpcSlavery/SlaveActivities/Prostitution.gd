@@ -25,8 +25,8 @@ func onStart(_args = []):
 		workHoursLeft += randi_range(4,6)
 	workHoursRemember = workHoursLeft
 	
-	var pawn = GM.main.IS.spawnPawnIfNeeded(getCharID())
-	pawn.setLocation(GM.pc.getCellLocation())
+	var pawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(getCharID())
+	pawn.setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 	
 func pawnShouldReturnHome() -> bool:
 	#if(workHoursLeft <= 0):
@@ -48,12 +48,12 @@ func getActivityText():
 func onPawnDeleted(_pawn):
 	stopActivity()
 	if(getChar() != null):
-		GM.main.addMessage("Your slave "+getChar().getName()+" is no longer doing prostitution..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Your slave "+getChar().getName()+" is no longer doing prostitution..")
 
 func onInteractionChanged(_newInteraction):
 	if(_newInteraction != null && _newInteraction.id == "Unconscious" && _newInteraction.getCharIDByRole("main") == getCharID()):
 		stopActivity()
-		GM.main.addMessage("Your slave "+getChar().getName()+" got beaten up unconscious and is no longer doing prostitution..")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Your slave "+getChar().getName()+" got beaten up unconscious and is no longer doing prostitution..")
 
 func hoursPassed(_howMuch):
 	if(!pawnExist()):

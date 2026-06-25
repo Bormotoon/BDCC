@@ -251,118 +251,118 @@ static func check(checks: Array):
 			reason = reason[0]
 		
 		if(reason == NotLate):
-			if(GM.main.isVeryLate()):
+			if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 				return reason
 		if(reason == NotGagged):
-			if(GM.pc.isGagged()):
+			if(ServiceLocator.safe_get_service(&"Player").isGagged()):
 				return reason
 		if(reason == NotOralBlocked):
-			if(GM.pc.isOralBlocked()):
+			if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 				return reason
 		if(reason == NotArmsRestrained):
-			if(GM.pc.hasBoundArms()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 				return reason
 		if(reason == NotHandsBlocked):
-			if(GM.pc.hasBlockedHands()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 				return reason
 		if(reason == NotLegsRestrained):
-			if(GM.pc.hasBoundLegs()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 				return reason
 		if(reason == NotBlindfolded):
-			if(GM.pc.isBlindfolded()):
+			if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 				return reason
 		if(reason == SkillCheck):
-			var skill: SkillBase = GM.pc.getSkillsHolder().getSkill(args[1])
+			var skill: SkillBase = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkill(args[1])
 			if(skill == null || skill.getLevel() < args[2]):
 				return args
 		if(reason == StatCheck):
-			if(GM.pc.getStat(args[1]) < args[2]):
+			if(ServiceLocator.safe_get_service(&"Player").getStat(args[1]) < args[2]):
 				return args
 		if(reason == PerkCheck):
-			if(!GM.pc.hasPerk(args[1])):
+			if(!ServiceLocator.safe_get_service(&"Player").hasPerk(args[1])):
 				return args
 		if(reason == HasCondoms):
-			if(!GM.pc.hasCondoms()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasCondoms()):
 				return reason
 		if(reason == HasReachablePenis):
-			if(!GM.pc.hasReachablePenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				return reason
 		if(reason == HasReachableVagina):
-			if(!GM.pc.hasReachableVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				return reason
 		if(reason == HasReachableAnus):
-			if(!GM.pc.hasReachableAnus()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachableAnus()):
 				return reason
 		if(reason == HasReachableVaginaOrAnus):
-			if(!GM.pc.hasReachableAnus() && !GM.pc.hasReachableVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachableAnus() && !ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				return reason
 		if(reason == HasPenis):
-			if(!GM.pc.hasPenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				return reason
 		if(reason == HasVagina):
-			if(!GM.pc.hasVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				return reason
 		if(reason == NotStunned):
-			if(GM.pc.hasEffect(StatusEffect.Stunned)):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Stunned)):
 				return reason
 		if(reason == HasStamina):
-			if(GM.pc.getStamina() <= 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 				return reason
 		if(reason == HasCredits):
-			if(GM.pc.getCredits() < args[1]):
+			if(ServiceLocator.safe_get_service(&"Player").getCredits() < args[1]):
 				return reason
 		if(reason == ContentEnabled):
 			if(!OPTIONS.isContentEnabled(args[1])):
 				return args
 		if(reason == CanWearStrapon):
-			if(!GM.pc.canWearStrapon()):
+			if(!ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 				return args
 		if(reason == HasStraponAndCanWear):
-			if(!GM.pc.canWearStrapon()):
+			if(!ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 				return args
-			if(!GM.pc.hasStrapons()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasStrapons()):
 				return args
 		if(reason == HasStrapons):
-			if(!GM.pc.hasStrapons()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasStrapons()):
 				return args
 		if(reason == IsWearingChastityCage):
-			if(!GM.pc.isWearingChastityCage()):
+			if(!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				return args
 		if(reason == NotCollapsed):
-			if(GM.pc.hasEffect(StatusEffect.Collapsed)):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Collapsed)):
 				return args
 		if(reason == HasChastityCageInInventory):
-			if(!GM.pc.hasChastityCages()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasChastityCages()):
 				return args
 		if(reason == HasItemID):
-			if(!GM.pc.getInventory().hasItemID(args[1])):
+			if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID(args[1])):
 				return args
 		if(reason == HasReachablePenisOrVaginaOrHasStrapon):
-			if(!GM.pc.hasReachablePenis() && !GM.pc.hasReachableVagina() && !GM.pc.hasStrapons()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && !ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && !ServiceLocator.safe_get_service(&"Player").hasStrapons()):
 				return args
 		if(reason == HasBreastPump):
-			if(GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump).size() <= 0):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump).size() <= 0):
 				return args
 		if(reason == HasPenisPump):
-			if(GM.pc.getInventory().getItemsWithTag(ItemTag.PenisPump).size() <= 0):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.PenisPump).size() <= 0):
 				return args
 		if(reason == NotWearingItem):
-			if(GM.pc.getInventory().hasItemIDEquipped(args[1])):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped(args[1])):
 				return args
 		if(reason == CanStartSex):
-			if(GM.pc.hasBoundArms()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 				return NotArmsRestrained
-			if(GM.pc.hasBlockedHands()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 				return NotHandsBlocked
-			if(GM.pc.hasBoundLegs()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 				return NotLegsRestrained
-			if(GM.pc.isOralBlocked()):
+			if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 				return NotOralBlocked
 		if(reason == HasReachableOrCagedPenisOrReachableVagina):
-			if(!GM.pc.hasReachablePenis() && !GM.pc.isWearingChastityCage() && !GM.pc.hasReachableVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && !ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				return reason
 		if(reason == HasItemWithTag):
-			if(GM.pc.getInventory().getItemsWithTag(args[1]).size() <= 0):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(args[1]).size() <= 0):
 				return args
 			
 	return null

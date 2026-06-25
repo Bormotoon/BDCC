@@ -29,7 +29,7 @@ func _run():
 		playAnimation(StageScene.PuppyDuo, "stand", {npc=npcID, npcBodyState={naked=true, leashedBy="pc"}})
 
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
-		if(GM.pc.getLocation() in ["main_bathroom1", "main_bathroom2"]):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() in ["main_bathroom1", "main_bathroom2"]):
 			saynn("Your pet looks up at you with sad eyes while tippy-toeing around on the spot, clearly needing a relief. Putting your pet onto a toilet would be way too hard so you bring {npc.him} to the urinals instead.")
 			
 			if(npc.isWearingChastityCage() || npc.hasReachablePenis()):

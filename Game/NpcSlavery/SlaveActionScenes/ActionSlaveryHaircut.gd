@@ -19,7 +19,7 @@ func resolveCustomCharacterName(_charID):
 		return npcID
 
 func _reactInit():
-	if(GM.pc.getLocation() in ["main_bathroom1", "main_bathroom2"]):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() in ["main_bathroom1", "main_bathroom2"]):
 		isAlreadyAtBathroom = true
 
 func _init():
@@ -81,7 +81,7 @@ func _run():
 				var theSkinDesc:String = "This is the currently selected skin" if(theSkinIsActive) else "Pick this skin"
 				addButton(theSkinName, theSkinDesc+theSkin.getExtraDesc(), "changepartskinmenu_select", [skinID])
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 
 
 	if(state == "changehaircutmenu"):
@@ -103,7 +103,7 @@ func _run():
 			addButton(theHaircutName, theHaircutDesc, "changehair", [bodypartID])
 
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 
 	if(state == "changehair"):
 		saynn("You humm as you work on your slave's hair, using the instant hair grower and scissors to shape the way {npc.his} hair looks")
@@ -113,7 +113,7 @@ func _run():
 	if(state == "changecolor"):
 		var bodypart = npc.getBodypart(BodypartSlot.Hair)
 		var colorPicker = colorPickerScene.instantiate()
-		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 		if(whichColorIsEdited == 0):
 			colorPicker.setCurrentColor(bodypart.pickedRColor)
 			rememberedColor = bodypart.pickedRColor
@@ -135,10 +135,10 @@ func changepartcolormenu_colorchanged(_theColor):
 		return
 	isChanging = true
 	await get_tree().create_timer(0.3).timeout
-	if(GM.ui.getCustomControl("colorpicker") == null):
+	if(ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker") == null):
 		isChanging = false
 		return
-	var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+	var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 	var bodypart = npc.getBodypart(BodypartSlot.Hair)
 	if(whichColorIsEdited == 0):
 		bodypart.pickedRColor = theColor
@@ -155,7 +155,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "changepartskinmenu_select"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 		var bodypart = npc.getBodypart(BodypartSlot.Hair)
 		if(_args.size() > 0 && _args[0] == null):
 			bodypart.pickedSkin = null
@@ -185,7 +185,7 @@ func _react(_action: String, _args):
 		whichColorIsEdited = _args[0]
 	
 	if(_action == "changehair"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 
 		var savedRColor = Color.WHITE
 		var savedGColor = Color.WHITE
@@ -215,7 +215,7 @@ func _react(_action: String, _args):
 			if(whichColorIsEdited == 2):
 				bodypart.pickedBColor = null
 		else:
-			var theColor = GM.ui.getCustomControl("colorpicker").getCurrentColor()
+			var theColor = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker").getCurrentColor()
 			if(whichColorIsEdited == 0):
 				bodypart.pickedRColor = theColor
 			if(whichColorIsEdited == 1):

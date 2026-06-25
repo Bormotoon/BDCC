@@ -13,11 +13,11 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
-	GM.pc.getInventory().removeItem(item)
+	ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
 
 func _run():
 	if(state == ""):

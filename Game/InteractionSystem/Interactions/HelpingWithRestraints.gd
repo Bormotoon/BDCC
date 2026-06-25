@@ -158,7 +158,7 @@ func restraints_ask_credits_text():
 	saynn("[say=reacter]That will be.. "+str(askCredits)+" credits.[/say]")
 	saynn("Wow, looks like {reacter.yourHis} help wasn't free after all..")
 
-	if(!getRolePawn("starter").isPlayer() || GM.pc.getCredits() >= askCredits):
+	if(!getRolePawn("starter").isPlayer() || ServiceLocator.safe_get_service(&"Player").getCredits() >= askCredits):
 		addAction("pay", "Pay", "It was worth it..", "surrender", 1.0, 60, {})
 	else:
 		addDisabledAction("Pay", "You don't have enough credits..")
@@ -167,9 +167,9 @@ func restraints_ask_credits_text():
 func restraints_ask_credits_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "pay"):
 		if(getRolePawn("starter").isPlayer()):
-			GM.pc.addCredits(-askCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-askCredits)
 		if(getRolePawn("reacter").isPlayer()):
-			GM.pc.addCredits(askCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(askCredits)
 		setState("restraints_paid", "starter")
 	if(_id == "refuse"):
 		affectAffection("reacter", "starter", -0.3)

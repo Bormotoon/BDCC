@@ -23,7 +23,7 @@ func canBeUsed(_id:String, _args:Dictionary, _form) -> bool:
 	var mainCharID:String = getCharID(_args, _form.mainRole)
 	var dirToCharID:String = getCharID(_args, _form.dirToRole)
 	
-	if(GM.main.WHS.queryHappened(WHEvent.Impregnated, [
+	if(ServiceLocator.safe_get_service(&"MainScene").WHS.queryHappened(WHEvent.Impregnated, [
 		[WHCond.Who, dirToCharID],
 		[WHCond.Target, mainCharID],
 	]) && getChar(_args, _form.mainRole).isVisiblyPregnant()):

@@ -15,7 +15,7 @@ enum {
 }
 
 static func saynn(theText:String):
-	GM.main.IS.saynnExtra(theText)
+	ServiceLocator.safe_get_service(&"MainScene").IS.saynnExtra(theText)
 
 static func sayPawn(_thePawn, theText:String):
 	saynn("[say="+_thePawn.charID+"]"+theText+"[/say]")

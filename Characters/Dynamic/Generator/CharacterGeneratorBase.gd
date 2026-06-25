@@ -3,29 +3,29 @@ class_name CharacterGeneratorBase
 
 func makeBase(idprefix = "dynamicnpc", _args = {}):
 	var dynamicCharacter = DynamicCharacter.new()
-	if(is_instance_valid(GM.main)):
-		dynamicCharacter.id = GM.main.generateCharacterID(idprefix)
+	if(is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		dynamicCharacter.id = ServiceLocator.safe_get_service(&"MainScene").generateCharacterID(idprefix)
 	
 	if(_args.has(NpcGen.Temporary) && _args[NpcGen.Temporary]):
 		dynamicCharacter.temporaryCharacter = true
 	
-	if(is_instance_valid(GM.main)):
-		GM.main.addDynamicCharacter(dynamicCharacter)
+	if(is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		ServiceLocator.safe_get_service(&"MainScene").addDynamicCharacter(dynamicCharacter)
 	elif(_args.has("addtonode") && _args["addtonode"]):
 		_args["addtonode"].add_child(dynamicCharacter)
 	return dynamicCharacter
 
 func pickGender(character:DynamicCharacter, _args = {}):
 	if(_args.has(NpcGen.HasVagina) && _args[NpcGen.HasVagina]):
-		character.npcGeneratedGender = GM.main.getEncounterSettings().generateGenderFromAllowed(NpcGender.getAllWithVagina())
+		character.npcGeneratedGender = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateGenderFromAllowed(NpcGender.getAllWithVagina())
 	elif(_args.has(NpcGen.HasPenis) && _args[NpcGen.HasPenis]):
-		character.npcGeneratedGender = GM.main.getEncounterSettings().generateGenderFromAllowed(NpcGender.getAllWithPenis())
+		character.npcGeneratedGender = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateGenderFromAllowed(NpcGender.getAllWithPenis())
 	elif(_args.has(NpcGen.GenderList)):
-		character.npcGeneratedGender = GM.main.getEncounterSettings().generateGenderFromAllowed(_args[NpcGen.GenderList])
+		character.npcGeneratedGender = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateGenderFromAllowed(_args[NpcGen.GenderList])
 	elif(_args.has(NpcGen.Gender)):
 		character.npcGeneratedGender = _args[NpcGen.Gender]
 	else:
-		character.npcGeneratedGender = GM.main.getEncounterSettings().generateGender()
+		character.npcGeneratedGender = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateGender()
 
 func pickName(character:DynamicCharacter, _args = {}):
 	if(_args.has(NpcGen.Name)):
@@ -61,7 +61,7 @@ func pickSpecies(character:DynamicCharacter, _args = {}):
 		if(!specie.canBeUsedForNPCType(speciesType)):
 			continue
 		
-		var weight = GM.main.getEncounterSettings().getSpeciesWeight(speciesID)
+		var weight = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getSpeciesWeight(speciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([speciesID, weight])
 	
@@ -209,10 +209,10 @@ func pickLevel(character:DynamicCharacter, _args = {}):
 	if(_args.has(NpcGen.Level)):
 		character.npcLevel = _args[NpcGen.Level]
 	else:
-		if(GM.pc == null || !is_instance_valid(GM.pc)):
+		if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 			character.npcLevel = 1
 		else:
-			character.npcLevel = Util.maxi(GM.pc.getLevel() + randi_range(-3,3), 0)# Just some random lvl
+			character.npcLevel = Util.maxi(ServiceLocator.safe_get_service(&"Player").getLevel() + randi_range(-3,3), 0)# Just some random lvl
 	character.getSkillsHolder().setLevel(character.npcLevel)
 
 func pickStats(character:DynamicCharacter, _args = {}):

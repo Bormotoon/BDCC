@@ -88,7 +88,7 @@ func addSelfToNursery() -> Array:
 	var bornChildren: Array = theEggCell.makeChilds()
 	for child in bornChildren:
 		child.setLaidByID(laidBy)
-		GM.CS.addChild(child)
+		ServiceLocator.safe_get_service(&"ChildSystem").addChild(child)
 	return bornChildren
 
 func handleNursery() -> bool:

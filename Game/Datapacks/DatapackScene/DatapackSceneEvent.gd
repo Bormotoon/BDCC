@@ -59,7 +59,7 @@ func customTriggerCheck(_triggerID, _args):
 	var triggerType = datapackSceneTrigger.triggerType
 	
 	if(triggerType == DatapackSceneTriggerType.EnterRoomOnFloor):
-		var room = GM.world.getRoomByID(GM.pc.getLocation())
+		var room = ServiceLocator.safe_get_service(&"World").getRoomByID(ServiceLocator.safe_get_service(&"Player").getLocation())
 		var roomFloor = room.getCachedFloorID()
 		if(datapackSceneTrigger.getSetting("floor") != roomFloor):
 			return false

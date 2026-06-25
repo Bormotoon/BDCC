@@ -20,8 +20,8 @@ static func getFlags() -> Dictionary:
 enum Crime_Type {Innocent, Theft, Murder, Prostitution}
 
 static func resetFlagsOnNewDay() -> void:
-	if GM.main.getFlag("Canteen_PlayerAteToday"):
-		GM.main.setFlag("Canteen_PlayerAteToday", false)
+	if ServiceLocator.safe_get_service(&"MainScene").getFlag("Canteen_PlayerAteToday"):
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("Canteen_PlayerAteToday", false)
 	var modules = GlobalRegistry.getModules()
 	for module_id in modules:
 		modules[module_id].reset_flags_on_new_day()

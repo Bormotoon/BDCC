@@ -34,7 +34,7 @@ func _run():
 	npc = npc #dont bother me godot
 	addCharacter(npcID)
 	
-	if(state == "" and (not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body))):
+	if(state == "" and (not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body))):
 		#skip past stripping
 		state = "stripped"
 	
@@ -229,9 +229,9 @@ func _run():
 		
 	if(state == "kneel_2"):
 		var toOgle = "crotch"
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			toOgle = "{pc.penis}"
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			toOgle = "{pc.vagina}"
 		saynn("{npc.He} {npc.verb('explore')} your body with {npc.his} eyes, lingering for a long time on your "+toOgle+", but teasingly taking no action. You remain obediently still, posing to be admired.")
 		saynn("[say=npc]"+RNG.pick([
@@ -273,7 +273,7 @@ func _run():
 	if(state == "hug"):
 		playAnimation(StageScene.Hug, "hug", {npc=npcID})
 		if(!(npcVariation in ["mean", "kind", "subby"])):
-			saynn("{npc.He} suddenly {npc.verb('draw')} you into a hug" + ("." if GM.pc.hasBoundArms() else ", and you reflexively wrap your arms around {npc.him}."))
+			saynn("{npc.He} suddenly {npc.verb('draw')} you into a hug" + ("." if ServiceLocator.safe_get_service(&"Player").hasBoundArms() else ", and you reflexively wrap your arms around {npc.him}."))
 		
 			saynn("[say=npc]"+RNG.pick([
 				"I can be nice~",
@@ -282,7 +282,7 @@ func _run():
 		#no mean version
 		# (kind version)
 		if(npcVariation == "kind"):
-			saynn("{npc.He} gently {npc.verb('draw')} you into a hug" + ("." if GM.pc.hasBoundArms() else ", and after a brief moment of hesitation, you wrap your arms around {npc.him}."))
+			saynn("{npc.He} gently {npc.verb('draw')} you into a hug" + ("." if ServiceLocator.safe_get_service(&"Player").hasBoundArms() else ", and after a brief moment of hesitation, you wrap your arms around {npc.him}."))
 			
 			saynn("[say=npc]"+RNG.pick([
 				"Good {pc.boy}...",
@@ -292,7 +292,7 @@ func _run():
 			
 		# (subby version)
 		if(npcVariation == "subby"):
-			saynn("{npc.He} wraps {npc.his} arms around you" + (" and {npc.verb('nuzzle')} your chest." if GM.pc.hasBoundArms() else ". As {npc.he} {npc.verb('nuzzle')} your chest, you return the hug."))
+			saynn("{npc.He} wraps {npc.his} arms around you" + (" and {npc.verb('nuzzle')} your chest." if ServiceLocator.safe_get_service(&"Player").hasBoundArms() else ". As {npc.he} {npc.verb('nuzzle')} your chest, you return the hug."))
 			
 			saynn("[say=npc]"+RNG.pick([
 				"Mmm~",
@@ -476,30 +476,30 @@ func _run():
 		#oh, boy!
 		var cumDesc = " orgasmic pleasure courses through you"
 		var undiesDesc = null
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom)):
-			undiesDesc = (GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearBottom).getVisibleName().to_lower())
-		elif(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body)):
-			undiesDesc = (GM.pc.getInventory().getEquippedItem(InventorySlot.Body).getVisibleName().to_lower())
-		if(GM.pc.hasPenis() and GM.pc.hasVagina()):
-			cumDesc = "your "+(RNG.pick(["caged", "locked"]) if GM.pc.isWearingChastityCage() else "")+RNG.pick(["dick", "cock", "member"])
-			if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body)):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom)):
+			undiesDesc = (ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearBottom).getVisibleName().to_lower())
+		elif(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body)):
+			undiesDesc = (ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.Body).getVisibleName().to_lower())
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() and ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			cumDesc = "your "+(RNG.pick(["caged", "locked"]) if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+RNG.pick(["dick", "cock", "member"])
+			if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body)):
 				 cumDesc += " dribbles out its load onto the ground"
 			else:
 				cumDesc += ""
 			cumDesc += " and your spasming "+RNG.pick(["pussy", "pussy", "slit", "kitty"])
-			if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body)):
+			if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body)):
 				 cumDesc += " drips your juices down your thighs"
 			else:
 				cumDesc += " make your "+undiesDesc+" all sticky and wet"
-		elif(GM.pc.hasPenis()):
-			cumDesc = "your "+(RNG.pick(["caged", "locked"]) if GM.pc.isWearingChastityCage() else "")+RNG.pick(["dick", "cock", "member"])+" dribbles out its load"
-			if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body)):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			cumDesc = "your "+(RNG.pick(["caged", "locked"]) if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+RNG.pick(["dick", "cock", "member"])+" dribbles out its load"
+			if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body)):
 				 cumDesc += " onto the ground"
 			else:
 				cumDesc += " into your "+undiesDesc
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			cumDesc = "your spasming "+RNG.pick(["pussy", "pussy", "slit", "kitty"])
-			if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Body)):
+			if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom) and not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Body)):
 				 cumDesc += " drips your juices down your thighs."
 			else:
 				cumDesc += " makes your "+undiesDesc+" all wet"
@@ -589,7 +589,7 @@ func _run():
 			saynn("You let your hands drop.")
 			if(gotStripped):
 				saynn("[say=npc]Dunno about you but [i]I[/i] had fun. Here, put this back on.[/say]")
-				saynn("{npc.He} {npc.verb('hand')} you your "+GM.pc.getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+".")
+				saynn("{npc.He} {npc.verb('hand')} you your "+ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+".")
 				saynn("With your thoughts still hazy, by the time you finish dressing yourself and look up, {npc.name} is already gone.")
 			else:
 				saynn("Your thoughts still hazy, by the time you look up, {npc.name} is already gone.")
@@ -600,7 +600,7 @@ func _run():
 			if(gotStripped):
 				playAnimation(StageScene.Duo, "defeat", {npc=npcID})
 				#not equipped here, hence not getEquippedItemByID
-				saynn("{npc.He} {npc.verb('toss', 'tosses')} your "+GM.pc.getInventory().getFirstOf(strippedItemID).getVisibleName().to_lower()+" at your feet.")
+				saynn("{npc.He} {npc.verb('toss', 'tosses')} your "+ServiceLocator.safe_get_service(&"Player").getInventory().getFirstOf(strippedItemID).getVisibleName().to_lower()+" at your feet.")
 				saynn("[say=npc]Pick it up.[/say]")
 				saynn("You reach down to retrieve your things, only to get roughly grabbed by the back of your collar and shoved onto your knees.")
 				saynn("[say=npc]Don't bother putting it back on. Advertise what you are. Understood?[/say]")
@@ -614,7 +614,7 @@ func _run():
 			saynn("You let your hands drop.")
 			if(gotStripped):
 				saynn("[say=npc]You wont mind if I...[/say]")
-				saynn("{npc.He} {npc.verb('help')} you put your "+GM.pc.getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+" back on.")
+				saynn("{npc.He} {npc.verb('help')} you put your "+ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+" back on.")
 			saynn("[say=npc]Thanks for playing with me! We should do this again sometime~[/say]")
 			
 		if(npcVariation == "subby"):
@@ -623,7 +623,7 @@ func _run():
 			saynn("[say=npc]I'd like you better fully aware and in charge~[/say]")
 			if(gotStripped):
 				saynn("[say=npc]Can I help you with these?[/say]")
-				saynn("{npc.He} {npc.verb('hand')} you your "+GM.pc.getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+" and {npc.verb('help')} you put it back on.")		
+				saynn("{npc.He} {npc.verb('hand')} you your "+ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemByID(strippedItemID).getVisibleName().to_lower()+" and {npc.verb('help')} you put it back on.")		
 			saynn("{npc.He} {npc.verb('sashay')} away, shaking {npc.his} hips for your benefit a few more times along the way.")
 			saynn("[say=npc]Until then, see you around![/say]")
 			
@@ -677,8 +677,8 @@ func pickSubscene() -> String:
 	iterations += 1
 	var options = []
 	options.append(["bodywriting",1.0])
-	if(GM.pc.getLustLevel() > 0.6 and iterations > 0):
-		options.append(["hands_free_orgasm",2.0 * GM.pc.getLustLevel()])
+	if(ServiceLocator.safe_get_service(&"Player").getLustLevel() > 0.6 and iterations > 0):
+		options.append(["hands_free_orgasm",2.0 * ServiceLocator.safe_get_service(&"Player").getLustLevel()])
 	if(npcVariation == "mean"):
 		options.append(["punch",1.0])
 	if(npcVariation != "mean"):
@@ -687,9 +687,9 @@ func pickSubscene() -> String:
 		options.append(["kneel",1.0])
 	if(npcVariation != "subby"):
 		options.append(["tease",1.0])
-		if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Wrists)):
+		if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Wrists)):
 			options.append(["cuffs_wrists", 1.0])
-		if(not GM.pc.getInventory().hasSlotEquipped(InventorySlot.Ankles)):
+		if(not ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Ankles)):
 			options.append(["cuffs_ankles", 1.0])
 	var unusedOptions = []
 	for optionPair in options:
@@ -705,7 +705,7 @@ func pickSubscene() -> String:
 
 func _react(_action: String, _args):
 	var npc: BaseCharacter = GlobalRegistry.getCharacter(npcID)
-	var pcInventory = GM.pc.getInventory()
+	var pcInventory = ServiceLocator.safe_get_service(&"Player").getInventory()
 	npc = npc #dont bother me godot
 	
 	if(doneWhenIterations == -1):
@@ -719,21 +719,21 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == ""):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
-		GM.pc.addLust(randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
 		processTime(1 * 60)
 			
 	if(_action == "stripped"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
-		GM.pc.addLust(randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
 		processTime(1 * 60)
 		strippedItemID = pcInventory.getEquippedItem(InventorySlot.Body).id
 		pcInventory.unequipSlot(InventorySlot.Body)
 		gotStripped = true
 
 	if(_action == "cuffs_wrists_post"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
-		GM.pc.addLust(randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
 		processTime(1 * 60)
 		var cuff
 		if(npcVariation == "mean"):
@@ -746,8 +746,8 @@ func _react(_action: String, _args):
 		_action = pickSubscene()
 		
 	if(_action == "cuffs_ankles_post"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
-		GM.pc.addLust(randi_range(3,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
 		processTime(1 * 60)
 		var cuff
 		if(npcVariation == "mean"):
@@ -760,11 +760,11 @@ func _react(_action: String, _args):
 		_action = pickSubscene()
 
 	if(_action == "bodywriting"):
-		GM.pc.addLust(randi_range(3,6))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
 		
 	if(_action == "bodywriting_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
-		GM.pc.addLust(randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(5,10))
 		processTime(1 * 60)
 		lastBodywritingZone = BodyWritingsZone.getRandomZone()
 		if(npcVariation == "subby"):
@@ -775,59 +775,59 @@ func _react(_action: String, _args):
 			lastBodywritingID = RNG.pick(["useme","freeuse","stripme","slave","slut","publictoy","publicpet","submissive","subby","subbyslut"])
 		elif(npcVariation == "mean"):
 			lastBodywritingID = BodyWritings.getRandomWritingIDForZone(lastBodywritingZone)
-		GM.pc.addBodywriting(lastBodywritingZone, lastBodywritingID)
+		ServiceLocator.safe_get_service(&"Player").addBodywriting(lastBodywritingZone, lastBodywritingID)
 		
 	if(_action == "kneel"):
-		GM.pc.addLust(randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(5,10))
 		
 	if(_action == "kneel_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
-		GM.pc.addLust(randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(5,10))
 		processTime(1 * 60)
 		
 	if(_action == "punch"):
-		GM.pc.addLust(randi_range(3,6))
-		GM.pc.addPain(randi_range(4,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
+		ServiceLocator.safe_get_service(&"Player").addPain(randi_range(4,10))
 		
 	if(_action == "punch_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
-		GM.pc.addLust(randi_range(3,6))
-		GM.pc.addPain(randi_range(12,25))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(3,6))
+		ServiceLocator.safe_get_service(&"Player").addPain(randi_range(12,25))
 		processTime(1 * 60)
 	
 	if(_action == "tease"):
-		GM.pc.addLust(randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(5,10))
 		
 	if(_action == "tease_2"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(5,10))
-		GM.pc.addLust(randi_range(5,10))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(5,10))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(5,10))
 		processTime(1 * 60)
 
 	if(_action == "hands_free_orgasm"):
-		GM.pc.addLust(randi_range(10,15))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(10,15))
 		
 	if(_action == "hands_free_orgasm_2"):
-		GM.pc.addLust(randi_range(15,20))
+		ServiceLocator.safe_get_service(&"Player").addLust(randi_range(15,20))
 		
 	if(_action == "hands_free_orgasm_3"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(20,30))
-		GM.pc.cumOnFloor()
-		GM.pc.addArousal(-1.0)
-		GM.pc.addLust(-int(GM.pc.getLust()/2.0))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(20,30))
+		ServiceLocator.safe_get_service(&"Player").cumOnFloor()
+		ServiceLocator.safe_get_service(&"Player").addArousal(-1.0)
+		ServiceLocator.safe_get_service(&"Player").addLust(-int(ServiceLocator.safe_get_service(&"Player").getLust()/2.0))
 		processTime(2 * 60)
 		
 	if(_action == "hands_free_orgasm_3_selfdeny"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(10,20))
-		GM.pc.addArousal(-0.1)
-		GM.pc.addLust(-10)
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(10,20))
+		ServiceLocator.safe_get_service(&"Player").addArousal(-0.1)
+		ServiceLocator.safe_get_service(&"Player").addLust(-10)
 	
 	if(_action == "finale"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
 		processTime(2 * 60)
 		if(gotStripped and npcVariation != "mean"):
 			var item = pcInventory.getFirstOf(strippedItemID)
 			pcInventory.equipItem(item)
-		GM.pc.addSkillExperience(Skill.Hypnosis, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Hypnosis, 10)
 		return
 
 	setState(_action)

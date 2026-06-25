@@ -61,7 +61,7 @@ func get_inventory_name() -> String:
 	elif restraint_data != null:
 		if current_inventory != null:
 			if not restraint_data.has_smart_lock():
-				the_name += " (Level " + restraint_data.get_visible_level(GM.pc.is_blindfolded() and not GM.pc.can_handle_blindness()) + ")"
+				the_name += " (Level " + restraint_data.get_visible_level(ServiceLocator.safe_get_service(&"Player").is_blindfolded() and not ServiceLocator.safe_get_service(&"Player").can_handle_blindness()) + ")"
 			else:
 				the_name += " (SMART-LOCKED)"
 	return the_name

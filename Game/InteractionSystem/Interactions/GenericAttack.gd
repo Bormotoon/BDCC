@@ -124,10 +124,10 @@ func getAnimData() -> Array:
 func onStarterWin(_isSurrender=false):
 	if(askCredits > 0):
 		if(getRolePawn("reacter").isPlayer()):
-			GM.pc.addCredits(-askCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-askCredits)
 			addMessage("You lost "+str(askCredits)+" credits!")
 		if(getRolePawn("starter").isPlayer()):
-			GM.pc.addCredits(askCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(askCredits)
 			addMessage("You gained "+str(askCredits)+" credits!")
 
 func getPreviewLineForRole(_role:String) -> String:

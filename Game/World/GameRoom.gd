@@ -144,23 +144,23 @@ func get_name() -> String:
 	return room_name
 
 func say(text: String) -> void:
-	if GM.ui:
-		GM.ui.say(text)
+	if ServiceLocator.safe_get_service(&"UI"):
+		ServiceLocator.safe_get_service(&"UI").say(text)
 
 func add_button(text: String, tooltip: String = "", arg: String = "") -> void:
-	GM.ui.addButton(text, tooltip, "roomCallback", [room_id, arg])
+	ServiceLocator.safe_get_service(&"UI").addButton(text, tooltip, "roomCallback", [room_id, arg])
 
 func add_disabled_button(text: String, tooltip: String = "") -> void:
-	GM.ui.addDisabledButton(text, tooltip)
+	ServiceLocator.safe_get_service(&"UI").addDisabledButton(text, tooltip)
 
 func add_actions() -> void:
 	for action in get_children():
 		if action is RoomAction:
 			if action._shouldShow():
 				if action._canRun():
-					GM.ui.addButton(action.ActionName, action.ActionTooltip, "actionCallback", [action.ActionScene])
+					ServiceLocator.safe_get_service(&"UI").addButton(action.ActionName, action.ActionTooltip, "actionCallback", [action.ActionScene])
 				else:
-					GM.ui.addDisabledButton(action.ActionName, action.ActionTooltip)
+					ServiceLocator.safe_get_service(&"UI").addDisabledButton(action.ActionName, action.ActionTooltip)
 
 func _on_pre_enter() -> void:
 	on_pre_enter.emit(self)

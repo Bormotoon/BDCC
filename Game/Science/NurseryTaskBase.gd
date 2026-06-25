@@ -53,11 +53,11 @@ func generatePossibleTasks() -> Array:
 	return []
 
 func completeSelf():
-	if(GM.main.SCI.removeNurseryTask(self)):
-		GM.pc.addCredits(credits)
-		GM.main.SCI.addPoints(sciPoints, false)
-		GM.main.SCI.nurseryTasksCompleted += 1
-		GM.main.addMessage("Nursery bounty '"+getName()+"' got completed! Received "+getRewardString())
+	if(ServiceLocator.safe_get_service(&"MainScene").SCI.removeNurseryTask(self)):
+		ServiceLocator.safe_get_service(&"Player").addCredits(credits)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.addPoints(sciPoints, false)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.nurseryTasksCompleted += 1
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Nursery bounty '"+getName()+"' got completed! Received "+getRewardString())
 
 func handleBountyFluid(_fluidType:String, _amount:float):
 	pass
@@ -72,7 +72,7 @@ func shouldBeCancelled() -> bool:
 	return false
 
 static func getFloorName(floorID:String) -> String:
-	#var room = GM.world.getRoomByID(loc)
+	#var room = ServiceLocator.safe_get_service(&"World").getRoomByID(loc)
 	#var floorID:String = room.getFloorID()
 	if(floorID == "Cellblock"):
 		return "Cellblock"
@@ -100,9 +100,9 @@ static func getCharDescription(theCharID:String) -> String:
 	
 	var desc:String = ""
 	desc = "Occupation: "+CharacterType.getName(character.getCharType())
-	if(GM.main.IS.hasPawn(theCharID)):
-		var pawn:CharacterPawn = GM.main.IS.getPawn(theCharID)
-		var room = GM.world.getRoomByID(pawn.getLocation())
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(theCharID)):
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
+		var room = ServiceLocator.safe_get_service(&"World").getRoomByID(pawn.getLocation())
 		if(room == null):
 			desc += "\nCurrent location: Error.."
 		else:

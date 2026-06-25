@@ -27,7 +27,7 @@ func start(_pawns:Dictionary, _args:Dictionary):
 			var theSpecialRelationship := getRolePawn("reacter").getSpecialRelationship()
 			if(theSpecialRelationship && theSpecialRelationship.id == "SoftSlavery"):
 				stopMe()
-				GM.main.runScene("NpcOwnerEventRunnerScene", [getRolePawn("reacter").charID, "ApproachOrTalk", []])
+				ServiceLocator.safe_get_service(&"MainScene").runScene("NpcOwnerEventRunnerScene", [getRolePawn("reacter").charID, "ApproachOrTalk", []])
 				return
 		
 		setState("", "starter")
@@ -90,7 +90,7 @@ func init_text():
 
 	# npc to pc only
 	if(!theStarter.isPlayer() && theReacter.isPlayer()):
-		if(!GM.main.RS.hasSpecialRelationship(theStarter.getID()) && RNG.chance(20)):
+		if(!ServiceLocator.safe_get_service(&"MainScene").RS.hasSpecialRelationship(theStarter.getID()) && RNG.chance(20)):
 			var theAffection:float = getAffection("starter", "reacter")
 			var theLust:float = getLust("starter", "reacter")
 			var offerEnslaveScore:float = -0.04
@@ -204,7 +204,7 @@ func npcEnslaveOfferFromPC_yes_do(_id:String, _args:Dictionary, _context:Diction
 	if(_id == "continue"):
 		var theCharID:String = getRoleID("reacter")
 		stopMe()
-		GM.main.RS.startSpecialRelantionship("SoftSlavery", theCharID)
+		ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", theCharID)
 		runScene("NpcOwnerEventRunnerScene", [theCharID, "Intro", ["willing"]])
 		pass
 
@@ -255,7 +255,7 @@ func playerAgreedToBeEnslaved_do(_id:String, _args:Dictionary, _context:Dictiona
 	if(_id == "continue"):
 		var theCharID:String = getRoleID("starter")
 		stopMe()
-		GM.main.RS.startSpecialRelantionship("SoftSlavery", theCharID)
+		ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", theCharID)
 		runScene("NpcOwnerEventRunnerScene", [theCharID, "Intro", ["willing"]])
 
 func about_to_leave_text():

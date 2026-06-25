@@ -136,7 +136,7 @@ func affect_personality(_personality: Personality, _fetish_holder: FetishHolder)
 			if RNG.chance(50):
 				if _personality.addStat(PersonalityStat.Subby, randf_range(-0.1, -0.01)):
 					changes.append("{npc.name} became more dominant after a good sex.")
-	return GM.ui.processString(Util.join(changes, "\n"), {"npc": charID})
+	return ServiceLocator.safe_get_service(&"UI").processString(Util.join(changes, "\n"), {"npc": charID})
 
 func save_data() -> Dictionary:
 	var data := super.save_data()

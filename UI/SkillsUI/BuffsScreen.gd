@@ -3,10 +3,10 @@ extends Control
 
 func updateBuffsText():
 	var newtext = "Your current buffs/debuffs are displayed here\n\n"
-	if(GM.main == null || GM.pc == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || ServiceLocator.safe_get_service(&"Player") == null):
 		return
 	
-	var items = GM.pc.getInventory().getAllEquippedItems()
+	var items = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 	for slot in items:
 		var item = items[slot]
 		var itemBuffs = item.getBuffs()
@@ -18,7 +18,7 @@ func updateBuffsText():
 			newtext += "\n"
 		
 		
-	var statusEffects = GM.pc.getStatusEffects()
+	var statusEffects = ServiceLocator.safe_get_service(&"Player").getStatusEffects()
 	for statusEffectID in statusEffects:
 		var statusEffect = statusEffects[statusEffectID]
 		var statusEffectBuffs = statusEffect.getBuffs()
@@ -29,7 +29,7 @@ func updateBuffsText():
 				newtext += buff.getVisibleDescriptionColored()+"\n"
 			newtext += "\n"
 
-	var perks = GM.pc.getSkillsHolder().getPerks()
+	var perks = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getPerks()
 	for perkID in perks:
 		var perk = perks[perkID]
 		var perkBuffs = perk.getBuffs()

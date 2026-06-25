@@ -94,7 +94,7 @@ func generateMap():
 	return result
 
 func buildMap():
-	GM.world.clearFloor(DrugDenFloor)
+	ServiceLocator.safe_get_service(&"World").clearFloor(DrugDenFloor)
 	for roomID in map:
 		var roomInfo:Dictionary = map[roomID]
 		var pos:Vector2 = Vector2(roomInfo["x"], roomInfo["y"])
@@ -109,7 +109,7 @@ func buildMap():
 		#if(roomInfo.has("isDeadend") && roomInfo["isDeadend"]):
 		#	theIcon = RoomStuff.RoomSprite.IMPORTANT
 		
-		GM.world.addRoom(DrugDenFloor, roomID, pos, {
+		ServiceLocator.safe_get_service(&"World").addRoom(DrugDenFloor, roomID, pos, {
 			name = "Drug Den",
 			desc = "The tunnel is dimly lit by the flickering emergency lights. Crumpled rags, used syringes, and shattered glass litter the floor, crunching softly underfoot. The air is thick - stale with sweat, smoke, and something sickly sweet that clings to your throat. Distant echoes bounce through the tunnels - low murmurs, the occasional rustling, maybe even a quiet, breathy laugh.",
 			icon = theIcon,
@@ -118,32 +118,32 @@ func buildMap():
 			canS = roomInfo["canS"],
 			canN = roomInfo["canN"],
 		})
-	GM.world.addTransitions([DrugDenFloor])
+	ServiceLocator.safe_get_service(&"World").addTransitions([DrugDenFloor])
 
 func start():
 	level = 1
 	
-	#GM.main.IS.deleteAllNonImportantPawns()
+	#ServiceLocator.safe_get_service(&"MainScene").IS.deleteAllNonImportantPawns()
 	
-	transferAllItems(GM.pc, GlobalRegistry.getCharacter("DrugDenStash"))
+	transferAllItems(ServiceLocator.safe_get_service(&"Player"), GlobalRegistry.getCharacter("DrugDenStash"))
 
-	savedCredits = GM.pc.getCredits()
-	GM.pc.addCredits(-savedCredits)
+	savedCredits = ServiceLocator.safe_get_service(&"Player").getCredits()
+	ServiceLocator.safe_get_service(&"Player").addCredits(-savedCredits)
 	
-	savedSkillsData = GM.pc.skillsHolder.saveData().duplicate(true)
-	GM.pc.resetSkillHolderFully()
-	GM.pc.updateNonBattleEffects()
-	GM.pc.addStamina(-GM.pc.getStamina()) # Remove any excess stamina that we might have after resetting stats
-	GM.pc.addStamina(GM.pc.getMaxStamina()) # Reset stamina to max
-	GM.pc.addPain(-GM.pc.getPain())
-	GM.pc.addLust(-GM.pc.getLust())
-	GM.pc.getSkillsHolder().addPerk(Perk.StartMaleInfertility) # No babies while in a dungen
-	GM.pc.getSkillsHolder().addPerk(Perk.StartInfertile)
+	savedSkillsData = ServiceLocator.safe_get_service(&"Player").skillsHolder.saveData().duplicate(true)
+	ServiceLocator.safe_get_service(&"Player").resetSkillHolderFully()
+	ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
+	ServiceLocator.safe_get_service(&"Player").addStamina(-ServiceLocator.safe_get_service(&"Player").getStamina()) # Remove any excess stamina that we might have after resetting stats
+	ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina()) # Reset stamina to max
+	ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+	ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+	ServiceLocator.safe_get_service(&"Player").getSkillsHolder().addPerk(Perk.StartMaleInfertility) # No babies while in a dungen
+	ServiceLocator.safe_get_service(&"Player").getSkillsHolder().addPerk(Perk.StartInfertile)
 	
-	for effectID in GM.pc.statusEffects.keys():
-		var theEffect:StatusEffectBase = GM.pc.getEffect(effectID)
+	for effectID in ServiceLocator.safe_get_service(&"Player").statusEffects.keys():
+		var theEffect:StatusEffectBase = ServiceLocator.safe_get_service(&"Player").getEffect(effectID)
 		if(theEffect && theEffect.removedOnDungeonStart):
-			GM.pc.removeEffect(effectID)
+			ServiceLocator.safe_get_service(&"Player").removeEffect(effectID)
 	
 	for eventID in GlobalRegistry.getDrugDenEvents():
 		var theEvent = GlobalRegistry.getDrugDenEventRef(eventID)
@@ -156,33 +156,33 @@ func start():
 			
 	generateMap()
 	buildMap()
-	GM.pc.setLocation(startLevelRoom)
+	ServiceLocator.safe_get_service(&"Player").setLocation(startLevelRoom)
 
 func endRun():
-	GM.world.clearFloor(DrugDenFloor)
+	ServiceLocator.safe_get_service(&"World").clearFloor(DrugDenFloor)
 	
 	var drugDenChar = GlobalRegistry.getCharacter("DrugDenStash")
-	#transferAllItems(GM.pc, drugDenChar) # So the order of the items would be correct
+	#transferAllItems(ServiceLocator.safe_get_service(&"Player"), drugDenChar) # So the order of the items would be correct
 	
-	var keepAll:bool = GM.main.SCI.hasUpgrade("drugDenLoot")
+	var keepAll:bool = ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("drugDenLoot")
 	
 	# Only keep items that have the item tag
-	var pcItems:Array = GM.pc.getInventory().getItems()
+	var pcItems:Array = ServiceLocator.safe_get_service(&"Player").getInventory().getItems()
 	while(!pcItems.is_empty()):
 		var theItem:ItemBase = pcItems[0]
-		GM.pc.getInventory().removeItem(theItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theItem)
 		if(theItem.hasTag(ItemTag.KeptAfterDrugDenRun) || keepAll):
 			drugDenChar.getInventory().addItem(theItem)
 			if(!keepAll):
 				addMessage("You managed to keep "+str(theItem.getAStackName())+"!")
 		
-	transferAllItems(drugDenChar, GM.pc)
+	transferAllItems(drugDenChar, ServiceLocator.safe_get_service(&"Player"))
 	
-	GM.pc.addCredits(-GM.pc.getCredits())
-	GM.pc.addCredits(savedCredits)
-	GM.pc.resetSkillHolderFully()
-	GM.pc.skillsHolder.loadData(savedSkillsData)
-	GM.pc.updateNonBattleEffects()
+	ServiceLocator.safe_get_service(&"Player").addCredits(-ServiceLocator.safe_get_service(&"Player").getCredits())
+	ServiceLocator.safe_get_service(&"Player").addCredits(savedCredits)
+	ServiceLocator.safe_get_service(&"Player").resetSkillHolderFully()
+	ServiceLocator.safe_get_service(&"Player").skillsHolder.loadData(savedSkillsData)
+	ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
 	
 	for eventID in GlobalRegistry.getDrugDenEvents():
 		var theEvent = GlobalRegistry.getDrugDenEventRef(eventID)
@@ -194,7 +194,7 @@ func endRun():
 func nextLevel():
 	level += 1
 	
-	GM.pc.addIntoxication(-0.2)
+	ServiceLocator.safe_get_service(&"Player").addIntoxication(-0.2)
 	
 	for eventID in eventCooldowns.keys():
 		eventCooldowns[eventID] -= 1
@@ -206,12 +206,12 @@ func nextLevel():
 	
 	generateMap()
 	buildMap()
-	GM.pc.setLocation(startLevelRoom)
+	ServiceLocator.safe_get_service(&"Player").setLocation(startLevelRoom)
 	
 	addMessage("You reached Drug Den level "+str(level))
 
 func addMessage(theText:String):
-	GM.main.addMessage(theText)
+	ServiceLocator.safe_get_service(&"MainScene").addMessage(theText)
 
 func getLevel() -> int:
 	return level
@@ -250,13 +250,13 @@ func markEncounterAsCompleted(roomID:String):
 	if(encounterRooms.has(roomID)):
 		encounterRooms.erase(roomID)
 		
-		GM.world.setRoomSprite(roomID, RoomStuff.RoomSprite.NONE)
+		ServiceLocator.safe_get_service(&"World").setRoomSprite(roomID, RoomStuff.RoomSprite.NONE)
 		map[roomID]["isEncounter"] = false
 	if(events.has(roomID)):
 		removeEventFromRoom(roomID)
 
 func shouldShowLevelUpScreen() -> bool:
-	return handledPCLevel < GM.pc.getLevel()
+	return handledPCLevel < ServiceLocator.safe_get_service(&"Player").getLevel()
 
 func afterLevelUp():
 	handledPCLevel += 1
@@ -266,7 +266,7 @@ func getPerksForReachingLevel(_level:int) -> Array:
 		return []
 	
 	var result:Array = []
-	var skillsHolder:SkillsHolder = GM.pc.getSkillsHolder()
+	var skillsHolder:SkillsHolder = ServiceLocator.safe_get_service(&"Player").getSkillsHolder()
 	
 	var possiblePerkIDWithWeight:Dictionary = {}
 	for perkID in GlobalRegistry.getPerks():
@@ -343,7 +343,7 @@ func removeEventFromRoom(roomID:String):
 		return
 	
 	events.erase(roomID)
-	GM.world.setRoomSprite(roomID, RoomStuff.RoomSprite.NONE)
+	ServiceLocator.safe_get_service(&"World").setRoomSprite(roomID, RoomStuff.RoomSprite.NONE)
 	map[roomID]["isDeadend"] = false
 
 func getFlag(flagID:String, defaultValue = null):
@@ -355,7 +355,7 @@ func setFlag(flagID:String, newValue):
 	flags[flagID] = newValue
 
 func getHighestLevelReached() -> int:
-	return int(GM.main.getFlag("DrugDenModule.HighestDrugDenLevel", 0))
+	return int(ServiceLocator.safe_get_service(&"MainScene").getFlag("DrugDenModule.HighestDrugDenLevel", 0))
 
 func checkSetNewHighestLevelReached() -> bool:
 	var currentHighestLevel:int = getHighestLevelReached()
@@ -363,7 +363,7 @@ func checkSetNewHighestLevelReached() -> bool:
 	if(level <= currentHighestLevel):
 		return false
 	
-	GM.main.setFlag("DrugDenModule.HighestDrugDenLevel", level)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag("DrugDenModule.HighestDrugDenLevel", level)
 	return true
 
 func transferAllItems(_charFrom, _charTo):

@@ -168,7 +168,7 @@ func _on_Button_pressed():
 			splittedContent.remove_at(0)
 			var whatSaid = Util.join(splittedContent, ":").strip_edges()
 			
-			whatSaid = whatSaid.replace("{{rahiMaster}}", '"+str(getFlag("RahiModule.rahiPCName", GM.pc.getName()))+"')
+			whatSaid = whatSaid.replace("{{rahiMaster}}", '"+str(getFlag("RahiModule.rahiPCName", ServiceLocator.safe_get_service(&"Player").getName()))+"')
 			whatSaid = whatSaid.replace("{{", '"+str(')
 			whatSaid = whatSaid.replace("}}", ')+"')
 			

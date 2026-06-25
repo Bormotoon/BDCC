@@ -153,7 +153,7 @@ func begGiveCredits():
 	talkModularOwnerToPC("SoftSlaveryMarkingBegCredits")
 	saynn("The marker is hovering close to your skin.")
 	
-	if(GM.pc.getCredits() >= 5):
+	if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 5):
 		addButton("Pay", "Hand them the credits", "pay")
 	else:
 		addDisabledButton("Pay", "You don't have enough..")
@@ -161,7 +161,7 @@ func begGiveCredits():
 
 func begGiveCredits_do(_id:String, _args:Array):
 	if(_id == "pay"):
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		setState("begGiveCreditsPaid")
 	if(_id == "getmarked"):
 		for _i in range(randi_range(3, 5)):
@@ -270,13 +270,13 @@ func incMarked():
 		
 	var zone = BodyWritingsZone.getRandomZone()
 	var theWritingID:String = BodyWritings.getRandomWritingIDForZone(zone)
-	GM.pc.addBodywriting(zone, theWritingID)
+	ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, theWritingID)
 	
-	GM.main.addMessage("You have a received a '"+BodyWritings.getWritingText(theWritingID)+"' writing on your "+BodyWritingsZone.getZoneVisibleName(zone))
+	ServiceLocator.safe_get_service(&"MainScene").addMessage("You have a received a '"+BodyWritings.getWritingText(theWritingID)+"' writing on your "+BodyWritingsZone.getZoneVisibleName(zone))
 
 func addContinueCheckExtra():
 	var extraChance:float = 50.0 - ownerPersonality(PersonalityStat.Subby)*30.0+getOwnerNOM(NOM.Mean)*40.0
-	if(GM.pc.hasBodywritings()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBodywritings()):
 		extraChance *= 0.9
 	
 	if(!RNG.chance(extraChance)):
@@ -309,7 +309,7 @@ func aboutToPermWriting():
 	addContinue("getMarked")
 
 func aboutToPermWriting_do(_id:String, _args:Array):
-	GM.pc.addBodywritingRandom(true)
+	ServiceLocator.safe_get_service(&"Player").addBodywritingRandom(true)
 	setState("afterGetPermMarked")
 
 func afterGetPermMarked():
@@ -349,9 +349,9 @@ func cumMarkUrinal_do(_id:String, _args:Array):
 	if(_id == 'getMarked'):
 		var theOwner := getOwner()
 		if(theOwner.hasReachablePenis()):
-			GM.pc.cummedOnBy(getOwnerID(), FluidSource.Penis)
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy(getOwnerID(), FluidSource.Penis)
 		elif(theOwner.hasVagina()):
-			GM.pc.cummedOnBy(getOwnerID(), FluidSource.Vagina)
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy(getOwnerID(), FluidSource.Vagina)
 		setState("cumMarkUrinalMarked")
 
 func cumMarkUrinalMarked():

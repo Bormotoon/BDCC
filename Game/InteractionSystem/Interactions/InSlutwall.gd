@@ -78,10 +78,10 @@ func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "escape"):
 		if(tips > 0):
 			if(getRolePawn("inmate").isPlayer()):
-				GM.pc.addCredits(int(tips))
+				ServiceLocator.safe_get_service(&"Player").addCredits(int(tips))
 				addMessage("You got "+str(int(tips))+" credits from the tipbox! Nice!")
 			elif(getRolePawn("inmate").isSlaveToPlayer()):
-				GM.pc.addCredits(int(tips))
+				ServiceLocator.safe_get_service(&"Player").addCredits(int(tips))
 				addMessage("Your slave "+getRoleChar("inmate").getName()+" earned you "+str(int(tips))+" credits by being in a slutwall! Nice!")
 		getRoleChar("inmate").getInventory().clearStaticRestraints()
 		stopMe()
@@ -140,9 +140,9 @@ func after_use_text():
 	saynn("The tipbox currently has.. "+str(tips)+" credits in it. {inmate.name} will be able to escape at 10 credits..")
 
 	addAction("leave", "Leave", "Time to go", "default", 1.0, 60, {})
-	if(!getRolePawn("user").isPlayer() || GM.pc.getCredits() > 0):
+	if(!getRolePawn("user").isPlayer() || ServiceLocator.safe_get_service(&"Player").getCredits() > 0):
 		addAction("leave_a_tip", "Leave a tip", "Leave a single credit as a tip", "help", 2.0, 60, {})
-	if(!getRolePawn("user").isPlayer() || GM.pc.getCredits() >= 5):
+	if(!getRolePawn("user").isPlayer() || ServiceLocator.safe_get_service(&"Player").getCredits() >= 5):
 		addAction("leave_a_big_tip", "Leave a Big Tip", "Leave whole 5 credits!", "help", 0.4, 60, {})
 	if(tips > 0):
 		addAction("steal_tips", "Steal tips", "Take all the credits for yourself! They won't be happy about it..", "punishMean", (0.1+(0.1*(tips-9)) if tips >= 9 else 0.05), 60, {})
@@ -154,7 +154,7 @@ func after_use_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "leave_a_tip"):
 		if(getRolePawn("user").isPlayer()):
 			addMessage("You left a tip!")
-			GM.pc.addCredits(-1)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-1)
 		setState("after_tip", "inmate")
 		tips += 1
 		if(getRolePawn("inmate").isPlayer()):
@@ -163,7 +163,7 @@ func after_use_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "leave_a_big_tip"):
 		if(getRolePawn("user").isPlayer()):
 			addMessage("You left a huge ass tip!")
-			GM.pc.addCredits(-5)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		setState("after_tip", "inmate")
 		tips += 5
 		if(getRolePawn("inmate").isPlayer()):
@@ -172,7 +172,7 @@ func after_use_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "steal_tips"):
 		if(getRolePawn("user").isPlayer()):
 			addMessage("You took all the tips!")
-			GM.pc.addCredits(tips)
+			ServiceLocator.safe_get_service(&"Player").addCredits(tips)
 		setState("after_steal_tips", "inmate")
 		tips = 0
 		if(getRolePawn("inmate").isPlayer()):
@@ -326,14 +326,14 @@ func about_to_sleep_text():
 
 func about_to_sleep_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "sleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 		getRoleChar("inmate").addStamina(50)
 		setState("after_sleep", "inmate")
 
 
 func after_sleep_text():
 	saynn("You open your eyes.. and realize that you are still stuck in a slutwall.. Yep, it's not a dream, this is really happening..")
-	saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence.")
+	saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence.")
 
 	addAction("continue", "Continue", "See what happens next..", "default", 1.0, 60, {})
 
@@ -456,7 +456,7 @@ func getPreviewLineForRole(_role:String) -> String:
 	return .getPreviewLineForRole(_role)
 
 func checkSleep():
-	if(GM.main.isVeryLate() && getRolePawn("inmate").isPlayer()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate() && getRolePawn("inmate").isPlayer()):
 		setState("about_to_sleep", "inmate")
 
 func onStopped():

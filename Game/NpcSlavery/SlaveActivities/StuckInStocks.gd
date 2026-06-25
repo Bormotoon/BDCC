@@ -7,9 +7,9 @@ func getVisibleName():
 	return "Stuck in stocks"
 
 func onStart(_args = []):
-	var pawn = GM.main.IS.spawnPawnIfNeeded(getCharID())
+	var pawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(getCharID())
 	pawn.setLocation("main_punishment_spot")
-	GM.main.IS.startInteraction("InStocks", {inmate=getCharID()})
+	ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate=getCharID()})
 
 func onNewDay():
 	pass

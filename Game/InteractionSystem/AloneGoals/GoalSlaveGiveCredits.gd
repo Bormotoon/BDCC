@@ -32,18 +32,18 @@ func doAction(_id:String, _args:Dictionary):
 			completeGoal()
 			return
 		
-		var leaveTarget:String = GM.pc.getLocation()
-		var room = GM.world.getRoomByID(leaveTarget)
+		var leaveTarget:String = ServiceLocator.safe_get_service(&"Player").getLocation()
+		var room = ServiceLocator.safe_get_service(&"World").getRoomByID(leaveTarget)
 		if(room != null && !room.isOfflimitsForInmates()):
 			goTowards(leaveTarget)
 			goTowards(leaveTarget)
-		if(GM.main.IS.hasPawn("pc") && GM.main.IS.getPawn("pc").canBeInterrupted()):
+		if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn("pc") && ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc").canBeInterrupted()):
 			if(getLocation() == leaveTarget):
 				completeGoal()
 				#if(getPawn().isSlaveToPlayer()):
 				#	getPawn().getNpcSlavery().stopActivity()
 				#getPawn().deleteMe()
-				GM.main.runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
+				ServiceLocator.safe_get_service(&"MainScene").runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
 		
 
 func getAnimData() -> Array:

@@ -7,9 +7,9 @@ func updateActions():
 	Util.delete_children($VBoxContainer/VBoxContainer)
 	Util.delete_children($VBoxContainer/VBoxContainer2)
 	
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return
-	var currentScene : SceneBase = GM.main.getCurrentScene()
+	var currentScene : SceneBase = ServiceLocator.safe_get_service(&"MainScene").getCurrentScene()
 	if(currentScene == null):
 		return
 	
@@ -30,7 +30,7 @@ func updateActions():
 			debugActionObject.args = action["args"]
 		debugActionObject.isMain = false
 		
-	for action in GM.main.getDebugActions():
+	for action in ServiceLocator.safe_get_service(&"MainScene").getDebugActions():
 		var debugActionObject = debugActionScene.instantiate()
 		
 		var _ok = debugActionObject.onActionPressed.connect(onDebugAction)
@@ -45,13 +45,13 @@ func updateActions():
 func onDebugAction(debugAction):
 	#print(debugAction.id)
 	
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return
 
 	if(debugAction.args == null || debugAction.args.size() == 0):
 		_on_DebugActionArgumentsWindow_onDoActionButton(debugAction.id, debugAction.isMain, {})
 		#currentScene.doDebugAction(debugAction.id, debugAction.args)
-		#GM.main.reRun()
+		#ServiceLocator.safe_get_service(&"MainScene").reRun()
 	else:
 		debugActionArgsWindow.setData(debugAction.id, debugAction.args, debugAction.isMain, debugAction.actionName)
 		debugActionArgsWindow.popup_centered()
@@ -64,15 +64,15 @@ func _on_DebugActionsPanel_visibility_changed():
 func _on_DebugActionArgumentsWindow_onDoActionButton(actionID, isMain, result):
 	#print(actionID, " ", result)
 	if(isMain):
-		if(GM.main == null):
+		if(ServiceLocator.safe_get_service(&"MainScene") == null):
 			return
-		GM.main.doDebugAction(actionID, result)
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").doDebugAction(actionID, result)
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 	else:
-		if(GM.main == null):
+		if(ServiceLocator.safe_get_service(&"MainScene") == null):
 			return
-		var currentScene : SceneBase = GM.main.getCurrentScene()
+		var currentScene : SceneBase = ServiceLocator.safe_get_service(&"MainScene").getCurrentScene()
 		if(currentScene == null):
 			return
 		currentScene.doDebugAction(actionID, result)
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

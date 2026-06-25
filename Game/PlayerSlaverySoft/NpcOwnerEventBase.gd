@@ -76,19 +76,19 @@ const SUB_CONTINUE = 1
 func involveCharID(_role:int, _charID:String, satisfySocial:bool = true):
 	roles[_role] = _charID
 	if(_charID != "pc"):
-		var thePawn:CharacterPawn = GM.main.IS.getPawn(_charID)
+		var thePawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(_charID)
 		if(!thePawn):
 			var theChar:BaseCharacter = GlobalRegistry.getCharacter(_charID)
 			if(!theChar || !theChar.isDynamicCharacter()):
 				return
-			thePawn = GM.main.IS.spawnPawnIfNeeded(_charID)
+			thePawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(_charID)
 			
 		if(thePawn):
 			if(satisfySocial):
 				thePawn.satisfySocial()
-			thePawn.setLocation(GM.pc.getLocation())
-			GM.main.IS.stopInteractionsForPawnID(_charID)
-			GM.main.IS.startInteraction("InNpcOwnerEvent", {main=_charID})
+			thePawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
+			ServiceLocator.safe_get_service(&"MainScene").IS.stopInteractionsForPawnID(_charID)
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InNpcOwnerEvent", {main=_charID})
 
 func removeRole(_role:int):
 	if(!roles.has(_role)):
@@ -112,21 +112,21 @@ func charID(_role:int) -> String:
 	return getRoleID(_role)
 
 func aimCamera(_loc:String):
-	GM.main.aimCameraAndSetLocName(_loc)
+	ServiceLocator.safe_get_service(&"MainScene").aimCameraAndSetLocName(_loc)
 
 func getChar(_role:int) -> BaseCharacter:
 	return GlobalRegistry.getCharacter(getRoleID(_role))
 
 func playAnimation(theSceneID, theActionID, args = {}):
-	GM.main.playAnimation(theSceneID, theActionID, args)
+	ServiceLocator.safe_get_service(&"MainScene").playAnimation(theSceneID, theActionID, args)
 
 func playStand(_leashedBy:bool = false, _roleNpc:int = C_OWNER, _rolePC:int=C_PC):
 	var theNpc:String = getRoleID(_roleNpc)
 	var thePC:String = getRoleID(_rolePC)
 	if(!_leashedBy):
-		GM.main.playAnimation(StageScene.Duo, "stand", {pc=thePC, npc=theNpc})
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(StageScene.Duo, "stand", {pc=thePC, npc=theNpc})
 	else:
-		GM.main.playAnimation(StageScene.Duo, "stand", {pc=thePC, npc=theNpc, bodyState={leashedBy=theNpc}})
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(StageScene.Duo, "stand", {pc=thePC, npc=theNpc, bodyState={leashedBy=theNpc}})
 
 func resolveCustomCharacterName(_charID):
 	if(AliasToRole.has(_charID)):
@@ -280,7 +280,7 @@ func notifySexResult(_sexResult:SexEngineResult):
 		else:
 			endEvent()
 			stopRunner()
-			GM.main.IS.startInteraction("Unconscious", {main="pc"})
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Unconscious", {main="pc"})
 		return
 	
 	if(has_method(state+"_sexResult")):
@@ -342,18 +342,18 @@ func getInfluence() -> float:
 	return npcOwner.getInfluence()
 
 func setLocation(_loc:String):
-	#GM.pc.setLocation(_loc)
+	#ServiceLocator.safe_get_service(&"Player").setLocation(_loc)
 	aimCamera(_loc)
 	getRunner().setLocation(_loc)
 
 func getLocation() -> String:
-	return GM.pc.getLocation()
+	return ServiceLocator.safe_get_service(&"Player").getLocation()
 
 func canGetTo(theTarget:String) -> bool:
 	if(theTarget == getLocation()):
 		return true
 	cachedTarget = theTarget
-	cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+	cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 	if(cachedPath.size() <= 0):
 		return false
 	return true
@@ -366,7 +366,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 	
 	if(cachedTarget != theTarget):
 		cachedTarget = theTarget
-		cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+		cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 		
 		if(cachedPath.size() <= 0):
 			if(tpOnNoPath):
@@ -380,7 +380,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 			setLocation(cachedPath[1])
 			cachedPath.remove_at(0)
 		else:
-			cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+			cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 	
 	if(getLocation() == theTarget):
 		cachedTarget = ""
@@ -389,10 +389,10 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 	return false
 
 func getPawnsNear(maxDepth:int, maxDist:float=-1.0) -> Array:
-	return GM.main.IS.getPawnsNear(GM.pc.getLocation(), maxDepth, maxDist)
+	return ServiceLocator.safe_get_service(&"MainScene").IS.getPawnsNear(ServiceLocator.safe_get_service(&"Player").getLocation(), maxDepth, maxDist)
 
 func getPawnIDsNear(maxDepth:int, maxDist:float=-1.0) -> Array:
-	return GM.main.IS.getPawnIDsNear(GM.pc.getLocation(), maxDepth, maxDist)
+	return ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(ServiceLocator.safe_get_service(&"Player").getLocation(), maxDepth, maxDist)
 
 func getFreePawnsNear(maxDepth:int, maxDist:float=-1.0, minSocial:float = 0.5) -> Array:
 	var result:Array = []
@@ -447,7 +447,7 @@ func endEvent(_args:Array = []):
 	getRunner().removeEndedEvent(self, _args)
 
 func onlyOnce() -> bool: # Returns false if we're refreshing the same state
-	return GM.main.shouldExecuteOnceCodeblocksRun()
+	return ServiceLocator.safe_get_service(&"MainScene").shouldExecuteOnceCodeblocksRun()
 
 func getNpcOwner() -> NpcOwnerBase:
 	return getRunner().getNpcOwner()
@@ -615,7 +615,7 @@ func stopRunner():
 
 func getRolePawn(_role:int) -> CharacterPawn:
 	var theCharID:String = getRoleID(_role)
-	var thePawn := GM.main.IS.getPawn(theCharID)
+	var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 	if(thePawn):
 		return thePawn
 	return null
@@ -718,7 +718,7 @@ func doDebugAction(_id, _args = {}):
 			getRunner().eventStack.append(someEvent)
 			someEvent.involveOwner()
 		else:
-			GM.main.addMessage("Failed to start the event")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Failed to start the event")
 	if(_id == "setLevel"):
 		var theNpcOwner := getNpcOwner()
 		if(theNpcOwner):
@@ -731,7 +731,7 @@ func doDebugAction(_id, _args = {}):
 		var theNpcOwner := getNpcOwner()
 		if(theNpcOwner):
 			theNpcOwner.punishAmount = 0
-		GM.main.addMessage("Punishment counter reset to 0")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Punishment counter reset to 0")
 	if(_id == "stopSoftSlavery"):
 		var theNpcOwner := getNpcOwner()
 		if(theNpcOwner):
@@ -745,7 +745,7 @@ func isPlayerOnALeash() -> bool:
 	return false
 
 func canGetToStocks() -> bool:
-	var room = GM.world.getRoomByID(getLocation())
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(room == null):
 		return false
 	var floorID:String = room.getFloorID()
@@ -753,12 +753,12 @@ func canGetToStocks() -> bool:
 	return (floorID in ["Cellblock", "MainHall"])
 
 func canGetToSlutwall() -> bool:
-	var room = GM.world.getRoomByID(getLocation())
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(room == null):
 		return false
 	var floorID:String = room.getFloorID()
 	
-	if(!GM.main.getFlag("FightClubModule.BulldogBypassed")):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.BulldogBypassed")):
 		return false
 	
 	return (floorID in ["FightClubFloor", "MainHall", "Cellblock"])
@@ -811,11 +811,11 @@ func getFreeFriendsIDs(_addToContext:bool = true, _context:Dictionary = {}) -> A
 		return _context["FreeFriends"]
 	var result:Array = []
 	
-	var allFriendIDs:Array = GM.main.RS.getAllCharIDsWithSpecialRelationship("Friend")
+	var allFriendIDs:Array = ServiceLocator.safe_get_service(&"MainScene").RS.getAllCharIDsWithSpecialRelationship("Friend")
 	for theCharID in allFriendIDs:
 		if(isInvolved(theCharID)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(thePawn && !thePawn.canBeInterrupted()):
 			continue
 		result.append(theCharID)
@@ -831,15 +831,15 @@ func getFreeFriendsIDsNearby(_addToContext:bool = true, _context:Dictionary = {}
 	
 	var ourLoc:String = getLocation()
 	
-	var allFriendIDs:Array = GM.main.RS.getAllCharIDsWithSpecialRelationship("Friend")
+	var allFriendIDs:Array = ServiceLocator.safe_get_service(&"MainScene").RS.getAllCharIDsWithSpecialRelationship("Friend")
 	for theCharID in allFriendIDs:
 		if(isInvolved(theCharID)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(!thePawn || !thePawn.canBeInterrupted()):
 			continue
 		
-		var theDist:float = GM.world.simpleDistance(thePawn.getLocation(), ourLoc)
+		var theDist:float = ServiceLocator.safe_get_service(&"World").simpleDistance(thePawn.getLocation(), ourLoc)
 		if(theDist > getNearbyCheckDist()):
 			continue
 		result.append(theCharID)
@@ -853,11 +853,11 @@ func getFreeNemesisIDs(_addToContext:bool = true, _context:Dictionary = {}) -> A
 		return _context["FreeNemesis"]
 	
 	var result:Array = []
-	var allFriendIDs:Array = GM.main.RS.getAllCharIDsWithSpecialRelationship("Nemesis")
+	var allFriendIDs:Array = ServiceLocator.safe_get_service(&"MainScene").RS.getAllCharIDsWithSpecialRelationship("Nemesis")
 	for theCharID in allFriendIDs:
 		if(isInvolved(theCharID)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(thePawn && !thePawn.canBeInterrupted()):
 			continue
 		result.append(theCharID)
@@ -873,15 +873,15 @@ func getFreeOwnerIDsNearby(_addToContext:bool = true, _context:Dictionary = {}) 
 	
 	var ourLoc:String = getLocation()
 	
-	var allFriendIDs:Array = GM.main.RS.getAllCharIDsWithSpecialRelationship("SoftSlavery")
+	var allFriendIDs:Array = ServiceLocator.safe_get_service(&"MainScene").RS.getAllCharIDsWithSpecialRelationship("SoftSlavery")
 	for theCharID in allFriendIDs:
 		if(isInvolved(theCharID)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(!thePawn || !thePawn.canBeInterrupted()):
 			continue
 		
-		var theDist:float = GM.world.simpleDistance(thePawn.getLocation(), ourLoc)
+		var theDist:float = ServiceLocator.safe_get_service(&"World").simpleDistance(thePawn.getLocation(), ourLoc)
 		if(theDist > getNearbyCheckDist()):
 			continue
 		result.append(theCharID)
@@ -895,11 +895,11 @@ func getFreeOwnerIDs(_addToContext:bool = true, _context:Dictionary = {}) -> Arr
 		return _context["FreeOwners"]
 	
 	var result:Array = []
-	var allFriendIDs:Array = GM.main.RS.getAllCharIDsWithSpecialRelationship("SoftSlavery")
+	var allFriendIDs:Array = ServiceLocator.safe_get_service(&"MainScene").RS.getAllCharIDsWithSpecialRelationship("SoftSlavery")
 	for theCharID in allFriendIDs:
 		if(isInvolved(theCharID)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(thePawn && !thePawn.canBeInterrupted()):
 			continue
 		result.append(theCharID)

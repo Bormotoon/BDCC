@@ -31,7 +31,7 @@ func onLocked(_contex):
 		forcer = _contex["forcer"]
 	
 	if(forcer == null): # Pick a random char, whatever, shouldn't happen
-		forcer = GlobalRegistry.getCharacter(RNG.pick(GM.main.dynamicCharacters))
+		forcer = GlobalRegistry.getCharacter(RNG.pick(ServiceLocator.safe_get_service(&"MainScene").dynamicCharacters))
 	if(forcer == null):
 		forcer = GlobalRegistry.getCharacter("nova")
 	

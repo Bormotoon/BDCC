@@ -13,7 +13,7 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
@@ -23,15 +23,15 @@ func _reactInit():
 			setState("smartlocked")
 			return
 	
-	if(!GM.pc.hasBlockedHands()):
-		if(GM.pc.hasBoundArms()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			setState("awkwardtakeoff")
 		
 		item.resetLustState()
-		GM.pc.getInventory().removeEquippedItem(item)
-		GM.pc.getInventory().addItem(item)
-		GM.pc.updateAppearance()
-		GM.main.updateSubAnims()
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItem(item)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
+		ServiceLocator.safe_get_service(&"MainScene").updateSubAnims()
 	else:
 		setState("blockedhands")
 
@@ -41,7 +41,7 @@ func _run():
 			addButton("Continue", "Oops", "endthescene")
 			return
 		
-		var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("Error: no item found")
 		else:
@@ -59,7 +59,7 @@ func _run():
 			addButton("Continue", "Oops", "endthescene")
 			return
 		
-		var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("Error: no item found")
 		else:

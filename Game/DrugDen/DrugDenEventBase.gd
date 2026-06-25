@@ -49,9 +49,9 @@ func getMapIcon():
 func endEvent():
 	if(loc == ""):
 		return
-	if(GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return
-	GM.main.DrugDenRun.removeEventFromRoom(loc)
+	ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.removeEventFromRoom(loc)
 	loc = ""
 
 # These 3 functions are called on a 'ref' of an event, don't access any fields here!
@@ -71,7 +71,7 @@ func loadData(_data:Dictionary):
 	pass
 
 func getDrugDenFlag(theFlagID:String, defaultValue):
-	return GM.main.DrugDenRun.getFlag(theFlagID, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getFlag(theFlagID, defaultValue)
 
 func setDrugDenFlag(theFlagID:String, newVal):
-	return GM.main.DrugDenRun.setFlag(theFlagID, newVal)
+	return ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.setFlag(theFlagID, newVal)

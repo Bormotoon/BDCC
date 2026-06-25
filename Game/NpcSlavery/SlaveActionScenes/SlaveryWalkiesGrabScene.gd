@@ -33,7 +33,7 @@ func _run():
 		addButton("Cancel", "Never mind", "endthescene")
 		
 	if(state == "do_wander"):
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		playAnimation(StageScene.Duo, "stand", {npc=npcID, npcBodyState={leashedBy="pc"}})
 		
@@ -42,7 +42,7 @@ func _run():
 		addButton("Continue", "See what happens next", "start_wander", [""])
 	
 	if(state == "do_petwander"):
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		#playAnimation(StageScene.PuppyDuo, "walk", {npc=npcID, npcAction="walk", flipNPC=true, npcBodyState={naked=true, leashedBy="pc"}})
 		playAnimation(StageScene.PuppyDuo, "stand", {npc=npcID, flipNPC=true, npcBodyState={naked=true, leashedBy="pc"}})

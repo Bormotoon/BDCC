@@ -2,16 +2,16 @@ extends InmateGenerator
 class_name DrugDenJunkieGenerator
 
 func getCurrentDrugDenLevel() -> int:
-	if(GM.main == null || GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return -1
 	
-	return GM.main.DrugDenRun.getLevel()
+	return ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getLevel()
 
 func getCurrentDrugDenDifficulty() -> float:
-	if(GM.main == null || GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null || ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return 1.0
 	
-	return GM.main.DrugDenRun.getDifficultyFloat()
+	return ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getDifficultyFloat()
 
 func pickName(character:DynamicCharacter, _args = {}):
 	character.npcName = "Junkie"
@@ -112,8 +112,8 @@ func pickLevel(character:DynamicCharacter, _args = {}):
 			theDiff *= 3.0
 		
 		var pcLevel:int = 5
-		if(GM.pc != null && is_instance_valid(GM.pc)):
-			pcLevel = GM.pc.getLevel()
+		if(ServiceLocator.safe_get_service(&"Player") != null && is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
+			pcLevel = ServiceLocator.safe_get_service(&"Player").getLevel()
 			
 		var minLevel:int = Util.maxi(pcLevel - 5 + int(theDiff * 1.0), 1)
 		if(theDiff < 15.0):

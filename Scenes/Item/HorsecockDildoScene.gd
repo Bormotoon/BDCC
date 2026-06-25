@@ -39,10 +39,10 @@ func _run():
 
 		saynn("It instantly puts pressure onto your pleasure spot, causing a wave of strong sensations. You don't stop there though, you start bouncing on that rubber dildo, forcing it deeper down your "+str("pussy" if isPussy else "butt")+" each time.")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.penis} got so much harder now that the blood flows to your crotch, the tip is leaking precum a lot.")
 
-		if (!isPussy && GM.pc.hasReachableVagina()):
+		if (!isPussy && ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your neglected pussy is dripping arousal onto the toy's heavy-looking balls. The girth is enough to push onto your g-spot through the soft walls of your butt.")
 
 		saynn("It feels so big inside you, rogue moans escape from your lips as you use the rubber veiny shaft to stretch yourself out. Each time you bring yourself down onto it, a cute bump shows up on your belly, the outline of a cock.")
@@ -54,16 +54,16 @@ func _run():
 		playAnimation(StageScene.HorsecockDildoSex, "fast", {pcCum=true, bodyState={naked=true, hard=true}})
 		saynn("You proceed to ride the fuck out of that horsecock, raising your lower part of the body before bringing it down along the fat shaft with full force, letting the flared tip as deep as your body allows and then some.")
 
-		if (!isPussy && GM.pc.hasPenis()):
+		if (!isPussy && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("This toy is great, it smashes your prostate so much that your {pc.penis} is leaking pre all over the floor. You feel yourself getting super close, that feeling is rising faster the harder you ride that cock.")
 
 		else:
 			saynn("This toy is great, it smashes all the buttons of your body with ease. You feel yourself getting super close, that feeling is rising faster the harder you ride that cock.")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your whole body tenses up, you bring yourself down that shaft as deep as you can and arch your back, moaning passionately while your member shoots weak strings of {pc.cum} one after another. The wet orgasm is so strong that your eyes roll up.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your whole body tenses up, you bring yourself down that shaft as deep as you can and arch your back, moaning passionately while your pussy squirts all over the toy. The orgasm is so strong that your eyes roll up.")
 
 		else:
@@ -91,37 +91,37 @@ func _react(_action: String, _args):
 	if(_action == "ride_pussy"):
 		isPussy = true
 		setState("begin_riding")
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 		return
 
 	if(_action == "ride_anus"):
 		isPussy = false
 		setState("begin_riding")
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 		return
 
 	if(_action == "begin_penetration"):
 		processTime(60*5)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 		if(isPussy):
-			GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 50)
+			ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Vagina, 50)
 		else:
-			GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 50)
+			ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 50)
 
 	if(_action == "do_cum"):
 		processTime(5*60)
 		if(isPussy):
-			GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 50)
+			ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Vagina, 50)
 		else:
-			GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 50)
-		var item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+			ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 50)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item.getFluids() != null && !item.getFluids().isEmpty()):
 			hadContents = true
 			if(isPussy):
-				item.getFluids().transferTo(GM.pc.getBodypart(BodypartSlot.Vagina), 1.0)
+				item.getFluids().transferTo(ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Vagina), 1.0)
 			else:
-				item.getFluids().transferTo(GM.pc.getBodypart(BodypartSlot.Anus), 1.0)
-		GM.pc.orgasmFrom("pc")
+				item.getFluids().transferTo(ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus), 1.0)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "afterglow"):
 		processTime(6*60)

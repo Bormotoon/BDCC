@@ -11,23 +11,23 @@ func _initScene(_args = []):
 		uniqueItemID = _args[0]
 	
 func _reactInit():
-	if(GM.pc.hasBlockedHands() || GM.pc.hasBoundArms()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 		setState("cantdoit")
 		return
 	
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
-	if(GM.pc.getFluids().isEmpty()):
+	if(ServiceLocator.safe_get_service(&"Player").getFluids().isEmpty()):
 		setState("nofluidsonbody")
 		return
 	
 	processTime(10*60)
-	var amount = GM.pc.getFluids().transferTo(item, randf_range(0.1, 0.2))
+	var amount = ServiceLocator.safe_get_service(&"Player").getFluids().transferTo(item, randf_range(0.1, 0.2))
 	
 	addMessage("You managed to collect "+str(Util.roundF(amount))+" ml")
 
@@ -65,4 +65,4 @@ func loadData(data):
 	super.loadData(data)
 	
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)

@@ -50,7 +50,7 @@ func _run():
 	if(state == "petplay_strapon_choose"):
 		saynn("Pick which strapon you wanna use.")
 		
-		var strapons = GM.pc.getStrapons()
+		var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 		for strapon in strapons:
 			addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "petplay_strapon", [strapon])
 
@@ -429,13 +429,13 @@ func _run():
 		
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		endScene()
 		return
 
 	if(_action == "petplay_strapon"):
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action in ["fuck_vag_cuminside", "fuck_ass_cuminside", "fuck_strapon_cuminside", "fuck_strapon_cuminside_ass"]):
 		processTime(10*60)
@@ -453,7 +453,7 @@ func _react(_action: String, _args):
 			else:
 				npc.cummedInVaginaBy("pc")
 				npc.gotVaginaFuckedBy("pc")
-			GM.pc.orgasmFrom(npcID)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 		
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):
@@ -477,7 +477,7 @@ func _react(_action: String, _args):
 				npc.gotAnusFuckedBy("pc")
 			else:
 				npc.gotVaginaFuckedBy("pc")
-			GM.pc.orgasmFrom(npcID)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 		
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):

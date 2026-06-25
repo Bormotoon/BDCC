@@ -34,7 +34,7 @@ func setDatpackFlag(newdatpackid, newflagID):
 		if(cashedFlags.has(flagID)):
 			var flagData = cashedFlags[flagID]
 			flagType = flagData["type"]
-			flagValue = GM.main.getDatapackFlag(datapackID, flagID)
+			flagValue = ServiceLocator.safe_get_service(&"MainScene").getDatapackFlag(datapackID, flagID)
 			
 			$VBoxContainer/ScrollContainer/VBoxContainer/FlagLabel.text = str(flagID)+" ("+DatapackSceneVarType.getName(flagType)+")"
 
@@ -78,10 +78,10 @@ func setFlag(newmoduleID, newflagID):
 	var flagValue = null
 	savedFlagType = null
 	if(moduleID == null || moduleID == ""):
-		if(GM.main.flagsCache.has(flagID)):
-			var flagData = GM.main.flagsCache[flagID]
+		if(ServiceLocator.safe_get_service(&"MainScene").flagsCache.has(flagID)):
+			var flagData = ServiceLocator.safe_get_service(&"MainScene").flagsCache[flagID]
 			flagType = flagData["type"]
-			flagValue = GM.main.getFlag(flagID)
+			flagValue = ServiceLocator.safe_get_service(&"MainScene").getFlag(flagID)
 			
 			$VBoxContainer/ScrollContainer/VBoxContainer/FlagLabel.text = str(flagID)+" ("+FlagType.getVisibleName(flagType)+")"
 			
@@ -94,7 +94,7 @@ func setFlag(newmoduleID, newflagID):
 			if(cashedFlags.has(flagID)):
 				var flagData = cashedFlags[flagID]
 				flagType = flagData["type"]
-				flagValue = GM.main.getModuleFlag(newmoduleID, flagID)
+				flagValue = ServiceLocator.safe_get_service(&"MainScene").getModuleFlag(newmoduleID, flagID)
 				
 				$VBoxContainer/ScrollContainer/VBoxContainer/FlagLabel.text = str(flagID)+" ("+FlagType.getVisibleName(flagType)+")"
 

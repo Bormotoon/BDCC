@@ -34,7 +34,7 @@ var lastAimedRoomID:
 	get: return last_aimed_room_id
 
 func _ready() -> void:
-	GM.world = self
+	ServiceLocator.safe_get_service(&"World") = self
 	astar = AStar2D.new()
 	var map_floors = GlobalRegistry.getMapFloors()
 	for map_id in map_floors:
@@ -238,8 +238,8 @@ func aim_camera_and_set_loc_name(room_id: String) -> void:
 	set_location_name(room_id)
 
 func set_location_name(text: String) -> void:
-	if GM.ui and GM.ui.has_method("set_location_name"):
-		GM.ui.set_location_name(text)
+	if ServiceLocator.safe_get_service(&"UI") and ServiceLocator.safe_get_service(&"UI").has_method("set_location_name"):
+		ServiceLocator.safe_get_service(&"UI").set_location_name(text)
 
 func get_safe_from_pc_random_room(possible_rooms: Array, pc_location: String) -> String:
 	for room_id in possible_rooms:

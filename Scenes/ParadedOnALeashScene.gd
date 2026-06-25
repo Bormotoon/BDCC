@@ -19,7 +19,7 @@ func _initScene(_args = []):
 	if (_args.size() > 5):
 		pose = _args[5]
 	
-	path = GM.world.calculatePath(startLocation, endLocation)
+	path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 	if(path.size() <= 0):
 		endScene()
 
@@ -36,14 +36,14 @@ func _run():
 		if(path.size() > 0):
 			aimCameraAndSetLocName(path[0])
 		
-		var _roomInfo = GM.world.getRoomByID(path[0])
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(path[0])
 		
 		if(_roomInfo == null):
 			saynn("You're being walked on a leash by {leasher.name}")
 		else:
 			saynn("You're being walked on a leash by {leasher.name}")
 			
-			if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+			if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 				saynn(_roomInfo.getBlindDescription())
 			else:
 				saynn(_roomInfo.getDescription())
@@ -61,7 +61,7 @@ func _run():
 		addDisabledButtonAt(12, "Leashed", "Can't escape from the leash")
 	if (state == "skipwalk"):
 		aimCamera(endLocation)
-		GM.pc.setLocation(endLocation)
+		ServiceLocator.safe_get_service(&"Player").setLocation(endLocation)
 		
 		endScene()
 
@@ -78,11 +78,11 @@ func _react(_action: String, _args):
 		var nextLoc = path[0]
 		path.remove_at(0)
 		
-		if(!GM.world.hasRoomID(nextLoc)):
+		if(!ServiceLocator.safe_get_service(&"World").hasRoomID(nextLoc)):
 			endScene()
 			return
 		
-		GM.pc.setLocation(nextLoc)
+		ServiceLocator.safe_get_service(&"Player").setLocation(nextLoc)
 		if(path.size() == 0):
 			endScene()
 			return

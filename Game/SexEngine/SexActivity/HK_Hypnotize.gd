@@ -63,7 +63,7 @@ func getActions(_indx:int):
 		if(state in [""]):
 			addAction("stop", getStopScore(), "Stop hypnosis", "Stop messing with their head.")
 		if(state in [""]):
-			if((getDom() == GM.pc) && (isSubInTrance()) && (!(getSub().hasEffect(StatusEffect.ImplantedPosthypnoticTrigger)))):
+			if((getDom() == ServiceLocator.safe_get_service(&"Player")) && (isSubInTrance()) && (!(getSub().hasEffect(StatusEffect.ImplantedPosthypnoticTrigger)))):
 				addAction("implant_posthypno", 1.0, "Give Trigger", "Implant a devious posthypnotic trigger.")
 	
 	if(_indx == SUB_0):

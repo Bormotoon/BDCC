@@ -11,7 +11,7 @@ func checkOnFightStart(_npc, _context:Dictionary) -> Array:
 	if(theEnemyID == "pc"):
 		var ourID:String = _npc.getID()
 		
-		var theSpecialRelationship:SpecialRelationshipBase = GM.main.RS.getSpecialRelationship(ourID)
+		var theSpecialRelationship:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(ourID)
 		if(theSpecialRelationship && theSpecialRelationship.shouldHaveAuraOfDominance()):
 			return [true, []]
 	

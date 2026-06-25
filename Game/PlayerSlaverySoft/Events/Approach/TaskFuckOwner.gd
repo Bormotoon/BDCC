@@ -111,7 +111,7 @@ func madeDomUncon_do(_id:String, _args:Array):
 		var theOwnerID:String = getOwnerID()
 		endEvent()
 		stopRunner()
-		GM.main.IS.startInteraction("Unconscious", {main=theOwnerID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Unconscious", {main=theOwnerID})
 
 func failedSex_do(_id:String, _args:Array):
 	if(_id == "punish"):

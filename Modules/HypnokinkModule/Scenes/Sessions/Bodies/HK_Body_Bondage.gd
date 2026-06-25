@@ -63,7 +63,7 @@ func _run():
 		playAnimation(StageScene.DuoHypnoTied, "sit", {pc="vion", npc="pc", npcAction="kneel", flipNPC=true})
 		saynn("You helplessly stare ahead, shivering as Vion circles behind you.")
 		
-		if(GM.pc.hasTail()):
+		if(ServiceLocator.safe_get_service(&"Player").hasTail()):
 			saynn("[say=vion]One last thing, just in case you fancy yourself an escape artist. Let's tie this tail down, nice and secure.[/say]")
 
 			saynn("He pulls your tail taut, then forces it to lie flat against the ground.")
@@ -104,10 +104,10 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "after_intro"):
 		var cuff = GlobalRegistry.createItem("ImaginaryWristCuffs")
-		GM.pc.getInventory().forceEquipStoreOther(cuff)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(cuff)
 	if(_action == "after_wrist_cuffs"):
 		var cuff = GlobalRegistry.createItem("ImaginaryAnkleCuffs")
-		GM.pc.getInventory().forceEquipStoreOther(cuff)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(cuff)
 	if(_action == "after_ankle_cuffs"):
 		pass
 		
@@ -115,7 +115,7 @@ func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		endScene()
 		afterBody()
-		GM.pc.addSkillExperience(Skill.BDSM, 100, HK_Sessions.BodyBondage)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.BDSM, 100, HK_Sessions.BodyBondage)
 		return
 
 	setState(_action)

@@ -598,9 +598,9 @@ func addPoints(howMuch:int, showMessage:bool = true):
 	points += howMuch
 	if(showMessage):
 		if(howMuch > 0):
-			GM.main.addMessage("You received "+str(howMuch)+" science point"+("s" if howMuch != 1 else "")+"!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You received "+str(howMuch)+" science point"+("s" if howMuch != 1 else "")+"!")
 		if(howMuch < 0):
-			GM.main.addMessage("You lost "+str(-howMuch)+" science point"+("s" if howMuch != -1 else "")+"")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You lost "+str(-howMuch)+" science point"+("s" if howMuch != -1 else "")+"")
 		
 func getPoints() -> int:
 	return points
@@ -629,7 +629,7 @@ func doUnlockTF(TFID:String, givePoints:bool = true):
 		if(tfBase != null):
 			addPoints(tfBase.getUnlockPointsAward())
 	if(tfBase != null):
-		GM.main.addMessage(tfBase.getPillName()+" pills will now be visible to you in the wild.")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(tfBase.getPillName()+" pills will now be visible to you in the wild.")
 
 func doTestTF(TFID:String, givePoints:bool = true):
 	if(!unlockedTFs.has(TFID)):
@@ -644,7 +644,7 @@ func doTestTF(TFID:String, givePoints:bool = true):
 		if(tfBase != null):
 			addPoints(tfBase.getTestingPointsAward())
 	if(tfBase != null):
-		GM.main.addMessage("The database now contains full info about "+tfBase.getPillName()+" pills.")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("The database now contains full info about "+tfBase.getPillName()+" pills.")
 
 func doTestTFsOf(theChar:BaseCharacter):
 	var holder:TFHolder = theChar.getTFHolder()
@@ -734,7 +734,7 @@ func getTestedStrangePillsCount() -> int:
 	return testedTFs.size()
 
 func doesPCHaveUnknownStrangePills() -> bool:
-	for itemA in GM.pc.getInventory().getItems():
+	for itemA in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 		var item:ItemBase = itemA
 		if(item.id != "TFPill"):
 			continue
@@ -745,7 +745,7 @@ func doesPCHaveUnknownStrangePills() -> bool:
 
 func getPCUnknownStrangePills() -> Array:
 	var result:Array = []
-	for itemA in GM.pc.getInventory().getItems():
+	for itemA in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 		var item:ItemBase = itemA
 		if(item.id != "TFPill"):
 			continue
@@ -880,7 +880,7 @@ func getCraftableItems() -> Dictionary:
 	# It only makes sense to craft one neuro-link. Prevent the player from crafting many
 	# Yes, you can craft a second one if you store the first one in a stash. Keep it as a token item, idk
 	if(result.has("TentNeuroLink")):
-		if(GM.pc.getInventory().hasItemID("TentNeuroLink") || GM.main.getFlag("ElizaModule.tent_neurolink", false)):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("TentNeuroLink") || ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.tent_neurolink", false)):
 			result.erase("TentNeuroLink")
 	
 	return result
@@ -899,7 +899,7 @@ func getAmountOfUnlockedMainUpgrade() -> int:
 	return result
 
 func hasAccessToLab() -> bool:
-	if(GM.main.getFlag("ElizaModule.s2hap", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.s2hap", false)):
 		return true
 	return false
 
@@ -970,7 +970,7 @@ func doMilkCharacterCustom(theChar:BaseCharacter, bodypartSlot, howMuch:float = 
 			if(!fluidObj):
 				continue
 			var fluidAmStr:String = str(Util.roundF(fluidsGot[fluidType], 1))
-			GM.main.addMessage(fluidAmStr+" ml of "+fluidObj.getVisibleName()+" got collected from "+theChar.getName())
+			ServiceLocator.safe_get_service(&"MainScene").addMessage(fluidAmStr+" ml of "+fluidObj.getVisibleName()+" got collected from "+theChar.getName())
 	
 	if(theChar.isPlayer()):
 		if(bodypartSlot == BodypartSlot.Penis && totalFluid > 100.0):
@@ -995,7 +995,7 @@ func processMilkCharacterCustom(theChar, bodypartSlot, addBounty:bool = true, am
 	return totalFluid
 
 func processMilkPlayerCustom(bodypartSlot):
-	var fluidsGot:Dictionary = doMilkCharacterCustom(GM.pc, bodypartSlot, 1.0, true)
+	var fluidsGot:Dictionary = doMilkCharacterCustom(ServiceLocator.safe_get_service(&"Player"), bodypartSlot, 1.0, true)
 	var totalFluid:float = 0.0
 	for fluidType in fluidsGot:
 		totalFluid += fluidsGot[fluidType]
@@ -1008,7 +1008,7 @@ func processMilkPlayerBreasts(makeNipsSore:bool = true):
 	# add stimulation
 	var totalFluid:float = processMilkPlayerCustom(BodypartSlot.Breasts)
 	if(makeNipsSore):
-		GM.pc.makeNipplesSore()
+		ServiceLocator.safe_get_service(&"Player").makeNipplesSore()
 	return totalFluid
 
 func processMilkPlayerVagina():
@@ -1091,20 +1091,20 @@ func doPCShowerRaw(fluidObjs:Array):
 			if(theFluidOBJ == null):
 				continue
 			
-			var howMuchAdded:float = GM.main.SCI.addFluid(fluidID, fluidsByType[fluidID])
+			var howMuchAdded:float = ServiceLocator.safe_get_service(&"MainScene").SCI.addFluid(fluidID, fluidsByType[fluidID])
 			if(howMuchAdded > 0.0):
-				GM.main.addMessage(str(Util.roundF(howMuchAdded, 1))+" ml of "+theFluidOBJ.getVisibleName()+" was deposited into the fluids tanks.")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage(str(Util.roundF(howMuchAdded, 1))+" ml of "+theFluidOBJ.getVisibleName()+" was deposited into the fluids tanks.")
 		fluidObj.clear()
 
 func doPCShower():
-	doPCShowerRaw([GM.pc.getFluids()])
-	GM.pc.afterTakingAShower()
+	doPCShowerRaw([ServiceLocator.safe_get_service(&"Player").getFluids()])
+	ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 
 func doPCShowerInside():
 	var fluidObjs:Array = []
 	for bodypartSlot in [BodypartSlot.Head, BodypartSlot.Vagina, BodypartSlot.Anus]:
-		if(GM.pc.hasBodypart(bodypartSlot)):
-			fluidObjs.append(GM.pc.getBodypart(bodypartSlot).getFluids())
+		if(ServiceLocator.safe_get_service(&"Player").hasBodypart(bodypartSlot)):
+			fluidObjs.append(ServiceLocator.safe_get_service(&"Player").getBodypart(bodypartSlot).getFluids())
 	doPCShowerRaw(fluidObjs)
 
 func doNPCShower(_npc):
@@ -1127,7 +1127,7 @@ func findRandomNpcIDForStrangeDrug() -> String:
 		if(RNG.chance(5)):
 			poolID = RNG.pick([CharacterPool.Guards, CharacterPool.Nurses, CharacterPool.Nurses, CharacterPool.Engineers])
 		
-		var poolChars = GM.main.getDynamicCharacterIDsFromPool(poolID)
+		var poolChars = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(poolID)
 		if(poolChars.is_empty()):
 			continue
 			

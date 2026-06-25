@@ -10,8 +10,8 @@ static func create(theType:String, theSourceID:String, theTargetID:String, theDa
 	
 	# Hacky, yes
 	# But it's the best I can do
-	if(GM.main != null):
-		for scene in GM.main.sceneStack:
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		for scene in ServiceLocator.safe_get_service(&"MainScene").sceneStack:
 			if(scene.sceneID == "GenericSexScene"):
 				newEvent.isSexEngine = true
 				newEvent.sexEngine = scene.sexEngine

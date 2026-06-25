@@ -12,23 +12,23 @@ func react(_triggerID, _args):
 		return
 	var isLookingForTrouble = (_triggerID == Trigger.PCLookingForTrouble)
 	
-	if(GM.main.getFlag("ExposureEventCD", 0) > 0 && !isLookingForTrouble):
-		GM.main.increaseFlag("ExposureEventCD", -1)
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("ExposureEventCD", 0) > 0 && !isLookingForTrouble):
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("ExposureEventCD", -1)
 		return
 	
-	if(GM.pc.hasEffect(StatusEffect.Exposed) || isLookingForTrouble):
-		if(WorldPopulation.Inmates in GM.pc.getLocationPopulation()):
-			var baseChance = 2.0 + min(5.0, 2.0*GM.pc.getExposure())
-			baseChance *= GM.pc.getEncounterChanceModifierInmates()
+	if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Exposed) || isLookingForTrouble):
+		if(WorldPopulation.Inmates in ServiceLocator.safe_get_service(&"Player").getLocationPopulation()):
+			var baseChance = 2.0 + min(5.0, 2.0*ServiceLocator.safe_get_service(&"Player").getExposure())
+			baseChance *= ServiceLocator.safe_get_service(&"Player").getEncounterChanceModifierInmates()
 			
 			if(RNG.chance(baseChance) || isLookingForTrouble):
-				GM.main.setFlag("ExposureEventCD", randi_range(5, 10))
+				ServiceLocator.safe_get_service(&"MainScene").setFlag("ExposureEventCD", randi_range(5, 10))
 				
-				var encounterLevel = randi_range(0, Util.maxi(0, GM.pc.getLevel() + randi_range(-1, 1)))
+				var encounterLevel = randi_range(0, Util.maxi(0, ServiceLocator.safe_get_service(&"Player").getLevel() + randi_range(-1, 1)))
 				encounterLevel = Util.maxi(encounterLevel, 0)
 				encounterLevel = Util.mini(encounterLevel, 15+randi_range(-1, 1))
 				
-				return GM.ES.triggerReact(Trigger.HighExposureInmateEvent, [encounterLevel])
+				return ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.HighExposureInmateEvent, [encounterLevel])
 
 		return false
 

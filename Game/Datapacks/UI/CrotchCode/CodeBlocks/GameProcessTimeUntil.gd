@@ -21,8 +21,8 @@ func execute(_contex:CodeContex):
 		throwError(_contex, "Argument must be a number, got "+str(amValue)+" instead")
 		return
 	
-	if(GM.main != null && is_instance_valid(GM.main)):
-		GM.main.processTimeUntil(amValue)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene"))):
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(amValue)
 
 func getTemplate():
 	return [

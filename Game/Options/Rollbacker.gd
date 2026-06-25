@@ -56,7 +56,7 @@ func pushRollbackState_THREAD():
 		rollbackStates.pop_front()
 			
 func canRollback():
-	if(GM.main != null && !GM.main.canRollback()):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && !ServiceLocator.safe_get_service(&"MainScene").canRollback()):
 		return false
 	if(rollbackStates.size() > 0):
 		return true

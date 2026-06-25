@@ -29,7 +29,7 @@ func setLocationName(newname: String):
 		compact_label.text = timeLabel.text+". "+locationLabel.text
 
 func onTimePassed(_secondsPassed):
-	timeLabel.text = GM.main.getVisibleTime()
+	timeLabel.text = ServiceLocator.safe_get_service(&"MainScene").getVisibleTime()
 	if(compactMode):
 		compact_label.text = timeLabel.text+". "+locationLabel.text
 

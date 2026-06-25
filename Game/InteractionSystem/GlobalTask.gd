@@ -43,7 +43,7 @@ func is_assigned(pawn: CharacterPawn) -> bool:
 func get_all_assigned_pawns() -> Array:
 	var result: Array = []
 	for pawn_id in assigned:
-		var pawn: CharacterPawn = GM.main.IS.getPawn(pawn_id)
+		var pawn: CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawn_id)
 		if pawn:
 			result.append(pawn)
 	return result

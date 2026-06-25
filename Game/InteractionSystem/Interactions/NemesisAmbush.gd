@@ -22,7 +22,7 @@ func shouldLookForExtras() -> bool:
 
 func findExtraPawn() -> CharacterPawn:
 	var pawn = getRolePawn(ROLE_MAIN)
-	var allPawnIDs = GM.main.IS.getPawnIDsNear(getLocation(), 1, 1)
+	var allPawnIDs = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(getLocation(), 1, 1)
 	allPawnIDs.shuffle()
 	for otherPawnID in allPawnIDs:
 		var otherPawn = getPawn(otherPawnID)
@@ -59,7 +59,7 @@ func tryAutoInvitePawn():
 			inviteExtra(thePawn)
 
 func calcWillJoin(_mainPawn:CharacterPawn, _newPawn:CharacterPawn) -> bool:
-	var pcPawn := GM.main.IS.getPawn("pc")
+	var pcPawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(!pcPawn):
 		return false
 	var pcAffection:float = _newPawn.getAffection("pc")
@@ -70,7 +70,7 @@ func calcWillJoin(_mainPawn:CharacterPawn, _newPawn:CharacterPawn) -> bool:
 	return RNG.chance(joinChance)
 
 func canAmbush() -> bool:
-	if(state == "" && hasExtra1 && hasExtra2):# && GM.world.simpleRingDistance(getLocation(), GM.pc.getLocation()) <= 5):
+	if(state == "" && hasExtra1 && hasExtra2):# && ServiceLocator.safe_get_service(&"World").simpleRingDistance(getLocation(), ServiceLocator.safe_get_service(&"Player").getLocation()) <= 5):
 		return true
 	return false
 
@@ -89,20 +89,20 @@ func init_text():
 func shouldJustWander() -> bool:
 	if(shouldLookForExtras()):
 		return true
-	var pcPawn := GM.main.IS.getPawn("pc")
+	var pcPawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(!pcPawn || !pcPawn.canBeInterrupted()):
 		return true
 	return false
 
 func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "go"):
-		if(GM.main.isVeryLate() || getRolePawn(ROLE_MAIN).tiredness >= 1.0):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate() || getRolePawn(ROLE_MAIN).tiredness >= 1.0):
 			stopMe()
 			return
 		
 		if(shouldJustWander()):
 			if(targetLoc == ""):
-				targetLoc = RNG.pick(GM.world.getZoneRooms("poi", [
+				targetLoc = RNG.pick(ServiceLocator.safe_get_service(&"World").getZoneRooms("poi", [
 					"cellblock_nearcells",
 					"main_punishment_spot",
 					"main_laundry",
@@ -125,14 +125,14 @@ func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 					doInvolvePawn(ROLE_OFFER, thePawn)
 					setState("offer", ROLE_OFFER, ROLE_MAIN)
 		else:
-			var leaveTarget:String = GM.pc.getLocation()
-	#		if(GM.main.IS.hasPawn("pc") && GM.main.IS.getPawn("pc").canBeInterrupted()):
+			var leaveTarget:String = ServiceLocator.safe_get_service(&"Player").getLocation()
+	#		if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn("pc") && ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc").canBeInterrupted()):
 	#			if(getLocation() == leaveTarget):
 	#				completeGoal()
-	#				GM.main.runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
-			var room = GM.world.getRoomByID(leaveTarget)
+	#				ServiceLocator.safe_get_service(&"MainScene").runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
+			var room = ServiceLocator.safe_get_service(&"World").getRoomByID(leaveTarget)
 			if(room != null && !room.isOfflimitsForInmates()):
-				var theDist := GM.world.simpleRingDistance(getLocation(), GM.pc.getLocation())
+				var theDist := ServiceLocator.safe_get_service(&"World").simpleRingDistance(getLocation(), ServiceLocator.safe_get_service(&"Player").getLocation())
 				if(theDist <= 2.0):
 					preparation += randf_range(0.0, 0.1)
 					if(preparation >= 1.0 && !goingAfter && RNG.chance(10)):
@@ -141,7 +141,7 @@ func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 					goTowards(leaveTarget)
 					if(RNG.chance(30)):
 						goTowards(leaveTarget)
-					if(getLocation() == GM.pc.getLocation()):
+					if(getLocation() == ServiceLocator.safe_get_service(&"Player").getLocation()):
 						stopMe()
 						runScene("NemesisAmbushScene", ["normal", getRoleID(ROLE_MAIN), getRoleID(ROLE_EXTRA1), getRoleID(ROLE_EXTRA2)])
 						return

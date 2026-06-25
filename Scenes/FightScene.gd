@@ -32,12 +32,12 @@ func _initScene(_args = []):
 		
 	enemyAIStrategy = enemyCharacter.getAiStrategy(battleName)
 	enemyAIStrategy.battleName = battleName
-	enemyAIStrategy.onBattleStart(GM.pc)
+	enemyAIStrategy.onBattleStart(ServiceLocator.safe_get_service(&"Player"))
 	
 	enemyCharacter.onFightStart(getContexForEnemy())
-	GM.pc.onFightStart(getContexForPC())
-	if(GM.pc.getLustCombatState() != null):
-		GM.pc.getLustCombatState().setEnemyID(enemyID)
+	ServiceLocator.safe_get_service(&"Player").onFightStart(getContexForPC())
+	if(ServiceLocator.safe_get_service(&"Player").getLustCombatState() != null):
+		ServiceLocator.safe_get_service(&"Player").getLustCombatState().setEnemyID(enemyID)
 
 func _run():
 	if(state == ""):
@@ -74,7 +74,7 @@ func _run():
 			else:
 				sayn("- Nothing yet")
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		addLustActionsButtons(lustCombatState, lustCombatState.getActionsSorted())
 		
 		setPlayerAsAttacker()
@@ -95,13 +95,13 @@ func _run():
 	if(state == "inventory"):
 		saynn("Pick the item to use")
 	
-		var playerInventory = GM.pc.getInventory()
+		var playerInventory = ServiceLocator.safe_get_service(&"Player").getInventory()
 		var usableItems = playerInventory.getAllCombatUsableItems()
 		
 		for item in usableItems:
 			var intoxic = item.addsIntoxicationToPC()
 			
-			if(intoxic <= 0 || GM.pc.canIntoxicateMore(intoxic)):
+			if(intoxic <= 0 || ServiceLocator.safe_get_service(&"Player").canIntoxicateMore(intoxic)):
 				addButton(item.getVisibleName(), item.getCombatDescription(), "useitem", [item])
 			else:
 				addDisabledButton(item.getVisibleName(), "[color=red]Too intoxicated to use this[/color]\n"+item.getCombatDescription())
@@ -111,7 +111,7 @@ func _run():
 	if(state == "bdsm_attacks"):
 		saynn("Pick what restraint you wanna force onto your enemy")
 		
-		if(!GM.pc.isBlindfolded() || GM.pc.canHandleBlindness()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded() || ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 			for item in enemyCharacter.getInventory().getEquppedRestraints():
 				var restraintData: RestraintData = item.getRestraintData()
 				
@@ -136,9 +136,9 @@ func _run():
 		var usableItems
 		var countsByUniqueRestraint = {}
 		if(enemyCharacter.isDynamicCharacter()):
-			usableItems = GM.pc.getInventory().getAllCombatUsableRestraints()
+			usableItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllCombatUsableRestraints()
 		else:
-			usableItems = GM.pc.getInventory().getAllCombatUsableRestraintsForStaticNpc()
+			usableItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllCombatUsableRestraintsForStaticNpc()
 		var countsByItemID:Dictionary = {}
 		var hasAtLeastOneUsableByItemID:Dictionary = {}
 		if(isInCategory):
@@ -192,7 +192,7 @@ func _run():
 				var restraintData:RestraintData = item.getRestraintData()
 				if(restraintData == null):
 					continue
-				var pcAccuracy = GM.pc.getRestraintForcingSuccessChanceMod()
+				var pcAccuracy = ServiceLocator.safe_get_service(&"Player").getRestraintForcingSuccessChanceMod()
 					
 				var chanceToForce = pcAccuracy
 				if(enemyCharacter.getStamina() > 0):
@@ -229,9 +229,9 @@ func _run():
 	if(state == "fighting"):
 		saynn(enemyCharacter.getFightState(battleName))
 		
-		saynn(GM.pc.getFightState(battleName))
+		saynn(ServiceLocator.safe_get_service(&"Player").getFightState(battleName))
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		for activity in lustCombatState.getAllText():
 			sayn(activity)
 			
@@ -239,19 +239,19 @@ func _run():
 		var attack: Attack = GlobalRegistry.getAttack(savedAIAttackID)
 		
 		setEnemyAsAttacker()
-		if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness() && !attack.canSeeAnticipationTextWhenBlind()):
-			saynn(GM.ui.processString(attack.canBlindAnticipationText(enemyCharacter, GM.pc)))
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness() && !attack.canSeeAnticipationTextWhenBlind()):
+			saynn(ServiceLocator.safe_get_service(&"UI").processString(attack.canBlindAnticipationText(enemyCharacter, ServiceLocator.safe_get_service(&"Player"))))
 		else:
-			saynn(GM.ui.processString(attack.getAnticipationText(enemyCharacter, GM.pc)))
+			saynn(ServiceLocator.safe_get_service(&"UI").processString(attack.getAnticipationText(enemyCharacter, ServiceLocator.safe_get_service(&"Player"))))
 		addButton("Do nothing", "You don't counter the attack in any way", "dodge_donothing")
 		addButtonWithChecks("Dodge", "You dodge a physical attack completely spending 30 stamina in the process", "dodge_dodge", [], [ButtonChecks.HasStamina, ButtonChecks.NotCollapsed])
-		addButtonWithChecks("Block", "You gain "+str(GM.pc.getBlockArmor())+" additional physical armor against the attack while spending 15 stamina", "dodge_block", [], [ButtonChecks.HasStamina])
-		addButtonWithChecks("Defocus", "You try to distract yourself from the fight, gaining "+str(GM.pc.getDefocusArmor())+" lust armor and spending 15 stamina", "dodge_defocus", [], [ButtonChecks.HasStamina])
-		if(GM.pc.hasPerk(Perk.CombatDoubleDown)):
+		addButtonWithChecks("Block", "You gain "+str(ServiceLocator.safe_get_service(&"Player").getBlockArmor())+" additional physical armor against the attack while spending 15 stamina", "dodge_block", [], [ButtonChecks.HasStamina])
+		addButtonWithChecks("Defocus", "You try to distract yourself from the fight, gaining "+str(ServiceLocator.safe_get_service(&"Player").getDefocusArmor())+" lust armor and spending 15 stamina", "dodge_defocus", [], [ButtonChecks.HasStamina])
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.CombatDoubleDown)):
 			if(lastPlayerAttackData != null):
 				var pcAttack:Attack = GlobalRegistry.getAttack(lastPlayerAttackData["attackID"])
 				
-				if(pcAttack.canUse(GM.pc, enemyCharacter, lastPlayerAttackData)):
+				if(pcAttack.canUse(ServiceLocator.safe_get_service(&"Player"), enemyCharacter, lastPlayerAttackData)):
 					addButtonWithChecks("Double down", "Spend 10 stamina to do the same attack that you did a second time before the enemy attacks you", "dodge_doubledown", [], [ButtonChecks.HasStamina])
 				else:
 					addDisabledButton("Double down", "You can't double down on this attack")
@@ -268,27 +268,27 @@ func _run():
 			addDisabledButton("Special", "You don't know any special moves")
 		
 		#addButton("Inspect", "Look closer", "inspect")
-		if(GM.pc.getInventory().hasRemovableRestraints()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 			addButtonWithChecks("Struggle", "Struggle against your restraints", "struggle", [], [ButtonChecks.NotStunned])
 		else:
 			addDisabledButton("Struggle", "You don't have any restraints that you can struggle out of")
 		addButton("Wait", "Do nothing", "wait")
 		
-		#if(GM.pc.getInventory().getAllCombatUsableItems().size() > 0):
+		#if(ServiceLocator.safe_get_service(&"Player").getInventory().getAllCombatUsableItems().size() > 0):
 		#	addButton("Inventory", "Use an item fron your inventory", "inventory")
 		#else:
 		#	addDisabledButton("Inventory", "You don't have anything you can use in combat")
 		addButton("Inventory", "Look at your inventory", "openinventory")
 		
-		if(GM.pc.hasEffect(StatusEffect.Collapsed)):
-			if(GM.pc.canStandUpCombat()):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Collapsed)):
+			if(ServiceLocator.safe_get_service(&"Player").canStandUpCombat()):
 				addButtonWithChecks("Get up", "spends the whole turn", "getup", [], [ButtonChecks.NotStunned])
 			else:
 				addDisabledButton("Get up", "You can't stand up now")
 		else:
 			addDisabledButton("Get up", "You're already standing")
 		
-		if(GM.pc.hasPerk(Perk.BDSMRigger)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BDSMRigger)):
 			addButtonWithChecks("Bondage", "Pick which restraint you wanna try to force onto your enemy", "bdsm_attacks", [], [ButtonChecks.NotHandsBlocked, ButtonChecks.NotArmsRestrained])
 		
 		addButtonAt(14, "Submit", "Give up", "submit")
@@ -305,7 +305,7 @@ func _run():
 		
 		saynn("You're about to cum..")
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		addLustActionsButtons(lustCombatState, lustCombatState.getOrgasmActionsSorted())
 		
 	if(state == "lustCombatAfterCame"):
@@ -348,7 +348,7 @@ func _react(_action: String, _args):
 		
 		setPlayerAsAttacker()
 		var item = _args[0]
-		whatPlayerDid += GM.ui.processString(item.useInCombatWithBuffs(GM.pc, enemyCharacter))
+		whatPlayerDid += ServiceLocator.safe_get_service(&"UI").processString(item.useInCombatWithBuffs(ServiceLocator.safe_get_service(&"Player"), enemyCharacter))
 		whatEnemyDid += aiTurn()
 
 		afterTurnChecks()
@@ -372,7 +372,7 @@ func _react(_action: String, _args):
 		
 		setPlayerAsAttacker()
 		
-		var accuracy = GM.pc.getRestraintForcingSuccessChanceMod()
+		var accuracy = ServiceLocator.safe_get_service(&"Player").getRestraintForcingSuccessChanceMod()
 		if(!RNG.chance(accuracy * 100.0)):
 			whatPlayerDid += "You tried to force a restraint onto your enemy but you missed!"
 		else:
@@ -382,16 +382,16 @@ func _react(_action: String, _args):
 			
 			if(!RNG.chance(finalSuccessChance * 100.0) && enemyCharacter.getStamina() > 0):
 				enemyCharacter.addStamina(-10)
-				whatPlayerDid += GM.ui.processString("You try to force a restraint onto {receiver.name} but {receiver.he} avoided your attempt!")
+				whatPlayerDid += ServiceLocator.safe_get_service(&"UI").processString("You try to force a restraint onto {receiver.name} but {receiver.he} avoided your attempt!")
 			
 				playAnimation(StageScene.Duo, "", {npc=enemyID, npcAction="dodge"})
 			else:
-				GM.pc.addSkillExperience(Skill.BDSM, restraintData.getLevel() * 3)
-				whatPlayerDid += GM.ui.processString(item.getForcedOnMessage(false))
+				ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.BDSM, restraintData.getLevel() * 3)
+				whatPlayerDid += ServiceLocator.safe_get_service(&"UI").processString(item.getForcedOnMessage(false))
 				
 				restraintIdsForcedByPC.append(item.getUniqueID())
-				GM.pc.getInventory().removeItem(item)
-				enemyCharacter.getInventory().forceEquipByRemoveOther(item, GM.pc)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
+				enemyCharacter.getInventory().forceEquipByRemoveOther(item, ServiceLocator.safe_get_service(&"Player"))
 				enemyCharacter.getBuffsHolder().calculateBuffs()
 				#enemyCharacter.updateNonBattleEffects()
 				
@@ -433,19 +433,19 @@ func _react(_action: String, _args):
 			whatPlayerDid = "You decide to let the attack happen"
 		if(_action == "dodge_dodge"):
 			whatPlayerDid = "You focus on enemy's next attack and try to dodge it"
-			GM.pc.setFightingStateDodging()
-			GM.pc.addStamina(-30)
+			ServiceLocator.safe_get_service(&"Player").setFightingStateDodging()
+			ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 		if(_action == "dodge_block"):
 			whatPlayerDid = "You try to block the next attack"
-			GM.pc.setFightingStateBlocking()
-			GM.pc.addStamina(-15)
+			ServiceLocator.safe_get_service(&"Player").setFightingStateBlocking()
+			ServiceLocator.safe_get_service(&"Player").addStamina(-15)
 		if(_action == "dodge_defocus"):
 			whatPlayerDid = "You try to get distracted"
-			GM.pc.setFightingStateDefocusing()
-			GM.pc.addStamina(-15)
+			ServiceLocator.safe_get_service(&"Player").setFightingStateDefocusing()
+			ServiceLocator.safe_get_service(&"Player").addStamina(-15)
 		if(_action == "dodge_doubledown"):
 			whatPlayerDid = doPlayerAttack(lastPlayerAttackData)
-			GM.pc.addStamina(-10)
+			ServiceLocator.safe_get_service(&"Player").addStamina(-10)
 		
 			var won = checkEnd()
 			if(won == "lost"):
@@ -463,15 +463,15 @@ func _react(_action: String, _args):
 			
 		setEnemyAsAttacker()
 		
-		var result = attack.doAttack(enemyCharacter, GM.pc)
-		result["text"] = GM.ui.processString(result["text"])
+		var result = attack.doAttack(enemyCharacter, ServiceLocator.safe_get_service(&"Player"))
+		result["text"] = ServiceLocator.safe_get_service(&"UI").processString(result["text"])
 		
 		playAnimation(StageScene.Duo, result["receiverAnimation"], {npc=enemyID, npcAction=result["attackerAnimation"]})
 		
 		whatEnemyDid += result["text"]
 		savedAIAttackID = ""
 		
-		GM.pc.setFightingStateNormal()
+		ServiceLocator.safe_get_service(&"Player").setFightingStateNormal()
 		
 		afterTurnChecks()
 		return
@@ -486,7 +486,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "endbattle"):
 		if(restraintIdsForcedByPC.size() > 0 && _args.size() > 0 && _args[0]):
-			#var recoverChance = GM.pc.getBuffsHolder().getCustom(BuffAttribute.RestraintRecovery) * 100.0
+			#var recoverChance = ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getCustom(BuffAttribute.RestraintRecovery) * 100.0
 			
 			for itemUniqueID in restraintIdsForcedByPC:
 				var item:ItemBase = enemyCharacter.getInventory().getItemByUniqueID(itemUniqueID)
@@ -501,7 +501,7 @@ func _react(_action: String, _args):
 					if(restraintData != null):
 						restraintData.onStruggleRemoval()
 					
-					GM.pc.getInventory().addItem(item)
+					ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 					addMessage("You recovered "+item.getAStackName())
 				else:
 					addMessage("You lost "+item.getAStackName())
@@ -509,7 +509,7 @@ func _react(_action: String, _args):
 				enemyCharacter.resetEquipment()
 		
 		enemyCharacter.onFightEnd(getContexForEnemy())
-		GM.pc.onFightEnd(getContexForPC())
+		ServiceLocator.safe_get_service(&"Player").onFightEnd(getContexForPC())
 		
 		if(battleState == "win"):
 			enemyCharacter.addFightExperienceAuto("pc", false)
@@ -521,7 +521,7 @@ func _react(_action: String, _args):
 		if(battleState == "win"):
 			var loot = enemyCharacter.getLoot(battleName)
 			
-			if(GM.pc.hasKeyholderLocksFrom(enemyID) && !GM.pc.isSlaveTo(enemyID)):
+			if(ServiceLocator.safe_get_service(&"Player").hasKeyholderLocksFrom(enemyID) && !ServiceLocator.safe_get_service(&"Player").isSlaveTo(enemyID)):
 				if(!loot.has("items")):
 					loot["items"] = []
 				var theKey = GlobalRegistry.createItem("KeyholderKeyUnlock")
@@ -543,16 +543,16 @@ func _react(_action: String, _args):
 			beforeTurnChecks()
 		setPlayerAsAttacker()
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		
 		var result = lustCombatState.doAction(actionData)
-		whatPlayerDid = GM.ui.processString(result["text"]).trim_suffix("\n\n")
+		whatPlayerDid = ServiceLocator.safe_get_service(&"UI").processString(result["text"]).trim_suffix("\n\n")
 		if("lust" in result):
-			GM.pc.addLust(result["lust"])
-			if(GM.pc.getLustLevel() >= 1.0 && ("cantCum" in result) && result["cantCum"]):
-				GM.pc.addLust(-1)
+			ServiceLocator.safe_get_service(&"Player").addLust(result["lust"])
+			if(ServiceLocator.safe_get_service(&"Player").getLustLevel() >= 1.0 && ("cantCum" in result) && result["cantCum"]):
+				ServiceLocator.safe_get_service(&"Player").addLust(-1)
 		if("pain" in result):
-			GM.pc.addPain(result["pain"])
+			ServiceLocator.safe_get_service(&"Player").addPain(result["pain"])
 		
 		if("lustInterests" in result):
 			var actionLustInterests = result["lustInterests"]
@@ -561,18 +561,18 @@ func _react(_action: String, _args):
 				isTease = true
 			
 			var maxUnlocks = 1
-			if(GM.pc.hasPerk(Perk.SexBetterTease)):
+			if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.SexBetterTease)):
 				maxUnlocks = 2
 			
 			var lustInterests: LustInterests = enemyCharacter.getLustInterests()
-			var teaseData = lustInterests.reactLustAction(GM.pc, actionLustInterests, maxUnlocks)
+			var teaseData = lustInterests.reactLustAction(ServiceLocator.safe_get_service(&"Player"), actionLustInterests, maxUnlocks)
 			#var damageMult = teaseData["value"]
 			var positiveDamage = teaseData["positiveValue"]
 			var negativeDamage = teaseData["negativeValue"]
 			var learned = teaseData["learned"]
 			#var alreadyKnownTopics = teaseData["alreadyKnownTopics"]
 			
-			var pcDamageMult = GM.pc.getDamageMultiplier(DamageType.Lust) + 1.0
+			var pcDamageMult = ServiceLocator.safe_get_service(&"Player").getDamageMultiplier(DamageType.Lust) + 1.0
 			var damageBalanceMod = negativeDamage/pcDamageMult + positiveDamage*pcDamageMult
 			if(damageBalanceMod > 0.0):
 				damageBalanceMod = pow(damageBalanceMod, 0.7)
@@ -590,7 +590,7 @@ func _react(_action: String, _args):
 			var damage = enemyCharacter.receiveDamage(DamageType.Lust, int(round(theDamage)))
 			
 			whatPlayerDid += "\n\n"
-			whatPlayerDid += enemyCharacter.lustDamageReaction(damage, GM.pc)
+			whatPlayerDid += enemyCharacter.lustDamageReaction(damage, ServiceLocator.safe_get_service(&"Player"))
 			whatPlayerDid += "\n"
 			whatPlayerDid += extraText + enemyCharacter.getName()+" received [color="+DamageType.getColorString(DamageType.Lust)+"]"+str(damage)+" "+DamageType.getBattleName(DamageType.Lust)+"[/color]"
 			
@@ -609,11 +609,11 @@ func _react(_action: String, _args):
 		#	return
 		
 		if("lostBattle" in result):
-			GM.pc.addLust(GM.pc.lustThreshold())
+			ServiceLocator.safe_get_service(&"Player").addLust(ServiceLocator.safe_get_service(&"Player").lustThreshold())
 			afterTurnChecks()
 			return
 			
-		if(GM.pc.getLustLevel() >= 1.0):
+		if(ServiceLocator.safe_get_service(&"Player").getLustLevel() >= 1.0):
 			setState("lustCombatAboutToCum")
 			#afterTurnChecks()
 			return
@@ -654,14 +654,14 @@ func doPlayerAttack(attackData):
 	
 	setPlayerAsAttacker()
 	
-	var result = attack.doAttack(GM.pc, enemyCharacter, attackData)
-	result["text"] = GM.ui.processString(result["text"])
+	var result = attack.doAttack(ServiceLocator.safe_get_service(&"Player"), enemyCharacter, attackData)
+	result["text"] = ServiceLocator.safe_get_service(&"UI").processString(result["text"])
 	
 	playAnimation(StageScene.Duo, result["attackerAnimation"], {npc=enemyID, npcAction=result["receiverAnimation"]})
 	
 	var expData = attack.getExperience()
 	for expAdd in expData:
-		GM.pc.addSkillExperience(expAdd[0], expAdd[1])
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(expAdd[0], expAdd[1])
 	
 	return result["text"]
 	
@@ -672,11 +672,11 @@ func aiTurn():
 	setEnemyAsAttacker()
 	var enemyText = "It's "+enemyCharacter.getName()+"'s turn\n"
 	if(enemyAIStrategy != null):
-		var strategyText = enemyAIStrategy.turnPassed(GM.pc)
+		var strategyText = enemyAIStrategy.turnPassed(ServiceLocator.safe_get_service(&"Player"))
 		if(strategyText != null && strategyText != ""):
-			enemyText += GM.ui.processString(strategyText) + "\n\n"
+			enemyText += ServiceLocator.safe_get_service(&"UI").processString(strategyText) + "\n\n"
 	
-	var actionData = enemyAIStrategy.getNextActionFinal(GM.pc)
+	var actionData = enemyAIStrategy.getNextActionFinal(ServiceLocator.safe_get_service(&"Player"))
 	var actionType = actionData["action"]
 	
 	if(actionType == "struggle"):
@@ -711,7 +711,7 @@ func aiTurn():
 		if(struggleData.has("stamina") && struggleData["stamina"] != 0):
 			addStamina = struggleData["stamina"]
 		
-		var struggleText = GM.ui.processString(struggleData["text"], {"user": enemyID})
+		var struggleText = ServiceLocator.safe_get_service(&"UI").processString(struggleData["text"], {"user": enemyID})
 		enemyText += struggleText + "\n\n"
 		
 		if(damage > 0.0):
@@ -742,9 +742,9 @@ func aiTurn():
 			restraintData.onStruggleRemoval()
 			enemyCharacter.getInventory().removeEquippedItem(item)
 			
-			var recoverChance = GM.pc.getBuffsHolder().getCustom(BuffAttribute.RestraintRecovery) * 100.0
+			var recoverChance = ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getCustom(BuffAttribute.RestraintRecovery) * 100.0
 			if(!restraintData.alwaysBreaksWhenStruggledOutOf() && RNG.chance(recoverChance)):
-				GM.pc.getInventory().addItem(item)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 				addMessage("You recovered "+item.getAStackName())
 			#elif(recoverChance > 0):
 			#	addMessage("You lost "+item.getAStackName())
@@ -767,10 +767,10 @@ func aiTurn():
 			attackID = "blunderAttack"
 			attack = GlobalRegistry.getAttack(attackID)
 			
-		if(!attack.canBeDodgedByPlayer(enemyCharacter, GM.pc)):	
+		if(!attack.canBeDodgedByPlayer(enemyCharacter, ServiceLocator.safe_get_service(&"Player"))):	
 			
-			var result = attack.doAttack(enemyCharacter, GM.pc)
-			result["text"] = GM.ui.processString(result["text"])
+			var result = attack.doAttack(enemyCharacter, ServiceLocator.safe_get_service(&"Player"))
+			result["text"] = ServiceLocator.safe_get_service(&"UI").processString(result["text"])
 				
 			playAnimation(StageScene.Duo, result["receiverAnimation"], {npc=enemyID, npcAction=result["attackerAnimation"]})
 			
@@ -811,31 +811,31 @@ func beforeTurnChecks(pcWasStruggling = false):
 	whatHappened = ""
 	lastPlayerAttackData = null
 	
-	GM.pc.processBattleTurnContex(getContexForPC())
+	ServiceLocator.safe_get_service(&"Player").processBattleTurnContex(getContexForPC())
 	enemyCharacter.processBattleTurnContex(getContexForEnemy())
 	
 	if(true):
-		var turnData = GM.pc.processStruggleTurn(pcWasStruggling)
+		var turnData = ServiceLocator.safe_get_service(&"Player").processStruggleTurn(pcWasStruggling)
 		var addLust = turnData["lust"]
 		var addPain = turnData["pain"]
 		var addStamina = turnData["stamina"]
 		var additionalStruggleText = turnData["text"]
 		
 		if(addLust != 0):
-			addLust = GM.pc.receiveDamage(DamageType.Lust, addLust)
+			addLust = ServiceLocator.safe_get_service(&"Player").receiveDamage(DamageType.Lust, addLust)
 			addMessage("You received "+str(addLust)+" lust")
 		if(addPain != 0):
-			addPain = GM.pc.receiveDamage(DamageType.Physical, addPain)
+			addPain = ServiceLocator.safe_get_service(&"Player").receiveDamage(DamageType.Physical, addPain)
 			addMessage("You received "+str(addPain)+" pain")
 		if(addStamina != 0):
-			GM.pc.addStamina(-addStamina)
+			ServiceLocator.safe_get_service(&"Player").addStamina(-addStamina)
 			if(addStamina < 0):
 				addMessage("You gained "+str(-addStamina)+" stamina")
 			else:
 				addMessage("You used "+str(addStamina)+" stamina")
 		
 		if(additionalStruggleText != null && additionalStruggleText != ""):
-			whatHappened += "[i]"+GM.ui.processString(additionalStruggleText, {"user":"pc"})+"[/i]\n"
+			whatHappened += "[i]"+ServiceLocator.safe_get_service(&"UI").processString(additionalStruggleText, {"user":"pc"})+"[/i]\n"
 	
 	if(true):
 		var turnData = enemyCharacter.processStruggleTurn(true)
@@ -858,17 +858,17 @@ func beforeTurnChecks(pcWasStruggling = false):
 				addMessage("Enemy used "+str(addStamina)+" stamina")
 		
 		if(additionalStruggleText != null && additionalStruggleText != ""):
-			whatHappened += "[i]"+GM.ui.processString(additionalStruggleText, {"user": enemyID})+"[/i]\n"
+			whatHappened += "[i]"+ServiceLocator.safe_get_service(&"UI").processString(additionalStruggleText, {"user": enemyID})+"[/i]\n"
 	
 	whatHappened = whatHappened.rstrip("\n")
 	if(state == ""):
 		setState("fighting")
 
 func afterTurnChecks():
-	#GM.pc.processBattleTurn()
+	#ServiceLocator.safe_get_service(&"Player").processBattleTurn()
 	#enemyCharacter.processBattleTurn()
 	#enemyCharacter.updateNonBattleEffects()
-	#GM.pc.updateNonBattleEffects()
+	#ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
 	
 	var won = checkEnd()
 	if(won == "lost"):
@@ -909,7 +909,7 @@ func checkEnd():
 		battleState = "win"
 		battleEndedHow = "lust"
 		return "win"
-	if(GM.pc.getPain() >= GM.pc.painThreshold()):
+	if(ServiceLocator.safe_get_service(&"Player").getPain() >= ServiceLocator.safe_get_service(&"Player").painThreshold()):
 		if(whatHappened != ""):
 			whatHappened += "\n"
 		whatHappened += "You succumb to pain\n"
@@ -917,7 +917,7 @@ func checkEnd():
 		battleEndedHow = "pain"
 		playAnimation(StageScene.Solo, "defeat")
 		return "lost"
-	if(GM.pc.getLust() >= GM.pc.lustThreshold()):
+	if(ServiceLocator.safe_get_service(&"Player").getLust() >= ServiceLocator.safe_get_service(&"Player").lustThreshold()):
 		if(whatHappened != ""):
 			whatHappened += "\n"
 		whatHappened += "You're too aroused to continue\n"
@@ -929,7 +929,7 @@ func checkEnd():
 	return ""
 
 func pcHasAnyAttacksOfCategory(category):
-	var playerAttacks = GM.pc.getAttacks(battleName)
+	var playerAttacks = ServiceLocator.safe_get_service(&"Player").getAttacks(battleName)
 	for attackID in playerAttacks:
 		if(attackID is Dictionary):
 			attackID = attackID["attackID"]
@@ -942,7 +942,7 @@ func pcHasAnyAttacksOfCategory(category):
 	
 
 func addAttackButtons(category):
-	var playerAttacks = GM.pc.getAttacks(battleName)
+	var playerAttacks = ServiceLocator.safe_get_service(&"Player").getAttacks(battleName)
 	for attackDataOrString in playerAttacks:
 		var attackID
 		var attackData : Dictionary
@@ -960,10 +960,10 @@ func addAttackButtons(category):
 		if(attack.category != category):
 			continue
 			
-		var desc = attack.getRequirementsColorText(GM.pc, enemyCharacter)
+		var desc = attack.getRequirementsColorText(ServiceLocator.safe_get_service(&"Player"), enemyCharacter)
 		desc += attack.getVisibleDesc(attackData)
 			
-		if(attack.canUse(GM.pc, enemyCharacter, attackData)):
+		if(attack.canUse(ServiceLocator.safe_get_service(&"Player"), enemyCharacter, attackData)):
 			addButton(attack.getVisibleName(attackData),  desc, "doattack", [attackData])
 		else:
 			addDisabledButton(attack.getVisibleName(attackData),  desc)
@@ -1079,7 +1079,7 @@ func getDebugActions():
 func doDebugAction(_id, _args = {}):
 	if(_id == "instantWin"):
 		enemyCharacter.addLust(enemyCharacter.lustThreshold())
-		GM.main.pickOption("wait", [])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("wait", [])
 	if(_id == "healEnemy"):
 		enemyCharacter.addPain(-enemyCharacter.painThreshold())
 		enemyCharacter.addLust(-enemyCharacter.lustThreshold())

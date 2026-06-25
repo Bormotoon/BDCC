@@ -25,7 +25,7 @@ func _on_levelChanged(idParam, _levelParam):
 func checkDrawbacks():
 	if(npc == null):
 		return
-	if(not GM.main.getFlag("HypnokinkModule.SoftOptIn", false)):
+	if(not ServiceLocator.safe_get_service(&"MainScene").getFlag("HypnokinkModule.SoftOptIn", false)):
 		return
 	if(level >= 1):
 		if(!npc.getSkillsHolder().hasPerkDisabledOrNot(Perk.HypnosisKeywordsDrawback)):
@@ -41,7 +41,7 @@ func checkDrawbacks():
 			flashDrawbackMessage(GlobalRegistry.getPerk(Perk.HypnosisDeepTranceDrawback))
 			
 func flashDrawbackMessage(drawbackPerk: PerkBase):
-	if(npc != GM.pc):
+	if(npc != ServiceLocator.safe_get_service(&"Player")):
 		return;
-	if(GM.ui):
-		GM.main.addMessage("You have gained a new drawback: "+drawbackPerk.getVisibleName()+"!")
+	if(ServiceLocator.safe_get_service(&"UI")):
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You have gained a new drawback: "+drawbackPerk.getVisibleName()+"!")

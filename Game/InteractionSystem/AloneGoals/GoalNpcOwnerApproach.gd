@@ -56,29 +56,29 @@ func doAction(_id:String, _args:Dictionary):
 #			if(nemesis && nemesis.id == "Nemesis"):
 #				nemesis.gonnaAmbush = false
 #
-#			var currentAmbushesAmount:int = GM.main.IS.getInteractionsOfTypeAmount("NemesisAmbush")
+#			var currentAmbushesAmount:int = ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("NemesisAmbush")
 #			if(currentAmbushesAmount > 0):
 #				# Limiting to only one ambush at a time
 #				completeGoal()
 #				return
 #
-#			GM.main.IS.startInteraction("NemesisAmbush", {main=getPawn().charID})
+#			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("NemesisAmbush", {main=getPawn().charID})
 #			return
 #
 		if(tryStartNpcOwnerEvent()):
 			return
 
-		goTowards(GM.pc.getLocation())
+		goTowards(ServiceLocator.safe_get_service(&"Player").getLocation())
 		tryStartNpcOwnerEvent()
 
 func tryStartNpcOwnerEvent() -> bool:
-	if(GM.main.IS.hasPawn("pc") && GM.main.IS.getPawn("pc").canBeInterrupted()):
-		if(getLocation() == GM.pc.getLocation()):
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn("pc") && ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc").canBeInterrupted()):
+		if(getLocation() == ServiceLocator.safe_get_service(&"Player").getLocation()):
 			completeGoal()
 			
 			var newEventInfo:Array= getNpcOwner(getPawn()).getApproachEvent()
 			if(!newEventInfo.is_empty()):
-				GM.main.runScene("NpcOwnerEventRunnerScene", [getPawn().charID, newEventInfo[0], newEventInfo[1]])
+				ServiceLocator.safe_get_service(&"MainScene").runScene("NpcOwnerEventRunnerScene", [getPawn().charID, newEventInfo[0], newEventInfo[1]])
 			return true
 	return false
 

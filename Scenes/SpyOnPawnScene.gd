@@ -13,7 +13,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 		
 		if(pawn == null):
 			saynn("Pawn not found, sorry.")
@@ -36,7 +36,7 @@ func _run():
 		interaction.actionBuffer = []
 		saynn(interaction.getOutputTextFinal())
 		
-		if(GM.main.isDebuggingIS):
+		if(ServiceLocator.safe_get_service(&"MainScene").isDebuggingIS):
 			sayn("[b]Debug info[/b]:")
 			saynn(Util.join(pawn.getDebugInfo(), "\n"))
 		
@@ -55,8 +55,8 @@ func _run():
 		saynn("Pick which pawn you want to spy on")
 		
 		addButton("CANCEL", "Enough spying", "endthescene")
-		for thepawnID in GM.main.IS.getPawns():
-			var pawn:CharacterPawn = GM.main.IS.getPawn(thepawnID)
+		for thepawnID in ServiceLocator.safe_get_service(&"MainScene").IS.getPawns():
+			var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(thepawnID)
 			
 			addButton(pawn.getChar().getName(), pawn.getChar().getSmallDescription(), "choose_to_spy", [thepawnID])
 
@@ -65,10 +65,10 @@ func _react(_action: String, _args):
 		endScene()
 		return
 	if(_action == "progress_interaction"):
-		var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 		var interaction:PawnInteractionBase = pawn.getInteraction()
 		if(interaction.currentActionID == ""):
-			GM.main.IS.decideNextAction(interaction, {scene=self})
+			ServiceLocator.safe_get_service(&"MainScene").IS.decideNextAction(interaction, {scene=self})
 		
 		if(!interaction.isWaitingForScene()):
 			if(interaction.busyActionSeconds > 0):
@@ -76,7 +76,7 @@ func _react(_action: String, _args):
 			else:
 				processTime(30)
 			interaction.doCurrentAction({scene=self})
-			#GM.main.IS.decideNextAction(pawn.getInteraction(), {scene=self})
+			#ServiceLocator.safe_get_service(&"MainScene").IS.decideNextAction(pawn.getInteraction(), {scene=self})
 		return
 	if(_action == "choose_to_spy"):
 		pawnID = _args[0]
@@ -94,7 +94,7 @@ func startInteractionSex(domID:String, subID:String, sexType = SexType.DefaultSe
 	runScene("GenericSexScene", [domID, subID, sexType, extraParams], "interaction_sex")
 
 func sendStatusToInteraction(_result):
-	var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()
@@ -104,7 +104,7 @@ func sendStatusToInteraction(_result):
 	interaction.receiveSceneStatusFinal(_result)
 
 func sendSexResultToInteraction(_result:SexEngineResult):
-	var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()
@@ -118,7 +118,7 @@ func _react_scene_end(_tag, _result):
 		sendSexResultToInteraction(_result[0])
 
 func resolveCustomCharacterName(_charID):
-	var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()

@@ -27,7 +27,7 @@ func generatePossibleTasks() -> Array:
 		# Inmates are 3x more likely to be picked
 		var poolID:String = RNG.pick([CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Guards, CharacterPool.Nurses, CharacterPool.Engineers])
 		
-		var poolChars = GM.main.getDynamicCharacterIDsFromPool(poolID)
+		var poolChars = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(poolID)
 		if(poolChars.is_empty()):
 			continue
 			

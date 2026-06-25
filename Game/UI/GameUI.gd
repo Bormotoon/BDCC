@@ -54,11 +54,11 @@ var say_parser: SayParser
 var is_in_big_answers_mode: bool = false
 
 func _exit_tree() -> void:
-	GM.ui = null
+	ServiceLocator.safe_get_service(&"UI") = null
 	OPTIONS.set_supports_vertical(true)
 
 func _ready() -> void:
-	GM.ui = self
+	ServiceLocator.safe_get_service(&"UI") = self
 
 	if not OPTIONS.is_debug_panel_enabled():
 		debug_panel_button.visible = false
@@ -211,10 +211,10 @@ func update_extra_buttons() -> void:
 ## Line 233-285: updateButtons with connect migration
 func update_buttons() -> void:
 	check_page_buttons()
-	if GM.main != null:
-		rollback_button.disabled = not GM.main.rollbacker.can_rollback()
-		save_button.disabled = not GM.main.can_save()
-		skills_button.disabled = GM.main.is_in_dungeon()
+	if ServiceLocator.safe_get_service(&"MainScene") != null:
+		rollback_button.disabled = not ServiceLocator.safe_get_service(&"MainScene").rollbacker.can_rollback()
+		save_button.disabled = not ServiceLocator.safe_get_service(&"MainScene").can_save()
+		skills_button.disabled = ServiceLocator.safe_get_service(&"MainScene").is_in_dungeon()
 		if load_button.disabled and SAVE.can_quick_load():
 			load_button.disabled = false
 
@@ -345,8 +345,8 @@ func clear_characters_panel() -> void:
 	smart_character_panel.clear()
 
 func recreate_world() -> void:
-	if GM.world and GM.world.has_method("recreate"):
-		GM.world.recreate()
+	if ServiceLocator.safe_get_service(&"World") and ServiceLocator.safe_get_service(&"World").has_method("recreate"):
+		ServiceLocator.safe_get_service(&"World").recreate()
 
 func on_time_passed(seconds: int) -> void:
 	map_and_time_panel.on_time_passed(seconds)

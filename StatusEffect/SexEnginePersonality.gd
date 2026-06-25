@@ -9,7 +9,7 @@ func _init():
 	priorityDuringChecking = 49
 	
 func shouldApplyTo(_npc):
-	if(GM.main != null && GM.main.supportsSexEngine()):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").supportsSexEngine()):
 		return true
 	if(_npc.hasEnslaveQuest()):
 		return true
@@ -61,8 +61,8 @@ func getEffectDesc():
 			result += npcSlave.getLevelupTaskProgressText()
 	
 	if(character.isPlayer()):
-		for ownerID in GM.main.RS.special:
-			var theSpecialRelationship = GM.main.RS.special[ownerID]
+		for ownerID in ServiceLocator.safe_get_service(&"MainScene").RS.special:
+			var theSpecialRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.special[ownerID]
 			if(theSpecialRelationship.id == "SoftSlavery" && theSpecialRelationship.npcOwner):
 				var theNpcOwner:NpcOwnerBase = theSpecialRelationship.npcOwner
 				if(theNpcOwner.hasGivenPCTasks()):
@@ -76,7 +76,7 @@ func getEffectDesc():
 					if(isQuestCompleted):
 						result += "\nYour owner will be satisfied!"
 	
-	var specialRelationship = GM.main.RS.getSpecialRelationship(character.getID())
+	var specialRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(character.getID())
 	if(specialRelationship && specialRelationship.id == "SoftSlavery"):
 		var theNpcOwner:NpcOwnerBase = specialRelationship.npcOwner
 		if(theNpcOwner.hasGivenPCOwnerTasks()):

@@ -35,7 +35,7 @@ func _run():
 			
 			var inventory = inventoryScreenScene.instantiate()
 			inventory.shouldGrabInput = false
-			GM.ui.addFullScreenCustomControl("inventory", inventory)
+			ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 			inventory.setItems(theItems, "loot")
 			#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
 			var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
@@ -66,7 +66,7 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "grabAllAndLeave"):
 		if(savedCredits > 0):
-			GM.pc.addCredits(savedCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(savedCredits)
 			addMessage("You looted a chip with "+str(savedCredits)+" "+Util.multipleOrSingularEnding(savedCredits, "credit"))
 			savedCredits = 0
 		
@@ -76,15 +76,15 @@ func _react(_action: String, _args):
 			
 			if(item.id == "KeyholderKeyUnlock"):
 				var npcID = item.npcID
-				var _howMany = GM.pc.unlockAllKeyholderLocksFrom(npcID)
+				var _howMany = ServiceLocator.safe_get_service(&"Player").unlockAllKeyholderLocksFrom(npcID)
 				continue
 			
 			if(item.id == "WorkCredit"):
-				GM.pc.addCredits(item.getAmount())
+				ServiceLocator.safe_get_service(&"Player").addCredits(item.getAmount())
 				continue
 			
 			inv.removeItem(item)
-			GM.pc.getInventory().addItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 			addMessage("You looted "+item.getAStackName())
 		endScene()
 		return
@@ -102,9 +102,9 @@ func _react(_action: String, _args):
 		inv.removeItem(item)
 		
 		if(item.id == "WorkCredit"):
-			GM.pc.addCredits(item.getAmount())
+			ServiceLocator.safe_get_service(&"Player").addCredits(item.getAmount())
 		else:
-			GM.pc.getInventory().addItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 		#addMessage("You looted "+item.getAStackName())
 		setState("")
 		if(savedCredits == 0 && inv.isEmpty()):
@@ -112,7 +112,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "grabCredits"):
-		GM.pc.addCredits(savedCredits)
+		ServiceLocator.safe_get_service(&"Player").addCredits(savedCredits)
 		#addMessage("You looted a chip with "+str(savedCredits)+" "+Util.multipleOrSingularEnding(savedCredits, "credit"))
 		savedCredits = 0
 		setState("")
@@ -125,7 +125,7 @@ func _react(_action: String, _args):
 		
 		var npcID = key.npcID
 		
-		var _howMany = GM.pc.unlockAllKeyholderLocksFrom(npcID)
+		var _howMany = ServiceLocator.safe_get_service(&"Player").unlockAllKeyholderLocksFrom(npcID)
 		
 		inv.removeItem(key)
 		if(savedCredits == 0 && inv.isEmpty()):
@@ -136,11 +136,11 @@ func _react(_action: String, _args):
 
 func onInventoryItemInteracted(item: ItemBase):
 	if(item.id == "WorkCredit"):
-		GM.main.pickOption("grabCredits", [item.getUniqueID()])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("grabCredits", [item.getUniqueID()])
 	elif(item.id == "KeyholderKeyUnlock"):
-		GM.main.pickOption("unlockAllRestraintsKey", [item])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("unlockAllRestraintsKey", [item])
 	else:
-		GM.main.pickOption("grabItem", [item.getUniqueID()])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("grabItem", [item.getUniqueID()])
 
 func saveData():
 	var data = super.saveData()

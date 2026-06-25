@@ -25,7 +25,7 @@ func unlockable() -> bool:
 	return false
 
 func toggleable() -> bool:
-	var ch = npc if npc != null else GM.pc
+	var ch = npc if npc != null else ServiceLocator.safe_get_service(&"Player")
 	return !(ch.getSkillsHolder().hasPerk(self.id))
 
 func hiddenWhenLocked() -> bool:

@@ -239,7 +239,7 @@ func getTextsForLoc(_loc:String):
 			saynn("You are pushing an empty cart.")
 		else:
 			saynn("You are pushing a minecart that has "+str(nuggetsMinecart)+" ore "+("nugget" if nuggetsMinecart == 1 else "nuggets")+" in it.")
-	elif(GM.pc.getLocation() == minecartLoc):
+	elif(ServiceLocator.safe_get_service(&"Player").getLocation() == minecartLoc):
 		if(nuggetsMinecart <= 0):
 			saynn("You are standing near an empty cart.")
 		else:
@@ -309,7 +309,7 @@ class Dude:
 			return true
 		
 		if(path.is_empty() || path.back() != theTargetLoc):
-			path = GM.world.calculatePath(theLoc, theTargetLoc)
+			path = ServiceLocator.safe_get_service(&"World").calculatePath(theLoc, theTargetLoc)
 			if(!path.is_empty() && path[0] == loc):
 				path.pop_front()
 		
@@ -329,13 +329,13 @@ class Dude:
 	
 	func setLoc(_newLoc:String):
 		loc = _newLoc
-		GM.world.moveEntity(iconID, loc)
+		ServiceLocator.safe_get_service(&"World").moveEntity(iconID, loc)
 	
 	func createIcon(_uidProvider):
 		if(iconID == ""):
 			var nextEntityID:String = "ps_dude"+_uidProvider.getUID()
 			iconID = nextEntityID
-		GM.world.createEntity(iconID, RNG.pick([_uidProvider.IconDudeMasc, _uidProvider.IconDudeFem]), loc)
+		ServiceLocator.safe_get_service(&"World").createEntity(iconID, RNG.pick([_uidProvider.IconDudeMasc, _uidProvider.IconDudeFem]), loc)
 	
 var dudes:Array = []
 
@@ -550,15 +550,15 @@ func sleep():
 	nuggetsCarrying = 0
 	nuggetsMinecart = 0
 	for dude in dudes:
-		GM.world.deleteEntity(dude.iconID)
+		ServiceLocator.safe_get_service(&"World").deleteEntity(dude.iconID)
 	dudes.clear()
 	for nuggetEntry in nuggets:
-		GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nugget"+nuggetEntry[0])
 	nuggets.clear()
-	GM.pc.addStamina(GM.pc.getMaxStamina())
-	GM.pc.addPain(-GM.pc.getPain())
+	ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
+	ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
 	updateCartIcon()
-	GM.world.moveEntity("ps_cart", minecartLoc)
+	ServiceLocator.safe_get_service(&"World").moveEntity("ps_cart", minecartLoc)
 	updateMiningZones()
 	
 	#upgrade stuff here
@@ -574,17 +574,17 @@ func onSlaveryStart():
 
 func onSlaveryEnd():
 	for dude in dudes:
-		GM.world.deleteEntity(dude.iconID)
+		ServiceLocator.safe_get_service(&"World").deleteEntity(dude.iconID)
 	#dudes.clear()
 	for nuggetEntry in nuggets:
-		GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
-	GM.world.deleteEntity("ps_cart")
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nugget"+nuggetEntry[0])
+	ServiceLocator.safe_get_service(&"World").deleteEntity("ps_cart")
 	#nuggets.clear()
 
 func shouldDoFirstSlaveOfferEvent() -> bool:
 	if(didFirstOfferEvent):
 		return false
-	if(day >= 2 && GM.pc.getLocation() == "psmine_meet"):
+	if(day >= 2 && ServiceLocator.safe_get_service(&"Player").getLocation() == "psmine_meet"):
 		didFirstOfferEvent = true
 		return true
 	return false
@@ -614,10 +614,10 @@ func canSeeUpgrade(_upgradeID:String) -> bool:
 	return true
 
 func getCredits() -> int:
-	return GM.pc.getCredits()
+	return ServiceLocator.safe_get_service(&"Player").getCredits()
 
 func addCredits(_howMany:int):
-	GM.pc.addCredits(_howMany)
+	ServiceLocator.safe_get_service(&"Player").addCredits(_howMany)
 
 func addTotalMined(_howMuch:int):
 	totalMined += _howMuch
@@ -663,10 +663,10 @@ func getUpgradesCompletionStr() -> String:
 	return str(boughtUpgrades)+"/"+str(totalUpgrades)
 
 func createIcons():
-	GM.world.createEntity("ps_cart", getMinecartTexture(), minecartLoc)
+	ServiceLocator.safe_get_service(&"World").createEntity("ps_cart", getMinecartTexture(), minecartLoc)
 	
 	for nuggetEntry in nuggets:
-		GM.world.createEntity("ps_nugget"+nuggetEntry[0], RNG.pick([IconNugget1, IconNugget2, IconNugget3]), nuggetEntry[1])
+		ServiceLocator.safe_get_service(&"World").createEntity("ps_nugget"+nuggetEntry[0], RNG.pick([IconNugget1, IconNugget2, IconNugget3]), nuggetEntry[1])
 	
 	#for dude in dudes:
 	#	dude.createIcon(self)
@@ -675,12 +675,12 @@ func getMinecartTexture() -> Texture:
 	return (IconMinecart if nuggetsMinecart <= 0 else IconMinecartFull)
 
 func updateCartIcon():
-	GM.world.setEntityTexture("ps_cart", getMinecartTexture())
+	ServiceLocator.safe_get_service(&"World").setEntityTexture("ps_cart", getMinecartTexture())
 
 func updateIcons():
-	GM.world.moveEntity("ps_cart", minecartLoc)
+	ServiceLocator.safe_get_service(&"World").moveEntity("ps_cart", minecartLoc)
 	for nuggetEntry in nuggets:
-		GM.world.moveEntity("ps_nugget"+nuggetEntry[0], nuggetEntry[1])
+		ServiceLocator.safe_get_service(&"World").moveEntity("ps_nugget"+nuggetEntry[0], nuggetEntry[1])
 
 func getPCViewDistance() -> float:
 	if(hasUpgrade("headlight")):
@@ -689,10 +689,10 @@ func getPCViewDistance() -> float:
 
 func afterMove():
 	if(pushingMinecart):
-		minecartLoc = GM.pc.getLocation()
+		minecartLoc = ServiceLocator.safe_get_service(&"Player").getLocation()
 	
 	if(nuggetsCarrying > 0):
-		if(GM.pc.getLocation() != minecartLoc || pushingMinecart):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() != minecartLoc || pushingMinecart):
 			var staminaUse:int = nuggetsCarrying * 3
 			addMessage("You used "+str(staminaUse)+" stamina carrying the nuggets.")
 			useStamina(staminaUse)
@@ -717,15 +717,15 @@ func processTurn():
 		processDude(dude)
 
 func updateLoc():
-	var theLoc:String = GM.pc.getLocation()
+	var theLoc:String = ServiceLocator.safe_get_service(&"Player").getLocation()
 	if(pushingMinecart):
 		minecartLoc = theLoc
-		#GM.world.moveEntity("ps_cart", minecartLoc)
+		#ServiceLocator.safe_get_service(&"World").moveEntity("ps_cart", minecartLoc)
 	
 	updateIcons()
 
 func canMine() -> bool:
-	return GM.pc.getLocation() in MiningLocs
+	return ServiceLocator.safe_get_service(&"Player").getLocation() in MiningLocs
 
 func canMineLoc(theLoc:String) -> bool:
 	if(!MiningLocs.has(theLoc)):
@@ -789,10 +789,10 @@ func doMine():
 	useStamina(10)
 	
 	if(RNG.chance(mineChance)):
-		doMineSpotUpgraded(GM.pc.getLocation())
-		addMessage("You did some mining!"+(" The deposit has been mined out." if !hasOreIn(GM.pc.getLocation()) else ""))
+		doMineSpotUpgraded(ServiceLocator.safe_get_service(&"Player").getLocation())
+		addMessage("You did some mining!"+(" The deposit has been mined out." if !hasOreIn(ServiceLocator.safe_get_service(&"Player").getLocation()) else ""))
 	else:
-		addMessage("You did some mining but failed to find any ore!"+(" The deposit has been mined out." if !hasOreIn(GM.pc.getLocation()) else ""))
+		addMessage("You did some mining but failed to find any ore!"+(" The deposit has been mined out." if !hasOreIn(ServiceLocator.safe_get_service(&"Player").getLocation()) else ""))
 
 func getNuggetCredits(_am:int) -> int:
 	if(hasUpgrade("moreCreds6")):
@@ -811,7 +811,7 @@ func getNuggetCredits(_am:int) -> int:
 	return _am
 
 func dropAllNuggets():
-	if(GM.pc.getLocation() == LOC_ENTRANCE):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() == LOC_ENTRANCE):
 		var credAmount:int = getNuggetCredits(nuggetsCarrying)
 		addTotalMined(credAmount)
 		addCredits(credAmount)
@@ -820,14 +820,14 @@ func dropAllNuggets():
 		return
 	
 	for _i in range(nuggetsCarrying):
-		spawnNugget(GM.pc.getLocation())
+		spawnNugget(ServiceLocator.safe_get_service(&"Player").getLocation())
 	nuggetsCarrying = 0
 	addMessage("You have dropped all your nuggets!")
 
 func spawnNugget(_theLoc:String):
 	var nuggetEntry:Array = [getUID(), _theLoc]
 	nuggets.append(nuggetEntry)
-	GM.world.createEntity("ps_nugget"+nuggetEntry[0], RNG.pick([IconNugget1, IconNugget2, IconNugget3]), nuggetEntry[1])
+	ServiceLocator.safe_get_service(&"World").createEntity("ps_nugget"+nuggetEntry[0], RNG.pick([IconNugget1, IconNugget2, IconNugget3]), nuggetEntry[1])
 
 func hasNuggetsIn(_loc:String) -> bool:
 	for nuggetEntry in nuggets:
@@ -853,7 +853,7 @@ func removeNugget(_id:String):
 	var _i:int = 0
 	for nuggetEntry in nuggets:
 		if(nuggetEntry[0] == _id):
-			GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
+			ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nugget"+nuggetEntry[0])
 			nuggets.remove_at(_i)
 			return
 		_i += 1
@@ -862,7 +862,7 @@ func removeNuggetIn(_loc:String):
 	var _i:int = 0
 	for nuggetEntry in nuggets:
 		if(nuggetEntry[1] == _loc):
-			GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
+			ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nugget"+nuggetEntry[0])
 			nuggets.remove_at(_i)
 			return
 		_i += 1
@@ -873,9 +873,9 @@ func removeXNuggetsIn(_loc:String, _am:int):
 		_am -= 1
 
 func pickupNugget():
-	if(!hasNuggetsIn(GM.pc.getLocation())):
+	if(!hasNuggetsIn(ServiceLocator.safe_get_service(&"Player").getLocation())):
 		return
-	removeNuggetIn(GM.pc.getLocation())
+	removeNuggetIn(ServiceLocator.safe_get_service(&"Player").getLocation())
 	nuggetsCarrying += 1
 
 func getUID() -> String:
@@ -883,16 +883,16 @@ func getUID() -> String:
 	return str(nextUniquieID - 1)
 
 func addMessage(_text:String):
-	GM.main.addMessage(_text)
+	ServiceLocator.safe_get_service(&"MainScene").addMessage(_text)
 
 func useStamina(_howMuch:int):
-	var theMaxStamina:int = GM.pc.getMaxStamina()
+	var theMaxStamina:int = ServiceLocator.safe_get_service(&"Player").getMaxStamina()
 	var theMod:float = float(theMaxStamina) / 100.0
 	
-	GM.pc.addStamina(-int(ceil(_howMuch*theMod)))
+	ServiceLocator.safe_get_service(&"Player").addStamina(-int(ceil(_howMuch*theMod)))
 
 func hasStamina() -> bool:
-	return GM.pc.getStamina() > 0
+	return ServiceLocator.safe_get_service(&"Player").getStamina() > 0
 
 func getMinecartCapacity() -> int:
 	if(hasUpgrade("cart3")):
@@ -924,7 +924,7 @@ func loadMinecartFromPC():
 	updateCartIcon()
 
 func loadMinecartFromDude(_dude:Dude) -> bool:
-	if((_dude.loc != GM.pc.getLocation() && _dude.loc != prevPCLoc) || !pushingMinecart):
+	if((_dude.loc != ServiceLocator.safe_get_service(&"Player").getLocation() && _dude.loc != prevPCLoc) || !pushingMinecart):
 		return false
 	if(_dude.nuggets <= 0):
 		return false
@@ -955,9 +955,9 @@ func unloadMinecart():
 	updateCartIcon()
 
 func canRefresh() -> bool:
-	if(GM.pc.getStaminaLevel() >= 1.0):
+	if(ServiceLocator.safe_get_service(&"Player").getStaminaLevel() >= 1.0):
 		return false
-	if(GM.pc.getLocation() != minecartLoc):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() != minecartLoc):
 		return false
 	
 	if(hasUpgrade("minecartrefreshments2") && refreshUsed < 3):
@@ -968,7 +968,7 @@ func canRefresh() -> bool:
 
 func doRefresh():
 	refreshUsed += 1
-	GM.pc.addStamina(GM.pc.getMaxStamina())
+	ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 	addMessage("You drink some water and feel refreshed!")
 
 func getExtraPickupAmount() -> int:
@@ -1005,10 +1005,10 @@ func saveData() -> Dictionary:
 
 func loadData(_data:Dictionary):
 	for dude in dudes:
-		GM.world.deleteEntity(dude.iconID)
+		ServiceLocator.safe_get_service(&"World").deleteEntity(dude.iconID)
 	dudes.clear()
 	for nuggetEntry in nuggets:
-		GM.world.deleteEntity("ps_nugget"+nuggetEntry[0])
+		ServiceLocator.safe_get_service(&"World").deleteEntity("ps_nugget"+nuggetEntry[0])
 	nuggets.clear()
 	
 	upgrades = SAVE.loadVar(_data, "upgrades", {})

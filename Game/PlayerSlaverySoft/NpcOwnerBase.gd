@@ -44,7 +44,7 @@ func setRelationship(_softSlavery):
 	charID = _softSlavery.charID
 
 func getRelationship() -> SpecialRelationshipBase:
-	return GM.main.RS.getSpecialRelationship(charID)
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(charID)
 
 func endSlavery():
 	var theRelationship := getRelationship()
@@ -72,7 +72,7 @@ func getInfluenceMod(_am:float) -> float:
 func addInfluence(_am:float, _affectAffection:bool = true) -> bool:
 	var oldVal:float = getInfluence()
 	if(_am != 0.0 && _affectAffection):
-		GM.main.RS.addAffection(charID, "pc", _am * 0.25)
+		ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(charID, "pc", _am * 0.25)
 	influence += getInfluenceMod(_am)
 	if(_am > 0.0 && influence > 0.95):
 		influence += 0.06 # A little push
@@ -194,7 +194,7 @@ func getBigDescription() -> String:
 	return Util.join(theTexts, "\n")
 
 func addMessage(_text:String):
-	GM.main.addMessage(_text)
+	ServiceLocator.safe_get_service(&"MainScene").addMessage(_text)
 
 func getPossiblePCNamesForLevel(_level:int) -> Array:
 	return ["slave"]
@@ -215,7 +215,7 @@ func setPCName(_newName:String):
 	pcName = _newName
 
 func shouldOwnerApproachPC() -> bool:
-	return GM.main.getDays() >= nextApproachDay
+	return ServiceLocator.safe_get_service(&"MainScene").getDays() >= nextApproachDay
 
 #[id, args]
 func getApproachEvent() -> Array:
@@ -259,8 +259,8 @@ func onNewDay():
 		if(punishAmount > 0):
 			punishAmount -= 1
 	
-	if(GM.main.getDays() == nextApproachDay):
-		GM.main.addMessage(getOwnerName()+", your owner, wants to approach you today.")
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() == nextApproachDay):
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(getOwnerName()+", your owner, wants to approach you today.")
 	
 	if(skipPunishCooldown > 0):
 		skipPunishCooldown -= 1
@@ -268,7 +268,7 @@ func onNewDay():
 	if(hasOwnerLock()):
 		if(keyholderSatisfaction < 1.0):
 			if(addInfluence(0.03 + getOwner().getPersonality().getStat(PersonalityStat.Subby)*0.02, false)):
-				GM.main.addMessage(getOwnerName()+"'s influence over you has increased slightly because of the restraints.")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage(getOwnerName()+"'s influence over you has increased slightly because of the restraints.")
 			
 	else:
 		keyholderSatisfaction = 0.0
@@ -280,7 +280,7 @@ func onNewDay():
 func generateTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficultyMax:float = 2.0, taskPool:String = NpcTaskPool.Normal):
 	tasksCompletedReminded = false
 	tasks.clear()
-	var theChar = GM.pc
+	var theChar = ServiceLocator.safe_get_service(&"Player")
 	if(theChar == null):
 		return
 	
@@ -294,7 +294,7 @@ func generateTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficultyMa
 			continue
 		if(!taskRef.isPossibleForSlutlock(theChar)):
 			continue
-		#if(!taskRef.isPossibleForPC(GM.pc, theChar, _isSlaveLevelup)):
+		#if(!taskRef.isPossibleForPC(ServiceLocator.safe_get_service(&"Player"), theChar, _isSlaveLevelup)):
 		#	continue
 		
 		var taskWeight:float = taskRef.getNpcOwnerWeight(self)
@@ -327,7 +327,7 @@ func generateOwnerTasks(howManyTasks:int = 2, difficultyMin:float = 1.0, difficu
 			continue
 		if(!taskRef.isPossibleFor(theChar, _isSlaveLevelup)):
 			continue
-		if(!taskRef.isPossibleForPC(GM.pc, theChar, _isSlaveLevelup)):
+		if(!taskRef.isPossibleForPC(ServiceLocator.safe_get_service(&"Player"), theChar, _isSlaveLevelup)):
 			continue
 		
 		var taskWeight:float = taskRef.getNpcOwnerWeight(self)
@@ -360,17 +360,17 @@ func isEveryOwnerTaskCompleted() -> bool:
 func onSlutTaskCompleted(_theTask):
 	if(!tasksCompletedReminded && isEverythingCompleted()):
 		tasksCompletedReminded = true
-		if(GM.main != null):
-			GM.main.addMessage("You have completed the tasks that "+getOwnerName()+" gave you!")
+		if(ServiceLocator.safe_get_service(&"MainScene") != null):
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You have completed the tasks that "+getOwnerName()+" gave you!")
 
 func onOwnerTaskCompleted(_theTask):
 	if(!ownerTasksCompletedReminded && isEveryOwnerTaskCompleted()):
 		ownerTasksCompletedReminded = true
-		if(GM.main != null):
-			GM.main.addMessage("You have completed the tasks that "+getOwnerName()+" gave you!")
+		if(ServiceLocator.safe_get_service(&"MainScene") != null):
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You have completed the tasks that "+getOwnerName()+" gave you!")
 
 func handleSexEvent(sexEvent:SexEvent):
-	var theChar = GM.pc
+	var theChar = ServiceLocator.safe_get_service(&"Player")
 	for task in tasks:
 		task.onSexEvent(theChar, sexEvent)
 	var theOwner = getOwner()
@@ -378,7 +378,7 @@ func handleSexEvent(sexEvent:SexEvent):
 		task.onSexEvent(theOwner, sexEvent)
 
 func onSexEnded(_contex = {}):
-	var theChar = GM.pc
+	var theChar = ServiceLocator.safe_get_service(&"Player")
 	for task in tasks:
 		task.onSexEnded(theChar, _contex)
 	var theOwner = getOwner()
@@ -396,7 +396,7 @@ func clearOwnerTasks():
 	ownerTasks = []
 
 func checkIfTasksGotCompleted():
-	var theChar = GM.pc
+	var theChar = ServiceLocator.safe_get_service(&"Player")
 	for task in tasks:
 		task.checkIfCompletedFor(theChar)
 
@@ -406,7 +406,7 @@ func checkIfOwnerTasksGotCompleted():
 		task.checkIfCompletedFor(theChar)
 
 func getQuestProgressArray() -> Array:
-	var theChar = GM.pc
+	var theChar = ServiceLocator.safe_get_service(&"Player")
 	var result:Array = []
 	
 	for task in tasks:
@@ -580,14 +580,14 @@ func getDaysBeforeNextApproach() -> int:
 
 func checkNextApproachDay(_doAnnounce:bool = true):
 	#var oldNextApproachDay:int = nextApproachDay
-	if(GM.main.getDays() < nextApproachDay):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() < nextApproachDay):
 		return
-	nextApproachDay = GM.main.getDays() + getDaysBeforeNextApproach()
+	nextApproachDay = ServiceLocator.safe_get_service(&"MainScene").getDays() + getDaysBeforeNextApproach()
 	
-	if(nextApproachDay > GM.main.getDays()):
+	if(nextApproachDay > ServiceLocator.safe_get_service(&"MainScene").getDays()):
 		if(_doAnnounce):
-			var dayDiff:int = nextApproachDay - GM.main.getDays()
-			GM.main.addMessage(getOwnerName()+" will check on you in "+str(dayDiff)+" day"+("s" if dayDiff != 1 else ""))
+			var dayDiff:int = nextApproachDay - ServiceLocator.safe_get_service(&"MainScene").getDays()
+			ServiceLocator.safe_get_service(&"MainScene").addMessage(getOwnerName()+" will check on you in "+str(dayDiff)+" day"+("s" if dayDiff != 1 else ""))
 
 func debugCanPickTraits() -> bool:
 	return false
@@ -613,7 +613,7 @@ func addKeyholderSatisfaction(_val:float, _announcesCanUnlock:bool = true):
 	keyholderSatisfaction += _val
 	keyholderSatisfaction = clamp(keyholderSatisfaction, 0.0, 1.0)
 	if(!wasReady && keyholderSatisfaction >= 1.0 && _announcesCanUnlock):
-		GM.main.addMessage(getOwnerName()+" is ready to unlock you.")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(getOwnerName()+" is ready to unlock you.")
 
 func checkReadyToUnlockOwnerLock() -> bool:
 	if(keyholderSatisfaction >= 1.0):
@@ -622,11 +622,11 @@ func checkReadyToUnlockOwnerLock() -> bool:
 
 # Does the pc have anything locked by the owner
 func hasOwnerLock() -> bool:
-	return GM.pc.hasKeyholderLocksFrom(charID)
+	return ServiceLocator.safe_get_service(&"Player").hasKeyholderLocksFrom(charID)
 
 func unlockOwnerLock() -> int:
 	setMustHaveOwnerLock(false)
-	return GM.pc.unlockAllKeyholderLocksFrom(charID)
+	return ServiceLocator.safe_get_service(&"Player").unlockAllKeyholderLocksFrom(charID)
 
 func setMustHaveOwnerLock(_l:bool):
 	lockedByOwner = _l

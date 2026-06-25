@@ -9,7 +9,7 @@ func getVisibleName(_context = {}):
 	return "Recite Mantra"
 	
 func getVisibleDesc(_context = {}):
-	var amount = HypnokinkUtil.getSuggestibleStacks(GM.pc) / 2
+	var amount = HypnokinkUtil.getSuggestibleStacks(ServiceLocator.safe_get_service(&"Player")) / 2
 	return "Recite a short mantra to regain "+str(round(amount * 0.65))+" to "+str(round(amount))+" stamina. Amount scales with how hypnotized you currently are."
 	
 func _doAttack(_attacker, _receiver, _context = {}):

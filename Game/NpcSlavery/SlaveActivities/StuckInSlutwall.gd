@@ -14,9 +14,9 @@ func getInteractActions():
 	]
 
 func onStart(_args = []):
-	var pawn = GM.main.IS.spawnPawnIfNeeded(getCharID())
+	var pawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(getCharID())
 	pawn.setLocation("fight_slutwall")
-	GM.main.IS.startInteraction("InSlutwall", {inmate=getCharID()})
+	ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InSlutwall", {inmate=getCharID()})
 
 func onInteractionChanged(_newInteraction):
 	if(_newInteraction == null || _newInteraction.id != "InSlutwall"):

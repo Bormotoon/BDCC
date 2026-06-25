@@ -23,22 +23,22 @@ func _run():
 		saynn("You take your time consuming the paste, it's practically tasteless but it's better than nothing.")
 		
 		addButton("Continue", "Stand up and continue on your way", "endthescene")
-		GM.ES.triggerRun(Trigger.EatingInCanteen)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.EatingInCanteen)
 		
 	if(state == "donteat"):
 		saynn("You leave the plate without taking a single bite.")
 		
 		addButton("Continue", "Leave", "endthescene")
-		GM.ES.triggerRun(Trigger.EatingInCanteen)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.EatingInCanteen)
 
 func _react(_action: String, _args):
 	if(_action == "doeat"):		
-		GM.pc.afterEatingAtCanteen()
+		ServiceLocator.safe_get_service(&"Player").afterEatingAtCanteen()
 		processTime(60 * 5)
 		
 		setFlag("Canteen_PlayerAteToday", true)
 		
-		if(GM.ES.triggerReact(Trigger.EatingInCanteen)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.EatingInCanteen)):
 			endScene()
 			return
 		

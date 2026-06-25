@@ -125,7 +125,7 @@ func checkUniqueTarget(_target:String):
 #	if(_target in ["main_hallroom1"]):
 #		setState("pVendomat")
 #	if(_target in ["med_lobbymain"]):
-#		if(GM.pc.getPainLevel() > 0.4):
+#		if(ServiceLocator.safe_get_service(&"Player").getPainLevel() > 0.4):
 #			setState("pMedical")
 	if(!didComplicatedEvent):
 		if(timesLeft != 2 && (RNG.chance(30.0) || timesLeft==0 )):
@@ -155,9 +155,9 @@ func pMedical():
 	saynn("Your owner nods and pulls you away from the counter.")
 	
 	if(onlyOnce()):
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(150)
-		GM.main.addMessage("You feel better!")
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(150)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You feel better!")
 	
 	paradedOutcome()
 	
@@ -172,24 +172,24 @@ func pVendomat():
 			talkOwner("Thirsty?")
 			saynn("{npc.He} {npc.verb('buy')} an energy drink and hands it to you.")
 			talkOwner("Enjoy.")
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem(theItemToGive))
-			GM.main.addMessage("You received an energy drink!")
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(theItemToGive))
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You received an energy drink!")
 	saynn("After that, you get pulled away from the vendomat.")
 	paradedOutcome()
 
 func pCanteen():
 	playAnimation(StageScene.PawJobUnderTable, "start", {pc="pc", npc=getOwnerID()})
 	saynn("{npc.name} brings you into a canteen.")
-	if(GM.pc.isOralBlocked()):
+	if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 		talkModularOwnerToPC("SoftSlaveryParadeAroundEatGagged") #"Too bad you can't eat, {npc.npcSlave}. I will though."
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("All you can do is watch your owner eat..")
 		else:
 			saynn("All you can do is.. imagine.. your owner eat..")
 	else:
 		talkModularOwnerToPC("SoftSlaveryParadeAroundEat") #"Lets take a break. Enjoy your meal, {npc.npcSlave}."
 		if(onlyOnce()):
-			GM.pc.afterEatingAtCanteen()
+			ServiceLocator.safe_get_service(&"Player").afterEatingAtCanteen()
 		saynn("You and your owner spend time eating together behind one of the canteen tables.")
 	paradedOutcome()
 	
@@ -205,7 +205,7 @@ func pShower():
 	talkModularOwnerToPC("SoftSlaveryParadeAroundShower")
 	if(onlyOnce()):
 		getOwner().afterTakingAShower()
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 	saynn("After that is done, your owner guides you out.")
 	
 	paradedOutcome()
@@ -415,7 +415,7 @@ func applyRandomDir(_loc:String, _amount:int) -> String:
 	while(_amount > 0):
 		var canGoDirs:Array = []
 		for theDir in GameWorld.getAllDirections():
-			if(GM.world.canGoID(_loc, theDir)):
+			if(ServiceLocator.safe_get_service(&"World").canGoID(_loc, theDir)):
 				canGoDirs.append(theDir)
 
 		if(canGoDirs.size() <= 0):
@@ -426,15 +426,15 @@ func applyRandomDir(_loc:String, _amount:int) -> String:
 			return _loc
 		var randomDir = RNG.pick(canGoDirs)
 		_lastDir = randomDir
-		_loc = GM.world.applyDirectionID(_loc, randomDir)
+		_loc = ServiceLocator.safe_get_service(&"World").applyDirectionID(_loc, randomDir)
 		_amount -= 1
 	
 	return _loc
 
 func findStick():
 	if(onlyOnce()):
-		stickLoc = applyRandomDir(GM.pc.getLocation(), 2)
-		ownerLoc = GM.pc.getLocation()
+		stickLoc = applyRandomDir(ServiceLocator.safe_get_service(&"Player").getLocation(), 2)
+		ownerLoc = ServiceLocator.safe_get_service(&"Player").getLocation()
 		foundStick = false
 		moveAmount = 0
 		isStickFake = RNG.chance(20.0 + ownerPersonality(PersonalityStat.Mean)*10.0)
@@ -451,7 +451,7 @@ func findStickFinding():
 		saynn("Find the ball! Find the ball! Find the ball!")
 	else:
 		saynn("Bring the ball back! Bring the ball back! Bring the ball back!")
-	var roomID:String = GM.pc.location
+	var roomID:String = ServiceLocator.safe_get_service(&"Player").location
 	aimCamera(roomID)
 	
 	if(!isStickFake):
@@ -464,19 +464,19 @@ func findStickFinding():
 		if(moveAmount >= 3 && roomID == ownerLoc):
 			addButton("No ball..", "You couldn't find your owner's ball..", "setState", ["fakeStickFound"])
 	
-	if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.NORTH)):
 		addButtonAt(6, "North", "Go north", "go", [GameWorld.Direction.NORTH, Direction.North])
 	else:
 		addDisabledButtonAt(6, "North", "Can't go north")
-	if(GM.world.canGoID(roomID, GameWorld.Direction.WEST)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.WEST)):
 		addButtonAt(10, "West", "Go west", "go", [GameWorld.Direction.WEST, Direction.West])
 	else:
 		addDisabledButtonAt(10, "West", "Can't go west")
-	if(GM.world.canGoID(roomID, GameWorld.Direction.SOUTH)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.SOUTH)):
 		addButtonAt(11, "South", "Go south", "go", [GameWorld.Direction.SOUTH, Direction.South])
 	else:
 		addDisabledButtonAt(11, "South", "Can't go south")
-	if(GM.world.canGoID(roomID, GameWorld.Direction.EAST)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.EAST)):
 		addButtonAt(12, "East", "Go east",  "go", [GameWorld.Direction.EAST, Direction.East])
 	else:
 		addDisabledButtonAt(12, "East", "Can't go east")
@@ -486,17 +486,17 @@ func findStickFinding_do(_id:String, _args:Array):
 		playAnimation(StageScene.PuppySolo, "walk", {bodyState={naked=true}})
 		moveAmount += 1
 		var theGoDir:int = _args[0]
-		var newPCLoc:String = GM.world.applyDirectionID(GM.pc.getLocation(), theGoDir)
-		GM.pc.setLocation(newPCLoc)
+		var newPCLoc:String = ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").getLocation(), theGoDir)
+		ServiceLocator.safe_get_service(&"Player").setLocation(newPCLoc)
 		#play walk anim
 		
-		if(GM.world.simpleDistance(newPCLoc, ownerLoc) >= 2.8):
+		if(ServiceLocator.safe_get_service(&"World").simpleDistance(newPCLoc, ownerLoc) >= 2.8):
 			setLocation(newPCLoc)
 			setState("stickTooFar")
 		
 	if(_id == "grabStick"):
 		foundStick = true
-		GM.main.addMessage("You find the ball and grab it with your mouth!")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You find the ball and grab it with your mouth!")
 		playAnimation(StageScene.PuppySolo, "sad", {bodyState={naked=true}})
 
 func gaveStick():

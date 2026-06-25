@@ -102,7 +102,7 @@ func playAnimation():
 				if(extraData[theID].has("leashedBy")):
 					extraData[theID]["leashedBy"] = getCharIDByRole(extraData[theID]["leashedBy"])
 	
-	GM.main.playAnimation(animData[0], animData[1], animData[2] if animData.size() > 2 else {})
+	ServiceLocator.safe_get_service(&"MainScene").playAnimation(animData[0], animData[1], animData[2] if animData.size() > 2 else {})
 
 func calcFinalActionScore(actionEntry:Dictionary) -> float:
 	if(actionEntry.has("finalScore")):
@@ -174,7 +174,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		var cowardness = curPawn.scorePersonalityMax({PersonalityStat.Coward: 1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		
 		var finalScore:float = 0.4 + 0.8 * ((diff + 5.0) / 10.0)
 		finalScore -= affection * 0.2 # Less likely to fight if like each other
@@ -185,7 +185,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 	elif(_scoreType == "surrender"):
 		var ourPowerLevel:float = curPawn.calculatePowerScore()
 		var theirPowerLevel:float = dirToPawn.calculatePowerScore()
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		
 		var diff:float = ourPowerLevel - theirPowerLevel
 		diff = clamp(diff, -5.0, 5.0)
@@ -201,7 +201,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		finalScore += lust * 0.2
 		return finalScore
 	elif(_scoreType == "punish"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		meanness = clamp(meanness, -0.5, 0.5)
 		var subbyness = curPawn.scorePersonalityMax({PersonalityStat.Subby: 1.0})
@@ -218,7 +218,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		return finalScore
 	elif(_scoreType == "punishMean"):
 		var anger:float = curPawn.getAnger()
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		#meanness = clamp(meanness, -0.5, 0.5)
 		var subbyness = curPawn.scorePersonalityMax({PersonalityStat.Subby: 1.0})
@@ -241,8 +241,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		finalScore = clamp(finalScore, 0.1, 2.0)
 		return finalScore
 	elif(_scoreType == "sexDom"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var dommyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: -1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		var isInHeat = GlobalRegistry.getCharacter(dirToID).isInHeat()
@@ -268,8 +268,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		finalScore = clamp(finalScore, 0.05, 2.0)
 		return finalScore
 	elif(_scoreType == "sexSub"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var subbyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: 1.0})
 		var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var isInHeat = GlobalRegistry.getCharacter(curID).isInHeat()
@@ -291,8 +291,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 	elif(_scoreType == "hatefuck"):
 		#var social:float = curPawn.getSocialClamped()
 		var anger:float = curPawn.getAngerClamped()
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		var isInHeat = GlobalRegistry.getCharacter(curID).isInHeat()
 		
@@ -310,7 +310,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		finalScore = clamp(finalScore, 0.05, 2.0)
 		return finalScore
 	elif(_scoreType == "resist"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var braveness = curPawn.scorePersonalityMax({PersonalityStat.Coward: -1.0})
 		var bratiness = curPawn.scorePersonalityMax({PersonalityStat.Brat: 1.0})
 		var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
@@ -329,7 +329,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 	elif(_scoreType == "help"):
 		var social:float = curPawn.getSocialClamped()
 		var anger:float = curPawn.getAngerClamped()
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var kindness = curPawn.scorePersonalityMax({PersonalityStat.Mean: -1.0})
 		
 		var finalScore:float = 0.0
@@ -348,7 +348,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 	elif(_scoreType == "justleave"):
 		return 0.01
 	elif(_scoreType == "talk"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var kindness = curPawn.scorePersonalityMax({PersonalityStat.Mean: -1.0})
 		
 		var mult:float = 1.0
@@ -390,8 +390,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		return clamp(finalScore, 0.02, 2.0)
 	elif(_scoreType == "acceptFlirt"):
 		var likeness:float = curPawn.getHowMuchLikesPawn(dirToPawn, true)
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var subbyness = curPawn.scorePersonalityMax({PersonalityStat.Subby: 1.0})
 		
@@ -412,8 +412,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		var social:float = curPawn.getSocialClamped()
 		var anger:float = curPawn.getAnger()
 		
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var dommyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: -1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
 		
@@ -448,7 +448,7 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		return finalScore
 	elif(_scoreType == "attack"):
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
 		var anger:float = curPawn.getAnger()
 		
 		var finalScore:float = 0.0
@@ -457,8 +457,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		finalScore = max(anger, finalScore)
 		return finalScore
 	elif(_scoreType == "agreeSexAsSub"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var subbyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: 1.0})
 		var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
@@ -484,8 +484,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		
 		return finalScore
 	elif(_scoreType == "agreeSexAsDom"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var dommyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: -1.0})
 		#var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
@@ -508,8 +508,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		
 		return finalScore
 	elif(_scoreType == "agreeSexWithSubSlut"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var dommyness:float = curPawn.scorePersonalityMax({PersonalityStat.Subby: -1.0})
 		#var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var meanness = curPawn.scorePersonalityMax({PersonalityStat.Mean: 1.0})
@@ -537,8 +537,8 @@ func getScoreTypeValueGenericInternal(_scoreType:String, curPawn:CharacterPawn, 
 		
 		return finalScore
 	elif(_scoreType == "agreeSexWithDomSlut"):
-		var affection:float = GM.main.RS.getAffection(curID, dirToID)
-		var lust:float = GM.main.RS.getLust(curID, dirToID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(curID, dirToID)
+		var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(curID, dirToID)
 		var theirDommyness:float = dirToPawn.scorePersonalityMax({PersonalityStat.Subby: -1.0})
 		#var naiveness = curPawn.scorePersonalityMax({PersonalityStat.Naive: 1.0})
 		var isInHeat = GlobalRegistry.getCharacter(curID).isInHeat()
@@ -650,7 +650,7 @@ func doInvolvePawn(role:String, pawn, tpPawn:bool = true):
 	assert(!isPawnInvolved(pawn))
 	
 	if(!isPawnInvolved(pawn)):
-		GM.main.IS.stopInteractionsForPawnID(pawn.charID)
+		ServiceLocator.safe_get_service(&"MainScene").IS.stopInteractionsForPawnID(pawn.charID)
 	involvedPawns[role] = pawn.charID
 	charIDToRole[pawn.charID] = role
 	pawn.setInteraction(self)
@@ -816,7 +816,7 @@ func doFightAftermath(_fightersData, newResult):
 	if(wonPawn != null):
 		wonPawn.afterWonFight()
 		
-		GM.main.WHS.addEvent(WHEvent.WonFight, wonPawn.charID, lostPawn.charID)
+		ServiceLocator.safe_get_service(&"MainScene").WHS.addEvent(WHEvent.WonFight, wonPawn.charID, lostPawn.charID)
 		
 		if(wonPawn.isPlayer() && lostPawn != null):
 			var pawnWonPower:float = wonPawn.calculatePowerScore()
@@ -853,11 +853,11 @@ func doSexAftermath(_sexData, theSexResult:SexEngineResult):
 	if(domPawn != null):
 		domPawn.afterSex(true)
 		
-		GM.main.WHS.addEvent(WHEvent.Fucked, domPawn.charID, subPawn.charID)
+		ServiceLocator.safe_get_service(&"MainScene").WHS.addEvent(WHEvent.Fucked, domPawn.charID, subPawn.charID)
 	if(subPawn != null):
 		subPawn.afterSex(false)
 		
-		#GM.main.WHS.addEvent(WHEvent.GotFucked, subPawn.charID, domPawn.charID)
+		#ServiceLocator.safe_get_service(&"MainScene").WHS.addEvent(WHEvent.GotFucked, subPawn.charID, domPawn.charID)
 	
 	var domSatisfaction:float = theSexResult.getAverageDomSatisfaction()
 	var subSatisfaction:float = theSexResult.getAverageSubSatisfaction()
@@ -881,9 +881,9 @@ func doSexAftermath(_sexData, theSexResult:SexEngineResult):
 			domPawn.addRepScore(RepStat.Alpha, subSatisfaction * 0.4)
 		
 		if(subSatisfaction <= 0.2):
-			GM.main.RS.sendSocialEvent(domPawn.charID, subPawn.charID, SocialEventType.AwfulSex)
+			ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent(domPawn.charID, subPawn.charID, SocialEventType.AwfulSex)
 		if(subSatisfaction >= 0.9):
-			GM.main.RS.sendSocialEvent(domPawn.charID, subPawn.charID, SocialEventType.GreatSex)
+			ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent(domPawn.charID, subPawn.charID, SocialEventType.GreatSex)
 
 func doCurrentAction(_context:Dictionary = {}):
 	if(currentActionID == "" || wasDeleted):
@@ -910,10 +910,10 @@ func isPlayerInvolved() -> bool:
 	return false
 
 #func markAsUpdated():
-#	lastUpdatedSeconds = GM.main.getTime()
+#	lastUpdatedSeconds = ServiceLocator.safe_get_service(&"MainScene").getTime()
 
 func getPawn(pawnID:String) -> CharacterPawn:
-	return GM.main.IS.getPawn(pawnID)
+	return ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 
 func getRolePawn(role:String) -> CharacterPawn:
 	if(involvedPawns.has(role)):
@@ -938,7 +938,7 @@ func canGetTo(theTarget:String) -> bool:
 	if(theTarget == getLocation()):
 		return true
 	cachedTarget = theTarget
-	cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+	cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 	if(cachedPath.size() <= 0):
 		return false
 	return true
@@ -951,7 +951,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 	
 	if(cachedTarget != theTarget):
 		cachedTarget = theTarget
-		cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+		cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 		
 		if(cachedPath.size() <= 0):
 			if(tpOnNoPath):
@@ -965,7 +965,7 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 			setLocation(cachedPath[1])
 			cachedPath.remove_at(0)
 		else:
-			cachedPath = GM.world.calculatePath(getLocation(), cachedTarget)
+			cachedPath = ServiceLocator.safe_get_service(&"World").calculatePath(getLocation(), cachedTarget)
 	
 	if(getLocation() == theTarget):
 		cachedTarget = ""
@@ -976,15 +976,15 @@ func goTowards(theTarget:String, tpOnNoPath:bool = false):
 func doWander() -> bool:
 	var randomDir = RNG.pick(GameWorld.getAllDirections())
 	
-	if(GM.world.canGoID(location, randomDir)):
-		setLocation(GM.world.applyDirectionID(location, randomDir))
+	if(ServiceLocator.safe_get_service(&"World").canGoID(location, randomDir)):
+		setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(location, randomDir))
 		return true
 	return false
 
 func doWanderGurantee() -> bool:
 	var canGoDirs = []
 	for theDir in GameWorld.getAllDirections():
-		if(GM.world.canGoID(location, theDir)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(location, theDir)):
 			canGoDirs.append(theDir)
 	
 	if(canGoDirs.size() <= 0):
@@ -993,7 +993,7 @@ func doWanderGurantee() -> bool:
 		canGoDirs.erase(GameWorld.getOppositeDir(cachedLastDir))
 	var randomDir = RNG.pick(canGoDirs)
 	cachedLastDir = randomDir
-	setLocation(GM.world.applyDirectionID(location, randomDir))
+	setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(location, randomDir))
 	return true
 
 func getCurrentAction() -> String:
@@ -1003,7 +1003,7 @@ func processTime(_howMuch:int):
 	pass
 
 func stopMe():
-	GM.main.IS.stopInteraction(self)
+	ServiceLocator.safe_get_service(&"MainScene").IS.stopInteraction(self)
 
 func onStopped():
 	pass
@@ -1047,14 +1047,14 @@ func isWaitingForScene() -> bool:
 	return isWaitingScene
 
 func startInteraction(interactionID:String, _involvedPawns:Dictionary, args:Dictionary = {}):
-	GM.main.IS.startInteraction(interactionID, _involvedPawns, args)
+	ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction(interactionID, _involvedPawns, args)
 
 func getCurrentActionText() -> String:
 	return currentActionText
 
 func isBeingSpied() -> bool:
 	for role in involvedPawns:
-		if(GM.main.isPawnIDBeingSpied(involvedPawns[role])):
+		if(ServiceLocator.safe_get_service(&"MainScene").isPawnIDBeingSpied(involvedPawns[role])):
 			return true
 	return false
 
@@ -1080,20 +1080,20 @@ func getKeepInteractionScoreForCharID(_charID:String):
 func doLookAround(role:String, keepScoreMult:float = 1.0):
 	if(wasDeleted):
 		return false
-	if(GM.main.IS.areInteractionsDisabled()):
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.areInteractionsDisabled()):
 		return false
 	var pawn = getRolePawn(role)
 	if(pawn == null || !pawn.canInterrupt()):
 		return false
 	var loc:String = pawn.getLocation()
 	
-	var allPawns:Array = GM.main.IS.getPawnsAt(loc)
+	var allPawns:Array = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnsAt(loc)
 	
 	return pawn.tryInterruptPawns(allPawns, keepScoreMult)
 
 func shoutForInterruptions(role:String, searchDepth:int, maxDist:float = -1.0, keepScoreMult:float = 1.0, pcMessage:String = ""):
 	var pawn = getRolePawn(role)
-	var allPawnIDs = GM.main.IS.getPawnIDsNear(pawn.getLocation(), searchDepth, maxDist)
+	var allPawnIDs = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(pawn.getLocation(), searchDepth, maxDist)
 	allPawnIDs.shuffle()
 	for otherPawnID in allPawnIDs:
 		var otherPawn = getPawn(otherPawnID)
@@ -1185,13 +1185,13 @@ func getLust(role1:String, role2:String) -> float:
 	if(!involvedPawns.has(role1) || !involvedPawns.has(role2)):
 		Log.err("Bad roles found")
 		return 0.0
-	return GM.main.RS.getLust(getRoleID(role1), getRoleID(role2))
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getLust(getRoleID(role1), getRoleID(role2))
 
 func getAffection(role1:String, role2:String) -> float:
 	if(!involvedPawns.has(role1) || !involvedPawns.has(role2)):
 		Log.err("Bad roles found")
 		return 0.0
-	return GM.main.RS.getAffection(getRoleID(role1), getRoleID(role2))
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(getRoleID(role1), getRoleID(role2))
 
 func affectAffection(role1:String, role2:String, howMuch:float):
 	if(!involvedPawns.has(role1) || !involvedPawns.has(role2)):
@@ -1223,15 +1223,15 @@ func makeRoleExhausted(role:String):
 	pawn.makeExhausted()
 
 func addMessage(text: String):
-	GM.main.addMessage(text)
+	ServiceLocator.safe_get_service(&"MainScene").addMessage(text)
 
 func addExperienceToPlayer(ex: int, showMessage: bool = true):
 	if(showMessage):
 		addMessage("You received "+str(ex)+" experience")
-	GM.pc.addExperience(ex)
+	ServiceLocator.safe_get_service(&"Player").addExperience(ex)
 
 func runScene(sceneid: String, args = [], tag = ""):
-	var scene = GM.main.runScene(sceneid, args)
+	var scene = ServiceLocator.safe_get_service(&"MainScene").runScene(sceneid, args)
 	scene.sceneTag = tag
 
 func sayLine(role:String, lineID:String, args:Dictionary, actualArgs:Dictionary = {}):
@@ -1252,23 +1252,23 @@ func doDexterityCheck(_roleActs:String, _roleReacts:String) -> bool:
 func addDefeatButtons(rolePC:String, _roleNPC:String):
 	if(involvedPawns.has(rolePC) && getRolePawn(rolePC).isPlayer()):
 		addAction("builtin_inv", "Inventory", "Open the inventory", "default", 0.0, 0, {})
-		if(GM.pc.getInventory().hasRemovableRestraints()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 			addAction("builtin_struggle", "Struggle", "Try to remove some of your restraints", "default", 0.0, 0, {})
 		
 		if(involvedPawns.has(_roleNPC)):
-			GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [getRoleID(_roleNPC)])
+			ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [getRoleID(_roleNPC)])
 
 func addDefeatButtonsOnlyEvent(rolePC:String, _roleNPC:String):
 	if(involvedPawns.has(rolePC) && getRolePawn(rolePC).isPlayer()):
 		if(involvedPawns.has(_roleNPC)):
-			GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [getRoleID(_roleNPC)])
+			ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [getRoleID(_roleNPC)])
 
 func triggerTalkRunEvents(role:String):
 	if(isPlayersTurn()):
-		GM.ES.triggerRun(Trigger.TalkingToDynamicNPC, [getRoleID(role)])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToDynamicNPC, [getRoleID(role)])
 
 func triggerTalkReactEvents(role:String):
-	if(GM.ES.triggerReact(Trigger.TalkingToDynamicNPC, [getRoleID(role)])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToDynamicNPC, [getRoleID(role)])):
 		return true
 	return false
 
@@ -1421,14 +1421,14 @@ func showKnownLikesDislikesFor(role:String):
 func getAffectionString(role1:String, role2:String) -> String:
 	var id1:String = getRoleID(role1)
 	var id2:String = getRoleID(role2)
-	var affection:float = GM.main.RS.getAffection(id1, id2)
+	var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(id1, id2)
 	
 	return str(Util.roundF(affection*100.0, 1))+"%"
 	
 func getLustString(role1:String, role2:String) -> String:
 	var id1:String = getRoleID(role1)
 	var id2:String = getRoleID(role2)
-	var affection:float = GM.main.RS.getLust(id1, id2)
+	var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(id1, id2)
 	
 	return str(Util.roundF(affection*100.0, 1))+"%"
 	
@@ -1693,15 +1693,15 @@ func triggerRandomStocksEvent(_lewdChance, _willingSexChance, _unWillingSexChanc
 	var eventType = RNG.pickWeighted(["StocksEvent", "StocksWillingSex", "StocksUnWillingSex", ""], [_lewdChance, _willingSexChance, _unWillingSexChance, _nothingChance])
 	
 	if(eventType == "StocksEvent"):
-		if(GM.ES.triggerReact("StocksEvent")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksEvent")):
 			return true
 
 	if(eventType == "StocksWillingSex"):
-		if(GM.ES.triggerReact("StocksWillingSex")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksWillingSex")):
 			return true
 			
 	if(eventType == "StocksUnWillingSex"):
-		if(GM.ES.triggerReact("StocksUnWillingSex")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksUnWillingSex")):
 			return true
 	
 	return false
@@ -1715,7 +1715,7 @@ func roleCanStartSex(role:String) -> bool:
 func getStocksScoreMult() -> float:
 	if(isPlayerInvolved()):
 		return 1.0
-	var stocksAmount:int = GM.main.IS.getInteractionsOfTypeAmount("InStocks")
+	var stocksAmount:int = ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("InStocks")
 	
 	if(stocksAmount >= 4):
 		return 0.01
@@ -1724,7 +1724,7 @@ func getStocksScoreMult() -> float:
 	return 1.0
 
 func canGetToStocks() -> bool:
-	var room = GM.world.getRoomByID(getLocation())
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(room == null):
 		return false
 	var floorID:String = room.getFloorID()
@@ -1732,12 +1732,12 @@ func canGetToStocks() -> bool:
 	return (floorID in ["Cellblock", "MainHall"])
 
 func canGetToSlutwall() -> bool:
-	var room = GM.world.getRoomByID(getLocation())
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(room == null):
 		return false
 	var floorID:String = room.getFloorID()
 	
-	if(!GM.main.getFlag("FightClubModule.BulldogBypassed")):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.BulldogBypassed")):
 		return false
 	
 	return (floorID in ["FightClubFloor", "MainHall"])
@@ -1745,7 +1745,7 @@ func canGetToSlutwall() -> bool:
 func getSlutwallScoreMult() -> float:
 	if(isPlayerInvolved()):
 		return 1.0
-	var stocksAmount:int = GM.main.IS.getInteractionsOfTypeAmount("InSlutwall")
+	var stocksAmount:int = ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("InSlutwall")
 	
 	if(stocksAmount >= 3):
 		return 0.01
@@ -1764,7 +1764,7 @@ func checkUncon(_sexResult:SexEngineResult):
 func triggerUnconsciousPCGrabEvent(_pawn):
 	if(_pawn == null):
 		return false
-	if(GM.ES.triggerReact(Trigger.UnconsciousPCGrabbed, [_pawn.charID])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.UnconsciousPCGrabbed, [_pawn.charID])):
 		return true
 	
 	return false
@@ -1801,7 +1801,7 @@ func getPreviewLineForRole(_role:String) -> String:
 func findProstitutionTargetsNearby(_ignoreList:Array = []) -> Array:
 	var result:Array = []
 	
-	var pawnIDs = GM.main.IS.getPawnIDsNear(getLocation(), 1)
+	var pawnIDs = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(getLocation(), 1)
 	for pawnID in pawnIDs:
 		if(isPawnInvolved(pawnID)):
 			continue
@@ -1832,13 +1832,13 @@ func getPawnRep(_role:String):
 
 # Maybe a generic version?
 func doReactOnLeash(_leasherRole:String, _leashedRole:String):
-	if(!GM.main.shouldExecuteOnceCodeblocksRun()):
+	if(!ServiceLocator.safe_get_service(&"MainScene").shouldExecuteOnceCodeblocksRun()):
 		return
 	# Only for player because optimization
 	if(!getRolePawn(_leashedRole).isPlayer()):
 		return
 	
-	var pawns:Array = GM.main.IS.getPawnsAt(getLocation())
+	var pawns:Array = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnsAt(getLocation())
 	
 	var rep:ReputationPlaceholder = getPawnRep(_leashedRole)
 	
@@ -1889,13 +1889,13 @@ func hasRepLevelPC(_role:String, _repID:String, _reqLevel:int) -> bool:
 	return true
 
 func addWHSEvent(_eventID:String, whoRole:String, byRole:String, args:Dictionary = {}):
-	GM.main.WHS.addEvent(_eventID, getRoleID(whoRole), getRoleID(byRole), args)
+	ServiceLocator.safe_get_service(&"MainScene").WHS.addEvent(_eventID, getRoleID(whoRole), getRoleID(byRole), args)
 
 func sendSocialEvent(_roleActor:String, _roleTarget:String, _eventID:int, _args:Array = []):
 	var _charIDActor:String = getCharIDByRole(_roleActor)
 	var _charIDTarget:String = getCharIDByRole(_roleTarget)
 	
-	GM.main.RS.sendSocialEvent(_charIDActor, _charIDTarget, _eventID, _args)
+	ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent(_charIDActor, _charIDTarget, _eventID, _args)
 
 func isNemesisTo(_roleWho:String, _roleTo:String) -> bool:
 	var _roleWhoPawn := getRolePawn(_roleWho)

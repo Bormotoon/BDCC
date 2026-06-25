@@ -44,7 +44,7 @@ func _run():
 
 		saynn("[say=captain]State your name first, future inmate.[/say]")
 		
-		addButton("It's "+GM.pc.getName(), "Say your name", "sayname")
+		addButton("It's "+ServiceLocator.safe_get_service(&"Player").getName(), "Say your name", "sayname")
 		addButton("Shove away", "How dares he", "shoveaway")
 		
 	if(state == "sayname"):
@@ -280,37 +280,37 @@ func _react(_action: String, _args):
 	if(_action == "getgagged"):
 		processTime(10 * 60)
 		
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("basketmuzzle"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("basketmuzzle"))
 		addMessage("A basket cage muzzle was forced on you!")
 		
 	if(_action == "cuffs"):
 		processTime(10 * 60)
 		
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmatecollar"))
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmateanklecuffs"))
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmatecollar"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmateanklecuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
 		addMessage("A bulky collar gets locked around your neck with a satisfying click")
 		addMessage("Your wrists and ankles get cuffed")
-		GM.pc.updateAppearance()
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
 		
 	if(_action == "aftershower"):
 		processTime(10 * 60)
 		
 		var uniform = GlobalRegistry.createItem("inmateuniform")
 		
-		uniform.setPrisonerNumber(GM.pc.getFullInmateNumber())
-		uniform.setInmateType(GM.pc.getInmateType())
+		uniform.setPrisonerNumber(ServiceLocator.safe_get_service(&"Player").getFullInmateNumber())
+		uniform.setInmateType(ServiceLocator.safe_get_service(&"Player").getInmateType())
 		
-		GM.pc.getInventory().forceEquipRemoveOther(uniform)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(uniform)
 		
 		addMessage("You're wearing an inmate uniform now")
 		
 	if(_action == "shower"):
 		processTime(25 * 60)
 		
-		GM.pc.addPain(-10)
-		GM.pc.addLust(-10)
-		GM.pc.addStamina(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(-10)
+		ServiceLocator.safe_get_service(&"Player").addLust(-10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(30)
 		
 	if(_action == "endthescene"):
 		processTime(5 * 60)

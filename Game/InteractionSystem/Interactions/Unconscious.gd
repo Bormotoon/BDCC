@@ -21,7 +21,7 @@ func init_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "wait"):
 		timesWaited += 1
 		if(timesWaited >= 5 && getRolePawn("main").isPlayer()):
-			var nurseAmount:int = GM.main.IS.getAvailableNursesAmount()
+			var nurseAmount:int = ServiceLocator.safe_get_service(&"MainScene").IS.getAvailableNursesAmount()
 			if(nurseAmount <= 0):
 				setState("no_nurses", "main")
 				return

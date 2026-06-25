@@ -36,7 +36,7 @@ func updatePerks():
 		if(perk.getSkillTier() != tierIndex):
 			continue
 			
-		if(GM.pc.getSkillsHolder().hasPerkDisabledOrNot(perk.id)):
+		if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerkDisabledOrNot(perk.id)):
 			if(perk.hiddenWhenUnlocked()):
 				continue
 		else:

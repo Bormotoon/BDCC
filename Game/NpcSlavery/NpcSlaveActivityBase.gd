@@ -79,7 +79,7 @@ func pawnShouldReturnHome() -> bool:
 	return true
 
 func pawnExist() -> bool:
-	return GM.main.IS.hasPawn(getChar().getID())
+	return ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(getChar().getID())
 
 func saveData():
 	var data = {

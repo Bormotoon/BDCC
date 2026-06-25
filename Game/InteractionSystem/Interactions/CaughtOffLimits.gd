@@ -23,7 +23,7 @@ func shouldRunOnMeet(_pawn1, _pawn2, _pawn2Moved:bool):
 	
 	if(_pawn1.isStaff() && _pawn2.isInmate()):
 		var pawnLoc = _pawn2.getLocation()
-		var pawnRoom = GM.world.getRoomByID(pawnLoc)
+		var pawnRoom = ServiceLocator.safe_get_service(&"World").getRoomByID(pawnLoc)
 		
 		var isBadLoc = pawnRoom.isLocToCatchOfflimits()
 		
@@ -230,10 +230,10 @@ func getAnimData() -> Array:
 	return [StageScene.Duo, "stand", {pc="inmate", npc="guard"}]
 
 func startEscortOut():
-	if(GM.world.isLocSafe(getLocation())):
+	if(ServiceLocator.safe_get_service(&"World").isLocSafe(getLocation())):
 		setState("escorted_out", "guard")
 		return
-	throwOutLoc = GM.world.getSafeLoc(getLocation())
+	throwOutLoc = ServiceLocator.safe_get_service(&"World").getSafeLoc(getLocation())
 	goTowards(throwOutLoc)
 	setState("escorting_out", "guard")
 

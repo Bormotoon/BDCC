@@ -33,15 +33,15 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 
 func getPossibleLocks() -> Array:
 	var possible:Array = []
-	if(!GM.pc.isMuzzled() && !GM.pc.isBitingBlocked() && !GM.pc.isGagged()):
+	if(!ServiceLocator.safe_get_service(&"Player").isMuzzled() && !ServiceLocator.safe_get_service(&"Player").isBitingBlocked() && !ServiceLocator.safe_get_service(&"Player").isGagged()):
 		possible.append("ringgag")
-	if(!GM.pc.hasBlockedHands()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 		possible.append("mittens")
-	if(!GM.pc.hasBoundArms()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 		possible.append("arms")
-	if(!GM.pc.hasBoundLegs()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 		possible.append("legs")
-	if(!GM.pc.isWearingChastityCage() && GM.pc.hasReachablePenis()):
+	if(!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 		possible.append("cage")
 		possible.append("cageflat")
 	
@@ -106,7 +106,7 @@ func start_do(_id:String, _args:Array):
 			theItem = GlobalRegistry.createItem("ChastityCageFlat")
 		
 		if(theItem):
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(theItem)
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(theItem)
 			theItem.addSmartLock(SmartLock.KeyholderLock, getOwner())
 		
 		var theNpcOwner := getNpcOwner()

@@ -94,7 +94,7 @@ func generateSpecies() -> String:
 	var allSpecies = GlobalRegistry.getAllSpecies()
 	var possible = []
 	for speciesID in allSpecies:
-		var weight = GM.main.getEncounterSettings().getSpeciesWeight(speciesID)
+		var weight = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getSpeciesWeight(speciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([speciesID, weight])
 	if(possible.is_empty()):
@@ -107,7 +107,7 @@ func generateSpeciesBlacklist(blacklist:Array) -> String:
 	for speciesID in allSpecies:
 		if(blacklist.has(speciesID)):
 			continue
-		var weight = GM.main.getEncounterSettings().getSpeciesWeight(speciesID)
+		var weight = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getSpeciesWeight(speciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([speciesID, weight])
 	if(possible.is_empty()):

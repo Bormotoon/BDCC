@@ -137,13 +137,13 @@ func reset_flags_on_new_day() -> void:
 	pass
 
 func set_flag(flag_id, value) -> void:
-	GM.main.set_flag(flag_id, value)
+	ServiceLocator.safe_get_service(&"MainScene").set_flag(flag_id, value)
 
 func get_flag(flag_id, default_value = null):
-	return GM.main.get_flag(flag_id, default_value)
+	return ServiceLocator.safe_get_service(&"MainScene").get_flag(flag_id, default_value)
 
 func increase_flag(flag_id, add_value = 1) -> void:
-	GM.main.increase_flag(flag_id, add_value)
+	ServiceLocator.safe_get_service(&"MainScene").increase_flag(flag_id, add_value)
 
 func get_random_scene_for(_scene_type) -> Array:
 	return []

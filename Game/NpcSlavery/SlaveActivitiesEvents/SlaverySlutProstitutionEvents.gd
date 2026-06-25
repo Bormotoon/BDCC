@@ -11,7 +11,7 @@ func registerTriggers(_es):
 
 
 func run(_triggerID, _args):
-	if(!(WorldPopulation.Inmates in GM.pc.getLocationPopulation())):
+	if(!(WorldPopulation.Inmates in ServiceLocator.safe_get_service(&"Player").getLocationPopulation())):
 		return
 	
 	if(getFlag("NpcSlaveryModule.slutBigEventCooldown", 0) > 0):
@@ -28,7 +28,7 @@ func run(_triggerID, _args):
 	if(RNG.chance(30)):
 		return
 	
-	var slaves = GM.main.getPCSlavesIDs()
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 	var allWorkingSluts = []
 	for slaveID in slaves:
 		var theChar:DynamicCharacter = getCharacter(slaveID)
@@ -49,9 +49,9 @@ func run(_triggerID, _args):
 func onButton(_method, _args):
 	if(_method == "lookslut"):
 		setFlag("NpcSlaveryModule.slutEventCooldown", 10)
-		if(!GM.ES.triggerReact(Trigger.SlaverySlutLookAtEvent, _args)):
+		if(!ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.SlaverySlutLookAtEvent, _args)):
 			addMessage("The slut didn't react to you")
-			GM.main.reRun()
+			ServiceLocator.safe_get_service(&"MainScene").reRun()
 		#runScene("SlutProstitutionWatch", [_args[0]])
 	
 	
@@ -60,10 +60,10 @@ func react(_triggerID, _args):
 	
 	if(getFlag("NpcSlaveryModule.slutEventCooldown", 0) != 1 && !isLookingForTrouble):
 		return false
-	if(!(WorldPopulation.Inmates in GM.pc.getLocationPopulation())):
+	if(!(WorldPopulation.Inmates in ServiceLocator.safe_get_service(&"Player").getLocationPopulation())):
 		return false
 
-	var slaves = GM.main.getPCSlavesIDs()
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 	var allWorkingSluts = []
 	var canGetCreds = []
 	for slaveID in slaves:
@@ -88,7 +88,7 @@ func react(_triggerID, _args):
 		
 		setFlag("NpcSlaveryModule.slutBigEventCooldown", randi_range(20, 100))
 		#runScene("SlutProstitutionWatch", [randomChar.getID(), true])
-		if(GM.ES.triggerReact(Trigger.SlaverySlutImportantEvent, [randomChar.getID()])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.SlaverySlutImportantEvent, [randomChar.getID()])):
 			return true
 	return false
 	

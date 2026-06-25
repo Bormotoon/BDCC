@@ -9,7 +9,7 @@ func getVisibleName():
 func getDescription():
 	var theText:String = "A single-use injector that holds a small chip that, if injected, will let you control an organic form that it was designed for."
 
-	if(GM.main.getFlag("ElizaModule.tent_neurolink", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.tent_neurolink", false)):
 		theText += "\n\n[i]Somehow you managed to keep an extra injector. It is completely useless now. But you should probably still keep it.[/i]"
 
 	return theText

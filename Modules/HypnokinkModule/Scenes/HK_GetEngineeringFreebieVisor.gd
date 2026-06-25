@@ -37,7 +37,7 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		addMessage("You received a hypnovisor")
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("HypnovisorMk0"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("HypnovisorMk0"))
 		endScene()
 		return
 		

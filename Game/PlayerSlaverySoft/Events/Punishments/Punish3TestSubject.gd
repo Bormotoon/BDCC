@@ -66,5 +66,5 @@ func elizaTalk_do(_id:String, _args:Array):
 	stopRunner()
 	
 	GlobalRegistry.getModule("MedicalModule").preparePCForMentalWard()
-	GM.main.startNewDay()
-	GM.main.runScene("MentalWardScene")
+	ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+	ServiceLocator.safe_get_service(&"MainScene").runScene("MentalWardScene")

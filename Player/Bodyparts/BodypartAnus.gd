@@ -27,7 +27,7 @@ func getTooltipInfo():
 			text += "\n"
 		text += sensitiveZone.getInfoString()
 	var theChar = getCharacter()
-	if(GM.pc != null && GM.pc.hasPerk(Perk.BreedExtraTooltipInfo) && theChar != null && theChar.hasWombIn(getSlot())):
+	if(ServiceLocator.safe_get_service(&"Player") != null && ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.BreedExtraTooltipInfo) && theChar != null && theChar.hasWombIn(getSlot())):
 		var menstrualCycle = theChar.getMenstrualCycle()
 		if(menstrualCycle != null):
 			if(text != ""):

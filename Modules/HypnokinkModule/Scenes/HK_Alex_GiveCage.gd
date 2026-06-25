@@ -25,7 +25,7 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		setFlag("HypnokinkModule.Vion_HaveCage", false)
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 		endScene()
 		return
 

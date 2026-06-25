@@ -12,7 +12,7 @@ func start():
 	talk(C_OWNER, "Meow meow.")
 	#if(onlyOnce()):
 	#	sayAppend("[color=red]OW[/color]")
-	#	GM.pc.addPain(10)
+	#	ServiceLocator.safe_get_service(&"Player").addPain(10)
 	addInfluence(0.01)
 	
 	addButton("Pet", "Pet the cat", "pet")

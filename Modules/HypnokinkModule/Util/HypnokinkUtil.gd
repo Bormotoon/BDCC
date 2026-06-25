@@ -20,7 +20,7 @@ static func addUnresistableHypnoButtons(scene: SceneBase, submitAction: String, 
 	optionsSubmit.append_array(specificSubmitActions)
 	
 	var buttonSlots = 11.0 - preexistingButtons
-	var submitButtonsToAdd = 3 + floor((min(getSuggestibleStacks(GM.pc), 100.0) / 100.0) * buttonSlots)
+	var submitButtonsToAdd = 3 + floor((min(getSuggestibleStacks(ServiceLocator.safe_get_service(&"Player")), 100.0) / 100.0) * buttonSlots)
 	
 	for i in range(submitButtonsToAdd + 1):
 		if(i % optionsSubmit.size() == 0):
@@ -38,11 +38,11 @@ static func addHypnoButtons(scene: SceneBase, submitAction: String, resistAction
 		optionsResist.append("Resist")
 	optionsResist.shuffle()
 
-	var pcTendsToBeReallyIntoThis:bool = ( GM.pc.getFetishHolder().getFetishValue(Fetish.HypnosisSubject) > 0.7 )
+	var pcTendsToBeReallyIntoThis:bool = ( ServiceLocator.safe_get_service(&"Player").getFetishHolder().getFetishValue(Fetish.HypnosisSubject) > 0.7 )
 	var resistButtonIndexMin:int = 1 if(pcTendsToBeReallyIntoThis) else 0
 	
 	var buttonSlots = 11.0 - preexistingButtons
-	var submitButtonsToAdd = 2 + floor((min(getSuggestibleStacks(GM.pc), 100.0) / 100.0) * buttonSlots)
+	var submitButtonsToAdd = 2 + floor((min(getSuggestibleStacks(ServiceLocator.safe_get_service(&"Player")), 100.0) / 100.0) * buttonSlots)
 	var resistButtonIndex = randi_range(resistButtonIndexMin, submitButtonsToAdd)
 	
 	for i in range(submitButtonsToAdd + 1):

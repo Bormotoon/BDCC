@@ -6,7 +6,7 @@ func _init():
 	alwaysCheckedForNPCs = true
 	
 func shouldApplyTo(_npc):
-	if(GM.main != null && GM.main.supportsSexEngine()):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").supportsSexEngine()):
 		if(_npc.isSlaveToPlayer()):
 			var npcSlave:NpcSlave = _npc.getNpcSlavery()
 			if(npcSlave.isMindBroken()):

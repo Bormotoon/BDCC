@@ -58,9 +58,9 @@ func getCooldown() -> int:
 	return 3
 
 func stopMe():
-	var theRelationship = GM.main.RS.getSpecialRelationship(charID)
+	var theRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(charID)
 	if(theRelationship == self):
-		GM.main.RS.stopSpecialRelationship(charID)
+		ServiceLocator.safe_get_service(&"MainScene").RS.stopSpecialRelationship(charID)
 
 func canEnslaveReason(_isKidnap:bool) -> Array:
 	return [true, ""]
@@ -72,16 +72,16 @@ func shouldPreferToSpawnPawn() -> bool:
 	return false
 
 func showMessage(_text:String):
-	GM.main.addMessage(_text)
+	ServiceLocator.safe_get_service(&"MainScene").addMessage(_text)
 
 func hasSpecialRelationship(_charID:String) -> bool:
-	return GM.main.RS.hasSpecialRelationship(_charID)
+	return ServiceLocator.safe_get_service(&"MainScene").RS.hasSpecialRelationship(_charID)
 
 func getAffection(_char1:String, _char2:String) -> float:
-	return GM.main.RS.getAffection(_char1, _char2)
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(_char1, _char2)
 
 func getLust(_char1:String, _char2:String) -> float:
-	return GM.main.RS.getLust(_char1, _char2)
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getLust(_char1, _char2)
 
 func getChar() -> BaseCharacter:
 	return GlobalRegistry.getCharacter(charID)

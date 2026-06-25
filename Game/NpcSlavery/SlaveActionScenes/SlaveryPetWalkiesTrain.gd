@@ -182,7 +182,7 @@ func _run():
 	if(state == "l_lick"):
 		playAnimation(StageScene.PuppySexOral, "tease", {pc="pc", npc=npcID, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You decide to get a little kinky and put your chastity out on display before crouching near your puppy and pointing at it.")
 		
 			saynn("[say=pc]Lick.[/say]")
@@ -190,7 +190,7 @@ func _run():
 			saynn("That command is quite unusual for pets.. but {npc.name} obeys anyway and proceeds to drag {npc.his} tongue over your cage, occasionally giving your balls a small lick too.")
 		
 			saynn("[say=pc]Good {npc.boy}.[/say]")
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You decide to get a little kinky and put your {pc.penis} out on display before crouching near your puppy and pointing at it.")
 		
 			saynn("[say=pc]Lick.[/say]")
@@ -198,7 +198,7 @@ func _run():
 			saynn("That command is quite unusual for pets.. but {npc.name} obeys anyway and proceeds to drag {npc.his} tongue over your shaft, occasionally giving your balls a small lick too.")
 		
 			saynn("[say=pc]Good {npc.boy}.[/say]")
-		elif(GM.pc.hasReachableVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You decide to get a little kinky and put your pussy slit out on display before crouching near your puppy and pointing at it.")
 		
 			saynn("[say=pc]Lick.[/say]")

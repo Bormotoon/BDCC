@@ -17,7 +17,7 @@ func getOwnerID() -> String:
 	return ownerID
 
 func getNpcOwner() -> NpcOwnerBase:
-	var theSlavery = GM.main.RS.getSpecialRelationship(ownerID)
+	var theSlavery = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(ownerID)
 	if(theSlavery && theSlavery.id == "SoftSlavery"):
 		return theSlavery.npcOwner
 	return null
@@ -51,10 +51,10 @@ func isCharIDInvolvedAllEvents(_charID:String, ownerAlways:bool = true) -> bool:
 	return false
 
 func setLocation(_loc:String):
-	GM.pc.setLocation(_loc)
+	ServiceLocator.safe_get_service(&"Player").setLocation(_loc)
 	var allInvolvedCharIDs:Array = getAllEventsInvolvedCharIDs()
 	for theCharID in allInvolvedCharIDs:
-		var thePawn:CharacterPawn = GM.main.IS.getPawn(theCharID)
+		var thePawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(!thePawn):
 			continue
 		thePawn.setLocation(_loc)
@@ -90,7 +90,7 @@ func removeEndedEvent(_event, _args:Array):
 		var theCharID:String = _event.roles[_role]
 		if(isCharIDInvolvedAllEvents(theCharID, false)):
 			continue
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(thePawn):
 			if(thePawn.getInteraction() && thePawn.getInteraction().id == "InNpcOwnerEvent"):
 				thePawn.getInteraction().stopMe()
@@ -160,7 +160,7 @@ func stopRunner():
 func onRunnerStop():
 	var theInvolvedNPCs := getAllEventsInvolvedCharIDs()
 	for theCharID in theInvolvedNPCs:
-		var thePawn := GM.main.IS.getPawn(theCharID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(theCharID)
 		if(thePawn):
 			if(thePawn.getInteraction() && thePawn.getInteraction().id == "InNpcOwnerEvent"):
 				thePawn.getInteraction().stopMe()

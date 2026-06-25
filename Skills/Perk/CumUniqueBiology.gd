@@ -33,7 +33,7 @@ func onSexEvent(_event:SexEvent):
 			_event.getTargetChar().addPain(-30)
 			_event.getTargetChar().addStamina(30)
 			if(npc.isPlayer()):
-				GM.main.addMessage("Being knotted feels so good!")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Being knotted feels so good!")
 
 	if(_event.getType() == SexEvent.HolePenetrated):
 		var hasBarbs = _event.getSourceChar().bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisBarbs)
@@ -44,10 +44,10 @@ func onSexEvent(_event:SexEvent):
 			if(hasBarbs && npc.hasWombIn(hole)):
 				if(npc.forceOvulate()):
 					if(npc.isPlayer()):
-						GM.main.addMessage("Barbs are scratching your inner walls, triggering ovulation!")
+						ServiceLocator.safe_get_service(&"MainScene").addMessage("Barbs are scratching your inner walls, triggering ovulation!")
 			if(hasFlare):
 				var bodypart:Bodypart = npc.getBodypart(hole)
 				if(bodypart.isOrificeStuffed()):
 					bodypart.clearOrificeFluids()
 					if(npc.isPlayer()):
-						GM.main.addMessage("The bulbous glans have pushed all other seed from your "+BodypartSlot.getVisibleName(hole).to_lower()+"!")
+						ServiceLocator.safe_get_service(&"MainScene").addMessage("The bulbous glans have pushed all other seed from your "+BodypartSlot.getVisibleName(hole).to_lower()+"!")

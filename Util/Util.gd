@@ -242,9 +242,9 @@ static func sayOther(text: String) -> String:
 	return "[color=#77D86C]\""+text+"\"[/color]"
 
 static func sayPlayer(text: String) -> String:
-	if GM.pc == null:
+	if ServiceLocator.safe_get_service(&"Player") == null:
 		return sayFemale(text)
-	return GM.pc.formatSay(text)
+	return ServiceLocator.safe_get_service(&"Player").formatSay(text)
 
 static func capitalizeFirstLetter(text: String) -> String:
 	if text.is_empty():

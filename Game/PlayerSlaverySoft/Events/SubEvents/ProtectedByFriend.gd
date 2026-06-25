@@ -60,7 +60,7 @@ func ownerWon():
 	talkModular(C_OWNER, C_EXTRA1, "SoftSlaveryProtectedByFriendLost") #Now go away while you still can
 	addInfluenceObey(0.3)
 	if(onlyOnce()):
-		GM.main.RS.addAffection(getRoleID(C_EXTRA1), "pc", -0.2)
+		ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(getRoleID(C_EXTRA1), "pc", -0.2)
 	addContinue("endEvent")
 
 func ownerLost():

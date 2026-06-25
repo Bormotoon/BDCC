@@ -8,39 +8,39 @@ func _init():
 	sceneID = "DungeonLevelUpScene"
 	
 func _reactInit():
-	perksList = GM.main.DrugDenRun.getPerksForReachingLevel(GM.main.DrugDenRun.handledPCLevel+1)
+	perksList = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getPerksForReachingLevel(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.handledPCLevel+1)
 
 func _run():
 	if(state == ""):
 		var levelUpScreen = levelUpScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("levelUpScreen", levelUpScreen)
-		levelUpScreen.setData(GM.main.DrugDenRun.handledPCLevel+1, perksList, GM.main.DrugDenRun.lastSelectedStat if GM.main.DrugDenRun != null else "")
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("levelUpScreen", levelUpScreen)
+		levelUpScreen.setData(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.handledPCLevel+1, perksList, ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.lastSelectedStat if ServiceLocator.safe_get_service(&"MainScene").DrugDenRun != null else "")
 		var _ok = levelUpScreen.onConfirm.connect(onConfirmPressed)
 		
 		addButton("Confirm", "You're content with this", "doConfirm")
 
 func onConfirmPressed(selectedStat:String, selectedPerk:String):
 	if(selectedStat != ""):
-		GM.pc.getSkillsHolder().setStat(selectedStat, GM.pc.getStat(selectedStat) + 3)
+		ServiceLocator.safe_get_service(&"Player").getSkillsHolder().setStat(selectedStat, ServiceLocator.safe_get_service(&"Player").getStat(selectedStat) + 3)
 	if(selectedPerk != ""):
-		GM.pc.getSkillsHolder().addPerk(selectedPerk)
-	if(GM.main.DrugDenRun != null):
-		GM.main.DrugDenRun.lastSelectedStat = selectedStat
-		GM.main.DrugDenRun.afterLevelUp()
-		if(!GM.main.DrugDenRun.shouldShowLevelUpScreen()):
-			GM.main.pickOption("endthescene", [])
+		ServiceLocator.safe_get_service(&"Player").getSkillsHolder().addPerk(selectedPerk)
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun != null):
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.lastSelectedStat = selectedStat
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.afterLevelUp()
+		if(!ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.shouldShowLevelUpScreen()):
+			ServiceLocator.safe_get_service(&"MainScene").pickOption("endthescene", [])
 		else:
-			perksList = GM.main.DrugDenRun.getPerksForReachingLevel(GM.main.DrugDenRun.handledPCLevel+1)
-			GM.main.pickOption("", [])
+			perksList = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getPerksForReachingLevel(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.handledPCLevel+1)
+			ServiceLocator.safe_get_service(&"MainScene").pickOption("", [])
 	else:
-		GM.main.pickOption("endthescene", [])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("endthescene", [])
 	
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		endScene()
 		return
 	if(_action == "doConfirm"):
-		GM.ui.getCustomControl("levelUpScreen")._on_ContinueButton_pressed()
+		ServiceLocator.safe_get_service(&"UI").getCustomControl("levelUpScreen")._on_ContinueButton_pressed()
 		return
 	
 	setState(_action)

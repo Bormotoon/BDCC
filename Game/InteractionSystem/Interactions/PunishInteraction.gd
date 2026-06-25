@@ -70,7 +70,7 @@ func about_to_tentacles_text():
 func about_to_tentacles_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "cell"):
 		setState("pulling_to_cell_tentacles", "punisher")
-		goTowards(GM.pc.getCellLocation())
+		goTowards(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 
 func pulling_to_cell_tentacles_text():
 	saynn("{punisher.name} is pulling {target.name} towards {punisher.his} cell!")
@@ -78,8 +78,8 @@ func pulling_to_cell_tentacles_text():
 
 func pulling_to_cell_tentacles_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "cell"):
-		goTowards(GM.pc.getCellLocation())
-		if(getLocation() == GM.pc.getCellLocation()):
+		goTowards(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		if(getLocation() == ServiceLocator.safe_get_service(&"Player").getCellLocation()):
 			var theTargetID:String = getRoleID("target")
 			runScene("PSPCTentaclesPunish", [theTargetID])
 			startInteraction("InScene", {main=theTargetID})

@@ -28,7 +28,7 @@ func getActions() -> Array:
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "go"):
 		if(targetLoc == ""):
-			targetLoc = RNG.pick(GM.world.getZoneRooms("poi", [
+			targetLoc = RNG.pick(ServiceLocator.safe_get_service(&"World").getZoneRooms("poi", [
 				"cellblock_nearcells",
 				"main_punishment_spot",
 				"main_laundry",

@@ -36,8 +36,8 @@ func getActions() -> Array:
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "go"):
 		if(sstate == ""):
-			var dist1:float = GM.world.simpleDistance(getLocation(), "main_dressing1")
-			var dist2:float = GM.world.simpleDistance(getLocation(), "main_dressing2")
+			var dist1:float = ServiceLocator.safe_get_service(&"World").simpleDistance(getLocation(), "main_dressing1")
+			var dist2:float = ServiceLocator.safe_get_service(&"World").simpleDistance(getLocation(), "main_dressing2")
 			
 			if(dist1 < dist2):
 				goTowards("main_dressing1")

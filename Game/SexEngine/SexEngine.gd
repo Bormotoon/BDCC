@@ -276,7 +276,7 @@ func makeActivityEmpty(id:String):
 	return activityObject
 
 func processText(thetext:String, theDomID:String, theSubID:String):
-	return GM.ui.processString(thetext, {dom=theDomID, sub=theSubID})
+	return ServiceLocator.safe_get_service(&"UI").processString(thetext, {dom=theDomID, sub=theSubID})
 
 func addText(thetext:String, theDomID:String, theSubID:String):
 	addTextRaw(processText(thetext, theDomID, theSubID))
@@ -360,7 +360,7 @@ func internal_generateGoalsFor(domID:String, amountToGenerate:int, _minFetishVal
 				if(disabledGoals.has(goal[0])):
 					continue
 				if(subID == "pc"):
-					if(GM.main.getEncounterSettings().isGoalDisabledForSubPC(goal[0])):
+					if(ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().isGoalDisabledForSubPC(goal[0])):
 						continue
 				
 				if(!checkIfThereAreAnyActivitiesThatSupportGoal(goal[0])):
@@ -370,7 +370,7 @@ func internal_generateGoalsFor(domID:String, amountToGenerate:int, _minFetishVal
 				var goalData = sexGoal.generateData(self, personDomInfo, personSubInfo)
 				
 				if(sexGoal.isPossible(self, personDomInfo, personSubInfo, goalData) && !sexGoal.isCompleted(self, personDomInfo, personSubInfo, goalData)):
-					var goalWeightModifier = GM.main.getEncounterSettings().getGoalWeight(sexGoal.id, sexGoal.getGoalDefaultWeight())
+					var goalWeightModifier = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getGoalWeight(sexGoal.id, sexGoal.getGoalDefaultWeight())
 					goalWeightModifier *= sub.getSexGoalSubWeightModifier(sexGoal.id, domID)
 					var goalObject = [[goal[0], sub.getID(), goalData], goal[1] * goalWeightModifier]
 					
@@ -421,12 +421,12 @@ func doFastSex():
 	newResult.sexType = getSexTypeID()
 	
 	for subID in subs:
-		GM.main.updateCharacterUntilNow(subID)
-		GM.main.startUpdatingCharacter(subID)
+		ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(subID)
+		ServiceLocator.safe_get_service(&"MainScene").startUpdatingCharacter(subID)
 	
 	for domID in doms:
-		GM.main.updateCharacterUntilNow(domID)
-		GM.main.startUpdatingCharacter(domID)
+		ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(domID)
+		ServiceLocator.safe_get_service(&"MainScene").startUpdatingCharacter(domID)
 		
 		#var dom = personDomInfo.getChar()
 		var domInfo = doms[domID]
@@ -1191,8 +1191,8 @@ func keepItemsAfterSex(onlyAlwaysKept:bool = false):
 				if(restraintData != null):
 					restraintData.onStruggleRemoval()
 			
-				GM.pc.getInventory().addItem(item)
-				GM.main.addMessage("You recovered "+item.getAStackName())
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("You recovered "+item.getAStackName())
 			else:
 				newPCTracked.append(trackedItem)
 				
@@ -1461,7 +1461,7 @@ func playAnimation():
 	var theArgs:Dictionary = animInfo[2] if animInfo.size() > 2 else {}
 	sexType.processAnimationArgs(theArgs)
 	
-	GM.main.playAnimation(animInfo[0], animInfo[1], theArgs)
+	ServiceLocator.safe_get_service(&"MainScene").playAnimation(animInfo[0], animInfo[1], theArgs)
 	resetJustCame()
 
 func getStartActivityScore(activityID:String, domInfo, subInfo):
@@ -1527,7 +1527,7 @@ func setInventoryToUse(newInv):
 	inventoryToSaveItemsTo = newInv
 
 func saveCondomToLootIfPerk(theItem):
-	if(GM.pc.hasPerk(Perk.CumKeepCondoms)):
+	if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.CumKeepCondoms)):
 		saveItemToLoot(theItem)
 
 func saveItemToLoot(theItem):
@@ -1538,7 +1538,7 @@ func getSexResult():
 	return sexResult
 
 func isBondageDisabled() -> bool:
-	return bondageDisabled || (GM.main.getEncounterSettings().getGoalWeight(SexGoal.TieUp) <= 0.0)
+	return bondageDisabled || (ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getGoalWeight(SexGoal.TieUp) <= 0.0)
 
 func getCharIDList() -> Array:
 	var extraCharIDs:Array = []
@@ -1557,7 +1557,7 @@ func shouldFindDynamicJoiners() -> bool:
 		return false
 	if(isDom("pc") && !didPCAllowDynamicJoiners()):
 		return false
-	if(isSub("pc") && !GM.main.encounterSettings.shouldSubThreesomesBeEnabled()):
+	if(isSub("pc") && !ServiceLocator.safe_get_service(&"MainScene").encounterSettings.shouldSubThreesomesBeEnabled()):
 		return false
 	if(pcControlsDoms): # Gets weird fast, better to just disable
 		return false
@@ -1608,12 +1608,12 @@ func addDynamicDomParticipant(_charID:String):
 	generateGoalsFor(_charID, 2)
 	addTextRaw("[b]NEW DOMINANT![/b] "+domInfo.getChar().getName()+" joins in on the fun.")
 	participatedDoms[_charID] = true
-	if(GM.main):
-		if(_charID != "pc" && GM.main.IS.hasPawn(_charID)):
+	if(ServiceLocator.safe_get_service(&"MainScene")):
+		if(_charID != "pc" && ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(_charID)):
 			var sexLoc:String = getLocation()
 			if(sexLoc != ""):
-				GM.main.IS.getPawn(_charID).setLocation(sexLoc)
-			GM.main.IS.startInteraction("InSex", {main=_charID})
+				ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(_charID).setLocation(sexLoc)
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InSex", {main=_charID})
 
 func getChanceForDynamicJoiner(_charID:String) -> float:
 	var result:float = 20.0
@@ -1631,12 +1631,12 @@ func getChanceForDynamicJoiner(_charID:String) -> float:
 	result += theDom*30.0
 	
 	for subID in subs:
-		var affection:float = GM.main.RS.getAffection(subID, _charID)
+		var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(subID, _charID)
 		if(affection > 0.80): # best fren
 			return 0.0
 		result -= affection * 50.0 * (0.2 + max(theMean, -0.2))
 	
-	var thePawn = GM.main.IS.getPawn(_charID)
+	var thePawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(_charID)
 	if(thePawn):
 		result += thePawn.getAngerClamped() * 50.0
 	
@@ -1647,13 +1647,13 @@ func findDynamicJoiner():
 	if(theLoc == ""):
 		return
 	
-	var allPawnIDs:Array = GM.main.IS.getPawnIDsNear(theLoc, 1, 1)
+	var allPawnIDs:Array = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(theLoc, 1, 1)
 	if(allPawnIDs.is_empty()):
 		return
 	var pickedNewDomID:String = RNG.pick(allPawnIDs)
 	if(participatedDoms.has(pickedNewDomID)):
 		return
-	var thePawn = GM.main.IS.getPawn(pickedNewDomID)
+	var thePawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pickedNewDomID)
 	if(!thePawn || !thePawn.canBeInterrupted()):
 		return
 	# Little hack-ish but it basically makes it so if you allow dynamic joiners, they will do stuff by default
@@ -1666,14 +1666,14 @@ func findDynamicJoiner():
 
 func getLocation() -> String:
 	if(doms.has("pc") || subs.has("pc")):
-		return GM.pc.getLocation()
-	elif(GM.main != null):
+		return ServiceLocator.safe_get_service(&"Player").getLocation()
+	elif(ServiceLocator.safe_get_service(&"MainScene") != null):
 		for domID in doms:
-			if(GM.main.IS.hasPawn(domID)):
-				return GM.main.IS.getPawn(domID).getLocation()
+			if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(domID)):
+				return ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(domID).getLocation()
 		for subID in subs:
-			if(GM.main.IS.hasPawn(subID)):
-				return GM.main.IS.getPawn(subID).getLocation()
+			if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(subID)):
+				return ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(subID).getLocation()
 	return ""
 	
 func hasWallsNearby() -> bool:
@@ -1681,7 +1681,7 @@ func hasWallsNearby() -> bool:
 	
 	if(locToCheck == ""):
 		return true
-	if(GM.world != null && GM.world.hasWallsNearby(locToCheck)):
+	if(ServiceLocator.safe_get_service(&"World") != null && ServiceLocator.safe_get_service(&"World").hasWallsNearby(locToCheck)):
 		return true
 	
 	return false

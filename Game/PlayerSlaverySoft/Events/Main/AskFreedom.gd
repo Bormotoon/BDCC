@@ -25,7 +25,7 @@ func start():
 		saynn("Looks like it's gonna cost you..")
 		
 		addButton("Cancel", "You changed your mind", "endEvent")
-		if(GM.pc.getCredits() >= freedomPrice):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() >= freedomPrice):
 			addButton("Pay", "Pay your owner "+str(freedomPrice)+" credits to become free again", "doPay")
 		else:
 			addDisabledButton("Pay", "You don't have this much credits..")
@@ -34,8 +34,8 @@ func start_do(_id:String, _args:Array):
 	if(_id == "commit"):
 		setState("committed")
 	if(_id == "doPay"):
-		GM.pc.addCredits(-freedomPrice)
-		GM.main.addMessage("You paid "+str(freedomPrice)+" credits for your freedom!")
+		ServiceLocator.safe_get_service(&"Player").addCredits(-freedomPrice)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You paid "+str(freedomPrice)+" credits for your freedom!")
 		setState("committed")
 	
 func committed():

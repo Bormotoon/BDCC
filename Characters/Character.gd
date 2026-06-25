@@ -78,14 +78,14 @@ func beforeFightStarted():
 	pain = randi_range(0, getAmbientPain())
 	stamina = getMaxStamina()
 	
-	GM.GES.callGameExtenders(ExtendGame.npcBeforeFightStarted, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcBeforeFightStarted, [self])
 
 func afterFightEnded():
 	super.afterFightEnded()
 	#pain = 0
 	#lust = 0
 	#stamina = getMaxStamina()
-	GM.GES.callGameExtenders(ExtendGame.npcAfterFightEnded, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcAfterFightEnded, [self])
 
 func saveData():
 	var data = {
@@ -205,7 +205,7 @@ func getBaseLustThreshold() -> int:
 func createBodyparts():
 	pass
 
-# GM.main.getFlag() is allowed here
+# ServiceLocator.safe_get_service(&"MainScene").getFlag() is allowed here
 func updateBodyparts():
 	pass
 
@@ -341,15 +341,15 @@ func processTime(_secondsPassed):
 	var theTFHolder = getTFHolder()
 	if(theTFHolder != null):
 		theTFHolder.processTime(_secondsPassed)
-		if(GM.main != null && !GM.main.characterIsVisible(getID()) && theTFHolder.hasPendingTransformations()):
+		if(ServiceLocator.safe_get_service(&"MainScene") != null && !ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(getID()) && theTFHolder.hasPendingTransformations()):
 			theTFHolder.doFirstPendingTransformation({}, true)
 		
 	if(!bodyFluids.isEmpty()):
 		bodyFluids.drain(0.1 * _secondsPassed / 60.0)
 		
-	GM.GES.callGameExtenders(ExtendGame.npcProcessTime, [self, _secondsPassed])
-	#lastUpdatedDay = GM.main.getDays()
-	#lastUpdatedSecond = GM.main.getTime()
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcProcessTime, [self, _secondsPassed])
+	#lastUpdatedDay = ServiceLocator.safe_get_service(&"MainScene").getDays()
+	#lastUpdatedSecond = ServiceLocator.safe_get_service(&"MainScene").getTime()
 	#lastUpdatedSecond += _secondsPassed
 	if(isReadyToGiveBirth()):
 		pregnancyWaitTimer += _secondsPassed
@@ -359,9 +359,9 @@ func processTime(_secondsPassed):
 func giveBirthWithNotification():
 	if(getMenstrualCycle() != null):
 		if(getMenstrualCycle().isPregnantFromPlayer()):
-			GM.main.addLogMessage("News", "You just received news that "+getName()+" gave birth to your children! You can check who in the nursery")
+			ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "You just received news that "+getName()+" gave birth to your children! You can check who in the nursery")
 		else:
-			GM.main.addLogMessage("News", "Rumors spread fast. You just received news that "+getName()+" gave birth to someone's children!")
+			ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "Rumors spread fast. You just received news that "+getName()+" gave birth to someone's children!")
 		
 		pregnancyWaitTimer = 0
 		return giveBirth()
@@ -369,10 +369,10 @@ func giveBirthWithNotification():
 
 func canDoSelfCare():
 	# If character is in a scene, don't touch them
-	if(GM.main != null && GM.main.characterIsVisible(getID())):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(getID())):
 		return false
 	# If we are out there, we can care for us through interactions
-	if(GM.main != null && GM.main.IS.hasPawn(getID())):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(getID())):
 		return false
 	# If they are a slave to the player, also don't touch them. They are chained to the floor 24/7
 	if(isSlaveToPlayer()):
@@ -399,7 +399,7 @@ func hoursPassed(_howmuch):
 				#restockEquipmentChance(100)
 				resetEquipment()
 
-	GM.GES.callGameExtenders(ExtendGame.npcHoursPassed, [self, _howmuch])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcHoursPassed, [self, _howmuch])
 
 func updateNonBattleEffects():
 	buffsHolder.calculateBuffs()
@@ -415,7 +415,7 @@ func updateNonBattleEffects():
 	if(isSlaveToPlayer()):
 		getNpcSlavery().checkIfTasksGotCompleted()
 		
-	GM.GES.callGameExtenders(ExtendGame.npcUpdateNonBattleEffects, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcUpdateNonBattleEffects, [self])
 	
 	buffsHolder.calculateBuffs()
 
@@ -426,14 +426,14 @@ func onCharacterVisiblyPregnant():
 		var isPCEgg:bool = getMenstrualCycle().isPregnantFromPlayer(false, true)
 		
 		if(isPCPreg || isPCEgg):
-			GM.pc.addSkillExperience(Skill.Breeder, 50)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 50)
 			if(isPCPreg):
-				GM.main.addLogMessage("News", "You just received news that "+getName()+" is pregnant with your children.")
+				ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "You just received news that "+getName()+" is pregnant with your children.")
 			elif(isPCEgg):
-				GM.main.addLogMessage("News", "You just received news that "+getName()+"'s eggs got fertilized by you.")
+				ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "You just received news that "+getName()+"'s eggs got fertilized by you.")
 			if(isDynamicCharacter()):
-				GM.main.WHS.addEvent(WHEvent.Impregnated, "pc", getID())
-				GM.main.RS.sendSocialEvent("pc", getID(), SocialEventType.GotImpregnated)
+				ServiceLocator.safe_get_service(&"MainScene").WHS.addEvent(WHEvent.Impregnated, "pc", getID())
+				ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent("pc", getID(), SocialEventType.GotImpregnated)
 			
 func onCharacterHeavyIntoPregnancy():
 	#print(getName()+" is heavy into pregnancy")
@@ -444,11 +444,11 @@ func onCharacterReadyToGiveBirth():
 	if(getBirthWaitTime() > 0 && getMenstrualCycle() != null):
 		if(isSlaveToPlayer()):
 			if(getMenstrualCycle().isPregnantFromPlayer()):
-				GM.main.addLogMessage("News (Slave)", "You just received news that "+getName()+" is ready to give birth to your children. Since "+heShe()+" "+isAre()+" slave, it is your job to bring "+himHer()+" to the nursery.")
+				ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News (Slave)", "You just received news that "+getName()+" is ready to give birth to your children. Since "+heShe()+" "+isAre()+" slave, it is your job to bring "+himHer()+" to the nursery.")
 			else:
-				GM.main.addLogMessage("News (Slave)", "You just received news that "+getName()+" is ready to give birth to someone's children. Since "+heShe()+" "+isAre()+" slave, it is your job to bring "+himHer()+" to the nursery.")
+				ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News (Slave)", "You just received news that "+getName()+" is ready to give birth to someone's children. Since "+heShe()+" "+isAre()+" slave, it is your job to bring "+himHer()+" to the nursery.")
 		elif(getMenstrualCycle().isPregnantFromPlayer()):
-			GM.main.addLogMessage("News", "You just received news that "+getName()+" is ready to give birth to your children and now just waits for a good moment to do it. Maybe you can go check on them.")
+			ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News", "You just received news that "+getName()+" is ready to give birth to your children and now just waits for a good moment to do it. Maybe you can go check on them.")
 
 
 # How much the npc will wait before giving birth alone (in seconds)
@@ -460,9 +460,9 @@ func shouldGiveBirth():
 		return false
 	if(!isReadyToGiveBirth()):
 		return false
-	if(GM.main.characterIsVisible(getID())):
+	if(ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(getID())):
 		return false
-	if(GM.main.IS.hasPawn(getID())):
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(getID())):
 		return false
 	if(isSlaveToPlayer()):
 		return false
@@ -515,7 +515,7 @@ func reactRestraint(_restraintType, _restraintAmount, _isGettingForced):
 	return null
 
 func shouldBeUpdated():
-	if(GM.main.characterIsVisible(getID())):
+	if(ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(getID())):
 		return true
 	
 	if(hasEffect(StatusEffect.HasCumInsideAnus) || hasEffect(StatusEffect.HasCumInsideMouth) || hasEffect(StatusEffect.HasCumInsideVagina) || hasEffect(StatusEffect.CoveredInCum)):
@@ -598,8 +598,8 @@ func processUntilTime(theday:int, theseconds:int):
 	lastUpdatedSecond = theseconds
 
 func onStoppedProcessing():
-	lastUpdatedDay = GM.main.getDays()
-	lastUpdatedSecond = GM.main.getTime()
+	lastUpdatedDay = ServiceLocator.safe_get_service(&"MainScene").getDays()
+	lastUpdatedSecond = ServiceLocator.safe_get_service(&"MainScene").getTime()
 
 func getCharacterType():
 	return npcCharacterType
@@ -607,4 +607,4 @@ func getCharacterType():
 func processBattleTurn():
 	super.processBattleTurn()
 
-	GM.GES.callGameExtenders(ExtendGame.npcProcessBattleTurn, [self])
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").callGameExtenders(ExtendGame.npcProcessBattleTurn, [self])

@@ -11,7 +11,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		var quests = GM.QS.getAllQuests()
+		var quests = ServiceLocator.safe_get_service(&"QuestSystem").getAllQuests()
 		
 		var mainQuests = []
 		var sideQuests = []
@@ -36,8 +36,8 @@ func _run():
 		completedQuests.sort_custom(MyQuestSorter, "sort_descending")
 		
 		var showedNpcOwnerThing:bool = false
-		for ownerID in GM.main.RS.special:
-			var theSpecialRelationship = GM.main.RS.special[ownerID]
+		for ownerID in ServiceLocator.safe_get_service(&"MainScene").RS.special:
+			var theSpecialRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.special[ownerID]
 			if(theSpecialRelationship && theSpecialRelationship.id == "SoftSlavery" && theSpecialRelationship.npcOwner):
 				var theNpcOwner:NpcOwnerBase = theSpecialRelationship.npcOwner
 				if(theNpcOwner.hasGivenPCTasks()):

@@ -24,8 +24,8 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "make_deal"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Alex_TalkAboutVion")
 	if(_method == "finish_deal"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Alex_GiveCage")

@@ -111,7 +111,7 @@ func getCurrentCommandString():
 	return Util.join(result, " ")
 
 func onTextBoxEnterPressed(_new_text:String):
-	GM.main.pickOption("sendkeyboard", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("sendkeyboard", [])
 
 func _react(_action: String, _args):
 	if(_action == "send"):
@@ -216,4 +216,4 @@ func doDebugAction(_id, _args = {}):
 	if(_id == "instantWin"):
 		computer.markFinished()
 		state = "finished"
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

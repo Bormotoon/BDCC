@@ -7,7 +7,7 @@ func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand", {bodyState={naked=true}})
 		
-		if(GM.pc.isFullyNaked()):
+		if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You look around for an empty spot and go towards it")
 			
 			addButton("Continue", "Take a shower", "doShower")
@@ -27,10 +27,10 @@ func _run():
 
 		saynn("You begin washing yourself, starting with the hair and going down, cleaning your face, neck, shoulders, chest, arms and legs")
 		
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your hands slip down between your legs and give your slit a little rub to make sure it’s all clean there as well")
 		
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock gets some attention too, you take your time to wash the shaft and the ballsack")
 		
 		saynn("Eventually, you finish cleaning yourself and just stand still under the running water for a bit, pondering")
@@ -39,7 +39,7 @@ func _run():
 		addButton("Clean inside", "Wash out any bodily fluids from inside too", "clean_inside")
 		addButton("Cold shower", "Helps to calm down", "cold_shower")
 		addButton("Masturbate", "Do something extra..", "masturbateselect")
-		GM.ES.triggerRun(Trigger.TakingAShower)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TakingAShower)
 			
 	if(state == "cold_shower"):
 		playAnimation(StageScene.Showering, "crotch", {pc="pc", bodyState={naked=true}})
@@ -58,11 +58,11 @@ func _run():
 			
 	if(state == "finish"):
 		playAnimation(StageScene.Solo, "stand")
-		aimCamera(GM.pc.location)
+		aimCamera(ServiceLocator.safe_get_service(&"Player").location)
 		
 		saynn("You turn off the water and go grab a towel to rub yourself dry.")
 		
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Then you open your locker and put your clothing back on, ready to leave.")
 		
 		addButton("Continue", "Feeling fresh", "endthescene")
@@ -75,7 +75,7 @@ func _run():
 		
 		playAnimation(StageScene.Solo, "stand")
 		
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("As you stand idle and let the water wash over your body for a while longer, you decide you might as well take care of your lust.")
 			saynn("Your hands feel over your stomach as a mimicry of cleaning yourself as you mull over how exactly you should satiate yourself.")
 			saynn("Who cares if anyone watches?")
@@ -89,9 +89,9 @@ func _run():
 		addButtonWithChecks("Penis Milker", "Use your cockmilker in the public showers", "masturbate_penismilk", [], [ButtonChecks.HasPenisPump, ButtonChecks.HasReachablePenis])
 		addButtonWithChecks("Vaginal", "Finger your vagina", "masturbate_vaginal", [], [ButtonChecks.HasReachableVagina])
 		addButtonWithChecks("Anal", "Try and get off using you ass", "masturbate_anal", [], [ButtonChecks.HasReachableAnus])
-		if(GM.pc.isLactating()):
+		if(ServiceLocator.safe_get_service(&"Player").isLactating()):
 			addButton("Breasts", "Try and milk yourself", "masturbate_milk")
-		elif(!GM.pc.isLactating()):
+		elif(!ServiceLocator.safe_get_service(&"Player").isLactating()):
 			addDisabledButton("Breasts", "You aren’t lactating enough to get off on being milked")
 		addButton("Nevermind", "Just finish up and leave.", "endthescene")
 	
@@ -100,11 +100,11 @@ func _run():
 	if(state == "masturbate_penis"):
 		playAnimation(StageScene.Showering, "stroke", {pc="pc", bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("Without so much as a thought for anyone who could be in here with you, your hands reach down your hips and start to tease your cock to get hard enough, feeling it over in your hands.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("It’s a fair bit awkward to reach around your gravid stomach with your advancing pregnancy but you manage just fine as you give your firm stomach a quick rub with your other hand.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("As you reach further downwards with your other hand, you begin to tease the outer lips of your wet snatch, giving it a rub over and a grazing with your fingers")
 			saynn("Your {pc.cock} hardens enough for you to start stroking away at it.")
 			saynn("Even as you work on bringing yourself off there isn’t a whole lot to do besides feel the slightly cold water dance down your body.")
@@ -115,9 +115,9 @@ func _run():
 			saynn("The building feeling of an orgasm welling up inside you distracts from your idle thoughts, and you get a really lecherous idea in your head. Your {pc.cock} pulses in your hands and you have just enough time to turn around and put your back against the wall to keep you from slipping...")
 		else:
 			saynn("You keep looking over your shoulder as your hands trace down your body and start to fondle your sex. Pushing your body up against the shower wall and doing your best to cover what your doing with your back and legs.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("It’s a fair bit awkward to reach around your gravid stomach with your advancing pregnancy but you manage just fine as you give your firm stomach a quick rub with your other hand.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Even as you try and hide yourself away you spread your thighs a bit and give your {pc.vagina} a quick tease, giving it a shallow graze with your other hand.")
 			saynn("As your {pc.cock} hardens and you start stroking its length, you try and stifle the sounds you make as best as you can.")
 			saynn("You inadvertently keep looking around as you try and spot any prying eyes and listen for the sounds of approaching people.")
@@ -130,25 +130,25 @@ func _run():
 		playAnimation(StageScene.Showering, "stroke", {pc="pc", pcCum=true, bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You shut your eyes as the shower water sprays the back of your head. Having turned around you aim your impending cumshot from your little shower area and out into the open.")
 			saynn("One more stroke along your cock and you feel yourself finally give, shooting a nice load in a vague direction out into the open. But you just continue stroking away, milking as much as you can from your balls.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your neglected vagina follows in tandem, coating your inner thighs in girlcum as they squeeze against nothing.")
 			saynn("As your orgasm passes you open your eyes once more. Bracing an arm against the wall as you peel yourself off it on weak legs.")
 			saynn("Looking down to find you left a good string of cum on the tile floor, and the echo of voices at the far end of the showers seeing something. It might be best to leave now.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("You press your hands onto your pregnant stomach to help get it back into a comfortable enough position.")
 			saynn("Using the shower to quickly wash any leftovers from your hands you head back to the locker room grabbing a towel as you go.")
 			
 		else:
 			saynn("Feeling yourself starting to slip over the edge you tease your more sensitive spots and shut your eyes, pressing yourself against the wall.")
 			saynn("You bite your tongue and suppress a cry as you forcefully bend your cock between your legs to conceal your cumshot.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your neglected vagina freely squirts and leaks girlcum against your squished together thighs and balls since you’re hiding your orgasm.")
 			saynn("As your orgasm passes you finally give up hiding anything, putting your arm and head against the wall and panting heavily and dripping your own cum down your legs.")
 			saynn("You dart your head up as if you were spotted and sigh in relief as you got away with it.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Righting yourself back on your feet, you try your best adjusting your pregnant stomach into a more comfortable position.")
 			saynn("Quickly washing any excess cum or sweat off you manage to calm yourself back down.")
 			saynn("You take your time heading back to the locker rooms, toweling off as you go.")
@@ -159,15 +159,15 @@ func _run():
 	if(state == "masturbate_penismilk"):
 		playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You casually walk back to the locker rooms still naked and never grabbing a towel. Opening the locker you grab a cock milker and start heading back to your spot.")
 			saynn("Passing a few inmates on your way back, they’re all focused on scrubbing themselves but if one notices you give them a quick flash of your body.")
 			saynn("Back in your spot you waste no time getting your cock hard and strapped into your penis pump.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Your gravid stomach makes trying to fit into it a bit of a guess but you find it just fine with a bit of effort.")
 			saynn("Flipping the switch the pump gets to work with a little hum.")
 			saynn("Not wanting to waste the opportunity you turn the water back on and just relax in the bliss of having your {pc.cock} pumped while in the shower.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Not wanting to leave your {pc.vagina} behind you reach under your balls and begin to just idly thumb over your clitoris and finger your sex.")
 			saynn("You let the pump do its work as your cock twitches and throbs against the masturbation ring, loudly moaning each time it runs over your dick.")
 			saynn("The shower definitely helps you relax as you have a dumb smile on your face with your back against the wall.")
@@ -175,11 +175,11 @@ func _run():
 		else:
 			saynn("You leave the water running as you use your hands to cover yourself up and head back to your locker to quickly snatch your penis pump.")
 			saynn("Running back as quick as you can with the pump behind your back you find a good spot to settle in while you work on getting hard...")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Your gravid stomach makes trying to fit into it a bit of a guess but you find it just fine with a bit of effort.")
 			saynn("Finally with your {pc.cock} inside the pump you turn it on as the little mechanical masturbator does its work.")
 			saynn("To help hide the noise of the pump you turn the shower valve as high as it will go, letting the sound of the water drown out the sounds of what you’re doing.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("It’s probably best if you got off as fast you can. You reach under your balls and start fingering away at your {pc.vagina}.")
 			saynn("Biting your lip to keep your moaning quiet you feel your orgasm approaching fast...")
 		addButton("Cum!", "", "masturbate_penismilkcum")
@@ -188,12 +188,12 @@ func _run():
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true,hard=true}})
 		
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You let out a sharp cry as the pump milks you dry and continues going at your cock as you baste the inside of it with your {pc.cum}...")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your {pc.vaginaStretch} pussy follows your cock and similarly coats your inner thighs with girlcum.")
 			saynn("Coming down from your orgasm you right yourself and push off the shower wall.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Putting an arm around your pregnant belly as you get back into proper order.")
 			saynn("You switch the penis pump off and pull it off your softening cock with a really wet, lewd-sounding plap.")
 			saynn("Giving the pump a look, you probably can’t use any of the cum inside it because of the running water, but you have a better idea...")
@@ -202,7 +202,7 @@ func _run():
 		else:
 			saynn("You cover your mouth to mask a sultry groan as your throbbing {pc.cock} starts filling the pump with fresh cum.")
 			saynn("You squirm against the shower wall as the pump milks your balls dry while you try to keep quiet.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Girlcum leaks onto your inner thighs as your unused vagina follows with its own orgasm.")
 			saynn("You waste no time in getting the pump off your cock with a wet, lewd squelch. The last of your cum dripping from the tip of your dick in one long strand down your legs, and another still hanging from your tip to the pump.")
 			saynn("Hurriedly, you clean all evidence from you and the pump. Wrapping it in a towel as you make your getaway.")
@@ -215,13 +215,13 @@ func _run():
 		playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("Without so much as a thought for anyone who could be in here with you, your hands reach down your hips and start to tease your {pc.vaginaStretch} pussy as the water flows down your body.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("It’s a fair bit awkward to reach around your gravid stomach with your advancing pregnancy but you manage just fine as you give your firm stomach a quick rub with your other hand.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your offhand follows your other one down giving your locked away {pc.cock} a tease.")
-			elif(GM.pc.hasReachablePenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Your offhand follows your other one down giving your growing {pc.cock} a tease.")
 			saynn("You don’t waste effort hiding your huffing and moaning as you work. Getting your fingers as deep as they will go and blindly feeling around.")
 			saynn("Satisfied with teasing you move onto rubbing the spots you know the best with your fingers while giving your clit a rub with the other hand.")
@@ -231,11 +231,11 @@ func _run():
 			saynn("The building feeling of an orgasm welling up inside you distracts from your idle thoughts, and in preparation you turn your back and lean against the shower wall...")
 		else:
 			saynn("You keep looking over your shoulder as your hands trace down your body and start to tease your {pc.vaginaStretch} pussy. Pushing your body up against the shower wall and doing your best to cover what you’re doing with your back and legs.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("It’s a fair bit awkward to reach around your gravid stomach with your advancing pregnancy but you manage just fine as you give your firm stomach a quick rub with your other hand.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your offhand follows your other one down giving your locked away {pc.cock} a tease.")
-			elif(GM.pc.hasReachablePenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Your offhand follows your other one down giving your growing {pc.cock} a tease.")
 			saynn("Getting your fingers as deep as they will go and blindly feeling around. You try and stifle the sounds you make as best as you can.")
 			saynn("Wanting to get off faster you move onto rubbing the spots you know the best with your fingers while giving your clit a rub with the other hand.")
@@ -247,22 +247,22 @@ func _run():
 	if(state == "masturbate_vaginalcum"):
 		playAnimation(StageScene.Showering, "rub", {pc="pc", pcCum=true, bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You let out an orgasmic cry as you’re pushed over the edge from fingering yourself, your {pc.vaginaStretch} pussy covering your hands and thighs with girlcum.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well.")
-			elif(GM.pc.hasReachablePenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Your {pc.cock} sprays a few cumshots against the floor and wall, to all get washed away from the falling water.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Your hand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 			saynn("Pulling your hand from your snatch you simply wash all the fresh cum from your body as you calm back down. Heading for the locker rooms and towels without mess.")
 		else:
 			saynn("You put a hand over your mouth to muffle an orgasmic cry as you’re pushed over the edge from fingering yourself, your {pc.vaginaStretch} pussy covering your hands and thighs with girlcum.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well. Having no real control over it, it splatters the walls and floor.")
-			elif(GM.pc.hasReachablePenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Despite trying to hide yourself and control where you cum, your {pc.cock} sprays a few cumshots against the floor and wall. Thankfully to all get washed away from the falling water.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Your hand goes onto your heavy and pregnant belly to support yourself as you recover from your ordeal, satisfied.")
 			saynn("You hurriedly wash all the evidence from your body and calm down so you can act normal heading back to grab a towel and your stuff.")
 		addButton("Finished", "Time to go", "endthescene")
@@ -272,22 +272,22 @@ func _run():
 	if(state == "masturbate_anal"):
 		playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true,hard=true}})
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("Making a decision you reach behind yourself and start fooling around with your ass, giving yourself a loud spank and spreading your asscheeks.")
 			saynn("Having left all your stuff in a locker, looks like you’re stuck fingering yourself. Oh well.")
 			#Herm
-			if(GM.pc.hasVagina() && GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("One hand reaches down over both sets of your genitals giving them a tease while the other starts poking around your {pc.analStretch} ass. Giving it a good feel before starting to finger at some of the spots you know best...")
-				if(GM.pc.isWearingChastityCage()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("You feel your cock press against your chastity cage as you begin to fool around with yourself.")
 				saynn("Reaching deep, you always know a safe bet to get off. Trying to find where your prostate is you tease your other genitals, reaching your other hand into your vagina to see if you can find it from that hole as well...")
 				saynn("Eventually you do find your g-spot and you start fingering away at it, your {pc.cock} responding by instantly getting hard and drooling cum from its tip as you continue.")
 				saynn("The added fingers in your {pc.vaginaStretch} pussy help you get off way sooner than maybe you were expecting...")
 				saynn("You don’t care if anyone hears the noises you make.")
 			#Penis Only
-			elif(!GM.pc.hasVagina() && GM.pc.hasPenis()):
+			elif(!ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("One hand reaches down over your {pc.cock} giving it a tease while the other starts poking around your {pc.analStretch} ass. Giving it a good feel before starting to finger at some of the spots you know best...")
-				if(GM.pc.isWearingChastityCage()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("You feel your cock press against your chastity cage as you begin to fool around with yourself.")
 				saynn("Reaching deep, you always know a safe bet to get off. Trying to find where your prostate is you idly start to fondle your penis as well.")
 				saynn("Eventually you do find your please spot and you start fingering away at it, your {pc.cock} responding by instantly getting hard and drooling cum from its tip as you continue.")
@@ -295,7 +295,7 @@ func _run():
 				saynn("You don’t care if anyone hears the noises you make.")
 				saynn("A few minutes of this you feel your cock throb in an approaching orgasm...")
 			#Vagina Only
-			elif(GM.pc.hasVagina() && !GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasVagina() && !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("As you reach behind to poke around your {pc.analStretch} ass, you use your other hand to idly thumb away at your clit to help get more into it.")
 				saynn("Reaching deep, you always know a safe bet to get off. Trying to find where your g-spot is, your {pc.vaginaStretch} starts leaking down your thighs. Closing your eyes while feeling the water hit your body while you toy with both of your holes")
 				saynn("You don’t care if anyone hears the noises you make.")
@@ -308,24 +308,24 @@ func _run():
 			saynn("Making a decision you have a look around to make sure you’re nice and hidden away while you reach behind yourself and start fooling around with your ass.")
 			saynn("It’ll be best if you get this done fast to not risk being exposed.")
 			#Herm
-			if(GM.pc.hasVagina() && GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("One hand reaches down over both sets of your genitals giving them a tease while the other starts poking around your {pc.analStretch} ass. Giving it a quick tease before starting to finger at some of the spots you know best...")
-				if(GM.pc.isWearingChastityCage()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("You feel your cock press against your chastity cage as you begin to fool around with yourself.")
 				saynn("Reaching deep, you always know a safe bet to get off quick. Trying to find where your prostate is you tease your other genitals, reaching your other hand into your vagina to see if you can find it from that hole as well...")
 				saynn("Eventually you do find your g-spot and you start fingering away at it, your {pc.cock} responding by instantly getting hard and drooling cum from its tip as you continue.")
 				saynn("The added fingers in your {pc.vaginaStretch} pussy help you get off way sooner than maybe you were expecting...")
 			#Penis Only
-			elif(!GM.pc.hasVagina() && GM.pc.hasPenis()):
+			elif(!ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("One hand reaches down over your {pc.cock} giving it a tease while the other starts poking around your {pc.analStretch} ass. Giving it a quick tease before starting to finger at some of the spots you know best...")
-				if(GM.pc.isWearingChastityCage()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("You feel your cock press against your chastity cage as you begin to fool around with yourself.")
 				saynn("Reaching deep, you always know a safe bet to get off. Trying to find where your prostate is you idly start to fondle your balls as well.")
 				saynn("Eventually you do find your pleasure spot and you start fingering away at it, your {pc.cock} responding by instantly getting hard and drooling cum from its tip as you continue.")
 				saynn("Finding where your prostate is you add more fingers to the mix, trying to get off on anal alone.")
 				saynn("A few minutes of this you feel your cock throb in an approaching orgasm...")
 			#Vagina Only
-			elif(GM.pc.hasVagina() && !GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasVagina() && !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("As you reach behind to poke around your {pc.analStretch} ass, you use your other hand to quickly thumb away at your clit to help get off faster.")
 				saynn("Reaching deep, you always know a safe bet to get off. Trying to find where your g-spot is, your {pc.vaginaStretch} starts leaking down your thighs. Closing your eyes while feeling the water hit your body while you toy with both of your holes")
 				saynn("Lying there for a few minutes, you feel your orgasm coming up...")
@@ -339,31 +339,31 @@ func _run():
 	if(state == "masturbate_analcum"):
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		playAnimation(StageScene.Showering, "rub", {pc="pc", pcCum=true, bodyState={naked=true,hard=true}})
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You start to slide your fingers faster as your orgasm hits. Letting out a loud moan as you go at it.")
 			#Herm
-			if(GM.pc.hasVagina() && GM.pc.hasPenis()):
-				if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well.")
 				else:
 					saynn("Your {pc.cock} sprays a few cumshots against the floor and wall, to all get washed away from the falling water.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 				saynn("Pulling your hand from your {pc.analStretch} ass, you simply wash all the fresh cum from your body as you calm back down. Heading for the locker rooms and towels without mess.")
 			#Penis Only
-			elif(!GM.pc.hasVagina() && GM.pc.hasPenis()):
-				if(GM.pc.isWearingChastityCage()):
+			elif(!ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well.")
 				else:
 					saynn("Your {pc.cock} sprays a few cumshots against the floor and wall, to all get washed away from the falling water.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 				saynn("Pulling your hand from your {pc.analStretch} ass, you simply wash all the fresh cum from your body as you calm back down. Heading for the locker rooms and towels without mess.")
 			#Vagina Only
-			elif(GM.pc.hasVagina() && !GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasVagina() && !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your other hand rubs wildly at your slit as you have your anal orgasm.")
 				saynn("Coming back down from your orgasm, you stand back up on semi-shaky legs.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 				saynn("With everything over with and satisfied, you simply wash everything off once more and then head to grab a towel and back to your stuff...")
 			#Null
@@ -376,28 +376,28 @@ func _run():
 		else:
 			saynn("You start to slide your fingers faster as your orgasm hits. Biting your lip to muffle your own orgasmic cry as you go.")
 			#Herm
-			if(GM.pc.hasVagina() && GM.pc.hasPenis()):
-				if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well.")
 				else:
 					saynn("Your {pc.cock} sprays a few cumshots against the floor and wall, to all get washed away from the falling water.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 				saynn("Pulling your hand from your {pc.analStretch} ass, you simply wash all the fresh cum from your body as you calm back down. Heading for the locker rooms and towels without mess.")
 			#Penis Only
-			elif(!GM.pc.hasVagina() && GM.pc.hasPenis()):
-				if(GM.pc.isWearingChastityCage()):
+			elif(!ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
+				if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 					saynn("Your cute caged {pc.cock} lets out a weak cumshot from the hole in the cage as it cums as well.")
 				else:
 					saynn("Your {pc.cock} sprays a few cumshots against the floor and wall, to all get washed away from the falling water.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support yourself as you recover from cumming.")
 				saynn("Pulling your hand from your {pc.analStretch} ass, you simply wash all the fresh cum from your body as you calm back down. Heading for the locker rooms and towels without mess.")
 			#Vagina Only
-			elif(GM.pc.hasVagina() && !GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasVagina() && !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your other hand rubs wildly at your slit as you have your anal orgasm.")
 				saynn("Coming back down from your orgasm, you stand back up on semi-shaky legs.")
-				if(GM.pc.isVisiblyPregnant()):
+				if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 					saynn("Your offhand goes onto your heavy and pregnant belly to support your self as you recover from cumming.")
 				saynn("After seeing that you weren’t found, you simply wash everything off once more and then head to grab a towel and back to your stuff...")
 			#Null
@@ -415,23 +415,23 @@ func _run():
 		playAnimation(StageScene.Showering, "body", {pc="pc", bodyState={naked=true,hard=true}})
 		
 		#playAnimation(StageScene.Solo, "stand", {pc="pc", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if(GM.pc.hasEffect(StatusEffect.SoreNipplesAfterMilking)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.SoreNipplesAfterMilking)):
 			saynn("Having a relaxed shower like this helps your sore nipples feel better, you could probably milk yourself even with them still sore...")
 		else:
 			saynn("Looking down at your leaking chest, you choose to to take care of your breasts before anything else.")
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("You begin to feel over your milky {pc.breasts}. Grabbing both in either hand and giving your areolae a light squeeze, little streams of your {pc.milk} leak free from your nipples.")
 			saynn("You put your back against the wall and start to squeeze your nipples, streams of {pc.milk} mixing in with the shower’s flowing water, getting hornier as more milk starts flowing from your {pc.breasts}.")
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Once the stream has started, you let one of your breasts hang free to leak all over yourself while you rub over your gravid pregnant belly.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("While not the main focus of your attention, you feel your cock hardening against the metal of your chastity cage.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("While not the main focus of your attention, you feel your cock hardening while focusing on milking yourself")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("As you continue to work on your now freely milk-streaming {pc.breasts}, you feel your nethers become far wetter...")
-			if(GM.pc.hasPerk(Perk.MilkSelfFeed)):
-				if(GM.pc.hasBigBreasts()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.MilkSelfFeed)):
+				if(ServiceLocator.safe_get_service(&"Player").hasBigBreasts()):
 					saynn("You quickly reach your hands to your {pc.breasts} and squeeze them very tight while guiding the nipples towards your mouth. Your tits are big enough for you to reach towards one of the nips with your lips and latch onto it.")
 					saynn("After enough stimulation, your nipples suddenly shoot a strong stream of {pc.milk} that is aimed directly into your mouth. You let out a moan while tasting your own product.")
 				else:
@@ -443,13 +443,13 @@ func _run():
 		else:
 			saynn("While you probably could get away with milking yourself in the shower without anyone caring or confronting you, your own resverations about nudity are still enough to be paranoid about it.")
 			saynn("You put your back against the wall and start to squeeze your nipples, streams of {pc.milk} mixing in with the shower’s flowing water, getting hornier as more milk starts flowing from your {pc.breasts}.")
-			if(GM.pc.isHeavilyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 				saynn("You weren’t gonna do anything with your pregnancy but it seems your pregnancy had other plans, feeling the kicks from within making it hard to stay concealed.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("While not the main focus of your attention, you feel your {pc.cock} hardening against the metal of your chastity cage.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("While not the main focus of your attention, you feel your {pc.cock} hardening while focusing on milking yourself.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("As you continue to work on your now freely milk-streaming {pc.breasts}, you feel your nethers become far wetter...")
 			saynn("Your arousal continues to build as you milk yourself. Your mind goes a little blank while more and more milk continues to stream down more and more of your body, mixing with the water and spreading the both of them around your body.")
 			saynn("Before you know it your orgasm is about to hit you...")
@@ -461,21 +461,21 @@ func _run():
 		playAnimation(StageScene.Showering, "body", {pc="pc", bodyState={naked=true,hard=true}})
 		
 		saynn("Your orgasm washes over you as you keep pinching at your nipples, overstimulating yourself while trying to milk yourself.")
-		if(GM.pc.hasPerk(Perk.NakedNoShame)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.NakedNoShame)):
 			saynn("In response you let out a deep moan and squeeze your full breasts as hard as you can, letting strong projectile streams of milk spray from your {pc.breasts}")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Riding out your prolonged orgasm, your cute, locked away {pc.cock} lets out a weak shot of cum from the hole in the cage.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Riding out your prolonged orgasm, your {pc.cock} gives off a few shots of cum to land against the floor")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your under-stimulated vagina finally reaches its peak and it coats your inner thighs in girlcum")
 		else:
 			saynn("In response you have to bite your tongue out a deep moan and squeeze your full breasts as hard as you can, letting strong projectile streams of milk spray from your {pc.breasts}.")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Riding out your prolonged orgasm, your cute, locked away {pc.cock} lets out a weak shot of cum from the hole in the cage.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Riding out your prolonged orgasm, your {pc.cock} gives off a few shots of cum that land against the floor.")
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your under-stimulated vagina finally reaches its peak and it coats your inner thighs in girlcum")
 		
 		saynn("By the time you finish with your climax your breasts have been milked thoroughly.")
@@ -485,15 +485,15 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "doShower"):
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		processTime(60 * 30)
 		
-		if(GM.pc.location == "main_dressing1"):
+		if(ServiceLocator.safe_get_service(&"Player").location == "main_dressing1"):
 			aimCamera("main_shower1")
-		if(GM.pc.location == "main_dressing2"):
+		if(ServiceLocator.safe_get_service(&"Player").location == "main_dressing2"):
 			aimCamera("main_shower2")
 		
-		if(GM.ES.triggerReact(Trigger.TakingAShower)):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TakingAShower)):
 			#endScene()
 			setState(_action)
 			return
@@ -501,36 +501,36 @@ func _react(_action: String, _args):
 		addMessage("You feel fresh and clean")
 
 	if(_action == "cold_shower"):
-		GM.pc.addLust(-50)
+		ServiceLocator.safe_get_service(&"Player").addLust(-50)
 
 	if(_action == "clean_inside"):
-		if(!GM.pc.clearOrificeFluidsCheckBlocked()):
+		if(!ServiceLocator.safe_get_service(&"Player").clearOrificeFluidsCheckBlocked()):
 			addMessage("Something prevented you from clearing every hole")
 		processTime(60 * 10)
 
 	if(_action == "masturbate_peniscum"):
 		processTime(60 * 20)
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
  
 	if(_action == "masturbate_penismilkcum"):
-		GM.pc.orgasmFrom("pc")
-		GM.pc.milkSeed()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").milkSeed()
 		processTime(60 * 20)
 
 	if(_action == "masturbate_vaginalcum"):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		processTime(60 * 20)
 
 	if(_action == "masturbate_analcum"):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		processTime(60 * 20)
 
 
 	if(_action == "masturbate_milkcum"):
-		if(GM.pc.hasEffect(StatusEffect.SoreNipplesAfterMilking)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.SoreNipplesAfterMilking)):
 			setState("nipplessore")
-		GM.pc.orgasmFrom("pc")
-		GM.pc.milk()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").milk()
 		processTime(60 * 20)
 
 	if(_action == "endthescene"):

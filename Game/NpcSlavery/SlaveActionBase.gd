@@ -138,9 +138,9 @@ func doActionSimple(_slaveID, _extraSlavesIDs = {}):
 func doActionSimpleFinal(_slaveID, _extraSlavesIDs = {}):
 	var actionLocation = getActionLocation(_slaveID, _extraSlavesIDs)
 	if(actionLocation != null):
-		GM.main.aimCameraAndSetLocName(actionLocation)
+		ServiceLocator.safe_get_service(&"MainScene").aimCameraAndSetLocName(actionLocation)
 	playAnimation(_slaveID, _extraSlavesIDs)
-	GM.main.processTime(getTimePass(_slaveID, _extraSlavesIDs))
+	ServiceLocator.safe_get_service(&"MainScene").processTime(getTimePass(_slaveID, _extraSlavesIDs))
 	return doActionSimple(_slaveID, _extraSlavesIDs)
 
 func reactSceneResult(_slaveID, _extraSlavesIDs = {}, _sceneResult = {}):
@@ -159,12 +159,12 @@ func playAnimation(_slaveID, _extraSlavesIDs = {}):
 		return
 	
 	if(animInfo.size() > 2):
-		GM.main.playAnimation(animInfo[0], animInfo[1], animInfo[2])
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(animInfo[0], animInfo[1], animInfo[2])
 	else:
-		GM.main.playAnimation(animInfo[0], animInfo[1])
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(animInfo[0], animInfo[1])
 
 func getFlag(flagID, defaultValue = null):
-	return GM.main.getFlag(flagID, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(flagID, defaultValue)
 
 func getActionLocation(_slaveID, _extraSlavesIDs = {}):
 	return ""

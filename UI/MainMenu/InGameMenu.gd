@@ -77,8 +77,8 @@ func _on_DatapackIngameMenu_onClosePressed():
 
 func _on_InGameMenu_visibility_changed():
 	if(visible):
-		if(GM.main != null):
-			save_game_button.disabled = !GM.main.canSave()
+		if(ServiceLocator.safe_get_service(&"MainScene") != null):
+			save_game_button.disabled = !ServiceLocator.safe_get_service(&"MainScene").canSave()
 
 func _on_SexToyManagerButton_pressed():
 	hideAllMenus()

@@ -11,7 +11,7 @@ func _run():
 		saynn("They sit pretty tightly, the soft padding on the inside doesn't help much.")
 
 		addButton("Leave it", "Nothing you can do", "leaveit")
-		if(GM.pc.hasBoundArms()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			addDisabledButton("Tug", "Your bound arms don't let you do this")
 		else:
 			addButton("Tug", "Try to tug on them", "tug")

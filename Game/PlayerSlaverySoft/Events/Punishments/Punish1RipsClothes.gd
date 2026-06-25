@@ -13,11 +13,11 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	var npcOwner := getNpcOwner()
 	if(!npcOwner):
 		return false
-	if(!GM.pc.canDamageClothes()):
+	if(!ServiceLocator.safe_get_service(&"Player").canDamageClothes()):
 		return false
 	
 	for _i in range(randi_range(2, 4)):
-		var theResult:Array = GM.pc.damageClothes()
+		var theResult:Array = ServiceLocator.safe_get_service(&"Player").damageClothes()
 		var didDamage:bool = theResult[0]
 		if(!didDamage):
 			continue

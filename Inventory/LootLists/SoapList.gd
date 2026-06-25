@@ -4,10 +4,10 @@ func _init():
 	handlesIds = ["guard", "inmate", "engineer", "medical", "junkie"]
 
 func getLoot(_id, _characterID, _battleName):
-	if(GM.pc == null || !is_instance_valid(GM.pc)):
+	if(ServiceLocator.safe_get_service(&"Player") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))):
 		return []
 	
-	if(!GM.pc.hasPermanentBodywritings()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasPermanentBodywritings()):
 		return []
 
 	return [

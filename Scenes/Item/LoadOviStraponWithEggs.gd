@@ -16,7 +16,7 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 
 func getMaxAmount() -> int:
 	return item.getMaxOvipositorEggAmount()
@@ -30,7 +30,7 @@ func canGiveEggs() -> bool:
 func updateInvScreen(_screen):
 	var theItems:Array = []
 	#for theItem in item.eggInv.getItems():
-	for theItem in GM.pc.getInventory().getItems():
+	for theItem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 		if(theItem.has_method("createEggCellForOviposition")):
 			theItems.append(theItem)
 	_screen.setItems(theItems, "give")
@@ -40,7 +40,7 @@ func _run():
 		var inventory = inventoryScreenScene.instantiate()
 		inventory.shouldGrabInput = false
 		inventory.shouldGroup = false
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		updateInvScreen(inventory)
 		#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
 		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
@@ -57,24 +57,24 @@ func onInventoryItemGroupInteracted(theItem: ItemBase):
 	var theItemID:String = theItem.id
 	
 	var toTransfer:Array = []
-	for theItem in GM.pc.getInventory().getItems():
+	for theItem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 		if(theItem == theItemID):
 			toTransfer.append(theItem)
 	
 	for theItem in toTransfer:
 		if(!canGiveEggs()):
 			break
-		GM.pc.getInventory().removeItem(theItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theItem)
 		item.eggInv.addItem(theItem)
 	
-	var inv = GM.ui.getCustomControl("inventory")
+	var inv = ServiceLocator.safe_get_service(&"UI").getCustomControl("inventory")
 	#if(shouldResetSelection):
 	inv.selectedItem = null
 	inv.updateSelectedInfo()
 	
 	updateInvScreen(inv)
 	
-	GM.ui.clearButtons()
+	ServiceLocator.safe_get_service(&"UI").clearButtons()
 	addButton("Close", "Enough messing around", "endthescene")
 	addButton("Empty it ("+str(getCurrentAmount())+"/"+str(getMaxAmount())+")", "Remove all of the eggs from this strapon", "emptyit")
 
@@ -86,19 +86,19 @@ func onInventoryItemInteracted(theItem: ItemBase):
 	if(theItem.getAmount() > 1):
 		theItem = theItem.splitAmount(1)
 	else:
-		GM.pc.getInventory().removeItem(theItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theItem)
 		shouldResetSelection = true
 	
 	item.eggInv.addItem(theItem)
 	
-	var inv = GM.ui.getCustomControl("inventory")
+	var inv = ServiceLocator.safe_get_service(&"UI").getCustomControl("inventory")
 	if(shouldResetSelection):
 		inv.selectedItem = null
 	inv.updateSelectedInfo()
 	
 	updateInvScreen(inv)
 	
-	GM.ui.clearButtons()
+	ServiceLocator.safe_get_service(&"UI").clearButtons()
 	addButton("Close", "Enough messing around", "endthescene")
 	addButton("Empty it ("+str(getCurrentAmount())+"/"+str(getMaxAmount())+")", "Remove all of the eggs from this strapon", "emptyit")
 
@@ -114,7 +114,7 @@ func _react(_action: String, _args):
 		
 		for theItem in theItems:
 			item.eggInv.removeItem(theItem)
-			GM.pc.getInventory().addItem(theItem)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theItem)
 		
 		reportText = "You took back "+str(theAm)+" egg"+("s" if theAm != 1 else "")+"!"
 	
@@ -133,4 +133,4 @@ func loadData(data):
 	
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
 	reportText = SAVE.loadVar(data, "reportText", "")
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)

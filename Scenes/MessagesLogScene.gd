@@ -7,7 +7,7 @@ func _run():
 	if(state == ""):
 		saynn("Things that happened:")
 		
-		for messageData in GM.main.getLogMessages():
+		for messageData in ServiceLocator.safe_get_service(&"MainScene").getLogMessages():
 			var title = messageData["title"]
 			var message = messageData["message"]
 			
@@ -18,7 +18,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
-		GM.main.clearLog()
+		ServiceLocator.safe_get_service(&"MainScene").clearLog()
 		endScene()
 		return
 

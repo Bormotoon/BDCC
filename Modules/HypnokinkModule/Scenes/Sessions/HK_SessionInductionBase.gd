@@ -4,9 +4,9 @@ class_name HK_SessionInductionBase
 var bodyId: String
 
 func onInduction(_args = []):
-	GM.main.setFlag("HypnokinkModule.SoftOptIn", true)
-	GM.pc.addEffect(StatusEffect.UnderHypnosis)
-	GM.pc.addEffect(StatusEffect.Suggestible, [30])
+	ServiceLocator.safe_get_service(&"MainScene").setFlag("HypnokinkModule.SoftOptIn", true)
+	ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.UnderHypnosis)
+	ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Suggestible, [30])
 	processTime(10*60)
 	bodyId = _args[0]
 	

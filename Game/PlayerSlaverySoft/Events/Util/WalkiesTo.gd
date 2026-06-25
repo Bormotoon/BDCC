@@ -43,9 +43,9 @@ func walking():
 	
 	saynn("You are being walked by your owner.")
 	
-	var _roomInfo = GM.world.getRoomByID(getLocation())
+	var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(getLocation())
 	if(_roomInfo):
-		if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 			saynn(_roomInfo.getBlindDescription())
 		else:
 			saynn(_roomInfo.getDescription())

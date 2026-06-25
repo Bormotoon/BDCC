@@ -110,7 +110,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 				var theEggItem = theEgg.createItem()
 				if(!theEggItem):
 					continue
-				GM.pc.getInventory().addItem(theEggItem)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theEggItem)
 		eggsOut.clear()
 		
 		var angerChance:float = 50.0 + fetish(SUB_0, Fetish.BeingBred)*100.0
@@ -128,7 +128,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 			# Hey, those are mine!
 			getSubInfo().addResistance(1.0)
 			react(SexReaction.EggsStolen, [100.0], [SUB_0])
-			GM.main.RS.addAffection(getSubID(), getDomID(), -0.02*theAmToSteal)
+			ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(getSubID(), getDomID(), -0.02*theAmToSteal)
 		else:
 			addText("{sub.You} {sub.youVerb('don', 'doesn')}'t seem to mind much.")
 	
@@ -155,9 +155,9 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 		moan(SUB_0)
 		
 		if(getSub().isReadyToLayEggs()):
-			GM.main.RS.addAffection(getSubID(), getDomID(), 0.01)
+			ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(getSubID(), getDomID(), 0.01)
 		else:
-			GM.main.RS.addAffection(getSubID(), getDomID(), 0.05)
+			ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(getSubID(), getDomID(), 0.05)
 		
 		eggsOut.append(anEgg)
 		getSubInfo().addLust(20)

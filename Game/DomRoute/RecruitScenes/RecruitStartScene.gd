@@ -14,17 +14,17 @@ func _reactInit():
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
-		return GM.main.RCS.getRecruit().charID
+		return ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit().charID
 	if(_charID == "presenter"):
-		return GM.main.RCS.getRecruit().getPresenterCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit().getPresenterCharID()
 
 func _run():
-	if(!GM.main.RCS.hasCurrent()):
+	if(!ServiceLocator.safe_get_service(&"MainScene").RCS.hasCurrent()):
 		saynn("SOMETHING WENT WRONG, THERE IS NO CURRENT RECRUIT. SORRY.")
 		addButton("Continue", "See what happens next", "endthescene")
 		return
 	
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var _presenterID:String = _recruit.getPresenterCharID()
 	var _hasPresenter:bool = !_presenterID.is_empty()
 	if(state == ""):
@@ -151,7 +151,7 @@ func _react(_action: String, _args):
 		return
 	if(_action == "pickNextOption"):
 		choices[_args[0]] += 1
-		var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+		var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 		var _choices:Array = _recruit.choices
 		if(choices[_args[0]] >= _choices[_args[0]]["options"].size()):
 			choices[_args[0]] = 0
@@ -160,10 +160,10 @@ func _react(_action: String, _args):
 	
 	if(_action == "startThePlan" || _action == "helperStartsThePlan"):
 		didPlanYourself = (_action == "startThePlan")
-		var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+		var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 		var theContext:RecruitContext = _recruit.createContext(getChoicesIDs(), getExtraWithIDs())
 		var theSceneID:String = _recruit.getSceneToPlay(getChoicesIDs(), getExtraWithIDs())
-		GM.main.RCS.submitContext(theContext)
+		ServiceLocator.safe_get_service(&"MainScene").RCS.submitContext(theContext)
 		if(didPlanYourself):
 			runScene(theSceneID, [theContext], "planScene")
 			setState("afterPlan")
@@ -176,7 +176,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func makeSureChoicesFilled():
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var _choices:Array = _recruit.choices
 	
 	while(choices.size() < _choices.size()):
@@ -185,7 +185,7 @@ func makeSureChoicesFilled():
 		choices.pop_back()
 
 func areChoicesFilled() -> bool:
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var _choices:Array = _recruit.choices
 	if(_choices.size() != choices.size()):
 		return false
@@ -196,7 +196,7 @@ func areChoicesFilled() -> bool:
 
 func getChoicesIDs() -> Array:
 	var result:Array = []
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var _choices:Array = _recruit.choices
 	var _i:int = 0
 	for choiceIndx in choices:
@@ -206,7 +206,7 @@ func getChoicesIDs() -> Array:
 
 func getExtraWithIDs() -> Dictionary:
 	var result:Dictionary = {}
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var theExtras := getExtras()
 	
 	for theExtra in theExtras:
@@ -221,11 +221,11 @@ func getExtraWithIDs() -> Dictionary:
 func getExtras() -> Array:
 	if(!areChoicesFilled()):
 		return []
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	return _recruit.getExtraChoices(getChoicesIDs())
 
 func checkExtras():
-	var _recruit:RecruitBase = GM.main.RCS.getRecruit()
+	var _recruit:RecruitBase = ServiceLocator.safe_get_service(&"MainScene").RCS.getRecruit()
 	var _choices:Array = _recruit.choices
 	if(!areChoicesFilled()):
 		extra.clear()

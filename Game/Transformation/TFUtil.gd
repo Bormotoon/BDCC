@@ -76,8 +76,8 @@ static func generateTFIDForAPill(blacklist:Array = [], knownMult:float = 0.5) ->
 			continue
 		var tf = GlobalRegistry.getTransformationRef(tfID)
 		
-		var tfWeight:float = GM.main.getEncounterSettings().getTFWeight(tfID, tf.getPillGenWeight())
-		var isThisOneUnlocked:bool = (GM.main != null && GM.main.SCI != null && GM.main.SCI.isTransformationUnlocked(tfID))
+		var tfWeight:float = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getTFWeight(tfID, tf.getPillGenWeight())
+		var isThisOneUnlocked:bool = (ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID))
 		
 		if(tfWeight <= 0.0 && !isThisOneUnlocked):
 			disabledUnknown.append(tfID)

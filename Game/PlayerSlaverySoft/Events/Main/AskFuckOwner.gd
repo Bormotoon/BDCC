@@ -35,7 +35,7 @@ func domBlackedOut_do(_id:String, _args:Array):
 		var theOwnerID:String = getOwnerID()
 		endEvent()
 		stopRunner()
-		GM.main.IS.startInteraction("Unconscious", {main=theOwnerID})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Unconscious", {main=theOwnerID})
 
 func afterSex():
 	playAnimation(StageScene.Duo, "stand", {npc=getRoleID(C_OWNER)})

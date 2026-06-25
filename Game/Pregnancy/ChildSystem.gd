@@ -5,7 +5,7 @@ var children: Array = []
 var archive: Dictionary = {}
 
 func _ready():
-	GM.CS = self
+	ServiceLocator.safe_get_service(&"ChildSystem") = self
 	name = "ChildSystem"
 
 func addChild(child):
@@ -125,7 +125,7 @@ func getChildBigReportString(_childs:Array) -> String:
 		#	continue
 		
 		var birthDay:int = child.birthDay
-		var daysPassed:int = GM.main.getDays() - birthDay
+		var daysPassed:int = ServiceLocator.safe_get_service(&"MainScene").getDays() - birthDay
 		var yearsOld:int = daysPassed / 365
 		var daysOld:int = daysPassed - yearsOld * 365
 		#var ageStr = str(daysOld)+" days"

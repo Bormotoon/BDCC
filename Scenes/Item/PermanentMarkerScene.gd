@@ -13,7 +13,7 @@ func _run():
 
 		saynn("What do you wanna do?")
 
-		if(!GM.pc.hasBlockedHands() && !GM.pc.hasBoundArms()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands() && !ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			addButton("Draw on self", "You changed your mind", "pickzonemenu")
 		else:
 			addDisabledButton("Draw on self", "Your arms or hands are bound!")
@@ -31,8 +31,8 @@ func _run():
 		saynn("What do you want to write on your "+str(BodyWritingsZone.getZoneVisibleName(pickedZone))+"?")
 		
 		var theEffect
-		if(GM.pc.hasEffect(StatusEffect.HasBodyWritings)):
-			theEffect = GM.pc.getEffect(StatusEffect.HasBodyWritings)
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasBodyWritings)):
+			theEffect = ServiceLocator.safe_get_service(&"Player").getEffect(StatusEffect.HasBodyWritings)
 		
 		addButton("Back", "You changed your mind", "pickzonemenu")
 		for writingID in BodyWritings.getWritingIDsForZone(pickedZone):
@@ -64,8 +64,8 @@ func _react(_action: String, _args):
 		return
 	if(_action == "doWrite"):
 		var writingID:String = _args[0]
-		GM.pc.addBodywriting(pickedZone, writingID, true)
-		GM.pc.getInventory().removeXOfOrDestroy("PermanentMarker", 1)
+		ServiceLocator.safe_get_service(&"Player").addBodywriting(pickedZone, writingID, true)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("PermanentMarker", 1)
 		setState("afterwrite")
 		return
 	

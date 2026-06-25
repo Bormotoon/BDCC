@@ -81,15 +81,15 @@ func getCharacter() -> BaseCharacter:
 
 func getLocation() -> String:
 	if(isPlayer()):
-		return GM.pc.getLocation()
+		return ServiceLocator.safe_get_service(&"Player").getLocation()
 	return location
 
 func setLocation(newLoc:String):
 	var oldLoc = location
 	location = newLoc
-	if(isPlayer() && newLoc != GM.pc.getLocation()):
-		GM.pc.setLocation(newLoc)
-	GM.main.IS.onPawnMoved(charID, oldLoc, getLocation())
+	if(isPlayer() && newLoc != ServiceLocator.safe_get_service(&"Player").getLocation()):
+		ServiceLocator.safe_get_service(&"Player").setLocation(newLoc)
+	ServiceLocator.safe_get_service(&"MainScene").IS.onPawnMoved(charID, oldLoc, getLocation())
 
 func processTime(_howMuch:int):
 	var pawnType = getPawnType()
@@ -131,13 +131,13 @@ func checkAloneInteraction():
 	
 	if(currentInteraction == null):
 		if(getExhaustion() > 0.0):
-			GM.main.IS.startInteraction("FightExhaustion", {main = charID}, {})
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("FightExhaustion", {main = charID}, {})
 			return
 		
-		GM.main.IS.startInteraction("AloneInteraction", {main = charID}, {})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("AloneInteraction", {main = charID}, {})
 
 func canBeInterrupted() -> bool:
-	if(isPlayer() && !GM.main.playerCanBeInterrupted()):
+	if(isPlayer() && !ServiceLocator.safe_get_service(&"MainScene").playerCanBeInterrupted()):
 		return false
 	if(currentInteraction != null):
 		return currentInteraction.canCharIDBeInterrupted(charID)
@@ -185,7 +185,7 @@ func onMeetWith(_otherPawn, _otherPawnMoved:bool) -> bool:
 	var pawnType = getPawnType()
 	if(pawnType != null):
 		return pawnType.onPawnMeetWith(self, _otherPawn, _otherPawnMoved)
-	return GM.main.IS.checkOnMeetInteractions(self, _otherPawn, _otherPawnMoved)
+	return ServiceLocator.safe_get_service(&"MainScene").IS.checkOnMeetInteractions(self, _otherPawn, _otherPawnMoved)
 
 func getHunger() -> float:
 	return hunger
@@ -236,7 +236,7 @@ func wasDeleted() -> bool:
 	return isDeleted
 
 func deleteMe():
-	GM.main.IS.deletePawn(charID)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(charID)
 
 func getDebugInfo():
 	var res = [
@@ -280,42 +280,42 @@ func scoreLike(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var affectionValue:float = GM.main.RS.getAffection(charID, otherCharID)
+	var affectionValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, otherCharID)
 	return max(0.0, affectionValue)
 
 func scoreHate(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var affectionValue:float = GM.main.RS.getAffection(charID, otherCharID)
+	var affectionValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, otherCharID)
 	return max(0.0, -affectionValue)
 
 func scoreAffection(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var affectionValue:float = GM.main.RS.getAffection(charID, otherCharID)
+	var affectionValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, otherCharID)
 	return affectionValue
 
 func getAffection(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var affectionValue:float = GM.main.RS.getAffection(charID, otherCharID)
+	var affectionValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, otherCharID)
 	return affectionValue
 
 func scoreLust(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var lustValue:float = GM.main.RS.getLust(charID, otherCharID)
+	var lustValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(charID, otherCharID)
 	return max(0.0, lustValue)
 
 func getLust(otherCharID) -> float:
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	var lustValue:float = GM.main.RS.getLust(charID, otherCharID)
+	var lustValue:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(charID, otherCharID)
 	return max(0.0, lustValue)
 
 func affectAffection(otherCharID, howMuch:float):
@@ -331,11 +331,11 @@ func affectAffection(otherCharID, howMuch:float):
 	elif(howMuch < 0.0):
 		mult += scorePersonality({PersonalityStat.Mean:1.0})*0.5
 	
-	var currentAffection:float = GM.main.RS.getAffection(charID, otherCharID)
+	var currentAffection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, otherCharID)
 	if((currentAffection > 0.1 && howMuch < 0.0) || (currentAffection < -0.1 && howMuch > 0.0)):
-		GM.main.RS.addAffection(charID, otherCharID, howMuch*mult*2.0)
+		ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(charID, otherCharID, howMuch*mult*2.0)
 	else:
-		GM.main.RS.addAffection(charID, otherCharID, howMuch*mult)
+		ServiceLocator.safe_get_service(&"MainScene").RS.addAffection(charID, otherCharID, howMuch*mult)
 
 func getCharsRepMult(char1ID:String, char2ID:String) -> float:
 	var character1 = GlobalRegistry.getCharacter(char1ID)
@@ -366,7 +366,7 @@ func affectLust(otherCharID, howMuch:float):
 	if(!(otherCharID is String)):
 		otherCharID = otherCharID.charID
 	
-	GM.main.RS.addLust(charID, otherCharID, howMuch)
+	ServiceLocator.safe_get_service(&"MainScene").RS.addLust(charID, otherCharID, howMuch)
 
 func shouldPersueGoalOverride(_goalID:String) -> bool:
 	var pawnType = getPawnType()
@@ -499,7 +499,7 @@ func makeExhausted():
 		return
 	fightExhaustion = 1.0
 	if(canBeInterrupted()):
-		GM.main.IS.startInteraction("FightExhaustion", {main = charID}, {})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("FightExhaustion", {main = charID}, {})
 
 func calculatePowerScore(ignoreCurrentState:bool = false) -> float:
 	var theChar:BaseCharacter = getChar()
@@ -573,8 +573,8 @@ func getProstitutionCreditsCost(_otherPawn, mult:float = 1.0, isDom:bool = false
 	var naiveStat = personality.getStat(PersonalityStat.Naive)
 	var subbyStat = personality.getStat(PersonalityStat.Subby)
 	
-	var affection:float = GM.main.RS.getAffection(charID, _otherPawn.charID)
-	var lust:float = GM.main.RS.getLust(charID, _otherPawn.charID)
+	var affection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(charID, _otherPawn.charID)
+	var lust:float = ServiceLocator.safe_get_service(&"MainScene").RS.getLust(charID, _otherPawn.charID)
 	var likeness:float = getHowMuchLikesPawn(_otherPawn, true)
 	var slutScore:float = calculateSlutScore()
 	
@@ -616,7 +616,7 @@ func canGrabAndFuck() -> bool:
 	return true
 
 func isOnALeash() -> bool:
-	if(isPlayer() && GM.main.checkPCOnALeash()):
+	if(isPlayer() && ServiceLocator.safe_get_service(&"MainScene").checkPCOnALeash()):
 		return true
 	if(currentInteraction == null):
 		return false
@@ -689,7 +689,7 @@ func addExperienceIfPlayer(ex: int, showMessage: bool = true):
 	if(!isPlayer()):
 		return
 	if(showMessage):
-		GM.main.addMessage("You received "+str(ex)+" experience")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You received "+str(ex)+" experience")
 	getChar().addExperience(ex)
 
 func getPawnTypeID() -> String:
@@ -701,14 +701,14 @@ func getPawnType():
 	return GlobalRegistry.getPawnType(getPawnTypeID())
 
 func getPawnRelationshipTextAndColor() -> Array:
-	var special:SpecialRelationshipBase = GM.main.RS.getSpecialRelationship(charID)
+	var special:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(charID)
 	if(special):
 		return [special.getMapTag(), special.getCategoryColor()]
 	
 	return ["", Color.WHITE]
 
 func getSpecialRelationship() -> SpecialRelationshipBase:
-	return GM.main.RS.getSpecialRelationship(charID)
+	return ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(charID)
 
 func getID() -> String:
 	return charID

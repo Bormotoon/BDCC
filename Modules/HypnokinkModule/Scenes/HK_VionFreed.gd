@@ -115,53 +115,53 @@ func _react(_action: String, _args):
 		runScene("ComputerSimScene", ["DatapadHackComputer"], "computerhack")
 	
 	if(_action == "ride_it_out"):
-		GM.pc.addLust(80)
+		ServiceLocator.safe_get_service(&"Player").addLust(80)
 		
 	if(_action == "sex_1"):
-		GM.pc.addLust(20)
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		
 	if(_action == "sex_2"):
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		
 	if(_action == "sex_2"):
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		processTime(30 * 60)
-		GM.pc.cummedInMouthBy("vion")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("vion")
 		
 	if(_action == "sex_3"):
-		GM.pc.orgasmFrom("vion")
-		GM.pc.addLust(100)
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("vion")
+		ServiceLocator.safe_get_service(&"Player").addLust(100)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		processTime(30 * 60)
-		if(GM.pc.hasReachableAnus()):
-			GM.pc.cummedInAnusBy("vion")
-		elif(GM.pc.hasReachableVagina()):
-			GM.pc.cummedInVaginaBy("vion")
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableAnus()):
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("vion")
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("vion")
 		else:
-			GM.pc.cummedOnBy("vion")
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("vion")
 			
 	if(_action == "sex_4"):
-		GM.pc.orgasmFrom("vion")
-		GM.pc.addLust(100)
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("vion")
+		ServiceLocator.safe_get_service(&"Player").addLust(100)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		processTime(30 * 60)
-		if(GM.pc.hasReachableVagina()):
-			GM.pc.cummedInVaginaBy("vion")
-		elif(GM.pc.hasReachableAnus()):
-			GM.pc.cummedInAnusBy("vion")
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("vion")
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableAnus()):
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("vion")
 		else:
-			GM.pc.cummedOnBy("vion")
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("vion")
 		
 	if(_action == "sex_after"):
-		GM.pc.addLust(-80)
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		ServiceLocator.safe_get_service(&"Player").addLust(-80)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 		processTime(30 * 60)
-		GM.pc.cummedOnBy("vion")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("vion")
 		
 	if(_action == "get_up"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, -125)
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 30)
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), -125)
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 30)
 		
 	if(_action == "hack_fail_after"):
 		runScene("VionRepeatConversation")

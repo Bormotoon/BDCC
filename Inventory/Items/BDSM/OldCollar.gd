@@ -20,7 +20,7 @@ func getTakeOffScene():
 	return "CollarTuggingScene"
 
 func getTags():
-	if(GM.main != null && GM.main.getFlag("FightClubModule.CanBuySlaveCollars", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.CanBuySlaveCollars", false)):
 		return [ItemTag.AllowsEnslaving, ItemTag.ReturnsToPCIfSlaveReleased, ItemTag.SoldByTheAnnouncer]
 	return [ItemTag.AllowsEnslaving, ItemTag.ReturnsToPCIfSlaveReleased]
 

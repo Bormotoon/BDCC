@@ -88,7 +88,7 @@ func set_flag(flag_id: String, new_value: Variant) -> void:
 					return
 	_flags[flag_id] = new_value
 
-## Global flag access via ServiceLocator (replaces GM.main.getFlag)
+## Global flag access via ServiceLocator (replaces ServiceLocator.safe_get_service(&"MainScene").getFlag)
 func get_flag_raw(flag_id: String, default_value: Variant = null) -> Variant:
 	var main_scene = ServiceLocator.get_service(&"MainScene") if ServiceLocator else null
 	if main_scene and main_scene.has_method("get_flag"):

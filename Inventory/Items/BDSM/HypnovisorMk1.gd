@@ -42,7 +42,7 @@ func canSell():
 	return true
 
 func getTags():
-	if(GM.main != null && GM.main.getFlag("AlexRynardModule.ch1HypnovisorHappened")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("AlexRynardModule.ch1HypnovisorHappened")):
 		return [ItemTag.BDSMRestraint, ItemTag.Hypnovisor, ItemTag.SoldByAlexRynard]
 	return [ItemTag.BDSMRestraint, ItemTag.Hypnovisor]
 

@@ -94,7 +94,7 @@ static func generateTasksFor(theChar, slaveType, _isSlaveLevelup, taskAmount, di
 		
 		if(!taskRef.isPossibleFor(theChar, _isSlaveLevelup)):
 			continue
-		if(!taskRef.isPossibleForPC(GM.pc, theChar, _isSlaveLevelup)):
+		if(!taskRef.isPossibleForPC(ServiceLocator.safe_get_service(&"Player"), theChar, _isSlaveLevelup)):
 			continue
 		
 		var taskWeights = taskRef.getSlaveTypeWeights(false)

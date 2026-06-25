@@ -6,10 +6,10 @@ func _ready():
 	updateInfo()
 	
 func updateInfo():
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return
 	
-	var eventsByType:Dictionary = GM.main.WHS.eventsByEventID
+	var eventsByType:Dictionary = ServiceLocator.safe_get_service(&"MainScene").WHS.eventsByEventID
 	
 	var text:String = "WORLD HISTORY:\n"
 	for eventID in eventsByType:

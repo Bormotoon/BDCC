@@ -31,32 +31,32 @@ func _run():
 			addButton("Continue", "See what happens next", "endthescene")
 			return
 		
-		var roomID = GM.pc.location
-		var _roomInfo = GM.world.getRoomByID(roomID)
+		var roomID = ServiceLocator.safe_get_service(&"Player").location
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(roomID)
 		
 		aimCamera(roomID)
 
-		if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.NORTH)):
 			addButtonAt(6, "North", "Go north", "go", [GameWorld.Direction.NORTH, Direction.North])
 		else:
 			addDisabledButtonAt(6, "North", "Can't go north")
 			
-		if(GM.world.canGoID(roomID, GameWorld.Direction.WEST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.WEST)):
 			addButtonAt(10, "West", "Go west", "go", [GameWorld.Direction.WEST, Direction.West])
 		else:
 			addDisabledButtonAt(10, "West", "Can't go west")
 			
-		if(GM.world.canGoID(roomID, GameWorld.Direction.SOUTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.SOUTH)):
 			addButtonAt(11, "South", "Go south", "go", [GameWorld.Direction.SOUTH, Direction.South])
 		else:
 			addDisabledButtonAt(11, "South", "Can't go south")
 		
-		if(GM.world.canGoID(roomID, GameWorld.Direction.EAST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.EAST)):
 			addButtonAt(12, "East", "Go east",  "go", [GameWorld.Direction.EAST, Direction.East])
 		else:
 			addDisabledButtonAt(12, "East", "Can't go east")
 		
-		if(GM.pc.getInventory().hasRemovableRestraints()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 			addButtonAt(8, "Struggle", "Struggle against your restraints", "struggle")
 		#addButtonAt(9, "Me", "Shows actions related to you and also your personal information", "me")
 		#addButtonAt(13, "Tasks", "Look at your tasks", "tasks")
@@ -66,12 +66,12 @@ func _run():
 		_roomInfo._onPreEnter()
 		setLocationName(_roomInfo.getName())
 		
-		if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 			saynn(_roomInfo.getBlindDescription())
 		else:
 			saynn(_roomInfo.getDescription())
 			
-		var roomMemory = GM.main.getRoomMemory(roomID)
+		var roomMemory = ServiceLocator.safe_get_service(&"MainScene").getRoomMemory(roomID)
 		if(roomMemory != null && roomMemory != ""):
 			saynn("[i]"+roomMemory+"[/i]")
 		
@@ -80,10 +80,10 @@ func _run():
 			sayn("Puppy points: "+str(puppyPoints)+"/"+str(npc.getNpcSlavery().getActivity().getRequiredPuppyPoints())+". "+npc.getNpcSlavery().getActivity().getNeedText())
 			
 		_roomInfo._onEnter()
-		GM.ES.triggerRun(Trigger.EnteringRoomWithSlave, [GM.pc.location, npcID, walkiesType])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.EnteringRoomWithSlave, [ServiceLocator.safe_get_service(&"Player").location, npcID, walkiesType])
 	
 	if(state == "return_to_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		
 		saynn("You return back to your cell with your slave.")
 		
@@ -97,7 +97,7 @@ func _react(_action: String, _args):
 		
 	if(_action == "return_to_cell"):
 		processTime(5*60)
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		setState("return_to_cell")
 		npc.getNpcSlavery().addTired(2.0)
 		return
@@ -111,7 +111,7 @@ func _react(_action: String, _args):
 	if(_action == "roomCallback"):
 		var roomid = _args[0]
 		var keyid = _args[1]
-		var _room = GM.world.getRoomByID(roomid)
+		var _room = ServiceLocator.safe_get_service(&"World").getRoomByID(roomid)
 		return _room._onButton(keyid)
 	
 	if(_action == "go"):
@@ -127,11 +127,11 @@ func _react(_action: String, _args):
 			playAnimation(StageScene.Duo, "walk", {pc=npcID, npc="pc", flipNPC=true, npcAction="walk", bodyState={leashedBy="pc"}})
 			processTime(30)
 			
-		GM.pc.setLocation(GM.world.applyDirectionID(GM.pc.location, _args[0]))
-		aimCamera(GM.pc.location)
-		GM.ES.triggerReact(Trigger.EnteringRoomWithSlave, [GM.pc.location, _args[1], npcID, walkiesType])
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").location, _args[0]))
+		aimCamera(ServiceLocator.safe_get_service(&"Player").location)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.EnteringRoomWithSlave, [ServiceLocator.safe_get_service(&"Player").location, _args[1], npcID, walkiesType])
 		
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 
 	if(_action == "inventory"):
 		runScene("InventoryScene")

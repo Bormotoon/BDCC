@@ -36,23 +36,23 @@ func doAction(_id:String, _args:Dictionary):
 			if(nemesis && nemesis.id == "Nemesis"):
 				nemesis.gonnaAmbush = false
 			
-			var currentAmbushesAmount:int = GM.main.IS.getInteractionsOfTypeAmount("NemesisAmbush")
+			var currentAmbushesAmount:int = ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("NemesisAmbush")
 			if(currentAmbushesAmount > 0):
 				# Limiting to only one ambush at a time
 				completeGoal()
 				return
 			
-			GM.main.IS.startInteraction("NemesisAmbush", {main=getPawn().charID})
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("NemesisAmbush", {main=getPawn().charID})
 			return
 		
-		var leaveTarget:String = GM.pc.getLocation()
-#		if(GM.main.IS.hasPawn("pc") && GM.main.IS.getPawn("pc").canBeInterrupted()):
+		var leaveTarget:String = ServiceLocator.safe_get_service(&"Player").getLocation()
+#		if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn("pc") && ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc").canBeInterrupted()):
 #			if(getLocation() == leaveTarget):
 #				completeGoal()
-#				GM.main.runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
-		var room = GM.world.getRoomByID(leaveTarget)
+#				ServiceLocator.safe_get_service(&"MainScene").runScene("SlutProstitutionReceiveCredits", [getPawn().charID])
+		var room = ServiceLocator.safe_get_service(&"World").getRoomByID(leaveTarget)
 		if(room != null && !room.isOfflimitsForInmates()):
-			var theDist := GM.world.simpleRingDistance(getLocation(), GM.pc.getLocation())
+			var theDist := ServiceLocator.safe_get_service(&"World").simpleRingDistance(getLocation(), ServiceLocator.safe_get_service(&"Player").getLocation())
 			if(theDist > 3.0 || (theDist > 2.0 && RNG.chance(30))):
 				goTowards(leaveTarget)
 

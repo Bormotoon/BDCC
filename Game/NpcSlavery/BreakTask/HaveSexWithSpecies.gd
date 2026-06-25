@@ -21,7 +21,7 @@ func generateFor(_npc, _isSlaveLevelup, _difficulty = 1.0):
 	var allSpecies = GlobalRegistry.getAllSpecies()
 	var possible = []
 	for otherspeciesID in allSpecies:
-		var weight = GM.main.getEncounterSettings().getSpeciesWeight(otherspeciesID)
+		var weight = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().getSpeciesWeight(otherspeciesID)
 		if(weight != null && weight > 0.0):
 			possible.append([otherspeciesID, weight])
 	

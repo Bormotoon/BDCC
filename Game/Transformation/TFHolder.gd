@@ -30,7 +30,7 @@ func canStartTransformation(tf_id: String) -> bool:
 	if not getChar().isDynamicCharacter() and not getChar().isPlayer():
 		return false
 	if getChar().isPlayer():
-		var encounter_settings = GM.main.getEncounterSettings()
+		var encounter_settings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		if encounter_settings.getTFWeight(tf_id) <= 0.0:
 			return false
 	# Stack check

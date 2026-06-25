@@ -27,7 +27,7 @@ func isStocksSex() -> bool:
 	return getSexEngine().getSexTypeID() == SexType.StocksSex
 
 func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	if(_subInfo.getChar().isPlayer() && GM.main.getEncounterSettings().isGoalDisabledForSubPC(SexGoal.TieUp)):
+	if(_subInfo.getChar().isPlayer() && ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().isGoalDisabledForSubPC(SexGoal.TieUp)):
 		return 0.0
 	var mult := 1.0
 	# Inmates don't have much bdsm gear
@@ -60,7 +60,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		if(_sexEngine.isBondageDisabled()):
 			return
 		if(_isSubPC):
-			if(GM.main.getEncounterSettings().isGoalDisabledForSubPC(SexGoal.TieUp)):
+			if(ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().isGoalDisabledForSubPC(SexGoal.TieUp)):
 				return
 			
 		
@@ -80,7 +80,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 			if(item.hasTag(ItemTag.ChastityCage) && (_sexEngine.hasTag(_subInfo.charID, SexActivityTag.PenisInside) || _sexEngine.hasTag(_subInfo.charID, SexActivityTag.PenisUsed))):
 				continue
 			
-			if(_isSubPC && item.hasTag(ItemTag.Hypnovisor) && GM.main.getEncounterSettings().isGoalDisabledForSubPC(SexGoal.Hypnotize)):
+			if(_isSubPC && item.hasTag(ItemTag.Hypnovisor) && ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().isGoalDisabledForSubPC(SexGoal.Hypnotize)):
 				return
 			
 			usableItems.append(item)
@@ -215,7 +215,7 @@ func processTurn():
 		var text:String = RNG.pick([
 			"{dom.You} {dom.youVerb('were', 'was')} successful. ",
 		])
-		text += GM.ui.processString(item.getForcedOnMessage(false), {receiver=getSubID()})
+		text += ServiceLocator.safe_get_service(&"UI").processString(item.getForcedOnMessage(false), {receiver=getSubID()})
 		
 		sendSexEvent(SexEvent.BondageGearForced, DOM_0, SUB_0, {itemID=item.id})
 		getSexEngine().addTrackedGear(getDomID(), getSubID(), item.uniqueID)

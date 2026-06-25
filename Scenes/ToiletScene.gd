@@ -15,17 +15,17 @@ func _run():
 	if(state == "fillmenu"):
 		saynn("How do you wanna fill something?")
 		
-		if(GM.pc.getFluidAmount(FluidSource.Pissing) >= 100):
-			if(GM.pc.isWearingPortalPanties()):
+		if(ServiceLocator.safe_get_service(&"Player").getFluidAmount(FluidSource.Pissing) >= 100):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 				addDisabledButton("Pee into..", "Your portal panties prevent you from peeing into containers")
-			elif(GM.pc.getInventory().getItemsWithTag(ItemTag.CanPeeInto).size() == 0):
+			elif(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanPeeInto).size() == 0):
 				addDisabledButton("Pee into..", "You don't have any bottles to pee into")
 			else:
 				addButton("Pee into..", "Pee into one of your bottles", "peeintomenu")
 		else:
 			addDisabledButton("Pee into..", "You don't feel like peeing")
-		if(GM.pc.hasEffect(StatusEffect.HasCumInsideAnus) || GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
-			if(GM.pc.getInventory().getItemsWithTag(ItemTag.CanForceCumInto).size() == 0):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanForceCumInto).size() == 0):
 				addDisabledButton("Push cum out..", "You don't have any bottles to push cum out into")
 			else:
 				addButton("Push cum out..", "Push cum out of one of your orifices", "pushcummenu")
@@ -36,7 +36,7 @@ func _run():
 	if(state == "peeintomenu"):
 		saynn("Pick which container you wanna pee into")
 		
-		var items = GM.pc.getInventory().getItemsWithTag(ItemTag.CanPeeInto)
+		var items = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanPeeInto)
 		
 		for item in items:
 			if(item.getFluids().isFull()):
@@ -54,16 +54,16 @@ func _run():
 	if(state == "pushcummenu"):
 		saynn("What orifice do you wanna push cum out of?")
 		
-		if(GM.pc.hasReachableVagina()):
-			if(GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
 				addButton("Vagina", "Choose pussy", "pushcumvaginamenu")
 			else:
 				addDisabledButton("Vagina", "You don't have any cum inside your pussy")
 		else:
 			addDisabledButton("Vagina", "You don't have a reachable pussy")
 		
-		if(GM.pc.hasReachableAnus()):
-			if(GM.pc.hasEffect(StatusEffect.HasCumInsideAnus)):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableAnus()):
+			if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus)):
 				addButton("Anus", "Choose anus", "pushcumanusmenu")
 			else:
 				addDisabledButton("Anus", "You don't have any cum inside your anus")
@@ -75,7 +75,7 @@ func _run():
 	if(state in ["pushcumvaginamenu", "pushcumanusmenu"]):
 		saynn("Pick which container you wanna use")
 		
-		var items = GM.pc.getInventory().getItemsWithTag(ItemTag.CanForceCumInto)
+		var items = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanForceCumInto)
 		
 		for item in items:
 			if(item.getFluids().isFull()):
@@ -102,11 +102,11 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "peeinto"):
 		processTime(5*60)
-		setFlag("LastTimePeed", GM.main.getTimeInGlobalSeconds())
+		setFlag("LastTimePeed", ServiceLocator.safe_get_service(&"MainScene").getTimeInGlobalSeconds())
 		
-		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
 		if(item != null):
-			var howMuch = GM.pc.cumInItem(item, FluidSource.Pissing)
+			var howMuch = ServiceLocator.safe_get_service(&"Player").cumInItem(item, FluidSource.Pissing)
 			usedItemName = item.getVisibleName()
 			
 			addMessage("You fill the "+usedItemName+" with "+str(Util.roundF(howMuch, 1))+" ml of your piss")
@@ -114,9 +114,9 @@ func _react(_action: String, _args):
 	if(_action == "pushcumvaginamenudo"):
 		processTime(10*60)
 		
-		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
 		if(item != null):
-			var howMuch = GM.pc.getBodypart(BodypartSlot.Vagina).getFluids().transferTo(item, randf_range(0.1, 0.3))
+			var howMuch = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Vagina).getFluids().transferTo(item, randf_range(0.1, 0.3))
 			usedItemName = item.getVisibleName()
 			
 			addMessage("You manage to fill the "+usedItemName+" with "+str(Util.roundF(howMuch, 1))+" ml of stuff")
@@ -124,9 +124,9 @@ func _react(_action: String, _args):
 	if(_action == "pushcumanusmenudo"):
 		processTime(10*60)
 		
-		var item = GM.pc.getInventory().getItemByUniqueID(_args[0])
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(_args[0])
 		if(item != null):
-			var howMuch = GM.pc.getBodypart(BodypartSlot.Anus).getFluids().transferTo(item, randf_range(0.1, 0.3))
+			var howMuch = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus).getFluids().transferTo(item, randf_range(0.1, 0.3))
 			usedItemName = item.getVisibleName()
 			
 			addMessage("You manage to fill the "+usedItemName+" with "+str(Util.roundF(howMuch, 1))+" ml of stuff")

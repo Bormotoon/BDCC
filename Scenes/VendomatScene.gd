@@ -69,7 +69,7 @@ func _run():
 	
 	if(state == "buymenu"):
 		var inventory = inventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setItems(finalSellingItemsObjects, "buy")
 		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
 		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
@@ -78,8 +78,8 @@ func _run():
 
 	if(state == "sellmenu"):
 		var inventory = inventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
-		inventory.setItems(GM.pc.getInventory().getAllSellableItems(), "sell")
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
+		inventory.setItems(ServiceLocator.safe_get_service(&"Player").getInventory().getAllSellableItems(), "sell")
 		var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
 		var _ok2 = inventory.onInteractWith.connect(onInventoryItemInteracted)
 		var _ok3 = inventory.onInteractWithGroup.connect(onInventoryItemGroupInteracted)
@@ -106,8 +106,8 @@ func _react(_action: String, _args):
 			var itemObject = GlobalRegistry.createItem(itemID)
 			if(item["amount"] > 1):
 				itemObject.setAmount(item["amount"])
-			GM.pc.getInventory().addItem(itemObject)
-		GM.pc.addCredits(-sellItemsData[itemID]["price"] * amount)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(itemObject)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-sellItemsData[itemID]["price"] * amount)
 
 		
 		addMessage(""+itemName+" was added to your inventory")
@@ -125,8 +125,8 @@ func _react(_action: String, _args):
 		howMuch = Util.mini(item.getAmount(), howMuch)
 		var howMuchStr = str(howMuch)+"x"
 		
-		GM.pc.addCredits(item.getSellPrice() * howMuch)
-		GM.pc.getInventory().removeXFromItemOrDelete(item, howMuch)
+		ServiceLocator.safe_get_service(&"Player").addCredits(item.getSellPrice() * howMuch)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXFromItemOrDelete(item, howMuch)
 		
 		addMessage(howMuchStr+item.getVisibleName()+" was sold for "+str(item.getSellPrice() * howMuch) + " credits")
 		
@@ -138,7 +138,7 @@ func _react(_action: String, _args):
 
 	if(_action == "sellall"):
 		var item = _args[0]
-		var allSellableItems = GM.pc.getInventory().getAllSellableItems().duplicate()
+		var allSellableItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllSellableItems().duplicate()
 		var resultAdd = 0
 		var howMuch = 0
 		
@@ -149,12 +149,12 @@ func _react(_action: String, _args):
 				
 				resultAdd += sellitem.getSellPrice() * amountToSell
 				
-				GM.pc.getInventory().removeXFromItemOrDelete(sellitem, amountToSell)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeXFromItemOrDelete(sellitem, amountToSell)
 
 		var howMuchStr = str(howMuch)+"x"
 		resultAdd = int(resultAdd)
 		addMessage(howMuchStr+item.getVisibleName()+" was sold for "+str(resultAdd) + " credits")
-		GM.pc.addCredits(resultAdd)
+		ServiceLocator.safe_get_service(&"Player").addCredits(resultAdd)
 		
 		setState("")
 		if(lockedInto):
@@ -184,12 +184,12 @@ func loadData(data):
 
 func onInventoryItemInteracted(item: ItemBase):
 	if(state == "buymenu"):
-		GM.main.pickOption("buy", [item.id])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("buy", [item.id])
 	if(state == "sellmenu"):
-		GM.main.pickOption("sell", [item, item.getAmount()])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("sell", [item, item.getAmount()])
 
 func onInventoryItemSelected(item: ItemBase):
-	GM.ui.clearButtons()
+	ServiceLocator.safe_get_service(&"UI").clearButtons()
 	addButton("Back", "Don't do anything", "")
 	
 	if(state == "buymenu"):
@@ -197,7 +197,7 @@ func onInventoryItemSelected(item: ItemBase):
 		var itemAmountPerBuy = itemData["amount"]
 		var itemPrice = itemData["price"]
 		
-		var credits = GM.pc.getCredits()
+		var credits = ServiceLocator.safe_get_service(&"Player").getCredits()
 		var amounts = [1, 2, 3, 4, 5, 10, 20]
 		for amount in amounts:
 			var newPrice = itemPrice * amount
@@ -228,7 +228,7 @@ func onInventoryItemSelected(item: ItemBase):
 			
 func onInventoryItemGroupInteracted(item: ItemBase):
 	if(state == "sellmenu"):
-		GM.main.pickOption("sellall", [item])
+		ServiceLocator.safe_get_service(&"MainScene").pickOption("sellall", [item])
 		
 
 		

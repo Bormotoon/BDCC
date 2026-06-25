@@ -41,7 +41,7 @@ func _run():
 	
 	if(state == "pick_chatcolor"):
 		var colorPicker = colorPickerScene.instantiate()
-		GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 		colorPicker.setCurrentColor(npc.getChatColor())
 			
 		addButton("Confirm", "Change the name", "do_pick_color")
@@ -69,7 +69,7 @@ func _run():
 		addButton("Cancel", "You changed your mind", "")
 
 func onNameTextBoxEnterPressed(_new_text:String):
-	GM.main.pickOption("do_pick_name", [])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("do_pick_name", [])
 
 func _react(_action: String, _args):
 	if(_action == "endthescene"):

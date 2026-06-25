@@ -121,7 +121,7 @@ func getDomAgreeGoalChance(_sexEngine:SexEngine, _domInfo:SexDomInfo, _subInfo:S
 			if(theVal < minFetishScore):
 				minFetishScore = theVal
 	
-	var theAffection:float = GM.main.RS.getAffection(_domInfo.getCharID(), _subInfo.getCharID())
+	var theAffection:float = ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(_domInfo.getCharID(), _subInfo.getCharID())
 	var theAnger:float = _domInfo.getAngerScore()
 	
 	var theChance:float = (minFetishScore+1.0) * 50.0 * (1.0+theAffection) * (1.0 - theAnger*0.5)

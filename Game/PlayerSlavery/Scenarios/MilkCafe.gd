@@ -315,7 +315,7 @@ func onSlaveryStart():
 		theCow.cancelPregnancy()
 
 func onSlaveryEnd():
-	GM.pc.removeEffect(StatusEffect.PSMilkCafeProduction)
+	ServiceLocator.safe_get_service(&"Player").removeEffect(StatusEffect.PSMilkCafeProduction)
 	var theCow = GlobalRegistry.getCharacter(C_COW)
 	if(theCow):
 		theCow.induceLactation()
@@ -378,11 +378,11 @@ func getCharacterList() -> Array:
 	return charsHere
 
 func aimCamera(_loc:String):
-	GM.main.aimCameraAndSetLocName(_loc)
+	ServiceLocator.safe_get_service(&"MainScene").aimCameraAndSetLocName(_loc)
 
 func playAnimation(theSceneID, theActionID, args = {}):
-	if(GM.main != null):
-		GM.main.playAnimation(theSceneID, theActionID, args)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(theSceneID, theActionID, args)
 
 func addAction(_name:String, _desc:String, _id:String, _args:Array = []):
 	actions.append([true, -1, _name, _desc, _id, _args])
@@ -453,7 +453,7 @@ func doFinalAction(_finalActionEntry:Array) -> Dictionary:
 	return {}
 	
 func processTurn():
-	GM.main.processTime(60*randi_range(60, 180))
+	ServiceLocator.safe_get_service(&"MainScene").processTime(60*randi_range(60, 180))
 	idleState += 1
 	if(idleState > IDLE_MAX):
 		idleState = 0
@@ -484,9 +484,9 @@ func addTreat(_howMuch:int = 1):
 	var oldAmount:int = getTreatAmount()
 	if(_howMuch > 0):
 		for _i in range(_howMuch):
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
 	if(_howMuch < 0):
-		GM.pc.getInventory().removeXOfOrDestroy("appleitem", -_howMuch)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("appleitem", -_howMuch)
 	var newTreatAmount:int = getTreatAmount()
 	
 	if(oldAmount == newTreatAmount):
@@ -496,20 +496,20 @@ func addTreat(_howMuch:int = 1):
 		addUpText("Treat" if (theDiff == 1 || theDiff == -1) else "Treats", theDiff)
 
 func getTreatAmount() -> int:
-	return GM.pc.getInventory().getAmountOf("appleitem")
+	return ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("appleitem")
 
 func addShiv():
-	GM.pc.getInventory().addItem(GlobalRegistry.createItem("Shiv"))
+	ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("Shiv"))
 	addUpText("Shiv", 1)
 
 func useShiv() -> bool:
-	if(GM.pc.getInventory().removeFirstOf("Shiv")):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().removeFirstOf("Shiv")):
 		addUpText("Shiv", -1)
 		return true
 	return false
 
 func getShivAmount() -> int:
-	return GM.pc.getInventory().getAmountOf("Shiv")
+	return ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("Shiv")
 
 func sayMilkaLine():
 	if(cowTopic >= MILKA_LINES.size()):
@@ -531,16 +531,16 @@ func sayLeoLine():
 		guyTopic += 1
 
 func addCredits(_howMuch:int):
-	GM.pc.addCredits(_howMuch)
+	ServiceLocator.safe_get_service(&"Player").addCredits(_howMuch)
 	addUpTextNum("Credits", _howMuch)
 func addStamina(_howMuch:int):
-	var theMaxStamina:float = float(GM.pc.getMaxStamina())
+	var theMaxStamina:float = float(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 	var theFactor:float = theMaxStamina/100.0
 	var howMuchActually:int = int(round(_howMuch*theFactor))
-	GM.pc.addStamina(howMuchActually)
+	ServiceLocator.safe_get_service(&"Player").addStamina(howMuchActually)
 	addUpTextNum("Stamina", howMuchActually)
 func addPain(_howMuch:int):
-	GM.pc.addPain(_howMuch)
+	ServiceLocator.safe_get_service(&"Player").addPain(_howMuch)
 	addUpTextNum("Pain", _howMuch, true)
 func addObedience(_howMuch:float):
 	obedience += (_howMuch*2.0 if _howMuch<0.0 else _howMuch) / 100.0
@@ -556,7 +556,7 @@ func addPadlockDamage(_howMuch:float):
 	addUpTextF("Padlock's damage", _howMuch)
 
 func getCredits() -> int:
-	return GM.pc.getCredits()
+	return ServiceLocator.safe_get_service(&"Player").getCredits()
 
 func gotMilked(howMuch:int = 1):
 	milkedToday += howMuch
@@ -645,9 +645,9 @@ func removeStrapon(_charID:String):
 		theChar.removeStrapon()
 
 func cowBullBoth(cowText:String, bullText:String, bothText:String) -> String:
-	if(agreeMilk && agreeSeed && GM.pc.hasPenis()):
+	if(agreeMilk && agreeSeed && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 		return bothText
-	if(agreeSeed && GM.pc.hasPenis()):
+	if(agreeSeed && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 		return bullText
 	return cowText
 
@@ -733,8 +733,8 @@ func resetAllGear():
 
 func main_state():
 	resetAllGear()
-	if(!GM.pc.hasEffect(StatusEffect.PSMilkCafeProduction)):
-		GM.pc.addEffect(StatusEffect.PSMilkCafeProduction)
+	if(!ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.PSMilkCafeProduction)):
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.PSMilkCafeProduction)
 	aimCamera(L_CENTER)
 	playAnimation(StageScene.Solo, "stand")
 	
@@ -765,8 +765,8 @@ func main_state():
 		addAction("Hide in cell", "Hide in your cell", "idleCell")
 		# If messy
 		addAction("Wash", "Ask to be washed", "idleWash")
-		if(GM.pc.getStamina() > 0):
-			if(GM.pc.isBlindfolded()):
+		if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 				addDisabledAction("Peek outside", "You can't see..")
 			else:
 				addAction("Peek outside", "Peek through the door's little window", "idlePeek")
@@ -778,23 +778,23 @@ func main_state():
 					addAction("Freedom!", "The door is pretty much open. You can leave!", "ENDING", ["end_breaklock"])
 				else:
 					addAction("Freedom!", "The door is pretty much open. You can leave", "endingLockCheck")
-			elif(!GM.pc.hasBoundLegs()):
-				if(GM.pc.getStamina() > 0):
+			elif(!ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
+				if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 					addAction("Kick door", "Smash the door to damage the padlock", "idleSmash")
 				else:
 					addDisabledAction("Kick door", "You don't have any stamina")
 			else:
 				addDisabledAction("Kick door", "Your legs are cuffed!")
-		if(GM.pc.getInventory().hasRemovableRestraintsNoLockedSmartlocks()):
-			if(GM.pc.getStamina() > 0):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraintsNoLockedSmartlocks()):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 				addAction("Struggle", "Try to struggle off the restraints", "idleStruggle")
 			else:
 				addDisabledAction("Struggle", "You don't have any stamina!")
 		if(canHelpCage && !cageRemoved):
-			if(GM.pc.hasBoundArms() || GM.pc.hasBlockedHands()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 				addDisabledAction("Bull's cage", "You can't do it with blocked hands")
 			else:
-				if(GM.pc.getStamina() <= 0):
+				if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 					addDisabledAction("Bull's cage", "You don't have any stamina to do this")
 				else:
 					addAction("Bull's cage", "Help Pip with his chastity cage", "idleBullCage")
@@ -823,25 +823,25 @@ func main_state():
 		if(obedience < 0.4):
 			addDisabledAction("Be milked", "You're not obedient enough to ask to be milked an extra time")
 		else:
-			if(GM.pc.getStamina() <= 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 				addDisabledAction("Be milked", "You don't have enough stamina to be milked!")
 			else:
 				addAction("Be milked", "Ask the owners to milk you an extra time", "needyMilk")
 		if(canHelpMilka && (getMilkaBreastSize() < BreastsSize.O)):
-			if(GM.pc.hasBoundArms() || GM.pc.hasBlockedHands()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 				addDisabledAction("Milka's breasts", "You can't do it with blocked hands")
 			else:
-				if(GM.pc.getStamina() <= 0):
+				if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 					addDisabledAction("Milka's breasts", "You don't have any stamina to do this")
 				else:
 					addAction("Milka's breasts", "Help Milka by applying special cream to her breasts", "idleCowBreasts")
 		if(helpedMilka || canMilkOthers):
-			if(GM.pc.getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 				addAction("Milk Cow", "Help with milking the cow", "talkCowMilk")
 			else:
 				addDisabledAction("Milk Cow", "You don't have any stamina left")
 		if(bullTrust > 0.5 || cageRemoved || canMilkOthers):
-			if(GM.pc.getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 				addAction("Milk Bull", "Help with milking the bull", "talkBullMilk")
 			else:
 				addDisabledAction("Milk Bull", "You don't have any stamina left")
@@ -850,7 +850,7 @@ func addContinueEventTrigger():
 	addContinue("triggerEventMaybe")
 
 func lateCheck() -> bool:
-	if(GM.main.isVeryLate()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 		setState("sleep")
 		return true
 	return false
@@ -860,7 +860,7 @@ func triggerEventMaybe():
 	if(lateCheck()):
 		return
 	
-	if(!gotMilkedNoon && GM.main.getTime() >= 11*60*60):
+	if(!gotMilkedNoon && ServiceLocator.safe_get_service(&"MainScene").getTime() >= 11*60*60):
 		gotMilkedNoon = true
 		if(isGuyTurn):
 			setState("about_to_be_milked_by_guy")
@@ -868,7 +868,7 @@ func triggerEventMaybe():
 			setState("about_to_be_milked_by_girl")
 		isGuyTurn = !isGuyTurn
 		return
-	if(!gotMilkedEvening && GM.main.getTime() >= 20*60*60):
+	if(!gotMilkedEvening && ServiceLocator.safe_get_service(&"MainScene").getTime() >= 20*60*60):
 		gotMilkedEvening = true
 		if(isGuyTurn):
 			setState("about_to_be_milked_by_guy")
@@ -884,7 +884,7 @@ func triggerEventMaybe():
 		possible.append(["eGirlBulliesSlave", 3.0])
 		possible.append(["eGirlCattleProdCow", 2.0])
 		possible.append(["eGirlCattleProdBull", 2.0])
-		possible.append(["eEatAss", 1.0 if !GM.pc.isOralBlocked() else 3.0])
+		possible.append(["eEatAss", 1.0 if !ServiceLocator.safe_get_service(&"Player").isOralBlocked() else 3.0])
 		possible.append(["eWannaCuddle", 2.0])
 		possible.append(["eRandomStuff", 5.0])
 		if(getTreatAmount() > 0):
@@ -1025,10 +1025,10 @@ func main_do(_id:String, _args:Array):
 		addContinueEventTrigger()
 	if(_id == "idleWash"):
 		aimCamera(L_FIELD)
-		GM.pc.clearBodyFluids()
-		GM.pc.clearBodywritings()
-		GM.pc.clearTallymarks()
-		#GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").clearBodyFluids()
+		ServiceLocator.safe_get_service(&"Player").clearBodywritings()
+		ServiceLocator.safe_get_service(&"Player").clearTallymarks()
+		#ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		saynn("You ask to be washed.")
 		
 		if(RNG.chance(50)):
@@ -1220,7 +1220,7 @@ func main_do(_id:String, _args:Array):
 				addObedience(-2)
 			if(RNG.chance(100.0 - obedience*70.0)):
 				saynn("She pulls out some cuffs and locks them around your ankles!")
-				GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
+				ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
 		
 		addContinueEventTrigger()
 	if(_id == "idleCowBreasts"):
@@ -1258,7 +1258,7 @@ func main_do(_id:String, _args:Array):
 			addAction("Breastfeed", "Feed on Milka's breasts!", "milkaRewardBreastfeed")
 			addAction("Breed her", "Fuck Milka with your cock or a strapon!", "milkaRewardBreed")
 		
-		elif(GM.pc.getBreastsSize() < BreastsSize.O):
+		elif(ServiceLocator.safe_get_service(&"Player").getBreastsSize() < BreastsSize.O):
 			talk(C_COW, RNG.pick([
 				"Ah.. Thank you! I can use it on you too if you want!",
 			]))
@@ -1275,7 +1275,7 @@ func main_do(_id:String, _args:Array):
 		playAnimation(StageScene.BreastGroping, "grope", {pc="psmilka", npc="pc", npcBodyState={hard=true}})
 		saynn("You agree, letting Milka use the special cream on your {pc.breasts}.")
 		saynn("It still takes a while so you chat some more.")
-		var theBreasts:BodypartBreasts = GM.pc.getBodypart(BodypartSlot.Breasts)
+		var theBreasts:BodypartBreasts = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts)
 		if(theBreasts):
 			theBreasts.size += 1
 			theBreasts.processTime(0)
@@ -1335,7 +1335,7 @@ func main_do(_id:String, _args:Array):
 			GlobalRegistry.getCharacter(C_COW).cummedInVaginaBy(C_PC, FluidSource.Strapon)
 		else:
 			GlobalRegistry.getCharacter(C_COW).cummedInVaginaBy(C_PC)
-		GM.pc.orgasmFrom(C_COW)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(C_COW)
 		
 		addContinue("setState", ["main"])
 		
@@ -1465,7 +1465,7 @@ func main_do(_id:String, _args:Array):
 			saynn("You smile, watching Pip’s spent form, your chest rising and falling with satisfaction.")
 		
 		GlobalRegistry.getCharacter(C_BULL).cummedInAnusBy(C_PC)
-		GM.pc.orgasmFrom(C_BULL)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(C_BULL)
 		addBullTrust(5)
 		addContinue("setState", ["main"])
 		
@@ -1504,7 +1504,7 @@ func main_do(_id:String, _args:Array):
 		addContinue("setState", ["main"])
 	
 	if(_id == "idleStruggle"):
-		var struggleData:Dictionary = GM.pc.doStruggleOutOfRestraints(false, false, null, 5.0)
+		var struggleData:Dictionary = ServiceLocator.safe_get_service(&"Player").doStruggleOutOfRestraints(false, false, null, 5.0)
 		if(struggleData.is_empty()):
 			return
 		var text:String = struggleData["text"] if struggleData.has("text") else "[color=red]ERROR? No struggle text provided[/color]"
@@ -1513,7 +1513,7 @@ func main_do(_id:String, _args:Array):
 		if(struggleData.has("animation")):
 			playAnimation(StageScene.Solo, struggleData["animation"])
 		if(struggleData.has("lust") && struggleData["lust"] > 0):
-			GM.pc.addLust(struggleData["lust"])
+			ServiceLocator.safe_get_service(&"Player").addLust(struggleData["lust"])
 		if(struggleData.has("pain") && struggleData["pain"] > 0):
 			addPain(struggleData["pain"])
 		addStamina(-30)
@@ -1629,8 +1629,8 @@ func main_do(_id:String, _args:Array):
 		if(upgradeLevel >= UPGRADE_GRASS):
 			saynn("You go out onto the field and eat some of that tasty grass.")
 			addStamina(50)
-			GM.pc.fillBalls(0.2)
-			GM.pc.fillBreasts(0.2)
+			ServiceLocator.safe_get_service(&"Player").fillBalls(0.2)
+			ServiceLocator.safe_get_service(&"Player").fillBreasts(0.2)
 		else:
 			saynn("You go out onto the field and eat some grass.")
 			addStamina(30)
@@ -1668,10 +1668,10 @@ func main_do(_id:String, _args:Array):
 	if(_id == "eatStarve"):
 		saynn("Anything is better than eating grass. You decide to just starve.")
 		addStamina(-30)
-		if(GM.pc.getStamina() <= 0):
+		if(ServiceLocator.safe_get_service(&"Player").getStamina() <= 0):
 			saynn("Ow.. Your belly hurts..")
 			addPain(20)
-		if(getTreatAmount() <= 0 && RNG.chance(20+GM.pc.getPainLevel()*80.0+clamp(obedience, 0.0, 1.0)*50.0)):
+		if(getTreatAmount() <= 0 && RNG.chance(20+ServiceLocator.safe_get_service(&"Player").getPainLevel()*80.0+clamp(obedience, 0.0, 1.0)*50.0)):
 			playAnimation(StageScene.Duo, "stand", {npc=C_GUY})
 			saynn("Leo approaches you and hands you a carrot..")
 			talk(C_GUY, "I know the grass isn't what you normally eat. But don't starve yourself, okay? Don't tell Sofie.")
@@ -1748,7 +1748,7 @@ func main_do(_id:String, _args:Array):
 				saynn("Leo joins and chats with you.")
 				sayLeoLine()
 		
-		#GM.pc.orgasmFrom("pc")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		addContinueEventTrigger()
 	if(_id == "needyOfferSelf"):
 		saynn("You decide to offer your body to the owners..")
@@ -1811,8 +1811,8 @@ func sleep_state():
 func sleepScene():
 	aimCamera(L_SLEEP)
 	playAnimation(StageScene.Sleeping, "sleep")
-	GM.main.startNewDay()
-	GM.pc.afterSleeping(false)
+	ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+	ServiceLocator.safe_get_service(&"Player").afterSleeping(false)
 	saynn("It's a new day. Time to wake up.")
 	if(upgradeLevel >= UPGRADE_CELLS):
 		saynn("Sleeping on an actual bed is so much nicer.")
@@ -1830,7 +1830,7 @@ func sleepScene():
 			addContinue("setState", ["morningpunish"])
 		else:
 			addContinue("setState", ["main"])
-		if(GM.pc.getCredits() >= 0):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 0):
 			saynn("[b]The owners have paid off their debt! You can be released![/b]")
 			addAction("Freedom!", "You did your part. Time for the owners to do the same", "ENDING", ["end_credits"])
 
@@ -1844,7 +1844,7 @@ func about_to_be_milked_by_guy_state():
 	aimCamera(L_ACT)
 	playAnimation(StageScene.Duo, "stand", {npc=C_GUY})
 	saynn("Leo approaches you.")
-	if(agreeMilk && !GM.pc.canBeMilked() && !GM.pc.hasEffect(StatusEffect.HasCumInsideAnus) && !GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
+	if(agreeMilk && !ServiceLocator.safe_get_service(&"Player").canBeMilked() && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus) && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
 		talk(C_GUY, RNG.pick([
 			"Time for milking. Are you lactating? If not, I will have to try to knock you up first.",
 		]))
@@ -1910,7 +1910,7 @@ func about_to_be_milked_by_girl_state():
 	aimCamera(L_ACT)
 	playAnimation(StageScene.Duo, "stand", {npc=C_GIRL})
 	saynn("Sofie approaches you.")
-	if(agreeMilk && !GM.pc.canBeMilked() && !GM.pc.hasEffect(StatusEffect.HasCumInsideAnus) && !GM.pc.hasEffect(StatusEffect.HasCumInsideVagina)):
+	if(agreeMilk && !ServiceLocator.safe_get_service(&"Player").canBeMilked() && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideAnus) && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideVagina)):
 		talk(C_GIRL, RNG.pick([
 			"I've came to milk you. I don't care if you're not lactating, I will just have to breed you first then.",
 		]))
@@ -2004,7 +2004,7 @@ func about_to_be_milked_by_girl_fightResult(_didPCWin:bool):
 	addContinue("setState", ["main"])
 
 func parse(_text:String, _chars:Dictionary):
-	return GM.ui.processString(_text, _chars)
+	return ServiceLocator.safe_get_service(&"UI").processString(_text, _chars)
 
 var charOverrides:Dictionary = {}# no sync
 
@@ -2743,8 +2743,8 @@ func eOwnerMilkSlave_state():
 	
 	addAction("Watch", "See what happens", "doWatch", [theOwner, theSlave])
 	if(obedience > 0.2):
-		if(GM.pc.getStamina() > 0):
-			if(GM.pc.hasBlockedHands() || GM.pc.hasBoundArms()):
+		if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 				addDisabledAction("Help owner", "Your arms are bound..")
 			else:
 				addAction("Help owner", "Ask to be the one who is doing the milking.", "doHelp", [theOwner, theSlave])
@@ -2955,11 +2955,11 @@ func eGirlCattleProdCow_do(_id:String, _args:Array):
 			talk(C_GIRL, "Really? Fine, your tits will do too.")
 			addObedience(-1)
 			
-			if(GM.pc.isLactating()):
-				GM.pc.fillBreasts(1.0)
+			if(ServiceLocator.safe_get_service(&"Player").isLactating()):
+				ServiceLocator.safe_get_service(&"Player").fillBreasts(1.0)
 				saynn("Your breasts [b]feel full, leaking {pc.milk}![/b]")
 			else:
-				if(GM.pc.stimulateLactation()):
+				if(ServiceLocator.safe_get_service(&"Player").stimulateLactation()):
 					saynn("Your breasts [b]suddenly began lactating![/b]")
 				else:
 					saynn("Your breasts feel stimulated..")
@@ -3035,14 +3035,14 @@ func eGirlCattleProdBull_do(_id:String, _args:Array):
 			talk(C_GIRL, "You really wanna protect that pathetic joke of a stud? Pff.")
 			addObedience(-1)
 			
-			if(GM.pc.hasPenis()):
-				GM.pc.fillBalls(1.0)
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+				ServiceLocator.safe_get_service(&"Player").fillBalls(1.0)
 				saynn("Your balls [b]feel full![/b]")
-			elif(GM.pc.isLactating()):
-				GM.pc.fillBreasts(1.0)
+			elif(ServiceLocator.safe_get_service(&"Player").isLactating()):
+				ServiceLocator.safe_get_service(&"Player").fillBreasts(1.0)
 				saynn("Your breasts [b]feel full, leaking {pc.milk}![/b]")
 			else:
-				if(GM.pc.stimulateLactation()):
+				if(ServiceLocator.safe_get_service(&"Player").stimulateLactation()):
 					saynn("Your breasts [b]suddenly began lactating![/b]")
 				else:
 					saynn("Your breasts feel stimulated..")
@@ -3078,7 +3078,7 @@ func eEatAss_state():
 	talk(C_GIRL, "Want this? I know you do.")
 	saynn("Her free hand grabs you by the collar.")
 	talk(C_GIRL, "My ass needs a good eating.")
-	if(GM.pc.isOralBlocked()):
+	if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 		saynn("She jiggles some keys in front of your face.")
 		talk(C_GIRL, "I will even free your face if you do.")
 	
@@ -3092,8 +3092,8 @@ func eEatAss_do(_id:String, _args:Array):
 		addObedience(-1)
 	
 	if(_id == "eatAss"):
-		GM.pc.freeEyesDeleteAll()
-		GM.pc.freeMouthDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeEyesDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()
 		playAnimation(StageScene.SexRimming, "fast", {pc=C_GIRL, npc=C_PC, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("You obey by getting on your knees and watching Sofie turn around and shove her ass into your face.")	
 		saynn("With gentle licks of your tongue, you begin serving her, getting her pucker nice and wet with your saliva.")
@@ -3217,11 +3217,11 @@ func eBullSeesTreat_do(_id:String, _args:Array):
 		talk(C_BULL, "Sure.")
 		saynn("You give him a confused look.. but he just commits to it, kneeling behind you and digging his face into your ass, dragging his long muscly tongue along the flesh of your {pc.analStretch} star..")
 		saynn("Oh shit.. he slips his tongue inside, eating you out.. your whole body shivering..")
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked cock is pulsing in its cage.. your prostate is tingling from being stimulated..")
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock is pulsing, dripping pre.. your prostate is tingling from being stimulated..")
-		elif(GM.pc.hasReachableVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your pussy is pulsing subtly, dripping juices..")
 		saynn("Soft moans escape your lips while the guy is servicing you so thoroughly..")
 		saynn("When he is done.. you're left trembling. Pip gets up and prepares to leave.")
@@ -3359,7 +3359,7 @@ func eHelpCage_state():
 	talk(C_BULL, "Ah, fuck.. God dammit.")
 	
 	addAction("Ignore", "Let him stay caged", "setState", ["main"])
-	if(GM.pc.getStamina() > 0):
+	if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 		addAction("Help", "Help Pip with his cage. Will use some stamina..", "doHelp")
 	addAction("Bully", "Bully him and his locked cock!", "doBully")
 
@@ -3392,9 +3392,9 @@ func eHelpCage_do(_id:String, _args:Array):
 	if(_id == "doBully"):
 		playAnimation(StageScene.SexFaceSitting, "sit", {pc=C_PC, npc=C_BULL, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("Instead of helping him, you decide to tease him for his chastity.")
-		if(GM.pc.hasPenis()):
-			saynn("You pin him down to the floor and sit on his face, your balls rest on his forehead"+(", your pussy coats his snout and cheeks with your juices" if GM.pc.hasReachableVagina() else "")+"!")
-		elif(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("You pin him down to the floor and sit on his face, your balls rest on his forehead"+(", your pussy coats his snout and cheeks with your juices" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+"!")
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You pin him down to the floor and sit on his face, your pussy coats his snout and cheeks with your juices!")
 		else:
 			saynn("You pin him down to the floor and sit on his face, your crotch rubbing against his snout!")
@@ -3491,7 +3491,7 @@ func ePeekFirstEvent3_state():
 	talk(C_OFFICER, "I have a long night shift ahead of me. So.. a cup of coffee would be nice. Maybe a cupcake.")
 	saynn("The two owners exchange confused glances again.. until Sofie shoves her elbow into Leo's side.")
 	talk(C_GUY, "Oh.. of course. I will get right to it, sir.")
-	saynn("Leo rushes towards the counter.. while the officer puts away the menu and switches his attention towards you.. towards your {pc.masc} body.. towards your {pc.breasts}.."+(" towards your {pc.penis}.." if GM.pc.hasPenis() else ""))
+	saynn("Leo rushes towards the counter.. while the officer puts away the menu and switches his attention towards you.. towards your {pc.masc} body.. towards your {pc.breasts}.."+(" towards your {pc.penis}.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else ""))
 	talk(C_OFFICER, "I knew there was some secret to this place.. It's a crime.")
 	talk(C_GIRL, "Uh.. it's nothing illegal.. we can explain..")
 	saynn("The officer cuts her off.")
@@ -3513,7 +3513,7 @@ func ePeekFirstEvent3_state():
 
 func ePeekFirstEvent3_do(_id:String, _args:Array):
 	if(_id == "noAgree"):
-		GM.main.PSH.unlockEnding("MilkCafe", "officer") # In case people don't wanna sub to him
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEnding("MilkCafe", "officer") # In case people don't wanna sub to him
 		gonnaHavePeekEvent = false
 		peekState = PEEK_BULLIED_BY_GIRL
 		aimCamera(L_SLEEP)
@@ -3534,7 +3534,7 @@ func ePeekFirstEvent3_do(_id:String, _args:Array):
 		talk(C_GIRL, "Do you still.. uh.. need us?")
 		talk(C_OFFICER, "I think I will need one of you.")
 		saynn("Sofie shoves her elbow into his partner side again to make him disappear.")
-		if(agreeMilk || !GM.pc.hasPenis()):
+		if(agreeMilk || !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("The officer grabs a cup of freshly brewed coffee and takes a sip.")
 			talk(C_OFFICER, "I think it could use a bit more milk. Fresh milk.")
 			saynn("He places the cup near the edge of the table.. near your chest.")
@@ -3552,7 +3552,7 @@ func ePeekFirstEventMilk_state():
 	addChar(C_OFFICER)
 	addChar(C_GIRL)
 	playAnimation(StageScene.BreastGroping, "grope", {pc=C_GIRL, npc=C_PC, npcCum=true, npcBodyState={naked=true,hard=true}})
-	GM.pc.milk()
+	ServiceLocator.safe_get_service(&"Player").milk()
 	saynn("Sofie nods at the officer and gently takes your hand, guiding you closer to the table.")
 	saynn("She positions you near the edge, your {pc.breasts} just beneath the officer’s steaming cup.")
 	saynn("Slowly, Sofie cups your breasts and begins fondling and caressing them.")
@@ -3563,7 +3563,7 @@ func ePeekFirstEventMilk_state():
 	saynn("After some time, the cup receives a nice extra layer of your warm {pc.milk}. The officer nods in approval, lifts the cup, and takes a sip.") 
 	talk(C_OFFICER, "Mmm.. that is perfect.")
 	saynn("Sofie's eyes light up when she hears that.")
-	if(agreeSeed && GM.pc.hasPenis()):
+	if(agreeSeed && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 		saynn("Next, the officer grabs a cupcake.. and brings it closer, inspecting.")
 		talk(C_OFFICER, "Looks a bit.. dry to me. Could use some more cream. What do you think?")
 		saynn("He places the cupcake back.")
@@ -3578,12 +3578,12 @@ func ePeekFirstEventSeed_state():
 	addChar(C_GIRL)
 	addStrapon(C_GIRL)
 	playAnimation(StageScene.SexFreeStanding, "fast", {pc=C_GIRL, npc=C_PC, pcCum=true, npcCum=true, bodyState={naked=true,hard=true}, npcBodyState={naked=true,hard=true}})
-	GM.pc.milkSeed()
-	GM.pc.orgasmFrom(C_GIRL)
+	ServiceLocator.safe_get_service(&"Player").milkSeed()
+	ServiceLocator.safe_get_service(&"Player").orgasmFrom(C_GIRL)
 	saynn("Sofie secures a strapon harness around her hips, the rubber cock bobbing eagerly at her waist.")
 	saynn("She grabs your wrists and guides them behind your back while pushing on your back, bending you forward, your cock hovering above the cupcake..")
 	saynn("Firmly, she lines her new rubber shaft up with your needy asshole.")
-	saynn("With a strong thrust, Sofie drives the strapon deep into you. You gasp as the tip presses against your pleasure spot.. "+("making your cock go hard instantly." if !GM.pc.isWearingChastityCage() else "making your caged cock attempt to go hard in its prison."))
+	saynn("With a strong thrust, Sofie drives the strapon deep into you. You gasp as the tip presses against your pleasure spot.. "+("making your cock go hard instantly." if !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "making your caged cock attempt to go hard in its prison."))
 	saynn("She begins a slow, deliberate rhythm, each stroke massaging your prostate further and making you squirm.")
 	talk(C_PC, "M-mmh.. mmm..")
 	saynn("Pre is dribbling from your member as her toy plunges in and out. The officer is watching you get fucked with great interest.")
@@ -3647,9 +3647,9 @@ func ePeekSecondEvent2_state():
 	addChar(C_OFFICER)
 	addChar(C_GIRL)
 	playAnimation(StageScene.ChairOral, "tease", {pc=C_OFFICER, npc=C_PC, bodyState={showPenis=true,hard=true}, npcBodyState={naked=true, hard=true}})
-	GM.pc.freeMouthDeleteAll()
-	GM.pc.freeHandsDeleteAll()
-	GM.pc.freeArmsDeleteAll()
+	ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()
+	ServiceLocator.safe_get_service(&"Player").freeHandsDeleteAll()
+	ServiceLocator.safe_get_service(&"Player").freeArmsDeleteAll()
 	saynn("Sofie brings you out into the seating area of the cafe. The cafe is closed so there is no one around.. except for him that is. The guy is sitting behind his usual table, already eating a cupcake and enjoying his coffee.")
 
 	saynn("You kneel near his table.. it feels right for some reason.")
@@ -3753,8 +3753,8 @@ func ePeekSecondEvent7_state():
 	addContinue("setState", ["ePeekSecondEvent8"])
 	
 func ePeekSecondEvent8_state():
-	GM.pc.gotThroatFuckedBy(C_OFFICER)
-	GM.pc.cummedInMouthBy(C_OFFICER)
+	ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy(C_OFFICER)
+	ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(C_OFFICER)
 	playAnimation(StageScene.SexOralTable, "suckinside", {pc=C_OFFICER, npc=C_PC, bodyState={showPenis=true, hard=true}, npcBodyState={naked=true, hard=true}})
 	saynn("With one last thrust, he shoves most of his length inside, his knot pressing against your lips as his shaft starts to pulse inside your throat.")
 
@@ -3847,14 +3847,14 @@ func ePeekThirdEvent3_state():
 	talk(C_OFFICER, "What a treat, no reason to keep you on the dirty floor. Right?")
 	saynn("You look back over your shoulder.. and see his smile.. as well as Sofie's strict eyes. You nod..")
 
-	saynn("The officer brushes the tip of his member over your "+str("holes.. your pussy and tailhole" if GM.pc.hasReachableVagina() else "{pc.anusStretch} tailhole")+".. his pre dripping onto your sensitive flesh. "+str("He ends up guiding his cock down to your needy slit, the tip pressing against the folds.. before spreading them wide." if GM.pc.hasReachableVagina() else "He takes some time teasing you before guiding his cock down to your needy star, the tip pressing against it.. before spreading it slightly.")+"")
+	saynn("The officer brushes the tip of his member over your "+str("holes.. your pussy and tailhole" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "{pc.anusStretch} tailhole")+".. his pre dripping onto your sensitive flesh. "+str("He ends up guiding his cock down to your needy slit, the tip pressing against the folds.. before spreading them wide." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "He takes some time teasing you before guiding his cock down to your needy star, the tip pressing against it.. before spreading it slightly.")+"")
 
 	addContinue("setState", ["ePeekThirdEvent4"])
 
 func ePeekThirdEvent4_state():
 	addChar(C_OFFICER)
 	playAnimation(StageScene.SexOverTable, "sex", {pc=C_OFFICER, npc=C_PC, bodyState={showPenis=true, hard=true}, npcBodyState={naked=true, hard=true}})
-	saynn("With a firm thrust, he slides into your "+str("velvet" if GM.pc.hasReachableVagina() else "inviting")+" warmth. Inch by inch, his member is exploring your wet inner walls, getting deeper each time.")
+	saynn("With a firm thrust, he slides into your "+str("velvet" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "inviting")+" warmth. Inch by inch, his member is exploring your wet inner walls, getting deeper each time.")
 
 	talk(C_OFFICER, "That's it.. Take it all.")
 	saynn("He sets a slow.. but extremely pleasurable rhythm, each pump sending you further into a mindset of a submissive sex toy.. Little moans escape your mouth while you're getting fucked over the table, your hands holding onto the edges.")
@@ -3864,10 +3864,10 @@ func ePeekThirdEvent4_state():
 func ePeekThirdEvent5_state():
 	addChar(C_OFFICER)
 	playAnimation(StageScene.SexOverTable, "fast", {pc=C_OFFICER, npc=C_PC, bodyState={showPenis=true, hard=true}, npcBodyState={naked=true, hard=true}})
-	saynn("It feels good.. for both, you and him. Feeling that your "+str("{pc.pussyStretch} pussy" if GM.pc.hasReachableVagina() else "{pc.analStretch} ass")+" is handling his cock nicely, the guy speeds his pace up, thrusting deeper and harder.")
+	saynn("It feels good.. for both, you and him. Feeling that your "+str("{pc.pussyStretch} pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "{pc.analStretch} ass")+" is handling his cock nicely, the guy speeds his pace up, thrusting deeper and harder.")
 
 	talk(C_PC, "Ah.. ah..")
-	talk(C_OFFICER, "Such a nice pussy." if GM.pc.hasReachableVagina() else "Such a nice ass.")
+	talk(C_OFFICER, "Such a nice pussy." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "Such a nice ass.")
 	saynn("Hearing that.. makes your inner muscles clench, your slick walls hugging his shaft tightly as he keeps fucking you, pushing through the friction.")
 
 	saynn("You won't be able to endure that for very long.. you're about to cum.")
@@ -3877,20 +3877,20 @@ func ePeekThirdEvent5_state():
 func ePeekThirdEvent6_state():
 	addChar(C_OFFICER)
 	playAnimation(StageScene.SexOverTable, "inside", {pc=C_OFFICER, npc=C_PC, pcCum=true, npcCum=true, bodyState={showPenis=true, hard=true}, npcBodyState={naked=true, hard=true}})
-	if(GM.pc.hasReachableVagina()):
-		GM.pc.gotVaginaFuckedBy(C_OFFICER)
-		GM.pc.cummedInVaginaBy(C_OFFICER)
+	if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(C_OFFICER)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(C_OFFICER)
 	else:
-		GM.pc.gotAnusFuckedBy(C_OFFICER)
-		GM.pc.cummedInAnusBy(C_OFFICER)
-	GM.pc.orgasmFrom(C_OFFICER)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(C_OFFICER)
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(C_OFFICER)
+	ServiceLocator.safe_get_service(&"Player").orgasmFrom(C_OFFICER)
 	saynn("You feel the base of his cock swell as the knot engorges with blood. Without warning, he pins you harder against the table.. and then shoves his entire length in one powerful thrust.. knot and all.. filling you completely.")
 
 	talk(C_OFFICER, "Grrhh..")
 	talk(C_PC, "Ahhh-h!..")
-	saynn("Warm seed floods your "+str("womb" if GM.pc.hasReachableVagina() else "butt")+" in thick waves, the table shaking from your body squirming, unable to contain this amount of cock.. You cum soon after, your "+str("pussy" if GM.pc.hasReachableVagina() else "tailhole")+" pulsing and clenching around his throbbing knot, milking every drop of his hot cum.")
+	saynn("Warm seed floods your "+str("womb" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "butt")+" in thick waves, the table shaking from your body squirming, unable to contain this amount of cock.. You cum soon after, your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "tailhole")+" pulsing and clenching around his throbbing knot, milking every drop of his hot cum.")
 
-	saynn("There is too much stimulation.. your eyes keep rolling up as your loud moans echo around the empty cafe.. "+str("Your pussy squirts from your g-spot getting smashed by his fat orb" if GM.pc.hasReachableVagina() else "")+""+str("Your {pc.penis} squirts with {pc.cum} from your prostate getting smashed by his fat orb" if (!GM.pc.hasReachableVagina() && GM.pc.hasPenis()) else "")+""+str("Your tailhole keeps pusling" if (!GM.pc.hasReachableVagina() && !GM.pc.hasPenis()) else "")+", your legs are shaking wildly while the wolf behind you keeps breeding you, his balls emptying up inside you.")
+	saynn("There is too much stimulation.. your eyes keep rolling up as your loud moans echo around the empty cafe.. "+str("Your pussy squirts from your g-spot getting smashed by his fat orb" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str("Your {pc.penis} squirts with {pc.cum} from your prostate getting smashed by his fat orb" if (!ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+""+str("Your tailhole keeps pusling" if (!ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && !ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+", your legs are shaking wildly while the wolf behind you keeps breeding you, his balls emptying up inside you.")
 
 	saynn("When that's done, the two of you tremble on top of the table.. both completely spent.")
 
@@ -3907,14 +3907,14 @@ func ePeekThirdEvent6_state():
 func ePeekThirdEvent7_state():
 	addChar(C_OFFICER)
 	playAnimation(StageScene.SexOverTable, "lick", {pc=C_OFFICER, npc=C_PC, bodyState={showPenis=true, hard=true}, npcBodyState={naked=true, hard=true}})
-	saynn("He yanks his knot out of your "+str("pussy" if GM.pc.hasReachableVagina() else "ass")+".. before getting down to his knees and shoving his face into your "+str("crotch" if GM.pc.hasReachableVagina() else "butt")+".")
+	saynn("He yanks his knot out of your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "ass")+".. before getting down to his knees and shoving his face into your "+str("crotch" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "butt")+".")
 
-	saynn("The wolf.. he starts eating you out.. you can feel his powerful tongue slide over your "+str("folds" if GM.pc.hasReachableVagina() else "tailhole")+".. before penetrating the creamed hole and proceeding to lap away at the inner wall.")
+	saynn("The wolf.. he starts eating you out.. you can feel his powerful tongue slide over your "+str("folds" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "tailhole")+".. before penetrating the creamed hole and proceeding to lap away at the inner wall.")
 
 	talk(C_GIRL, "Of course, sir. Enjoy your.. cake.")
 	saynn("And so he does, licking you out from the inside, thrusting his tongue in and out, swallowing your juices.. as well as his own seed. Looks like the guy is not the picky kind..")
 
-	saynn("Getting treated like this.. feels nice.. your soft moans keep him hungry for more. He leaves the cream that's inside you mostly in-tact.. and just finishes by glazing your "+str("folds" if GM.pc.hasReachableVagina() else "star")+" a bit more, dragging his tongue along the contours.")
+	saynn("Getting treated like this.. feels nice.. your soft moans keep him hungry for more. He leaves the cream that's inside you mostly in-tact.. and just finishes by glazing your "+str("folds" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "star")+" a bit more, dragging his tongue along the contours.")
 
 	saynn("When he is done, he gets up and gently gropes your rear.")
 
@@ -3986,7 +3986,7 @@ func ePeekThirdEvent9_state():
 
 func intro_state():
 	aimCamera(L_DOCKS)
-	GM.pc.setLocation(L_CENTER)
+	ServiceLocator.safe_get_service(&"Player").setLocation(L_CENTER)
 	playAnimation(StageScene.Solo, "kneel")
 	saynn("You find yourself.. in something that looks like the trunk of the spacetruck. There are a few crates around, most of them locked. You manage to peek into one of them and find.. fruits and vegetables. Weird.")
 
@@ -4080,7 +4080,7 @@ func intro5_state():
 	addContinue("setState", ["intro6"])
 
 func intro6_state():
-	GM.main.startNewDay()
+	ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 	playAnimation(StageScene.Sleeping, "sleep")
 	saynn("You manage to get some sleep.. but it wasn't exactly the pleasant kind.")
 
@@ -4124,7 +4124,7 @@ func intro7_state():
 	talk(C_GIRL, "So. How are you gonna be useful to us? We already have a cow and a bull so you could be either, I don't care. I just don't take 'no' for an answer.")
 
 	addAction("Milk", "Your breasts will be milked. Their size will be increased over time", "setState", ["intro8milk"])
-	if(GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+	if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 		addAction("Seed", "Your cock will be milked", "setState", ["intro8seed"])
 		addAction("Both", "Both, your breasts and your cock will be milked", "setState", ["intro8both"])
 	else:

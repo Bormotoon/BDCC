@@ -2,7 +2,7 @@ extends SceneBase
 class_name HK_SessionBodyBase
 
 func onBody():
-	GM.pc.addEffect(StatusEffect.Suggestible, [30])
+	ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Suggestible, [30])
 	processTime(10*60)
 
 func afterBody():
@@ -24,7 +24,7 @@ func buff(buffid, args = []):
 	return buff
 	
 func betterBuffs() -> bool:
-	if(GM.pc.hasPerk(Perk.HypnosisFastAsleep)):
+	if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisFastAsleep)):
 		return true
 	else:
 		return false
@@ -41,7 +41,7 @@ func buffDurationMultiplier() -> float:
 		duration = 1.0
 	if(getFlag("HypnokinkModule.VionMode") == HypnokinkUtil.VionEvil):
 		duration = 0.65
-	if(GM.pc.hasPerk(Perk.HypnosisFastAsleep)):
+	if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.HypnosisFastAsleep)):
 		duration += 0.1
 	return duration
 	

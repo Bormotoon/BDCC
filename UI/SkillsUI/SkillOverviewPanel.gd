@@ -19,14 +19,14 @@ func setSkillID(newskillid):
 func updateInfo():
 	if(skillID == null):
 		return
-	var skill: SkillBase = GM.pc.getSkillsHolder().getSkill(skillID)
+	var skill: SkillBase = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkill(skillID)
 	if(skill == null):
 		return
 	
 	#nameLabel.text = skill.getVisibleName()
 	#descLabel.text = skill.getVisibleDescription()
 	var totalPerkCount = GlobalRegistry.getPerksIDsBySkill(skillID).size()
-	var learnedPerkCount = GM.pc.getSkillsHolder().getLearnedPerkAmount(skillID)
+	var learnedPerkCount = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getLearnedPerkAmount(skillID)
 	
 	#levelBar.setTextLeft("Level "+str(skill.getLevel()))
 	#levelBar.setText(str(skill.getExperience())+" / "+str(skill.getRequiredExperienceNextLevel())+" exp")
@@ -37,12 +37,12 @@ func updateInfo():
 		levelBar.setProgressBarValue(0)
 	else:
 		levelBar.setTextLeft(skill.getVisibleName() +" level "+str(skill.getLevel()))
-		levelBar.setText(""+str(skill.getExperience())+" / "+str(skill.getRequiredExperienceNextLevel())+" exp, free points: "+str(GM.pc.getSkillsHolder().getFreePerkPoints(skillID)))
+		levelBar.setText(""+str(skill.getExperience())+" / "+str(skill.getRequiredExperienceNextLevel())+" exp, free points: "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(skillID)))
 		levelBar.setProgressBarValue(skill.getLevelProgress())
-	#freePerksLabel.text = "Free perk points: "+str(GM.pc.getSkillsHolder().getFreePerkPoints(skillID))
+	#freePerksLabel.text = "Free perk points: "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(skillID))
 
 	#learnedPerksLabel.text = "Learned perks: "+str(learnedPerkCount)+"/"+str(totalPerkCount)
-	#perksButton.text = "Free perk points: "+str(GM.pc.getSkillsHolder().getFreePerkPoints(skillID))
+	#perksButton.text = "Free perk points: "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreePerkPoints(skillID))
 	perksButton.text = "Perks ("+str(learnedPerkCount)+"/"+str(totalPerkCount)+")"
 
 func _on_PerksButton_pressed():

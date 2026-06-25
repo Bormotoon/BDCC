@@ -12,8 +12,8 @@ func _init():
 	activityCategory = ["Humiliate"]
 
 func getVisibleName() -> String:
-	if(GM.pc):
-		if(GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsPlanti)):
+	if(ServiceLocator.safe_get_service(&"Player")):
+		if(ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsPlanti)):
 			return "Mutual footjob"
 	return activityName
 

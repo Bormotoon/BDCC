@@ -18,8 +18,8 @@ func addEvent(eventID:String, whoID:String, byWhoID:String, args:Dictionary = {}
 	newEvent.args = args
 	
 	# Auto filled stuff
-	newEvent.day = GM.main.getDays()
-	newEvent.time = GM.main.getTime()
+	newEvent.day = ServiceLocator.safe_get_service(&"MainScene").getDays()
+	newEvent.time = ServiceLocator.safe_get_service(&"MainScene").getTime()
 	
 	eventsByEventID[eventID].append(newEvent)
 	#if(!eventsByEventID[eventID].has(whoID)):
@@ -37,13 +37,13 @@ func satisfiesCondition(event:WorldHistoryEvent, condInfo:Array, _i:int = 0) -> 
 		WHCond.Target:
 			return event.byWhoID == condInfo[_i+1]
 		WHCond.Today:
-			return event.day == GM.main.getDays()
+			return event.day == ServiceLocator.safe_get_service(&"MainScene").getDays()
 		WHCond.Yesterday:
-			return event.day == (GM.main.getDays() - 1)
+			return event.day == (ServiceLocator.safe_get_service(&"MainScene").getDays() - 1)
 		WHCond.MinDaysAgo:
-			return (GM.main.getDays() - event.day) >= condInfo[_i+1]
+			return (ServiceLocator.safe_get_service(&"MainScene").getDays() - event.day) >= condInfo[_i+1]
 		WHCond.MaxDaysAgo:
-			return (GM.main.getDays() - event.day) <= condInfo[_i+1]
+			return (ServiceLocator.safe_get_service(&"MainScene").getDays() - event.day) <= condInfo[_i+1]
 		WHCond.ArgTrue:
 			return (event.args.has(condInfo[_i+1]) && event.args[condInfo[_i+1]])
 		WHCond.ArgFalse:
@@ -96,7 +96,7 @@ func clearHistory():
 # Purges old history
 func onNewDay():
 	var newEventsByType:Dictionary = {}
-	var eraseDay:int = GM.main.getDays() - getKeepDaysOfHistory()
+	var eraseDay:int = ServiceLocator.safe_get_service(&"MainScene").getDays() - getKeepDaysOfHistory()
 	
 	for eventID in eventsByEventID:
 		newEventsByType[eventID] = []

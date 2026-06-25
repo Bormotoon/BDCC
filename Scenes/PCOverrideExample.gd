@@ -4,23 +4,23 @@ func _init():
 	sceneID = "PCOverrideExample"
 
 func _reactInit():
-	if(!GM.pc.isOverriddenPlayer()):
-		GM.main.overridePC()
-		GM.pc.setName("Tavi")
-		GM.pc.setGender(Gender.Female)
-		GM.pc.setSpecies([Species.Feline])
-		GM.pc.resetBodypartsToDefault()
-		GM.pc.giveBodypart(GlobalRegistry.createBodypart("tavihair"))
+	if(!ServiceLocator.safe_get_service(&"Player").isOverriddenPlayer()):
+		ServiceLocator.safe_get_service(&"MainScene").overridePC()
+		ServiceLocator.safe_get_service(&"Player").setName("Tavi")
+		ServiceLocator.safe_get_service(&"Player").setGender(Gender.Female)
+		ServiceLocator.safe_get_service(&"Player").setSpecies([Species.Feline])
+		ServiceLocator.safe_get_service(&"Player").resetBodypartsToDefault()
+		ServiceLocator.safe_get_service(&"Player").giveBodypart(GlobalRegistry.createBodypart("tavihair"))
 		
-		GM.pc.updateAppearance()
-		GM.pc.updateNonBattleEffects()
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
+		ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
 		playAnimationForceReset(StageScene.Solo, "stand")
 
 func _onSceneEnd():
 	pass
-	#GM.main.clearOverridePC()
-	#GM.pc.updateAppearance()
-	#GM.pc.updateNonBattleEffects()
+	#ServiceLocator.safe_get_service(&"MainScene").clearOverridePC()
+	#ServiceLocator.safe_get_service(&"Player").updateAppearance()
+	#ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
 
 func _run():
 	if(state == ""):
@@ -38,9 +38,9 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "clear_override"):
-		GM.main.clearOverridePC()
-		GM.pc.updateAppearance()
-		GM.pc.updateNonBattleEffects()
+		ServiceLocator.safe_get_service(&"MainScene").clearOverridePC()
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
+		ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
 		playAnimationForceReset(StageScene.Solo, "stand")
 		endScene()
 		return

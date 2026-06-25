@@ -10,51 +10,51 @@ static func areTrue(conditions):
 		args.pop_front()
 		
 		if(con == ImageCon.MalePC):
-			if(!GM.pc.hasPenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				return false
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				return false
-			if(GM.pc.getFemininity() > 0.5 && GM.pc.getGender() != Gender.Male):
+			if(ServiceLocator.safe_get_service(&"Player").getFemininity() > 0.5 && ServiceLocator.safe_get_service(&"Player").getGender() != Gender.Male):
 				return false
 		if(con == ImageCon.ShemalePC):
-			if(!GM.pc.hasPenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				return false
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				return false
-			if(GM.pc.getFemininity() < 0.4):
+			if(ServiceLocator.safe_get_service(&"Player").getFemininity() < 0.4):
 				return false
 		if(con == ImageCon.FemalePC):
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				return false
-			if(!GM.pc.hasVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				return false
-			if(GM.pc.getFemininity() < 0.5 && GM.pc.getGender() != Gender.Female):
+			if(ServiceLocator.safe_get_service(&"Player").getFemininity() < 0.5 && ServiceLocator.safe_get_service(&"Player").getGender() != Gender.Female):
 				return false
 		if(con == ImageCon.HermPC):
-			if(!GM.pc.hasPenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				return false
-			if(!GM.pc.hasVagina()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				return false
 				
 		if(con == ImageCon.FlagIsTrue):
-			if(!GM.main.getFlag(args[0])):
+			if(!ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0])):
 				return false
 		if(con == ImageCon.FlagIsFalse):
-			if(GM.main.getFlag(args[0])):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0])):
 				return false
 		if(con == ImageCon.FlagEquals):
-			if(GM.main.getFlag(args[0]) != args[1]):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0]) != args[1]):
 				return false
 		if(con == ImageCon.FlagAbove):
-			if(GM.main.getFlag(args[0]) <= args[1]):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0]) <= args[1]):
 				return false
 		if(con == ImageCon.FlagBelow):
-			if(GM.main.getFlag(args[0]) >= args[1]):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0]) >= args[1]):
 				return false
 		if(con == ImageCon.FlagAboveOrEqual):
-			if(GM.main.getFlag(args[0]) < args[1]):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0]) < args[1]):
 				return false
 		if(con == ImageCon.FlagBelowOrEqual):
-			if(GM.main.getFlag(args[0]) > args[1]):
+			if(ServiceLocator.safe_get_service(&"MainScene").getFlag(args[0]) > args[1]):
 				return false
 	return true

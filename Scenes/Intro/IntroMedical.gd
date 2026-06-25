@@ -105,7 +105,7 @@ func _run():
 		saynn("You take the offered pill and toss it into your mouth, washing it down with the glass of water. You don’t really feel any different after it. The doc quickly gives you a visual checkup and puts some data into her tablet.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=eliza]So you’re joining reds, huh. Just remember that others will fear you only if you don't show any weaknesses. Lilacs are basically sextoys but that doesn’t mean they won’t get into a fight with you.[/say]")
 
 			saynn("[say=pc]I don’t think that this is your problem.[/say]")
@@ -113,7 +113,7 @@ func _run():
 			saynn("[say=eliza]Sewing you or any other inmate back together is my problem.[/say]")
 
 		# (if orange)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=eliza]Listen. If you want to get out of here as fast as possible, the lilac block is your best bet. Even if you don’t get paroled, you will at least get access to a better cell and comfortable furniture.[/say]")
 
 			saynn("[say=pc]As a reward for letting others fuck me?[/say]")
@@ -121,10 +121,10 @@ func _run():
 			saynn("[say=eliza]You know, some like it. Just avoid the reds, most of them are psychopaths.[/say]")
 
 		# (if pink)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=eliza]You’re lucky to be a lilac, inmate. Spacious cell, comfy furniture, all of that. Though the catch is that others will see a sextoy in you so be careful. Maybe you will like it, I don’t know. And avoid the reds, they’re all psychopaths.[/say]")
 			
-		if(GM.pc.hasPerk(Perk.StartMaleChastity) && GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.StartMaleChastity) && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You watch the doctor put all her things away. But then you notice that she is just standing and silently staring at you. At you and your crotch.")
 
 			saynn("[say=eliza]You have a penis, right?[/say]")
@@ -264,8 +264,8 @@ func _run():
 
 	if(state == "walk_inside"):
 		removeCharacter("eliza")
-		aimCamera(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCamera(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		setLocationName("My new home")
 		playAnimation(StageScene.Solo, "stand")
 		
@@ -460,32 +460,32 @@ func _react(_action: String, _args):
 		processTime(5 * 60)
 		
 	if(_action == "followtocell"):
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Wrists)
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Ankles)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Wrists)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Ankles)
 	
 	if(_action == "wake_up"):
 		startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		runScene("IntroWakeup")
 		endScene()
 		
 	if(_action == "sneak_up"):
-		GM.pc.addPain(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(30)
 		
 	if(_action == "shove!"):
-		GM.pc.addStamina(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-200)
 		
 	if(_action == "regular_one"):
 		setFlag("MedicalModule.PC_ReceivedPermanentCage", true)
 		setFlag("MedicalModule.PC_PickedFlatPermanentCage", false)
 		
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanentNormal"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanentNormal"))
 		
 	if(_action in ["flat_one", "neither"]):
 		setFlag("MedicalModule.PC_ReceivedPermanentCage", true)
 		setFlag("MedicalModule.PC_PickedFlatPermanentCage", true)
 		
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanent"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanent"))
 		
 	setState(_action)
 

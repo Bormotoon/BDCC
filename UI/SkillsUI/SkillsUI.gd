@@ -42,13 +42,13 @@ func _on_CloseButton_pressed():
 	onClosePressed.emit()
 
 func updateData():
-	assert(GM.pc != null)
+	assert(ServiceLocator.safe_get_service(&"Player") != null)
 	
-	nameLabel.text = GM.pc.getName()
+	nameLabel.text = ServiceLocator.safe_get_service(&"Player").getName()
 	
-	levelBar.setTextLeft("Level "+str(GM.pc.getSkillsHolder().getLevel()))
-	levelBar.setText(str(GM.pc.getSkillsHolder().getExperience())+" / "+str(GM.pc.getSkillsHolder().getRequiredExperienceNextLevel())+" exp")
-	levelBar.setProgressBarValue(GM.pc.getSkillsHolder().getLevelProgress())
+	levelBar.setTextLeft("Level "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getLevel()))
+	levelBar.setText(str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getExperience())+" / "+str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getRequiredExperienceNextLevel())+" exp")
+	levelBar.setProgressBarValue(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getLevelProgress())
 
 	createAttribList()
 	
@@ -60,7 +60,7 @@ func updateData():
 #		tab.queue_free()
 #	skillTabs.clear()
 #
-#	var skills = GM.pc.getSkillsHolder().getSkills()
+#	var skills = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkills()
 #	for skillID in skills:
 #		var tabID = tabContainer.get_child_count()
 #		var skillTab = skillTabScene.instantiate()
@@ -86,15 +86,15 @@ func createAttribList():
 
 func updateAttribList():
 	var myAddedPoints = getAddedStatsAmount()
-	var freeStatPoints = GM.pc.getSkillsHolder().getFreeStatPoints() - myAddedPoints
+	var freeStatPoints = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreeStatPoints() - myAddedPoints
 	freeStatsLabel.text = "Free stat points: "+str(freeStatPoints)
 	var canAddPoints = true
 	if(freeStatPoints <= 0):
 		canAddPoints = false
 	
 	for statID in statObjects:
-		var finalStat = GM.pc.getSkillsHolder().getStat(statID) + getAddedStat(statID)
-		var extraStat = GM.pc.getBuffsHolder().getExtraStat(statID)
+		var finalStat = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getStat(statID) + getAddedStat(statID)
+		var extraStat = ServiceLocator.safe_get_service(&"Player").getBuffsHolder().getExtraStat(statID)
 		var statObject:StatBase = GlobalRegistry.getStat(statID)
 		
 		var statNumberText = str(finalStat)
@@ -118,10 +118,10 @@ func _on_SkillsUI_visibility_changed():
 		updateData()
 
 func onStatPlusButton(statID, amount):
-	var freeStatPoints = GM.pc.getSkillsHolder().getFreeStatPoints() - getAddedStatsAmount()
+	var freeStatPoints = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getFreeStatPoints() - getAddedStatsAmount()
 	if(freeStatPoints <= 0):
 		return
-	#GM.pc.getSkillsHolder().increaseStatIfCan(statID)
+	#ServiceLocator.safe_get_service(&"Player").getSkillsHolder().increaseStatIfCan(statID)
 	if amount < freeStatPoints:
 		addPoints(statID, amount)
 	else:
@@ -136,7 +136,7 @@ func _on_CancelButton_pressed():
 
 func _on_ApplyButton_pressed():
 	for statID in addedPoints:
-		GM.pc.getSkillsHolder().increaseStatIfCan(statID, addedPoints[statID])
+		ServiceLocator.safe_get_service(&"Player").getSkillsHolder().increaseStatIfCan(statID, addedPoints[statID])
 	
 	addedPoints.clear()
 	updateAttribList()
@@ -144,41 +144,41 @@ func _on_ApplyButton_pressed():
 func updateDamageStatsLabel():
 	var text = "Output damage multiplier:\n"
 	for damageType in DamageType.getAll():
-		var dam = GM.pc.getDamageMultiplier(damageType)
+		var dam = ServiceLocator.safe_get_service(&"Player").getDamageMultiplier(damageType)
 		var damName = DamageType.getName(damageType)
 		text += damName +": " +Util.numberToPercentString(dam)+"\n"
 		
 	text += "\n"
 	text += "Recieved damage multiplier:\n"
 	for damageType in DamageType.getAll():
-		var dam = GM.pc.getRecieveDamageMultiplier(damageType)
+		var dam = ServiceLocator.safe_get_service(&"Player").getRecieveDamageMultiplier(damageType)
 		var damName = DamageType.getName(damageType)
 		text += damName +": " +Util.numberToPercentString(dam)+"\n"
 		
 	text += "\n"
 	text += "Armor:\n"
 	for damageType in DamageType.getAll():
-		var dam = GM.pc.getArmor(damageType)
+		var dam = ServiceLocator.safe_get_service(&"Player").getArmor(damageType)
 		var damName = DamageType.getName(damageType)
 		text += damName +": " +str(dam)+"\n"
 		
 	text += "\n"
 	text += "Dodge chance: "
-	var dodgeChance = GM.pc.getDodgeChance()
+	var dodgeChance = ServiceLocator.safe_get_service(&"Player").getDodgeChance()
 	text += str(dodgeChance*100)+"%"+"\n"
 		
 	text += "\n"
 	text += "Attack accuracy: "
-	var accuracy = GM.pc.getAttackAccuracy() + 1.0
+	var accuracy = ServiceLocator.safe_get_service(&"Player").getAttackAccuracy() + 1.0
 	text += str(accuracy * 100.0)+"%\n"
 		
 	damageStatsLabel.text = text
 
 
 	text = ""
-	text += "Ambient lust: "+str(GM.pc.getAmbientLust()) +"\n"
-	text += "Ambient pain: "+str(GM.pc.getAmbientPain()) + "\n"
-	text += "Exposure: "+str(int(GM.pc.getExposure()*100))+"%" + "\n"
+	text += "Ambient lust: "+str(ServiceLocator.safe_get_service(&"Player").getAmbientLust()) +"\n"
+	text += "Ambient pain: "+str(ServiceLocator.safe_get_service(&"Player").getAmbientPain()) + "\n"
+	text += "Exposure: "+str(int(ServiceLocator.safe_get_service(&"Player").getExposure()*100))+"%" + "\n"
 	extraStatsLabel.text = text
 
 

@@ -117,9 +117,9 @@ func getLootTable(_battleName):
 	return MedicalLoot.new()
 
 func getThickness() -> int:
-	if(GM.main):
-		var speciesTF:String = GM.main.getFlag("ElizaModule.elizatf_species", "")
-		var bodyTF:String = GM.main.getFlag("ElizaModule.elizatf_body", "")
+	if(ServiceLocator.safe_get_service(&"MainScene")):
+		var speciesTF:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.elizatf_species", "")
+		var bodyTF:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.elizatf_body", "")
 		
 		if(bodyTF == "hucow"):
 			return 120
@@ -145,11 +145,11 @@ func createBodyparts():
 	giveBodypartUnlessSame(breasts)
 
 func updateBodyparts():
-	if(!GM.main):
+	if(!ServiceLocator.safe_get_service(&"MainScene")):
 		return
-	var cockTF:String = GM.main.getFlag("ElizaModule.elizatf_cock", "")
-	var speciesTF:String = GM.main.getFlag("ElizaModule.elizatf_species", "")
-	var bodyTF:String = GM.main.getFlag("ElizaModule.elizatf_body", "")
+	var cockTF:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.elizatf_cock", "")
+	var speciesTF:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.elizatf_species", "")
+	var bodyTF:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.elizatf_body", "")
 	
 	var breasts: BodypartBreasts = getBodypart(BodypartSlot.Breasts)
 	var breastsSize:int = breasts.size if breasts else -1

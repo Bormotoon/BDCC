@@ -12,14 +12,14 @@ func _initScene(_args = []):
 		uniqueItemID = _args[0]
 	
 func _reactInit():
-	if(GM.pc.isOralBlocked() || GM.pc.hasBoundArms()):
+	if(ServiceLocator.safe_get_service(&"Player").isOralBlocked() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 		setState("cantdrink")
 		return
 	
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
@@ -30,11 +30,11 @@ func _reactInit():
 	var extraMessages = []
 	var fluidByAmount = fluids.getFluidAmountByType()
 	for fluidID in fluidByAmount:
-		var swallowData:Dictionary = GM.pc.doSwallow(fluidID, fluidByAmount[fluidID])
+		var swallowData:Dictionary = ServiceLocator.safe_get_service(&"Player").doSwallow(fluidID, fluidByAmount[fluidID])
 		if(swallowData.has("text") && swallowData["text"] != ""):
 			extraMessages.append(swallowData["text"])
 	
-	fluids.transferTo(GM.pc.getBodypart(BodypartSlot.Head), 1.0)
+	fluids.transferTo(ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Head), 1.0)
 	savedEffects = Util.join(extraMessages, " ")
 
 func _run():
@@ -75,4 +75,4 @@ func loadData(data):
 	
 	uniqueItemID = SAVE.loadVar(data, "uniqueItemID", "")
 	savedEffects = SAVE.loadVar(data, "savedEffects", "")
-	item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)

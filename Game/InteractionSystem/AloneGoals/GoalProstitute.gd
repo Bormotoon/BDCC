@@ -34,14 +34,14 @@ func getActions() -> Array:
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "go"):
 		if(nextTarget == ""):
-			nextTarget = RNG.pick(GM.world.getZoneRooms("prostitution", ["fight_wall_east", "main_hallroom5", "main_hallroom4"]))
+			nextTarget = RNG.pick(ServiceLocator.safe_get_service(&"World").getZoneRooms("prostitution", ["fight_wall_east", "main_hallroom5", "main_hallroom4"]))
 		
 		if(nextTarget != ""):
 			goTowards(nextTarget)
 		
 		if(getLocation() == nextTarget):
 			getPawn().timeSinceLastWork = 0
-			GM.main.IS.startInteraction("Prostitution", {main=getPawn().charID})
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Prostitution", {main=getPawn().charID})
 
 func getAnimData() -> Array:
 	return [StageScene.Solo, "walk", {pc="main"}]

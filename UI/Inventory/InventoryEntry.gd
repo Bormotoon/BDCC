@@ -118,7 +118,7 @@ func updateInfo():
 				if(item.isImportant()):
 					showUseButton(false)
 			if(isBuy):
-				if(GM.pc.getCredits() < item.getPrice()):
+				if(ServiceLocator.safe_get_service(&"Player").getCredits() < item.getPrice()):
 					$HBoxContainer/HBoxContainer/InteractButton.disabled = true
 				else:
 					$HBoxContainer/HBoxContainer/InteractButton.disabled = false

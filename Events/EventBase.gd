@@ -25,8 +25,8 @@ func eventCheck(_check_id, _args: Array = []):
 	return null
 
 func doEventCheck(_check_id, _args: Array = []):
-	if GM.ES:
-		return GM.ES.eventCheck(_check_id, _args)
+	if ServiceLocator.safe_get_service(&"EventSystem"):
+		return ServiceLocator.safe_get_service(&"EventSystem").eventCheck(_check_id, _args)
 
 func checkCharacterBusy(_check_id, message_if_busy: String, character_name: String = "") -> bool:
 	var check_data = doEventCheck(_check_id)
@@ -41,11 +41,11 @@ func checkCharacterBusy(_check_id, message_if_busy: String, character_name: Stri
 	return true
 
 func runScene(scene_id: String, args: Array = [], tag: String = "") -> void:
-	GM.main.runScene(scene_id, args)
+	ServiceLocator.safe_get_service(&"MainScene").runScene(scene_id, args)
 
 func say(_text: String) -> void:
-	if GM.ui:
-		GM.ui.say(_text)
+	if ServiceLocator.safe_get_service(&"UI"):
+		ServiceLocator.safe_get_service(&"UI").say(_text)
 
 func sayn(_text: String) -> void:
 	say(_text + "\n")
@@ -54,13 +54,13 @@ func saynn(_text: String) -> void:
 	say(_text + "\n\n")
 
 func addButton(text: String, tooltip: String = "", method: String = "", args: Array = []) -> void:
-	GM.ui.addButton(text, tooltip, "EVENTSYSTEM_BUTTON", [self, method, args])
+	ServiceLocator.safe_get_service(&"UI").addButton(text, tooltip, "EVENTSYSTEM_BUTTON", [self, method, args])
 
 func addDisabledButton(text: String, tooltip: String = "") -> void:
-	GM.ui.addDisabledButton(text, tooltip)
+	ServiceLocator.safe_get_service(&"UI").addDisabledButton(text, tooltip)
 
 func addButtonUnlessLate(text: String, tooltip: String = "", method: String = "", args: Array = [], latetext: String = "It's way too late for that") -> void:
-	if GM.main.isVeryLate():
+	if ServiceLocator.safe_get_service(&"MainScene").isVeryLate():
 		addDisabledButton(text, latetext)
 	else:
 		addButton(text, tooltip, method, args)
@@ -73,10 +73,10 @@ func addButtonWithChecks(text: String, tooltip: String, method: String, args, ch
 		addDisabledButton(text, ButtonChecks.getReasonText(bad_check))
 
 func setFlag(flag_id, value) -> void:
-	GM.main.setFlag(flag_id, value)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag(flag_id, value)
 
 func getFlag(flag_id, default_value = null):
-	return GM.main.getFlag(flag_id, default_value)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(flag_id, default_value)
 
 func increaseFlag(flag_id, add_value = 1) -> void:
-	GM.main.increaseFlag(flag_id, add_value)
+	ServiceLocator.safe_get_service(&"MainScene").increaseFlag(flag_id, add_value)

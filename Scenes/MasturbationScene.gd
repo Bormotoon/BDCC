@@ -5,7 +5,7 @@ var spottedText = ""
 var isInPublic = false
 
 func _reactInit():
-	var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+	var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 	if(lustCombatState.isInPublic()):
 		isInPublic = true
 
@@ -16,8 +16,8 @@ func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
-		if(GM.pc.getLocation() == GM.pc.getCellLocation()):
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"Player").getCellLocation()):
 			#(if in cell)
 			if(RNG.chance(50)):
 				saynn("You look around, the cell seems to be mostly secluded, you should be safe as long as nobody peeks through the reinforced window. But that thought only sparks up more desire in you. You feel kinda horny, maybe it’s a good time to blow some steam off..")
@@ -35,10 +35,10 @@ func _run():
 				saynn("[say=pc]Some privacy. good..[/say]")
 		else:
 			#(if in public place)
-			if(GM.pc.getSkillLevel(Skill.Exhibitionism) < 1):
+			if(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Exhibitionism) < 1):
 				saynn("You look around, there are people around, lots of them in fact. Doing something lewd would surely get somebody’s attention.. But you are feeling kinda horny, the idea of teasing yourself in public sounds so hot right now.. Just gotta make sure to not get noticed.. You walk around a bit, trying to find a better spot, making sure not to catch too many eyes. Hands travel along your curves, your face is blushing red already..")
 				
-				if(GM.pc.getExposedPrivates().size() > 0):
+				if(ServiceLocator.safe_get_service(&"Player").getExposedPrivates().size() > 0):
 					saynn("Your face only gets more flustered as you try to cover your exposed privates as best you can. [b]You’re not brave enough to do anything sexual.[/b]")
 				
 				saynn(RNG.pick([
@@ -46,7 +46,7 @@ func _run():
 					"[say=pc]Should I stop.. But..[/say]",
 					"[say=pc]I’m gonna get caught.. I can’t..[/say]",
 				]))
-			elif(GM.pc.getSkillLevel(Skill.Exhibitionism) < 2):
+			elif(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Exhibitionism) < 2):
 				saynn("It’s a public place, you see people around, doing their things. You wonder how much you can get away with, the idea of exposing yourself crosses your mind and you can’t resist it, you feel aroused already. If you’re careful, people shouldn’t even notice you.. Maybe you do want them to notice.. You don’t really wanna hide and decide to stay mostly in the open, so risky..")
 				
 				saynn(RNG.pick([
@@ -76,7 +76,7 @@ func _run():
 		addButtonAt(14, "Stop", "Enough horny", "endthescene")
 		
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 	
 		addLustActionsButtons(lustCombatState, lustCombatState.getActionsSorted())
 
@@ -112,7 +112,7 @@ func _run():
 		
 		saynn("You’re about to cum..")
 		
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		addLustActionsButtons(lustCombatState, lustCombatState.getOrgasmActionsSorted())
 		
 	if(state == "lustCombatAfterCame"):
@@ -142,18 +142,18 @@ func addLustActionsButtons(lustCombatState:LustCombatState, theActions):
 
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
-		GM.pc.getLustCombatState().resetState()
+		ServiceLocator.safe_get_service(&"Player").getLustCombatState().resetState()
 		endScene()
 		return
 	
 	if(_action == "doidle"):
 		processTime(30)
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		
 		lustCombatState.processLewdTurn()
 		
 		savedActionText = "You decide to idle for a bit"
-		#GM.pc.addLust(-1)
+		#ServiceLocator.safe_get_service(&"Player").addLust(-1)
 		
 		checkDanger()
 		spottedMessages()
@@ -165,23 +165,23 @@ func _react(_action: String, _args):
 		processTime(30)
 		
 		var actionData = _args[0]
-		var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+		var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 		
 		var result = lustCombatState.doAction(actionData)
 		savedActionText = result["text"]
 		if("lust" in result):
-			GM.pc.addLust(result["lust"] * 4)
-			if(GM.pc.getLustLevel() >= 1.0 && ("cantCum" in result) && result["cantCum"]):
-				GM.pc.addLust(-1)
+			ServiceLocator.safe_get_service(&"Player").addLust(result["lust"] * 4)
+			if(ServiceLocator.safe_get_service(&"Player").getLustLevel() >= 1.0 && ("cantCum" in result) && result["cantCum"]):
+				ServiceLocator.safe_get_service(&"Player").addLust(-1)
 		if("pain" in result):
-			GM.pc.addPain(result["pain"])
+			ServiceLocator.safe_get_service(&"Player").addPain(result["pain"])
 		
 		if("came" in result):
 			lustCombatState.stopActivities()
 			setState("lustCombatAfterCame")
 			return
 		
-		if(GM.pc.getLustLevel() >= 1.0):
+		if(ServiceLocator.safe_get_service(&"Player").getLustLevel() >= 1.0):
 			setState("lustCombatAboutToCum")
 			return
 			
@@ -193,7 +193,7 @@ func _react(_action: String, _args):
 func spottedMessages():
 	spottedText = ""
 	
-	var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+	var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 	if(lustCombatState.isInPublic()):
 		if(lustCombatState.getVisibility() < 1.0):
 			
@@ -212,7 +212,7 @@ func spottedMessages():
 			return
 		
 		if(lustCombatState.getDanger() > 0):
-			var population = GM.pc.getLocationPopulation()
+			var population = ServiceLocator.safe_get_service(&"Player").getLocationPopulation()
 			if(population.size() <= 0 || RNG.chance(50)):
 				return
 			
@@ -293,12 +293,12 @@ func spottedMessages():
 	
 
 func checkDanger():
-	var lustCombatState:LustCombatState = GM.pc.getLustCombatState()
+	var lustCombatState:LustCombatState = ServiceLocator.safe_get_service(&"Player").getLustCombatState()
 	var newDanger = lustCombatState.getDanger()
 	if(lustCombatState.isInPublic() && newDanger >= 1.0):
 		print("SPOTTED")
 		lustCombatState.resetDanger()
-		var population = GM.pc.getLocationPopulation()
+		var population = ServiceLocator.safe_get_service(&"Player").getLocationPopulation()
 		if(population.size() > 0):
 			var randomPop = RNG.pick(population)
 			var triggerID
@@ -307,8 +307,8 @@ func checkDanger():
 			if(randomPop == WorldPopulation.Guards):
 				triggerID = Trigger.MasturbationSpottedGuard
 			
-			if(triggerID != null && GM.ES.triggerReact(triggerID)):
-				GM.pc.getLustCombatState().resetState()
+			if(triggerID != null && ServiceLocator.safe_get_service(&"EventSystem").triggerReact(triggerID)):
+				ServiceLocator.safe_get_service(&"Player").getLustCombatState().resetState()
 				endScene()
 
 func resolveCustomCharacterName(_charID):

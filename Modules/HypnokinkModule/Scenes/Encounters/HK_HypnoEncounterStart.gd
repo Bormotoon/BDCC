@@ -200,19 +200,19 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		
 	if(state == "after_sex"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
 		
 	if(state == "after_sex_won"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
 
 func addWonButton():
 	addButton("Leave", "Just leave before anyone else sees you", "endthescene")
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 
@@ -222,7 +222,7 @@ func _react(_action: String, _args):
 		
 		
 	if(_action == "submit"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(15,30))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(15,30))
 		endScene()
 		
 		var options= []
@@ -236,11 +236,11 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "decline"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(2,6))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(2,6))
 		pass
 		
 	if(_action == "startfight"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(1,3))
 		runScene("FightScene", [npcID], "guardfight")
 		
 

@@ -89,7 +89,7 @@ func checkUniqueTarget(_target:String):
 	if(_target in ["main_hallroom1"]):
 		setState("pVendomat")
 	if(_target in ["med_lobbymain"]):
-		if(GM.pc.getPainLevel() > 0.4):
+		if(ServiceLocator.safe_get_service(&"Player").getPainLevel() > 0.4):
 			setState("pMedical")
 
 func getDoState() -> String:
@@ -107,9 +107,9 @@ func pMedical():
 	saynn("Your owner nods and pulls you away from the counter.")
 	
 	if(onlyOnce()):
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(150)
-		GM.main.addMessage("You feel better!")
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(150)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You feel better!")
 	
 	paradedOutcome()
 	
@@ -124,24 +124,24 @@ func pVendomat():
 			talkOwner("Thirsty?")
 			saynn("{npc.He} {npc.verb('buy')} an energy drink and hands it to you.")
 			talkOwner("Enjoy.")
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem(theItemToGive))
-			GM.main.addMessage("You received an energy drink!")
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(theItemToGive))
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You received an energy drink!")
 	saynn("After that, you get pulled away from the vendomat.")
 	paradedOutcome()
 
 func pCanteen():
 	playAnimation(StageScene.PawJobUnderTable, "start", {pc="pc", npc=getOwnerID()})
 	saynn("{npc.name} brings you into a canteen.")
-	if(GM.pc.isOralBlocked()):
+	if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 		talkModularOwnerToPC("SoftSlaveryParadeAroundEatGagged") #"Too bad you can't eat, {npc.npcSlave}. I will though."
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("All you can do is watch your owner eat..")
 		else:
 			saynn("All you can do is.. imagine.. your owner eat..")
 	else:
 		talkModularOwnerToPC("SoftSlaveryParadeAroundEat") #"Lets take a break. Enjoy your meal, {npc.npcSlave}."
 		if(onlyOnce()):
-			GM.pc.afterEatingAtCanteen()
+			ServiceLocator.safe_get_service(&"Player").afterEatingAtCanteen()
 		saynn("You and your owner spend time eating together behind one of the canteen tables.")
 	paradedOutcome()
 	
@@ -157,7 +157,7 @@ func pShower():
 	talkModularOwnerToPC("SoftSlaveryParadeAroundShower")
 	if(onlyOnce()):
 		getOwner().afterTakingAShower()
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 	saynn("After that is done, your owner guides you out.")
 	
 	paradedOutcome()

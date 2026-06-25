@@ -36,15 +36,15 @@ func getRandomPossibleSlaveryID(includeTrivial:bool = false) -> String:
 	return RNG.pick(theSlaveries)
 
 func storePlayersItems():
-	storedCredits += GM.pc.getCredits()
-	GM.pc.addCredits(-GM.pc.getCredits())
-	transferAllItems(GM.pc, GlobalRegistry.getCharacter("PlayerSlaveryStash"), true)
+	storedCredits += ServiceLocator.safe_get_service(&"Player").getCredits()
+	ServiceLocator.safe_get_service(&"Player").addCredits(-ServiceLocator.safe_get_service(&"Player").getCredits())
+	transferAllItems(ServiceLocator.safe_get_service(&"Player"), GlobalRegistry.getCharacter("PlayerSlaveryStash"), true)
 
 func givePlayerItemsBack():
-	GM.pc.addCredits(-GM.pc.getCredits())
-	GM.pc.addCredits(storedCredits)
+	ServiceLocator.safe_get_service(&"Player").addCredits(-ServiceLocator.safe_get_service(&"Player").getCredits())
+	ServiceLocator.safe_get_service(&"Player").addCredits(storedCredits)
 	storedCredits = 0
-	transferAllItems(GlobalRegistry.getCharacter("PlayerSlaveryStash"), GM.pc)
+	transferAllItems(GlobalRegistry.getCharacter("PlayerSlaveryStash"), ServiceLocator.safe_get_service(&"Player"))
 
 func transferAllItems(_charFrom, _charTo, equippedToo:bool = false):
 	if(!_charFrom || !_charTo):
@@ -103,7 +103,7 @@ func unlockEndingGetMessage(slaveryID:String, endingID:String) -> String:
 func unlockEndingAddMessage(slaveryID:String, endingID:String):
 	var theMessage := unlockEndingGetMessage(slaveryID, endingID)
 	if(theMessage != ""):
-		GM.main.addMessage(theMessage)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(theMessage)
 
 func getEndingInfo(slaveryID:String, endingID:String) -> Dictionary:
 	var theSlaveryDef:PlayerSlaveryDef = GlobalRegistry.getPlayerSlaveryDef(slaveryID)

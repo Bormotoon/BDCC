@@ -55,16 +55,16 @@ func _initScene(_args = []):
 	if(personality.getStat(PersonalityStat.Subby) > 0.6 || personality.getStat(PersonalityStat.Coward) > 0.8):
 		npcVariation = "subby"
 		
-	startLocation = GM.pc.getLocation()
+	startLocation = ServiceLocator.safe_get_service(&"Player").getLocation()
 	
 	var eligibleEndLocations = []
 	for loc in possibleEndLocations:
-		var candidatePath = GM.world.calculatePath(startLocation, loc)
+		var candidatePath = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, loc)
 		if(candidatePath.size() > 4): #avoid nonexistent or too short paths
 			var pathWeight = 1.0 / candidatePath.size()
 			eligibleEndLocations.append([loc, pathWeight])
 	endLocation = RNG.pickWeightedPairs(eligibleEndLocations)
-	path = GM.world.calculatePath(startLocation, endLocation)
+	path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 	
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
@@ -134,7 +134,7 @@ func _run():
 		if(path.size() > 0):
 			aimCameraAndSetLocName(path[0])
 		
-		var _roomInfo = GM.world.getRoomByID(path[0])
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(path[0])
 		
 		var adjective = RNG.pick(["purposefully", "obediently", "docilely", "slavishly"])
 		saynn("You "+adjective+" walk towards your destination.")
@@ -142,7 +142,7 @@ func _run():
 		if(_roomInfo == null):
 			pass
 		else:
-			if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+			if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 				saynn(_roomInfo.getBlindDescription())
 			else:
 				saynn(_roomInfo.getDescription())
@@ -230,30 +230,30 @@ func _react(_action: String, _args):
 		
 	if(_action == "skip_towards"):
 		while path.size() > 0:
-			HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
+			HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(1,3))
 			processTime(1 * 60)
 			path.remove_at(0)
 		if(!headingBack):
 			setState("arrive")
 			aimCamera(endLocation)
-			GM.pc.setLocation(endLocation)
+			ServiceLocator.safe_get_service(&"Player").setLocation(endLocation)
 		else:
 			setState("return")
 			aimCamera(startLocation)
-			GM.pc.setLocation(startLocation)
+			ServiceLocator.safe_get_service(&"Player").setLocation(startLocation)
 		return
 	
 	if(_action == "moving_towards"):
-		HypnokinkUtil.changeSuggestibilityBy(GM.pc, randi_range(1,3))
+		HypnokinkUtil.changeSuggestibilityBy(ServiceLocator.safe_get_service(&"Player"), randi_range(1,3))
 		processTime(1 * 60)
 		var nextLoc = path[0]
 		path.remove_at(0)
 		
-		if(!GM.world.hasRoomID(nextLoc)):
+		if(!ServiceLocator.safe_get_service(&"World").hasRoomID(nextLoc)):
 			endScene()
 			return
 		
-		GM.pc.setLocation(nextLoc)
+		ServiceLocator.safe_get_service(&"Player").setLocation(nextLoc)
 		aimCamera(nextLoc)
 		if(path.size() == 0):
 			if(!headingBack):
@@ -264,18 +264,18 @@ func _react(_action: String, _args):
 			
 	if(_action == "head_back"):
 		headingBack = true
-		path = GM.world.calculatePath(endLocation, startLocation)
+		path = ServiceLocator.safe_get_service(&"World").calculatePath(endLocation, startLocation)
 		setState("moving_towards")
 		return
 		
 	if(_action == "arrive"):
 		aimCamera(endLocation)
-		GM.pc.setLocation(endLocation)
+		ServiceLocator.safe_get_service(&"Player").setLocation(endLocation)
 		
 	if(_action == "return"):
 		aimCamera(startLocation)
-		GM.pc.setLocation(startLocation)
-		GM.pc.addSkillExperience(Skill.Hypnosis, 5)
+		ServiceLocator.safe_get_service(&"Player").setLocation(startLocation)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Hypnosis, 5)
 		
 	
 	setState(_action)

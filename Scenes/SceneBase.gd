@@ -54,30 +54,30 @@ func init_scene(args: Array = []) -> void:
 
 ## Line 55-82: run() — main scene execution
 func run() -> void:
-	GM.pc.update_non_battle_effects()
+	ServiceLocator.safe_get_service(&"Player").update_non_battle_effects()
 	for id in current_characters_variants:
 		var character = GlobalRegistry.get_character(id)
 		if not character:
 			continue
 		character.update_non_battle_effects()
 
-	GM.ui.clear_scene_artwork()
-	GM.ui.clear_text()
-	GM.ui.clear_buttons()
-	GM.ui.clear_u_i_textboxes()
+	ServiceLocator.safe_get_service(&"UI").clear_scene_artwork()
+	ServiceLocator.safe_get_service(&"UI").clear_text()
+	ServiceLocator.safe_get_service(&"UI").clear_buttons()
+	ServiceLocator.safe_get_service(&"UI").clear_u_i_textboxes()
 	_run()
-	GM.ES.trigger_run(Trigger.SceneAndStateHook, [scene_id, state])
+	ServiceLocator.safe_get_service(&"EventSystem").trigger_run(Trigger.SceneAndStateHook, [scene_id, state])
 
 	if show_fight_ui:
-		GM.ui.get_characters_panel().switch_to_fight_mode()
+		ServiceLocator.safe_get_service(&"UI").get_characters_panel().switch_to_fight_mode()
 	else:
-		GM.ui.get_characters_panel().switch_to_normal_mode()
+		ServiceLocator.safe_get_service(&"UI").get_characters_panel().switch_to_normal_mode()
 
-	GM.pc.update_effect_panel(GM.ui.get_player_status_effects_panel())
-	GM.ui.update_characters_in_panel()
-	GM.ui.set_scene_creator(get_scene_creator(), should_show_dev_commentary_icon())
-	GM.ui.set_scene_art_work(Images.get_scene_art(self))
-	GM.ui.set_big_answers_mode(should_display_big_buttons())
+	ServiceLocator.safe_get_service(&"Player").update_effect_panel(ServiceLocator.safe_get_service(&"UI").get_player_status_effects_panel())
+	ServiceLocator.safe_get_service(&"UI").update_characters_in_panel()
+	ServiceLocator.safe_get_service(&"UI").set_scene_creator(get_scene_creator(), should_show_dev_commentary_icon())
+	ServiceLocator.safe_get_service(&"UI").set_scene_art_work(Images.get_scene_art(self))
+	ServiceLocator.safe_get_service(&"UI").set_big_answers_mode(should_display_big_buttons())
 
 	check_scene_ended()
 
@@ -85,7 +85,7 @@ func run() -> void:
 func check_scene_ended() -> void:
 	if scene_ended_flag:
 		_on_scene_end()
-		GM.main.remove_scene(self, scene_ended_args)
+		ServiceLocator.safe_get_service(&"MainScene").remove_scene(self, scene_ended_args)
 		scene_ended.emit(scene_ended_args)
 		if not scene_saved_items_inv.is_empty():
 			var new_items: Array = []
@@ -103,7 +103,7 @@ func end_scene(result = []) -> void:
 	check_scene_ended()
 
 func run_scene(id: String, args: Array = [], tag: String = ""):
-	var scene = GM.main.run_scene(id, args, unique_scene_id)
+	var scene = ServiceLocator.safe_get_service(&"MainScene").run_scene(id, args, unique_scene_id)
 	scene.scene_tag = tag
 	return scene
 
@@ -112,8 +112,8 @@ func run_scene(id: String, args: Array = [], tag: String = ""):
 # ==========================================
 
 func say(text: String) -> void:
-	if GM.ui:
-		GM.ui.say(text)
+	if ServiceLocator.safe_get_service(&"UI"):
+		ServiceLocator.safe_get_service(&"UI").say(text)
 
 func sayn(text: String) -> void:
 	say(text + "\n")
@@ -122,17 +122,17 @@ func saynn(text: String) -> void:
 	say(text + "\n\n")
 
 func add_button(text: String, tooltip: String = "", method: String = "", args: Array = []) -> void:
-	GM.ui.add_button(text, tooltip, method, args)
+	ServiceLocator.safe_get_service(&"UI").add_button(text, tooltip, method, args)
 
 func add_disabled_button(text: String, tooltip: String = "") -> void:
-	GM.ui.add_disabled_button(text, tooltip)
+	ServiceLocator.safe_get_service(&"UI").add_disabled_button(text, tooltip)
 
 func add_continue(method: String = "", args: Array = []) -> void:
 	add_button("Continue", "See what happens next", method, args)
 
 func add_next_button(method: String, args: Array = []) -> void:
-	if GM.ui:
-		GM.ui.add_button("Next", "", method, args)
+	if ServiceLocator.safe_get_service(&"UI"):
+		ServiceLocator.safe_get_service(&"UI").add_button("Next", "", method, args)
 
 func add_button_with_checks(text: String, tooltip: String, method: String, args, checks: Array) -> void:
 	var bad_check = ButtonChecks.check(checks)
@@ -145,12 +145,12 @@ func add_button_with_checks(text: String, tooltip: String, method: String, args,
 		add_disabled_button(text, ButtonChecks.get_prefix(checks) + reason_text + tooltip)
 
 func add_message(text: String) -> void:
-	GM.main.add_message(text)
+	ServiceLocator.safe_get_service(&"MainScene").add_message(text)
 
 func add_experience_to_player(ex: int, show_message: bool = true) -> void:
 	if show_message:
 		add_message("You received " + str(ex) + " experience")
-	GM.pc.add_experience(ex)
+	ServiceLocator.safe_get_service(&"Player").add_experience(ex)
 
 # ==========================================
 # CHARACTER MANAGEMENT (lines 140-185)
@@ -160,21 +160,21 @@ func add_character(id: String, variant: Array = []) -> void:
 	if id.is_empty():
 		return
 	current_characters_variants[id] = variant
-	GM.main.start_updating_character(id)
-	if GM.main.get_current_scene() == self:
-		GM.ui.add_character_to_panel(id, variant)
+	ServiceLocator.safe_get_service(&"MainScene").start_updating_character(id)
+	if ServiceLocator.safe_get_service(&"MainScene").get_current_scene() == self:
+		ServiceLocator.safe_get_service(&"UI").add_character_to_panel(id, variant)
 
 func remove_character(id: String) -> void:
 	current_characters_variants.erase(id)
-	if GM.main.get_current_scene() == self:
-		GM.ui.remove_character_from_panel(id)
+	if ServiceLocator.safe_get_service(&"MainScene").get_current_scene() == self:
+		ServiceLocator.safe_get_service(&"UI").remove_character_from_panel(id)
 
 func has_character(id: String) -> bool:
 	return current_characters_variants.has(id)
 
 func clear_character() -> void:
-	if GM.main.get_current_scene() == self:
-		GM.ui.clear_characters_panel()
+	if ServiceLocator.safe_get_service(&"MainScene").get_current_scene() == self:
+		ServiceLocator.safe_get_service(&"UI").clear_characters_panel()
 	if current_characters_variants.is_empty():
 		return
 	current_characters_variants.clear()
@@ -196,42 +196,42 @@ func set_characters_easy_list(new_chars: Array) -> void:
 # ==========================================
 
 func set_flag(flag_id, value) -> void:
-	GM.main.set_flag(flag_id, value)
+	ServiceLocator.safe_get_service(&"MainScene").set_flag(flag_id, value)
 
 func get_flag(flag_id, default_value = null):
-	return GM.main.get_flag(flag_id, default_value)
+	return ServiceLocator.safe_get_service(&"MainScene").get_flag(flag_id, default_value)
 
 func increase_flag(flag_id, add_value = 1) -> void:
-	GM.main.increase_flag(flag_id, add_value)
+	ServiceLocator.safe_get_service(&"MainScene").increase_flag(flag_id, add_value)
 
 func set_module_flag(module_id, flag_id, value) -> void:
-	GM.main.set_module_flag(module_id, flag_id, value)
+	ServiceLocator.safe_get_service(&"MainScene").set_module_flag(module_id, flag_id, value)
 
 func get_module_flag(module_id, flag_id, default_value = null):
-	return GM.main.get_module_flag(module_id, flag_id, default_value)
+	return ServiceLocator.safe_get_service(&"MainScene").get_module_flag(module_id, flag_id, default_value)
 
 # ==========================================
 # TIME & SCENE (lines 287-328)
 # ==========================================
 
 func process_time(seconds: int) -> void:
-	GM.main.process_time(seconds)
+	ServiceLocator.safe_get_service(&"MainScene").process_time(seconds)
 
 func start_new_day() -> int:
-	return GM.main.start_new_day()
+	return ServiceLocator.safe_get_service(&"MainScene").start_new_day()
 
 func set_location_name(location_name: String) -> void:
-	GM.main.set_location_name(location_name)
+	ServiceLocator.safe_get_service(&"MainScene").set_location_name(location_name)
 
 func aim_camera(room_id: String) -> void:
-	GM.main.aim_camera(room_id)
+	ServiceLocator.safe_get_service(&"MainScene").aim_camera(room_id)
 
 func get_character_by_id(char_id: String) -> BaseCharacter:
 	return GlobalRegistry.get_character(char_id)
 
 func play_animation(the_scene_id, the_action_id, args: Dictionary = {}) -> void:
-	if GM.main != null:
-		GM.main.play_animation(the_scene_id, the_action_id, args)
+	if ServiceLocator.safe_get_service(&"MainScene") != null:
+		ServiceLocator.safe_get_service(&"MainScene").play_animation(the_scene_id, the_action_id, args)
 
 # ==========================================
 # ITEM HELPERS (lines 388-420)
@@ -258,10 +258,10 @@ func put_off(char_id: String, item_id: String):
 	return the_cur_item
 
 func remove_item_id(item_id: String, amount: int = 1) -> void:
-	GM.pc.get_inventory().remove_x_of_or_destroy(item_id, amount)
+	ServiceLocator.safe_get_service(&"Player").get_inventory().remove_x_of_or_destroy(item_id, amount)
 
 func has_item_id(item_id: String) -> bool:
-	return GM.pc.get_inventory().has_item_id(item_id)
+	return ServiceLocator.safe_get_service(&"Player").get_inventory().has_item_id(item_id)
 
 # ==========================================
 # SAVE/LOAD (lines 422-444)
@@ -291,13 +291,13 @@ func load_data(data: Dictionary) -> void:
 	parent_scene_unique_id = SAVE.load_var(data, "parentSceneUniqueID", -1)
 
 func update_character() -> void:
-	if GM.main.get_current_scene() == self:
-		GM.ui.clear_characters_panel()
+	if ServiceLocator.safe_get_service(&"MainScene").get_current_scene() == self:
+		ServiceLocator.safe_get_service(&"UI").clear_characters_panel()
 		for id in current_characters_variants:
 			var character = GlobalRegistry.get_character(id)
 			if not character:
 				continue
-			GM.ui.add_character_to_panel(id, current_characters_variants[id])
+			ServiceLocator.safe_get_service(&"UI").add_character_to_panel(id, current_characters_variants[id])
 
 func _on_scene_end() -> void:
 	pass

@@ -63,23 +63,23 @@ func hoursPassed(_howMuch):
 			return
 		
 		if(currentHelpingTask == "wash"):
-			if(GM.main.SCI.hasUpgrade("shower1")):
-				GM.main.addMessage(getChar().getName()+" just washed your slave named "+otherSlave.getName()+" in the Biolab shower")
-				GM.main.SCI.doNPCShower(otherSlave)
-				if(GM.main.SCI.hasUpgrade("shower2") && otherSlave.isPregnant()):
-					GM.main.SCI.doNPCShowerInside(otherSlave)
+			if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower1")):
+				ServiceLocator.safe_get_service(&"MainScene").addMessage(getChar().getName()+" just washed your slave named "+otherSlave.getName()+" in the Biolab shower")
+				ServiceLocator.safe_get_service(&"MainScene").SCI.doNPCShower(otherSlave)
+				if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower2") && otherSlave.isPregnant()):
+					ServiceLocator.safe_get_service(&"MainScene").SCI.doNPCShowerInside(otherSlave)
 			else:
-				GM.main.addMessage(getChar().getName()+" just washed your slave named "+otherSlave.getName()+" in the shower")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage(getChar().getName()+" just washed your slave named "+otherSlave.getName()+" in the shower")
 				otherSlave.afterTakingAShower()
 			getSlave().addExperience(10)
 		if(currentHelpingTask == "birth"):
 			if(otherSlave.isReadyToGiveBirth()):
 				var bornChilds = otherSlave.giveBirth()
 				var bornChildAmount = bornChilds.size()
-				var bornString = GM.CS.getChildBirthInfoString(bornChilds)
+				var bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
 				
 				if(bornChildAmount > 0):
-					GM.main.addLogMessage("News (Slave)", "You just received news that "+otherSlave.getName()+" was just brought into nursery by "+getChar().getName()+" where "+otherSlave.heShe()+" gave birth to "+str(bornChildAmount)+" kid"+("s" if bornChildAmount != 1 else "")+":\n\n"+bornString)
+					ServiceLocator.safe_get_service(&"MainScene").addLogMessage("News (Slave)", "You just received news that "+otherSlave.getName()+" was just brought into nursery by "+getChar().getName()+" where "+otherSlave.heShe()+" gave birth to "+str(bornChildAmount)+" kid"+("s" if bornChildAmount != 1 else "")+":\n\n"+bornString)
 				getSlave().addExperience(30)
 				otherSlave.getNpcSlavery().addExperience(50)
 				
@@ -90,7 +90,7 @@ func hoursPassed(_howMuch):
 		if(getSlave().getWorkEfficiency() <= 0.25 || getSlave().isActivelyResisting()):
 			return
 		
-		if(GM.main.characterIsVisible(getChar().getID()) || getChar().isVisiblyPregnant()):
+		if(ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(getChar().getID()) || getChar().isVisiblyPregnant()):
 			return
 		
 		if(willHelpGiveBirth):
@@ -120,12 +120,12 @@ func getInteractActions():
 
 func getNotBusySlaves():
 	var result = []
-	var slaveIDs = GM.main.getPCSlavesIDs()
+	var slaveIDs = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 	for slaveID in slaveIDs:
 		var otherSlave:DynamicCharacter = GlobalRegistry.getCharacter(slaveID)
 		if(getChar() == otherSlave):
 			continue
-		if(GM.main.characterIsVisible(slaveID)):
+		if(ServiceLocator.safe_get_service(&"MainScene").characterIsVisible(slaveID)):
 			continue
 		var npcSlavery:NpcSlave = otherSlave.getNpcSlavery()
 		if(npcSlavery == null):

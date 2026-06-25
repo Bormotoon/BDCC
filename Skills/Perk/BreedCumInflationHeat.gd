@@ -34,11 +34,11 @@ func onSexEvent(_event:SexEvent):
 					targetChar.forceIntoHeat()
 				if(_event.getSourceChar().isPlayer()):
 					if(RNG.chance(1)):
-						GM.main.addMessage("PLAP PLAP PLAP PLAP")
+						ServiceLocator.safe_get_service(&"MainScene").addMessage("PLAP PLAP PLAP PLAP")
 					elif(RNG.chance(5)):
-						GM.main.addMessage("GET PREGNANT GET PREGNANT GET PREGNANT GET PREGNANT")
+						ServiceLocator.safe_get_service(&"MainScene").addMessage("GET PREGNANT GET PREGNANT GET PREGNANT GET PREGNANT")
 					else:
 						if(isOvul):
-							GM.main.addMessage("You are making them ovulate!")
+							ServiceLocator.safe_get_service(&"MainScene").addMessage("You are making them ovulate!")
 						else:
-							GM.main.addMessage("You are triggering their heat!")
+							ServiceLocator.safe_get_service(&"MainScene").addMessage("You are triggering their heat!")

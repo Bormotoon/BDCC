@@ -7,48 +7,48 @@ func _run():
 	if(runInteraction()):
 		return
 	
-	#saynn(ModularDialogue.generate("GuardCaughtOffLimits", {guard=GM.pc,inmate=GM.pc}))
-	#print(GM.main.IS.getPawnIDsNear(GM.pc.location, 2, 1))
+	#saynn(ModularDialogue.generate("GuardCaughtOffLimits", {guard=ServiceLocator.safe_get_service(&"Player"),inmate=ServiceLocator.safe_get_service(&"Player")}))
+	#print(ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsNear(ServiceLocator.safe_get_service(&"Player").location, 2, 1))
 	
-	var roomID = GM.pc.location
-	var _roomInfo = GM.world.getRoomByID(roomID)
+	var roomID = ServiceLocator.safe_get_service(&"Player").location
+	var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(roomID)
 	
 	aimCamera(roomID)
 
 	#say("Meow\n")
 	#say(_roomInfo.getDescription())
 
-	if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.NORTH)):
 		addButtonAt(6, "North", "Go north", "go", [GameWorld.Direction.NORTH, Direction.North])
 	else:
 		addDisabledButtonAt(6, "North", "Can't go north")
 		
-	if(GM.world.canGoID(roomID, GameWorld.Direction.WEST)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.WEST)):
 		addButtonAt(10, "West", "Go west", "go", [GameWorld.Direction.WEST, Direction.West])
 	else:
 		addDisabledButtonAt(10, "West", "Can't go west")
 		
-	if(GM.world.canGoID(roomID, GameWorld.Direction.SOUTH)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.SOUTH)):
 		addButtonAt(11, "South", "Go south", "go", [GameWorld.Direction.SOUTH, Direction.South])
 	else:
 		addDisabledButtonAt(11, "South", "Can't go south")
 	
-	if(GM.world.canGoID(roomID, GameWorld.Direction.EAST)):
+	if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.EAST)):
 		addButtonAt(12, "East", "Go east",  "go", [GameWorld.Direction.EAST, Direction.East])
 	else:
 		addDisabledButtonAt(12, "East", "Can't go east")
 	#addDisabledButton("bark", "no awo")
 	
-	if(GM.main.IS.hasPawnsAtIgnorePC(roomID)):
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawnsAtIgnorePC(roomID)):
 		addButtonAt(7, "Look around", "See what's happening around you", "look_around")
-		setCharactersEasyList(GM.main.IS.getPawnIDsAt(roomID))
+		setCharactersEasyList(ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsAt(roomID))
 	else:
 		clearCharacter()
 	
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButtonAt(8, "Struggle", "Struggle against your restraints", "struggle")
 	addButtonAt(9, "Me", "Shows actions related to you and also your personal information", "me")
-	if(GM.main.isInDungeon()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isInDungeon()):
 		addButtonAt(13, "Give up", "Give up exploring this place", "giveupdungeon")
 	else:
 		addButtonAt(13, "Tasks", "Look at your tasks", "tasks")
@@ -69,20 +69,20 @@ func _run():
 	_roomInfo._onPreEnter()
 	setLocationName(_roomInfo.getName())
 	
-	if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+	if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 		saynn(_roomInfo.getBlindDescription())
 	else:
 		saynn(_roomInfo.getDescription())
 		
-	var roomMemory = GM.main.getRoomMemory(roomID)
+	var roomMemory = ServiceLocator.safe_get_service(&"MainScene").getRoomMemory(roomID)
 	if(roomMemory != null && roomMemory != ""):
 		saynn("[i]"+roomMemory+"[/i]")
 		
 	_roomInfo._onEnter()
-	GM.ES.triggerRun(Trigger.EnteringRoom, [GM.pc.location])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.EnteringRoom, [ServiceLocator.safe_get_service(&"Player").location])
 	
-	if(GM.main.DrugDenRun != null):
-		saynn(Util.join(GM.main.DrugDenRun.getRunInfo(), "\n"))
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun != null):
+		saynn(Util.join(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getRunInfo(), "\n"))
 
 func _react(_action: String, _args):
 	# RoomAction support
@@ -94,24 +94,24 @@ func _react(_action: String, _args):
 	if(_action == "roomCallback"):
 		var roomid = _args[0]
 		var keyid = _args[1]
-		var _room = GM.world.getRoomByID(roomid)
+		var _room = ServiceLocator.safe_get_service(&"World").getRoomByID(roomid)
 		return _room._onButton(keyid)
 	
 	if(_action == "go"):
-		#GM.PROFILE.start("playAnimation")
+		#ServiceLocator.safe_get_service(&"Profiler").start("playAnimation")
 		playAnimation(StageScene.Solo, "walk")
-		#GM.PROFILE.finish("playAnimation")
+		#ServiceLocator.safe_get_service(&"Profiler").finish("playAnimation")
 		#playAnimation(StageScene.MilkingStallDuo, "start", {bodyState={chains=[["normal", "neck", "scene", "toppipe"], ["short", "neck", "scene", "bottompipe"]]}})
 		#playAnimation(StageScene.MilkingStallSolo, "cum", {bodyState={chains=[["hoseshort", "breastpump", "scene", "milktank"], ["hoseshort", "penisPump", "scene", "milktank"], ["short", "neck", "scene", "bottompipe"]]}})
 		#playAnimation(StageScene.PuppySolo, "walk")
 		#playAnimation(StageScene.Solo, "custom", {anim={"Arm.L":{"a":[-0,0,-3.02]},"Arm.R":{"a":[-0,0,2.87]},"Chest":{"a":[-0,0,0.26]},"Hips":{"a":[-0,0,2.84],"p":[0,0.52,0]},"LegDown.R":{"a":[-0,0,-1.33]},"LegUpper.L":{"a":[-0,0,0.1]},"LegUpper.R":{"a":[-0,0,0.96]},"Tail1":{"a":[-0,0,-0.33]},"Tail2":{"a":[-0,0,-0.38]},"Tail3":{"a":[-0,0,-0.39]},"Tail4":{"a":[-0,0,-0.28]},"Tail5":{"a":[-0,0,-0.34]}}  })
-		GM.pc.setLocation(GM.world.applyDirectionID(GM.pc.location, _args[0]))
-		processTime((30 if !GM.pc.hasBoundLegs() else 60))
-		aimCamera(GM.pc.location)
-		GM.ES.triggerReact(Trigger.EnteringRoom, [GM.pc.location, _args[1]])
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").location, _args[0]))
+		processTime((30 if !ServiceLocator.safe_get_service(&"Player").hasBoundLegs() else 60))
+		aimCamera(ServiceLocator.safe_get_service(&"Player").location)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.EnteringRoom, [ServiceLocator.safe_get_service(&"Player").location, _args[1]])
 		
-		if(!GM.main.checkExtraScenes()):
-			GM.main.showLog()
+		if(!ServiceLocator.safe_get_service(&"MainScene").checkExtraScenes()):
+			ServiceLocator.safe_get_service(&"MainScene").showLog()
 		return
 			
 	if(_action == "giveupdungeon"):
@@ -126,17 +126,17 @@ func _react(_action: String, _args):
 		runScene("MeScene")
 	if(_action == "npcOwnerTest"):
 		var someNPC:String = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {})
-		var thePawn:CharacterPawn = GM.main.IS.spawnPawnIfNeeded(someNPC)
-		thePawn.setLocation(GM.pc.getLocation())
-		GM.main.RS.startSpecialRelantionship("SoftSlavery", someNPC)
+		var thePawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(someNPC)
+		thePawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
+		ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", someNPC)
 		runScene("NpcOwnerEventRunnerScene", [someNPC, "ParadeTo", ["yard_novaspot"]])
 		#runScene("NpcOwnerEventRunnerScene", [someNPC, "Punish2Gangbang"])
 	if(_action == "triggerNemesis"):
 		var someNPC:String = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {})
-		var thePawn:CharacterPawn = GM.main.IS.spawnPawnIfNeeded(someNPC)
-		thePawn.setLocation(GM.pc.getLocation())
-		GM.main.RS.startSpecialRelantionship("Nemesis", someNPC)
-		var theRelationship = GM.main.RS.getSpecialRelationship(someNPC)
+		var thePawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawnIfNeeded(someNPC)
+		thePawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
+		ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("Nemesis", someNPC)
+		var theRelationship = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(someNPC)
 		theRelationship.gonnaAmbush = true
 		#runScene("NpcOwnerEventRunnerScene", [someNPC])
 		
@@ -152,19 +152,19 @@ func _react(_action: String, _args):
 		#runScene("GenericSexScene", ["rahi", "pc", SexType.DefaultSex, {SexMod.SubsStartUnconscious: true}])
 		#runScene("GenericSexScene", ["pc", "rahi", SexType.BitchsuitSex, {}])
 		
-		GM.pc.giveBodypartUnlessSame(GlobalRegistry.createBodypart("vaginaEggs"))
-		GM.pc.menstrualCycle.newCycle()
-		GM.pc.menstrualCycle.forceIntoHeat()
-		GM.pc.menstrualCycle.forceOvulate()
+		ServiceLocator.safe_get_service(&"Player").giveBodypartUnlessSame(GlobalRegistry.createBodypart("vaginaEggs"))
+		ServiceLocator.safe_get_service(&"Player").menstrualCycle.newCycle()
+		ServiceLocator.safe_get_service(&"Player").menstrualCycle.forceIntoHeat()
+		ServiceLocator.safe_get_service(&"Player").menstrualCycle.forceOvulate()
 		#getCharacter("nova").fillBalls(1.0)
-		#GM.pc.cummedInVaginaBy("nova")
-		GM.pc.menstrualCycle.forceImpregnateBy("nova")
-		#GM.pc.removeBodypart(BodypartSlot.Penis)
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("Strapon"))
+		#ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("nova")
+		ServiceLocator.safe_get_service(&"Player").menstrualCycle.forceImpregnateBy("nova")
+		#ServiceLocator.safe_get_service(&"Player").removeBodypart(BodypartSlot.Penis)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("Strapon"))
 		
 		runScene("GenericSexScene", ["pc", "rahi"])
 		
-		#var theCycle:MenstrualCycle = GM.pc.getMenstrualCycle()
+		#var theCycle:MenstrualCycle = ServiceLocator.safe_get_service(&"Player").getMenstrualCycle()
 		#if(theCycle):
 		#	theCycle.addTentacleEgg("", BigEggType.Plant, 100, OrificeType.Vagina)
 		#runScene("GenericSexScene", ["psplantTentacles", "nova", SexType.TentaclesSex, {SexMod.PCControlsDoms:true}])
@@ -174,8 +174,8 @@ func _react(_action: String, _args):
 		#runScene("GenericSexScene", [NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.HasPenis], [NpcCon.NoChastity]], InmateGenerator.new(), {NpcGen.HasPenis: true, NpcGen.NoChastity: true}), "avy"])
 		#getCharacter("socket").addEffect("SexSpacedOut")
 		#runScene("GenericSexScene", ["rahi", "pc", SexType.SlutwallSex])
-		#GM.pc.getInventory().addItem(GlobalRegistry.createItem("BreastPump"))
-		#GM.pc.getInventory().addItem(GlobalRegistry.createItem("BreastPumpAdvanced"))
+		#ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("BreastPump"))
+		#ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("BreastPumpAdvanced"))
 		#runScene("GenericSexScene", ["pc", "rahi"])
 		#runScene("GenericSexScene", ["rahi", "pc"])
 		#runScene("GenericSexScene", ["nova", "pc"])
@@ -227,12 +227,12 @@ func _react(_action: String, _args):
 	if(_action == "look_around"):
 		runScene("LookingAroundScene")
 	if(_action == "progress_interaction"):
-		var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 		var interaction:PawnInteractionBase = pawn.getInteraction()
 		
 		if(!interaction.isWaitingForScene()):
 			if(interaction.currentActionID == ""):
-				GM.main.IS.decideNextAction(interaction, {scene=self})
+				ServiceLocator.safe_get_service(&"MainScene").IS.decideNextAction(interaction, {scene=self})
 			if(!interaction.isWaitingForScene()):
 				if(interaction.busyActionSeconds > 0):
 					processTime(interaction.busyActionSeconds)
@@ -240,9 +240,9 @@ func _react(_action: String, _args):
 					processTime(30)
 				interaction.doCurrentAction({scene=self})
 				#if(!pawn.getInteraction().isWaitingForScene()):
-				#	GM.main.IS.decideNextAction(pawn.getInteraction(), {scene=self})
+				#	ServiceLocator.safe_get_service(&"MainScene").IS.decideNextAction(pawn.getInteraction(), {scene=self})
 	if(_action == "pick_interaction_action"):
-		#var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+		#var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 		var interaction:PawnInteractionBase = _args[0]#pawn.getInteraction()
 		interaction.setPickedAction(_args[1], {scene=self})
 		
@@ -256,7 +256,7 @@ func _react(_action: String, _args):
 
 
 func runInteraction():
-	var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(pawn == null || pawn.currentInteraction == null || !pawn.currentInteraction.doesStealControlFromPC()):
 		return false
 	
@@ -271,7 +271,7 @@ func runInteraction():
 	var textAndActions:Array = interaction.getTextAndActions()
 	saynn(textAndActions[0])
 	
-	if(GM.main.isDebuggingIS):
+	if(ServiceLocator.safe_get_service(&"MainScene").isDebuggingIS):
 		sayn("[b]Debug info[/b]:")
 		saynn(Util.join(pawn.getDebugInfo(), "\n"))
 	
@@ -308,7 +308,7 @@ func startInteractionSex(domID:String, subID:String, sexType = SexType.DefaultSe
 	runScene("GenericSexScene", [domID, subID, sexType, extraParams], "interaction_sex")
 
 func sendStatusToInteraction(_result):
-	var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()
@@ -318,7 +318,7 @@ func sendStatusToInteraction(_result):
 	interaction.receiveSceneStatusFinal(_result)
 
 func sendSexResultToInteraction(_result:SexEngineResult):
-	var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()
@@ -347,7 +347,7 @@ func _react_scene_end(_tag, _result):
 			sendStatusToInteraction({"won":true})
 
 func shouldDisplayBigButtons():
-	var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(pawn == null):
 		return false
 	var interaction:PawnInteractionBase = pawn.getInteraction()
@@ -361,7 +361,7 @@ func isSpyingOnInteractionsWith(_charID:String):
 	return false
 
 func resolveCustomCharacterName(_charID):
-	var pawn:CharacterPawn = GM.main.IS.getPawn("pc")
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 	if(pawn == null):
 		return
 	var interaction:PawnInteractionBase = pawn.getInteraction()

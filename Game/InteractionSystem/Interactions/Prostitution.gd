@@ -179,7 +179,7 @@ func giving_offer_text():
 	elif(askType=="pricy"):
 		sayLine("main", "ProstitutionPricySlut", {main="main", target="client"}, {credits=askCreds})
 
-	if(!getRolePawn("client").isPlayer() || GM.pc.getCredits() >= askCreds):
+	if(!getRolePawn("client").isPlayer() || ServiceLocator.safe_get_service(&"Player").getCredits() >= askCreds):
 		var scoreType:String = "agreeSexWithDomSlut" if(slutDom) else "agreeSexWithSubSlut"
 		addAction("agree", "Agree", "Give them the credits and do the thing", scoreType, 1.0, 60, {})
 	else:
@@ -201,9 +201,9 @@ func giving_offer_text():
 func giving_offer_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "agree"):
 		if(getRolePawn("client").isPlayer()):
-			GM.pc.addCredits(-askCreds)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-askCreds)
 		if(getRolePawn("main").isPlayer()):
-			GM.pc.addCredits(askCreds)
+			ServiceLocator.safe_get_service(&"Player").addCredits(askCreds)
 		setState("offer_accepted", "main")
 		sendSlaveryActivityEvent("main", "slutPaid", {credits=askCreds})
 	if(_id == "request_opposite_role"):
@@ -305,10 +305,10 @@ func client_demands_credits_text():
 func client_demands_credits_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "return_creds"):
 		if(getRolePawn("client").isPlayer()):
-			GM.pc.addCredits(askCreds)
+			ServiceLocator.safe_get_service(&"Player").addCredits(askCreds)
 			addMessage("You got the credits back!")
 		if(getRolePawn("main").isPlayer()):
-			GM.pc.addCredits(-askCreds)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-askCreds)
 		setState("client_got_credits_back", "client")
 		affectAffection("client", "main", 0.1)
 		sendSlaveryActivityEvent("main", "slutReturnedCredits", {credits=askCreds})
@@ -367,10 +367,10 @@ func client_attacked_slut_do(_id:String, _args:Dictionary, _context:Dictionary):
 		
 		if(fightResult["won"]):
 			if(getRolePawn("client").isPlayer()):
-				GM.pc.addCredits(askCreds)
+				ServiceLocator.safe_get_service(&"Player").addCredits(askCreds)
 				addMessage("You got the credits back!")
 			if(getRolePawn("main").isPlayer()):
-				GM.pc.addCredits(-askCreds)
+				ServiceLocator.safe_get_service(&"Player").addCredits(-askCreds)
 		
 			setState("client_won", "client")
 			sendSlaveryActivityEvent("main", "slutReturnedCredits", {credits=askCreds})
@@ -437,7 +437,7 @@ func slut_scam_text():
 	saynn("[say=main]Pay up or leave.[/say]")
 	saynn("Looks like {main.your} services have just gotten more expensive..")
 
-	if(!getRolePawn("client").isPlayer() || GM.pc.getCredits() >= 5):
+	if(!getRolePawn("client").isPlayer() || ServiceLocator.safe_get_service(&"Player").getCredits() >= 5):
 		addAction("pay", "Pay", "Add 5 more credits on top", "surrender", 1.0, 60, {})
 	addAction("leave", "Leave", "Whatever..", "surrender", 1.0, 60, {})
 	addAction("demand_creds_back", "Demand creds back", "That's enough. You just want your credits back now.", "fight", 1.0, 60, {})
@@ -446,9 +446,9 @@ func slut_scam_do(_id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "pay"):
 		askCreds += 5
 		if(getRolePawn("client").isPlayer()):
-			GM.pc.addCredits(-5)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		if(getRolePawn("main").isPlayer()):
-			GM.pc.addCredits(5)
+			ServiceLocator.safe_get_service(&"Player").addCredits(5)
 		setState("offer_accepted", "main")
 		
 		sendSlaveryActivityEvent("main", "slutPaid", {credits=5})

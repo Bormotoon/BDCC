@@ -761,7 +761,7 @@ func registerEverything():
 	sortPlayerAttacks()
 	sortSpeechModifiersByPriority()
 	
-	GM.GES.registerAll()
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").registerAll()
 	
 	loadingUpdate.emit(17.0/totalStages, "Datapacks")
 	await get_tree().process_frame
@@ -870,7 +870,7 @@ func createScene(id: String):
 		var datapackID = splitData[0]
 		var sceneID = splitData[1]
 		
-		if(GM.main != null && is_instance_valid(GM.main) && GM.main.loadedDatapacks.has(datapackID)):
+		if(ServiceLocator.safe_get_service(&"MainScene") != null && is_instance_valid(ServiceLocator.safe_get_service(&"MainScene")) && ServiceLocator.safe_get_service(&"MainScene").loadedDatapacks.has(datapackID)):
 			var newscene = load("res://Scenes/DatapackScene.gd").new()
 			newscene.name = id
 			newscene.sceneID = id
@@ -1002,20 +1002,20 @@ func registerCharacterFolder(folder: String):
 
 func characterExists(id:String):
 	if(id == "pc"):
-		return GM.pc != null
+		return ServiceLocator.safe_get_service(&"Player") != null
 	
-	if(GM.main != null):
-		var mainCharacter = GM.main.getCharacter(id)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		var mainCharacter = ServiceLocator.safe_get_service(&"MainScene").getCharacter(id)
 		if(mainCharacter != null):
 			return true
 	return false
 
 func getCharacter(id: String):
 	if(id == "pc"):
-		return GM.pc
+		return ServiceLocator.safe_get_service(&"Player")
 	
-	if(GM.main != null):
-		var mainCharacter = GM.main.getCharacter(id)
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		var mainCharacter = ServiceLocator.safe_get_service(&"MainScene").getCharacter(id)
 		if(mainCharacter != null):
 			return mainCharacter
 	
@@ -1025,8 +1025,8 @@ func getCharacter(id: String):
 	#return characters[id]
 
 func getCharacters():
-	if(GM.main != null):
-		return GM.main.getCharacters()
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		return ServiceLocator.safe_get_service(&"MainScene").getCharacters()
 	
 	return {}
 

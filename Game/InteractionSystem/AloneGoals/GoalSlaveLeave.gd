@@ -28,7 +28,7 @@ func getActions() -> Array:
 
 func doAction(_id:String, _args:Dictionary):
 	if(_id == "go"):
-		var leaveTarget:String = GM.pc.getCellLocation()
+		var leaveTarget:String = ServiceLocator.safe_get_service(&"Player").getCellLocation()
 
 		if(getLocation() == leaveTarget):
 			completeGoal()

@@ -16,12 +16,12 @@ func _run():
 		]
 		
 		for fl in floors:
-			if(fl[1] == GM.pc.location):
+			if(fl[1] == ServiceLocator.safe_get_service(&"Player").location):
 				addDisabledButton(fl[0], "You are already here")
 			else:
 				addButton(fl[0], fl[2], "gofloor", [fl[1]])
 				
-		GM.ES.triggerRun(Trigger.InsideElevator)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.InsideElevator)
 				
 		addButton("Get out", "You don't feel like going anywhere", "endthescene")
 	
@@ -37,7 +37,7 @@ func _react(_action: String, _args):
 		var newloc = _args[0]
 		
 		processTime(5*60)
-		GM.pc.setLocation(newloc)
+		ServiceLocator.safe_get_service(&"Player").setLocation(newloc)
 		aimCamera(newloc)
 
 	if(_action == "endthescene"):

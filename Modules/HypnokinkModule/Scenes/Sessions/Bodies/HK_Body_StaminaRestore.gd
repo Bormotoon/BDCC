@@ -39,7 +39,7 @@ func _react(_action: String, _args):
 	if(_action == "endthescene"):
 		endScene()
 		afterBody()
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		return
 
 	setState(_action)

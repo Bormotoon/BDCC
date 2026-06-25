@@ -45,13 +45,13 @@ func _react(_action: String, _args):
 	#setState(_action)
 
 func addSessionButton(name: String, desc: String, sessionId: String):
-	if(GM.pc.isBlindfolded()):
+	if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 		addDisabledButton(name, desc + "\n\nYou can't participate while blindfolded")
 		return
-	if(GM.pc.isGagged()):
+	if(ServiceLocator.safe_get_service(&"Player").isGagged()):
 		addDisabledButton(name, desc + "\n\nYou can't participate while gagged")
 		return
-	if(GM.pc.hasBoundArms() or GM.pc.hasBoundLegs()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBoundArms() or ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 		addDisabledButton(name, desc + "\n\nYou can't participate while restrained")
 		return
 	if(getFlag("HypnokinkModule.DidSessionZero") || sessionId == HK_Sessions.BodySessionZero):
@@ -68,7 +68,7 @@ func addSessionButton(name: String, desc: String, sessionId: String):
 		return
 		
 func onCooldown() -> bool:
-	return (getFlag("HypnokinkModule.LastSessionTime", -24*60*60) + SessionCooldownTime) > (GM.main.timeOfDay + (GM.main.currentDay * 24*60*60))
+	return (getFlag("HypnokinkModule.LastSessionTime", -24*60*60) + SessionCooldownTime) > (ServiceLocator.safe_get_service(&"MainScene").timeOfDay + (ServiceLocator.safe_get_service(&"MainScene").currentDay * 24*60*60))
 
 func getCostString(bodyId: String) -> String:
 	if(getFlag("HypnokinkModule.FreebieSessionSample", true)):
@@ -91,7 +91,7 @@ func purchase(bodyId: String):
 		setFlag("HypnokinkModule.OnTheHouseSessions", getFlag("HypnokinkModule.OnTheHouseSessions") - 1)
 		return
 	else:
-		GM.pc.addCredits(-SessionCostMap[bodyId])
+		ServiceLocator.safe_get_service(&"Player").addCredits(-SessionCostMap[bodyId])
 		return
 
 func canAffbodyId: String.unicode_at(0) -> bool:
@@ -99,7 +99,7 @@ func canAffbodyId: String.unicode_at(0) -> bool:
 		return true
 	elif(getFlag("HypnokinkModule.OnTheHouseSessions", 0) > 0):
 		return true
-	elif(GM.pc.getCredits() >= SessionCostMap[bodyId]):
+	elif(ServiceLocator.safe_get_service(&"Player").getCredits() >= SessionCostMap[bodyId]):
 		return true
 	return false
 	
@@ -112,7 +112,7 @@ func pickInduction():
 	if(!getFlag("HypnokinkModule.DidSessionZero")):
 		return HK_Sessions.InductionFirstTime
 		
-	if(HypnokinkUtil.isHypnotized(GM.pc)):
+	if(HypnokinkUtil.isHypnotized(ServiceLocator.safe_get_service(&"Player"))):
 		return HK_Sessions.InductionAlreadyHypnotized
 	
 	var pool = [
@@ -120,7 +120,7 @@ func pickInduction():
 		HK_Sessions.InductionPendulum
 	]	
 	
-	if(GM.pc.getSkillLevel(Skill.Hypnosis) >= 2):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Hypnosis) >= 2):
 		pool.append(HK_Sessions.InductionRapid)
 	
 	var pick = RNG.pick(pool)

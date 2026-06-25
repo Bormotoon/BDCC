@@ -45,7 +45,7 @@ func getTaskHint(_isSlaveLevelup):
 
 func getNpcOwnerDialogueLines() -> Array:
 	return [
-		"I want to see someone's seed dripping from your hole"+("s" if GM.pc.hasVagina() else "")+".",
+		"I want to see someone's seed dripping from your hole"+("s" if ServiceLocator.safe_get_service(&"Player").hasVagina() else "")+".",
 		"Find someone to leave their load deep inside you.",
 		"I want you leaking someone's cum.",
 		"Your insides should be swimming in fresh cum.",

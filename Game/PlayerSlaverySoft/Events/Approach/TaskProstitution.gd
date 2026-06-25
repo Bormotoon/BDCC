@@ -14,7 +14,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	if(theNpcOwner.hasGivenPCAnyTasks()):
 		return false
 	theNpcOwner.generateTasks(1, 1.0, 2.0, NpcTaskPool.Prostitution)
-	GM.main.addMessage("Tasks menu updated.")
+	ServiceLocator.safe_get_service(&"MainScene").addMessage("Tasks menu updated.")
 	return true
 
 func start():

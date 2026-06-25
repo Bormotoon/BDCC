@@ -109,12 +109,12 @@ func processTag(tag: String, arg: String, text: String, overrides: Dictionary = 
 	if tag in ["say", "sayShowName"]:
 		if overrides.has(arg):
 			arg = overrides[arg]
-		var resolved_name = GM.main.resolveCustomCharacterName(arg)
+		var resolved_name = ServiceLocator.safe_get_service(&"MainScene").resolveCustomCharacterName(arg)
 		if resolved_name != null:
 			arg = resolved_name
 		var object = null
 		if arg == "pc":
-			object = GM.pc
+			object = ServiceLocator.safe_get_service(&"Player")
 		elif GlobalRegistry.getCharacter(arg) != null:
 			object = GlobalRegistry.getCharacter(arg)
 		if object == null:

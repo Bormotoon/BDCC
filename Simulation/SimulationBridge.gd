@@ -129,8 +129,8 @@ func on_pawn_moved(char_id: StringName, old_loc: StringName, new_loc: StringName
 		if other_pawn.is_empty():
 			continue
 		if not other_pawn.is_empty() and other_pawn.get("is_active", false):
-			if GM and GM.main and GM.main.IS:
-				GM.main.IS.checkOnMeetInteractions(char_id, other_pawn_id, true)
+			if GM and ServiceLocator.safe_get_service(&"MainScene") and ServiceLocator.safe_get_service(&"MainScene").IS:
+				ServiceLocator.safe_get_service(&"MainScene").IS.checkOnMeetInteractions(char_id, other_pawn_id, true)
 		break
 
 func get_pawn(char_id: StringName) -> Dictionary:
@@ -336,12 +336,12 @@ func start_interaction(interaction_id: StringName, participants: Dictionary, con
 	interactions.append(new_interaction)
 
 func _check_add_new_pawns() -> void:
-	if GM and GM.main:
-		if GM.main.has_method("getTime"):
-			var time_sec = GM.main.getTime()
+	if GM and ServiceLocator.safe_get_service(&"MainScene"):
+		if ServiceLocator.safe_get_service(&"MainScene").has_method("getTime"):
+			var time_sec = ServiceLocator.safe_get_service(&"MainScene").getTime()
 			if time_sec >= 19 * 3600:
 				return
-		if GM.main.has_method("is_in_dungeon") and GM.main.is_in_dungeon():
+		if ServiceLocator.safe_get_service(&"MainScene").has_method("is_in_dungeon") and ServiceLocator.safe_get_service(&"MainScene").is_in_dungeon():
 			return
 
 	var max_pawns: int = _get_max_pawn_count()
@@ -363,12 +363,12 @@ func _get_max_pawn_count() -> int:
 
 func _try_spawn_pawn() -> bool:
 	var pawn_types: Array = []
-	if GM and GM.main and GM.main.has_method("getPawnDistribution"):
-		var dist = GM.main.getPawnDistribution()
+	if GM and ServiceLocator.safe_get_service(&"MainScene") and ServiceLocator.safe_get_service(&"MainScene").has_method("getPawnDistribution"):
+		var dist = ServiceLocator.safe_get_service(&"MainScene").getPawnDistribution()
 		pawn_types = dist.keys()
-	elif GM and GM.main and GM.main.IS:
-		if GM.main.IS.has("pawnDistribution"):
-			pawn_types = GM.main.IS.pawnDistribution.keys()
+	elif GM and ServiceLocator.safe_get_service(&"MainScene") and ServiceLocator.safe_get_service(&"MainScene").IS:
+		if ServiceLocator.safe_get_service(&"MainScene").IS.has("pawnDistribution"):
+			pawn_types = ServiceLocator.safe_get_service(&"MainScene").IS.pawnDistribution.keys()
 	if pawn_types.is_empty():
 		return false
 
@@ -442,13 +442,13 @@ func affect_affection(char_id: StringName, other_char_id: StringName, how_much: 
 		EventBus.npc_relationship_changed.emit(char_id, other_char_id, &"affection", how_much * mult)
 
 func _get_affection(char_id: StringName, other_char_id: StringName) -> float:
-	if GM and GM.main and GM.main.RS:
-		return GM.main.RS.getAffection(char_id, other_char_id)
+	if GM and ServiceLocator.safe_get_service(&"MainScene") and ServiceLocator.safe_get_service(&"MainScene").RS:
+		return ServiceLocator.safe_get_service(&"MainScene").RS.getAffection(char_id, other_char_id)
 	return 0.0
 
 func _get_lust(char_id: StringName, other_char_id: StringName) -> float:
-	if GM and GM.main and GM.main.RS:
-		return GM.main.RS.getLust(char_id, other_char_id)
+	if GM and ServiceLocator.safe_get_service(&"MainScene") and ServiceLocator.safe_get_service(&"MainScene").RS:
+		return ServiceLocator.safe_get_service(&"MainScene").RS.getLust(char_id, other_char_id)
 	return 0.0
 
 func _score_personality(char_id: StringName, stat: StringName) -> float:

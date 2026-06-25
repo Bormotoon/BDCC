@@ -38,4 +38,4 @@ func inStocks_do(_id:String, _args:Array):
 	endEvent()
 	stopRunner()
 	
-	GM.main.IS.startInteraction("InSlutwall", {inmate="pc"})
+	ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InSlutwall", {inmate="pc"})

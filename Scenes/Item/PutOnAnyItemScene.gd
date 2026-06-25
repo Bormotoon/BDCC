@@ -13,18 +13,18 @@ func _reactInit():
 	if(uniqueItemID == null || uniqueItemID == ""):
 		return
 		
-	var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+	var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 	if(item == null):
 		return
 	
-	if(!GM.pc.hasBlockedHands()):
-		if(GM.pc.hasBoundArms()):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			setState("awkwardputon")
 		
-		GM.pc.getInventory().removeItem(item)
-		GM.pc.getInventory().equipItem(item)
-		GM.pc.updateAppearance()
-		GM.main.updateSubAnims()
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(item)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(item)
+		ServiceLocator.safe_get_service(&"Player").updateAppearance()
+		ServiceLocator.safe_get_service(&"MainScene").updateSubAnims()
 	else:
 		setState("blockedhands")
 
@@ -34,7 +34,7 @@ func _run():
 			addButton("Continue", "Oops", "endthescene")
 			return
 		
-		var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("Error: no item found")
 		else:
@@ -47,7 +47,7 @@ func _run():
 			addButton("Continue", "Oops", "endthescene")
 			return
 		
-		var item: ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item: ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("Error: no item found")
 		else:

@@ -27,7 +27,7 @@ func generatePossibleTasks() -> Array:
 		# Inmates are 3x more likely to be picked
 		var poolID:String = RNG.pick([CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Inmates, CharacterPool.Guards, CharacterPool.Nurses, CharacterPool.Engineers])
 		
-		var poolChars = GM.main.getDynamicCharacterIDsFromPool(poolID)
+		var poolChars = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(poolID)
 		if(poolChars.is_empty()):
 			continue
 			
@@ -40,7 +40,7 @@ func generatePossibleTasks() -> Array:
 			continue
 		
 		result.append({
-			difficulty = DIFFICULTY_HARD if !GM.pc.hasReachablePenis() || RNG.chance(30) else DIFFICULTY_MEDIUM,
+			difficulty = DIFFICULTY_HARD if !ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || RNG.chance(30) else DIFFICULTY_MEDIUM,
 			charID = randomDynamicCharID,
 			days = randi_range(5, 7),
 		})

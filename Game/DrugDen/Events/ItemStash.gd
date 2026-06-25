@@ -194,13 +194,13 @@ func doInteract(_actionID:String, _args:Array = []) -> Dictionary:
 	if(RNG.chance(trapChance)):
 		var beginText:String = "[b]It was trapped ("+str(Util.roundF(trapChance, 1))+"% chance)![/b] "
 		if(trapType == 0):
-			GM.pc.addPain(randi_range(20, 40))
+			ServiceLocator.safe_get_service(&"Player").addPain(randi_range(20, 40))
 			return {text=beginText+"You got shocked as soon as you touched the stash. Ow!", ended=true, anim=[StageScene.Solo, "hurt"]}
 		elif(trapType == 1):
-			GM.pc.addLust(randi_range(40, 80))
+			ServiceLocator.safe_get_service(&"Player").addLust(randi_range(40, 80))
 			return {text=beginText+"A cloud of aprorosiac gas surrounds you, making you extremely horny!", ended=true, anim=[StageScene.Solo, "stand"]}
 		else:
-			GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, 2)
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, 2)
 			return {text=beginText+"Restraints get forced upon you!", ended=true, anim=[StageScene.Solo, "hurt"]}
 	else:
 		return {text="You check the stash for anything useful..", noLootText="Sadly, it's empty.", lootTable="junkieStash", ended=true}

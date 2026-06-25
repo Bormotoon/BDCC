@@ -85,13 +85,13 @@ func run(_triggerID, _args):
 			addButton("Heal", "Ask the doctors to heal your slave", "doHeal", [theChar])
 	
 	if(locName == "med_researchlab"):
-		if(GM.main.SCI.hasUpgrade("shower1")):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower1")):
 			var hasCumOnBody:bool = theChar.hasEffect(StatusEffect.CoveredInCum)
 			var hasCumInside:bool = theChar.hasEffect(StatusEffect.HasCumInsideAnus) || theChar.hasEffect(StatusEffect.HasCumInsideVagina) || theChar.hasEffect(StatusEffect.HasCumInsideMouth)
 			
 			if(hasCumOnBody):
 				addButton("Biolab shower", "Make the slave take the special shower that will collect the fluids", "doBioShower", [theChar])
-			if(GM.main.SCI.hasUpgrade("shower2") && hasCumInside):
+			if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower2") && hasCumInside):
 				addButton("Biolab shower (+inside)", "Make the slave take the special shower that will collect the fluids. Including the fluids inside their holes", "doBioShowerInside", [theChar])
 	
 func getPriority():
@@ -99,22 +99,22 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "doBioShower"):
-		GM.main.SCI.doNPCShower(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doNPCShower(_args[0])
 	if(_method == "doBioShowerInside"):
-		GM.main.SCI.doNPCShower(_args[0])
-		GM.main.SCI.doNPCShowerInside(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doNPCShower(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doNPCShowerInside(_args[0])
 	if(_method == "do_repair_clothes"):
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		_args[0].repairAllClothes()
 		addMessage("Your slave's clothes have been repaired!")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 	if(_method == "doHeal"):
 		var theChar:BaseCharacter = _args[0]
 		theChar.removeEffect(StatusEffect.Wounded)
 		theChar.removeEffect(StatusEffect.StretchedPainfullyAnus)
 		theChar.removeEffect(StatusEffect.StretchedPainfullyPussy)
 		addMessage("Your slave has been healed!")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 	if(_method == "starthair"):
 		runScene("ActionSlaveryHaircut", [_args[0]])
 	if(_method == "startshower"):
@@ -123,10 +123,10 @@ func onButton(_method, _args):
 		else:
 			runScene("ActionSlaveryShower", [_args[0]])
 	if(_method == "startstocks"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("PunishSlaveryLeaveInStocks", [_args[0]])
 	if(_method == "startslutwall"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("PunishSlaveryLeaveInSlutwall", [_args[0]])
 	if(_method == "givebirth"):
 		runScene("SlaveryHelpGiveBirth", [_args[0]])

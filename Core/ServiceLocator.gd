@@ -8,9 +8,15 @@ func register_service(service_name: StringName, service: Variant) -> void:
 		push_warning("ServiceLocator: Overwriting service %s" % service_name)
 	_services[service_name] = service
 
+func has_service(service_name: StringName) -> bool:
+	return _services.has(service_name)
+
 func get_service(service_name: StringName) -> Variant:
 	assert(_services.has(service_name), "ServiceLocator: Service %s is not registered!" % service_name)
 	return _services[service_name]
+
+func safe_get_service(service_name: StringName) -> Variant:
+	return _services.get(service_name, null)
 
 func unregister_service(service_name: StringName) -> void:
 	_services.erase(service_name)

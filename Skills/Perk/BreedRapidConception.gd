@@ -34,4 +34,4 @@ func onSexEvent(_event:SexEvent):
 					if(loadSize >= cumProduction.getCapacity()):
 						_event.getTargetChar().addEffect(StatusEffect.RapidConception)
 						if(_event.getSourceChar().isPlayer()):
-							GM.main.addMessage("Your quality seed makes them more fertile!")
+							ServiceLocator.safe_get_service(&"MainScene").addMessage("Your quality seed makes them more fertile!")

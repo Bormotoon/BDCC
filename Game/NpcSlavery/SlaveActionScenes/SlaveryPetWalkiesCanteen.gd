@@ -118,7 +118,7 @@ func _react(_action: String, _args):
 
 	if(_action == "feed_dogfood"):
 		processTime(10*60)
-		GM.pc.addCredits(-2)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-2)
 
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
 		if(npcSlavery != null && npcSlavery.getActivityID()=="Walkies"):

@@ -7,13 +7,13 @@ func _init():
 
 func _run():
 	if(state == ""):
-		setCharactersEasyList(GM.main.IS.getPawnIDsAt(GM.pc.getLocation()))
+		setCharactersEasyList(ServiceLocator.safe_get_service(&"MainScene").IS.getPawnIDsAt(ServiceLocator.safe_get_service(&"Player").getLocation()))
 		
 		saynn("Here is what's happening around you:")
 		addButtonAt(14, "Back", "Enough looking around", "endthescene")
 		
-		var pcLoc:String = GM.pc.getLocation()
-		var allPawns:Array = GM.main.IS.getPawnsAt(pcLoc)
+		var pcLoc:String = ServiceLocator.safe_get_service(&"Player").getLocation()
+		var allPawns:Array = ServiceLocator.safe_get_service(&"MainScene").IS.getPawnsAt(pcLoc)
 		
 		for pawnA in allPawns:
 			var pawn:CharacterPawn = pawnA
@@ -34,9 +34,9 @@ func _run():
 		pawnID = ""
 
 	if(state == "focus"):
-		var pcPawn:CharacterPawn = GM.main.IS.getPawn("pc")
+		var pcPawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc")
 		addButtonAt(14, "Back", "Go back to the previous menu", "")
-		var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 		
 		if(pawn == null):
 			saynn("Pawn not found, sorry.")
@@ -80,7 +80,7 @@ func _react(_action: String, _args):
 			return
 		endScene()
 		
-		interaction.doInterruptActionFinal(GM.main.IS.getPawn("pc"), action["id"], action["args"])
+		interaction.doInterruptActionFinal(ServiceLocator.safe_get_service(&"MainScene").IS.getPawn("pc"), action["id"], action["args"])
 		return
 
 
@@ -90,7 +90,7 @@ func resolveCustomCharacterName(_charID):
 	if(_charID == "pawn" && pawnID != ""):
 		return pawnID
 	
-	var pawn:CharacterPawn = GM.main.IS.getPawn(pawnID)
+	var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawnID)
 	if(pawn == null):
 		return .resolveCustomCharacterName(_charID)
 	var interaction:PawnInteractionBase = pawn.getInteraction()

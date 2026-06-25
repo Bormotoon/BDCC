@@ -21,7 +21,7 @@ func _run():
 		
 		saynn(savedText)
 		
-		var tfHolder:TFHolder = GM.pc.getTFHolder()
+		var tfHolder:TFHolder = ServiceLocator.safe_get_service(&"Player").getTFHolder()
 		if(tfHolder.hasPendingTransformations()):
 			saynn("You get a feeling that something else is about to happen to you..")
 			
@@ -37,12 +37,12 @@ func _react(_action: String, _args):
 		endScene()
 		return
 	if(_action == "undoall"):
-		var tfHolder:TFHolder = GM.pc.getTFHolder()
+		var tfHolder:TFHolder = ServiceLocator.safe_get_service(&"Player").getTFHolder()
 		tfHolder.undoAllTransformations()
 		endScene()
 		return
 	if(_action == "doTF"):
-		var tfHolder:TFHolder = GM.pc.getTFHolder()
+		var tfHolder:TFHolder = ServiceLocator.safe_get_service(&"Player").getTFHolder()
 		
 		var result:Dictionary = tfHolder.doFirstPendingTransformation({})
 		savedText = result["text"]

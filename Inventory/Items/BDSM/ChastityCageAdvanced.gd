@@ -33,7 +33,7 @@ func canSell():
 	return true
 
 func getTags():
-	if(GM.main != null && GM.main.getFlag("AlexRynardModule.ch2DidChastityWith")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("AlexRynardModule.ch2DidChastityWith")):
 		return [ItemTag.BDSMRestraint, ItemTag.ChastityCage, ItemTag.SoldByAlexRynard]
 	return [ItemTag.BDSMRestraint, ItemTag.ChastityCage]
 

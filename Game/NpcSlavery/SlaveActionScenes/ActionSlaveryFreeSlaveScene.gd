@@ -117,11 +117,11 @@ func _react(_action: String, _args):
 		
 		if(npcSlavery.isMindBroken()):
 			addMessage(npc.getName()+" was committed to the mental ward.. indefinitely.")
-			#GM.main.removeDynamicCharacter(npcID)
+			#ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacter(npcID)
 			getModule("NpcSlaveryModule").doFreeEnslavedCharacter(npcID)
 			if(npc.isDynamicCharacter()):
-				GM.main.removeDynamicCharacterFromAllPools(npcID)
-				GM.main.addDynamicCharacterToPool(npcID, CharacterPool.MentalWard)
+				ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacterFromAllPools(npcID)
+				ServiceLocator.safe_get_service(&"MainScene").addDynamicCharacterToPool(npcID, CharacterPool.MentalWard)
 		else:
 			addMessage(npc.getName()+" was freed and is no longer your slave.")
 			getModule("NpcSlaveryModule").doFreeEnslavedCharacter(npcID)
@@ -137,7 +137,7 @@ func _react(_action: String, _args):
 		var returnedItems = npc.getInventory().getEquippedItemsWithTag(ItemTag.ReturnsToPCIfSlaveReleased)
 		for theItem in returnedItems:
 			npc.getInventory().removeEquippedItem(theItem)
-			GM.pc.getInventory().addItem(theItem)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theItem)
 			addMessage("You recovered "+theItem.getAStackName())
 		
 	setState(_action)

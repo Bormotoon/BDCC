@@ -68,4 +68,4 @@ func getInterruptActions(_pawn:CharacterPawn) -> Array:
 
 func doInterruptAction(_pawn:CharacterPawn, _id:String, _args:Dictionary, _context:Dictionary):
 	if(_id == "punish"):
-		GM.main.IS.startInteraction("PunishInteraction", {punisher=_pawn.charID, target=getRoleID("main")})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("PunishInteraction", {punisher=_pawn.charID, target=getRoleID("main")})

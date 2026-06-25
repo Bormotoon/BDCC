@@ -7,7 +7,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("You look at yourself in the mirror. There is a comb, scissors and a few others things around that you can use to change how your hair looks.")
 		else:
 			saynn("You try to look at yourself in the mirror but then you realize that you can't see anything. Awkward. You feel around and fine a comb, scissors and a few others things around that you can use to change how your hair looks.")
@@ -28,8 +28,8 @@ func _run():
 		addButton("BACK", "This one is good", "")
 	
 		var activeHaircutBodypartId:String = ""
-		if(GM.pc.hasBodypart(BodypartSlot.Hair)):
-			var theHaircut:Bodypart = GM.pc.getBodypart(BodypartSlot.Hair)
+		if(ServiceLocator.safe_get_service(&"Player").hasBodypart(BodypartSlot.Hair)):
+			var theHaircut:Bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Hair)
 			activeHaircutBodypartId = theHaircut.id
 
 		for bodypartID in GlobalRegistry.getBodypartsIdsBySlot(BodypartSlot.Hair):
@@ -41,7 +41,7 @@ func _run():
 			addButton(theHaircutName, theHaircutDesc, "changehair", [bodypartID])
 
 		if(savedPage != 0):
-			GM.ui.setCurrentPage(savedPage)
+			ServiceLocator.safe_get_service(&"UI").setCurrentPage(savedPage)
 
 
 func _react(_action: String, _args):
@@ -55,13 +55,13 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "changehair"):
-		savedPage = GM.ui.getCurrentPage()
+		savedPage = ServiceLocator.safe_get_service(&"UI").getCurrentPage()
 
 		var savedRColor = Color.WHITE
 		var savedGColor = Color.WHITE
 		var savedBColor = Color.WHITE
-		if(GM.pc.hasBodypart(BodypartSlot.Hair)):
-			var theHair:Bodypart = GM.pc.getBodypart(BodypartSlot.Hair)
+		if(ServiceLocator.safe_get_service(&"Player").hasBodypart(BodypartSlot.Hair)):
+			var theHair:Bodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Hair)
 			savedRColor = theHair.pickedRColor
 			savedGColor = theHair.pickedGColor
 			savedBColor = theHair.pickedBColor
@@ -71,7 +71,7 @@ func _react(_action: String, _args):
 			newHair.pickedRColor = savedRColor
 			newHair.pickedGColor = savedGColor
 			newHair.pickedBColor = savedBColor
-			GM.pc.giveBodypartUnlessSame(newHair)
+			ServiceLocator.safe_get_service(&"Player").giveBodypartUnlessSame(newHair)
 	
 	setState(_action)
 

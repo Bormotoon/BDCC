@@ -64,6 +64,6 @@ func getTags():
 		ItemTag.Strapon,
 		#ItemTag.SoldByTheAnnouncer,
 	]
-	if(GM.main != null && GM.main.SCI != null && GM.main.SCI.hasUpgrade("oviStrapons")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("oviStrapons")):
 		theTags.append(ItemTag.SoldByMedicalVendomat)
 	return theTags

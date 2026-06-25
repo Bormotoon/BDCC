@@ -17,7 +17,7 @@ func _ready():
 func updatePerks():
 	Util.delete_children(perksFlexGrid)
 
-	var allBasePerksIDs = GM.pc.getSkillsHolder().getVisibleBasePerksIDs()
+	var allBasePerksIDs = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getVisibleBasePerksIDs()
 	
 	for perkID in allBasePerksIDs:
 		var perk: PerkBase = GlobalRegistry.getPerk(perkID)
@@ -38,7 +38,7 @@ func updatePerkText():
 	var perk: PerkBase = GlobalRegistry.getPerk(perkID)
 	
 	perkNameLabel.text = perk.getVisibleName()
-	if(GM.pc.getSkillsHolder().isPerkDisabled(perkID)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().isPerkDisabled(perkID)):
 		perkNameLabel.text += " (Disabled)"
 	
 	perkDescLabel.text = perk.getVisibleDescription()
@@ -47,7 +47,7 @@ func updatePerkText():
 		perkDescLabel.text += "\n\n"+extraText
 	
 	togglePerkButton.visible = false
-	if(GM.pc.getSkillsHolder().hasPerkDisabledOrNot(perkID)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerkDisabledOrNot(perkID)):
 		if(perk.toggleable()):
 			togglePerkButton.visible = true
 
@@ -56,7 +56,7 @@ func _on_TogglePerkButton_pressed():
 	if(selectedPerkID == null || selectedPerkID == ""):
 		return
 	
-	GM.pc.getSkillsHolder().togglePerk(selectedPerkID)
+	ServiceLocator.safe_get_service(&"Player").getSkillsHolder().togglePerk(selectedPerkID)
 	updatePerks()
 	updatePerkText()
 	

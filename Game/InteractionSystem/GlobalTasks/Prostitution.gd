@@ -6,7 +6,7 @@ func _init():
 	maxAssignedUnscaled = 5
 
 func getMaxAssigned(_maxPawnCount:int) -> int:
-	return .getMaxAssigned(_maxPawnCount) - GM.main.IS.getInteractionsOfTypeAmount("Prostitution")
+	return .getMaxAssigned(_maxPawnCount) - ServiceLocator.safe_get_service(&"MainScene").IS.getInteractionsOfTypeAmount("Prostitution")
 
 func canDoTask(_pawn:CharacterPawn) -> bool:
 	return _pawn.isInmate() || shouldIgnoreCharType(_pawn)

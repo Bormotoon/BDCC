@@ -68,7 +68,7 @@ func afterSexUncon_do(_id:String, _args:Array):
 	if(_id == "endEventUncon"):
 		endEvent()
 		stopRunner()
-		GM.main.IS.startInteraction("Unconscious", {main="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Unconscious", {main="pc"})
 
 func afterSexUncon_sexResult(_sex:SexEngineResult):
 	endEvent()

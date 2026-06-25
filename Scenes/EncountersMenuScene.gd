@@ -14,17 +14,17 @@ func _init():
 
 func _run():
 	if(state == ""):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		
 		saynn("This is a menu that contains info about characters that you have met or might meet.")
 		
 		var hasSomeoneToForget = false
 		sayn("You remember that prison has:")
-		var encounterPools = GM.main.getDynamicCharactersPools()
+		var encounterPools = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPools()
 		if(encounterPools.size() == 0):
 			sayn(" - Nothing, explore to find more characters")
 		for encounterPoolID in encounterPools:
-			var amount = GM.main.getDynamicCharactersPoolSize(encounterPoolID)
+			var amount = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPoolSize(encounterPoolID)
 			
 			sayn(CharacterPool.getVisibleName(encounterPoolID)+": "+str(amount))
 			hasSomeoneToForget = true
@@ -35,7 +35,7 @@ func _run():
 		else:
 			saynn("Known characters: You don't mind meeting new characters.")
 		
-		if(GM.pc.dynamicPersonality):
+		if(ServiceLocator.safe_get_service(&"Player").dynamicPersonality):
 			saynn("Dynamic personality: Your personality or fetishes can dynamically change after sex.")
 		else:
 			saynn("Dynamic personality: Your personality or fetishes will never change after sex.")
@@ -101,7 +101,7 @@ func _run():
 		addButton("TFs weights", "Change the weights of transformations that 'strange pills' might contain", "tfweightsmenu")
 
 	if(state == "goalweightsmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		
 		sayn("These are the current weights of all sex goals:")
@@ -116,7 +116,7 @@ func _run():
 			addButton(goal.getVisibleName(), "Change the weight of this goal", "changegoalweightmenu", [goalID])
 		
 	if(state == "tfweightsmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		
 		sayn("These are the current weights of all transformations that might be caused by 'strange pills':")
@@ -137,7 +137,7 @@ func _run():
 			addButton(tf.getName(), "Change the weight of this transformation", "changetfweightmenu", [tfID])
 		
 	if(state == "changegoalweightmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		var pickedGoal = GlobalRegistry.getSexGoal(pickedGoalIDToChange)
 		if(pickedGoal != null):
@@ -153,7 +153,7 @@ func _run():
 				addButton(weightStr, "Set the weight to this value", "changegoalweight", [weight])
 			
 	if(state == "changetfweightmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		var pickedTF:TFBase = GlobalRegistry.getTransformationRef(pickedTFIDToChange)
 		if(pickedTF != null):
@@ -170,7 +170,7 @@ func _run():
 			
 		
 	if(state == "goalsmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		
 		sayn("Things that npcs won't do to you:")
@@ -192,7 +192,7 @@ func _run():
 			saynn(Util.humanReadableList(disabledGoalsNames))
 
 	if(state == "speciesmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		
 		sayn("Relative chances for the species of encountered npcs:")
@@ -207,7 +207,7 @@ func _run():
 		sayn("")
 
 	if(state == "gendersmenu"):
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		addButton("Back", "Close this menu", "")
 		
 		sayn("Relative chances for the genders of encountered npcs:")
@@ -225,7 +225,7 @@ func _run():
 
 	if(state == "genderchancemenu"):
 		var gender = pickedGenderToChange
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		saynn("The current chance for "+NpcGender.getVisibleNameColored(gender)+" is "+str(Util.roundF(encounterSettings.getGenderWeight(gender)*100.0, 1))+"%")
 
 		addButton("Back", "Go back to the previous menu", "gendersmenu")
@@ -235,7 +235,7 @@ func _run():
 
 	if(state == "specieschancemenu"):
 		var species = pickedSpeciesToChange
-		var encounterSettings:EncounterSettings = GM.main.getEncounterSettings()
+		var encounterSettings:EncounterSettings = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings()
 		var speciesObject:Species = GlobalRegistry.getSpecies(species)
 		if(!speciesObject):
 			speciesObject = GlobalRegistry.getSpecies(Species.Canine)
@@ -248,7 +248,7 @@ func _run():
 			addButton(str(Util.roundF(chance*100.0))+"%", "Pick this chance", "setspecieschance", [species, chance])
 
 	if(state == "npclistmenu"):
-		var encounterPools = GM.main.getDynamicCharactersPools()
+		var encounterPools = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPools()
 
 		saynn("Select which occupation the character that you want to look for has.")
 		saynn("You can forget any character in the list so they will never show up again. This action can not be undone.")
@@ -261,10 +261,10 @@ func _run():
 		
 	if(state == "occupationmenupool"):
 		var npclist = npclistScene.instantiate()
-		GM.ui.addFullScreenCustomControl("npclist", npclist)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("npclist", npclist)
 		var _ok = npclist.onMeetNpcButton.connect(doMeetNpc)
 		
-		var characterIDS = GM.main.getDynamicCharacterIDsFromPool(pickedPoolToShow)
+		var characterIDS = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(pickedPoolToShow)
 		for characterID in characterIDS:
 			var dynamicCharacter: BaseCharacter  = GlobalRegistry.getCharacter(characterID)
 			if(dynamicCharacter == null):
@@ -274,18 +274,18 @@ func _run():
 				NPCname = "(!) "+NPCname
 			var gender = NpcGender.getVisibleName(dynamicCharacter.npcGeneratedGender)
 			var subbyStat = dynamicCharacter.getPersonality().getStat(PersonalityStat.Subby)
-			var sharedKidsAmount = GM.CS.getSharedChildrenAmount("pc", characterID)
+			var sharedKidsAmount = ServiceLocator.safe_get_service(&"ChildSystem").getSharedChildrenAmount("pc", characterID)
 
 			npclist.addRow(NPCname, gender, subbyStat, characterID, pickedPoolToShow, sharedKidsAmount, dynamicCharacter.canForgetCharacter(), dynamicCharacter.canMeetCharacter())
 	
 		addButton("Back", "Go back a level", "closenpclist")
 		
-		var encounterPools = GM.main.getDynamicCharactersPools()
+		var encounterPools = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPools()
 		for encounterPoolID in encounterPools:
 			addButton(CharacterPool.getVisibleName(encounterPoolID), "Pick this occupation", "occupationmenupool", [encounterPoolID])
 
 	if(state == "fetishmenu"):
-		var fetishHolder = GM.pc.getFetishHolder()
+		var fetishHolder = ServiceLocator.safe_get_service(&"Player").getFetishHolder()
 		saynn("Having a fetish for something means you will get more lust doing this activity during sex.")
 		addButton("Go back", "Go back a menu", "")
 		
@@ -301,7 +301,7 @@ func _run():
 			addButton(fetish.getVisibleName(), "Change how much you enjoy this fetish", "changefetish", [fetishID])
 		
 	if(state == "changefetish"):
-		var fetishHolder = GM.pc.getFetishHolder()
+		var fetishHolder = ServiceLocator.safe_get_service(&"Player").getFetishHolder()
 		var fetish = GlobalRegistry.getFetish(pickedFetishToChange)
 		if(fetish != null):
 			saynn("Your current value for '"+fetish.getVisibleName()+"' fetish is "+FetishInterest.getVisibleName(fetishHolder.getFetish(pickedFetishToChange)))
@@ -315,7 +315,7 @@ func _run():
 		addButton("Back", "Don't change anything", "fetishmenu")
 		
 	if(state == "personalitymenu"):
-		var personality: Personality = GM.pc.getPersonality()
+		var personality: Personality = ServiceLocator.safe_get_service(&"Player").getPersonality()
 		saynn("Your personality has a minor effect on how you react during sex.")
 		addButton("Go back", "Go back a menu", "")
 		
@@ -329,7 +329,7 @@ func _run():
 			addButton(statName, "Change this personality stat", "changepersonality", [statID])
 	
 	if(state == "changepersonality"):
-		var personality: Personality = GM.pc.getPersonality()
+		var personality: Personality = ServiceLocator.safe_get_service(&"Player").getPersonality()
 		var value = personality.getStat(pickedPersonalityStat)
 		var statName = PersonalityStat.getVisibleName(pickedPersonalityStat)
 		var statValue = PersonalityStat.getVisibleDesc(pickedPersonalityStat, value)
@@ -345,38 +345,38 @@ func _run():
 		addButton("+15%", "Change the personality stat", "changepersonalitystatby", [0.15])
 		
 func doMeetNpc(ID, occupation):
-	var pcLoc:String = GM.pc.getLocation()
-	if(GM.main.IS.hasPawn(ID)):
-		GM.ui.getCustomControl("npclist").sendPopupMessage("This person is already somewhere in the prison\nYou can find them by exploring around")
+	var pcLoc:String = ServiceLocator.safe_get_service(&"Player").getLocation()
+	if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(ID)):
+		ServiceLocator.safe_get_service(&"UI").getCustomControl("npclist").sendPopupMessage("This person is already somewhere in the prison\nYou can find them by exploring around")
 		return
 	
-	if(!GM.world.isLocSafe(pcLoc)):
-		GM.ui.getCustomControl("npclist").sendPopupMessage("This location isn't safe, you can't meet anyone here!")
+	if(!ServiceLocator.safe_get_service(&"World").isLocSafe(pcLoc)):
+		ServiceLocator.safe_get_service(&"UI").getCustomControl("npclist").sendPopupMessage("This location isn't safe, you can't meet anyone here!")
 		return
-	if(!GM.world.canMeetInLoc(pcLoc)):
-		GM.ui.getCustomControl("npclist").sendPopupMessage("You can't meet anyone on this floor!")
+	if(!ServiceLocator.safe_get_service(&"World").canMeetInLoc(pcLoc)):
+		ServiceLocator.safe_get_service(&"UI").getCustomControl("npclist").sendPopupMessage("You can't meet anyone on this floor!")
 		return
 	
 	if(occupation in ["Inmates", "Guards", "Engineers", "Nurses"]):
-		if(GM.ES.triggerReact(Trigger.MeetDynamicNPC, [ID]) || GM.ES.triggerReact(Trigger.TalkingToDynamicNPC, [ID])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.MeetDynamicNPC, [ID]) || ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToDynamicNPC, [ID])):
 			endScene([true])
-			GM.main.runCurrentScene()
+			ServiceLocator.safe_get_service(&"MainScene").runCurrentScene()
 			return
 		if(getCharacter(ID).shouldBeExcludedFromEncounters()):
-			GM.ui.getCustomControl("npclist").sendPopupMessage("It feels like you will never find them..")
+			ServiceLocator.safe_get_service(&"UI").getCustomControl("npclist").sendPopupMessage("It feels like you will never find them..")
 			return
-		var pawn:CharacterPawn = GM.main.IS.spawnPawn(ID)
+		var pawn:CharacterPawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawn(ID)
 		if(pawn == null):
 			return
-		pawn.setLocation(GM.pc.getLocation())
-		GM.main.IS.startInteraction("Talking", {starter="pc", reacter=ID})
+		pawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Talking", {starter="pc", reacter=ID})
 		endScene([true])
-		GM.main.runCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").runCurrentScene()
 		return
 	else:
-		if(GM.ES.triggerReact(Trigger.MeetDynamicNPC, [ID])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.MeetDynamicNPC, [ID])):
 			endScene([true])
-			GM.main.runCurrentScene()
+			ServiceLocator.safe_get_service(&"MainScene").runCurrentScene()
 			return
 
 		
@@ -386,11 +386,11 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "enablegoalforpc"):
-		GM.main.getEncounterSettings().enableGoalForSubPC(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().enableGoalForSubPC(_args[0])
 		return
 	
 	if(_action == "disablegoalforpc"):
-		GM.main.getEncounterSettings().disableGoalForSubPC(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().disableGoalForSubPC(_args[0])
 		return
 	
 	if(_action == "changefetish"):
@@ -400,12 +400,12 @@ func _react(_action: String, _args):
 		pickedPersonalityStat = _args[0]
 	
 	if(_action == "changepersonalitystatby"):
-		var personality: Personality = GM.pc.getPersonality()
+		var personality: Personality = ServiceLocator.safe_get_service(&"Player").getPersonality()
 		personality.addStat(pickedPersonalityStat, _args[0])
 		return
 	
 	if(_action == "changeinterest"):
-		var fetishHolder = GM.pc.getFetishHolder()
+		var fetishHolder = ServiceLocator.safe_get_service(&"Player").getFetishHolder()
 		var fetish = GlobalRegistry.getFetish(pickedFetishToChange)
 		if(fetish != null):
 			fetishHolder.setFetish(pickedFetishToChange, _args[0])
@@ -413,15 +413,15 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "toggleKnown"):
-		GM.main.getEncounterSettings().togglePreferKnownEcnounters()
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().togglePreferKnownEcnounters()
 		return
 	
 	if(_action == "togglePersonalityChange"):
-		GM.pc.dynamicPersonality = !GM.pc.dynamicPersonality
+		ServiceLocator.safe_get_service(&"Player").dynamicPersonality = !ServiceLocator.safe_get_service(&"Player").dynamicPersonality
 		return 
 		
 	if(_action == "toggleThreesomesSub"):
-		GM.main.getEncounterSettings().toggleThreesomesSub()
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().toggleThreesomesSub()
 		return 
 	
 	if(_action == "occupationmenupool"):
@@ -440,38 +440,38 @@ func _react(_action: String, _args):
 		pickedTFIDToChange = _args[0]
 	
 	if(_action == "setgenderchance"):
-		GM.main.getEncounterSettings().setGenderWeight(_args[0], _args[1])
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().setGenderWeight(_args[0], _args[1])
 		
 		setState("gendersmenu")
 		return	
 		
 	if(_action == "setspecieschance"):
-		GM.main.getEncounterSettings().setSpeciesWeight(_args[0], _args[1])
+		ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().setSpeciesWeight(_args[0], _args[1])
 		
 		setState("speciesmenu")
 		return
 		
 	if(_action == "changegoalweight"):
 		if(_args[0] < 0):
-			GM.main.getEncounterSettings().resetGoalWeight(pickedGoalIDToChange)
+			ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().resetGoalWeight(pickedGoalIDToChange)
 		else:
-			GM.main.getEncounterSettings().setGoalWeight(pickedGoalIDToChange, _args[0])
+			ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().setGoalWeight(pickedGoalIDToChange, _args[0])
 		setState("goalweightsmenu")
 		return
 		
 		
 	if(_action == "changetfweight"):
 		if(_args[0] < 0):
-			GM.main.getEncounterSettings().resetTFWeight(pickedTFIDToChange)
+			ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().resetTFWeight(pickedTFIDToChange)
 		else:
-			GM.main.getEncounterSettings().setTFWeight(pickedTFIDToChange, _args[0])
+			ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().setTFWeight(pickedTFIDToChange, _args[0])
 		setState("tfweightsmenu")
 		return
 		
 	if(_action == "closenpclist"):
 		setState("")
-		GM.ui.clearCharactersPanel()
-		GM.main.playAnimation(StageScene.Solo, "stand")
+		ServiceLocator.safe_get_service(&"UI").clearCharactersPanel()
+		ServiceLocator.safe_get_service(&"MainScene").playAnimation(StageScene.Solo, "stand")
 		return
 		
 	setState(_action)

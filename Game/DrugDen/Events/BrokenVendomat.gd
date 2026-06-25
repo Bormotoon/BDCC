@@ -27,13 +27,13 @@ func getInteractInfo() -> Dictionary:
 				name = "Pay "+str(useCost)+" credit"+("s" if useCost != 1 else ""),
 				desc = "Pay "+str(useCost)+" credit"+("s" if useCost != 1 else "")+" and see if you will get anything.",
 				args = [],
-				disabled = GM.pc.getCredits() < useCost,
+				disabled = ServiceLocator.safe_get_service(&"Player").getCredits() < useCost,
 			},
 		],
 	}
 
 func doInteract(_actionID:String, _args:Array = []) -> Dictionary:
-	GM.pc.addCredits(-useCost)
+	ServiceLocator.safe_get_service(&"Player").addCredits(-useCost)
 	
 	timesUsed += 1
 	
@@ -65,7 +65,7 @@ func doInteract(_actionID:String, _args:Array = []) -> Dictionary:
 		theText += "\n\nAfter some time, the vendomat spews out.. Nothing.. It doesn't give you anything."
 	else:
 		var theItem:ItemBase = GlobalRegistry.createItem(itemResult)
-		GM.pc.getInventory().addItem(theItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theItem)
 		theText += "\n\nAfter some time, the vendomat spews out.. [b]"+theItem.getAStackName()+"[/b]! Yay."
 	
 	if(didBreak):

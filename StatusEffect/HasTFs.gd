@@ -29,8 +29,8 @@ func getEffectDesc():
 		var tf:TFBase = tfa
 		var tfID:String = tf.id
 		var pillName:String = tf.getPillName()
-		var isUnlocked:bool = GM.main.SCI.isTransformationUnlocked(tfID)
-		var isTested:bool = GM.main.SCI.isTransformationTested(tfID)
+		var isUnlocked:bool = ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)
+		var isTested:bool = ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationTested(tfID)
 		var canBeTestedIfUnlocked:bool = tf.canBeTested()
 		var reachedLastStage:bool = !tf.canTransformFurther()
 		
@@ -45,7 +45,7 @@ func getEffectDesc():
 	return theText
 	
 func getEffectImage():
-	var canScanAmount:int = GM.main.SCI.getTFsCanScanAmount(character)
+	var canScanAmount:int = ServiceLocator.safe_get_service(&"MainScene").SCI.getTFsCanScanAmount(character)
 	if(canScanAmount > 0):
 		return "res://Images/StatusEffects/dna1-can-scan.png"
 	return "res://Images/StatusEffects/dna1.png"

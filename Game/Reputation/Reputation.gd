@@ -68,7 +68,7 @@ func onRepLevelChanged(stat: String, new_level: int, is_up: bool, show_message: 
 		if rep_stat != null:
 			var text := rep_stat.getTextForLevel(new_level, self)
 			if text != "":
-				GM.main.addMessage(text)
+				ServiceLocator.safe_get_service(&"MainScene").addMessage(text)
 
 func getGenericRepMult(stat: String, default_mult: float) -> float:
 	var level: int = getRepLevel(stat)

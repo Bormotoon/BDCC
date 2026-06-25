@@ -30,10 +30,10 @@ func sendTrigger(_triggerID:int, _args:Array = []):
 	theTrigger.trigger(_args)
 
 func processGameplay(_dt:float):
-	if((GM.pc && is_instance_valid(GM.pc)) && !inGame):
+	if((ServiceLocator.safe_get_service(&"Player") && is_instance_valid(ServiceLocator.safe_get_service(&"Player"))) && !inGame):
 		#Log.msg("IN GAMEEEE")
 		inGame = true
-	elif((!GM.pc || !is_instance_valid(GM.pc)) && inGame):
+	elif((!ServiceLocator.safe_get_service(&"Player") || !is_instance_valid(ServiceLocator.safe_get_service(&"Player"))) && inGame):
 		#Log.msg("NO LONGER IN GAME!!!")
 		inGame = false
 		stopAllPassiveTriggers()
@@ -41,7 +41,7 @@ func processGameplay(_dt:float):
 	if(!inGame):
 		return
 	
-	var _pc = GM.pc
+	var _pc = ServiceLocator.safe_get_service(&"Player")
 	setPassive(SexToyTrigger.Lust, _pc.getLustLevel())
 	setPassive(SexToyTrigger.Pain, _pc.getPainLevel())
 	setPassive(SexToyTrigger.Arousal, _pc.getArousal())

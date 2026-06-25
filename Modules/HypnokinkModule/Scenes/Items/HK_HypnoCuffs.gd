@@ -11,7 +11,7 @@ func _initScene(_args = []):
 
 func _run():
 	if(state == ""):
-		if(HypnokinkUtil.isHypnotized(GM.pc)):
+		if(HypnokinkUtil.isHypnotized(ServiceLocator.safe_get_service(&"Player"))):
 			saynn("You can't possibly hope to remove these very real cuffs.")
 			addButton("Continue", "Nothing you can do", "endthescene")
 		else:
@@ -25,7 +25,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "remove"):
-		var inventory = GM.pc.getInventory()
+		var inventory = ServiceLocator.safe_get_service(&"Player").getInventory()
 		var item: ItemBase = inventory.getItemByUniqueID(uniqueItemID)
 		inventory.removeEquippedItem(item)
 		endScene()

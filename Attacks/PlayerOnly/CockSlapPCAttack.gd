@@ -22,7 +22,7 @@ func calculateDamageFor(character):
 	return 5 + cumDamage
 	
 func getVisibleDesc(_context = {}):
-	return "Smack them with your cock for "+scaledDmgRangeStr(DamageType.Physical, 5, calculateDamageFor(GM.pc))+" damage. Wastes 20% of stored cum.\n\nMaximum damage scales based on the amount of cum in your balls.\n\nBrings you 5 pain too since slapping people with your cock is painful"
+	return "Smack them with your cock for "+scaledDmgRangeStr(DamageType.Physical, 5, calculateDamageFor(ServiceLocator.safe_get_service(&"Player")))+" damage. Wastes 20% of stored cum.\n\nMaximum damage scales based on the amount of cum in your balls.\n\nBrings you 5 pain too since slapping people with your cock is painful"
 	
 func _doAttack(_attacker, _receiver, _context = {}):
 	if(checkMissed(_attacker, _receiver, DamageType.Physical)):

@@ -48,7 +48,7 @@ func start(_args:Dictionary):
 	if(_args.has("species")):
 		newSpecies = _args["species"] if (_args["species"] is Array) else [_args["species"]]
 	else:
-		var randomSpecies:String = GM.main.getEncounterSettings().generateSpeciesBlacklist(getChar().getSpecies())
+		var randomSpecies:String = ServiceLocator.safe_get_service(&"MainScene").getEncounterSettings().generateSpeciesBlacklist(getChar().getSpecies())
 		if(randomSpecies == ""):
 			randomSpecies = Species.Canine
 			doCancelDelayed()

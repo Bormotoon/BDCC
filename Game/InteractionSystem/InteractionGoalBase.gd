@@ -34,13 +34,13 @@ func get_keep_score() -> float:
 	return get_score(get_pawn()) + 0.1
 
 func get_pawn() -> CharacterPawn:
-	return GM.main.IS.getPawn(pawn_id)
+	return ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(pawn_id)
 
 func get_interaction():
 	return interaction
 
 func can_reach_pc() -> bool:
-	var room = GM.world.getRoomByID(GM.pc.getLocation())
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(ServiceLocator.safe_get_service(&"Player").getLocation())
 	if room == null or room.is_offlimits_for_inmates():
 		return false
 	return true

@@ -26,7 +26,7 @@ func saynn(text):
 	storedStages.append(processOutputString(text))
 
 func hasFlag(theVar:String, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .hasFlag(theVar, _codeblock)
 	
 	if(!datapack.flags.has(theVar)):
@@ -34,16 +34,16 @@ func hasFlag(theVar:String, _codeblock = null):
 	return true
 
 func getFlag(theVar:String, defaultValue = null, _codeblock = null):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .getFlag(theVar, defaultValue, _codeblock)
 	
 	if(datapack.flags.has(theVar)):
-		return GM.main.getDatapackFlag(datapack.id, theVar, defaultValue)
+		return ServiceLocator.safe_get_service(&"MainScene").getDatapackFlag(datapack.id, theVar, defaultValue)
 	
-	return GM.main.getFlag(theVar, defaultValue)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag(theVar, defaultValue)
 
 func setFlag(theVar:String, newValue, _codeblock):
-	if(GM.main == null):
+	if(ServiceLocator.safe_get_service(&"MainScene") == null):
 		return .setFlag(theVar, newValue, _codeblock)
 	
 	if(datapack.flags.has(theVar)):
@@ -58,9 +58,9 @@ func setFlag(theVar:String, newValue, _codeblock):
 		if(varType == DatapackSceneVarType.NUMBER && !(newValue is int) && !(newValue is float)):
 			throwError(_codeblock, "Trying to assign a '"+str(newValue)+"' value to a NUMBER flag "+str(theVar))
 			return
-		GM.main.setDatapackFlag(datapack.id, theVar, newValue)
+		ServiceLocator.safe_get_service(&"MainScene").setDatapackFlag(datapack.id, theVar, newValue)
 		return
-	GM.main.setFlag(theVar, newValue)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag(theVar, newValue)
 
 func throwError(_codeBlock, _errorText):
 	super.throwError(_codeBlock, _errorText)
@@ -81,7 +81,7 @@ func calculateQuestInfo():
 	
 	if(storedErrors.size() > 0):
 		for errorText in storedErrors:
-			GM.main.addMessage("[color=red](Datapack quest: "+str(datapack.id)+":"+str(datapackQuest.id)+") "+errorText+"[/color]")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("[color=red](Datapack quest: "+str(datapack.id)+":"+str(datapackQuest.id)+") "+errorText+"[/color]")
 		storedErrors = []
 	
 	return {

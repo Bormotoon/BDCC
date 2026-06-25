@@ -426,9 +426,9 @@ func _react(_action: String, _args):
 		if(RNG.chance(npcSlavery.getBratScore() * 40.0)):
 			didABrat = true
 			if(masType == "penis"):
-				GM.pc.cummedOnBy(npcID)
+				ServiceLocator.safe_get_service(&"Player").cummedOnBy(npcID)
 			if(masType == "vag"):
-				GM.pc.cummedOnBy(npcID, FluidSource.Vagina)
+				ServiceLocator.safe_get_service(&"Player").cummedOnBy(npcID, FluidSource.Vagina)
 			npcSlavery.deservesPunishment(3)
 		npc.orgasmFrom(npcID)
 
@@ -443,9 +443,9 @@ func _react(_action: String, _args):
 		if(RNG.chance(npcSlavery.getBratScore() * 40.0)):
 			didABrat = true
 			if(masType == "penis"):
-				GM.pc.cummedOnBy(npcID)
+				ServiceLocator.safe_get_service(&"Player").cummedOnBy(npcID)
 			if(masType == "vag"):
-				GM.pc.cummedOnBy(npcID, FluidSource.Vagina)
+				ServiceLocator.safe_get_service(&"Player").cummedOnBy(npcID, FluidSource.Vagina)
 			npcSlavery.deservesPunishment(3)
 		npc.orgasmFrom("pc")
 

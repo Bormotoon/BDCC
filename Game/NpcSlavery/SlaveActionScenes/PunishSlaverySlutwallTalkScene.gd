@@ -19,7 +19,7 @@ func _run():
 		var npcSlave:NpcSlave = npc.getNpcSlavery()
 		addCharacter(npcID)
 		aimCameraAndSetLocName("fight_slutwall")
-		GM.pc.setLocation("fight_slutwall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_slutwall")
 		playAnimation(StageScene.SlutwallSex, "idle", {pc=npcID, npc="pc", bodyState={naked=true}})
 		
 		saynn("{npc.name} is stuck in the slutwall. You can wait for someone to use {npc.him} or do it yourself.")
@@ -57,8 +57,8 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 
 	if(state == "do_free_slave"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Duo, "stand", {npc=npcID, npcBodyState={leashedBy="pc"}})
 		
 		saynn("Enough slutwalls, you free {npc.name} up and then bring {npc.him} back to your cell.")

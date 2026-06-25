@@ -37,4 +37,4 @@ func flashed_do(_id:String, _args:Array):
 		npcOwner.endSlavery()
 	endEvent()
 	stopRunner()
-	GM.main.runScene(GlobalRegistry.getModule("PlayerSlaveryModule").getSlaveryStartScene())
+	ServiceLocator.safe_get_service(&"MainScene").runScene(GlobalRegistry.getModule("PlayerSlaveryModule").getSlaveryStartScene())

@@ -21,9 +21,9 @@ func execute(_contex:CodeContex):
 		throwError(_contex, "Location id must be a string, got "+str(amValue)+" instead")
 		return ""
 	
-	if(GM.world == null || !is_instance_valid(GM.world)):
+	if(ServiceLocator.safe_get_service(&"World") == null || !is_instance_valid(ServiceLocator.safe_get_service(&"World"))):
 		return "!LOC NAME HERE!"
-	var room = GM.world.getRoomByID(amValue)
+	var room = ServiceLocator.safe_get_service(&"World").getRoomByID(amValue)
 	if(room == null):
 		throwError(_contex, "Room with the id "+str(amValue)+" wasn't found!")
 		return ""

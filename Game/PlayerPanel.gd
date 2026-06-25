@@ -36,28 +36,28 @@ func on_player_stat_change() -> void:
 	update_ui()
 
 func update_ui() -> void:
-	name_label.text = GM.pc.getName() + ", " + GM.pc.getSpeciesFullName()
-	credits_label.text = "Work Credits: " + str(GM.pc.getCredits())
-	pain_bar.setProgressBarValueInt(GM.pc.getPain(), GM.pc.painThreshold())
-	pain_bar.setText(str(GM.pc.getPain()) + " / " + str(GM.pc.painThreshold()))
-	lust_bar.setProgressBarValueInt(GM.pc.getLust(), GM.pc.lustThreshold())
-	lust_bar.setText(str(GM.pc.getLust()) + " / " + str(GM.pc.lustThreshold()))
-	stamina_bar.setProgressBarValueInt(GM.pc.getStamina(), GM.pc.getMaxStamina())
-	stamina_bar.setText(str(GM.pc.getStamina()) + " / " + str(GM.pc.getMaxStamina()))
-	level_bar.setProgressBarValue(GM.pc.getSkillsHolder().getLevelProgress())
-	level_bar.setText(str(GM.pc.getSkillsHolder().getLevel()))
+	name_label.text = ServiceLocator.safe_get_service(&"Player").getName() + ", " + ServiceLocator.safe_get_service(&"Player").getSpeciesFullName()
+	credits_label.text = "Work Credits: " + str(ServiceLocator.safe_get_service(&"Player").getCredits())
+	pain_bar.setProgressBarValueInt(ServiceLocator.safe_get_service(&"Player").getPain(), ServiceLocator.safe_get_service(&"Player").painThreshold())
+	pain_bar.setText(str(ServiceLocator.safe_get_service(&"Player").getPain()) + " / " + str(ServiceLocator.safe_get_service(&"Player").painThreshold()))
+	lust_bar.setProgressBarValueInt(ServiceLocator.safe_get_service(&"Player").getLust(), ServiceLocator.safe_get_service(&"Player").lustThreshold())
+	lust_bar.setText(str(ServiceLocator.safe_get_service(&"Player").getLust()) + " / " + str(ServiceLocator.safe_get_service(&"Player").lustThreshold()))
+	stamina_bar.setProgressBarValueInt(ServiceLocator.safe_get_service(&"Player").getStamina(), ServiceLocator.safe_get_service(&"Player").getMaxStamina())
+	stamina_bar.setText(str(ServiceLocator.safe_get_service(&"Player").getStamina()) + " / " + str(ServiceLocator.safe_get_service(&"Player").getMaxStamina()))
+	level_bar.setProgressBarValue(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getLevelProgress())
+	level_bar.setText(str(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getLevel()))
 
-	var arousal = GM.pc.getArousal()
+	var arousal = ServiceLocator.safe_get_service(&"Player").getArousal()
 	if arousal > 0.0:
 		arousal_bar.visible = true
 		arousal_bar.setProgressBarValue(arousal)
 		arousal_bar.setText(str(Util.roundF(arousal * 100.0)) + "%")
-		lust_bar.setText(str(Util.roundF(GM.pc.getLustLevel() * 100.0)) + "%")
+		lust_bar.setText(str(Util.roundF(ServiceLocator.safe_get_service(&"Player").getLustLevel() * 100.0)) + "%")
 	else:
 		arousal_bar.visible = false
 		arousal_bar.setProgressBarValue(0.0)
 
-	var consciousness = GM.pc.getConsciousness()
+	var consciousness = ServiceLocator.safe_get_service(&"Player").getConsciousness()
 	if consciousness < 1.0:
 		level_bar.visible = false
 		consciousness_bar.visible = true

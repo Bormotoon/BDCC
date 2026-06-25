@@ -34,14 +34,14 @@ func addStacks(toAdd: int):
 	if(change > 0):
 		HypnokinkUtil.changeSuggestibilityBy(character, change)
 		if(character.isPlayer()):
-			var xpToday = GM.main.getFlag("HypnokinkModule.VisorXpToday", 0)
+			var xpToday = ServiceLocator.safe_get_service(&"MainScene").getFlag("HypnokinkModule.VisorXpToday", 0)
 			#gain ~max one level per day
 			var maxXp = SkillBase.getRequiredExperience(character.getSkillLevel(Skill.Hypnosis))
 			var gainableXp = maxXp - xpToday
 			var xpToGain = min(gainableXp, toAdd)
 			if(xpToGain > 0):
 				character.addSkillExperience(Skill.Hypnosis, xpToGain)
-				GM.main.setFlag("HypnokinkModule.VisorXpToday", xpToday + xpToGain)
+				ServiceLocator.safe_get_service(&"MainScene").setFlag("HypnokinkModule.VisorXpToday", xpToday + xpToGain)
 				
 func processBattleTurn():
 	addStacks(1)

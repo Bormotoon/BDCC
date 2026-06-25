@@ -97,13 +97,13 @@ func _init() -> void:
 	encounter_settings = EncounterSettings.new()
 
 func _ready() -> void:
-	GM.main = self
+	ServiceLocator.safe_get_service(&"MainScene") = self
 	GM.register_services()
 	create_static_characters()
 
 func _exit_tree() -> void:
 	rollbacker.onDestroy()
-	GM.main = null
+	ServiceLocator.safe_get_service(&"MainScene") = null
 
 # ==========================================
 # PC OVERRIDE (lines 55-86)
@@ -116,7 +116,7 @@ func override_pc() -> void:
 	Util.remove_all_signals(original_pc)
 	var new_pc = overridden_player_scene.new()
 	overriden_pc = new_pc
-	GM.pc = new_pc
+	ServiceLocator.safe_get_service(&"Player") = new_pc
 	_connect_signals_to_pc(new_pc)
 	add_child(new_pc)
 
@@ -126,7 +126,7 @@ func clear_override_pc() -> void:
 		return
 	overriden_pc.queue_free()
 	overriden_pc = null
-	GM.pc = original_pc
+	ServiceLocator.safe_get_service(&"Player") = original_pc
 	_connect_signals_to_pc(original_pc)
 
 func get_current_pc():
@@ -153,7 +153,7 @@ func create_static_characters() -> void:
 
 func get_character(char_id: String):
 	if char_id == "pc":
-		return GM.pc
+		return ServiceLocator.safe_get_service(&"Player")
 	if static_characters.has(char_id):
 		return static_characters[char_id]
 	if dynamic_characters.has(char_id):
@@ -203,15 +203,15 @@ func save_data() -> Dictionary:
 	data["flags"] = flags
 	data["moduleFlags"] = module_flags
 	data["datapackFlags"] = datapack_flags
-	data["EventSystem"] = GM.ES.saveData()
-	data["ChildSystem"] = GM.CS.saveData()
+	data["EventSystem"] = ServiceLocator.safe_get_service(&"EventSystem").saveData()
+	data["ChildSystem"] = ServiceLocator.safe_get_service(&"ChildSystem").saveData()
 	data["logMessages"] = log_messages
 	data["roomMemories"] = room_memories
 	data["lootedRooms"] = looted_rooms
-	data["world"] = GM.world.saveData()
+	data["world"] = ServiceLocator.safe_get_service(&"World").saveData()
 	data["dynamicCharactersPools"] = dynamic_characters_pools
 	data["encounterSettings"] = encounter_settings.saveData()
-	data["gameExtenders"] = GM.GES.saveData()
+	data["gameExtenders"] = ServiceLocator.safe_get_service(&"GameExtenderSystem").saveData()
 	data["loadedDatapacks"] = loaded_datapacks
 	data["datapackCharacters"] = datapack_characters
 	data["interactionSystem"] = IS.saveData()
@@ -238,14 +238,14 @@ func load_data(data: Dictionary) -> void:
 	flags = SAVE.load_var(data, "flags", {})
 	module_flags = SAVE.load_var(data, "moduleFlags", {})
 	datapack_flags = SAVE.load_var(data, "datapackFlags", {})
-	GM.ES.loadData(SAVE.load_var(data, "EventSystem", {}))
-	GM.CS.loadData(SAVE.load_var(data, "ChildSystem", {}))
+	ServiceLocator.safe_get_service(&"EventSystem").loadData(SAVE.load_var(data, "EventSystem", {}))
+	ServiceLocator.safe_get_service(&"ChildSystem").loadData(SAVE.load_var(data, "ChildSystem", {}))
 	log_messages = SAVE.load_var(data, "logMessages", [])
 	room_memories = SAVE.load_var(data, "roomMemories", {})
 	looted_rooms = SAVE.load_var(data, "lootedRooms", {})
 	dynamic_characters_pools = SAVE.load_var(data, "dynamicCharactersPools", {})
 	encounter_settings.loadData(SAVE.load_var(data, "encounterSettings", {}))
-	GM.GES.loadData(SAVE.load_var(data, "gameExtenders", {}))
+	ServiceLocator.safe_get_service(&"GameExtenderSystem").loadData(SAVE.load_var(data, "gameExtenders", {}))
 	loaded_datapacks = SAVE.load_var(data, "loadedDatapacks", {})
 	IS.loadData(SAVE.load_var(data, "interactionSystem", {}))
 	RS.loadData(SAVE.load_var(data, "relationshipSystem", {}))
@@ -283,7 +283,7 @@ func load_data(data: Dictionary) -> void:
 			PS = null
 	else:
 		PS = null
-	GM.world.loadData(SAVE.load_var(data, "world", {}))
+	ServiceLocator.safe_get_service(&"World").loadData(SAVE.load_var(data, "world", {}))
 	apply_all_world_edits()
 
 # ==========================================
@@ -310,7 +310,7 @@ func _do_time_process(seconds: int) -> void:
 	var copy_seconds := seconds
 	while copy_seconds > 0:
 		var clipped_seconds := mini(60 * 60, copy_seconds)
-		GM.pc.process_time(clipped_seconds)
+		ServiceLocator.safe_get_service(&"Player").process_time(clipped_seconds)
 		for char_id in characters_to_update:
 			var character = get_character(char_id)
 			if character != null:
@@ -319,7 +319,7 @@ func _do_time_process(seconds: int) -> void:
 				character.last_updated_day = current_day
 		copy_seconds -= clipped_seconds
 
-	GM.ui.on_time_passed(seconds)
+	ServiceLocator.safe_get_service(&"UI").on_time_passed(seconds)
 
 	# Hour boundary detection (lines 764-769)
 	var old_hours := int((time_of_day - seconds) / 60.0 / 60.0)
@@ -332,7 +332,7 @@ func _do_time_process(seconds: int) -> void:
 
 ## Line 774-788
 func _hours_passed(how_much: int) -> void:
-	GM.pc.hours_passed(how_much)
+	ServiceLocator.safe_get_service(&"Player").hours_passed(how_much)
 	for char_id in characters_to_update:
 		var character = get_character(char_id)
 		if character != null:
@@ -347,7 +347,7 @@ func _hours_passed(how_much: int) -> void:
 ## Line 800-827: startNewDay
 func start_new_day() -> int:
 	IS.before_new_day()
-	GM.CS.optimize()
+	ServiceLocator.safe_get_service(&"ChildSystem").optimize()
 	if time_of_day > get_time_cap():
 		time_of_day = get_time_cap()
 	var new_time := 6 * 60 * 60
@@ -481,7 +481,7 @@ func apply_all_world_edits() -> void:
 	var world_edits = GlobalRegistry.get_world_edits()
 	for world_edit_id in world_edits:
 		var world_edit = world_edits[world_edit_id]
-		world_edit.apply(GM.world)
+		world_edit.apply(ServiceLocator.safe_get_service(&"World"))
 
 func _room_memories_process_day() -> void:
 	for room_id in room_memories.keys():

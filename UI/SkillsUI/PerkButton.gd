@@ -17,11 +17,11 @@ func setPerk(theperk: PerkBase, shouldShowCost:bool = true):
 	perk = theperk
 	showCost = shouldShowCost
 
-	if(GM.pc.getSkillsHolder().hasPerk(perk.id)):
+	if(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().hasPerk(perk.id)):
 		modulate = Color.GREEN
-	elif(GM.pc.getSkillsHolder().isPerkDisabled(perk.id)):
+	elif(ServiceLocator.safe_get_service(&"Player").getSkillsHolder().isPerkDisabled(perk.id)):
 		modulate = Color.YELLOW
-	elif(!GM.pc.getSkillsHolder().canUnlockPerk(perk.id)):
+	elif(!ServiceLocator.safe_get_service(&"Player").getSkillsHolder().canUnlockPerk(perk.id)):
 		modulate = Color.RED
 	else:
 		modulate = Color.WHITE

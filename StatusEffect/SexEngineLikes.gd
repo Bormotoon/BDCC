@@ -9,7 +9,7 @@ func _init():
 	priorityDuringChecking = 50
 	
 func shouldApplyTo(_npc):
-	if(GM.main != null && GM.main.supportsSexEngine()):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").supportsSexEngine()):
 		return true
 	return false
 	

@@ -19,7 +19,7 @@ func _run():
 		var npcSlave:NpcSlave = npc.getNpcSlavery()
 		addCharacter(npcID)
 		aimCameraAndSetLocName("main_punishment_spot")
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		playAnimation(StageScene.Stocks, "idle", {pc=npcID})
 		
 		saynn("{npc.name} is stuck in the stocks. You can wait for someone to use {npc.him} or do it yourself.")
@@ -57,8 +57,8 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 
 	if(state == "do_free_slave"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Duo, "stand", {npc=npcID, npcBodyState={leashedBy="pc"}})
 		
 		saynn("Enough stocks, you free {npc.name} up and then bring {npc.him} back to your cell.")

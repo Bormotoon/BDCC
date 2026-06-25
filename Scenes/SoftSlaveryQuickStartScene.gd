@@ -13,7 +13,7 @@ func _run():
 		playAnimation(StageScene.TFLook, "start")
 		saynn("Who do you want to be enslaved by?")
 		
-		for npcID in GM.main.getDynamicCharacters():
+		for npcID in ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacters():
 			var theNPC:DynamicCharacter = getCharacter(npcID)
 			if(!theNPC || !theNPC.isDynamicCharacter()):
 				continue
@@ -84,8 +84,8 @@ func _react(_action: String, _args):
 		return
 	if(_action == "startSlaveryTraits"):
 		endScene()
-		GM.main.RS.startSpecialRelantionship("SoftSlavery", pickedNPC, [pickedOwnerType])
-		var theSlavery = GM.main.RS.getSpecialRelationship(pickedNPC)
+		ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", pickedNPC, [pickedOwnerType])
+		var theSlavery = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(pickedNPC)
 		if(theSlavery && theSlavery.id=="SoftSlavery" && theSlavery.npcOwner && theSlavery.npcOwner.has_method("addTrait")):
 			var theNpcOwner:NpcOwnerBase = theSlavery.npcOwner
 			for traitID in pickedTraits:
@@ -95,7 +95,7 @@ func _react(_action: String, _args):
 		var theOwnerType:NpcOwnerBase = GlobalRegistry.getNpcOwnerTypeRef(_args[0])
 		if(!theOwnerType.debugCanPickTraits()):
 			endScene()
-			GM.main.RS.startSpecialRelantionship("SoftSlavery", pickedNPC, [_args[0]])
+			ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", pickedNPC, [_args[0]])
 			runScene("NpcOwnerEventRunnerScene", [pickedNPC, "Intro", ["ambush"]])
 		else:
 			pickedOwnerType = _args[0]

@@ -23,7 +23,7 @@ func canSell():
 	return true
 
 func getTags():
-	if(GM.main != null && GM.main.SCI != null && GM.main.SCI.hasUpgrade("advPenisPump")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").SCI != null && ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("advPenisPump")):
 		return [ItemTag.SoldByMedicalVendomat, ItemTag.PenisPump]
 	return [ItemTag.PenisPump]
 

@@ -11,14 +11,14 @@ signal openBasePerks
 func updateSkills():
 	Util.delete_children(skillsContainer)
 	
-	var skills = GM.pc.getSkillsHolder().getSkills()
+	var skills = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getSkills()
 	for skillID in skills:
 		var skillPanel = skillOverviewPanelScene.instantiate()
 		skillsContainer.add_child(skillPanel)
 		skillPanel.setSkillID(skillID)
 		skillPanel.perksButton.connect(onPerksButton)
 	
-	var basePerksAmount = GM.pc.getSkillsHolder().getVisibleBasePerksIDs().size()
+	var basePerksAmount = ServiceLocator.safe_get_service(&"Player").getSkillsHolder().getVisibleBasePerksIDs().size()
 	if(basePerksAmount == 0):
 		basePerksInfo.visible = false
 	else:

@@ -14,7 +14,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	var npcOwner := getNpcOwner()
 	if(!npcOwner):
 		return false
-	if(GM.main.isVeryLate()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 		return false
 	return true
 	
@@ -65,7 +65,7 @@ func doGo():
 		setState("invite")
 		return
 	
-	if(GM.main.isVeryLate() || giveupTimer > 30):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate() || giveupTimer > 30):
 		if(canStartSexAtAll()):
 			gaveupSearching = true
 			setState("about_to_sex")

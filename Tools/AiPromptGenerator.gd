@@ -8,7 +8,7 @@ class_name AiPromptGenerator extends EditorScript
 const PROMPT_TEMPLATE := """Please migrate this Godot 3.x script to Godot 4.x (GDScript 2.0).
 Requirements:
 1. Use strict typing: `-> void`, `@export`, `StringName` (&"name")
-2. Replace `GM.main.IS.*`, `GM.main.RS.*`, `GM.*` with `EventBus` signals or `ServiceLocator.get_service()`
+2. Replace `ServiceLocator.safe_get_service(&"MainScene").IS.*`, `ServiceLocator.safe_get_service(&"MainScene").RS.*`, `GM.*` with `EventBus` signals or `ServiceLocator.get_service()`
 3. Replace `yield()` with `await`
 4. Replace `onready var` with `@onready var`
 5. Replace `export` with `@export`
@@ -27,7 +27,7 @@ const MIGRATION_CHECKLIST := """
 - [ ] `onready` -> `@onready`
 - [ ] `export` -> `@export`
 - [ ] `yield()` -> `await`
-- [ ] `GM.main.*` -> `EventBus` / `ServiceLocator`
+- [ ] `ServiceLocator.safe_get_service(&"MainScene").*` -> `EventBus` / `ServiceLocator`
 - [ ] `Directory` -> `DirAccess`
 - [ ] `File` -> `FileAccess`
 - [ ] `PoolStringArray` -> `PackedStringArray`

@@ -17,7 +17,7 @@ func trySubEventStart(_event, _tag:String, _args:Array, _context:Dictionary) -> 
 	var npcOwner := getNpcOwner()
 	if(!npcOwner):
 		return false
-	if(GM.main.isVeryLate()):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 		return false
 	return true
 	
@@ -82,7 +82,7 @@ func doGo():
 		setState("invite")
 		return
 	
-	if(GM.main.isVeryLate() || giveupTimer > 30):
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate() || giveupTimer > 30):
 		if(canStartSexAtAll()):
 			gaveupSearching = true
 			setState("about_to_sex")
@@ -201,7 +201,7 @@ func about_to_sex_sexResult(_sex:SexEngineResult):
 		var maxExtra:float = pow(sexSatisfaction, 0.5)*20.0
 		earnedCredits = randi_range(5, 10) + int(randf_range(minExtra, maxExtra))
 	if(earnedCredits > 0):
-		GM.pc.addCredits(earnedCredits)
+		ServiceLocator.safe_get_service(&"Player").addCredits(earnedCredits)
 	setState("afterSex")
 
 func afterSex():

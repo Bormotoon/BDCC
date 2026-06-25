@@ -13,9 +13,9 @@ func resolveCustomCharacterName(_charID):
 
 func _reactInit():
 	npc.getNpcSlavery().addTired(1)
-	if(!GM.pc.hasEffect(StatusEffect.Yoga)):
+	if(!ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Yoga)):
 		npc.getNpcSlavery().addExperience(10)
-	GM.pc.addEffect(StatusEffect.Yoga)
+	ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Yoga)
 
 func _init():
 	sceneID = "ActionSlaverySubMassageToPC"
@@ -80,10 +80,10 @@ func _react(_action: String, _args):
 	if(_action == "butt_massage"):
 		processTime(10*60)
 		if(npc.getNpcSlavery().getSlaveSkill(SlaveType.Submissive) >= 15):
-			GM.pc.addEffect(StatusEffect.WorkOut)
+			ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.WorkOut)
 		else:
-			GM.pc.addEffect(StatusEffect.WorkOutLight)
-		GM.pc.addStamina(100)
+			ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.WorkOutLight)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
 		npc.getNpcSlavery().addTired(1)
 		
 	

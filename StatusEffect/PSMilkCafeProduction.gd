@@ -9,7 +9,7 @@ func _init():
 	priorityDuringChecking = 94
 	
 func shouldApplyTo(_npc):
-	if(GM.main.PS && GM.main.PS.id == "MilkCafe"):
+	if(ServiceLocator.safe_get_service(&"MainScene").PS && ServiceLocator.safe_get_service(&"MainScene").PS.id == "MilkCafe"):
 		return true
 	return false
 

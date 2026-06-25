@@ -70,7 +70,7 @@ func approachMenu_do(_id:String, _args:Array):
 		if(theNpcOwner):
 			theNpcOwner.nextApproachOverride = _args[0] if _args.size() > 0 else 0
 			if(theNpcOwner.nextApproachOverride > 0): # Adjusting the next approach day to fit
-				var newDaysApproach:int = GM.main.getDays() + theNpcOwner.nextApproachOverride
+				var newDaysApproach:int = ServiceLocator.safe_get_service(&"MainScene").getDays() + theNpcOwner.nextApproachOverride
 				if(theNpcOwner.nextApproachDay > newDaysApproach):
 					theNpcOwner.nextApproachDay = newDaysApproach
 		setState("approachMenu")

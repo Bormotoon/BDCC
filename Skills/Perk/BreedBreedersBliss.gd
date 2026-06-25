@@ -29,4 +29,4 @@ func onSexEvent(_event:SexEvent):
 				_event.getSourceChar().addPain(-20)
 				_event.getSourceChar().addStamina(20)
 				if(_event.getSourceChar().isPlayer()):
-					GM.main.addMessage("Feels so good to cum inside someone who is in heat!")
+					ServiceLocator.safe_get_service(&"MainScene").addMessage("Feels so good to cum inside someone who is in heat!")

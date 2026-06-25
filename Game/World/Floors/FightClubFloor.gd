@@ -8,5 +8,5 @@ func _on_FightClubRoom_onEnter(room):
 
 func _on_FightClubRoom_onReact(_room, key):
 	if(key == "leave"):
-		GM.pc.setLocation("gym_secret")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_secret")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

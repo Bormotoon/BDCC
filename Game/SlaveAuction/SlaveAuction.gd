@@ -63,7 +63,7 @@ func calculateSlaveTraits():
 	slaveTraits = calculateSlaveTraitsStatic(getChar())
 
 func generateBidders():
-	bidders = GM.main.SAB.grabBidders()
+	bidders = ServiceLocator.safe_get_service(&"MainScene").SAB.grabBidders()
 	for bidder in bidders:
 		bidder.setAuction(self)
 

@@ -7,8 +7,8 @@ func _on_MainStairs1_onEnter(room):
 
 func _on_MainStairs1_onReact(_room, key):
 	if(key == "godown"):
-		GM.pc.setLocation("CBStairs1")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("CBStairs1")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 
 
 func _on_MainStairs2_onEnter(room):
@@ -17,12 +17,12 @@ func _on_MainStairs2_onEnter(room):
 
 func _on_MainStairs2_onReact(_room, key):
 	if(key == "godown"):
-		GM.pc.setLocation("CBStairs2")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("CBStairs2")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 
 
 func _on_MainCanteen_onEnter(room):
-	if(!GM.main.getFlag("Canteen_PlayerAteToday", false)):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("Canteen_PlayerAteToday", false)):
 		room.addButton("Eat", "See what you can catch", "eat")
 	else:
 		room.addDisabledButton("Eat", "You already ate today")
@@ -34,9 +34,9 @@ func _on_MainCanteen_onReact(room, key):
 
 
 func _on_MainDressingRoom_onEnter(room):
-	if(GM.main.playerHasCompanions()):
+	if(ServiceLocator.safe_get_service(&"MainScene").playerHasCompanions()):
 		return
-	if(GM.pc.isFullyNaked()):
+	if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 		room.addDisabledButton("Undress", "You're already naked")
 	else:
 		room.addButton("Undress", "Take off your clothes and go take a shower", "shower")
@@ -46,9 +46,9 @@ func _on_MainDressingRoom_onReact(room, key):
 		room.runScene("TakingAShowerScene")
 
 func _on_MainShowerRoom_onEnter(room):
-	if(GM.main.playerHasCompanions()):
+	if(ServiceLocator.safe_get_service(&"MainScene").playerHasCompanions()):
 		return
-	if(GM.pc.isFullyNaked()):
+	if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 		room.addButton("Shower", "Take a shower", "shower")
 	else:
 		room.addDisabledButton("Shower", "You need to be naked")
@@ -97,9 +97,9 @@ func _on_MainGreenhousesJumpable_onEnter(room):
 
 func _on_MainGreenhousesJumpable_onReact(_room, key):
 	if(key == "vault"):
-		GM.pc.setLocation("yard_vaulthere")
-		GM.main.reRun()
-		GM.main.addMessage("You successfully jumped over the railing")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You successfully jumped over the railing")
 
 func _on_MainHallRoom9_onEnter(_room):
 	#room.addButton("Try stocks", "Stick your head into them out of curiosity", "stocks")

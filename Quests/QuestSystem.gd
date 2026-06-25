@@ -7,7 +7,7 @@ class_name QuestSystem
 var quests: Dictionary = {}
 
 func _ready() -> void:
-	GM.QS = self
+	ServiceLocator.safe_get_service(&"QuestSystem") = self
 	name = "QuestSystem"
 	registerQuests()
 
@@ -29,7 +29,7 @@ func getQuests() -> Dictionary:
 
 func getAllQuests() -> Dictionary:
 	var result := quests.duplicate()
-	for datapack_id in GM.main.loadedDatapacks:
+	for datapack_id in ServiceLocator.safe_get_service(&"MainScene").loadedDatapacks:
 		var datapack = GlobalRegistry.getDatapack(datapack_id)
 		if datapack == null:
 			continue
