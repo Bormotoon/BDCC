@@ -18,6 +18,12 @@ func _ready() -> void:
 		"res://Tests/TestGlobalRegistry.gd",
 		"res://Tests/TestSkillsHolder.gd",
 		"res://Tests/TestBuffsHolder.gd",
+		"res://Tests/TestBodypart.gd",
+		"res://Tests/TestPregnancy.gd",
+		"res://Tests/TestDoll3D.gd",
+		"res://Tests/TestLustCombat.gd",
+		"res://Tests/TestCrotchCode.gd",
+		"res://Tests/TestModularDialogue.gd",
 	]
 
 	var total_passed = 0
