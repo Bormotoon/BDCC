@@ -49,10 +49,10 @@ func _run():
 
 		saynn("Might as well be a little polite.")
 
-		if (GM.pc.getInmateType() == InmateType.HighSec):
+		if (ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=pc]Name is {pc.name}. Don't worry about the red, I won't bite you now.[/say]")
 
-		elif (GM.pc.getInmateType() == InmateType.SexDeviant):
+		elif (ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=pc]Name is {pc.name}. You're a lilac, just like me.[/say]")
 
 		else:
@@ -123,7 +123,7 @@ func _run():
 		addButton("So shy", "Tell the girl that she acting quite shy for a lilac", "say_shy")
 		addButton("Enough chat", "Time to move on", "enough_chat")
 		if (!gaveApple):
-			if (GM.pc.getInventory().hasItemID("appleitem")):
+			if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("appleitem")):
 				addButton("Give apple", "Give the girl one of your apples", "do_give_apple")
 			else:
 				addDisabledButton("Give apple", "You don't have any apples")
@@ -198,11 +198,11 @@ func _react(_action: String, _args):
 
 	if(_action == "enough_chat"):
 		processTime(10*60)
-		GM.pc.addPain(-50)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(-50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 
 	if(_action == "do_give_apple"):
-		GM.pc.getInventory().removeXOfOrDestroy("appleitem", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("appleitem", 1)
 		gaveApple = true
 
 	setState(_action)

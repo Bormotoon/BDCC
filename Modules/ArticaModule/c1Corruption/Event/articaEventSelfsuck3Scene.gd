@@ -24,7 +24,7 @@ func _run():
 		isVerySlut = getModule("ArticaModule").isVerySlut()
 		isLusty = getModule("ArticaModule").isLusty()
 		nakedAndShy = (isNaked && !isSlut)
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
 		playAnimation(StageScene.Solo, "walk", {pc="artica"})
 		saynn("Artica seems to be heading towards her cell. Looks like someone is horny..")
@@ -112,13 +112,13 @@ func _run():
 
 		saynn("[say=pc]Such a slut.. Sucking herself off while getting her pussy pounded raw.[/say]")
 
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		saynn("Her cock is throbbing in her mouth"+str(", the blood pressure making her knot into a fat meaty orb" if !isCaged else " while she is thrusting her tongue in any and all holes of her chastity cage")+". She could feel her climax approach, her body trembling.. and you feel yourself getting close too"+str(", the knot on your cock inflating fast as well" if pcHasKnot else "")+"..")
 
 		addButton("Cum inside", "Breed the eager fluff", "fuck_artica_cum")
 	if(state == "fuck_artica_cum"):
 		playAnimation(StageScene.SelfSuck, "fuckinside", {pc="artica", npc="pc", npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		saynn("With a final, deep thrust, you ram your cock deep inside,"+str(" knotting that needy pussy," if pcHasKnot else " breaking into her womb,")+" before.. cumming inside. Your shaft is throbbing while pumping her"+str(" busy" if getCharacter("artica").isVisiblyPregnant() else "")+" babymaker full of your hot seed.")
 
 		saynn("[say=artica]MMMHHH-Hhh!..[/say]")
@@ -224,7 +224,7 @@ func _run():
 
 		addButton("Cuddle", "Spent some time together", "after_sex_cuddle")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_put_on_strapon", [strapon])
 
@@ -259,17 +259,17 @@ func _react(_action: String, _args):
 		getModule("ArticaModule").triggerCorruption(0.1)
 		getCharacter("artica").cummedInMouthBy("artica")
 		getCharacter("artica").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "after_sex_cuddle"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		processTime(13*60)
 
 	if(_action == "do_put_on_strapon"):
 		processTime(2*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidTypeWithCharID("Cum", "artica")):
@@ -284,7 +284,7 @@ func _react(_action: String, _args):
 		getModule("ArticaModule").triggerCorruption(0.1)
 		getCharacter("artica").cummedInMouthBy("artica")
 		getCharacter("artica").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	setState(_action)
 

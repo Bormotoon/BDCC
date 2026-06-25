@@ -157,7 +157,7 @@ func _run():
 		addButton("Artica", "Bring Rahi to Artica", "go_to_artica")
 	if(state == "go_to_artica"):
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		addCharacter("artica", ["shy", "naked"])
 		playAnimation(StageScene.Duo, "stand", {pc="rahi", npc="artica", npcBodyState={naked=true}})
 		saynn("You bring Rahi to Artica's cell.")
@@ -325,7 +325,7 @@ func _run():
 
 		saynn("Artica looks you in the eyes.. while hers are sparkling..")
 
-		saynn("[say=artica]You helped uncover my kinky side.. And so I will forever be eager to spread my legs for you.."+str(" And carry your pups.." if GM.pc.hasPenis() else "")+""+str(" All while my useless cock is locked away until you need it.. or be it forever too.." if getCharacter("artica").isWearingChastityCage() else "")+"[/say]")
+		saynn("[say=artica]You helped uncover my kinky side.. And so I will forever be eager to spread my legs for you.."+str(" And carry your pups.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+""+str(" All while my useless cock is locked away until you need it.. or be it forever too.." if getCharacter("artica").isWearingChastityCage() else "")+"[/say]")
 
 		addButton("Continue", "See what happens next", "artica_kneels")
 	if(state == "artica_kneels"):
@@ -386,7 +386,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "do_crotchface"):
 		playAnimation(StageScene.ChairCrotchSniff, "grind", {pc="artica", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		saynn("Marking.. you know exactly how to mark that girl. You push her onto her bed.. before grabbing her face and shoving it into your crotch!"+str(" You make sure to grind your wet, needy pussy against that snout, forcing your scent into her fur and also making her breathe it in." if (GM.pc.hasReachableVagina() && !GM.pc.hasReachablePenis()) else "")+""+str(" You make sure to push her snout against your ballsack, forcing your scent into her fur while also making her breathe it in." if (!GM.pc.hasReachableVagina() && GM.pc.hasReachablePenis()) else "")+"")
+		saynn("Marking.. you know exactly how to mark that girl. You push her onto her bed.. before grabbing her face and shoving it into your crotch!"+str(" You make sure to grind your wet, needy pussy against that snout, forcing your scent into her fur and also making her breathe it in." if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis()) else "")+""+str(" You make sure to push her snout against your ballsack, forcing your scent into her fur while also making her breathe it in." if (!ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && ServiceLocator.safe_get_service(&"Player").hasReachablePenis()) else "")+"")
 
 		saynn("[say=pc]You are my slut. My personal slut. Understand?[/say]")
 
@@ -407,7 +407,7 @@ func _run():
 		saynn("(( Artica's content ends here. Thank you for playing <3 ))")
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "do_piss_on"):
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			playAnimation(StageScene.SexPawjob, "tease", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 			saynn("Marking.. you know exactly how to mark that fluff in a way that will make her remember it..")
 
@@ -417,7 +417,7 @@ func _run():
 			playAnimation(StageScene.ChairCrotchSniff, "sniff", {pc="artica", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 			saynn("Marking.. you know exactly how to mark that fluff in a way that will make her remember it..")
 
-			saynn("You grab her by the short hair.. and push her face against your "+str("pussy" if GM.pc.hasVagina() else "crotch")+". You hold her there while waiting for the urge to happen.. and soon..")
+			saynn("You grab her by the short hair.. and push her face against your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasVagina() else "crotch")+". You hold her there while waiting for the urge to happen.. and soon..")
 
 		saynn("[say=artica]Eep..[/say]")
 
@@ -429,7 +429,7 @@ func _run():
 
 		saynn("[say=artica]Ah.. y-yes~. I'm a total slut for your.. piss.. H.. h-haha. mmhh-h..[/say]")
 
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You smile as you empty your bladder onto her.")
 
 		else:

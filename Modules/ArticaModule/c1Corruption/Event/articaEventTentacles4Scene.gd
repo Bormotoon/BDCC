@@ -39,7 +39,7 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.Duo, "stand", {pc="artica", npc="eliza"})
 		aimCameraAndSetLocName("med_lobbymain")
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		saynn("You grab Artica by her paw and carefully guide her to the main elevator. It starts bringing you down to the lower floor..")
 
 		saynn("[say=artica]T-these a-are not.. p-pups.. I.. I g-got.. um..[/say]")
@@ -236,7 +236,7 @@ func _react(_action: String, _args):
 			var anEgg = GlobalRegistry.createItem("PlantEgg")
 			anEgg.whoGaveBirth = "artica"
 			anEgg.setAmount(willReceive)
-			GM.pc.getInventory().addItem(anEgg)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(anEgg)
 		getModule("ArticaModule").triggerCorruption(0.05)
 
 	if(_action == "skip_lookatartica"):
@@ -257,7 +257,7 @@ func _react(_action: String, _args):
 			var anEgg = GlobalRegistry.createItem("PlantEgg")
 			anEgg.whoGaveBirth = "artica"
 			anEgg.setAmount(willReceive)
-			GM.pc.getInventory().addItem(anEgg)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(anEgg)
 		getModule("ArticaModule").triggerCorruption(0.05)
 
 	if(_action == "back_to_lobby"):

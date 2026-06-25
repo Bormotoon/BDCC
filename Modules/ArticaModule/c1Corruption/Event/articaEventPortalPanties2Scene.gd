@@ -30,7 +30,7 @@ func _run():
 
 		addButton("Follow", "See where she goes", "in_workshop")
 	if(state == "in_workshop"):
-		GM.pc.setLocation("eng_workshop")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_workshop")
 		aimCameraAndSetLocName("eng_workshop")
 		addCharacter("alexrynard")
 		playAnimation(StageScene.Duo, "stand", {pc="artica", npc="alexrynard"})
@@ -75,7 +75,7 @@ func _run():
 		addButton("Follow", "See where Artica is going now..", "in_cell")
 	if(state == "in_cell"):
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.SexPortalOral, "tease", {pc="artica", onlyRight=true, bodyState={naked=true, hard=true}})
 		removeCharacter("alexrynard")

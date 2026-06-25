@@ -19,4 +19,4 @@ func onButton(_method, _args):
 		setFlag("ArticaModule.TentaclesPcHasFlower", true)
 		addMessage("You stole the flower that Artica needs. Go give it to her!")
 		addExperienceToPlayer(50)
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

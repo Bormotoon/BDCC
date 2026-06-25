@@ -105,7 +105,7 @@ func _run():
 
 		addButton("Follow", "See where Artica is heading..", "artica_in_workshop")
 	if(state == "artica_in_workshop"):
-		GM.pc.setLocation("eng_workshop")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_workshop")
 		aimCameraAndSetLocName("eng_workshop")
 		playAnimation(StageScene.Duo, "sit", {pc="artica", npc="socket", npcAction=["stand", "res://Inventory/UnriggedModels/BigWrench/BigWrench.tscn"]})
 		saynn("Socket brings Artica into the workshop. A room with multiple working benches for inmates and staff to use. Although, any and all tools seem to be locked away, requiring staff access.")

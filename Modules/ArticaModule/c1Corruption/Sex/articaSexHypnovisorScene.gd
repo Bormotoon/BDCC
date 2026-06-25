@@ -753,7 +753,7 @@ func _run():
 
 		addButton("Follow", "See how Doctor Quinn will fix Artica", "in_milking_room")
 	if(state == "in_milking_room"):
-		GM.pc.setLocation("med_lobbynw")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbynw")
 		aimCameraAndSetLocName("med_milkingroom")
 		playAnimation(StageScene.BDSMMachineFuck, "tease", {pc="artica", bodyState={naked=true, hard=true}})
 		saynn("Doctor Quinn brings you into a secluded room that has some.. specialized equipment. The feline presses a button and Artica gets grabbed and put onto a special table by some mechanical arms.")
@@ -878,7 +878,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addPumpButtons(go_id):
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.Hypnovisor)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.Hypnovisor)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), go_id, [pump])
 
@@ -891,7 +891,7 @@ func _react(_action: String, _args):
 	if(_action == "do_pick_visor"):
 		var pump = _args[0]
 		visorID = pump.getUniqueID()
-		GM.pc.getInventory().removeItem(pump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 
 	if(_action == "endthescene2"):
@@ -899,7 +899,7 @@ func _react(_action: String, _args):
 			var visor = getCharacter("artica").getInventory().getItemByUniqueID(visorID)
 			if(visor != null):
 				getCharacter("artica").getInventory().removeEquippedItem(visor)
-				GM.pc.getInventory().addItem(visor)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(visor)
 		endScene()
 		return
 
@@ -925,7 +925,7 @@ func _react(_action: String, _args):
 	if(_action == "bj_pet_cum"):
 		processTime(5*60)
 		getCharacter("artica").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 		getModule("ArticaModule").addCorruption(0.01)
 
 	if(_action == "pet_presents"):
@@ -949,7 +949,7 @@ func _react(_action: String, _args):
 			var visor = getCharacter("artica").getInventory().getItemByUniqueID(visorID)
 			if(visor != null):
 				getCharacter("artica").getInventory().removeEquippedItem(visor)
-				GM.pc.getInventory().addItem(visor)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(visor)
 				visorID = ""
 
 	if(_action == "slut_brainwashed"):
@@ -1044,7 +1044,7 @@ func _react(_action: String, _args):
 			var visor = getCharacter("artica").getInventory().getItemByUniqueID(visorID)
 			if(visor != null):
 				getCharacter("artica").getInventory().removeEquippedItem(visor)
-				GM.pc.getInventory().addItem(visor)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(visor)
 				visorID = ""
 
 	if(_action == "avy_breeds_artica"):

@@ -500,7 +500,7 @@ func _run():
 
 		saynn("She just moans back, shaking her head subtly, her shy cyan eyes refuse to ever meet with yours.")
 
-		if (!GM.pc.isVisiblyPregnant()):
+		if (!ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("[say=pc]I want you to knot me~. I want you to drain your balls inside me. Give me your pups, Artica, I want you to breed me.[/say]")
 
 		else:
@@ -523,7 +523,7 @@ func _run():
 
 		saynn("[say=pc]Good.. g-good.. girl..[/say]")
 
-		if (GM.pc.isWearingChastityCage() || GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own member is shooting {pc.cum} onto Artica's belly.. but all the mess is quickly washed away by the running water..")
 
 		saynn("After your orgasms begin to fade.. you are both left panting.. still tied by Artica's knot.. in a pretty awkward pose.")
@@ -621,13 +621,13 @@ func _run():
 
 		saynn("[say=artica]Ah..ahh.ah.. g-gods.. t-too m-much..[/say]")
 
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		saynn("Her tongue is out and drooling, her hind paw shaking in your hand.. while you just keep pushing through, pounding her orgasming cunt.. until your own orgasm creeps by"+str(", the knot on your cock inflating fast" if pcHasKnot else "")+"..")
 
 		addButton("Cum inside", "Breed the fluff", "rail_fuck_sex_cum")
 	if(state == "rail_fuck_sex_cum"):
 		playAnimation(StageScene.SexPinnedBehind, "inside", {pc="pc", npc="artica", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("With one final thrust, you bury your {pc.penis} deep inside Artica's quivering pussy.. until the knot slips inside, stretching her folds to their limits. It makes the fluff shake again, her inner walls squeezing your cock.. until she feels a hot rush of your {pc.cum} filling her womb, her orgasm crashing over yours..")
 
@@ -655,7 +655,7 @@ func _run():
 		addButton("Rest", "Just shower together", "rail_after_sex")
 	if(state == "rail_after_sex"):
 		playAnimation(StageScene.Duo, "stand", {npc="artica", bodyState={naked=true}, npcBodyState={naked=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("After your knot deflates, you finally pull out, causing Artica's stretched, used pussy to start gushing your seed.")
 
@@ -705,7 +705,7 @@ func _react(_action: String, _args):
 	if(_action == "do_shower_together"):
 		processTime(5*60)
 		getCharacter("artica").afterTakingAShower()
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 
 	if(_action == "do_eat_pussy"):
 		processTime(5*60)
@@ -722,9 +722,9 @@ func _react(_action: String, _args):
 	if(_action == "ride_cum"):
 		processTime(3*60)
 		getModule("ArticaModule").triggerCorruption(0.01)
-		GM.pc.gotVaginaFuckedBy("artica")
-		GM.pc.cummedInVaginaByAdvanced("artica", {knotted=true})
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("artica", {knotted=true})
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "ride_after_knot"):
 		processTime(10*60)
@@ -739,7 +739,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 		getModule("ArticaModule").triggerCorruption(0.01)
 		getCharacter("artica").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "rail_after_sex"):
 		processTime(5*60)

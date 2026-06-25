@@ -441,7 +441,7 @@ func addSlaveButtons():
 		sayn("You")
 
 	var notFit = {}
-	var pcSlaves = GM.main.getPCSlavesIDs()
+	var pcSlaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 	for slaveID in pcSlaves:
 		var character = getCharacter(slaveID)
 		var npcSlave = character.getNpcSlavery()
@@ -495,7 +495,7 @@ func nextGang():
 
 func after_gangbang():
 	for slaveID in pickedSlaves:
-		GM.main.updateCharacterUntilNow(slaveID)
+		ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(slaveID)
 		getCharacter(slaveID).removeStrapon()
 		
 		getCharacter("artica").cummedOnBy(slaveID)

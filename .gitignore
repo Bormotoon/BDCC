@@ -19,3 +19,6 @@ logs/
 *.spp
 *.assbin*.uid
 .godot/
+
+# Backup files from migration tools
+*.bak

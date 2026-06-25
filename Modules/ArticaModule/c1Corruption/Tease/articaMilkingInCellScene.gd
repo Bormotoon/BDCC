@@ -341,12 +341,12 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addPumpButtons(go_id):
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), go_id, [pump])
 
 func addPenisPumpButtons(go_id):
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.PenisPump)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.PenisPump)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), go_id, [pump])
 
@@ -368,7 +368,7 @@ func _react(_action: String, _args):
 	if(_action == "do_pick_breastpump"):
 		var pump = _args[0]
 		breastPumpID = pump.getUniqueID()
-		#GM.pc.getInventory().removeItem(pump)
+		#ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		#getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 		setState("")
 		return
@@ -381,21 +381,21 @@ func _react(_action: String, _args):
 	if(_action == "do_pick_penispump"):
 		var pump = _args[0]
 		penisPumpID = pump.getUniqueID()
-		#GM.pc.getInventory().removeItem(pump)
+		#ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		#getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 		setState("")
 		return
 
 	if(_action == "secure_pumps"):
 		if(breastPumpID!=""):
-			var pump = GM.pc.getInventory().getItemByUniqueID(breastPumpID)
+			var pump = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(breastPumpID)
 			if(pump != null):
-				GM.pc.getInventory().removeItem(pump)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 				getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 		if(penisPumpID!=""):
-			var pump = GM.pc.getInventory().getItemByUniqueID(penisPumpID)
+			var pump = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(penisPumpID)
 			if(pump != null):
-				GM.pc.getInventory().removeItem(pump)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 				getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 
 	if(_action == "start_pumps"):
@@ -444,15 +444,15 @@ func _react(_action: String, _args):
 			var pump = getCharacter("artica").getInventory().getItemByUniqueID(breastPumpID)
 			if(pump != null):
 				getCharacter("artica").getInventory().removeEquippedItem(pump)
-				GM.pc.getInventory().addItem(pump)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(pump)
 		if(penisPumpID != ""):
 			var pump = getCharacter("artica").getInventory().getItemByUniqueID(penisPumpID)
 			if(pump != null):
 				getCharacter("artica").getInventory().removeEquippedItem(pump)
-				GM.pc.getInventory().addItem(pump)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(pump)
 		var totalSmart = milkTotal + seedTotal
 		if(totalSmart >= 500.0):
-			GM.pc.addSkillExperience(Skill.Milking, 50)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 50)
 			getModule("ArticaModule").addCorruption(0.02)
 		if(breastMilking):
 			getCharacter("artica").addEffect(StatusEffect.SoreNipplesAfterMilking)

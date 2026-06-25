@@ -56,10 +56,10 @@ func _run():
 
 		addButton("Continue", "See what happens next", "ask_menu")
 	if(state == "say_horny"):
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=pc]Horny as fuck. Been searching for some good slutty holes to fill, balls have been aching all day, you know?[/say]")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("[say=pc]Horny as fuck. My pussy is feeling so-o needy for some good action, I've been wet all day, you know?[/say]")
 
 		else:
@@ -276,7 +276,7 @@ func _run():
 		addButton("Follow..", "Time to pay for your mistakes", "lost_works_in_mines")
 	if(state == "lost_works_in_mines"):
 		aimCameraAndSetLocName("mining_shafts_entering")
-		GM.pc.setLocation("mining_shafts_entering")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_shafts_entering")
 		removeCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
 		saynn("The guard brings you and Artica down to the mines.")
@@ -333,7 +333,7 @@ func _run():
 		addButton("Follow", "Go to the mines with the guard", "work_in_mines_willingly")
 	if(state == "work_in_mines_willingly"):
 		aimCameraAndSetLocName("mining_shafts_entering")
-		GM.pc.setLocation("mining_shafts_entering")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_shafts_entering")
 		removeCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
 		saynn("You and Artica arrive at the mineshaft. You show her where to get the tools, where you put the ore, what rocks to smash.")
@@ -373,8 +373,8 @@ func _react(_action: String, _args):
 
 	if(_action == "enough_chat"):
 		processTime(25*60)
-		GM.pc.addPain(-50)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(-50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 
 	if(_action == "risha_bullies_artica"):
 		processTime(5*60)
@@ -393,14 +393,14 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "lost_works_in_mines"):
-		GM.main.processTimeUntil(23*60*60)
-		GM.pc.addCredits(1)
-		GM.pc.addStamina(-500)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-500)
 
 	if(_action == "work_in_mines_willingly"):
 		processTime(5*60*60)
-		GM.pc.addStamina(-50)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 	setState(_action)
 

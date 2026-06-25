@@ -148,7 +148,7 @@ func _run():
 		addButton("Reprogram", "(Noncon brainwash) Agree to reprogram Artica's mind and turn her into a perfect slut", "agree_reprogram")
 		addButton("No", "You'd rather find the dreamcatcher", "refuse")
 	if(state == "refuse"):
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		saynn("[say=pc]No. I don't think it's a good idea.[/say]")
 
 		saynn("Doctor's smile goes away, her eyes looking a bit mean now.")
@@ -268,7 +268,7 @@ func _run():
 
 		saynn("[say=artica]I.. I d-don't.. k-know..[/say]")
 
-		saynn("[say=pc]What's here to know? Soon everything is gonna be like it was. You're gonna serve as my personal fucktoy."+str(" And I will make sure your pussy is always stuffed full." if GM.pc.hasReachablePenis() else "")+""+str(" And I will make sure your balls are always drained." if !GM.pc.hasReachablePenis() else "")+" Don't you want that?[/say]")
+		saynn("[say=pc]What's here to know? Soon everything is gonna be like it was. You're gonna serve as my personal fucktoy."+str(" And I will make sure your pussy is always stuffed full." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+""+str(" And I will make sure your balls are always drained." if !ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+" Don't you want that?[/say]")
 
 		addButton("Continue", "See what happens next", "artica_resists_in_table")
 	if(state == "artica_resists_in_table"):
@@ -546,7 +546,7 @@ func _run():
 
 		saynn("Artica looks at you.. and sticks her tongue out, teasing.")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=artica]I miss some c-cocks in my cunt, that's for sure.. hehe..[/say]")
 
 		else:
@@ -604,7 +604,7 @@ func _run():
 		addButton("Continue", "See what happens next", "in_lobby_end")
 	if(state == "in_lobby_end"):
 		aimCameraAndSetLocName("med_lobbynw")
-		GM.pc.setLocation("med_lobbynw")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbynw")
 		playAnimation(StageScene.Beg, "pat", {pc="artica", npc="pc", bodyState={naked=true, hard=true}})
 		saynn("You bring Artica out in the medical lobby. And she proudly displays her chain leash.. and also wiggles her naked butt at all the nurses. So you give her a few headpats while she nuzzles into your touch, her tail wags happily, her cock pulsing..")
 

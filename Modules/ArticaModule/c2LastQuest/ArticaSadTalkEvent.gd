@@ -19,12 +19,12 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "talk"):
-		GM.main.applyWorldEdit("ArticaWorldEdit")
+		ServiceLocator.safe_get_service(&"MainScene").applyWorldEdit("ArticaWorldEdit")
 		if(getCharacter("artica").hasEffect(StatusEffect.ArticaFullWithPlantEggs)):
 			var fullWithEggs = getCharacter("artica").getEffect(StatusEffect.ArticaFullWithPlantEggs)
 			if(fullWithEggs.turns <= 0):
 				runScene("articaEventTentacles4Scene")
 				return
 		
-		if(!GM.ES.triggerReact(Trigger.TalkingToNPC, ["artica"])):
+		if(!ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["artica"])):
 			runScene("articaSadTalkScene")

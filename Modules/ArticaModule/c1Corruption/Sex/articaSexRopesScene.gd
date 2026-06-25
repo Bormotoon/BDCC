@@ -63,8 +63,8 @@ func _run():
 	if(state == "kidnap"):
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.RopesSolo, "struggle", {pc="artica", bodyState={naked=true, hard=true}})
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("You stop behind her.. before getting close and putting your hand on her maw, shushing any her protests.")
 
 		saynn("[say=artica]..ee-e.. p..[/say]")
@@ -97,7 +97,7 @@ func _run():
 
 		saynn("Makes you want to tease her more..")
 
-		saynn("[say=pc]I'd keep you high on breeding drugs.."+str(" Maybe with your belly full of someone's pups.." if !GM.pc.hasReachablePenis() else " With your belly full of pups..")+"Your mind broken, your holes constantly stretched and plugged..[/say]")
+		saynn("[say=pc]I'd keep you high on breeding drugs.."+str(" Maybe with your belly full of someone's pups.." if !ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else " With your belly full of pups..")+"Your mind broken, your holes constantly stretched and plugged..[/say]")
 
 		saynn("The more things you say, the more Artica is squirming and whining, her pussy dripping juices onto the floor.")
 
@@ -346,7 +346,7 @@ func _run():
 		addButton("Cum inside", "Stuff her butt to the brim!", "anal_sex_cum")
 	if(state == "anal_sex_cum"):
 		playAnimation(StageScene.RopesSex, "inside", {pc="artica", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("Holding back is not required anymore.. and it's too late for pulling out.. you ram your cock deep inside.. forcing the fat knot to stretch her entrance wide!")
 
@@ -432,7 +432,7 @@ func _run():
 		addButton("Cum inside", "Breeeeed", "vag_cum")
 	if(state == "vag_cum"):
 		playAnimation(StageScene.RopesSex, "inside", {pc="artica", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		var isPreg = getCharacter("artica").isVisiblyPregnant()
 		if (pcHasKnot):
 			saynn("While Artica is still going through her orgasmic waves, your own climax finally catches up with you. With a loud growl, you force your member deep inside, your knot slapping Artica's pulsing pussy.. before slipping inside! A fat orb stretching her slit is making the fluff arch her back again, her pussy squirting again from overstimulation. Moments after, your cock starts to throb and stuff her babymaker full of your seed!")
@@ -457,7 +457,7 @@ func _run():
 		addButton("Let her rest", "Let the fluff hang around a bit more", "vag_cum_rest")
 	if(state == "vag_cum_rest"):
 		playAnimation(StageScene.RopesOralSex, "tease", {pc="artica", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("You wait a bit until your knot deflates.. before yanking it out, causing a torrent of your seed to start gushing out of her gaping used hole..")
 
@@ -594,7 +594,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addPumpButtons(go_id):
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.RopeHarness)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.RopeHarness)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), go_id, [pump])
 
@@ -607,15 +607,15 @@ func _react(_action: String, _args):
 	if(_action == "do_pick_harness"):
 		var pump = _args[0]
 		harnessID = pump.getUniqueID()
-		#GM.pc.getInventory().removeItem(pump)
+		#ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		#getCharacter("artica").getInventory().forceEquipRemoveOther(pump)
 
 	if(_action == "kidnap"):
 		processTime(5*60)
 		if(harnessID != ""):
-			var theHarness = GM.pc.getInventory().getItemByUniqueID(harnessID)
+			var theHarness = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(harnessID)
 			if(theHarness != null):
-				GM.pc.getInventory().removeItem(theHarness)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theHarness)
 				getCharacter("artica").getInventory().forceEquipRemoveOther(theHarness)
 
 	if(_action == "do_toys"):
@@ -627,13 +627,13 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("artica").cummedOnBy("pc", FluidSource.Vagina)
 		getModule("ArticaModule").addCorruption(0.01)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "throatfuck_cum"):
 		processTime(5*60)
 		getCharacter("artica").cummedInMouthBy("pc")
 		getModule("ArticaModule").addCorruption(0.01)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "deepthroat_pull"):
 		processTime(5*60)
@@ -644,7 +644,7 @@ func _react(_action: String, _args):
 	if(_action == "eat_artica_out"):
 		processTime(5*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
-		GM.pc.cummedOnBy("artica", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("artica", FluidSource.Vagina)
 
 	if(_action == "anal_inside"):
 		processTime(5*60)
@@ -656,7 +656,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("artica").cummedInAnusBy("pc")
 		getModule("ArticaModule").triggerCorruption(0.03)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "vag_sex"):
 		processTime(5*60)
@@ -668,7 +668,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("artica").cummedInVaginaBy("pc")
 		getModule("ArticaModule").triggerCorruption(0.02)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "vag_cum_rest"):
 		processTime(10*60)
@@ -678,7 +678,7 @@ func _react(_action: String, _args):
 			var theHarness = getCharacter("artica").getInventory().getItemByUniqueID(harnessID)
 			if(theHarness != null):
 				getCharacter("artica").getInventory().removeEquippedItem(theHarness)
-				GM.pc.getInventory().addItem(theHarness)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theHarness)
 		playAnimation(StageScene.Solo, "stand")
 		endScene()
 		return
@@ -697,7 +697,7 @@ func _react(_action: String, _args):
 			var theHarness = getCharacter("artica").getInventory().getItemByUniqueID(harnessID)
 			if(theHarness != null):
 				getCharacter("artica").getInventory().removeEquippedItem(theHarness)
-				GM.pc.getInventory().addItem(theHarness)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theHarness)
 		getCharacter("artica").getInventory().removeEquippedItemsWithBuff(Buff.GagBuff)
 
 	setState(_action)

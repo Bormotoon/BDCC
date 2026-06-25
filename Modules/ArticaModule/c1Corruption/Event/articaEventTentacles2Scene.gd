@@ -68,7 +68,7 @@ func _run():
 	if(state == "artica_in_greenhouses"):
 		playAnimation(StageScene.Solo, "walk", {pc="artica"})
 		aimCameraAndSetLocName("main_greenhouses")
-		GM.pc.setLocation("main_greenhouses")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_greenhouses")
 		saynn("Artica approaches those hidden stairs again.. and starts sneaking. She follows the same route as before, avoiding the random patrols, most of which seem to be sleeping on their job.")
 
 		saynn("You do the same, following Artica's steps.. almost like a hunter.")

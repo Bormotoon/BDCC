@@ -54,8 +54,8 @@ func _run():
 		addButton("Cell", "Pull the fluff into your cell", "in_cell")
 	if(state == "in_cell"):
 		addCharacter("artica", ["naked"])
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.SexPawLick, "tease", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("As soon as you enter your little place, Artica gets pushed onto the bed"+str(", your hands remove her clothes in seconds and are already exploring her forms, spreading her legs" if !isNaked else ", your hands already start exploring her forms and spreading her legs")+".")
 
@@ -66,7 +66,7 @@ func _run():
 		saynn("The fluff bites her lip, her eyes avoid any contact with yours..")
 
 		var isPreg = getCharacter("artica").isPregnant()
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			if (isVerySlut):
 				if (isPreg):
 					saynn("[say=artica]I h-have a big litter inside me a-already.. b-but we could always try for m-more.. P-please.. Make m-my mind blank..[/say]")
@@ -155,7 +155,7 @@ func _run():
 
 		saynn("The fluff is squirming, her hips slightly humping your hand.. which makes you slow down.")
 
-		saynn("[say=pc]Not so fast. You're only cumming from my"+str(" cock" if GM.pc.hasReachablePenis() else " toy")+", you hear?[/say]")
+		saynn("[say=pc]Not so fast. You're only cumming from my"+str(" cock" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else " toy")+", you hear?[/say]")
 
 		saynn("[say=artica]..ah.. y-yes..[/say]")
 
@@ -171,14 +171,14 @@ func _run():
 		playAnimation(StageScene.SexPawLick, ("stroke" if isStroking else "")+"tease", {pc="pc", npc="artica", bodyState={naked=true, hard=true, condom=condomUsed}, npcBodyState={naked=true, hard=true, condom=articaCondom}})
 		saynn("What do you want to do?")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			if (condomUsed):
 				addButton("Fuck her!", "Time for some safe protected fun", "start_fuck")
 			else:
 				addButton("Breed her!", "Time for fun", "start_fuck")
 				addButtonWithChecks("Wear condom", "Put on a condom", "wear_condom_pick", [], [[ButtonChecks.HasCondoms]])
 		else:
-			if (GM.pc.isWearingStrapon()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingStrapon()):
 				addButton("Fuck her", "Make that fluff squiiiirm", "start_strapon_fuck")
 			else:
 				addDisabledButton("Breed her!", "You don't have a reachable penis..")
@@ -436,7 +436,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_put_on_strapon", [strapon])
 
@@ -451,21 +451,21 @@ func _react(_action: String, _args):
 
 	if(_action == "wear_condom_best"):
 		condomUsed = true
-		condomBreakChance = GM.pc.useBestCondom()
+		condomBreakChance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 		setState("after_wear_condom")
 		return
 
 	if(_action == "wear_condom_worst"):
 		condomUsed = true
-		condomBreakChance = GM.pc.useWorstCondom()
+		condomBreakChance = ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		setState("after_wear_condom")
 		return
 
 	if(_action == "do_put_on_strapon"):
 		processTime(2*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidTypeWithCharID("Cum", "artica")):
@@ -483,7 +483,7 @@ func _react(_action: String, _args):
 
 	if(_action == "add_condom_on_artica"):
 		articaCondom = true
-		GM.pc.useWorstCondom()
+		ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 
 	if(_action == "start_stroke_cock"):
 		isStroking = true
@@ -501,9 +501,9 @@ func _react(_action: String, _args):
 		processTime(6*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
 		if(condomUsed):
-			condomBroke = GM.pc.shouldCondomBreakWhenFucking("artica", condomBreakChance)
+			condomBroke = ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("artica", condomBreakChance)
 			if(!condomBroke):
-				addFilledCondomToLootIfPerk(GM.pc.createFilledCondom())
+				addFilledCondomToLootIfPerk(ServiceLocator.safe_get_service(&"Player").createFilledCondom())
 		
 		if(!condomUsed || condomBroke):
 			getCharacter("artica").cummedInVaginaByAdvanced("pc", {knotted=false,condomBroke=condomBroke,engulfed=false})
@@ -513,11 +513,11 @@ func _react(_action: String, _args):
 		else:
 			getCharacter("artica").cummedOnBy("artica")
 		
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "do_cuddle"):
 		processTime(20*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	setState(_action)
 

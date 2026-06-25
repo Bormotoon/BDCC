@@ -15,6 +15,6 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "badend"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("articaLastQuestBadEndScene")
 

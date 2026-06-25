@@ -13,7 +13,7 @@ func run(_triggerID, _args):
 			addButtonUnlessLate("White fluff", "Search for that new inmate", "search")
 		
 		if(getFlag("ArticaModule.s1happened") && !getFlag("ArticaModule.s2happened")):
-			if(GM.main.getDays() > getFlag("ArticaModule.s1day", -1)):
+			if(ServiceLocator.safe_get_service(&"MainScene").getDays() > getFlag("ArticaModule.s1day", -1)):
 				addButtonUnlessLate("White fluff", "Search for that new inmate", "c2scene")
 			else:
 				addDisabledButton("White fluff", "The guard is standing near that fluff's cell. Better come back some other day")
@@ -21,7 +21,7 @@ func run(_triggerID, _args):
 		if(getFlag("ArticaModule.s2happened") && !getFlag("ArticaModule.s3happened")):
 			addButtonUnlessLate("White fluff", "She seems to be here", "s3scene")
 		if(getFlag("ArticaModule.s3happened") && !getFlag("ArticaModule.s4happened")):
-			if(GM.main.getDays() > getFlag("ArticaModule.s3day", -1)):
+			if(ServiceLocator.safe_get_service(&"MainScene").getDays() > getFlag("ArticaModule.s3day", -1)):
 				addButtonUnlessLate("Artica", "Join the white fluff", "s4scene")
 			else:
 				addDisabledButton("Artica", "Visit her tomorrow")
@@ -29,7 +29,7 @@ func run(_triggerID, _args):
 			addButtonUnlessLate("Artica", "Join the white fluff", "s5scene")
 		
 		if(getFlag("ArticaModule.s5happened") && !getFlag("ArticaModule.corruptionBegan")):
-			if(GM.main.getDays() > getFlag("ArticaModule.s5day", -1)):
+			if(ServiceLocator.safe_get_service(&"MainScene").getDays() > getFlag("ArticaModule.s5day", -1)):
 				if(getFlag("ArticaModule.s6GrabbedThroat")):
 					addButtonUnlessLate("Artica", "Join the white fluff", "s7scene")
 				else:
@@ -43,7 +43,7 @@ func getPriority():
 func onButton(_method, _args):
 	if(_method == "search"):
 		setFlag("ArticaModule.s1happened", true)
-		setFlag("ArticaModule.s1day", GM.main.getDays())
+		setFlag("ArticaModule.s1day", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		runScene("articaS1CellblockScene")
 
 	if(_method == "c2scene"):
@@ -52,7 +52,7 @@ func onButton(_method, _args):
 
 	if(_method == "s3scene"):
 		setFlag("ArticaModule.s3happened", true)
-		setFlag("ArticaModule.s3day", GM.main.getDays())
+		setFlag("ArticaModule.s3day", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		runScene("articaS3CanteenScene")
 
 	if(_method == "s4scene"):
@@ -61,7 +61,7 @@ func onButton(_method, _args):
 
 	if(_method == "s5scene"):
 		setFlag("ArticaModule.s5happened", true)
-		setFlag("ArticaModule.s5day", GM.main.getDays())
+		setFlag("ArticaModule.s5day", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		runScene("articaS5CanteenPawsScene")
 
 	if(_method == "s6scene"):

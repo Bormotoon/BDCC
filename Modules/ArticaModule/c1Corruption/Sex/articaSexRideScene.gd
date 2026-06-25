@@ -45,8 +45,8 @@ func _run():
 	if(state == "in_cell"):
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.SexCowgirlAlt, "tease", {npc="pc", pc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("You rush to your cell, pulling the girl by her collar who can barely move her hind paws fast enough to keep up.")
 
 		if (!isNaked):
@@ -59,7 +59,7 @@ func _run():
 
 		saynn("As you straddle Artica's hips.. you can just feel the heat that's radiating from her"+str(" caged up" if isCaged else "")+" cock.. the scent making your own lust grow bigger with each passing moment.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("With a sly grin, you tease "+str("her chastity cage by grinding it with your pussy slightly" if isCaged else "her hard cyan shaft by sliding your pussy along it, spreading your juices")+".")
 
 		else:
@@ -83,7 +83,7 @@ func _run():
 		playAnimation(StageScene.SexCowgirlAlt, "inside", {npc="pc", pc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("[say=pc]For me it's not useless~.[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("With a playful smirk, you position yourself above her cage, your pussy hovering just above it. Slowly, you lower yourself onto it, letting the fluff feel the heat radiating from your slick folds.")
 
 		else:
@@ -93,7 +93,7 @@ func _run():
 
 		saynn("[say=pc]It's fun to tease you.. when you're locked up like that..[/say]")
 
-		saynn("Artica squirms slightly, her cock is straining against its confines, cyan tip failing to get past the firm metal cage. All the while you just start to slowly grind your "+str("pussy" if GM.pc.hasReachableVagina() else "asshole")+" against it, riding the fluff like that..")
+		saynn("Artica squirms slightly, her cock is straining against its confines, cyan tip failing to get past the firm metal cage. All the while you just start to slowly grind your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "asshole")+" against it, riding the fluff like that..")
 
 		saynn("[say=artica]Hh-hahh.. ah..[/say]")
 
@@ -101,7 +101,7 @@ func _run():
 
 		saynn("[say=artica]P-please.. it's.. t-too much to e-endure.. ah..[/say]")
 
-		saynn("Her toes curling with anticipation, her paws grabbing onto the bed sheets.. while you just keep riding her caged cock, letting the metal tip inside your "+str("slick pussy slit.. letting your hot juices drip onto it and land on her sensitive flesh." if GM.pc.hasReachableVagina() else "needy fuckhole.. letting it spread your start slightly.")+"")
+		saynn("Her toes curling with anticipation, her paws grabbing onto the bed sheets.. while you just keep riding her caged cock, letting the metal tip inside your "+str("slick pussy slit.. letting your hot juices drip onto it and land on her sensitive flesh." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "needy fuckhole.. letting it spread your start slightly.")+"")
 
 		saynn("[say=artica]Nhh-hh!.. P-pppleee-asee.. g-gooods..[/say]")
 
@@ -135,7 +135,7 @@ func _run():
 
 		saynn("Artica tilts her head slightly, her big puppy eyes confused. But it all becomes clear when you pull out one of your strapon harnesses..")
 
-		if (GM.pc.canWearStrapon()):
+		if (ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 			saynn("[say=artica]A..are y-you gonna w-wear that?..[/say]")
 
 		else:
@@ -195,10 +195,10 @@ func _run():
 
 		saynn("Artica's toes curl from pleasure as you begin to ride her, your back arching with each motion. The feeling of being full sends shivers down your spine.. while Artica is squirming below you, your "+str("wet pussy" if !isAnal else "anal star")+" sliding up and down along the toy.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("That strapon is massaging your "+str("pleasure spot" if !isAnal else "prostate")+" so nicely that you feel the pressure behind your chastity cage rising fast too.. Two caged up cuties having fun together..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("That strapon is massaging your "+str("pleasure spot" if !isAnal else "prostate")+" so nicely that you feel the pressure in your own member rising fast..")
 
 		addButton("Faster", "Ride her faster", "ride_strapon_pussy_faster")
@@ -210,7 +210,7 @@ func _run():
 		else:
 			saynn("As your passion grows, so does your pace, Artica's strapon reaching deep inside your {pc.masc} ass as you slam it against her hips. The cage behind the strapon harness is twitching..")
 
-		saynn("[say=artica]T-t-ttoo m-much!.. ahh-h.. I c-can't.. ah..ahh.. P-please.."+str(" m-miss.." if GM.pc.getGender() == Gender.Female else "")+"[/say]")
+		saynn("[say=artica]T-t-ttoo m-much!.. ahh-h.. I c-can't.. ah..ahh.. P-please.."+str(" m-miss.." if ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female else "")+"[/say]")
 
 		saynn("Wow.. the fluff is really getting into it, the visual stimulation getting her oh so horny.. She keeps moaning as you ride the rubber toy that has nothing to do with her real cock, her hips lifting instinctively to meet your movements.")
 
@@ -228,10 +228,10 @@ func _run():
 		if (hasArticaCumInStrapon):
 			saynn("At the same time, your own orgasm hits you like a tidal wave. Your legs shake as you take the whole rubber shaft inside you, the inner walls of your slick warm "+str("pussy squirting and" if !isAnal else "love tunnel")+" clenching rhythmically around the toy.. clenching so much that it triggers the toy to finally release its contents inside you.. [b]Artica's cum is flooding your "+str("womb" if !isAnal else "butt")+"[/b]!")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Strings of {pc.cum} erupt through the little hole of your chastity cage, landing on Artica's gray belly, leaving cute patterns and marking her fur.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Strings of {pc.cum} erupt from your {pc.penis} and land on Artica's gray belly and tits, leaving cute patterns and marking her fur.")
 
 			if (!isAnal):
@@ -251,10 +251,10 @@ func _run():
 		elif (hasCumInStrapon):
 			saynn("At the same time, your own orgasm hits you like a tidal wave. Your legs shake as you take the whole rubber shaft inside you, the inner walls of your slick warm "+str("pussy squirting and" if !isAnal else "love tunnel")+" clenching rhythmically around the toy.. clenching so much that it triggers the toy to finally release its contents inside you.. [b]Someone's cum is flooding your "+str("womb" if !isAnal else "butt")+"[/b]!")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Strings of {pc.cum} erupt through the little hole of your chastity cage, landing on Artica's gray belly, leaving cute patterns and marking her fur.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Strings of {pc.cum} erupt from your {pc.penis} and land on Artica's gray belly and tits, leaving cute patterns and marking her fur.")
 
 			if (!isAnal):
@@ -274,10 +274,10 @@ func _run():
 		else:
 			saynn("At the same time, your own orgasm hits you like a tidal wave. Your legs shake as you take the whole rubber shaft inside you, the inner walls of your slick warm "+str("pussy squirting and" if !isAnal else "love tunnel")+" clenching rhythmically around the toy..")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Strings of {pc.cum} erupt through the little hole of your chastity cage, landing on Artica's gray belly, leaving cute patterns and marking her fur.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Strings of {pc.cum} erupt from your {pc.penis} and land on Artica's gray belly and tits, leaving cute patterns and marking her fur.")
 
 			saynn("[say=pc]Ah.. yeah.. Good girl.. Got so excited just from watching me ride your cock~?[/say]")
@@ -319,10 +319,10 @@ func _run():
 
 		saynn("Artica's toes curl from pleasure as you begin to ride her, your back arching with each motion. The feeling of being full sends shivers down your spine.. while Artica is squirming below you, your "+str("wet pussy" if !isAnal else "anal star")+" sliding up and down her shaft.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Her cock is massaging your "+str("pleasure spot" if !isAnal else "prostate")+" so nicely that you feel the pressure behind your chastity cage rising fast..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Her cock is massaging your "+str("pleasure spot" if !isAnal else "prostate")+" so nicely that you feel the pressure in your own member rising fast..")
 
 		addButton("Faster", "Ride her faster", "ride_pussy_faster")
@@ -334,7 +334,7 @@ func _run():
 		else:
 			saynn("As your passion grows, so does your pace, Artica's cock reaching deep inside your {pc.masc} ass as you slam it against her hips.")
 
-		saynn("[say=artica]T-t-ttoo m-much!.. ahh-h.. I c-can't.. ah..ahh.. P-please.."+str(" m-miss.." if GM.pc.getGender() == Gender.Female else "")+"[/say]")
+		saynn("[say=artica]T-t-ttoo m-much!.. ahh-h.. I c-can't.. ah..ahh.. P-please.."+str(" m-miss.." if ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female else "")+"[/say]")
 
 		saynn("Artica's knot is inflating, making her cock is even more fat at the base.. so much that the orb doesn't fit inside anymore, just slapping against your "+str("needy {pc.vaginaStretch} pussy folds" if !isAnal else "needy {pc.analStretch} ring")+".. But you keep trying, stretching yourself out more bit by bit..")
 
@@ -365,10 +365,10 @@ func _run():
 
 		saynn("Oh wow, Artica is grabbing onto the bed sheets desperately while her whole body is thrashing wildly, her lusty eyes rolling up, her"+str(" own" if !isAnal else "")+" pussy releasing a shower of her girly fluids onto her thighs..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("That's not all the mess that the fluff is receiving though, there is also your caged up cock that is cumming all over her gray belly, weak strings of your seed are marking her fur.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("That's not all the mess that the fluff is receiving though, there is also your own cock that is cumming all over her gray belly, strong strings of your seed are marking her fur.")
 
 		saynn("Both you and her are panting heavily.. the feeling of tightness doesn't ever leave anymore as you two are tied together, her full member stuck inside you..")
@@ -465,7 +465,7 @@ func _run():
 		saynn("Your cell smells of hot sex.. you keep riding that knot, forcing it in and out yourself.. until Artica's cock starts throbbing inside you yet again! With full force, you bring yourself down, accepting her full length.. followed by Artica's hot virile seed spilling "+str("inside your womb" if !isAnal else "deep inside you")+" yet again, her balls tensing up wildly as you milk them dry with your stretched "+str("cunt" if !isAnal else "inner walls")+".")
 
 		if (!isAnal):
-			if (GM.pc.isVisiblyPregnant()):
+			if (ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("[say=pc]Y-yeah.. I'm pregnant already but I need more.. I need all of it..[/say]")
 
 			else:
@@ -568,7 +568,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene_getbackstrapon")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_put_on_strapon_on_artica", [strapon])
 
@@ -594,7 +594,7 @@ func _react(_action: String, _args):
 	if(_action == "do_put_on_strapon_on_artica"):
 		processTime(2*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
 		getCharacter("artica").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
@@ -616,21 +616,21 @@ func _react(_action: String, _args):
 		processTime(6*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
 		if(isAnal):
-			GM.pc.gotAnusFuckedBy("artica")
-			GM.pc.cummedInAnusBy("artica", FluidSource.Strapon)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("artica", FluidSource.Strapon)
 		else:
-			GM.pc.gotVaginaFuckedBy("artica")
-			GM.pc.cummedInVaginaBy("artica", FluidSource.Strapon)
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("artica", FluidSource.Strapon)
 		getCharacter("artica").cummedOnBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "pussy_sit_on_face_strapon"):
 		processTime(10*60)
 		getModule("ArticaModule").triggerCorruption(0.01)
 		if(isAnal):
-			GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Anus, "artica", BodypartSlot.Head, 0.2, 20.0)
+			ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Anus, "artica", BodypartSlot.Head, 0.2, 20.0)
 		else:
-			GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Vagina, "artica", BodypartSlot.Head, 0.2, 20.0)
+			ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Vagina, "artica", BodypartSlot.Head, 0.2, 20.0)
 		setState("pussy_sit_on_face")
 		return
 
@@ -638,14 +638,14 @@ func _react(_action: String, _args):
 		processTime(6*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
 		if(isAnal):
-			GM.pc.gotAnusFuckedBy("artica")
-			GM.pc.cummedInAnusBy("artica")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("artica")
 		else:
-			GM.pc.gotVaginaFuckedBy("artica")
-			GM.pc.cummedInVaginaBy("artica")
-		if(GM.pc.isWearingChastityCage() || GM.pc.hasReachablePenis()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("artica")
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			getCharacter("artica").cummedOnBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "just_rest"):
 		processTime(20*60)
@@ -654,21 +654,21 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("ArticaModule").triggerCorruption(0.01)
 		if(isAnal):
-			GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Anus, "artica", BodypartSlot.Head, 0.2, 20.0)
+			ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Anus, "artica", BodypartSlot.Head, 0.2, 20.0)
 		else:
-			GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Vagina, "artica", BodypartSlot.Head, 0.2, 20.0)
+			ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Vagina, "artica", BodypartSlot.Head, 0.2, 20.0)
 
 	if(_action == "pussy_knot_fucking"):
 		processTime(10*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
 		if(!isAnal):
-			GM.pc.gotVaginaFuckedBy("artica")
-			GM.pc.cummedInVaginaBy("artica")
-			GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "artica")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("artica")
+			ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "artica")
 		else:
-			GM.pc.gotAnusFuckedBy("artica")
-			GM.pc.cummedInAnusBy("artica")
-			GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "artica")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("artica")
+			ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "artica")
 
 	if(_action == "after_knotfuck"):
 		processTime(3*60*60)
@@ -677,7 +677,7 @@ func _react(_action: String, _args):
 		if(getCharacter("artica").isWearingStrapon()):
 			var strapon = getCharacter("artica").getWornStrapon()
 			getCharacter("artica").getInventory().removeEquippedItem(strapon)
-			GM.pc.getInventory().addItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(strapon)
 		endScene()
 		return
 

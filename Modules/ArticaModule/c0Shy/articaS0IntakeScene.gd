@@ -18,7 +18,7 @@ func _run():
 		addButton("Watch", "Look at the new inmates", "artica_arrives")
 	if(state == "artica_arrives"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		addCharacter("artica")
 		addCharacter("risha")
 		playAnimation(StageScene.Duo, "walk", {pc="artica", npc="risha", flipNPC=true, npcAction="walk", bodyState={leashedBy="risha"}})

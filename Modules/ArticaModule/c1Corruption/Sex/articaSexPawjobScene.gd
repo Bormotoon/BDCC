@@ -34,8 +34,8 @@ func _run():
 		addButton("Cell", "Have some fun", "in_cell")
 	if(state == "in_cell"):
 		playAnimation(StageScene.SexPawjob, "tease", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		addCharacter("artica", ["naked"])
 		if (!isNaked):
 			saynn("You bring Artica into your cell and invite her to undress. Without much resistance, lilac uniform lands on the chair.. Artica doesn't seem to be shy when alone with you, proudly displaying her"+str(" round" if getCharacter("artica").isVisiblyPregnant() else "")+" forms.")
@@ -69,7 +69,7 @@ func _run():
 
 		saynn("[say=artica]Like that?..[/say]")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The sight makes your cock go hard in seconds, blood pumping through the bumpy veins..")
 
 		saynn("What do you want to do?")
@@ -296,7 +296,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 		getModule("ArticaModule").addCorruption(0.01)
 		getCharacter("artica").cummedOnBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "after_pawjob"):
 		processTime(3*60)
@@ -307,12 +307,12 @@ func _react(_action: String, _args):
 	if(_action == "feet_thrust_cum"):
 		processTime(5*60)
 		getModule("ArticaModule").triggerCorruption(0.02)
-		GM.pc.cummedOnBy("artica")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("artica")
 
 	if(_action == "feet_thrust_condom"):
 		processTime(5*60)
 		usedCondom = true
-		GM.pc.useWorstCondom()
+		ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		getModule("ArticaModule").triggerCorruption(0.02)
 		addFilledCondomToLootIfPerk(getCharacter("artica").createFilledCondom())
 		setState("feet_thrust_cum")

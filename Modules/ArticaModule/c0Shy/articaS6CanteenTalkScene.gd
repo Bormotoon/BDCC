@@ -75,7 +75,7 @@ func _run():
 				addButton("How's mood", "Just ask Artica about her overall mood", "ask_mood")
 		addButton("Get kinky", "Show a list of lewd stuff that you can try to do", "get_kinky_menu")
 		var eatLastDay = getFlag("ArticaModule.s6ateday", 0)
-		if (GM.main.getDays() > eatLastDay):
+		if (ServiceLocator.safe_get_service(&"MainScene").getDays() > eatLastDay):
 			addButton("Eat together", "Just spend some time together", "just_eat_together")
 		else:
 			addDisabledButton("Eat together", "You already did that")
@@ -180,7 +180,7 @@ func _run():
 
 		saynn("[say=artica]Ow.. eep.. e-e.. ah.. w-wai-..[/say]")
 
-		saynn("..before you yank her close, her snout gets pushed against your crotch.."+str(" against your {pc.penis}.." if GM.pc.hasPenis() else (" against your pussy.." if GM.pc.hasReachableVagina() else ""))+"")
+		saynn("..before you yank her close, her snout gets pushed against your crotch.."+str(" against your {pc.penis}.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else (" against your pussy.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else ""))+"")
 
 		saynn("[say=artica]Agh!.. H-hey.. eep.. e-ep..[/say]")
 
@@ -196,12 +196,12 @@ func _run():
 
 		saynn("[say=artica]Hh-h.. mhh-h..[/say]")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=pc]More. I want you to get some of that cock's odor.[/say]")
 
 			saynn("Artica's snout is stuck into the area under your shaft and above your balls. Each time she breathes in, your strong scent fills her lungs..")
 		
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("[say=pc]More. I want you to get some of that pussy's odor.[/say]")
 
 			saynn("Artica's snout is directly brushing against your needy pussy. Each time she breathes in, your strong horny scent fills her lungs..")
@@ -388,8 +388,8 @@ func _run():
 			addDisabledButton("Switch?", "Artica is not interested in paws enough yet")
 	if(state == "kinky_checkpaw_switch"):
 		playAnimation(StageScene.CheckPaw, "beans", {pc="pc", npc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		saynn("Seeing that Artica seems to like this.. you wonder if she would be down to try to do it herself.")
 
@@ -444,8 +444,8 @@ func _run():
 			addButton("Rub crotch", "Rub her crotch with your foot", "kinky_checkpaw_rub_crotch")
 	if(state == "kinky_checkpaw_let_lick"):
 		playAnimation(StageScene.CheckPaw, "lick", {pc="pc", npc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		var toesname = ("toes" if !isHoofs else "sole")
 		saynn("She is getting good at this.. maybe you can trust Artica with something even more.. kinky.")
@@ -489,8 +489,8 @@ func _run():
 		addButton("Continue", "See what happens next", "")
 	if(state == "kinky_checkpaw_rub_crotch"):
 		playAnimation(StageScene.CheckPaw, "crotch", {pc="pc", npc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		var toesname = ("toes" if !isHoofs else "sole")
 		saynn("[say=pc]I want to reward you, Artica.[/say]")
@@ -741,8 +741,8 @@ func _run():
 		addButton("Continue", "See what happens next", "enough_talk")
 	if(state == "ask_paws_tease"):
 		playAnimation(StageScene.PawJobUnderTable, "tease", {npc="pc", pc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		var toesname = ("toes" if !isHoofs else "sole")
 		saynn("Carefully, you slide your "+str(pawname)+" closer to Artica's, your "+str(toesname)+" pressing her two hind paws into the floor, trapping them.")
@@ -762,8 +762,8 @@ func _run():
 		addButton("Tease more", "", "ask_paws_teasemore")
 	if(state == "ask_paws_teasemore"):
 		playAnimation(StageScene.PawJobUnderTable, "rub", {npc="pc", pc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		var toesname = ("toes" if !isHoofs else "sole")
 		saynn("Without saying anything, you slide your "+str(pawname)+" higher, following the curves of her digitigrade leg.")
@@ -786,8 +786,8 @@ func _run():
 		addButton("Rub more", "Make that girl squiiirm", "ask_paws_teaseevenmore")
 	if(state == "ask_paws_teaseevenmore"):
 		playAnimation(StageScene.PawJobUnderTable, "fast", {npc="pc", pc="artica"})
-		var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		var toesname = ("toes" if !isHoofs else "sole")
 		saynn("Why not tease the girl even more, your "+str(pawname)+" gently lands on Artica's crotch and proceeds to rub it with its "+str(toesname)+".")
@@ -1070,7 +1070,7 @@ func _run():
 		addButton("Waterfall", "Go check it out", "ask_mood_waterfall")
 	if(state == "ask_mood_waterfall"):
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		playAnimation(StageScene.Duo, "sit", {npc="artica", flipNPC=true})
 		saynn("Artica rushes to the waterfall as soon as she sees it. There is a little water pond before it that the fluff stands near. She gets one of her hind paws wet, wiggling her toes in it.")
 
@@ -1306,7 +1306,7 @@ func _run():
 
 		saynn("[say=pc]Such a subby slut..[/say]")
 
-		saynn("Even just this feels good, little moans begin escaping your mouth"+str(", your own {pc.penis} getting hard too from all this.." if GM.pc.hasPenis() else "")+". You notice a bump on her cock near the base, a deflated knot.. fun..")
+		saynn("Even just this feels good, little moans begin escaping your mouth"+str(", your own {pc.penis} getting hard too from all this.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+". You notice a bump on her cock near the base, a deflated knot.. fun..")
 
 		saynn("And so, after forcefully getting the girl hard, you position yourself above, your slick dripping pussy hovering just above the twitching tip of Artica's {artica.penis}. Her eyes widen in shock as she feels your folds testing the waters, gently pressing down on her length. Artica's breath catching in her throat as she still struggles against your grasp.. but you keep her well-pinned, your mean eyes sending fear down her spine.")
 
@@ -1323,7 +1323,7 @@ func _run():
 
 		saynn("[say=pc]Mm~.. Shut up, I will ride your cock as much as I want.[/say]")
 
-		saynn("You're holding her pinned.. but Artica is still squirming a lot, her chest swaying, tits bouncing, legs wiggling, toes sprawling wide. But that doesn't stop you from riding her cock more, the shaft sliding inside you, making you moan while it hits the g-spot"+str(", your own cock is out and bobbing up and down as you do this" if GM.pc.hasPenis() else "")+".")
+		saynn("You're holding her pinned.. but Artica is still squirming a lot, her chest swaying, tits bouncing, legs wiggling, toes sprawling wide. But that doesn't stop you from riding her cock more, the shaft sliding inside you, making you moan while it hits the g-spot"+str(", your own cock is out and bobbing up and down as you do this" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 		addButton("Faster", "Ride that girl even harder", "rough_get_bred_ride_harder")
 	if(state == "rough_get_bred_ride_harder"):
@@ -1355,10 +1355,10 @@ func _run():
 
 		saynn("You can't ride the girl anymore as you are knotted.. but the sensations alone are enough to bring both of you over the edge. You throw your head back and let out a passionate noise as Artica's cock starts pumping your pussy full of her hot, potent seed, filling your womb up completely.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked cock is throbbing inside its cage as well.. before releasing a few strings of seed onto Artica's belly, marking her fur.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your bobbing cock is throbbing as well.. before releasing a few long strings of seed onto Artica's belly, marking her fur.")
 
 		saynn("Bathing in this immense amount of pleasure, you lose your firm grip on Artica's neck, letting her breath heavily..")
@@ -1367,7 +1367,7 @@ func _run():
 
 		saynn("Poor fluff is arching her back, her cock still pulsing inside.. making you moan even as your orgasm starts to fade.")
 
-		if (GM.pc.isVisiblyPregnant()):
+		if (ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("[say=pc]T-there we go.. See my pregnant belly? Next time I want your pups in there~.[/say]")
 
 		else:
@@ -1416,7 +1416,7 @@ func _run():
 		addButton("Take her", "Time for the fun part", "rough_breed_fuck")
 	if(state == "rough_breed_fuck"):
 		playAnimation(StageScene.Choking, "sex", {pc="pc", npc="artica", bodyState={exposedCrotch=true, hard=true}, npcBodyState={naked=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		saynn("With a desperate whine, she tries to break free.. but her efforts end up being useless as you guide your {pc.penis} under hers and put pressure on her quivering pussy..")
 
 		saynn("Then, with a sudden thrust, you enter her, the intruding cock spreading her delicate cyan folds and plunges deep into her.. tight, clenching slit.")
@@ -1441,7 +1441,7 @@ func _run():
 			addButton("Cum inside", "Breed the fluff", "rough_breed_breed")
 	if(state == "rough_breed_breed"):
 		playAnimation(StageScene.Choking, "inside", {pc="pc", npc="artica", pcCum=true, npcCum=true, bodyState={exposedCrotch=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("With a final, relentless thrust, your fat orb slips past Artica's tight pussy entrance, stretching her out to an extreme level and tying her to your cock.")
 
@@ -1469,7 +1469,7 @@ func _run():
 		addButton("Pull out", "Breeding well done", "rough_breed_pullout")
 	if(state == "rough_breed_pullout"):
 		playAnimation(StageScene.Choking, "inside", {pc="pc", npc="artica", bodyState={exposedCrotch=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var pcHasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var pcHasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (pcHasKnot):
 			saynn("You wait for the knot to deflate.. before yanking it out with full force, causing a flood of your seed that leaves quite a mess on her fur.")
 
@@ -1643,9 +1643,9 @@ func _react(_action: String, _args):
 
 	if(_action == "just_eat_together"):
 		processTime(15*60)
-		setFlag("ArticaModule.s6ateday", GM.main.getDays())
+		setFlag("ArticaModule.s6ateday", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		setFlag("Canteen_PlayerAteToday", true)
-		GM.pc.afterEatingAtCanteen()
+		ServiceLocator.safe_get_service(&"Player").afterEatingAtCanteen()
 		getModule("ArticaModule").removeShy(0.1)
 
 	if(_action == "kinky_checkbeans"):
@@ -1774,20 +1774,20 @@ func _react(_action: String, _args):
 
 	if(_action == "rough_get_bred_ride"):
 		processTime(6*60)
-		GM.pc.gotVaginaFuckedBy("artica")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
 
 	if(_action == "rough_get_bred_ride_harder"):
 		processTime(3*60)
 
 	if(_action == "rough_get_bred_ride_cum"):
 		processTime(3*60)
-		GM.pc.gotVaginaFuckedBy("artica")
-		GM.pc.cummedInVaginaByAdvanced("artica", {knotted=true})
-		if(GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("artica", {knotted=true})
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			getCharacter("artica").cummedOnBy("pc")
 		else:
 			getCharacter("artica").cummedOnBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "rough_get_bred_ride_escape"):
 		processTime(10*60)
@@ -1798,7 +1798,7 @@ func _react(_action: String, _args):
 	if(_action == "rough_breed_breed"):
 		getCharacter("artica").cummedInVaginaBy("pc")
 		getCharacter("artica").cummedOnBy("artica")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "rough_breed_pullout"):
 		processTime(10*60)

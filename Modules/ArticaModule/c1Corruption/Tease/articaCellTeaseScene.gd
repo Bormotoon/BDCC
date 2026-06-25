@@ -38,20 +38,20 @@ func _run():
 
 		addButton("Cell", "Bring her to your cell", "in_cell")
 	if(state == "in_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("You bring"+str(" pregnant" if getCharacter("artica").isVisiblyPregnant() else "")+" Artica to your cell."+str(" She seems to be quite horny.." if isLusty else "")+" What do you wanna do?")
 
 		if (isNaked):
 			saynn("Artica's uniform is stashed here. You can give it back to her if you want.")
 
 		addButton("Cuddle", "Just cuddle together with Artica", "do_cuddle")
-		var pcSlaves = GM.main.getPCSlavesIDs()
+		var pcSlaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 		if (pcSlaves.size() >= 1):
 			addButton("Slave Gangbang", "(Roughness) Let your slaves gangbang Artica", "start_gangbang")
 		else:
 			addDisabledButton("Slave Gangbang", "You need at least 1 slave stored in your cell to let them gangbang Artica")
 		if (corruption > 0.2):
-			if (GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump).size() <= 0 && GM.pc.getInventory().getItemsWithTag(ItemTag.PenisPump).size() <= 0):
+			if (ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump).size() <= 0 && ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.PenisPump).size() <= 0):
 				addDisabledButton("Milking", "You need to have a breast pump or a penis pump to be able to milk Artica")
 			else:
 				if (getCharacter("artica").hasEffect(StatusEffect.SoreNipplesAfterMilking)):
@@ -478,7 +478,7 @@ func _run():
 		saynn("(( Some events won't be able to trigger while Artica is wearing a chastity cage ))")
 		addButton("Continue", "See what happens next", "endthescene")
 func addCageButtons():
-	var strapons = GM.pc.getChastityCages()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getChastityCages()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "chast_puton", [strapon])
 
@@ -520,7 +520,7 @@ func _react(_action: String, _args):
 		var cage = getCharacter("artica").getWornChastityCage()
 		if(cage != null):
 			getCharacter("artica").getInventory().removeEquippedItem(cage)
-			GM.pc.getInventory().addItem(cage)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(cage)
 		getModule("ArticaModule").endCaged()
 
 	if(_action == "do_unlock_chastity_tease"):
@@ -544,18 +544,18 @@ func _react(_action: String, _args):
 		if(cage != null):
 			cageID = cage.uniqueID
 			getCharacter("artica").getInventory().removeEquippedItem(cage)
-			GM.pc.getInventory().addItem(cage)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(cage)
 
 	if(_action == "do_deny_chastity_lock"):
-		var cage = GM.pc.getInventory().getItemByUniqueID(cageID)
+		var cage = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(cageID)
 		if(cage != null):
-			GM.pc.getInventory().removeItem(cage)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(cage)
 			getCharacter("artica").getInventory().forceEquipStoreOtherUnlessRestraint(cage)
 
 	if(_action == "chast_puton"):
 		processTime(5*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
 		getCharacter("artica").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		isCaged = true
 		getModule("ArticaModule").startCaged()

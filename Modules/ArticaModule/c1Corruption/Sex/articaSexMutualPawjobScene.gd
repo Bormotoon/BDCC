@@ -25,7 +25,7 @@ func _run():
 
 		saynn("[say=pc]Let's go unwind, Artica.[/say]")
 
-		saynn("[say=artica]Unwind?.. You wanna.. use m-me?.. Mmm-m.."+str(" Make me your c-cock s-sleeve?.." if GM.pc.hasReachablePenis() else " Maybe do s-something with my c-cock or p-pussy..")+"[/say]")
+		saynn("[say=artica]Unwind?.. You wanna.. use m-me?.. Mmm-m.."+str(" Make me your c-cock s-sleeve?.." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else " Maybe do s-something with my c-cock or p-pussy..")+"[/say]")
 
 		saynn("So casual she is..")
 
@@ -37,7 +37,7 @@ func _run():
 	if(state == "near_waterfall"):
 		playAnimation(StageScene.PawJobMutual, "tease", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		addCharacter("artica", ["naked"])
 		saynn("Your cell might be a bit small for what you want to do.. so you just bring Artica into the yard area. Lots of greenery and bushes to hide behind here..")
 
@@ -57,13 +57,13 @@ func _run():
 
 		saynn("[say=artica]Y-yeah..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The gentle breeze from the waterfall is creating a nice soft breeze.. Artica mirrors your action, placing one of her hind paws onto your belly, her toes already gently teasing your chastity cage, playing with the member that is stuck inside..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The gentle breeze from the waterfall is creating a nice soft breeze.. Artica mirrors your action, placing one of her hind paws onto your belly, her toes already gently teasing your member, making you hard..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The gentle breeze from the waterfall is creating a nice soft breeze.. Artica mirrors your action, placing one of her hind paws onto your belly, her toes already gently teasing your little cute slit, making you wet..")
 
 		else:
@@ -75,7 +75,7 @@ func _run():
 
 		addButton("Mutual pawjob", "Have some fun together", "do_mutual_pawjob")
 	if(state == "do_mutual_pawjob"):
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.PawJobMutual, "sex", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		else:
 			playAnimation(StageScene.PawJobMutual, "rub", {pc="pc", npc="artica", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
@@ -85,13 +85,13 @@ func _run():
 
 		saynn("[say=artica]Ah.. t-that feels so g-good..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("In return, she increases the pace of her own strokes, her cyan paw pads brushing and sliding along your chastity cage with skillful precision, toes curling and teasing the cock that's inside.. It sure is a unique experience, your breath hitches in your throat, your lips drop a moan or two as well..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("In return, she increases the pace of her own strokes, her cyan paw pads brushing and sliding along the length of your {pc.penis} with skillful precision, toes curling and teasing the head.. It sure is a unique experience, your breath hitches in your throat, your lips drop a moan or two as well..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("In return, she increases the pace of her own strokes, her cyan paw pads brushing and sliding along your wet pussy folds with skillful precision, toes curling and teasing the clit.. It sure is a unique experience, your breath hitches in your throat, your lips drop a moan or two as well..")
 
 		else:
@@ -99,15 +99,15 @@ func _run():
 
 		saynn("[say=pc]Nh.. ah.. yeah, keep working your paws..[/say]")
 
-		saynn("As your movements synchronize, a wave of warm pleasure washes over you two, your bodies and legs moving in perfect harmony.. The knot on Artica's dick starts growing.. while you keep squeezing it with your {pc.feet}."+str(" At the same time, the fluff feels your cock growing harder under her paw." if GM.pc.hasReachablePenis() else "")+"")
+		saynn("As your movements synchronize, a wave of warm pleasure washes over you two, your bodies and legs moving in perfect harmony.. The knot on Artica's dick starts growing.. while you keep squeezing it with your {pc.feet}."+str(" At the same time, the fluff feels your cock growing harder under her paw." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+"")
 
 		addButton("Faster", "Stroke her cock faster", "stroke_cum")
 	if(state == "stroke_cum"):
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.PawJobMutual, "fast", {pc="pc", npc="artica", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		else:
 			playAnimation(StageScene.PawJobMutual, "rubfast", {pc="pc", npc="artica", npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Driven by this strange shared passion, you and Artica quicken the pace, stroking each other's cocks faster while loudly showing your love for this activity..")
 
 			saynn("[say=artica]Ah.. ahh.. I'm such.. slut f-for {pc.feet}.. S-so intense.. ah-h..[/say]")
@@ -116,7 +116,7 @@ func _run():
 
 			saynn("With two passionate cries, you reach your peaks together, your cocks pulsing at the speed of your heartbeats as they unleash thick ropes of seed onto your feet and bellies.. Artica is squirming particularly hard as her hidden pussy gushing out a fountain of juices onto the grass beneath..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Driven by this strange shared passion, you and Artica quicken the pace, stroking each other's cocks faster while loudly showing your love for this activity..")
 
 			saynn("[say=artica]Ah.. ahh.. I'm such.. slut f-for {pc.feet}.. S-so intense.. ah-h..[/say]")
@@ -125,7 +125,7 @@ func _run():
 
 			saynn("With two passionate cries, you reach your peaks together, your cocks pulsing at the speed of your heartbeats as they unleash thick ropes of seed onto your feet and bellies.. Artica is squirming particularly hard as her hidden pussy gushing out a fountain of juices onto the grass beneath..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Driven by this strange shared passion, you and Artica quicken the pace, stroking each other's bits faster while loudly showing your love for this activity..")
 
 			saynn("[say=artica]Ah.. ahh.. I'm such.. slut f-for {pc.feet}.. S-so intense.. ah-h..[/say]")
@@ -186,8 +186,8 @@ func _react(_action: String, _args):
 	if(_action == "stroke_cum"):
 		processTime(5*60)
 		getModule("ArticaModule").triggerCorruption(0.03)
-		if(GM.pc.hasPenis() || GM.pc.hasReachableVagina()):
-			GM.pc.cummedOnBy("pc")
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() || ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc")
 		getCharacter("artica").cummedOnBy("artica")
 
 	if(_action == "after_cum"):

@@ -17,7 +17,7 @@ func _init():
 	npcHasMenstrualCycle = true
 	
 func _getName():
-	if(GM.main != null && !GM.main.getFlag("ArticaModule.s4happened", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && !ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.s4happened", false)):
 		return "White fluff"
 	return "Artica"
 
@@ -60,14 +60,14 @@ func createBodyparts():
 	giveBodypartUnlessSame(GlobalRegistry.createBodypart("digilegs"))
 
 func updateBodyparts():
-	var shouldHaveNoCatcher = (GM.main != null && GM.main.getFlag("ArticaModule.articaLostDreamcatcher", false) && !GM.main.getFlag("ArticaModule.LQArticaGotDreamCatcher", false))
+	var shouldHaveNoCatcher = (ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.articaLostDreamcatcher", false) && !ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.LQArticaGotDreamCatcher", false))
 	
 	if(shouldHaveNoCatcher):
 		giveBodypartUnlessSame(GlobalRegistry.createBodypart("canineears2"))
 	else:
 		giveBodypartUnlessSame(GlobalRegistry.createBodypart("canineears2tribal"))
 		
-	var isCurvy = (GM.main != null && GM.main.getFlag("ArticaModule.CurvyForm", false))
+	var isCurvy = (ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.CurvyForm", false))
 	if(isCurvy):
 		var penis = getBodypart(BodypartSlot.Penis)
 		if(penis != null):
@@ -78,20 +78,20 @@ func updateBodyparts():
 	
 func getDefaultEquipment():
 	var result = ["inmatecollar", "inmateuniformSexDeviant"]
-	if(GM.main != null && GM.main.getFlag("ArticaModule.NoClothes", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.NoClothes", false)):
 		result = ["inmatecollar"]
-	if(GM.main != null && GM.main.getFlag("ArticaModule.wearsPortalPanties", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.wearsPortalPanties", false)):
 		result.append("PortalPantiesUnlocked")
 	return result
 
 func adjustArtworkVariant(_variant:Array):
-	if(GM.main != null && GM.main.getFlag("ArticaModule.articaLostDreamcatcher", false) && !GM.main.getFlag("ArticaModule.LQArticaGotDreamCatcher", false) && !GM.main.getFlag("ArticaModule.LQArticaGotBrainwashed", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.articaLostDreamcatcher", false) && !ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.LQArticaGotDreamCatcher", false) && !ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.LQArticaGotBrainwashed", false)):
 		if(!_variant.has("sad")):
 			_variant.append("sad")
-	if(GM.main != null && GM.main.getFlag("ArticaModule.NoClothes", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.NoClothes", false)):
 		if(!_variant.has("naked")):
 			_variant.append("naked")
-	if(GM.main != null && GM.main.getFlag("ArticaModule.LQArticaGotBrainwashed", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("ArticaModule.LQArticaGotBrainwashed", false)):
 		if(!_variant.has("nocatcher")):
 			_variant.append("nocatcher")
 
@@ -101,5 +101,5 @@ func canDoSelfCare():
 func onGivingBirth(_impregnatedEggCells: Array, _newkids: Array):
 	super.onGivingBirth(_impregnatedEggCells, _newkids)
 	
-	GM.main.increaseFlag("ArticaModule.gaveBirthTimes")
-	GM.main.setFlag("ArticaModule.canReactGaveBirth", true)
+	ServiceLocator.safe_get_service(&"MainScene").increaseFlag("ArticaModule.gaveBirthTimes")
+	ServiceLocator.safe_get_service(&"MainScene").setFlag("ArticaModule.canReactGaveBirth", true)

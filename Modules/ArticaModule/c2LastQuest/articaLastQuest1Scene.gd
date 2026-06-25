@@ -242,7 +242,7 @@ func _run():
 		addButton("Ask to explain", "You're not planning to do anything for her until she explains herself", "no_trust")
 	if(state == "no_trust"):
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		saynn("[say=pc]After everything that happened, I hope you can excuse me if I don't trust your words.[/say]")
 
 		saynn("Artica wipes her tears.. but more appear.")
@@ -275,7 +275,7 @@ func _run():
 	if(state == "do_comfort"):
 		playAnimation(StageScene.Hug, "hug", {pc="pc", npc="artica"})
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		saynn("You offer Artica a warm hug. You can feel her stress through all the random twitches that her body is doing..")
 
 		saynn("[say=pc]I will find it, Artica. Even if I will have to beat up every inmate of this prison.[/say]")

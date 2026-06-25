@@ -66,7 +66,7 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		if (getFlag("ArticaModule.TentaclesPcHasFlower") && !getFlag("ArticaModule.TentaclesArticaHasFlower")):
 			addButton("Flower!", "Give Artica the flower that she is looking for", "do_give_flower")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["artica"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["artica"])
 	if(state == "ask_lilac"):
 		saynn("[say=pc]So why are you a lilac? What did you do to earn that purple color?[/say]")
 
@@ -425,7 +425,7 @@ func _run():
 		#	theTopic = "chastity"
 		if (isPregnant && RNG.chance(30)):
 			theTopic = "preg"
-		if (!isPregnant && RNG.chance(30) && GM.pc.hasReachablePenis()):
+		if (!isPregnant && RNG.chance(30) && ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			theTopic = "breed"
 		if (theTopic == "naked"):
 			saynn("[say=pc]You look so beautiful when you're naked, Artica.[/say]")
@@ -455,7 +455,7 @@ func _run():
 			saynn("Her chin is low.. but her"+str(" naked" if isNaked else "")+" chest is puffed out, her butt swaying sensually while her paws slide along the white fur on her sides.")
 
 		elif (theTopic == "whore"):
-			saynn("[say=pc]You're so obedient, Artica. Always ready to spread your legs for me.. or anyone really.. who wants to use you."+str(". Always ready to offer me your cock to play with too~." if GM.pc.hasVagina() else "")+"[/say]")
+			saynn("[say=pc]You're so obedient, Artica. Always ready to spread your legs for me.. or anyone really.. who wants to use you."+str(". Always ready to offer me your cock to play with too~." if ServiceLocator.safe_get_service(&"Player").hasVagina() else "")+"[/say]")
 
 			saynn("Your words make her blink many times, her cheeks blush deep red as she stands up on her toes.")
 
@@ -529,7 +529,7 @@ func _run():
 
 			saynn("Her eyes.. so lusty..")
 
-			saynn("[say=artica]I-I want to carry all"+str(" your" if GM.pc.hasReachablePenis() else "")+" pups.. t-to be filled with"+str(" your" if GM.pc.hasReachablePenis() else "")+" seed.. again and again..[/say]")
+			saynn("[say=artica]I-I want to carry all"+str(" your" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+" pups.. t-to be filled with"+str(" your" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+" seed.. again and again..[/say]")
 
 			saynn("Her shy tongue is saying some very naughty things..")
 
@@ -552,7 +552,7 @@ func _run():
 
 			saynn("She bites her lip.")
 
-			saynn("[say=artica]A-about.. b-being b-bred.. About f-feeling"+str(" your" if GM.pc.hasReachablePenis() else "")+" cock inside me.. filling me up with seed..[/say]")
+			saynn("[say=artica]A-about.. b-being b-bred.. About f-feeling"+str(" your" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+" cock inside me.. filling me up with seed..[/say]")
 
 			saynn("The scent her fur gives off.. is so arousing right now.")
 

@@ -286,7 +286,7 @@ func _run():
 		removeCharacter("nova")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
 		aimCameraAndSetLocName("yard_vaulthere")
-		GM.pc.setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
 		saynn("You and Artica vault over one of the railing, ending up in the lush yard area.")
 
 		saynn("[say=artica]Thank y-you.. I n-need that flower to.. um..[/say]")
@@ -326,7 +326,7 @@ func _run():
 		removeCharacter("nova")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
 		aimCameraAndSetLocName("yard_vaulthere")
-		GM.pc.setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
 		saynn("You grab Artica's hand and rush out of the greenhouses before leaping over one the railings to avoid other guards.")
 
 		saynn("[say=artica]T-thank you.. H-h-how did you..[/say]")
@@ -381,7 +381,7 @@ func _run():
 	if(state == "after_escape"):
 		removeCharacter("nova")
 		aimCameraAndSetLocName("yard_vaulthere")
-		GM.pc.setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
 		saynn("You rush out of the greenhouses and leap over the first railing that you see. It's a little high.. but luckily you manage to land on some soft grass.")
 
 		saynn("Nova tries to catch you.. but she quickly loses track, running the wrong direction.")
@@ -534,7 +534,7 @@ func _run():
 		removeCharacter("nova")
 		removeCharacter("artica")
 		playAnimation(StageScene.Solo, "stand")
-		GM.pc.setLocation("main_greenhouses")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_greenhouses")
 		saynn("When they walk away, you quickly rush to the flower and pick it up.")
 
 		saynn("Artica will probably be glad to have it.")

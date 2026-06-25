@@ -90,7 +90,7 @@ func _run():
 	if(state == "force_crotchsniff"):
 		if (isLusty):
 			playAnimation(StageScene.ChairCrotchSniff, "grind", {pc="artica", npc="pc", pcCum=true, bodyState={hard=true}, npcBodyState={hard=true}})
-			saynn("As you abruptly end the meal time and stand up, Artica's heart is already racing with anticipation. Before she can even process what is happening, you grab her by the hair.. and force her face into your crotch, pressing her nose against your "+str("{pc.penis}" if GM.pc.hasPenis() else "wet pussy")+"!")
+			saynn("As you abruptly end the meal time and stand up, Artica's heart is already racing with anticipation. Before she can even process what is happening, you grab her by the hair.. and force her face into your crotch, pressing her nose against your "+str("{pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "wet pussy")+"!")
 
 			saynn("Artica's eyes widen in surprise, a low moan escaping her lips as she inhales deeply, the intoxicating scent overwhelming her senses. With each breath, a wave of pleasure is coursing through her body, her cock throbbing with need"+str(" inside of its cage" if isCaged else "")+".")
 
@@ -110,10 +110,10 @@ func _run():
 
 			saynn("[say=artica]Um.. what are you-.. Eep![/say]")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("But you are quick to reach your hand out and grab her by the hair.. before pushing her face straight into your crotch, dragging her face over your balls and along your cold chastity cage, marking her fur with your precum. She seems to be trying to break free..")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("But you are quick to reach your hand out and grab her by the hair.. before pushing her face straight into your crotch, dragging her face over your balls and along your {pc.penis}, marking her fur with your precum. She seems to be trying to break free..")
 
 			else:
@@ -129,8 +129,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "tease_offerfoot"):
-		#var isDigi = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
-		#var isHoofs = GM.pc.bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
+		#var isDigi = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsDigi)
+		#var isHoofs = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Legs, PartTrait.LegsHoofs)
 		#var pawname = ("foot" if (!isDigi  && !isHoofs) else ("paw" if isDigi else "hoof"))
 		#var toesname = ("toes" if !isHoofs else "sole")
 		if (isLusty):
@@ -320,7 +320,7 @@ func _react(_action: String, _args):
 
 	if(_action == "go_eat"):
 		processTime(15*60)
-		GM.pc.afterEatingAtCanteen()
+		ServiceLocator.safe_get_service(&"Player").afterEatingAtCanteen()
 		setFlag("Canteen_PlayerAteToday", true)
 
 	if(_action == "stealth_tease"):
@@ -341,7 +341,7 @@ func _react(_action: String, _args):
 
 	if(_action == "tease_offerfoot"):
 		processTime(5*60)
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 		if(isLusty):
 			getModule("ArticaModule").triggerCorruption(0.02)
 			if(isNaked):

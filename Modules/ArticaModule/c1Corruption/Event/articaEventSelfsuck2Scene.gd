@@ -58,7 +58,7 @@ func _run():
 		addCharacter("gymbully")
 		addCharacter("gymbully2")
 		addCharacter("gymbully3")
-		GM.pc.setLocation("gym_yoga")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_yoga")
 		saynn("Artica's eyes open wide as she hears a girl giggling near her.. As she does that, she notices 3 gang members surrounding her.. The main guy and the crazy girl seem to be doing all the talking while the third guy is just quietly standing near..")
 
 		saynn("[say=gymbully]Well, well well, what do we have here? I don't remember you paying for the privilege of using these yoga mats.[/say]")
@@ -95,7 +95,7 @@ func _run():
 		addButton("Act", "Try to stop the bullies", "try_stop_bullies")
 	if(state == "artica_selfsuck_helped"):
 		setFlag("ArticaModule.nextReaction", "s2bul")
-		GM.pc.setLocation("gym_yoga")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_yoga")
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.SelfSuck, "tease", {pc="artica", npc="gymbully3", bodyState={naked=true, hard=true}})
 		saynn("Might as well let them help Artica train her.. flexibility. You decide to sit on one of the benches and watch the scene unfold.")
@@ -258,9 +258,9 @@ func _run():
 		addButton("Continue", "See what happens next", "lose_pc_in_half")
 	if(state == "lose_pc_in_half"):
 		playAnimation(StageScene.SelfSuck, "tease", {pc="pc", npc="gymbully3", bodyState={naked=true, hard=true}})
-		saynn("[say=gymbully3]Hold him down!"+str(" Takes {pc.his} clothes off too!" if !GM.pc.isFullyNaked() else "")+"[/say]")
+		saynn("[say=gymbully3]Hold him down!"+str(" Takes {pc.his} clothes off too!" if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else "")+"[/say]")
 
-		saynn("As the girl barks, the two guys pin you to the ground, forcing your arms behind your back."+str(" They then {pc.undressMessage}, leaving you exposed!" if !GM.pc.isFullyNaked() else "")+"")
+		saynn("As the girl barks, the two guys pin you to the ground, forcing your arms behind your back."+str(" They then {pc.undressMessage}, leaving you exposed!" if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else "")+"")
 
 		saynn("Artica watches in horror, her heart racing as she feels helpless.")
 
@@ -268,16 +268,16 @@ func _run():
 
 		saynn("[say=gymbully3]You thought you could play the hero, huh? Let's see how flexible you are then![/say]")
 
-		saynn("No matter how much you resist, the whole gang uses her combined strength to bend your body as much as it allows it.. and then some.. pushing your own crotch into your face"+str(", your own pussy is clearly visible by your own eyes.. wow.." if (GM.pc.hasReachableVagina() && !GM.pc.isWearingChastityCage() && !GM.pc.hasReachablePenis()) else "")+""+str(", your own chastity cage is clearly visible by your own eyes.. wow.." if (!GM.pc.hasReachableVagina() && GM.pc.isWearingChastityCage() && !GM.pc.hasReachablePenis()) else "")+""+str(", your own cock is clearly visible by your own eyes.. wow.." if (!GM.pc.hasReachableVagina() && GM.pc.isWearingChastityCage() && !GM.pc.hasReachablePenis()) else "")+".")
+		saynn("No matter how much you resist, the whole gang uses her combined strength to bend your body as much as it allows it.. and then some.. pushing your own crotch into your face"+str(", your own pussy is clearly visible by your own eyes.. wow.." if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis()) else "")+""+str(", your own chastity cage is clearly visible by your own eyes.. wow.." if (!ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis()) else "")+""+str(", your own cock is clearly visible by your own eyes.. wow.." if (!ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis()) else "")+".")
 
 		saynn("Having your spine bent and your body stretched like that.. it hurts quite a bit..")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=gymbully3]Come on, get to it! Suck yourself off like the pathetic little worm you are![/say]")
 
 			addButton("Suck yourself off", "Do it", "lost_selfsuck")
 			addButton("Refuse", "You'd rather not..", "lost_selfsuck_refuse")
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("[say=gymbully3]I don't care that you're caged! Get to it! Suck yourself off like the pathetic little worm you are![/say]")
 
 			addButton("Suck yourself off", "Do it", "lost_selfsuck")
@@ -324,11 +324,11 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "lost_selfsuck"):
 		playAnimation(StageScene.SelfSuck, "sex", {pc="pc", npc="gymbully3", bodyState={naked=true, hard=true}})
-		saynn("You groan in pain, struggling to resist.. but the gang held you firmly in place. With no better choice, you decide to submit, your lips making their first contact with your "+str("chastity cage" if GM.pc.isWearingChastityCage() else "own cock")+", the humiliating act making your cheeks flush.")
+		saynn("You groan in pain, struggling to resist.. but the gang held you firmly in place. With no better choice, you decide to submit, your lips making their first contact with your "+str("chastity cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "own cock")+", the humiliating act making your cheeks flush.")
 
 		saynn("[say=gymbully3]Do it~.[/say]")
 
-		if (!GM.pc.isWearingChastityCage()):
+		if (!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You open your mouth, reluctantly taking in the tip of that shaft. The sensation was surreal, it really felt like your own lips wrapped around your own cock.. Inch by inch, more of it slipped into your mouth. The taste of your own precum hit your senses.. salty..")
 
 			saynn("Just as unwillingly, you begin to suck, your lips sliding up and down along your length, your tongue swirling around the tip, tasting more of that salty pre as it leaked out..")
@@ -427,7 +427,7 @@ func _run():
 	if(state == "won_sure"):
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.Duo, "sit", {npc="artica", npcBodyState={naked=true,hard=true}})
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
 		saynn("It's a strange offer.. but why not. You agree and follow the girl to her cell.")
 
@@ -564,17 +564,17 @@ func _react(_action: String, _args):
 
 	if(_action == "lose_pc_in_half"):
 		processTime(3*60)
-		GM.pc.addPain(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(30)
 		getModule("ArticaModule").triggerCorruption(0.0)
 
 	if(_action == "lost_selfsuck"):
 		processTime(13*60)
-		GM.pc.cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "lost_selfsuck_refuse"):
 		processTime(3*60)
-		GM.pc.addPain(10)
+		ServiceLocator.safe_get_service(&"Player").addPain(10)
 
 	if(_action == "won_checkokay"):
 		processTime(3*60)

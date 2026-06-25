@@ -148,19 +148,19 @@ func _init():
 	]
 
 func startCaged():
-	setFlag("ArticaModule.cagedDay", GM.main.getDays())
+	setFlag("ArticaModule.cagedDay", ServiceLocator.safe_get_service(&"MainScene").getDays())
 
 func endCaged():
 	var cagedDay = getFlag("ArticaModule.cagedDay", -1)
 	if(cagedDay > 0):
-		var daysCaged = GM.main.getDays() - cagedDay
+		var daysCaged = ServiceLocator.safe_get_service(&"MainScene").getDays() - cagedDay
 		increaseFlag("ArticaModule.cagedTotalDays", daysCaged)
 	setFlag("ArticaModule.cagedDay", -1)
 
 func getCagedDaysCurrently():
 	var cagedDay = getFlag("ArticaModule.cagedDay", -1)
 	if(cagedDay > 0):
-		var daysCaged = GM.main.getDays() - cagedDay
+		var daysCaged = ServiceLocator.safe_get_service(&"MainScene").getDays() - cagedDay
 		return daysCaged
 	return 0
 
@@ -168,7 +168,7 @@ func getCagedDays():
 	var recordedDaysCaged = getFlag("ArticaModule.cagedTotalDays", 0)
 	var cagedDay = getFlag("ArticaModule.cagedDay", -1)
 	if(cagedDay > 0):
-		var daysCaged = GM.main.getDays() - cagedDay
+		var daysCaged = ServiceLocator.safe_get_service(&"MainScene").getDays() - cagedDay
 		recordedDaysCaged += daysCaged
 	return recordedDaysCaged
 
@@ -183,9 +183,9 @@ func removeShy(howMuch, showMessage = true):
 	var newValue = clamp(oldShyness - howMuch, 0.0, 1.0)
 	if(oldShyness != newValue && showMessage):
 		if(newValue > oldShyness):
-			GM.main.addMessage("Artica's shyness has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's shyness has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 		else:
-			GM.main.addMessage("Artica's shyness has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's shyness has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 	
 	setFlag("ArticaModule.shyness", newValue)
 	
@@ -200,9 +200,9 @@ func addPawslut(howMuch, showMessage = true):
 	var newValue = clamp(oldPawslut + howMuch, 0.0, 1.0)
 	if(oldPawslut != newValue && showMessage):
 		if(newValue > oldPawslut):
-			GM.main.addMessage("Artica's interest in paws has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's interest in paws has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 		else:
-			GM.main.addMessage("Artica's interest in paws has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's interest in paws has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 	
 	setFlag("ArticaModule.pawslut", newValue)
 
@@ -214,9 +214,9 @@ func addCorruption(howMuch, showMessage = true):
 	var newValue = clamp(oldCorruption + howMuch, 0.0, 1.0)
 	if(oldCorruption != newValue && showMessage):
 		if(newValue > oldCorruption):
-			GM.main.addMessage("Artica's corruption has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's corruption has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 		elif(newValue < oldCorruption):
-			GM.main.addMessage("Artica's corruption has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's corruption has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 	
 	setFlag("ArticaModule.corruption", newValue)
 
@@ -238,9 +238,9 @@ func addChastity(howMuch, showMessage = true):
 	var newValue = clamp(oldChastity + howMuch, 0.0, 1.0)
 	if(oldChastity != newValue && showMessage):
 		if(newValue > oldChastity):
-			GM.main.addMessage("Artica's acceptance of chastity has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's acceptance of chastity has increased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 		else:
-			GM.main.addMessage("Artica's acceptance of chastity has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Artica's acceptance of chastity has decreased to "+str(Util.roundF(newValue*100.0, 1))+"%!")
 	
 	setFlag("ArticaModule.chastity", newValue)
 

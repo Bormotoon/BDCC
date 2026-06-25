@@ -74,7 +74,7 @@ func _run():
 	if(state == "bring_to_doctor"):
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
 		aimCameraAndSetLocName("med_lobbymain")
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		saynn("[say=pc]It can heal on its own. But it's best if we go see a doctor.[/say]")
 
 		saynn("[say=artica]Oh.h-h.. r.r-right..[/say]")

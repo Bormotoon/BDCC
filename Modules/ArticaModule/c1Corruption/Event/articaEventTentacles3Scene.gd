@@ -79,7 +79,7 @@ func _run():
 		removeCharacter("eliza")
 		addCharacter("artica", ["naked"])
 		aimCameraAndSetLocName("main_greenhouses")
-		GM.pc.setLocation("main_greenhouses")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_greenhouses")
 		playAnimation(StageScene.Solo, "stand", {pc="artica", bodyState={naked=true,hard=true}})
 		saynn("You follow the fluff as she masterfully avoids the guard patrols on her way to the sacred spot..")
 

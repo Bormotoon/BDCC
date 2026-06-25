@@ -11,7 +11,7 @@ func registerTriggers(es):
 func react(_triggerID, _args):
 	if(getFlag("ArticaModule.s0happened", false)):
 		return false
-	if(GM.pc.getLevel() < 10):
+	if(ServiceLocator.safe_get_service(&"Player").getLevel() < 10):
 		return false
 	
 	setFlag("ArticaModule.s0happened", true)

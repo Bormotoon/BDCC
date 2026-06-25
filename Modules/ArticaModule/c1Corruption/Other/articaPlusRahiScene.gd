@@ -42,7 +42,7 @@ func _run():
 	if(state == "in_cell"):
 		playAnimation(StageScene.Duo, "stand", {npc="artica", pc="rahi"})
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		saynn("Kitty waves to the"+str(" naked" if isNaked else "")+" lilac girl.")
 
 		saynn("[say=rahi]Hello-o..[/say]")
@@ -129,11 +129,11 @@ func _run():
 
 		saynn("Artica is gonna be in the middle of a sex train.. But which spot do you want to take?")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("First", "Be the one who is getting fucked by Artica. Rahi will be fucking Artica with a strapon while Artica fucks your pussy", "train_be_first")
 		else:
 			addButton("First", "Be the one who is getting fucked by Artica. Rahi will be fucking Artica with a strapon while Artica fucks your ass", "train_be_first")
-		if (GM.pc.hasReachablePenis() || (GM.pc.hasStrapons() && GM.pc.canWearStrapon())):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || (ServiceLocator.safe_get_service(&"Player").hasStrapons() && ServiceLocator.safe_get_service(&"Player").canWearStrapon())):
 			addButton("Last", "Be the one who is fucking Artica. Rahi will be getting fucked by Artica while you fuck Artica", "train_be_last")
 		else:
 			addDisabledButton("Last", "You don't have any strapons to fuck Artica while she fucks Rahi..")
@@ -254,7 +254,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "train_be_first"):
 		addCharacter("rahi", ["naked"])
-		pcVag = GM.pc.hasReachableVagina()
+		pcVag = ServiceLocator.safe_get_service(&"Player").hasReachableVagina()
 		playAnimation(StageScene.Duo, "kneel", {pc="artica", npc="rahi", bodyState={naked=true,hard=true}, npcBodyState={naked=true,hard=true}})
 		saynn("You nod towards Rahi and Artica's tail.. and the kitty understands everything.")
 
@@ -322,7 +322,7 @@ func _run():
 
 		saynn("[say=rahi]You l-love being fucked like this, don't you..[/say]")
 
-		saynn("At the same time, you meet Artica's"+str(" rubber" if isStrapon else "")+" cock with your own motions, impaling your eager "+str("pussy" if pcVag else "asshole")+" onto that veiny shaft, getting it stretched more.."+str(" Your hard cock is dripping pre as your buttons are being stimulated nicely.." if GM.pc.hasReachablePenis() else "")+""+str(" Your caged up cock is dripping pre as your button are being stimulated nicely.." if GM.pc.isWearingChastityCage() else "")+"")
+		saynn("At the same time, you meet Artica's"+str(" rubber" if isStrapon else "")+" cock with your own motions, impaling your eager "+str("pussy" if pcVag else "asshole")+" onto that veiny shaft, getting it stretched more.."+str(" Your hard cock is dripping pre as your buttons are being stimulated nicely.." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+""+str(" Your caged up cock is dripping pre as your button are being stimulated nicely.." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+"")
 
 		saynn("[say=artica]Y-yes.. I l-love b-being your whore.. ah..[/say]")
 
@@ -901,7 +901,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene_removearticastrapon")
 func addStraponButtons(nextstateid):
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), nextstateid, [strapon])
 
@@ -931,7 +931,7 @@ func _react(_action: String, _args):
 
 	if(_action == "train_be_last"):
 		processTime(3*60)
-		if(!GM.pc.hasReachablePenis()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			setState("be_last_pickstrapon")
 			return
 
@@ -939,8 +939,8 @@ func _react(_action: String, _args):
 		processTime(2*60)
 		pcStrapon = true
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidTypeWithCharID("Cum", "artica")):
@@ -964,12 +964,12 @@ func _react(_action: String, _args):
 			getCharacter("artica").cummedInVaginaBy("pc", FluidSource.Strapon)
 		else:
 			getCharacter("artica").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("artica")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("artica")
 
 	if(_action == "aftercuddle"):
 		processTime(10*60)
 		getCharacter("artica").removeStrapon()
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		getCharacter("rahi").removeStrapon()
 
 	if(_action == "first_tease"):
@@ -978,9 +978,9 @@ func _react(_action: String, _args):
 	if(_action == "front_sex"):
 		processTime(3*60)
 		if(pcVag):
-			GM.pc.gotVaginaFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
 		else:
-			GM.pc.gotAnusFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("artica")
 
 	if(_action == "front_faster"):
 		processTime(3*60)
@@ -988,13 +988,13 @@ func _react(_action: String, _args):
 	if(_action == "front_cum"):
 		processTime(5*60)
 		if(pcVag):
-			GM.pc.gotVaginaFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("artica")
 			if(!isStrapon):
-				GM.pc.cummedInVaginaBy("artica")
+				ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("artica")
 		else:
-			GM.pc.gotAnusFuckedBy("artica")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("artica")
 			if(!isStrapon):
-				GM.pc.cummedInAnusBy("artica")
+				ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("artica")
 		getCharacter("artica").cummedInVaginaBy("rahi", FluidSource.Strapon)
 
 	if(_action == "play_rahi_undresses_artica"):

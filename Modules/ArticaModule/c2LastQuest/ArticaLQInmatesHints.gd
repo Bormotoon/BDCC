@@ -35,4 +35,4 @@ func onButton(_method, _args):
 			addMessage("This inmate doesn't know anything new.. Looks like that's all the hints you're gonna get!")
 			addMessage("You can see all your learned hints in the task list.")
 		
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

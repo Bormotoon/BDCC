@@ -112,7 +112,7 @@ func _run():
 	if(state == "artica_needy_in_cell"):
 		addCharacter("artica", ["naked"])
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		playAnimation(StageScene.Solo, "stand", {pc="artica", bodyState={naked=true,hard=true}})
 		saynn("You follow her, curious if she is heading back to her spot.. but she is not. Artica is going down to the lilac cell block and heads straight for her cell.")
 

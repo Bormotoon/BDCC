@@ -64,7 +64,7 @@ func _run():
 		addButton("Watch", "See what will happen next", "watch_artica")
 	if(state == "watch_artica"):
 		aimCameraAndSetLocName("cellblock_lilac_nearcell")
-		GM.pc.setLocation("cellblock_lilac_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_lilac_nearcell")
 		addCharacter("artica", ["naked"])
 		playAnimation(StageScene.CanineDildoSex, "tease", {pc="artica", bodyState={naked=true,hard=true}})
 		saynn("Artica sneaks into her cell and instantly reaches for her toy that she hid under her bed. Not the best spot.. but where else can she store such a huge ass dildo?")
@@ -196,7 +196,7 @@ func _react(_action: String, _args):
 	if(_action == "start_fuel"):
 		var newDildo = GlobalRegistry.createItem("CanineDildo")
 		dildoID = newDildo.uniqueID
-		GM.pc.getInventory().addItem(newDildo)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newDildo)
 		runScene("FluidTransferScene", [dildoID], "fueling_articas_dildo")
 		setState("after_fuel")
 		return
@@ -214,7 +214,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 		
 		if(dildoID != ""):
-			var theDildo = GM.pc.getInventory().getItemByUniqueID(dildoID)
+			var theDildo = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dildoID)
 			if(theDildo != null):
 				var theFluids = theDildo.getFluids()
 				theFluids.transferTo(getCharacter("artica").getBodypart(BodypartSlot.Vagina), 1.0)
@@ -231,9 +231,9 @@ func _react(_action: String, _args):
 	if(_action == "artica_after_knotknot"):
 		processTime(3*60)
 		if(dildoID != ""):
-			var theDildo = GM.pc.getInventory().getItemByUniqueID(dildoID)
+			var theDildo = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dildoID)
 			if(theDildo != null):
-				GM.pc.getInventory().removeItem(theDildo)
+				ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theDildo)
 
 	setState(_action)
 
@@ -241,7 +241,7 @@ func _react_scene_end(_tag, _result):
 	if(_tag == "fueling_articas_dildo"):
 		processTime(1 * 60)
 		
-		var theDildo = GM.pc.getInventory().getItemByUniqueID(dildoID)
+		var theDildo = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(dildoID)
 		if(theDildo != null):
 			var theFluids = theDildo.getFluids()
 			if(theFluids.hasFluidTypeWithCharID("Cum", "artica")):

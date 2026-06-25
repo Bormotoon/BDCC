@@ -257,7 +257,7 @@ func _run():
 
 		addButton("Keep clothes", "Force Artica to stay naked", "steal_clothes_fully")
 		addButton("Stop covering up!", "Order Artica to present everything without covering up", "order_showeverything")
-		#if (GM.pc.hasReachablePenis() || GM.pc.hasReachableVagina()):
+		#if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 		#	addDisabledButton("Oral", "Artica is not corrupted enough to agree to this yet")
 	if(state == "order_showeverything"):
 		playAnimation(StageScene.Yoga, "dog", {pc="artica", bodyState={naked=true, hard=true}})
@@ -348,7 +348,7 @@ func _run():
 		aimCameraAndSetLocName("main_bench3")
 		addCharacter("artica")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
-		GM.pc.setLocation("main_bench3")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bench3")
 		saynn("You bring the fluff out into the main hall and climb the stairs that lead to the big platform in the middle.")
 
 		saynn("Artica is desperately trying to find how to hide all her private bits from all angles with only her two hands and a tail.")
@@ -396,7 +396,7 @@ func _run():
 		aimCameraAndSetLocName("main_bench3")
 		addCharacter("artica")
 		playAnimation(StageScene.Duo, "stand", {npc="artica"})
-		GM.pc.setLocation("main_bench3")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bench3")
 		saynn("You step out into the main hall. Artica walks up the stairs leading to the big platform in the middle.. before positioning herself in the least crowded corner of it.")
 
 		saynn("[say=artica]This spot seems alright..[/say]")
