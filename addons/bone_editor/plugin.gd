@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 const BoneDock = preload( "BoneDock.tscn" )

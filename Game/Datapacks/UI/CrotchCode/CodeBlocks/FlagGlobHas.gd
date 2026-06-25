@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/FlagGet.gd"
+extends FlagGet
 
 func getType():
 	return CrotchBlocks.LOGIC

@@ -1,4 +1,5 @@
 extends RefCounted
+class_name BaseAction
 
 var id = "error"
 

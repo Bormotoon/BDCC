@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/BDSM/HypnovisorMk1.gd"
+extends HypnovisorMk1
 
 func _init():
 	id = "HypnovisorMk0"

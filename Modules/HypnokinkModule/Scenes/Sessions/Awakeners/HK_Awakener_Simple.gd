@@ -1,4 +1,4 @@
-extends "res://Modules/HypnokinkModule/Scenes/Sessions/HK_SessionAwakenerBase.gd"
+extends HK_SessionAwakenerBase
 
 func _init():
 	sceneID = HK_Sessions.AwakenerSimple

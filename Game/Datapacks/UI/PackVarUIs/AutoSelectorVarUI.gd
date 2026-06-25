@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 @onready var advanced_selector_var_ui = $AdvancedSelectorVarUI
 @onready var selector_var_ui = $SelectorVarUI

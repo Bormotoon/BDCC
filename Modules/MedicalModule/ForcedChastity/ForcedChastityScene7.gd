@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var isSuccessful = false
 var optionalScenesBadBehaviorAmount = 0

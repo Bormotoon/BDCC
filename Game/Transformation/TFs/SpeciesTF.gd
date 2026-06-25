@@ -1,4 +1,5 @@
 extends TFBase
+class_name SpeciesTF
 
 var newSpecies:Array = [Species.Canine]
 var affectedSlots:Dictionary = {}

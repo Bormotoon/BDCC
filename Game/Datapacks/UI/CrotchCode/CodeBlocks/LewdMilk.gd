@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd"
+extends CodeBlockBase
 
 var op = "milk"
 var nameSlot := CrotchSlotVar.new()

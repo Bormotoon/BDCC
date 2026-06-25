@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 func _init():
 	sceneID = "Ch3s1TaviAndKaitScene"

@@ -82,7 +82,7 @@ func onEntrySelected(_id):
 	var theEntry:Dictionary = entries[selectedEntry]
 	
 	itemNameLabel.text = theEntry["name"] if theEntry.has("name") else "Unknown entry"
-	itemDescLabel.bbcode_text = theEntry["desc"] if theEntry.has("desc") else "No description provided"
+	itemDescLabel.text = theEntry["desc"] if theEntry.has("desc") else "No description provided"
 	
 	
 	onItemSelected.emit(_id)

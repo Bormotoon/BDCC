@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd"
+extends CodeBlockBase
+class_name MathPlus
 
 var leftOpSlot := CrotchSlotVar.new()
 var rightOpSlot := CrotchSlotVar.new()

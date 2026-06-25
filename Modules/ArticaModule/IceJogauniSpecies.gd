@@ -1,4 +1,4 @@
-extends "res://Species/Canine.gd"
+extends Canine
 
 func _init():
 	id = "icejogauni"

@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/FlagGlobSet.gd"
+extends FlagGlobSet
 
 func setRawTypeValue():
 	varValueSlot.setRawType(CrotchVarType.STRING)

@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var isUploading = false
 var signalConnected = false

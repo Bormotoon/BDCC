@@ -172,14 +172,14 @@ func updateDamageStatsLabel():
 	var accuracy = GM.pc.getAttackAccuracy() + 1.0
 	text += str(accuracy * 100.0)+"%\n"
 		
-	damageStatsLabel.bbcode_text = text
+	damageStatsLabel.text = text
 
 
 	text = ""
 	text += "Ambient lust: "+str(GM.pc.getAmbientLust()) +"\n"
 	text += "Ambient pain: "+str(GM.pc.getAmbientPain()) + "\n"
 	text += "Exposure: "+str(int(GM.pc.getExposure()*100))+"%" + "\n"
-	extraStatsLabel.bbcode_text = text
+	extraStatsLabel.text = text
 
 
 func _on_Skills_openPerksButton(skillID):

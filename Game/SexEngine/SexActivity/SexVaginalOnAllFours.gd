@@ -1,4 +1,5 @@
 extends SexActivityBase
+class_name SexVaginalOnAllFours
 var times:int = 0
 var gonnaCumOutside:bool = false
 

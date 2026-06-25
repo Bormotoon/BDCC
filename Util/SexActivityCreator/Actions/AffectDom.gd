@@ -1,4 +1,4 @@
-extends "res://Util/SexActivityCreator/Actions/BaseAction.gd"
+extends BaseAction
 
 var fetishes = {}
 var addScore = "+0.0"

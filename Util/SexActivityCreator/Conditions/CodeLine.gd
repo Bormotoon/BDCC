@@ -1,4 +1,4 @@
-extends "res://Util/SexActivityCreator/Conditions/BaseCondition.gd"
+extends BaseCondition
 
 var storedCode = ""
 

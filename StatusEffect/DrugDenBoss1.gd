@@ -1,4 +1,5 @@
 extends StatusEffectBase
+class_name DrugDenBoss1
 
 func _init():
 	id = "DrugDenBoss1"

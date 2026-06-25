@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 #onready var option_button = $HBoxContainer/OptionButton
 @onready var settings_list = $SettingsList
 @onready var auto_selector_var_ui = $HBoxContainer/AutoSelectorVarUI

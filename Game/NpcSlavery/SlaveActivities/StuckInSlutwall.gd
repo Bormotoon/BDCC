@@ -1,4 +1,4 @@
-extends "res://Game/NpcSlavery/SlaveActivities/StuckInStocks.gd"
+extends StuckInStocks
 
 func _init():
 	id = "StuckInSlutwall"

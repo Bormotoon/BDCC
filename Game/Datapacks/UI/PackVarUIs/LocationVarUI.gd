@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 @onready var location_button = $LocationButton
 
 @onready var label = $Label

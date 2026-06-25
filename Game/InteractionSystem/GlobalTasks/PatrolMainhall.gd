@@ -1,4 +1,4 @@
-extends "res://Game/InteractionSystem/GlobalTasks/PatrolGreenhouses.gd"
+extends PatrolGreenhouses
 
 func _init():
 	id = "PatrolMainhall"

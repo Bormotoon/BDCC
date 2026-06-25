@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var selectedInterest = Interest.Neutral
 var interestTopic = InterestTopic.AndroBody

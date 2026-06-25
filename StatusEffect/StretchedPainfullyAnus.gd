@@ -1,4 +1,4 @@
-extends "res://StatusEffect/StretchedPainfullyPussy.gd"
+extends StretchedPainfullyPussy
 
 func _init():
 	id = StatusEffect.StretchedPainfullyAnus

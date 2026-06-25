@@ -1,4 +1,4 @@
-extends "res://Scenes/VendomatScene.gd"
+extends VendomatScene
 
 func _init():
 	sceneID = "AnnouncerBuySellScene"

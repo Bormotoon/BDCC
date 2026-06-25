@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var eggsToLay:int = 0
 var eggReport:String = ""

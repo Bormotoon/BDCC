@@ -1,4 +1,4 @@
-extends "res://Player/StageScene3D/BaseStageScene3D.gd"
+extends BaseStageScene3D
 
 @onready var animationTree = $AnimationTree
 @onready var doll = $Doll3D

@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 class MyQuestSorter:
 	static func sort_descending(a, b):

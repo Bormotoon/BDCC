@@ -1,5 +1,5 @@
-tool
-extends Spatial
+@tool
+extends Node3D
 
 @export var control_skeleton:NodePath setget set_control_skeleton
 @export var edit_animation_player:NodePath setget set_edit_animation_player

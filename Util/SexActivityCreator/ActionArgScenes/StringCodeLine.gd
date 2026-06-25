@@ -1,4 +1,4 @@
-extends "res://Util/SexActivityCreator/ActionArgScenes/BaseActionArg.gd"
+extends BaseActionArg
 
 func _init():
 	id = "string"

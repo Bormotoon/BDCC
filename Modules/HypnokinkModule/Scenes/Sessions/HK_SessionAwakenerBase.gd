@@ -1,4 +1,5 @@
 extends SceneBase
+class_name HK_SessionAwakenerBase
 
 func onAwakener():
 	processTime(10*60)

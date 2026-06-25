@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var selectedInterest:float = FetishInterest.Neutral
 var fetish:String = Fetish.AnalSexReceiving

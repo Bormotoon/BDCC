@@ -1,4 +1,4 @@
-extends "res://Modules/PortalPantiesModule/PortalPanties/PortalPanties.gd"
+extends PortalPanties
 
 func _init():
 	id = "PortalPantiesUnlocked"

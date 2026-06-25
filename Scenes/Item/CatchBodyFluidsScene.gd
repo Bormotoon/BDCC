@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var uniqueItemID = ""
 var item: ItemBase = null

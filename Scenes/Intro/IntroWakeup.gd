@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 # Heavy work in progress, the text is just to get a feel for how the game is gonna start
 

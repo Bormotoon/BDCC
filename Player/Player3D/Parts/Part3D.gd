@@ -1,4 +1,5 @@
 extends Node3D
+class_name Part3D
 
 var dollSkeleton
 var doll3D

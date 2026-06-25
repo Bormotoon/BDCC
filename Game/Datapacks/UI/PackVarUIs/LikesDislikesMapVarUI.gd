@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var interestMap = {
 	InterestTopic.AndroBody: Interest.Neutral,

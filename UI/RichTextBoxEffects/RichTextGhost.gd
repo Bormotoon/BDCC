@@ -1,4 +1,4 @@
-tool
+@tool
 extends RichTextEffect
 
 # Syntax: [ghost freq=5.0 span=10.0][/ghost]

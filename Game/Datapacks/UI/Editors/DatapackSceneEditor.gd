@@ -84,12 +84,12 @@ func doOutput(theText):
 	
 	outputLines.append(theText)
 	
-	output_label.bbcode_text = Util.join(outputLines, "\n")
+	output_label.text = Util.join(outputLines, "\n")
 	output_label.scroll_to_line(output_label.get_line_count()-1)
 
 func clearOutput():
 	outputLines = []
-	output_label.bbcode_text = ""
+	output_label.text = ""
 
 func doOutputError(_codeBlock, errorText):
 	if(_codeBlock != null):
@@ -104,12 +104,12 @@ func doTriggerOutput(theText):
 	
 	triggerOutputLines.append(theText)
 	
-	trigger_output_label.bbcode_text = Util.join(triggerOutputLines, "\n")
+	trigger_output_label.text = Util.join(triggerOutputLines, "\n")
 	trigger_output_label.scroll_to_line(trigger_output_label.get_line_count()-1)
 
 func clearTriggerOutput():
 	triggerOutputLines = []
-	trigger_output_label.bbcode_text = ""
+	trigger_output_label.text = ""
 
 func doTriggerOutputError(_codeBlock, errorText):
 	if(_codeBlock != null):
@@ -179,10 +179,10 @@ func _on_TestButton_pressed():
 	codeContex.execute(datapack_scene_code_wrapper.getSlotCalls())
 	
 #func doOutput(theText):
-#	if(!output_label.bbcode_text.is_empty()):
-#		output_label.bbcode_text += "\n"+theText
+#	if(!output_label.text.is_empty()):
+#		output_label.text += "\n"+theText
 #	else:
-#		output_label.bbcode_text = theText
+#		output_label.text = theText
 #	output_label.scroll_to_line(output_label.get_line_count()-1)
 #
 #func doOutputError(_codeBlock, errorText):

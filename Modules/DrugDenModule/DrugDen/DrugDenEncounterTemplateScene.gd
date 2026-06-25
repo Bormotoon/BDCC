@@ -1,4 +1,5 @@
 extends SceneBase
+class_name DrugDenEncounterTemplateScene
 
 var npcID:String = ""
 var wonState:String = ""

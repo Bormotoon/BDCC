@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var numberVarScene = preload("res://Game/Datapacks/UI/PackVarUIs/NumberVarUI.tscn")
 

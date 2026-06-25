@@ -41,10 +41,10 @@ func updatePerkText():
 	if(GM.pc.getSkillsHolder().isPerkDisabled(perkID)):
 		perkNameLabel.text += " (Disabled)"
 	
-	perkDescLabel.bbcode_text = perk.getVisibleDescription()
+	perkDescLabel.text = perk.getVisibleDescription()
 	var extraText = perk.getMoreDescription()
 	if(extraText!=""):
-		perkDescLabel.bbcode_text += "\n\n"+extraText
+		perkDescLabel.text += "\n\n"+extraText
 	
 	togglePerkButton.visible = false
 	if(GM.pc.getSkillsHolder().hasPerkDisabledOrNot(perkID)):

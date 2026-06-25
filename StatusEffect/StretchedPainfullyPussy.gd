@@ -1,4 +1,5 @@
 extends StatusEffectBase
+class_name StretchedPainfullyPussy
 
 var stacks = 0
 

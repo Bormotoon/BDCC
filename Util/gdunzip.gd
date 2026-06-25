@@ -258,7 +258,7 @@ class Tinf:
 	# -- GDscript specific helper functions --
 	# ----------------------------------------
 	func make_pool_int_array(size):
-		var pool_int_array = PoolIntArray()
+		var pool_int_array = PackedInt32Array()
 		pool_int_array.resize(size)
 		return pool_int_array
 

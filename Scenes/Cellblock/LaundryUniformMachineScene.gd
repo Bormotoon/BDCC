@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var dyingItemUniqueID = ""
 var colorPickerScene = preload("res://UI/ColorPickerWidget.tscn")

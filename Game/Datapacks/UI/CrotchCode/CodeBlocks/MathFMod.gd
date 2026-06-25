@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/MathPlus.gd"
+extends MathPlus
 
 func doThing(a, b):
 	return fmod(a, b)

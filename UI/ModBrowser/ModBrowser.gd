@@ -102,7 +102,7 @@ func updatePickedModEntry():
 			visualModEntry.makeInactive()
 	
 	if(pickedModEntry == null):
-		modDescriptionLabel.bbcode_text = "Select a mod on the left"
+		modDescriptionLabel.text = "Select a mod on the left"
 	else:
 		var text = ""
 		text += "Name: "+str(pickedModEntry.name)+"\n"
@@ -120,7 +120,7 @@ func updatePickedModEntry():
 		text += "\n"
 		text += str(pickedModEntry.description)
 		
-		modDescriptionLabel.bbcode_text = text
+		modDescriptionLabel.text = text
 
 func onModEntrySelected(theModEntry):
 	pickedModEntry = theModEntry

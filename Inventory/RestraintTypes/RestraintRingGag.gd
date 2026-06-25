@@ -1,4 +1,4 @@
-extends "res://Inventory/RestraintTypes/RestraintMuzzle.gd"
+extends RestraintMuzzle
 class_name RestraintRingGag
 
 func _init():

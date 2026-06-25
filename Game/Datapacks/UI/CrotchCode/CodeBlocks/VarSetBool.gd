@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/VarSet.gd"
+extends VarSet
 
 func setRawTypeValue():
 	varValueSlot.setRawType(CrotchVarType.BOOL)

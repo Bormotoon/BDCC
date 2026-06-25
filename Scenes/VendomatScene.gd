@@ -1,4 +1,5 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
+class_name VendomatScene
 
 var inventoryScreenScene = preload("res://UI/Inventory/InventoryScreen.tscn")
 

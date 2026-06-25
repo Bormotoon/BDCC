@@ -43,7 +43,7 @@ func _ready():
 		text += module.id + " by " + module.author+"\n"
 		
 		
-	modsLabel.bbcode_text = text
+	modsLabel.text = text
 	
 func _on_CloseButton_pressed():
 	onClosePressed.emit()

@@ -5,9 +5,10 @@ var is_active := false:
 		set_is_active(value)
 var showBelow = false
 
-@onready var _tween := $Tween
 @onready var _title := $VBoxContainer/Title
 @onready var _body := $VBoxContainer/Body
+
+var _tween: Tween
 
 
 func _ready() -> void:
@@ -39,23 +40,26 @@ func set_is_active(value: bool, delayShow = false):
 
 	if is_active:
 		if(delayShow):
-			_tween.remove_all()
-			_tween.interpolate_property(self, "modulate", Color(0.0, 0.0, 0.0, -6.0), Color.WHITE, 0.6)
-			_tween.start()
+			if _tween:
+				_tween.kill()
+			_tween = create_tween()
+			_tween.tween_property(self, "modulate", Color.WHITE, 0.6).from(Color(0.0, 0.0, 0.0, -6.0))
 		else:
 			modulate = Color.WHITE
-			_tween.remove_all()
+			if _tween:
+				_tween.kill()
 	else:
-		_tween.remove_all()
-		_tween.interpolate_property(self, "modulate", modulate, Color.TRANSPARENT, 0.2)
-		_tween.start()
+		if _tween:
+			_tween.kill()
+		_tween = create_tween()
+		_tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.2).from(modulate)
 
 func is_tooltip_active():
 	return is_active
 
 func set_text(title: String, body: String):
 	_title.text = title.capitalize()
-	_body.bbcode_text = body
+	_body.text = body
 	#await get_tree().process_frame
 	#_body.set_size(Vector2(_body.get_size().x, _body.get_v_scroll().get_max()))
 	await get_tree().process_frame

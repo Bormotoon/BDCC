@@ -1,4 +1,4 @@
-extends "res://Util/SexActivityCreator/Actions/BaseAction.gd"
+extends BaseAction
 
 var who = "domInfo"
 var howMuch = "0.1"

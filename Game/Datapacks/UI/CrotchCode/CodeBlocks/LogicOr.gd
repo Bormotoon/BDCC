@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/LogicAnd.gd"
+extends LogicAnd
 
 func checkThing(a,b):
 	return a || b

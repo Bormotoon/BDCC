@@ -1,4 +1,4 @@
-extends "res://Game/SlaveAuction/Actions/IntroNormal.gd"
+extends IntroNormal
 
 func _init():
 	id = "IntroSexy"

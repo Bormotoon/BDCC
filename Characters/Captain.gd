@@ -1,4 +1,5 @@
 extends Character
+class_name Captain
 
 func _init():
 	id = "captain"

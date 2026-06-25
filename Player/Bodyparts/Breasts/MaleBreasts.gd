@@ -1,4 +1,4 @@
-extends "res://Player/Bodyparts/Breasts/HumanBreasts.gd"
+extends HumanBreasts
 
 func _init():
 	visibleName = "male breasts"

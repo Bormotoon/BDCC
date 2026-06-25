@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/FlagInc.gd"
+extends FlagInc
+class_name FlagGlobInc
 
 func execute(_contex:CodeContex):
 	var flagID = str(varNameSlot.getValue(_contex))

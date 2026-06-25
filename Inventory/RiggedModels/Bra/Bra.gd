@@ -1,4 +1,4 @@
-extends "res://Player/Player3D/Parts/Part3D.gd"
+extends Part3D
 
 #func setColor(newColor):
 #	var theMat1:SpatialMaterial = $bodywidepng.get_surface_material(0)

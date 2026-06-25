@@ -1,4 +1,4 @@
-extends "res://Game/SexEngine/SexActivity/ThreeDDS_SpitroastVag.gd"
+extends ThreeDDS_SpitroastVag
 
 func _init():
 	id = "ThreeDDS_SpitroastAnal"

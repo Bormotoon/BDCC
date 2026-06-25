@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/Underwear/PlainPanties.gd"
+extends PlainPanties
 
 func _init():
 	id = "MirriPanties"

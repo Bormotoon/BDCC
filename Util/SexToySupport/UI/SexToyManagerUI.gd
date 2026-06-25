@@ -60,7 +60,7 @@ func updateToyOrBackendPanel():
 	if(isBackendSelected && selectedSomething):
 		var theBackend:SexToyBackend = selectedSomething
 		enable_back_end_check_box.set_pressed_no_signal(theBackend.enabled)
-		backend_desc.bbcode_text = theBackend.getDesc()
+		backend_desc.text = theBackend.getDesc()
 		
 		backend_pack_variables.setVariables(selectedSomething.getSettings())
 		updateBackendActionsList()

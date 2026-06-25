@@ -1,4 +1,5 @@
 extends SexActivityBase
+class_name ThreeDDS_SpitroastVag
 
 var usedBodypart:String = S_VAGINA
 var usedFetish:String = Fetish.VaginalSexGiving

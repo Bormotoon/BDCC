@@ -1,4 +1,5 @@
 extends SexActivityBase
+class_name DomRidingSubVaginal
 var waitTimer:int = 0
 
 var usedBodypart:String = BodypartSlot.Vagina

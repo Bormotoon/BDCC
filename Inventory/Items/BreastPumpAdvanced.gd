@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/BreastPump.gd"
+extends BreastPump
 
 func _init():
 	id = "BreastPumpAdvanced"

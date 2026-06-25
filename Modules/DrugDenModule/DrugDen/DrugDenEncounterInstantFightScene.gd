@@ -1,4 +1,4 @@
-extends "res://Modules/DrugDenModule/DrugDen/DrugDenEncounterTemplateScene.gd"
+extends DrugDenEncounterTemplateScene
 
 func _init():
 	sceneID = "DrugDenEncounterInstantFightScene"

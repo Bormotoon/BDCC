@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/PlasticBottle.gd"
+extends PlasticBottle
 
 func _init():
 	id = "PlasticBottleBluespace"

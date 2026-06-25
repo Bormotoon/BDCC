@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 @onready var color_picker_button = $ColorPickerButton
 
 func setColorValue(_value):

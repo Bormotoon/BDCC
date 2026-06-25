@@ -1,4 +1,5 @@
 extends AuctionAction
+class_name IntroNormal
 
 func _init():
 	id = "IntroNormal"

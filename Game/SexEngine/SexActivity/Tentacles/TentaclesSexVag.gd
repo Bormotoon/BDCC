@@ -1,4 +1,5 @@
 extends SexActivityBase
+class_name TentaclesSexVag
 
 var currentPose:String = ""
 var isStuffing:bool = false

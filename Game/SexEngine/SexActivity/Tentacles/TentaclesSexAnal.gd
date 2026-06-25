@@ -1,4 +1,4 @@
-extends "res://Game/SexEngine/SexActivity/Tentacles/TentaclesSexVag.gd"
+extends TentaclesSexVag
 
 func _init():
 	id = "TentaclesSexAnal"

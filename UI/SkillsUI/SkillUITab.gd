@@ -90,10 +90,10 @@ func updatePerkText():
 	elif(GM.pc.getSkillsHolder().isPerkDisabled(perkID)):
 		perkNameLabel.text += " (Disabled)"
 	
-	perkDescLabel.bbcode_text = perk.getVisibleDescription()
+	perkDescLabel.text = perk.getVisibleDescription()
 	var extraText = perk.getMoreDescription()
 	if(extraText!=""):
-		perkDescLabel.bbcode_text += "\n\n"+extraText
+		perkDescLabel.text += "\n\n"+extraText
 	
 	if(perk.unlockable()):
 		var reqText = "Requirements:\n"
@@ -119,9 +119,9 @@ func updatePerkText():
 			else:
 				reqText += "\n[color=red]"+str(requiredperk.getVisibleName())+" perk[/color]"
 		
-		perkRequirmentsLabel.bbcode_text = reqText
+		perkRequirmentsLabel.text = reqText
 	else:
-		perkRequirmentsLabel.bbcode_text = ""
+		perkRequirmentsLabel.text = ""
 	
 	unlockPerkButton.visible = false
 	togglePerkButton.visible = false

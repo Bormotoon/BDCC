@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/GuardHelmet.gd"
+extends GuardHelmet
 
 func _init():
 	id = "GuardHelmetRiot"

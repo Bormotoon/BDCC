@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 @onready var auto_selector_var_ui = $AutoSelectorVarUI
 
 var data = {

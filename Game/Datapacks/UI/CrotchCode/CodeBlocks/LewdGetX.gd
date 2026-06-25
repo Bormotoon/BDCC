@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/LewdHasX.gd"
+extends LewdHasX
 
 func getType():
 	return CrotchBlocks.VALUE

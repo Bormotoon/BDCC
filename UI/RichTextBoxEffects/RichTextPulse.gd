@@ -1,4 +1,4 @@
-tool
+@tool
 extends RichTextEffect
 
 # Syntax: [pulse color=#00FFAA height=0.0 freq=2.0][/pulse]

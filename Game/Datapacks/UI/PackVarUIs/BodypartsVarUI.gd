@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 @onready var parts_list = $ScrollContainer/PartsList
 
 var data = {

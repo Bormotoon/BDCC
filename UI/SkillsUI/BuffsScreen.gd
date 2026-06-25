@@ -41,7 +41,7 @@ func updateBuffsText():
 				newtext += buff.getVisibleDescriptionColored()+"\n"
 			newtext += "\n"
 	
-	$ScrollContainer/VBoxContainer/RichTextLabel.bbcode_text = newtext
+	$ScrollContainer/VBoxContainer/RichTextLabel.text = newtext
 	
 
 func _on_BuffsScreen_visibility_changed():

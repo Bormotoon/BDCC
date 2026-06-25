@@ -1,4 +1,4 @@
-extends "res://Characters/Captain.gd"
+extends Captain
 
 func _init():
 	id = "captainInmate"

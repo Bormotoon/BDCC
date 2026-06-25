@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 
 var singleStatScene = preload("res://Game/Datapacks/UI/PackVarUIs/PersonalityStatVarUI.tscn")
 

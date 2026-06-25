@@ -1,4 +1,4 @@
-extends "res://StatusEffect/DrugDenBoss1.gd"
+extends DrugDenBoss1
 
 func _init():
 	id = "DrugDenBoss2"

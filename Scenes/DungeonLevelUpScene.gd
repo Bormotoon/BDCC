@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var levelUpScreenScene = preload("res://UI/SkillsUI/DungeonLevelUpScreen.tscn")
 

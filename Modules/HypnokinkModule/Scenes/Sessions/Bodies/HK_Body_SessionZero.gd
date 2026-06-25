@@ -1,4 +1,4 @@
-extends "res://Modules/HypnokinkModule/Scenes/Sessions/HK_SessionBodyBase.gd"
+extends HK_SessionBodyBase
 
 func _init():
 	sceneID = HK_Sessions.BodySessionZero

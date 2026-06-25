@@ -1,4 +1,4 @@
-extends "res://Modules/DrugDenModule/DrugDen/DrugDenEncounterTemplateScene.gd"
+extends DrugDenEncounterTemplateScene
 
 var offerItemID:String = ""
 var reasonFail:String = ""

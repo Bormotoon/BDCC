@@ -1,4 +1,5 @@
 extends Control
+class_name BaseActionArg
 
 var id = "error"
 var valueID = ""

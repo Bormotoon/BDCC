@@ -1,4 +1,4 @@
-extends "res://Attacks/PlayerOnly/PunchPCAttack.gd"
+extends PunchPCAttack
 
 func _init():
 	id = "simplepunchattack"

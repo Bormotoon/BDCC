@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/PlantEgg.gd"
+extends PlantEgg
 
 func _init():
 	id = "PlantEggEliza"

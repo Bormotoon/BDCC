@@ -1,4 +1,5 @@
 extends ItemBase
+class_name InmateUniformGeneral
 
 var prisonerNumber = ""
 var inmateType = InmateType.General

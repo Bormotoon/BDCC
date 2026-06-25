@@ -1,4 +1,4 @@
-extends "res://Game/Transformation/TFs/SpeciesTF.gd"
+extends SpeciesTF
 
 func _init():
 	id = "Demonification"

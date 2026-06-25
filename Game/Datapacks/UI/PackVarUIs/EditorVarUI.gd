@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/PackVarUIs/PackVarUIBase.gd"
+extends PackVarUIBase
 @onready var item_list = $VBoxContainer2/HBoxContainer/ItemList
 
 var thingIds = []

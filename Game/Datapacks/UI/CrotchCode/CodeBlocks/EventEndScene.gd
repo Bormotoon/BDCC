@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/SceneEndScene.gd"
+extends SceneEndScene
 
 func getCategories():
 	return ["Event"]

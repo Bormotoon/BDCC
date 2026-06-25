@@ -1,4 +1,5 @@
 extends ItemBase
+class_name Strapon
 
 func _init():
 	id = "Strapon"

@@ -43,7 +43,7 @@ func updateDatapackDesc(theDatapack:Datapack):
 	finalText += "\n\n"+theDatapack.description
 	finalText += "\n\n"+theDatapack.getContainsString()
 	
-	datapack_desc_label.bbcode_text = finalText
+	datapack_desc_label.text = finalText
 
 func isDatapackMenu():
 	return true
@@ -108,7 +108,7 @@ func showAlert(theText:String):
 func reloadAndUpdatePacks():
 	GlobalRegistry.reloadPacks()
 	updateDatapackList()
-	datapack_desc_label.bbcode_text = ""
+	datapack_desc_label.text = ""
 
 func _on_UpdateButton_pressed():
 	reloadAndUpdatePacks()

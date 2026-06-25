@@ -232,14 +232,14 @@ func updateSelectedEntry():
 	if(selectedEntry == null):
 		if(OS.get_name() == "Android" && false):
 			if(!foundBDCC):
-				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.bbcode_text = "[color=red]You must provide BDCC.pck file to be able to use mods. It must be from the current version! Download the most recent one [url=https://github.com/Alexofp/BDCC/releases]HERE[/url] and place into the mods folder[/color]"
+				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.text = "[color=red]You must provide BDCC.pck file to be able to use mods. It must be from the current version! Download the most recent one [url=https://github.com/Alexofp/BDCC/releases]HERE[/url] and place into the mods folder[/color]"
 				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.visible = true
 				$VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/WithModsButton.disabled = true
 			else:
-				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.bbcode_text = "BDCC.pck file is found. Don't forget to update it when you update the game. Download the most recent one [url=https://github.com/Alexofp/BDCC/releases]HERE[/url]"
+				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.text = "BDCC.pck file is found. Don't forget to update it when you update the game. Download the most recent one [url=https://github.com/Alexofp/BDCC/releases]HERE[/url]"
 				$VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/WarningLabel.visible = true
 		
-		modDescriptionLabel.bbcode_text = "No mod selected"
+		modDescriptionLabel.text = "No mod selected"
 		return
 	modDisableButton.text = "Enable" if(selectedEntry['disabled']) else "Disable"
 
@@ -265,7 +265,7 @@ func updateSelectedEntry():
 		desc += "Mod version: " + str(jsonResult["modversion"])+"\n"
 		desc += "Description: " + str(jsonResult["description"])+"\n"
 
-	modDescriptionLabel.bbcode_text = desc
+	modDescriptionLabel.text = desc
 
 func tryToPopulateFilesList():
 	modFileList.clear()
@@ -564,7 +564,7 @@ func setBusyPanel(_text:String, _canClose:bool = false):
 		return
 	
 	busy_panel.visible = true
-	busy_label.bbcode_text = _text
+	busy_label.text = _text
 	busy_close_button.visible = _canClose
 
 func _on_CheckBrokenModsButton_pressed():

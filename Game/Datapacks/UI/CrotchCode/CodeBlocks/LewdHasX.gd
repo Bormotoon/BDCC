@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd"
+extends CodeBlockBase
+class_name LewdHasX
 
 var op = "hasReachablePenis"
 var nameSlot := CrotchSlotVar.new()

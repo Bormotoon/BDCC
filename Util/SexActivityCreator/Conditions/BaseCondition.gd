@@ -1,4 +1,4 @@
-extends "res://Util/SexActivityCreator/Actions/BaseAction.gd"
+extends BaseAction
 
 func isCondition():
 	return true

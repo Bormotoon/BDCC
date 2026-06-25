@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/Condom.gd"
+extends Condom
 
 
 func _init():

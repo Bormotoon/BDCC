@@ -106,11 +106,11 @@ func _ready() -> void:
 # ==========================================
 
 func say(text: String) -> void:
-	text_output.bbcode_text += game_parser.execute_string(say_parser.process_string(text))
+	text_output.text += game_parser.execute_string(say_parser.process_string(text))
 
 func clear_text() -> void:
 	scroll_panel.set_v_scroll(0)
-	text_output.bbcode_text = ""
+	text_output.text = ""
 
 func clear_scene_artwork() -> void:
 	scene_artwork_rect.texture = null

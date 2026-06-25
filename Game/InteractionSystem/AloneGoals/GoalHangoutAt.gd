@@ -1,4 +1,4 @@
-extends "res://Game/InteractionSystem/AloneGoals/GoalPatrol.gd"
+extends GoalPatrol
 
 func getScore(_pawn:CharacterPawn) -> float:
 	if(globalTask != ""):

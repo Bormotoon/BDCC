@@ -1,4 +1,5 @@
 extends GlobalTask
+class_name PatrolGreenhouses
 
 var patrolZone:String = WorldZone.Greenhouses
 

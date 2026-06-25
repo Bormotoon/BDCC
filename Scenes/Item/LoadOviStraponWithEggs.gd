@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 
 var inventoryScreenScene = preload("res://UI/Inventory/InventoryScreen.tscn")
 var uniqueItemID:String = ""

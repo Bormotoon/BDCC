@@ -44,7 +44,7 @@ func _ready():
 	updateSidePanelsVisibility()
 	versionLabel.text = "Version: "+GlobalRegistry.getGameVersionString()
 
-	donations_label.bbcode_text = GlobalRegistry.getDonationDataString()
+	donations_label.text = GlobalRegistry.getDonationDataString()
 	var _ok = GlobalRegistry.donationDataUpdated.connect(updateDonationData)
 
 	checkCanResume()
@@ -61,7 +61,7 @@ func _ready():
 		var text = "Loaded mods:"
 		for mod in loadedMods:
 			text += "\n"+str(mod)
-		loadedModsLabel.bbcode_text = text
+		loadedModsLabel.text = text
 		verticalModsStr = str(loadedMods.size())+" mod"+("s" if loadedMods.size() != 1 else "")
 	
 	if(OS.get_name() == "Web"):
@@ -70,7 +70,7 @@ func _ready():
 	OPTIONS.onScreenOrientationChange.connect(updateSidePanelsVisibility)
 	
 func updateDonationData():
-	donations_label.bbcode_text = GlobalRegistry.getDonationDataString()
+	donations_label.text = GlobalRegistry.getDonationDataString()
 
 func _on_NewGameButton_pressed():
 	var _ok = get_tree().change_scene_to_file("res://Game/MainScene.tscn")

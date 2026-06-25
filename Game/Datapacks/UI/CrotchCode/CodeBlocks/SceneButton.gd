@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd"
+extends CodeBlockBase
+class_name SceneButton
 
 var nameSlot := CrotchSlotVar.new()
 var descSlot := CrotchSlotVar.new()

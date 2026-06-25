@@ -1,4 +1,5 @@
 extends Control
+class_name PackVarUIBase
 
 var id = ""
 signal onValueChange(id, newValue)

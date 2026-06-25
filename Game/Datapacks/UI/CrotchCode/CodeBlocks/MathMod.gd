@@ -1,4 +1,4 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/MathPlus.gd"
+extends MathPlus
 
 func thingSupportsStrings():
 	return false

@@ -1,4 +1,4 @@
-extends "res://Inventory/Items/Clothes/NurseClothes.gd"
+extends NurseClothes
 
 func _init():
 	id = "NurseClothesAlt"

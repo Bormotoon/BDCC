@@ -152,22 +152,22 @@ func updateSelectedHighlight():
 func updateSelectedInfo():
 	if(selectedItem == null):
 		itemNameLabel.text = "Pick an item"
-		itemDescLabel.bbcode_text = ""
+		itemDescLabel.text = ""
 		return
 	itemNameLabel.text = selectedItem.getStackName()
-	itemDescLabel.bbcode_text = selectedItem.getVisibleDescription()
+	itemDescLabel.text = selectedItem.getVisibleDescription()
 	if(isBuy):
 		var price = selectedItem.getPrice()
 		var priceStr = (str(price)+" credit") if price == 1 else (str(price)+" credits")
-		itemDescLabel.bbcode_text += "\nPrice: " +priceStr
+		itemDescLabel.text += "\nPrice: " +priceStr
 		if(selectedItem.getBuyAmount() > 1):
-			itemDescLabel.bbcode_text += " (for "+str(selectedItem.getBuyAmount())+")"
+			itemDescLabel.text += " (for "+str(selectedItem.getBuyAmount())+")"
 	if(isSell):
 		var price = selectedItem.getStackSellPrice()
 		var priceStr = (str(price)+" credit") if price == 1 else (str(price)+" credits")
-		itemDescLabel.bbcode_text += "\nPrice: " +priceStr
+		itemDescLabel.text += "\nPrice: " +priceStr
 		if(selectedItem.getAmount() > 1):
-			itemDescLabel.bbcode_text += " (for "+str(selectedItem.getAmount())+")"
+			itemDescLabel.text += " (for "+str(selectedItem.getAmount())+")"
 
 func onEntryInteractButtonPressed(theItem):
 	onInteractWith.emit(theItem)

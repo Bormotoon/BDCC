@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd"
+extends CodeBlockBase
+class_name FlagGet
 
 var varNameSlot := CrotchSlotVar.new()
 

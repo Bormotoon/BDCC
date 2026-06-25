@@ -1,4 +1,4 @@
-extends "res://Modules/HypnokinkModule/Scenes/Sessions/HK_SessionInductionBase.gd"
+extends HK_SessionInductionBase
 
 func _init():
 	sceneID = HK_Sessions.InductionAlreadyHypnotized

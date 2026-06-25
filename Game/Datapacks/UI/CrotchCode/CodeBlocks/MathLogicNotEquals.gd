@@ -1,4 +1,5 @@
-extends "res://Game/Datapacks/UI/CrotchCode/CodeBlocks/MathLogicBiggerThan.gd"
+extends MathLogicBiggerThan
+class_name MathLogicNotEquals
 
 func getCategories():
 	return ["Math", "Logic"]

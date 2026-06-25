@@ -1,4 +1,4 @@
-extends "res://Game/SexEngine/SexActivity/SexVaginalOnAllFours.gd"
+extends SexVaginalOnAllFours
 
 func _init():
 	id = "SexAnalOnAllFours"

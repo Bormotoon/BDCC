@@ -1,4 +1,4 @@
-extends "res://Player/Player3D/Parts/Part3D.gd"
+extends Part3D
 
 func setColor(newColor):
 	for mesh in [$bodywidepng, $PartStatePicker/PartState/breastsScalable001]:

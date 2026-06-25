@@ -14,7 +14,7 @@ func printLine(text : String):
 	if(savedText.length() > 20000):
 		savedText = savedText.substr(savedText.length() - 10000)
 	if(visible):
-		consoleLabel.bbcode_text = savedText
+		consoleLabel.text = savedText
 
 func _on_ConsoleInput_text_entered(new_text):
 	#print(new_text)
@@ -23,7 +23,7 @@ func _on_ConsoleInput_text_entered(new_text):
 
 func _on_ClearButton_pressed():
 	savedText = ""
-	consoleLabel.bbcode_text = ""
+	consoleLabel.text = ""
 
 func _on_CloseButton_pressed():
 	consoleClosed.emit()
@@ -31,9 +31,9 @@ func _on_CloseButton_pressed():
 
 func _on_DebugConsole_visibility_changed():
 	if(visible):
-		consoleLabel.bbcode_text = savedText
+		consoleLabel.text = savedText
 		$PanelContainer/ConsoleInput.grab_focus()
-		$PanelContainer/HelpLabel.bbcode_text = "Console commands:\n"+Console.getCommandsHelp()
+		$PanelContainer/HelpLabel.text = "Console commands:\n"+Console.getCommandsHelp()
 	set_process(true)
 
 func _on_ProfileButton_pressed():

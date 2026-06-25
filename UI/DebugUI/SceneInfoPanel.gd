@@ -24,7 +24,7 @@ func updateInfo():
 		
 		
 		
-	$ScrollContainer/VBoxContainer/RichTextLabel.bbcode_text = resultText
+	$ScrollContainer/VBoxContainer/RichTextLabel.text = resultText
 
 
 func _on_SceneInfoPanel_visibility_changed():

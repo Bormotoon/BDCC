@@ -32,7 +32,7 @@ func setSaveFile(path):
 	
 	var isExternal:bool = !saveFile.begins_with("user://")
 	
-	saveNameLabel.bbcode_text = ("(External) " if isExternal else "") + "[b]" + saveFile.get_file() + "[/b] - " + fileModifTimeString + "\n"+extra
+	saveNameLabel.text = ("(External) " if isExternal else "") + "[b]" + saveFile.get_file() + "[/b] - " + fileModifTimeString + "\n"+extra
 
 func _on_LoadButton_pressed():
 	onLoadButtonPressed.emit(saveFile)

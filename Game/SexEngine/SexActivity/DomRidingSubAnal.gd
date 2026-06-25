@@ -1,4 +1,4 @@
-extends "res://Game/SexEngine/SexActivity/DomRidingSubVaginal.gd"
+extends DomRidingSubVaginal
 
 func _init():
 	id = "DomRidingSubAnal"
