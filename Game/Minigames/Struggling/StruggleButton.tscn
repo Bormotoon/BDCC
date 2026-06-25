@@ -93,7 +93,7 @@ offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
 offset_bottom = 64.0
-rect_pivot_offset = Vector2( 64, 64 )
+pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 
@@ -110,7 +110,7 @@ offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
-rect_pivot_offset = Vector2( 32, 32 )
+pivot_offset = Vector2( 32, 32 )
 script = ExtResource( 3 )
 
 [connection signal="gui_input" from="HitBox" to="." method="_on_HitBox_gui_input"]

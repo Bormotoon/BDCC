@@ -83,7 +83,7 @@ anchor_bottom = 1.0
 [node name="LeftPanel" type="Panel" parent="MainLayout"]
 offset_right = 260.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 260, 0 )
+custom_minimum_size = Vector2( 260, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 custom_styles/panel = SubResource( 1 )
@@ -120,7 +120,7 @@ size_flags_vertical = 3
 offset_top = 332.0
 offset_right = 236.0
 offset_bottom = 342.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.01
@@ -145,7 +145,7 @@ __meta__ = {
 unique_name_in_owner = true
 offset_right = 116.0
 offset_bottom = 26.0
-hint_tooltip = "Quick save (F5)"
+tooltip_text = "Quick save (F5)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 16 )
@@ -156,7 +156,7 @@ unique_name_in_owner = true
 offset_left = 120.0
 offset_right = 236.0
 offset_bottom = 26.0
-hint_tooltip = "Quick load (F9)"
+tooltip_text = "Quick load (F9)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 18 )
@@ -174,7 +174,7 @@ __meta__ = {
 unique_name_in_owner = true
 offset_right = 95.0
 offset_bottom = 26.0
-hint_tooltip = "Spend the stat points and look at your skills (X)"
+tooltip_text = "Spend the stat points and look at your skills (X)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 10 )
@@ -185,7 +185,7 @@ unique_name_in_owner = true
 offset_left = 99.0
 offset_right = 195.0
 offset_bottom = 26.0
-hint_tooltip = "Open the menu (C)"
+tooltip_text = "Open the menu (C)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 8 )
@@ -196,7 +196,7 @@ unique_name_in_owner = true
 offset_left = 199.0
 offset_right = 236.0
 offset_bottom = 26.0
-hint_tooltip = "Open the debug/cheats menu"
+tooltip_text = "Open the debug/cheats menu"
 shortcut_in_tooltip = false
 text = "DG"
 
@@ -209,7 +209,7 @@ offset_bottom = 696.0
 unique_name_in_owner = true
 offset_right = 236.0
 offset_bottom = 26.0
-hint_tooltip = "Rollback the game's state back"
+tooltip_text = "Rollback the game's state back"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 text = "Rollback"
@@ -218,7 +218,7 @@ text = "Rollback"
 offset_left = 264.0
 offset_right = 269.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 5, 0 )
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="MainScreenBoxContainer" type="VBoxContainer" parent="MainLayout"]
 unique_name_in_owner = true
@@ -231,7 +231,7 @@ size_flags_vertical = 3
 [node name="Panel" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer"]
 offset_right = 710.0
 offset_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 
 [node name="TranslateBox" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer/Panel"]
 unique_name_in_owner = true
@@ -362,7 +362,7 @@ text = ">"
 offset_top = 712.0
 offset_right = 710.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 8 )
+custom_minimum_size = Vector2( 0, 8 )
 
 [node name="InGameMenu" parent="MainLayout" instance=ExtResource( 18 )]
 unique_name_in_owner = true
@@ -394,7 +394,7 @@ size_flags_vertical = 3
 [node name="MarginContainer" type="MarginContainer" parent="MainLayout/DevCommentary"]
 offset_right = 375.0
 offset_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2( 0, 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -424,7 +424,7 @@ fit_content_height = true
 offset_top = 620.0
 offset_right = 375.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" type="Button" parent="MainLayout/DevCommentary/GridContainer"]
@@ -446,13 +446,13 @@ offset_bottom = 720.0
 offset_left = 987.0
 offset_right = 992.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 5, 0 )
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="RightPanel" type="Panel" parent="MainLayout"]
 offset_left = 996.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 240, 0 )
+custom_minimum_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 custom_styles/panel = SubResource( 6 )
@@ -492,7 +492,7 @@ offset_left = 20.0
 offset_top = 18.8284
 offset_right = 78.0
 offset_bottom = 44.8284
-rect_min_size = Vector2( 100, 40 )
+custom_minimum_size = Vector2( 100, 40 )
 text = "Close"
 
 [node name="FullArtLabel" type="Label" parent="FullArtworkRect"]

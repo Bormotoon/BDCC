@@ -130,6 +130,6 @@ anchor_bottom = 0.0
 offset_top = 132.0
 offset_right = 1280.0
 offset_bottom = 132.0
-rect_min_size = Vector2( 0, 0 )
+custom_minimum_size = Vector2( 0, 0 )
 mouse_filter = 1
 showTooltipBelow = true

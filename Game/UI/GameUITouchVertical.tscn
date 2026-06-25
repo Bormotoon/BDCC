@@ -85,7 +85,7 @@ anchor_bottom = 1.0
 [node name="Control3" type="Control" parent="MainLayout"]
 offset_right = 1280.0
 offset_bottom = 16.0
-rect_min_size = Vector2( 0, 16 )
+custom_minimum_size = Vector2( 0, 16 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainLayout"]
 offset_top = 20.0
@@ -96,7 +96,7 @@ size_flags_vertical = 3
 [node name="LeftPanel" type="Panel" parent="MainLayout/HBoxContainer"]
 offset_right = 546.0
 offset_bottom = 297.0
-rect_min_size = Vector2( 260, 0 )
+custom_minimum_size = Vector2( 260, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 custom_styles/panel = SubResource( 1 )
@@ -132,7 +132,7 @@ size_flags_vertical = 3
 offset_top = 4.0
 offset_right = 522.0
 offset_bottom = 14.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.01
@@ -149,7 +149,7 @@ offset_bottom = 278.0
 offset_left = 550.0
 offset_right = 1280.0
 offset_bottom = 297.0
-rect_min_size = Vector2( 240, 0 )
+custom_minimum_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 custom_styles/panel = SubResource( 6 )
@@ -180,7 +180,7 @@ size_flags_vertical = 3
 [node name="Panel" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer"]
 offset_right = 1280.0
 offset_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 
 [node name="TranslateBox" type="HBoxContainer" parent="MainLayout/MainScreenBoxContainer/Panel"]
 unique_name_in_owner = true
@@ -250,7 +250,7 @@ offset_bottom = 29.0
 [node name="Control" type="Control" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer/TextAreaContainer/HBoxContainer"]
 offset_right = 8.0
 offset_bottom = 25.0
-rect_min_size = Vector2( 8, 0 )
+custom_minimum_size = Vector2( 8, 0 )
 
 [node name="TextOutput" type="RichTextLabel" parent="MainLayout/MainScreenBoxContainer/MainScrollContainer/TextAreaContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -273,7 +273,7 @@ custom_effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtReso
 offset_left = 1272.0
 offset_right = 1280.0
 offset_bottom = 25.0
-rect_min_size = Vector2( 8, 0 )
+custom_minimum_size = Vector2( 8, 0 )
 
 [node name="UniquePanelSpot" type="MarginContainer" parent="MainLayout/MainScreenBoxContainer"]
 unique_name_in_owner = true
@@ -414,7 +414,7 @@ size_flags_vertical = 3
 [node name="MarginContainer" type="MarginContainer" parent="MainLayout/DevCommentary"]
 offset_right = 375.0
 offset_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2( 0, 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -444,7 +444,7 @@ fit_content_height = true
 offset_top = 620.0
 offset_right = 375.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" type="Button" parent="MainLayout/DevCommentary/GridContainer"]
@@ -466,19 +466,19 @@ offset_bottom = 720.0
 offset_top = 622.0
 offset_right = 1280.0
 offset_bottom = 630.0
-rect_min_size = Vector2( 0, 8 )
+custom_minimum_size = Vector2( 0, 8 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MainLayout"]
 offset_top = 634.0
 offset_right = 1280.0
 offset_bottom = 684.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="LoadButton" type="Button" parent="MainLayout/HBoxContainer2"]
 unique_name_in_owner = true
 offset_right = 66.0
 offset_bottom = 50.0
-hint_tooltip = "Quick load (F9)"
+tooltip_text = "Quick load (F9)"
 shortcut_in_tooltip = false
 shortcut = SubResource( 18 )
 text = "Q.load"
@@ -488,7 +488,7 @@ unique_name_in_owner = true
 offset_left = 70.0
 offset_right = 155.0
 offset_bottom = 50.0
-hint_tooltip = "Rollback the game's state back"
+tooltip_text = "Rollback the game's state back"
 shortcut_in_tooltip = false
 text = "Rollback"
 
@@ -497,7 +497,7 @@ unique_name_in_owner = true
 offset_left = 159.0
 offset_right = 647.0
 offset_bottom = 50.0
-hint_tooltip = "Open the menu (C)"
+tooltip_text = "Open the menu (C)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 8 )
@@ -508,7 +508,7 @@ unique_name_in_owner = true
 offset_left = 651.0
 offset_right = 719.0
 offset_bottom = 50.0
-hint_tooltip = "Quick save (F5)"
+tooltip_text = "Quick save (F5)"
 shortcut_in_tooltip = false
 shortcut = SubResource( 16 )
 text = "Q.save"
@@ -518,7 +518,7 @@ unique_name_in_owner = true
 offset_left = 723.0
 offset_right = 1212.0
 offset_bottom = 50.0
-hint_tooltip = "Spend the stat points and look at your skills (X)"
+tooltip_text = "Spend the stat points and look at your skills (X)"
 size_flags_horizontal = 3
 shortcut_in_tooltip = false
 shortcut = SubResource( 10 )
@@ -529,8 +529,8 @@ unique_name_in_owner = true
 offset_left = 1216.0
 offset_right = 1280.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 64, 0 )
-hint_tooltip = "Open the debug/cheats menu"
+custom_minimum_size = Vector2( 64, 0 )
+tooltip_text = "Open the debug/cheats menu"
 shortcut_in_tooltip = false
 text = "DG"
 
@@ -538,7 +538,7 @@ text = "DG"
 offset_top = 688.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 32 )
+custom_minimum_size = Vector2( 0, 32 )
 
 [node name="FullArtworkRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -560,7 +560,7 @@ offset_left = 20.0
 offset_top = 18.8284
 offset_right = 78.0
 offset_bottom = 44.8284
-rect_min_size = Vector2( 100, 40 )
+custom_minimum_size = Vector2( 100, 40 )
 text = "Close"
 
 [node name="FullArtLabel" type="Label" parent="FullArtworkRect"]

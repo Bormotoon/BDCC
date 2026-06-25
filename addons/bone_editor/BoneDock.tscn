@@ -34,42 +34,42 @@ func _on_Button4_pressed():
 "
 
 [node name="CenterContainer" type="CenterContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 10.0
-margin_right = 442.0
-margin_bottom = 30.0
+offset_top = 10.0
+offset_right = 442.0
+offset_bottom = 30.0
 
 [node name="Button" type="Button" parent="HBoxContainer"]
-margin_right = 84.0
-margin_bottom = 20.0
+offset_right = 84.0
+offset_bottom = 20.0
 text = "Insert Keys"
 flat = true
 
 [node name="Button3" type="Button" parent="HBoxContainer"]
-margin_left = 88.0
-margin_right = 198.0
-margin_bottom = 20.0
+offset_left = 88.0
+offset_right = 198.0
+offset_bottom = 20.0
 text = "Load from Keys"
 flat = true
 
 [node name="Button2" type="Button" parent="HBoxContainer"]
-margin_left = 202.0
-margin_right = 280.0
-margin_bottom = 20.0
+offset_left = 202.0
+offset_right = 280.0
+offset_bottom = 20.0
 text = "Init Bones"
 flat = true
 
 [node name="Button4" type="Button" parent="HBoxContainer"]
-margin_left = 284.0
-margin_right = 442.0
-margin_bottom = 20.0
+offset_left = 284.0
+offset_right = 442.0
+offset_bottom = 20.0
 text = "Copy pose to clipboard"
 flat = true
 

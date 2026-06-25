@@ -56,7 +56,7 @@ text = "Custom loot"
 offset_top = 132.0
 offset_right = 300.0
 offset_bottom = 152.0
-rect_min_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2( 300, 0 )
 size_flags_horizontal = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -67,7 +67,7 @@ offset_bottom = 256.0
 [node name="CustomLootItemList" type="ItemList" parent="HBoxContainer"]
 offset_right = 300.0
 offset_bottom = 100.0
-rect_min_size = Vector2( 300, 100 )
+custom_minimum_size = Vector2( 300, 100 )
 size_flags_horizontal = 0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
@@ -78,7 +78,7 @@ offset_bottom = 284.0
 [node name="AddCustomLootButton" type="Button" parent="HBoxContainer2"]
 offset_right = 60.0
 offset_bottom = 24.0
-rect_min_size = Vector2( 60, 0 )
+custom_minimum_size = Vector2( 60, 0 )
 text = "Add"
 
 [node name="Label" type="Label" parent="HBoxContainer2"]
@@ -135,7 +135,7 @@ offset_left = 7.0
 offset_top = 7.0
 offset_right = 1273.0
 offset_bottom = 27.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2( 0, 20 )
 
 [node name="DropTableEntryUI" parent="PanelContainer/CustomLootList" instance=ExtResource( 4 )]
 

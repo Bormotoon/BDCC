@@ -61,8 +61,8 @@ fallback/2 = SubResource( 3 )
 [node name="TooltipDisplay" type="MarginContainer"]
 offset_right = 250.0
 offset_bottom = 121.0
-rect_min_size = Vector2( 250, 0 )
-rect_pivot_offset = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 250, 0 )
+pivot_offset = Vector2( 0, 30 )
 mouse_filter = 2
 size_flags_horizontal = 3
 theme = ExtResource( 2 )

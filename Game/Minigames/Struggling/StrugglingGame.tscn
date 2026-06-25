@@ -5,8 +5,8 @@
 [node name="StrugglingGame" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 500 )
-rect_clip_content = true
+custom_minimum_size = Vector2( 0, 500 )
+clip_contents = true
 mouse_filter = 2
 size_flags_horizontal = 3
 script = ExtResource( 1 )

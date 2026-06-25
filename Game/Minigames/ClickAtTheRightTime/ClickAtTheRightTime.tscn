@@ -99,7 +99,7 @@ custom_styles/panel = SubResource( 7 )
 [node name="FailZone" type="Panel" parent="GameScreen/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_clip_content = true
+clip_contents = true
 custom_styles/panel = SubResource( 8 )
 
 [node name="Cursor" type="Panel" parent="GameScreen/Panel"]
@@ -131,7 +131,7 @@ anchor_right = 0.65
 anchor_bottom = 0.5
 offset_top = 163.0
 offset_bottom = 193.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 max_value = 1.0
@@ -180,7 +180,7 @@ text = "Click when the arrow will be in the red zone"
 offset_top = 18.0
 offset_right = 279.0
 offset_bottom = 68.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "Begin"
 
 [connection signal="gui_input" from="ClickStealer" to="." method="_on_ClickAtTheRightTime_gui_input"]

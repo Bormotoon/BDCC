@@ -52,28 +52,28 @@ size_flags_vertical = 3
 [node name="NewDatapackButton" type="Button" parent="DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 offset_right = 426.0
 offset_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 text = "New datapack"
 
 [node name="EditDatapackButton" type="Button" parent="DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 offset_top = 34.0
 offset_right = 426.0
 offset_bottom = 64.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 text = "Edit datapack"
 
 [node name="DeleteDatapackButton" type="Button" parent="DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 offset_top = 68.0
 offset_right = 426.0
 offset_bottom = 98.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 text = "Delete datapack"
 
 [node name="ExportDatapackButton" type="Button" parent="DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
 offset_top = 102.0
 offset_right = 426.0
 offset_bottom = 132.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2( 0, 30 )
 text = "Export datapack"
 
 [node name="DatapackDescLabel" type="RichTextLabel" parent="DatapackViewer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -88,7 +88,7 @@ bbcode_enabled = true
 offset_top = 620.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" parent="DatapackViewer/VBoxContainer/GridContainer" instance=ExtResource( 3 )]

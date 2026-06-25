@@ -47,7 +47,7 @@ text = "Same R"
 offset_left = 1021.0
 offset_right = 1051.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 30, 0 )
+custom_minimum_size = Vector2( 30, 0 )
 
 [node name="CheckBoxG" type="CheckBox" parent="." index="6"]
 offset_left = 1055.0
@@ -59,7 +59,7 @@ text = "Same G"
 offset_left = 1136.0
 offset_right = 1166.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 30, 0 )
+custom_minimum_size = Vector2( 30, 0 )
 
 [node name="CheckBoxB" type="CheckBox" parent="." index="8"]
 offset_left = 1170.0
@@ -71,7 +71,7 @@ text = "Same B"
 offset_left = 1250.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 30, 0 )
+custom_minimum_size = Vector2( 30, 0 )
 
 [connection signal="toggled" from="CheckBoxSkin" to="." method="_on_CheckBoxSkin_toggled"]
 [connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

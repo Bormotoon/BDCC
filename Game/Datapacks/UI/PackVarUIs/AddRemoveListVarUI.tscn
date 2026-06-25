@@ -37,7 +37,7 @@ visible = false
 offset_left = 839.0
 offset_right = 1239.0
 offset_bottom = 60.0
-rect_min_size = Vector2( 500, 80 )
+custom_minimum_size = Vector2( 500, 80 )
 
 [node name="AutoSelectorVarUI" parent="HBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -79,7 +79,7 @@ text = "v"
 offset_top = 66.0
 offset_right = 1280.0
 offset_bottom = 166.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 
 [connection signal="pressed" from="HBoxContainer/AddButton" to="." method="_on_AddButton_pressed"]
 [connection signal="onValueChange" from="HBoxContainer/AutoSelectorVarUI" to="." method="_on_AutoSelectorVarUI_onValueChange"]

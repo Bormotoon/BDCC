@@ -83,7 +83,7 @@ offset_bottom = 20.0
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/PanelContainer/HBoxContainer"]
 offset_right = 30.0
 offset_bottom = 20.0
-rect_min_size = Vector2( 30, 0 )
+custom_minimum_size = Vector2( 30, 0 )
 color = Color( 1, 0, 0, 1 )
 edit_alpha = false
 
