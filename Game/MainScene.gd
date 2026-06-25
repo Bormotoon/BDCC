@@ -96,6 +96,11 @@ func _init() -> void:
 	flags_cache = Flag.getFlags()
 	encounter_settings = EncounterSettings.new()
 
+func _ready() -> void:
+	GM.main = self
+	GM.register_services()
+	create_static_characters()
+
 func _exit_tree() -> void:
 	rollbacker.onDestroy()
 	GM.main = null

@@ -1,22 +1,66 @@
 extends Node
 
-## Migrated GM singleton.
-## Old properties kept for backward compatibility.
-## New code should use ServiceLocator.get_service() instead.
+## GM singleton — thin compatibility layer over ServiceLocator.
+## GM.* properties delegate to ServiceLocator internally.
+## New code should use ServiceLocator.get_service() directly.
 
-var ui # GameUI
-var main # MainScene
-var pc # Player
-var world # GameWorld
-var ES # EventSystem
-var QS # QuestSystem
-var CS # ChildSystem
-var GES # GameExtenderSystem
-var PROFILE # MyProfilerBase
+var ui:
+	get:
+		return ServiceLocator._services.get(&"UI", null)
+	set(value):
+		ServiceLocator.register_service(&"UI", value)
+
+var main:
+	get:
+		return ServiceLocator._services.get(&"MainScene", null)
+	set(value):
+		ServiceLocator.register_service(&"MainScene", value)
+
+var pc:
+	get:
+		return ServiceLocator._services.get(&"Player", null)
+	set(value):
+		ServiceLocator.register_service(&"Player", value)
+
+var world:
+	get:
+		return ServiceLocator._services.get(&"World", null)
+	set(value):
+		ServiceLocator.register_service(&"World", value)
+
+var ES:
+	get:
+		return ServiceLocator._services.get(&"EventSystem", null)
+	set(value):
+		ServiceLocator.register_service(&"EventSystem", value)
+
+var QS:
+	get:
+		return ServiceLocator._services.get(&"QuestSystem", null)
+	set(value):
+		ServiceLocator.register_service(&"QuestSystem", value)
+
+var CS:
+	get:
+		return ServiceLocator._services.get(&"ChildSystem", null)
+	set(value):
+		ServiceLocator.register_service(&"ChildSystem", value)
+
+var GES:
+	get:
+		return ServiceLocator._services.get(&"GameExtenderSystem", null)
+	set(value):
+		ServiceLocator.register_service(&"GameExtenderSystem", value)
+
+var PROFILE:
+	get:
+		return ServiceLocator._services.get(&"Profiler", null)
+	set(value):
+		ServiceLocator.register_service(&"Profiler", value)
 
 func _init():
 	GES = GameExtenderSystem.new()
-	createProfiler()
+	PROFILE = _create_profiler()
 
 func _ready():
 	var directory = DirAccess.open(".")
@@ -25,14 +69,12 @@ func _ready():
 	directory.make_dir("user://custom_skins")
 	directory.make_dir("user://datapacks")
 
-func createProfiler():
+func _create_profiler():
 	if OPTIONS.should_profile():
-		PROFILE = MyProfiler.new()
+		return MyProfiler.new()
 	else:
-		PROFILE = MyProfilerBase.new()
+		return MyProfilerBase.new()
 
-## Register all subsystems into ServiceLocator for new code.
-## Call this after MainScene is fully initialized.
 func register_services() -> void:
 	if main:
 		ServiceLocator.register_service(&"MainScene", main)
