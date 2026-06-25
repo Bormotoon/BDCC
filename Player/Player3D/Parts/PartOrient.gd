@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name PartOrient
 
 @export var faceRight = false 

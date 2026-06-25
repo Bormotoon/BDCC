@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name PartOrientPicker
 
 @export var invert = false

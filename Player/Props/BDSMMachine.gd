@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 func setDildosVisible(isVis):
 	if(isVis):
