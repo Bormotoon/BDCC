@@ -380,7 +380,7 @@ func _on_ConfirmationDialog_confirmed():
 		return
 	
 	var theFile = DirAccess.open(".")
-	theFile.remove(selectedEntry["path"])
+	theFile.remove_file(selectedEntry["path"])
 	currentModOrder.erase(selectedEntry)
 	selectedEntry = null
 	

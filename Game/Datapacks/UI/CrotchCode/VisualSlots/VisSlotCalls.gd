@@ -15,8 +15,8 @@ func _ready():
 
 func setSlotCalls(theSlotCalls):
 	if(slotCalls != null):
-		slotCalls.disconnect("onBlockAdded", self, "onNewBlockAdded")
-		slotCalls.disconnect("onBlockRemoved", self, "onBlockRemoved")
+		slotCalls.onBlockAdded.disconnect(onNewBlockAdded)
+		slotCalls.onBlockRemoved.disconnect(onBlockRemoved)
 	slotCalls = theSlotCalls
 	slotCalls.onBlockAdded.connect(onNewBlockAdded)
 	slotCalls.onBlockRemoved.connect(onBlockRemoved)

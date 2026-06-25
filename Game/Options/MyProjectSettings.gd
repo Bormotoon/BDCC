@@ -37,4 +37,4 @@ func save():
 func resetToDefault():
 	var dir = DirAccess.open(".")
 	if(dir.file_exists(settingsPath)):
-		dir.remove(settingsPath)
+		dir.remove_file(settingsPath)

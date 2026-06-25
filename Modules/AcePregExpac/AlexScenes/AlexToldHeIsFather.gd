@@ -1,4 +1,4 @@
-extends "res://Scenes/SceneBase.gd"
+extends SceneBase
 #ACEPREGEXPAC- Add this custom scene
 func _init():
 	sceneID = "TellAlexHeIsFatherScene"

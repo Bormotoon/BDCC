@@ -1,9 +1,9 @@
 extends RigidBody2D
 
 
-export(NodePath) var bonePath
+@export var bonePath
 var bone: Bone2D
-onready var origPos = global_position
+@onready var origPos = global_position
 var posDiff: Vector2
 
 # Called when the node enters the scene tree for the first time.

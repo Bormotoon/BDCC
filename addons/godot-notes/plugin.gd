@@ -3,18 +3,18 @@ extends EditorPlugin
 
 const version:String = "1.0"
 var dock
-var file:File = File.new()
+var file:FileAccess
 const savePath:String = "res://addons/godot-notes/notes.txt"
 
 func _enter_tree() -> void:
-	dock = preload("res://addons/godot-notes/notes.tscn").instance()
+	dock = preload("res://addons/godot-notes/notes.tscn").instantiate()
 	add_control_to_dock(DOCK_SLOT_RIGHT_UL, dock)
 	
-	dock.get_node("hBoxContainer/btn_save").connect("pressed", self, "_btn_save_click")
-	dock.get_node("hBoxContainer/btn_refresh").connect("pressed", self, "_btn_reload_click")
-	dock.get_node("hBoxContainer/btn_infos").connect("pressed", self, "_btn_infos_click")
-	dock.get_node("infos_dialog/btn_close").connect("pressed", self, "_btn_infos_close_click")
-	dock.get_node("textEdit").connect("text_changed", self, "_text_change")
+	dock.get_node("hBoxContainer/btn_save").pressed.connect(_btn_save_click)
+	dock.get_node("hBoxContainer/btn_refresh").pressed.connect(_btn_reload_click)
+	dock.get_node("hBoxContainer/btn_infos").pressed.connect(_btn_infos_click)
+	dock.get_node("infos_dialog/btn_close").pressed.connect(_btn_infos_close_click)
+	dock.get_node("textEdit").text_changed.connect(_text_change)
 
 	dock.get_node("infos_dialog/version").text = "Notes "+version+" by Roboweb"
 

@@ -283,8 +283,8 @@ func disconnectFromOld():
 		var ch = getCharFromID(savedCharacterID)
 		if(ch == null || !is_instance_valid(ch)):
 			return
-		if(ch.is_connected("bodypart_changed", self, "onCharacterBodypartChanged")):
-			ch.disconnect("bodypart_changed", self, "onCharacterBodypartChanged")
+		if(ch.bodypart_changed.is_connected(onCharacterBodypartChanged)):
+			ch.bodypart_changed.disconnect(onCharacterBodypartChanged)
 
 func getCharFromID(charID):
 	if(!(charID is String)):

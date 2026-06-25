@@ -2,7 +2,7 @@ extends SkillBase
 			
 func _init():
 	id = Skill.Hypnosis
-	var _s = connect("levelChanged", self, "_on_levelChanged")
+	levelChanged.connect(_on_levelChanged)
 
 func getVisibleName():
 	return "Hypnosis"

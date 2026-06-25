@@ -20,7 +20,7 @@ func setIsUploading(newEdit):
 		$Control/DragDropWindowDialog.show_modal()
 	else:
 		if(signalConnected):
-			get_tree().disconnect("files_dropped", self, "_on_files_dropped")
+			get_tree().files_dropped.disconnect(_on_files_dropped)
 			signalConnected = false
 		
 		$Control/DragDropWindowDialog.hide()

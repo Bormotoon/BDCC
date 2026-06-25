@@ -1,9 +1,9 @@
 tool
 extends Spatial
 
-export(NodePath) var control_skeleton:NodePath setget set_control_skeleton
-export(NodePath) var edit_animation_player:NodePath setget set_edit_animation_player
-export(bool) var enabled:bool = true
+@export var control_skeleton:NodePath setget set_control_skeleton
+@export var edit_animation_player:NodePath setget set_edit_animation_player
+@export var enabled:bool = true
 var skeleton:Skeleton = null
 var animation_player:AnimationPlayer = null
 var first_call:bool = true
