@@ -24,6 +24,7 @@ func _ready() -> void:
 		"res://Tests/TestLustCombat.gd",
 		"res://Tests/TestCrotchCode.gd",
 		"res://Tests/TestModularDialogue.gd",
+		"res://Tests/TestServiceArchitecture.gd",
 	]
 
 	var total_passed = 0
