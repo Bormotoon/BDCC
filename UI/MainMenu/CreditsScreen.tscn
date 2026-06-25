@@ -2,11 +2,11 @@
 
 [ext_resource path="res://GlobalTheme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/MainMenu/CreditsScreen.gd" type="Script" id=2]
-[ext_resource path="res://Fonts/Titillium-Bold.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://Fonts/Titillium-Bold.otf" type="FontFile" id=3]
 [ext_resource path="res://Game/UI/Util/SmartScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://Game/UI/Buttons/BetterButton.tscn" type="PackedScene" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontVariation" id=1]
 size = 30
 font_data = ExtResource( 3 )
 

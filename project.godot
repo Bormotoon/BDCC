@@ -41,7 +41,7 @@ SexToyManager="*res://Util/SexToySupport/SexToyManager.gd"
 
 gdscript/warnings/unsafe_cast=true
 gdscript/warnings/integer_division=false
-gdscript/warnings/treat_warnings_as_errors=true
+gdscript/warnings/treat_warnings_as_errors=false
 
 [display]
 

@@ -2,7 +2,7 @@ extends Node
 
 var enabled:bool = false
 
-var gameplay:SexToyGameplay
+var gameplay
 
 var backends:Dictionary
 var toys:Array

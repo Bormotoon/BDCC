@@ -29,7 +29,7 @@ func getTextsFinal(_id:String, _args:Dictionary) -> Array:
 		return result
 	return [str(result)]
 
-func getChar(_args:Dictionary, argID:String) -> BaseCharacter:
+func getChar(_args:Dictionary, argID:String):
 	if(!_args.has(argID)):
 		return null
 	return _args[argID]

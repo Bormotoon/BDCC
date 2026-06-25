@@ -4,9 +4,9 @@
 [ext_resource path="res://Game/World/WorldPawn.gd" type="Script" id=2]
 [ext_resource path="res://Images/WorldPawnActivity/chat.png" type="Texture" id=3]
 [ext_resource path="res://Images/WorldPawns/fem.png" type="Texture" id=4]
-[ext_resource path="res://Fonts/FreeMonospacedBold.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Fonts/FreeMonospacedBold.otf" type="FontFile" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontVariation" id=1]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 5 )

@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Fonts/Titillium-Regular.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/Titillium-Regular.otf" type="FontFile" id=1]
 [ext_resource path="res://GlobalTheme.tres" type="Theme" id=2]
 [ext_resource path="res://Game/UI/CharacterPanel/CharacterPanelSmall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/UI/CharacterPanel/CharactersPanel.gd" type="Script" id=5]
 
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="FontVariation" id=7]
 size = 28
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )

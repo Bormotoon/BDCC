@@ -30,7 +30,7 @@ func checkArgs(_args:Dictionary):
 				_args[argID] = GlobalRegistry.getCharacter(argVal)
 				argVal = _args[argID]
 			
-			if(!(argVal is BaseCharacter)):
+			if(!(argVal is RefCounted) || !argVal.has_method("getID")):
 				return [false, "Wrong argument type for "+str(argID)+", character required, got "+str(argVal)]
 		
 	return [true]

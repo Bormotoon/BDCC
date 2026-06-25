@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/HornyMessageUI/HornyMessage.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/Titillium-Bold.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://Fonts/Titillium-Regular.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://Fonts/Titillium-Bold.otf" type="FontFile" id=2]
+[ext_resource path="res://Fonts/Titillium-Regular.otf" type="FontFile" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontVariation" id=1]
 size = 23
 outline_size = 2
 outline_color = Color( 0.380392, 0, 0.294118, 1 )
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="FontVariation" id=2]
 size = 18
 outline_size = 2
 outline_color = Color( 0.380392, 0, 0.294118, 1 )

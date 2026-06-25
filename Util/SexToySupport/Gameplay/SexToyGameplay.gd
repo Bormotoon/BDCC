@@ -41,7 +41,7 @@ func processGameplay(_dt:float):
 	if(!inGame):
 		return
 	
-	var _pc:Player = GM.pc
+	var _pc = GM.pc
 	setPassive(SexToyTrigger.Lust, _pc.getLustLevel())
 	setPassive(SexToyTrigger.Pain, _pc.getPainLevel())
 	setPassive(SexToyTrigger.Arousal, _pc.getArousal())
