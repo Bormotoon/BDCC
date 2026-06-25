@@ -258,71 +258,124 @@ func _on_option_button(index: int) -> void:
 	on_option_button.emit(option[3], option[4])
 
 func _on_extra_option_button_tooltip(index: int, button) -> void:
-	pass # Tooltip logic
+	var option = extra_options[index]
+	if option[2] == "":
+		return
+	GlobalTooltip.show_tooltip(button, option[1], option[2])
 
 func _on_option_button_tooltip(index: int, button) -> void:
-	pass # Tooltip logic
+	var option = options[index]
+	if option[2] == "":
+		return
+	if not AutoTranslation.should_translate_buttons or show_original_checkbox.pressed:
+		GlobalTooltip.show_tooltip(button, option[1], option[2])
+	else:
+		if option[0] and option.size() > 6:
+			GlobalTooltip.show_tooltip(button, option[5], option[6])
+		elif not option[0] and option.size() > 4:
+			GlobalTooltip.show_tooltip(button, option[3], option[4])
+		else:
+			GlobalTooltip.show_tooltip(button, option[1], option[2])
 
 func _on_option_button_tooltip_end(button) -> void:
-	pass # Tooltip hide
+	GlobalTooltip.hide_tooltip(button)
 
 func check_page_buttons() -> void:
-	pass
+	if current_page > 0:
+		prev_page_button.disabled = false
+	else:
+		prev_page_button.disabled = true
+	var max_pages = ceil(float(options.size()) / float(buttons_count_per_page))
+	if max_pages > (current_page + 1):
+		next_page_button.disabled = false
+	else:
+		next_page_button.disabled = true
+	if max_pages > 1:
+		next_page_button.visible = true
+		prev_page_button.visible = true
+	else:
+		next_page_button.visible = false
+		prev_page_button.visible = false
 
-func set_is_right_handed_layout(_right_handed: bool) -> void:
-	pass
+func set_is_right_handed_layout(right_handed: bool) -> void:
+	OPTIONS.set_right_handed(right_handed)
 
-func set_font_size(_size: int) -> void:
-	pass
+func set_font_size(size: int) -> void:
+	var fonts_to_change = ["normal_font", "bold_font", "bold_italics_font", "italics_font"]
+	for font_to_change in fonts_to_change:
+		var the_font = text_output.get_theme_font(font_to_change)
+		if the_font:
+			the_font.size = size
 
 # ==========================================
 # SCENE/UI MANAGEMENT (stubs — full impl in original)
 # ==========================================
 
-func set_scene_creator(_creator: String, _show_icon: bool) -> void:
-	pass
+func set_scene_creator(creator: String, show_icon: bool = false) -> void:
+	map_and_time_panel.set_scene_creator(creator, show_icon)
 
-func set_scene_art_work(_art) -> void:
-	pass
+func set_scene_art_work(art) -> void:
+	if scene_artwork_rect and art:
+		scene_artwork_rect.texture = art
+		scene_artwork_rect.visible = true
+	elif scene_artwork_rect:
+		scene_artwork_rect.visible = false
 
-func set_big_answers_mode(_mode: bool) -> void:
-	pass
+func set_big_answers_mode(mode: bool) -> void:
+	is_in_big_answers_mode = mode
 
 func update_characters_in_panel() -> void:
-	pass
+	smart_character_panel.update_characters()
 
 func get_characters_panel():
 	return smart_character_panel
 
 func get_player_status_effects_panel():
+	if player_panel and player_panel.has_method("get_status_effects_panel"):
+		return player_panel.get_status_effects_panel()
 	return null
 
-func add_character_to_panel(_id: String, _variant: Array) -> void:
-	pass
+func add_character_to_panel(id: String, variant: Array) -> void:
+	smart_character_panel.add_character(id, variant)
 
-func remove_character_from_panel(_id: String) -> void:
-	pass
+func remove_character_from_panel(id: String) -> void:
+	smart_character_panel.remove_character(id)
 
 func clear_characters_panel() -> void:
-	pass
+	smart_character_panel.clear()
 
 func recreate_world() -> void:
-	pass
+	if GM.world and GM.world.has_method("recreate"):
+		GM.world.recreate()
 
-func on_time_passed(_seconds: int) -> void:
-	pass
+func on_time_passed(seconds: int) -> void:
+	map_and_time_panel.on_time_passed(seconds)
 
 func process_string(text: String) -> String:
 	return text
 
-func add_ui_textbox(_id) -> void:
-	pass
+func add_ui_textbox(id) -> void:
+	assert(not textboxes.has(id), "Trying to add a textbox with the same id. Id is " + str(id))
+	var uitextbox = ui_textbox_scene.instantiate()
+	uitextbox.id = id
+	text_container.add_child(uitextbox)
+	if not OPTIONS.should_use_fallback_text_inputs():
+		uitextbox.grab_focus()
+	textboxes[id] = uitextbox
 
-func get_u_i_data(_id):
-	return null
+func get_u_i_data(id):
+	if not textboxes.has(id):
+		return null
+	return textboxes[id].get_data()
 
-func add_u_i_textbox(_id) -> void:
-	pass
+func add_u_i_textbox(id) -> void:
+	add_ui_textbox(id)
 
-func add_big_u_i_textbox(_id) -> void:
-	pass
+func add_big_u_i_textbox(id) -> void:
+	assert(not textboxes.has(id), "Trying to add a textbox with the same id. Id is " + str(id))
+	var uitextbox = ui_textbox_big_scene.instantiate()
+	uitextbox.id = id
+	text_container.add_child(uitextbox)
+	if not OPTIONS.should_use_fallback_text_inputs():
+		uitextbox.grab_focus()
+	textboxes[id] = uitextbox

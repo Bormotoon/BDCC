@@ -473,10 +473,17 @@ func add_log_message(category: String, text: String) -> void:
 	log_messages.append({"category": category, "text": text})
 
 func apply_all_world_edits() -> void:
-	pass # Full implementation in original file
+	var world_edits = GlobalRegistry.get_world_edits()
+	for world_edit_id in world_edits:
+		var world_edit = world_edits[world_edit_id]
+		world_edit.apply(GM.world)
 
 func _room_memories_process_day() -> void:
-	pass
+	for room_id in room_memories.keys():
+		var data = room_memories[room_id]
+		data["days"] -= 1
+		if data["days"] <= 0:
+			room_memories.erase(room_id)
 
 func _npc_slavery_on_new_day() -> void:
 	for slave_id in get_dynamic_character_ids_from_pool(CharacterPool.Slaves):

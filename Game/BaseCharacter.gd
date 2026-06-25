@@ -993,13 +993,28 @@ func get_fluids() -> Fluids:
 	return body_fluids
 
 func send_sex_event(_event) -> void:
-	pass
+	onSexEvent(_event)
 
-func got_orifice_stretched_with(_slot, _amount: float, _show_messages: bool = true) -> void:
-	pass
+func got_orifice_stretched_with(bodypart_slot, insertion_size: float, show_messages: bool = true, stretch_mult: float = 1.0) -> void:
+	if not has_bodypart(bodypart_slot):
+		return
+	var the_bodypart = get_bodypart(bodypart_slot)
+	var orifice = the_bodypart.get_orifice()
+	if orifice == null:
+		return
+	var old_looseness = orifice.get_looseness()
+	the_bodypart.handle_insertion(insertion_size, stretch_mult)
+	var new_looseness = orifice.get_looseness()
+	if new_looseness > old_looseness and show_messages:
+		orifice_become_more_loose.emit(the_bodypart.get_orifice_name(), new_looseness, old_looseness)
 
 func clear_orifice_fluids() -> void:
-	pass
+	if has_bodypart(BodypartSlot.Vagina):
+		get_bodypart(BodypartSlot.Vagina).clear_orifice_fluids()
+	if has_bodypart(BodypartSlot.Anus):
+		get_bodypart(BodypartSlot.Anus).clear_orifice_fluids()
+	if has_bodypart(BodypartSlot.Head):
+		get_bodypart(BodypartSlot.Head).clear_orifice_fluids()
 
 func update_doll(doll: Doll3D) -> void:
 	soft_update_doll(doll)
@@ -1225,7 +1240,18 @@ func giveBirth() -> Array:
 	return []
 
 func onSexEvent(_event) -> void:
-	pass
+	if _event == null:
+		return
+	get_skills_holder().onSexEvent(_event)
+	for effect_id in status_effects.keys():
+		if not status_effects.has(effect_id):
+			continue
+		var effect = status_effects[effect_id]
+		effect.onSexEvent(_event)
+	var items = getInventory().getAllEquippedItems()
+	for item_slot in items:
+		var item = items[item_slot]
+		item.onSexEvent(_event)
 
 func sendSexEvent(_event) -> void:
 	send_sex_event(_event)
