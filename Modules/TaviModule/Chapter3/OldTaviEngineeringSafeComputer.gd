@@ -89,7 +89,7 @@ func reactToCommand(_command:String, _args:Array, _commandStringRaw:String):
 				return "The account is empty, ask people to donate more often or we will go out of bussiness and be forced to close :("
 			else:
 				transferredCredits = true
-				GM.pc.addCredits(10)
+				ServiceLocator.safe_get_service(&"Player").addCredits(10)
 				return "Transferring 10 credits to your account.. success!"
 		
 		if(_command == "disconnect"):

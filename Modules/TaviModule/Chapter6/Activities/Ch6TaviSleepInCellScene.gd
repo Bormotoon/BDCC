@@ -192,7 +192,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "penisgrind"):
 		playAnimation(StageScene.SexCowgirl, "tease", {npc="tavi", pc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The heat makes Tavi incredibly horny. She sees the locked chastity cage that you are wearing and signs.. but then gets too desperate to care."+str(" At least there is no danger of her losing her virginity if you're locked." if isVirgin else "")+"")
 
 		elif (isVirgin):
@@ -201,9 +201,9 @@ func _run():
 		else:
 			saynn("The heat makes Tavi incredibly horny. She sees your {pc.penis} that she probably wants inside her so much.. But at the same time, she understands that it's extremely risky.. At some point she becomes too desperate though..")
 
-		saynn("Unable to resist her urges, Tavi decides to test how much she can get away with. With a feline grace, she carefully positions herself over your "+str("locked up cock" if GM.pc.isWearingChastityCage() else "cock")+", her pussy only inches away from it. Even just feeling the warmth radiating from her slick"+str(" virgin" if isVirgin else "")+" folds makes you aroused.")
+		saynn("Unable to resist her urges, Tavi decides to test how much she can get away with. With a feline grace, she carefully positions herself over your "+str("locked up cock" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "cock")+", her pussy only inches away from it. Even just feeling the warmth radiating from her slick"+str(" virgin" if isVirgin else "")+" folds makes you aroused.")
 
-		saynn("Tavi sees that this didn't wake you up. So she acts brave and lowers her pussy onto "+str("your cage, feeling the cold metal brushing against her hot flower." if GM.pc.isWearingChastityCage() else "the shaft of your cock, trapping it between her slit and your belly.")+"")
+		saynn("Tavi sees that this didn't wake you up. So she acts brave and lowers her pussy onto "+str("your cage, feeling the cold metal brushing against her hot flower." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "the shaft of your cock, trapping it between her slit and your belly.")+"")
 
 		saynn("And after that, she slowly begins to move, grinding her slit against your {pc.penis}. The pleasurable friction intensifies her desire. She closes her eyes and just tries to hold a constant rhythm, enough to bring her closer to where she wants to be without waking you up.. hopefully..")
 
@@ -211,7 +211,7 @@ func _run():
 
 		saynn("The feline catches herself moaning softly and so she covers up her mouth, making noises into her palm while she continues to rub her pussy against you.. getting all the fun without any actual penetration..")
 
-		saynn("Her breath grows more deep as she picks up the pace gradually, seeking the release that she craves so much. It feels good.."+str(" even if you don't feel anything through the metal cage" if GM.pc.isWearingChastityCage() else " even if your cock is not inside her")+"..")
+		saynn("Her breath grows more deep as she picks up the pace gradually, seeking the release that she craves so much. It feels good.."+str(" even if you don't feel anything through the metal cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else " even if your cock is not inside her")+"..")
 
 		if (isScrewing):
 			saynn("But just before Tavi reaches her orgasm, you decide to 'randomly' turn onto your belly, suddenly throwing the feline off balance. Tavi gasps as she collapses and lands onto your back.")
@@ -223,13 +223,13 @@ func _run():
 			saynn("Tavi pouts.. but wraps her paws around you and just tries to fall asleep again.")
 
 		else:
-			saynn("With a final, passionate grind, Tavi finally reaches her climax. She gasps, her body tenses and starts shivering while her pussy suddenly squirts all over your "+str("chastity cage" if GM.pc.isWearingChastityCage() else "member")+".")
+			saynn("With a final, passionate grind, Tavi finally reaches her climax. She gasps, her body tenses and starts shivering while her pussy suddenly squirts all over your "+str("chastity cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "member")+".")
 
 			saynn("[say=tavi]Ngh-h~..[/say]")
 
 			saynn("The sensations are clearly overwhelming for her. Sadly, you didn't get to cum though.")
 
-			saynn("As Tavi satisfies her heat, she suddenly realizes how wet your crotch looks. And so, to cover up after herself, she leans down to your "+str("cage" if GM.pc.isWearingChastityCage() else "cock")+" and starts licking her wetness off. It makes you squirm.. but you still pretend to be an extremely heavy sleeper.")
+			saynn("As Tavi satisfies her heat, she suddenly realizes how wet your crotch looks. And so, to cover up after herself, she leans down to your "+str("cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "cock")+" and starts licking her wetness off. It makes you squirm.. but you still pretend to be an extremely heavy sleeper.")
 
 			saynn("And so, when Tavi is done, she just joins you on the bed, the desires no longer messing with her mind.. for today..")
 
@@ -290,14 +290,14 @@ func playRandomScene(corruptionMod):
 	possible.append("rubleg_cum")
 	possible.append("facesit")
 
-	if(GM.pc.hasReachableVagina()):
+	if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 		possible.append("tribbing")
 
-	if(GM.pc.hasReachablePenis() && !isVirgin && getModule("TaviModule").getSkillScore("taviSkillSex") > 1):
+	if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && !isVirgin && getModule("TaviModule").getSkillScore("taviSkillSex") > 1):
 		possible.append("cowgirl")
-	if(GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+	if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 		possible.append("penisgrind")
-	if(GM.pc.hasReachablePenis() && getModule("TaviModule").getSkillScore("taviSkillSex") > 3):
+	if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && getModule("TaviModule").getSkillScore("taviSkillSex") > 3):
 		possible.append("anal")
 
 	var pickedScene = RNG.pick(possible)
@@ -305,17 +305,17 @@ func playRandomScene(corruptionMod):
 	if(pickedScene in ["rubleg_cum", "facesit", "tribbing", "cowgirl", "penisgrind", "anal"]):
 		getModule("TaviModule").addCorruption(7 * corruptionMod)
 	if((pickedScene in ["tribbing"]) && !isScrewing):
-		GM.pc.rubsVaginasWith("tavi")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 	if((pickedScene in ["cowgirl"]) && !isScrewing):
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 	if((pickedScene in ["penisgrind"]) && !isScrewing):
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 	if((pickedScene in ["anal"]) && !isScrewing):
 		getCharacter("tavi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	setState(pickedScene)
 	setFlag("TaviModule.Ch6TaviSatisfied", true)

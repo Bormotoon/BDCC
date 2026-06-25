@@ -8,7 +8,7 @@ func registerTriggers(es):
 
 func react(_triggerID, _args):
 	if(!getFlag("SlaveAuctionModule.s0hap")):
-		if(GM.main.getPCSlaveAmount() > 0):
+		if(ServiceLocator.safe_get_service(&"MainScene").getPCSlaveAmount() > 0):
 			setFlag("SlaveAuctionModule.s0hap", true)
 			runScene("MirriS0TeaseScene")
 			return true
@@ -16,7 +16,7 @@ func react(_triggerID, _args):
 	
 	if(!getFlag("SlaveAuctionModule.s1hap")):
 		var hasBrokenSlave:bool = false
-		var slaves = GM.main.getPCSlavesIDs()
+		var slaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 		for slaveID in slaves:
 			var theSlave:BaseCharacter = getCharacter(slaveID)
 			if(theSlave == null):

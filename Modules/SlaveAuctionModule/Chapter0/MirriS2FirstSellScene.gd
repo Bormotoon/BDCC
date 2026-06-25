@@ -81,7 +81,7 @@ func _run():
 	if(state == "after_tp"):
 		playAnimation(StageScene.Duo, "stand", {pc="mirri", npc=slaveID, npcBodyState={leashedBy="mirri"}})
 		aimCameraAndSetLocName("market_intro")
-		GM.pc.setLocation("market_intro")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
 		saynn("You're back at the familiar.. place. But this time you can take a better look around.")
 
 		saynn("A dimly lit room welcomes you. So dimly that your eyes struggle to adjust after the harsh prison lighting. It's so weird to not feel a cold touch of concrete under your {pc.feet}.. the floor seems to be made out of some kind of dark wood.")
@@ -406,7 +406,7 @@ func _run():
 		addButton("Follow", "See where she brings you", "follow_back")
 	if(state == "follow_back"):
 		aimCameraAndSetLocName("market_intro")
-		GM.pc.setLocation("market_intro")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
 		saynn("Mirri brings you into the other room with all the furniture.. and that teleporter machine.")
 
 		saynn("[say=mirri]Hold on, last thing.[/say]")
@@ -451,7 +451,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addSlaveButtons():
-	var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 	for charID in slaves:
 		var character:DynamicCharacter = getCharacter(charID)
 		var npcSlavery:NpcSlave = character.getNpcSlavery()
@@ -509,9 +509,9 @@ func _react(_action: String, _args):
 		removeCharacter(slaveID)
 		addExperienceToPlayer(100)
 		
-		GM.pc.addCredits(int(creditsToGive))
+		ServiceLocator.safe_get_service(&"Player").addCredits(int(creditsToGive))
 		addMessage("You got "+str(creditsToGive)+" credits!")
-		#GM.main.removeDynamicCharacter(slaveID)
+		#ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacter(slaveID)
 		getModule("SlaveAuctionModule").sellToSlavery(slaveID)
 
 	if(_action == "follow_back"):

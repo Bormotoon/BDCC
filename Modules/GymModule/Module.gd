@@ -37,5 +37,5 @@ func _init():
 	]
 
 func resetFlagsOnNewDay():
-	if(GM.main.getModuleFlag("GymModule", "Gym_BullyGangPayed")):
-		GM.main.setModuleFlag("GymModule", "Gym_BullyGangPayed", false)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("GymModule", "Gym_BullyGangPayed")):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("GymModule", "Gym_BullyGangPayed", false)

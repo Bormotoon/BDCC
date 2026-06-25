@@ -96,7 +96,7 @@ func _run():
 		addButton("Continue", "See what happens next", "process_milk")
 	if(state == "process_milk"):
 		playAnimation(StageScene.ChairOral, "tease", {pc="pc", npc="eliza", bodyState={exposedCrotch=true}})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("Finally, with a satisfied smile, Eliza gently ties off the end of the condom and carefully pulls it off.. while your member starts to get soft.")
 
 		saynn("[say=eliza]Thank you for your humble donation~. Please come again.[/say]")
@@ -131,8 +131,8 @@ func _react(_action: String, _args):
 
 	if(_action == "process_milk"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	setState(_action)
 

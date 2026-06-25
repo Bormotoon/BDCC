@@ -101,7 +101,7 @@ func _run():
 
 		saynn("[say=eliza]Can you see yourself?[/say]")
 
-		saynn("You look down at yourself. Yeah, everything seems to be there. Your {pc.masc} body, your straitjacket,"+str(" your growing belly," if GM.pc.isVisiblyPregnant() else "")+" a chain leash, the testing table that you’re sitting on, everything.")
+		saynn("You look down at yourself. Yeah, everything seems to be there. Your {pc.masc} body, your straitjacket,"+str(" your growing belly," if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" a chain leash, the testing table that you’re sitting on, everything.")
 
 		saynn("[b]Suddenly, a hand touches your chin[/b]. You jump, making the chain rattle, the hand is half-transparent, lacks any color, and is not attached to anything, just floating! And just as suddenly, the hand disappears into nothingness as it gets pulled away from you.")
 
@@ -125,26 +125,26 @@ func _run():
 		saynn("The paw shushes you and wiggles its digits inside your mouth. Unsure why, you start suckling on them while the second ghost paw reaches down to your chastity belt and unlocking it, exposing more of your privates.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your {pc.cock} is already leaking precum after it was released. The ghost paw gets a hold of the balls and kneads them, causing you to let out a muffled moan and try to close your legs. The cage puts so much nice-feeling pressure on your shaft.")
 			else:
 				saynn("Your {pc.cock} swiftly springs up after it was released, already leaking precum. The ghost paw gets a hold of the balls and kneads them, causing you to let out a muffled moan and try to close your legs.")
 
 			# (if cock and also pussy)
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("The paw also gives some attention to your hidden pussy, giving its folds a little rub and spreading it, showing off how much it drips arousal.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy slit is looking wet and needy after it was released, dripping arousal onto the table. The ghost paw spreads its folds open and gives the clit a rub, causing you to let out a muffled moan and try to close your legs.")
 
-		if(GM.pc.isHeavilyPregnant()):
+		if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("The paw on your bits traces up over your hips and onto your very obvious pregnancy, feeling over it and massaging all strained and tender curves of your belly. You might've protested if it didnt feel kind of good. And if there weren't fingers in your mouth...")
 
 			saynn("Suddenly feeling the small twinges of movement in your tummy brings you back to what's happening. The paw massaging your gravid form freezes for a second as one of the kicks presses up against it. Once everything dies back down, you are free to receive more belly rubs...")
 
-		elif(GM.pc.isVisiblyPregnant()):
+		elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("The paw on your bits traces up over your hips and onto your rounded out belly bringing attention your early pregnancy, rubbing down the side of your midriff before reaching down and feeling the weight of it. The paw entirely free to give you a belly rub...")
 
 		else:
@@ -155,20 +155,20 @@ func _run():
 #Just because this is a preg expansion doesnt mean I can't add milky tits too
 #"Eliza" is the milking lady, she's gotta know how to suck on some tiddy
 #also I gotta lay off the amount of commas in my writing
-		if(GM.pc.canBeMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			saynn("Your nipples respond to the ghastly mouth latched to them by leaking fresh milk directly into the semi-transparent maw. A nice surprise that is happily sucked down and disappeared before your eyes. Feeling the strange tongue graze and lap at one of your now swollen nubs stimulating more milk from it... The lips wrapping around your {pc.breasts} and drinking freely in large sucks that seem to stimulate you more than actually draw milk from you. ")
 			saynn("Detaching with a little pop the lips pull away. Not drawing enough milk to make your nipples sore and making all the leftovers run down your milky chest...")
 
 		saynn("[say=pc]Wh-h..a..[/say]")
 
 		# (if cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The paw gags you by sliding its digits in and out, forcing you to focus on sucking them. All the while the second paw wraps its digits around your chastity cage and starts tugging and pushing on it, attempting to stimulate your member.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("The paw gags you by sliding its digits in and out, forcing you to focus on sucking them. All the while the second paw wraps its digits around your shaft and starts stroking it.")
 
 		# (if pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The paw gags you by sliding its digits in and out, forcing you to focus on sucking them. All the while the second paw slides some digits into your sex and proceeds to finger you.")
 
 		saynn("The combined sensations are insane, you arch your back and let out more noises of pleasure. You feel like you won't be able to endure this for long. The ghostly paws and lips hear your noises and only increase their onslaught, eagerly pleasuring you and forcing you over your peak.")
@@ -179,13 +179,13 @@ func _run():
 		saynn("You squirm and wiggle on the table uncontrollably while the paws keep you still. More moans escape from your mouth while a powerful orgasm overwhelms you.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The paws feel your cock throbbing and just hold onto your chastity cage, letting your dick shoot many strings of your {pc.cum} through it all over the floor underneath.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("The paws feel your cock throbbing and switch to a very slow pace, letting your dick shoot many strings of your {pc.cum} all over the floor underneath without overstimulating it.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The digits focus on your pleasure spot and hammer at it relentlessly, causing your slick pussy walls to start clenching around them. You squirt from so much stimulation, creating a little puddle of your femcum on the floor underneath.")
 
 		# (else)
@@ -216,7 +216,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, patient",
 			"Today's experiment should be interesting",
 			"Smile to the nurses",
@@ -226,12 +226,12 @@ func _react(_action: String, _args):
 		MedicalModule.addPCBehavior(0.1)
 		
 	if(_action == "get_drugged"):
-		GM.pc.addIntoxication(0.8)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.8)
 		
 	if(_action == "cum!"):
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("You received 1 work credit!")
 		
 		setModuleFlag("MedicalModule", "Mental_ExpGhostHands", Util.maxi(1, getModuleFlag("MedicalModule", "Mental_ExpGhostHands", 0)))

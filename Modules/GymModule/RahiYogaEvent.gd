@@ -10,7 +10,7 @@ func run(_triggerID, _args):
 	if(!getModuleFlag("RahiModule", "Rahi_Introduced")):
 		return
 	
-	if(GM.main.getTime() <= 7*60*60):
+	if(ServiceLocator.safe_get_service(&"MainScene").getTime() <= 7*60*60):
 		saynn("You notice a familliar kitty doing yoga")		
 		
 		addButtonUnlessLate("Rahi", "Spy on the kitty doing yoga", "rahi")

@@ -68,6 +68,6 @@ func updateBodyparts():
 func getDefaultEquipment():
 	if(GlobalRegistry.getModule("DrugDenModule").isKidlatBound()):
 		return ["inmatecollar", "inmatewristcuffs", "inmateanklecuffs", "blindfold"]
-	if(GM.main != null && GM.main.getFlag("DrugDenModule.KidlatWearsPortalPanties")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("DrugDenModule.KidlatWearsPortalPanties")):
 		return ["inmatecollar", "inmateuniformSexDeviant", "PortalPantiesUnlocked"]
 	return ["inmatecollar", "inmateuniformSexDeviant"]

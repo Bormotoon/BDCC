@@ -4,7 +4,7 @@ func _init():
 	sceneID = "NovaTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["nova"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["nova"])):
 		endScene()
 		return
 
@@ -13,18 +13,18 @@ func _run():
 		addCharacter("nova")
 		playAnimation(StageScene.Duo, "stand", {npc="nova", npcAction="stand"})
 	if(state == ""):
-		if(!GM.main.getModuleFlag("NovaModule", "Nova_Introduced")):
-			GM.main.setModuleFlag("NovaModule", "Nova_Introduced", true)
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("NovaModule", "Nova_Introduced")):
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_Introduced", true)
 			saynn("You walk up to some guard that seems to be patrolling the yard area. First thing you notice is her canine features and a feminine body. Gray fur and curly tail help you identify her as a husky. She is armored and her armor seems to be quite advanced, even requiring something that looks like a little nuclear power generator on her back. Under it you spot a fancy stealthy bodysuit and a short black skirt.")
 
 			saynn("She is fidgeting with her stun baton when her eyes spot you. She stops her patrol and directs her full attention at you.")
 
 			# (if seen before)
-			if(GM.main.getModuleFlag("NovaModule", "Nova_SawPC")):
+			if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("NovaModule", "Nova_SawPC")):
 				saynn("[say=nova]I remember you, little rascal.[/say]")
 
 				# (if humiliated nova)
-				if(GM.main.getModuleFlag("NovaModule", "Nova_GotHumiliatedByPC")):
+				if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("NovaModule", "Nova_GotHumiliatedByPC")):
 					saynn("[say=pc]Yeah, and I remember humiliating you.[/say]")
 
 					saynn("[say=nova]Well, you kno-o-ow. You win some, you lose some. Sometimes losing is fun too~[/say]")
@@ -72,7 +72,7 @@ func _run():
 #		else:
 #			addDisabledButton("Lewd", "Can't offer yourself to Nova while she is pregnant")
 		addButton("Leave", "Time to go", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["nova"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["nova"])
 
 
 	if(state == "appearance"):
@@ -148,7 +148,7 @@ func _run():
 		
 		saynn("[say=nova]Someone is horny~?[/say]")
 		
-		if(!GM.pc.hasBlockedHands()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 			saynn("Boldy, you sneak a hand under Nova’s skirt and put it on her crotch. She chuckles softly as you grope the sheath that is hidden under her suit.")
 		
 		addButton("Petplay", "Offer to be Nova’s pet for a bit", "petplay")

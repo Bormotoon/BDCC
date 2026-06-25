@@ -65,7 +65,7 @@ func _init():
 	]
 
 func registerEventTriggers():
-	GM.ES.registerEventTrigger("StocksEscape", EventTriggerWeighted.new())
-	GM.ES.registerEventTrigger("StocksEvent", EventTriggerWeighted.new())
-	GM.ES.registerEventTrigger("StocksWillingSex", EventTriggerWeighted.new())
-	GM.ES.registerEventTrigger("StocksUnWillingSex", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("StocksEscape", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("StocksEvent", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("StocksWillingSex", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("StocksUnWillingSex", EventTriggerWeighted.new())

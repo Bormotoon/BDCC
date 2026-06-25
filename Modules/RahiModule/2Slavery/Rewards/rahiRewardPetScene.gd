@@ -226,7 +226,7 @@ func _run():
 		addButton("Make her cum", "Use your strapon to make that kitty feel good", "strapon_cum")
 	if(state == "strapon_cum"):
 		playAnimation(StageScene.SexMissionary, "fast", {npc="rahi", bodyState={naked=true, hard=true}, npcBodyState={naked=true}})
-		saynn("A few rough thrusts send Rahi over her peak, her body starts shaking and quivering under you while her wet pussy gets extremely tight around your rubber dick. Such tightness means it becomes way harder to keep going, the friction of the toy against your "+str("pussy" if GM.pc.hasVagina() else "taint area")+" sends you past your peak too!")
+		saynn("A few rough thrusts send Rahi over her peak, her body starts shaking and quivering under you while her wet pussy gets extremely tight around your rubber dick. Such tightness means it becomes way harder to keep going, the friction of the toy against your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasVagina() else "taint area")+" sends you past your peak too!")
 
 		saynn("Both you and Rahi shiver and moan passionately, your bodies rubbing against each other. You keep thrusting that toy through the orgasmic waves, breaking into Rahi's womb and causing another spike of pleasure for her. Rahi's needy pussy squirts all over your toy while her eyes roll up.")
 
@@ -250,22 +250,22 @@ func _react(_action: String, _args):
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
 
 	if(_action == "sex_strapon"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("Strapon"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("Strapon"))
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
 
 	if(_action == "breed_cuminside"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_petplaybreed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_petplaybreed")
 
 	if(_action == "strapon_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_petplaybreed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_petplaybreed")
 
 	if(_action == "removestrapon"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Strapon)
 		endScene()
 		return
 

@@ -20,7 +20,7 @@ func _run():
 		saynn("Judging from Ferri’s tone, she almost sounds disappointed. She lets go of your neck and straddles you, wondering about what she should do with you.")
 
 		addButton("Get teased", "See what happens next", "get_teased")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["ferri"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["ferri"])
 
 	if(state == "get_teased"):
 		saynn("Ferri slides her paws teasingly over your {pc.masc} curves. Soft purring can be heard from her maw as she reaches your {pc.breasts} and then gives them a smack! Ow, you arch your back but she pins you back to the ground. The crowd behind the fence cheers for more fucking but the dracat’s plans are different.")
@@ -38,7 +38,7 @@ func _run():
 		saynn("[say=ferri]That’s right~. You are my soft bratty pillow. Say it or I will bite you again~[/say]")
 
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Dracat extends the claws on her paw and uses them to open your clothing. Then she drags them over your skin while putting a moderate amount of pressure, threatening to pierce at any second.")
 
 		# (if naked)
@@ -63,8 +63,8 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "get_teased"):
-		GM.pc.addLust(30)
-		GM.pc.addPain(5)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(5)
 	
 	if(_action == "endthescene"):
 		endScene()

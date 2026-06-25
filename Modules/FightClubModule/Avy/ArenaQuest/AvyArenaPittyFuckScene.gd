@@ -23,11 +23,11 @@ func _run():
 
 		saynn("[say=avy]So this will be enough.[/say]")
 
-		saynn("You can.. feel.. her member already getting bigger in her shorts. The crowd cheers her to breed you."+str(" They don't even care that you don't have a pussy, they just wanna see it.." if !GM.pc.hasVagina() else "")+"")
+		saynn("You can.. feel.. her member already getting bigger in her shorts. The crowd cheers her to breed you."+str(" They don't even care that you don't have a pussy, they just wanna see it.." if !ServiceLocator.safe_get_service(&"Player").hasVagina() else "")+"")
 
 		saynn("You're not sure how much you like this no-rules policy.. But it's probably too late to ask for a rematch..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Get bred", "This will be rough..", "avy_pitty_breeds_pussy")
 		else:
 			addButton("Get bred", "This will be rough..", "avy_pitty_breeds_anus")
@@ -52,16 +52,16 @@ func _run():
 
 		saynn("[say=avy]Spread your legs.. before I break them..[/say]")
 
-		saynn("You don't listen so Avy rams her feet into your sides a few more times, making you cough. Then she uses that opportunity to forcibly part your {pc.thick} thighs before positioning herself between them, pinning you to the floor. You can feel.. dominance radiating from her every move. She catches your hands and holds them above your head with one paw"+str(" while the second one works on exposing your {pc.pussyStretch} pussy." if !GM.pc.isFullyNaked() else ".")+"")
+		saynn("You don't listen so Avy rams her feet into your sides a few more times, making you cough. Then she uses that opportunity to forcibly part your {pc.thick} thighs before positioning herself between them, pinning you to the floor. You can feel.. dominance radiating from her every move. She catches your hands and holds them above your head with one paw"+str(" while the second one works on exposing your {pc.pussyStretch} pussy." if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else ".")+"")
 
 		saynn("[say=avy]Good bitch.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The foxy takes notice of the chastity cage that is on your penis and just can't help but to chuckle. Her free paw lands on your balls and squeezes them painfully.")
 
 			saynn("[say=avy]Look at that. You're a breeding stock already.[/say]")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The foxy takes notice of your {pc.penis} and puts on a sly smile. Her free paw lands on your balls and squeezes them painfully.")
 
 			saynn("[say=avy]You will never need this with me. Might as well go let it get caged.[/say]")
@@ -88,10 +88,10 @@ func _run():
 		playAnimation(StageScene.SexMissionary, "fast", {pc = "avy", npc="pc", bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true,hard=true}})
 		saynn("The more she fucks you.. the more.. weird stuff.. you begin to feel.. Your mind is protesting any way it can but your body.. your body is betraying you. Your red bruised pussy begins to get wet around that intruding cock.. the inner walls clenching around the shaft and giving more pleasure to Avy.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Avy must be pushing on some pleasure spot.. Your locked up cock is trying to get hard but can't, desperately fighting the metal frame of the cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Avy must be pushing on some pleasure spot.. Your {pc.penis} is slowly getting harder and even leaks precum.")
 
 		saynn("[say=avy]Oh, you're breaking already? Not before I knot your fucking cunt.[/say]")
@@ -102,10 +102,10 @@ func _run():
 
 		saynn("Your body tenses, your inner walls clenching around Avy, kneading that shaft along its full length.. Avy grunts while her length is inside you.. all of it.. The crowd cheers her to cum and breed you while you orgasm hard, a wave after wave of intense agonizing pleasure washing over you.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weak strings of {pc.cum} leak out of your cage.. it looks cute, seeing you cum completely hands free.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Strong strings of {pc.cum} get shot out of your cock.. it looks cute, seeing you cum completely hands free.")
 
 		saynn("[say=avy]Nghh-h..[/say]")
@@ -151,20 +151,20 @@ func _run():
 
 		saynn("[say=avy]Spread your legs.. before I break them..[/say]")
 
-		saynn("You don't listen so Avy rams her feet into your sides a few more times, making you cough. Then she uses that opportunity to forcibly part your {pc.thick} thighs before positioning herself between them, pinning you to the floor. You can feel.. dominance radiating from her every move. She catches your hands and holds them above your head with one paw"+str(" while the second one works on exposing your {pc.anusStretch} tailhole." if !GM.pc.isFullyNaked() else ".")+"")
+		saynn("You don't listen so Avy rams her feet into your sides a few more times, making you cough. Then she uses that opportunity to forcibly part your {pc.thick} thighs before positioning herself between them, pinning you to the floor. You can feel.. dominance radiating from her every move. She catches your hands and holds them above your head with one paw"+str(" while the second one works on exposing your {pc.anusStretch} tailhole." if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else ".")+"")
 
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("[say=avy]Good bitch. Can't breed your pussy but this will do just fine.[/say]")
 
 		else:
 			saynn("[say=avy]Good bitch.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The foxy takes notice of the chastity cage that is on your penis and just can't help but to chuckle. Her free paw lands on your balls and squeezes them painfully.")
 
 			saynn("[say=avy]Look at that. You're a breeding stock already.[/say]")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The foxy takes notice of your {pc.penis} and puts on a sly smile. Her free paw lands on your balls and squeezes them painfully.")
 
 			saynn("[say=avy]You will never need this with me. Might as well go let it get caged.[/say]")
@@ -191,10 +191,10 @@ func _run():
 		playAnimation(StageScene.SexMissionary, "fast", {pc = "avy", npc="pc", bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true,hard=true}})
 		saynn("The more she fucks you.. the more.. weird stuff.. you begin to feel.. Your mind is protesting any way it can but your body.. your body is betraying you. Your red bruised anus got lubed up with precum of that intruding cock, lowering the painful friction.. the inner walls clenching around the shaft and giving more pleasure to Avy.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Avy is destroying your swollen prostate.. Your locked up cock is trying to get hard but can't, desperately fighting the metal frame of the cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Avy is destroying your swollen prostate.. Your {pc.penis} is slowly getting harder and even leaks pre.")
 
 		saynn("[say=avy]Oh, you're breaking already? Not before I knot your fucking ass.[/say]")
@@ -205,10 +205,10 @@ func _run():
 
 		saynn("Your body tenses, your inner walls clenching around Avy, kneading that shaft along its full length.. Avy grunts while her length is inside you.. all of it.. The crowd cheers her to cum and breed you while you orgasm hard, a wave after wave of intense agonizing pleasure washing over you.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weak strings of {pc.cum} leak out of your cage.. it looks cute, seeing you cum completely hands free.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Strong strings of {pc.cum} get shot out of your cock.. it looks cute, seeing you cum completely hands free.")
 
 		saynn("[say=avy]Nghh-h..[/say]")
@@ -247,35 +247,35 @@ func _react(_action: String, _args):
 
 	if(_action == "avy_pitty_breed_pussy_do"):
 		processTime(5*60)
-		GM.pc.doWound("avy")
+		ServiceLocator.safe_get_service(&"Player").doWound("avy")
 
 	if(_action == "avy_pitty_breed_pussy_faster"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
-		GM.pc.addPain(20)
-		GM.pc.gotVaginaFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 
 	if(_action == "avy_pitty_breed_pussy_cum"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
-		GM.pc.cummedInVaginaBy("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("avy")
 
 	if(_action == "avy_pitty_breed_anus_do"):
 		processTime(5*60)
-		GM.pc.doWound("avy")
+		ServiceLocator.safe_get_service(&"Player").doWound("avy")
 
 	if(_action == "avy_pitty_breed_anus_faster"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "avy")
-		GM.pc.addPain(20)
-		GM.pc.gotAnusFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "avy")
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 
 	if(_action == "avy_pitty_breed_anus_cum"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "avy")
-		GM.pc.cummedInAnusBy("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("avy")
 
 	setState(_action)
 

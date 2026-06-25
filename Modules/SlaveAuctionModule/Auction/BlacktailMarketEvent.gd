@@ -11,7 +11,7 @@ func registerTriggers(es):
 func run(_triggerID, _args):
 	var noMirri = getModule("SlaveAuctionModule").noMirri()
 	
-	if(noMirri && GM.pc.getLocation() == "market_market"):
+	if(noMirri && ServiceLocator.safe_get_service(&"Player").getLocation() == "market_market"):
 		addButton("Sell slave", "Start an auction!", "soloslavesell")
 		if(getFlag("SlaveAuctionModule.upgradeSeePrefs", 0) >= 1):
 			addButton("Bidders info", "Check the preferences of the next bidders", "solobidders")
@@ -19,7 +19,7 @@ func run(_triggerID, _args):
 		
 		addButton("Prison cell", "Teleport back to your prison cell", "exitsecure")
 	
-	if(GM.pc.getLocation() == "market_intro"):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() == "market_intro"):
 		addButton("Prison cell", "Teleport back to your prison cell", "exitsecure")
 		if(noMirri):
 			addButton("Laptop", "Use Mirri's laptop to order stuff", "mirrilaptop")
@@ -34,7 +34,7 @@ func run(_triggerID, _args):
 					addButton("Mirri", "Talk with the catgirl", "mirri")
 				
 	if(true):
-		if(GM.pc.getLocation() == GM.pc.getCellLocation()):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"Player").getCellLocation()):
 			addButton("Blacktail Market", "Teleport to the Blacktail Market", "entersecure")
 
 func getPriority():
@@ -46,19 +46,19 @@ func onButton(_method, _args):
 	if(_method == "entersecure"):
 		var noMirri = getModule("SlaveAuctionModule").noMirri()
 		if(noMirri):
-			GM.pc.setLocation("market_market")
+			ServiceLocator.safe_get_service(&"Player").setLocation("market_market")
 		else:
-			GM.pc.setLocation("market_intro")
+			ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
 		addMessage("You use your bluespace relay-tag to teleport to the Blacktail Market.")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 	if(_method == "mirri"):
-		if(!GM.ES.triggerReact(Trigger.TalkingToNPC, ["mirri"])):
+		if(!ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["mirri"])):
 			getCharacter("mirri").updateBodyparts()
 			runScene("MirriTalkScene")
 	if(_method == "exitsecure"):
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		addMessage("You use the teleporter to teleport back to your cell.")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 	if(_method == "soloslavesell"):
 		runScene("SlaveAuctionGenericSellNoMirriScene")
 	if(_method == "solobidders"):

@@ -22,7 +22,7 @@ func _run():
 		saynn("[say=volk]You were right to be afraid though, suka..[/say]")
 
 		addButton("Weapon play", "See what happens next", "weapon_play")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["volk"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["volk"])
 
 	if(state == "weapon_play"):
 		playAnimation(StageScene.SexStart, "start", {pc="volk", npc="pc"})
@@ -52,7 +52,7 @@ func _run():
 		saynn("[say=volk]Hurts? Good.. I won’t kill you. But I can make it hurt.[/say]")
 
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("His weapon jumps over your collar and goes for your clothing. He uses the sharp part to open up your chest, exposing your {pc.breasts}. You’re too afraid to cover yourself with that sharp thing nearby.")
 
 		# (if naked)
@@ -79,8 +79,8 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "weapon_play"):
-		GM.pc.addLust(30)
-		GM.pc.addPain(5)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(5)
 	
 	if(_action == "endthescene"):
 		endScene()

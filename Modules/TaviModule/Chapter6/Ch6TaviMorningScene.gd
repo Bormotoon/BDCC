@@ -139,10 +139,10 @@ func _run():
 
 				saynn("[say=tavi]Wanna fuck me?[/say]")
 
-				if (GM.pc.hasPenis()):
+				if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 					saynn("She is quite.. bold.. Her paws explore your body, reaching down to your {pc.penis} and teasing it with some strokes.")
 
-				elif (GM.pc.hasReachableVagina()):
+				elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 					saynn("She is quite.. bold.. Her paws explore your body, reaching down to your pussy and teasing it with her some rubs.")
 
 				else:
@@ -1257,7 +1257,7 @@ func equipStrapon():
 	var strapon = GlobalRegistry.createItem("StraponCanine")
 	var fluids = strapon.getFluids()
 	fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-	GM.pc.getInventory().equipItem(strapon)
+	ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 
 
 func _react(_action: String, _args):
@@ -1269,7 +1269,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "do_fuck_pick"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			#usedStrapon = false
 			setState(RNG.pick(["do_fuck1", "do_fuck2", "do_fuck3"]))
 		else:
@@ -1278,11 +1278,11 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "do_petplay_fuck_pick"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			#usedStrapon = false
 			setState("do_petplay_fuck")
 		else:
@@ -1291,14 +1291,14 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "do_pussy_spank"):
 		processTime(5*60)
 
 	if(_action == "do_anal_pick"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			#usedStrapon = false
 			setState("do_anal")
 		else:
@@ -1307,13 +1307,13 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "do_just_chill"):
 		processTime(20*60)
 		getModule("TaviModule").addCorruption(-15)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		if(chillTalk < 3):
 			increaseFlag("TaviModule.Ch6TaviChillTalk")
 
@@ -1341,12 +1341,12 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck1_pullout"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck_piss"):
 		processTime(2*60)
@@ -1357,15 +1357,15 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck1_pullout_strapon"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "start_talk_removestrapon"):
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		endScene()
 		runScene("Ch6TaviTalkScene")
 		return
@@ -1374,64 +1374,64 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck2_pullout"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck2_knot_strapon"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck2_pullout_strapon"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		#getCharacter("tavi").cummedOnBy("pc")
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck3_inside"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck3_pullout"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		#getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck3_inside_strapon"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_fuck3_pullout_strapon"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		#getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_trib_cum"):
 		processTime(10*60)
-		GM.pc.rubsVaginasWith("tavi")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 
 	if(_action == "do_trib_deny"):
 		processTime(10*60)
-		GM.pc.rubsVaginasWith("tavi")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("tavi")
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 
 	if(_action == "do_lick_cum"):
 		processTime(10*60)
-		GM.pc.cummedOnBy("tavi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi", FluidSource.Vagina)
 		getModule("TaviModule").addCorruption(4 * sexSkillMod)
 
 	if(_action == "do_lick_deny"):
@@ -1442,12 +1442,12 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_anal_pullout"):
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_anal_piss"):
 		processTime(2*60)
@@ -1458,22 +1458,22 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(5 * sexSkillMod)
 		getCharacter("tavi").cummedInAnusBy("pc", FluidSource.Strapon)
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "do_anal_pullout_strapon"):
 		getModule("TaviModule").addCorruption(-5 * sexSkillMod)
 		#getCharacter("tavi").cummedOnBy("pc")
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "cor_facesit_cum"):
 		getModule("TaviModule").addCorruption(15)
-		GM.pc.cummedOnBy("tavi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi", FluidSource.Vagina)
 
 	if(_action == "cor_facesit_piss"):
 		processTime(2*60)
 		getModule("TaviModule").addCorruption(3)
-		GM.pc.pissedOnBy("tavi")
-		GM.pc.cummedInMouthBy("tavi", FluidSource.Pissing, 0.3)
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("tavi", FluidSource.Pissing, 0.3)
 
 	if(_action == "do_petplay_fuck_bj"):
 		processTime(2*60)
@@ -1487,7 +1487,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_fuck_throatpie"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(4 * petSkillMod)
@@ -1495,7 +1495,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_fuck_bj_pullout"):
 		processTime(2*60)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(-4 * petSkillMod)
@@ -1503,7 +1503,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_fuck_cuminside"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(5 * petSkillMod)
@@ -1511,7 +1511,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_fuck_pullout"):
 		processTime(2*60)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(-5 * petSkillMod)
@@ -1528,7 +1528,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_strapon_harder"):
 		processTime(2*60)
 		#getCharacter("tavi").cummedInMouthBy("pc")
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(4 * petSkillMod)
@@ -1536,7 +1536,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_strapon_bj_pullout"):
 		processTime(2*60)
 		#getCharacter("tavi").cummedOnBy("pc")
-		#GM.pc.orgasmFrom("tavi")
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(-4 * petSkillMod)
@@ -1544,7 +1544,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_strapon_cuminside"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(5 * petSkillMod)
@@ -1552,7 +1552,7 @@ func _react(_action: String, _args):
 	if(_action == "do_petplay_strapon_pullout"):
 		processTime(2*60)
 		#getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 		var petSkillMod = 1.0 + getModule("TaviModule").getSkillScore("taviSkillPetplay") / 3.0
 		getModule("TaviModule").addCorruption(-5 * petSkillMod)
@@ -1578,7 +1578,7 @@ func _react(_action: String, _args):
 			tookVirginity = true
 			setFlag("TaviModule.TaviIsNotVirgin", true)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	setState(_action)
 

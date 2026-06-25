@@ -27,7 +27,7 @@ func resolveCustomCharacterName(_charID):
 
 func _run():
 	if(state == ""):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		addCharacter(npcID)
 		
 		var npcSlavery:NpcSlave = npc.getNpcSlavery()
@@ -53,7 +53,7 @@ func _run():
 				
 				addActivityButtons()
 				return
-		elif(GM.main.IS.hasPawn(npc.getID())):
+		elif(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(npc.getID())):
 			playAnimation(StageScene.Solo, "stand")
 			
 			saynn("{npc.name} is wandering around the prison somewhere.. Wait until {npc.he} {npc.verb('return')}.")
@@ -518,7 +518,7 @@ func checkSlaveResist(resistChance, onlyActiveResist = false):
 			var randomResist = RNG.pick(possibleResists)
 			# Do add pain
 			if(slaveResistedSuc):
-				GM.pc.addPain(randi_range(3, 6))
+				ServiceLocator.safe_get_service(&"Player").addPain(randi_range(3, 6))
 			activeResistType = randomResist
 			setState("resisting_actively")
 			return true

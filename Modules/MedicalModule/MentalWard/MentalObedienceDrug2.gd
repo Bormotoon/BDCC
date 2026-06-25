@@ -70,7 +70,7 @@ func _run():
 
 		saynn("[say=eliza]Let’s see. What’s your name?[/say]")
 
-		addButton(GM.pc.getName(), "Tell her your real name", "sayrealname")
+		addButton(ServiceLocator.safe_get_service(&"Player").getName(), "Tell her your real name", "sayrealname")
 		addButton("Lie", "Lie to Eliza", "saybadname")
 
 	if(state == "sayrealname"):
@@ -210,12 +210,12 @@ func _run():
 		saynn("[say=pc]Yes, they are incredible, Mistress..[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy is dripping juices onto the floor, you’re so turned on by what you are doing.. You’d finger yourself to an orgasm there and now but your mind is fully consumed by the idea of being a perfect sub.")
 
 		# (if has a cock)
-		elif(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your {pc.cock} is hard already, putting pressure on your chastity and dripping pre onto the floor, you’re so turned on by what you are doing.. You’d stroke yourself to an orgasm there and now but your mind is fully consumed by the idea of being a perfect sub.")
 			else:
 				saynn("Your {pc.cock} is rock hard already, dripping pre onto the floor, you’re so turned on by what you are doing.. You’d stroke yourself to an orgasm there and now but your mind is fully consumed by the idea of being a perfect sub.")
@@ -227,7 +227,7 @@ func _run():
 		saynn("After you’re done with worshiping her toes, she pulls her leg back and instead uses it to spread your legs. You keep them fully spread for her.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Then she shifts her leg closer to your crotch, sneaks it under you. Your wet cunt already drips juices onto it..")
 
 			saynn("[say=eliza]If you like my feet so much you may use them to get off~[/say]")
@@ -235,13 +235,13 @@ func _run():
 			saynn("That’s all you needed to hear, you spread your legs as much as possible, your needy slit touched Eliza’s toes. You start moving your lower part of the body back and forth, grinding your pussy against the doctor’s feet, her fur quickly gets coated with your juices. It feels strange.. yet so good.. You can’t stop pleasuring yourself, you basically hump that leg, moaning and squirming, your clit rubbing against the animal toes.")
 
 		# (if has cock)
-		elif(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Then she shifts her leg to your chastity cage. Your dick is forced to be limp but it’s still dripping quite a lot of pre. Eliza sits on the table and captures your cage between her feet.")
 			
 			saynn("[say=eliza]Well then, if you like my feet so much you may use them to get off~[/say]")
 			
 			saynn("That’s all you needed to hear, you start thrusting your caged up cock between the tight opening while she rubs her toes against the tip of your cage and against your balls. You can’t stop pleasuring yourself, you basically hump her feet, moaning and squirming, desperate to get at least some stimulation, your cock wants to throb real hard through that damn cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Then she shifts her leg to your cock. You’re hard and still dripping pre. Eliza sits on the table and captures your cock between her feet.")
 
 			saynn("[say=eliza]Well then, if you like my feet so much you may use them to get off~[/say]")
@@ -249,7 +249,7 @@ func _run():
 			saynn("That’s all you needed to hear, you start thrusting your cock between the tight opening while she rubs her toes against the tip of your {pc.cock}. It feels so good. You can’t stop pleasuring yourself, you basically hump her feet, moaning and squirming, your cock already throbbing hard.")
 
 		# (if cock or pussy)
-		if(GM.pc.hasVagina() || GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina() || ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You look up at Eliza and see her playing with herself, her hand inside her black panties, rubbing her clit. She lets out short lustful moans while you use her legs for your pleasure. Her second hand is under her top, groping her breasts.")
 
 			saynn("[say=eliza]Bet you’d cum right now if I’d order you~?[/say]")
@@ -259,18 +259,18 @@ func _run():
 			saynn("[say=eliza]Cum, pet~[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("And just like that, you cry out a moan and slump down, pushing your pussy into Eliza’s leg harder, you shiver and squirm while your slit squirts juices all over the doctor’s fur. The climax and your submissiveness multiply together, causing your mind to blank for a second. When you get a hold of yourself, you lower yourself to her feet again and lick-clean your mess.")
 
 		# (if has cock)
-		elif(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("And just like that, you cry out a moan as your cock starts shooting {pc.cum} through the little hole in your chastity cage all over Eliza’s legs, her feet and toes. You shiver and squirm while she milks your balls dry. The climax and your submissiveness multiply together, causing your mind to blank for a second. When you get a hold of yourself, you lower yourself to her feet again and lick-clean your mess.")
 			else:
 				saynn("And just like that, you cry out a moan as your cock starts shooting {pc.cum} all over Eliza’s legs, her feet and toes. You shiver and squirm while she milks your balls dry. The climax and your submissiveness multiply together, causing your mind to blank for a second. When you get a hold of yourself, you lower yourself to her feet again and lick-clean your mess.")
 
 		# (if has cock or pussy)
-		if(GM.pc.hasVagina() || GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina() || ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You hear that Eliza starts cumming too, she drags out her moans for a long time as her legs and arms tremble from each wave of pleasure. It’s honestly pretty cute. But not as cute as you and the mess you created.")
 
 		saynn("[say=eliza]Ah-h~. Aren’t you an adorable toy. This was a great success, huh~[/say]")
@@ -297,11 +297,11 @@ func _run():
 		saynn("She puts her hand on your head and gives you more scritches. You breathe warmly and continue working, eagerly licking her clit and pussy lips through the panties. Her female scent is incredible, you feel like you are ready to be her servant forever, just so you can worship that pussy every day. The doctor’s eyes clearly show lust too, her hand sneaks under her labcoat and begins squeezing and groping her own breasts.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while your own needy pussy is neglected. You rub your legs together, desperately trying to get any stimulation. But are of course entirely focused on worshiping Eliza first.")
 
 		# (if has cock)
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("All the while your {pc.cock} is being neglected. You rub your legs together, desperately trying to get any stimulation. But are of course entirely focused on worshiping Eliza first.")
 
 		saynn("[say=eliza]Trying to make me cum, huh~. Such a good pet.[/say]")
@@ -309,7 +309,7 @@ func _run():
 		saynn("Eliza’s moans become more frequent, you prod at the spot where her pussy entering is but the cloth blocks it so you just keep lapping at it, quickly bringing the doctor to her peak. She parts her lips and produces a series of dragged-on pleasure noises, it’s honestly kinda cute. She tries to close her shaking legs around your head while you breathe warmly at her panties and get their strong scent.")
 
 		# (if has pussy or cock)
-		if(GM.pc.hasVagina() || GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina() || ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=eliza]Ah-h~. You probably wanna cum too, huh~?[/say]")
 
 			saynn("You speak under her skirt.")
@@ -319,12 +319,12 @@ func _run():
 			saynn("[say=eliza]Well, cum for me, my toy~[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("And suddenly, you cry out a moan as you slump down. You shiver and squirm while your slit squirts juices all over the floor. The climax and your submissiveness multiply together, causing your mind to blank for a second.")
 
 		# (if has cock)
-		elif(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("And suddenly, you cry out a moan as your cock starts shooting {pc.cum} through the little hole in your chastity cage all over the floor. You shiver and squirm while she milks your balls dry just by exploiting your poor mind. The climax and your submissiveness multiply together, causing your mind to blank for a second.")
 			else:
 				saynn("And suddenly, you cry out a moan as your cock starts shooting {pc.cum} all over the floor. You shiver and squirm while she milks your balls dry just by exploiting your poor mind. The climax and your submissiveness multiply together, causing your mind to blank for a second.")
@@ -343,7 +343,7 @@ func _run():
 
 	if(state == "follow_her_back"):
 		aimCamera("medical_paddedcell_player")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
 		setLocationName("Padded cell")
 		
@@ -361,7 +361,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "continue"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, patient",
 			"Today's experiment should be interesting",
 			"Smile to the nurses",
@@ -375,15 +375,15 @@ func _react(_action: String, _args):
 		MedicalModule.addPCBehavior(0.1)
 	
 	if(_action == "disobey"):
-		GM.pc.addPain(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(30)
 		MedicalModule.addPCSanity(-0.1)
 		#MedicalModule.addPCBehavior(-0.1)
 	
 	if(_action in ["lick_toes", "lick_panties"]):
 		#MedicalModule.addPCBehavior(0.1)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("You received 1 work credit!")
 		
 		setModuleFlag("MedicalModule", "Mental_ExpObeyDrug", Util.maxi(2, getModuleFlag("MedicalModule", "Mental_ExpObeyDrug", 0)))

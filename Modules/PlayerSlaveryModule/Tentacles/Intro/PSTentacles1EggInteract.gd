@@ -10,19 +10,19 @@ func _init():
 	sceneID = "PSTentacles1EggInteract"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.Sleeping, "sleep", {pc="pc"})
@@ -32,8 +32,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "scientists_order")
 	if(state == "scientists_order"):
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		playAnimation(StageScene.GivingBirth, "idle", {pc="pc"})
 		saynn("[say=sci1]Alright, we're back. You're still alive? That's better than what I expected.[/say]")
 
@@ -64,7 +64,7 @@ func _run():
 		# (( Anim with egg
 		playAnimation(StageScene.SoloBigEgg, "stand")
 		aimCameraAndSetLocName("pstent_middle")
-		GM.pc.setLocation("pstent_middle")
+		ServiceLocator.safe_get_service(&"Player").setLocation("pstent_middle")
 		saynn("Slowly, you get off the bed and start stepping towards the mysterious egg.. Who knows what is inside it.. so you move your legs as quietly as the cold concrete floor allows..")
 
 		saynn("Eventually, you reach it.. Saying anything out loud near it might trigger it somehow.. so you just quietly stare at the camera.")
@@ -406,7 +406,7 @@ func _run():
 		addButton("Continue", "See what happens next", "gottaProvoke")
 	if(state == "2_cuddle"):
 		# (( cuddle with egg anim??
-		GM.pc.setLocation("pstent_bed")
+		ServiceLocator.safe_get_service(&"Player").setLocation("pstent_bed")
 		playAnimation(StageScene.SoloBigEgg, "kneel")
 		
 		aimCameraAndSetLocName("pstent_bed")
@@ -441,7 +441,7 @@ func _run():
 		addButton("Sleep", "Sleep with the egg!", "2cuddleSleep")
 	if(state == "2cuddleSleep"):
 		aimCameraAndSetLocName("pstest_middle")
-		GM.pc.setLocation("pstest_middle")
+		ServiceLocator.safe_get_service(&"Player").setLocation("pstest_middle")
 		# (( egg anim
 		playAnimation(StageScene.SoloBigEgg, "stand")
 		saynn("You enjoy the egg's company for a while.. until the intercom makes you snap out of your dreams.")
@@ -471,7 +471,7 @@ func _run():
 		# (( egg anim
 		playAnimation(StageScene.SoloBigEgg, "stand")
 		aimCameraAndSetLocName("pstent_middle")
-		GM.pc.setLocation("pstent_middle")
+		ServiceLocator.safe_get_service(&"Player").setLocation("pstent_middle")
 		saynn("[say=sci2]The egg is hatching.. but you might want to.. accelerate the process a bit.[/say]")
 
 		saynn("[say=pc]What do you mean?[/say]")
@@ -669,7 +669,7 @@ func getBiggestStat() -> int:
 
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 	
 	if(_action in ["1_kick", "2_fridge", "3_holdshut"]):
 		statAnger += 1
@@ -709,16 +709,16 @@ func _react(_action: String, _args):
 		_tentacles.interact2 = "cuddle"
 
 	if(_action == "2fridgeSleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 
 	if(_action == "2lampSleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 
 	if(_action == "2showerSleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 
 	if(_action == "2cuddleSleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 
 	if(_action == "3_peel"):
 		_tentacles.interact3 = "peel"

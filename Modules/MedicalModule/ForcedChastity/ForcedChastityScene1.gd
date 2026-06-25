@@ -7,7 +7,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingSolo, "idle", {bodyState={naked=true}})
 		
 		saynn("As you open your eyes, you are immediately struck by a sense of disorientation and confusion. You try to lift your head, but it feels heavy and unsteady. Vision is blurry but you’re pretty sure your cell didn’t look like that before.. You’re not even lying on a bed, you’re.. hanging from the ceiling with your hands chained to it. You blink a few times, trying to clear your vision, and slowly the room comes into focus.")
@@ -107,7 +107,7 @@ func _run():
 		saynn("[say=eliza]Chastity cage is about giving something up. Completely willingly. A sacrifice if you wanna call it like that.[/say]")
 
 		# (if has vagina)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Her paw goes further, sneaking behind your balls and landing on your pussy slit before reaching even further and brushing against your {pc.analStretch} tailhole.")
 
 		# (else)
@@ -168,7 +168,7 @@ func _run():
 
 	if(state == "leave"):
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		saynn("As you step out you realize that you’re on the medical floor. White sterile walls make you squint after being in the dimly lit room for so long.")
 
@@ -190,7 +190,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["good", "awful", "why"]):
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 		
 		setFlag("MedicalModule.Chastity_Event1Choice1", _action)
 	

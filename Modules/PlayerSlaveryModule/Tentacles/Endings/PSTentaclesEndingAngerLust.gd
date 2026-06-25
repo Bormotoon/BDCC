@@ -6,18 +6,18 @@ func _init():
 	sceneID = "PSTentaclesEndingAngerLust"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		_tentacles.doAnim("idle")
@@ -144,8 +144,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "pleading")
 	if(state == "pleading"):
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		aimCameraAndSetLocName("pstent_near_lastroom")
 		_tentacles.setMonsterLoc("pstent_near_lastroom")
 		_tentacles.setScientistsLoc("pstent_lastroom")
@@ -185,7 +185,7 @@ func _run():
 	if(state == "theTalk"):
 		aimCameraAndSetLocName("pstent_lastroom")
 		_tentacles.setMonsterLoc("pstent_lastroom")
-		playAnimation(StageScene.Duo, "stand", {pc=GM.main.PS.getScientist1CharID(), npc=GM.main.PS.getScientist2CharID()})
+		playAnimation(StageScene.Duo, "stand", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID(), npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()})
 		saynn("You and the tentacles step inside some kind of lab. There is lots of expensive-looking science equipment around.. a fridge.. a separate compartment with beds.. a bathroom.. and also a few computers. The sight reminded you of your own cell that you had here for some reason.")
 
 		saynn("[say=pc]So that's how you live. Pretty miserable.[/say]")
@@ -236,7 +236,7 @@ func _run():
 		addButton("Girl", "Make the tentacles fuck the girl!", "fuck_girl")
 		addButton("Both", "Make the tentacles fuck the guy first.. and then fuck the girl too..", "fuck_both")
 	if(state == "fuck_girl"):
-		playAnimation(StageScene.TentaclesBondage, "start", {pc=GM.main.PS.getScientist2CharID(), plant=true, bodyState={naked=true,hard=true}})
+		playAnimation(StageScene.TentaclesBondage, "start", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID(), plant=true, bodyState={naked=true,hard=true}})
 		if (!choseBoth):
 			saynn("Seeing that the things aren't looking good for him, the wolf just sets off, dashing towards the exit. His foot almost leaves the lab.. almost.")
 
@@ -269,7 +269,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "fuck_girl_fuck")
 	if(state == "fuck_girl_fuck"):
-		playAnimation(StageScene.TentaclesSex, "sex", {pc=GM.main.PS.getScientist2CharID(), plant=true, bodyState={naked=true,hard=true}})
+		playAnimation(StageScene.TentaclesSex, "sex", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID(), plant=true, bodyState={naked=true,hard=true}})
 		saynn("Suddenly the tentacles pull the girl up by her waist, legs and arms. A thick, shiny tendril presses between her legs and starts teasing her pussy folds. She tries to clamp her legs shut.. but the tendrils are quick to forcefully spread them again.")
 
 		saynn("[say=sci2]Ah..[/say]")
@@ -296,7 +296,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "girl_fuck_cum")
 	if(state == "girl_fuck_cum"):
-		playAnimation(StageScene.TentaclesSex, "fast", {pc=GM.main.PS.getScientist2CharID(), cum=true, plant=true, bodyState={naked=true,hard=true}})
+		playAnimation(StageScene.TentaclesSex, "fast", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID(), cum=true, plant=true, bodyState={naked=true,hard=true}})
 		saynn("Some of the tendrils begin to look different. Something is moving inside them, creating visible bumps. That bump hits the girl's pussy.. and starts stretching her folds even wider.")
 
 		saynn("[say=sci2]MHh!.. HH-hhmh!..[/say]")
@@ -420,8 +420,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "docks")
 	if(state == "docks"):
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		aimCameraAndSetLocName("pstent_scientist_2")
 		_tentacles.setMonsterLoc("pstent_scientist_2")
 		saynn("You head back into the docks.. but now with the tentacles.")
@@ -446,7 +446,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "in_space")
 	if(state == "in_space"):
-		removeCharacter(GM.main.PS.getTentaclesCharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 		aimCameraAndSetLocName("pstent_escapepod")
 		playAnimation(StageScene.Solo, "sit")
 		saynn("You're drifting through space.. the fuel has long run-out. Your pod has a way of sending an SOS signal.. but that's about it.")
@@ -455,8 +455,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "near_detective")
 	if(state == "near_detective"):
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		removeCharacter(_tentacles.getTentaclesCharID())
 		addCharacter("intro_detective")
 		playAnimation(StageScene.Solo, "sit")
@@ -494,8 +494,8 @@ func _run():
 		addButton("Continue", "See what happens next", "fastforward")
 	if(state == "fastforward"):
 		removeCharacter("intro_detective")
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		addCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="risha"})
 		saynn("Next moment you know it.. you're being flown back to your concrete home.. first class, as usual.")
@@ -521,7 +521,7 @@ func _run():
 		addButton("Continue", "You had your fun", "doEndSlavery")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -570,13 +570,13 @@ func _react(_action: String, _args):
 
 	if(_action == "fastforward"):
 		processTime(60*42)
-		GM.main.PSH.unlockEndingAddMessage("Tentacles", "egged")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("Tentacles", "egged")
 
 	if(_action == "doEndSlavery"):
 		endScene()
-		GM.main.endCurrentScene()
-		GM.main.stopPlayerSlavery()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		return
 
 	if(_action == "near_detective"):

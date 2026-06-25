@@ -4,20 +4,20 @@ func _init():
 	sceneID = "PSTentaclesTableAlone"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	processTime(60*10)
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
@@ -39,7 +39,7 @@ func _run():
 		addButton("Leave", "You changed your mind", "endthescene")
 	if(state == "do_yoga"):
 		if (_tentacles.isNormal() || _tentacles.isSmalll()):
-			addCharacter(GM.main.PS.getTentaclesCharID())
+			addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 		saynn("Nobody said it.. but you might as well do some yoga.")
 
 		var randomPose = RNG.pick(["cobra", "catcow", "dog", "bridge"])
@@ -84,7 +84,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -92,8 +92,8 @@ func _react(_action: String, _args):
 
 	if(_action == "do_yoga"):
 		processTime(15*60)
-		GM.pc.addStamina(-20)
-		GM.pc.addEffect(StatusEffect.Yoga)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Yoga)
 		if(_tentacles.isNormal() || _tentacles.isSmalll()):
 			_tentacles.setPrefer(_tentacles.EVENT_PLAY)
 

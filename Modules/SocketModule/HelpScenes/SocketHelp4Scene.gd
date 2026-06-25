@@ -43,7 +43,7 @@ func _run():
 	if(state == "socket_walks_into_gym"):
 		playAnimation(StageScene.Duo, "walk", {npc="socket", flipNPC=true, npcAction="walk"})
 		aimCameraAndSetLocName("hall_elevator")
-		GM.pc.setLocation("gym_secret")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_secret")
 		hasAccess = getFlag("FightClubModule.BulldogBypassed", false)
 		knowsBull = getFlag("FightClubModule.BulldogFirstTimeHappened", false)
 		saynn("You enter the lift with Socket and ride it up to the cellblock.")
@@ -1041,7 +1041,7 @@ func _run():
 		removeCharacter("avy")
 		removeCharacter("announcer")
 		aimCameraAndSetLocName("gym_secret")
-		GM.pc.setLocation("gym_secret")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_secret")
 		playAnimation(StageScene.Duo, "stand", {npc="socket", npcBodyState={leashedBy="pc"}})
 		saynn("You leash Socket and leave the arena, bringing her back to the gym area. You make sure to close the maintenance hatch behind you and step away from it.")
 
@@ -1238,7 +1238,7 @@ func _react(_action: String, _args):
 	if(_action == "do_sex_pussy1_cum"):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 		overstim += randi_range(10, 25)
 		socketLust = 0
 
@@ -1249,7 +1249,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
 		getCharacter("socket").cummedInAnusBy(npcID)
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 		overstim += randi_range(15, 25)
 		socketLust = 0
 
@@ -1274,7 +1274,7 @@ func _react(_action: String, _args):
 	if(_action == "do_sex_pussy2_cum"):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 		overstim += randi_range(10, 25)
 		socketLust = 0
 
@@ -1285,17 +1285,17 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
 		getCharacter("socket").cummedInMouthBy(npcID)
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 		overstim += randi_range(15, 25)
 		socketLust = 0
 
 	if(_action == "do_sex_trib_faster"):
 		processTime(3*60)
-		GM.pc.rubsVaginasWith("socket")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("socket")
 
 	if(_action == "do_sex_trib_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 		overstim += randi_range(10, 25)
 		socketLust = 0
 

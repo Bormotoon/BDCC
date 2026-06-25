@@ -270,7 +270,7 @@ func _run():
 
 		saynn("You can feel.. heat.. radiating from Avy's crotch, her cock has fully left the sheath and is now twitching slightly, leaking precum onto the floor of the arena.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Continue", "See what happens next", "fukd_pussy_start")
 		else:
 			addButton("Continue", "See what happens next", "fukd_anus_start")
@@ -284,10 +284,10 @@ func _run():
 
 		saynn("Avy's grip on your legs remains unyielding, keeping you in this extremely vulnerable position as she rams her cock deeper, relentlessly pounding your cunt, her tip already smashing your cervix and leaving it with her precum.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You may deny the pleasure all you want but your body knows better.. Your locked away cock starts inflating with blood.. but the metal keeps it nicely contained in a small package. The pressure inside is slowly rising though..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You may deny the pleasure all you want but your body knows better.. Your {pc.penis} starts inflating with blood and leaking pre as the shaft bounces up and down from each Avy's thrust.")
 
 		saynn("Muffled cries of pleasure begin to escape from your lips.. it seems Avy is hitting one of your pleasure spots. Her rhythm is steady but primal, little commanding growls can be heard from her..")
@@ -307,10 +307,10 @@ func _run():
 
 		saynn("You make your best attempt to not let it happen.. but focusing on it.. only made it worse. Loud moans suddenly begin escaping from you. Your whole body shivering before the orgasm starts crashing down over you, waves after waves of weird but pleasurable sensations make your muscles tense up and your pussy squirt all over the arena floor, making the crowd happy. But no matter how hard you are trying to squirm, Avy always has you in a tight grip with her throbbing cock still pounding you hard.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own cock shooting small strings of {pc.cum} through the little hole in the chastity cage which looks.. incredibly cute.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock shooting strings of {pc.cum} while Avy is destroying your g-spot so much.")
 
 		saynn("You begin to feel the base of Avy's member inflating.. a fat meaty knot appearing.. so big that she can't just slip it inside. But who is gonna stop her from trying..")
@@ -338,10 +338,10 @@ func _run():
 
 		saynn("[say=avy]Stupid fucking bitch.. That's what you get for coming here.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your g-spot is so destroyed by this point that your caged up dick just slowly drips {pc.cum}, almost non-stop.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your g-spot is so destroyed by this point that your {pc.penis} just slowly drips {pc.cum}, almost non-stop.")
 
 		saynn("The audience cheers loudly, seeing Avy's full throbbing length inside you, knot and all. But for your mind it all becomes a blur at this point, that dick has seriously messed you up, physically and mentally..")
@@ -367,10 +367,10 @@ func _run():
 
 		saynn("Avy's grip on your legs remains unyielding, keeping you in this extremely vulnerable position as she rams her cock deeper, relentlessly pounding your ass, her tip already reaching extremely far and lubing the inner walls up with her precum. But that's not enough to soften the pain..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You may deny the pleasure all you want but your body knows better.. Your locked away cock starts inflating with blood.. but the metal keeps it nicely contained in a small package. The pressure inside is slowly rising though, the more your prostate gets massaged..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You may deny the pleasure all you want but your body knows better.. Your {pc.penis} starts inflating with blood and leaking pre as the shaft bounces up and down from each Avy's thrust, she massages your prostate so well..")
 
 		saynn("Muffled cries of pleasure begin to escape from your lips.. it seems Avy is hitting one of your pleasure spots. Her rhythm is steady but primal, little commanding growls can be heard from her..")
@@ -390,10 +390,10 @@ func _run():
 
 		saynn("You make your best attempt to not let it happen.. but focusing on it.. only made it worse. Loud moans suddenly begin escaping from you. Your whole body shivering before the orgasm starts crashing down over you, waves after waves of weird but pleasurable sensations make your muscles tense up and your star visible clench, making the crowd happy. But no matter how hard you are trying to squirm, Avy always has you in a tight grip with her throbbing cock still pounding you hard.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own cock shooting small strings of {pc.cum} through the little hole in the chastity cage which looks.. incredibly cute.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock shooting strings of {pc.cum} while Avy is destroying your p-spot so much.")
 
 		saynn("You begin to feel the base of Avy's member inflating.. a fat meaty knot appearing.. so big that she can't just slip it inside. But who is gonna stop her from trying..")
@@ -421,10 +421,10 @@ func _run():
 
 		saynn("[say=avy]Stupid fucking bitch.. That's what you get for coming here.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your p-spot is so destroyed by this point that your caged up dick just slowly drips {pc.cum}, almost non-stop.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your p-spot is so destroyed by this point that your {pc.penis} just slowly drips {pc.cum}, almost non-stop.")
 
 		saynn("The audience cheers loudly, seeing Avy's full throbbing length inside you, knot and all. But for your mind it all becomes a blur at this point, that dick has seriously messed you up, physically and mentally..")
@@ -465,10 +465,10 @@ func _react(_action: String, _args):
 
 	if(_action == "get_broken"):
 		processTime(30*60)
-		GM.pc.addPain(1000)
-		GM.pc.doWound("avy")
-		GM.pc.doWound("avy")
-		GM.pc.doWound("avy")
+		ServiceLocator.safe_get_service(&"Player").addPain(1000)
+		ServiceLocator.safe_get_service(&"Player").doWound("avy")
+		ServiceLocator.safe_get_service(&"Player").doWound("avy")
+		ServiceLocator.safe_get_service(&"Player").doWound("avy")
 
 	if(_action == "get_fukd"):
 		processTime(5*60)
@@ -487,24 +487,24 @@ func _react(_action: String, _args):
 
 	if(_action == "fukd_pussy_start"):
 		processTime(10*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
 
 	if(_action == "fukd_anus_start"):
 		processTime(10*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "avy")
 
 	if(_action == "fukd_pussy_faster"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
-		GM.pc.gotVaginaFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 
 	if(_action == "fukd_pussy_cuminside"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
-		GM.pc.gotVaginaFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
-		GM.pc.cummedInVaginaBy("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "avy")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("avy")
 
 	if(_action == "got_fuckd_out"):
 		setFlag("FightClubModule.GotFuckedByAvy", true)
@@ -514,16 +514,16 @@ func _react(_action: String, _args):
 
 	if(_action == "fukd_anus_faster"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "avy")
-		GM.pc.gotAnusFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "avy")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 
 	if(_action == "fukd_anus_cuminside"):
 		processTime(3*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "avy")
-		GM.pc.gotAnusFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
-		GM.pc.cummedInAnusBy("avy")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "avy")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("avy")
 
 	setState(_action)
 

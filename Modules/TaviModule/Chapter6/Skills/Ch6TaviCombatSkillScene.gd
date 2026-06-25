@@ -62,7 +62,7 @@ func _run():
 
 		saynn("Finally, Tavi closes the distance and gently slaps your wrist.. Ow!")
 
-		if (GM.pc.getPainLevel() >= 1.0):
+		if (ServiceLocator.safe_get_service(&"Player").getPainLevel() >= 1.0):
 			playAnimation(StageScene.Duo, "defeat", {npc="tavi", npcAction="shove"})
 			saynn("You grunt as you drop to your knees, unable to continue fighting. That attack was enough to bring you down to your knees before her! You got defeated!")
 
@@ -530,7 +530,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "les1_ow"):
-		GM.pc.addPain(1)
+		ServiceLocator.safe_get_service(&"Player").addPain(1)
 
 	if(_action == "les2_punch"):
 		processTime(3*60)
@@ -540,15 +540,15 @@ func _react(_action: String, _args):
 
 	if(_action == "les2_kick"):
 		processTime(2*60)
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "les3_thefight"):
 		processTime(10*60)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "les3_struggle"):
 		processTime(3*60)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "les4_attack"):
 		processTime(3*60)
@@ -563,20 +563,20 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "les5_kick"):
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "les5_tavi_does_pain"):
 		processTime(3*60)
-		GM.pc.addPain(20)
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 
 	if(_action == "les5_lose"):
 		processTime(6*60)
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 
 	if(_action == "les5_lick"):
 		processTime(10*60)
-		GM.pc.cummedOnBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi")
 
 	if(_action == "do_fight"):
 		runScene("FightScene", ["tavi", "tavi_lust_battle"], "tavi_fight")
@@ -584,8 +584,8 @@ func _react(_action: String, _args):
 
 	if(_action == "spar_tavi_rides_face"):
 		processTime(10*60)
-		GM.pc.cummedOnBy("tavi")
-		GM.pc.cummedInMouthBy("tavi", FluidSource.Vagina, 0.2)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("tavi", FluidSource.Vagina, 0.2)
 
 	setState(_action)
 

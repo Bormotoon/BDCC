@@ -264,7 +264,7 @@ func _run():
 
 		saynn("What do you want Tavi to do?")
 
-		if (GM.pc.getInventory().getItemsWithTag(ItemTag.CanPeeInto).size() > 0):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanPeeInto).size() > 0):
 			addButton("Fill container", "Make Tavi pee into one of your fluid containers", "bathroom_fill_pick")
 		else:
 			addDisabledButton("Fill container", "You don't have any items that Tavi can pee into")
@@ -472,13 +472,13 @@ func _run():
 		addButton("Do it", "Make her real messy", "bathroom_goldenshower_pee")
 	if(state == "bathroom_goldenshower_pee"):
 		playAnimation(StageScene.SexOral, "start", {npc="tavi", npcBodyState={naked=true}, bodyState={naked=true,hard=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You stand near Tavi, waiting for the urge to happen. And so, after some time, a stream of piss emerges from the little hole in your chastity cage!")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You stand near Tavi, waiting for the urge to happen. And so, after some time, a stream of piss emerges from your {pc.penis}!")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You stand near Tavi, waiting for the urge to happen. And so, after some time, a stream of piss emerges from the little hole of your pussy!")
 
 		else:
@@ -654,13 +654,13 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene_resetequip")
 	if(state == "bathroom_urinal_use"):
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("After chaining Tavi to the urinal, it's time to use her. And so you expose your caged up cock and stand in front of your piss-slut. A few seconds later, a warm stream of urine began landing on Tavi's fur.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("After chaining Tavi to the urinal, it's time to use her. And so you expose your {pc.penis} and stand in front of your piss-slut. A few seconds later, a warm stream of urine began landing on Tavi's fur.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("After chaining Tavi to the urinal, it's time to use her. And so you expose your {pc.pussyStretch} pussy and stand in front of your piss-slut. A few seconds later, a warm stream of urine began landing on Tavi's fur.")
 
 		else:
@@ -705,21 +705,21 @@ func _run():
 
 		addButton("Continue", "See how Tavi will serve you", "swallowing_act")
 	if(state == "swallowing_act"):
-		if (GM.pc.isWearingChastityCage() || GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.SexOral, "tease", {npc="tavi", bodyState={exposedCrotch=true, hard=true}})
 		else:
 			playAnimation(StageScene.SexOral, "lick", {npc="tavi", bodyState={exposedCrotch=true, hard=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("And so you offer your locked member to Tavi. She sees it and smiles softly before parting her lips wider and closing them around your chastity cage, creating a somewhat tight seal. You feel her warm breathing but the metal prevents any other sensations.")
 
 			saynn("She looks up at you with her obedient eyes while her rough tongue gently tickles your pisshole through the little hole in the cage. And so, after some teasing, you arch your back slightly as a strong stream of your urine reaches Tavi's mouth. She holds onto your legs and does her best to swiftly swallow your golden load in big chunks.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("And so you offer your member to Tavi. She sees it and smiles softly before parting her lips wider and closing them around your cock, creating a tight seal. It feels nice and intimate.")
 
 			saynn("She looks up at you with her obedient eyes while her rough tongue gently tickles your pisshole, inviting you to unleash the torrent of fluids. And so, after some teasing, you arch your back slightly as a strong stream of your urine reaches Tavi's mouth. She holds onto your legs and does her best to swiftly swallow your golden load in big chunks.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("And so you offer your {pc.pussyStretch} pussy to Tavi. She sees your sensitive folds and smiles softly before parting her lips wider and pressing them against yours, creating a tight seal around the urethra. It feels.. nice.")
 
 			saynn("She looks up at you with her obedient eyes while her rough tongue gently tickles your pisshole, inviting you to unleash the torrent of fluids. And so, after some teasing, you arch your back slightly as a strong stream of your urine reaches Tavi's mouth. She holds onto your legs and does her best to swiftly swallow your golden load in big chunks.")
@@ -746,7 +746,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addPeeIntoButtons():
-	var items = GM.pc.getInventory().getItemsWithTag(ItemTag.CanPeeInto)
+	var items = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.CanPeeInto)
 	for item in items:
 		if(item.getFluids().isFull()):
 			addDisabledButton(item.getStackName(), item.getVisisbleDescription())
@@ -817,7 +817,7 @@ func _react(_action: String, _args):
 
 	if(_action == "bathroom_fill_orderdrink"):
 		processTime(2*60)
-		var item = GM.pc.getInventory().getItemByUniqueID(lastItemUniqueID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(lastItemUniqueID)
 		if(item == null):
 			return
 		var fluids = item.getFluids()

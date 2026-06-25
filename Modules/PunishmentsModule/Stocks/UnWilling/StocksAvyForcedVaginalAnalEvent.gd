@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, "StocksUnWillingSex")
 
 func react(_triggerID, _args):
-	if(GM.pc.hasVagina()):
+	if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 		runScene("StocksAvyForcedVaginalAnal")
 		return true
 

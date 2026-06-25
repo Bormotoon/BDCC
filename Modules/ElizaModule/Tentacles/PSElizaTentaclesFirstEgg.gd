@@ -24,7 +24,7 @@ func _run():
 		addButton("Follow", "See where she brings you", "in_lab")
 	if(state == "in_lab"):
 		aimCameraAndSetLocName("med_researchlab")
-		GM.pc.setLocation("med_researchlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 		saynn("The feline brings you into the lab.")
 
 		saynn("[say=eliza]Let's begin![/say]")

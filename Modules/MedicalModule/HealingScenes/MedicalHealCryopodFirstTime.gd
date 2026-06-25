@@ -38,7 +38,7 @@ func _run():
 		saynn("Doctor goes ahead and grabs something that looks like a breathing mask.")
 
 		# (if has clothes)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=eliza]Take off your clothes, patient. And let me put this on you.[/say]")
 
 			saynn("Well, it seems to be necessary so you don’t argue with the doc. You {pc.undressMessage}. You leave all your belongings and a neat pile and let Eliza put the mask on your face.")
@@ -144,7 +144,7 @@ func _react(_action: String, _args):
 		processTime(60*3)
 	
 	if(_action == "continue1"):
-		GM.pc.afterCryopodTreatment()
+		ServiceLocator.safe_get_service(&"Player").afterCryopodTreatment()
 		processTime(60*60*4)
 	
 	if(_action == "endthescene"):

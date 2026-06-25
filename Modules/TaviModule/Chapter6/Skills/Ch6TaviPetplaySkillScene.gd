@@ -1179,21 +1179,21 @@ func _react(_action: String, _args):
 
 	if(_action == "walkies_yard_rest"):
 		processTime(15*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
 
 	if(_action == "walkies_meetnova_nova"):
 		processTime(3*60)
 
 	if(_action == "walkies_meetnova_givebestcondom"):
-		var breakChance = GM.pc.useBestCondom()
+		var breakChance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 		if(getCharacter("nova").shouldCondomBreakWhenFucking("tavi", breakChance)):
 			condomBroke = true
 		setState("walkies_meetnova_fuck")
 		return
 
 	if(_action == "walkies_meetnova_giveworstcondom"):
-		var breakChance = GM.pc.useWorstCondom()
+		var breakChance = ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		if(getCharacter("nova").shouldCondomBreakWhenFucking("tavi", breakChance)):
 			condomBroke = true
 		setState("walkies_meetnova_fuck")

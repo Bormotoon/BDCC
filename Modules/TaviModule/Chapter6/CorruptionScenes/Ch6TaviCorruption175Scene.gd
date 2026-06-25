@@ -45,9 +45,9 @@ func _run():
 
 		saynn("[say=tavi]What do you say.. Do you want to use me like your little slut.. And finally impregnate me.. Put a huge litter into my belly.[/say]")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			pass
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You would be hard as rock.. if only you weren't wearing chastity.")
 
 			saynn("[say=pc]But I'm wearing a cage..[/say]")
@@ -56,7 +56,7 @@ func _run():
 
 			saynn("[say=tavi]We can think of something~.[/say]")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You would be hard as rock.. But you can't really do that.. All you have is a pussy.")
 
 			saynn("[say=pc]I can't impregnate you even if I wanted to..[/say]")
@@ -148,7 +148,7 @@ func _run():
 		addButton("Continue", "See what happens next", "start_talking")
 	if(state == "do_trib"):
 		playAnimation(StageScene.SexTribadism, "sex", {npc="pc", pc="tavi", bodyState={naked=true}, npcBodyState={naked=true,hard=true}})
-		if (!GM.pc.hasPenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=pc]What do you mean? I only have a pussy.. There is no way for me to..[/say]")
 
 		else:
@@ -265,8 +265,8 @@ func _react(_action: String, _args):
 
 	if(_action == "not_today"):
 		processTime(2*60)
-		GM.pc.addLust(-200)
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 		addMessage("You feel weak")
 
 	if(_action == "do_breed"):
@@ -291,25 +291,25 @@ func _react(_action: String, _args):
 		getCharacter("tavi").cummedInVaginaBy("pc")
 		if(getCharacter("tavi").forceImpregnateBy("pc")):
 			impregnationSuccess = true
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40)
 
 	if(_action == "trib_breed"):
 		processTime(10*60)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Vagina, 0.5)
-		GM.pc.cummedInVaginaBy("tavi", FluidSource.Vagina, 0.5)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("tavi", FluidSource.Vagina, 0.5)
 		if(getCharacter("tavi").forceImpregnateBy("pc")):
 			impregnationSuccess = true
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40)
 
 	if(_action == "do_chastity_cum"):
 		processTime(10*60)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Penis, 0.3)
 		if(getCharacter("tavi").forceImpregnateBy("pc")):
 			impregnationSuccess = true
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40)
 
 	setState(_action)
 

@@ -6,10 +6,10 @@ func _init():
 func _run():
 	if(state == ""):
 		#playAnimation(StageScene.Solo, "stand")
-		setCharactersEasyList(GM.main.PS.getCharacterList())
+		setCharactersEasyList(ServiceLocator.safe_get_service(&"MainScene").PS.getCharacterList())
 		
-		say(GM.main.PS.getFinalText())
-		var theActions:Array = GM.main.PS.getFinalActions()
+		say(ServiceLocator.safe_get_service(&"MainScene").PS.getFinalText())
+		var theActions:Array = ServiceLocator.safe_get_service(&"MainScene").PS.getFinalActions()
 		for actionEntry in theActions:
 			var theIndx:int = actionEntry[0]
 			var isEnabled:bool = (actionEntry[1] != "")
@@ -214,7 +214,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "in_bdcc")
 	if(state == "in_bdcc"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		playAnimation(StageScene.Duo, "stand", {npc="risha"})
 		removeCharacter("intro_detective")
 		addCharacter("risha")
@@ -987,28 +987,28 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "doAction"):
-		var result:Dictionary = GM.main.PS.doFinalAction(_args[0])
+		var result:Dictionary = ServiceLocator.safe_get_service(&"MainScene").PS.doFinalAction(_args[0])
 		if(result.has("fight")):
 			runScene("FightScene", [result["fight"]], "fight_scene")
 		elif(result.has("sex")):
 			runScene("GenericSexScene", result["sex"], "sex_scene")
 		elif(result.has("end")):
-			GM.pc.freeMouthDeleteAll(true)
+			ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll(true)
 			setState(result["end"])
 		else:
-			if(!GM.main.checkExtraScenes()):
-				GM.main.showLog()
+			if(!ServiceLocator.safe_get_service(&"MainScene").checkExtraScenes()):
+				ServiceLocator.safe_get_service(&"MainScene").showLog()
 		return
 
 	if(_action == "doEnd"):
-		GM.main.stopPlayerSlavery()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		endScene()
 		return
 
 	if(_action == "in_bdcc"):
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		GM.main.stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
 		addMessage("All your items were returned to you.")
 
 	if(_action == "lock_sofie_breed"):
@@ -1033,19 +1033,19 @@ func _react(_action: String, _args):
 		getCharacter("psmilkguy").resetEquipment()
 	
 	if(_action == "lock_about_to_escape"):
-		GM.main.PSH.unlockEndingAddMessage("MilkCafe", "escaped")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("MilkCafe", "escaped")
 	if(_action == "credits_detective"):
-		GM.main.PSH.unlockEndingAddMessage("MilkCafe", "earned")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("MilkCafe", "earned")
 	if(_action == "annoy_get_helped"):
-		GM.main.PSH.unlockEndingAddMessage("MilkCafe", "annoyed")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("MilkCafe", "annoyed")
 	if(_action == "officer_goodlife"):
-		GM.main.PSH.unlockEndingAddMessage("MilkCafe", "officer")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("MilkCafe", "officer")
 	
 	setState(_action)
 
 func _react_scene_end(_tag, _result):
 	if(_tag == "sex_scene"):
-		GM.main.PS.processSexEnd(_result[0])
+		ServiceLocator.safe_get_service(&"MainScene").PS.processSexEnd(_result[0])
 	if(_tag == "fight_scene"):
 		var battlestate = _result[0]
-		GM.main.PS.processFightEnd(battlestate == "win")
+		ServiceLocator.safe_get_service(&"MainScene").PS.processFightEnd(battlestate == "win")

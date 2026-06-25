@@ -61,7 +61,7 @@ func _run():
 	if(state == "pick_extra_menu"):
 		saynn("Who do you want to pick?")
 		
-		var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+		var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 		var filteredSlaves = []
 		for charID in slaves:
 			if(charID == mainSlave):

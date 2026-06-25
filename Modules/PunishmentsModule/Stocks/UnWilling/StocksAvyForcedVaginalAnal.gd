@@ -121,9 +121,9 @@ func _run():
 		saynn("You can’t hold it, you open your mouth and moan, your body is forced into a prime position for breeding, your slit being ravaged so rough makes you feel ecstatic. You cum quick, your body starts squirming and struggling against the restraints but Avy keeps fucking you through your orgasm, your inner walls clenching around her cock overstimulate you and make you squirt.")
 
 		# (if has penis)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You own cock shoots out a loud down at the floor, it’s useless in its chastity cage so it just sways a lot while you’re being fucked.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You own cock shoots out a loud down at the floor, it’s useless today so it just sways a lot while you’re being fucked.")
 
 		saynn("[say=avy]Hope you’re ready to be bred, bitch.[/say]")
@@ -190,7 +190,7 @@ func _run():
 		saynn("As her knot inflates she applies extra effort and shoves it inside you, switching to knot-fucking, pulling the orb out just to stuff it back in a second later. It stretches you out so much, you’re on the verge of cumming already.")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} is leaking {pc.cum} constantly as Avy milks your prostate to death, it feels so fucking good to be a buttslut for her.")
 
 		saynn("Her cock starts throbbing and shooting cum deep inside you! Avy groans as she cums again, she knots you and keeps stuffing your ass as your legs shake. This time she pulls out her cock very quickly, using the last waves of her cum to leave a sticky mess on your back and ass!")
@@ -220,18 +220,18 @@ func _react(_action: String, _args):
 	
 	if(_action == "fucking"):
 		if(usedCondom):
-			condomBroke = getCharacter("avy").shouldCondomBreakWhenFucking(GM.pc, 50)
+			condomBroke = getCharacter("avy").shouldCondomBreakWhenFucking(ServiceLocator.safe_get_service(&"Player"), 50)
 		
-		GM.pc.gotVaginaFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("avy")
 		if(!usedCondom || (usedCondom && condomBroke)):
-			GM.pc.cummedInVaginaByAdvanced("avy", {condomBroke=condomBroke})
-			GM.pc.addSkillExperience(Skill.SexSlave, 20, "avy_fuck")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("avy", {condomBroke=condomBroke})
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "avy_fuck")
 		else:
-			GM.pc.addSkillExperience(Skill.SexSlave, 40, "avy_fuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "avy_fuck")
 			addFilledCondomToLootIfPerk(getCharacter("avy").createFilledCondom())
 		
-		GM.pc.orgasmFrom("avy")
-		GM.pc.addTallymarkCrotch()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
 		
 		if(RNG.chance(50)):
 			extraScene = true
@@ -240,17 +240,17 @@ func _react(_action: String, _args):
 			
 		if(RNG.chance(50)):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 			addMessage("Avy also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 			
 
 	if(_action == "analSex"):
-		GM.pc.gotAnusFuckedBy("avy")
-		GM.pc.cummedInAnusBy("avy")
-		GM.pc.cummedOnBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 		
-		GM.pc.addTallymarkButt()
+		ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 
 	if(_action == "endthescene"):
 		endScene()

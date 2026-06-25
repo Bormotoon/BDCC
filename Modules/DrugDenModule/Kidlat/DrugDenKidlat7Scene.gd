@@ -226,7 +226,7 @@ func _react_scene_end(_tag, _result):
 			setState("fight_won")
 			addExperienceToPlayer(100)
 		else:
-			if(GM.main.DrugDenRun != null):
-				GM.main.DrugDenRun.markEncounterAsCompleted(GM.pc.getLocation())
+			if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun != null):
+				ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.markEncounterAsCompleted(ServiceLocator.safe_get_service(&"Player").getLocation())
 			endScene()
 			runScene("DrugDenEncounterInstantLossScene", ["junkieBoozeSeller"])

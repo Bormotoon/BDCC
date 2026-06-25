@@ -12,7 +12,7 @@ func _init():
 func _run():
 
 	if(state == ""):
-		if(!GM.QS.isActive("PortalPantiesQuest")):
+		if(!ServiceLocator.safe_get_service(&"QuestSystem").isActive("PortalPantiesQuest")):
 			playAnimation(StageScene.Solo, "stand", {bodyState={exposedCrotch=true}})
 			saynn("What do you wanna do with your portal panties?")
 			
@@ -26,12 +26,12 @@ func _run():
 			elif(currentMode == -1):
 				saynn("Current event frequency: often")
 			
-			var item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+			var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 			if(item != null):
 				if(item.coversPenis):
-					saynn("Your portal panties will currently also create a portal for your penis."+(" (If you'd had one)" if !GM.pc.hasPenis() else ""))
+					saynn("Your portal panties will currently also create a portal for your penis."+(" (If you'd had one)" if !ServiceLocator.safe_get_service(&"Player").hasPenis() else ""))
 				else:
-					saynn("Your portal panties are not hiding your penis, allowing you to use it."+(" (If you'd had one)" if !GM.pc.hasPenis() else ""))
+					saynn("Your portal panties are not hiding your penis, allowing you to use it."+(" (If you'd had one)" if !ServiceLocator.safe_get_service(&"Player").hasPenis() else ""))
 			
 			addButton("Take off", "Take portal panties off", "takeoff")
 			addButton("Change mode", "Change how often the events are happening", "changemode")
@@ -70,7 +70,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "changepenismode"):
-		var item = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item != null):
 			item.coversPenis = !item.coversPenis
 		return

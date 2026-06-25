@@ -43,7 +43,7 @@ func _run():
 	if(state == "leave"):
 		setFlag("JackiModule.BathroomBulliesSceneWillHappen", true)
 		aimCameraAndSetLocName("gym_nearbathroom")
-		GM.pc.setLocation("gym_nearbathroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_nearbathroom")
 		
 		saynn("Instead of answering them you decide that it’s best to leave.")
 
@@ -229,7 +229,7 @@ func _run():
 		playAnimation(StageScene.Urinal, "idle", {bodyState={naked=true}})
 		
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Immediately the second guy grabs your arms before wrenching them behind your back while the girl {pc.undressMessageS}, exposing all your private bits. She then puts her shiv near your neck, threatening.")
 		# (else)
 		else:
@@ -314,30 +314,30 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "cum_toilet"):
-		GM.pc.cummedOnBy("gymbully3")
-		GM.pc.cummedOnBy("gymbully2")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully3")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully2")
 		
 	if(_action == "piss_toilet"):
-		GM.pc.pissedOnBy("gymbully3")
-		GM.pc.pissedOnBy("gymbully2")
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("gymbully3")
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("gymbully2")
 	
 	if(_action in ["continue1", "continue2"]):
 		processTime(60*60)
 	
 	if(_action == "continue"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
 	
 	if(_action == "startfight"):
 		runScene("FightScene", ["gymbully3"], "gymbully3bathroomfight")
 	
 	if(_action == "pay_5_creds"):
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 	
 	if(_action == "pay_15_creds"):
-		GM.pc.addCredits(-15)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-15)
 	
 	if(_action == "returncredtisandattack"):
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 	
 	if(_action == "endthescene"):
 		endScene()

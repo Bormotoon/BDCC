@@ -9,7 +9,7 @@ func _reactInit():
 	]
 	setState(RNG.pick(possible))
 		
-	#GM.pc.addCredits(1)
+	#ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 func _run():
 	if(state == "sleeping_poke"):
@@ -20,7 +20,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["sleeping_poke"]):
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 
 	if(_action == "endthescene"):
 		endScene()

@@ -97,7 +97,7 @@ func _run():
 		addButton("Continue", "See what happens next", "outside_room")
 	if(state == "outside_room"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("Eliza presses a few more buttons that make the table put you down on your feet carefully. Your legs are still shaking..")
 
 		saynn("[say=eliza]Thank you for that great donation~.[/say]")
@@ -117,26 +117,26 @@ func _react(_action: String, _args):
 
 	if(_action == "pc_gets_grabbed"):
 		processTime(5*60)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			hasCage = true
 		else:
 			var thePump = GlobalRegistry.createItem("PenisPump")
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
 
 	if(_action == "start_fuck"):
 		processTime(5*60)
 
 	if(_action == "process_cum"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "stop_milking"):
 		processTime(3*60)
 
 	if(_action == "outside_room"):
 		if(!hasCage):
-			GM.pc.getInventory().clearSlot(InventorySlot.Penis)
+			ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Penis)
 
 	setState(_action)
 

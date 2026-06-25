@@ -90,11 +90,11 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow1"):
-		GM.pc.setLocation("cd_elevator")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cd_elevator")
 		processTime(60*5)
 		
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
 		addMessage("You recieved 2 painkillers")
 		
 		setModuleFlag("TaviModule", "Tavi_Quest2MetHer", true)

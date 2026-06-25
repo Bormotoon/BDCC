@@ -68,15 +68,15 @@ func _run():
 		saynn("Doctor fixes her glasses and leans in close to your face, offering you a great view of her top. She looks for any obvious injuries and then focuses on your eyes.")
 
 		# (if has pain)
-		if(GM.pc.getPain() > 0):
+		if(ServiceLocator.safe_get_service(&"Player").getPain() > 0):
 			saynn("[say=eliza]Yeah, it seems you had a fight. Or a good impact play session~. I will find some painkillers.[/say]")
 
 		# (else if high)
-		elif(GM.pc.getIntoxicationLevel() > 0.1):
+		elif(ServiceLocator.safe_get_service(&"Player").getIntoxicationLevel() > 0.1):
 			saynn("[say=eliza]Hmm. Your pupils are quite dilated. It seems you are under the influence. Or drank too much. I will look around for some detox pills.[/say]")
 
 		# (else if horny)
-		elif(GM.pc.getLust() > 0):
+		elif(ServiceLocator.safe_get_service(&"Player").getLust() > 0):
 			saynn("[say=eliza]Your eyes show more lust than anything~. Horny thoughts prevent you from focusing. I will look for an anaphrodisiac, should help you calm down.[/say]")
 
 		# (else)
@@ -201,7 +201,7 @@ func _run():
 		saynn("Eliza puts the tablet away and leans in.")
 
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=eliza]Are you sure? Undress completely, patient, I will examine you.[/say]")
 
 		# (else)
@@ -235,7 +235,7 @@ func _run():
 		addButton("Leave", "Follow Eliza", "leave")
 
 	if(state == "leave"):
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		aimCameraAndSetLocName("med_nearlab")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
@@ -303,7 +303,7 @@ func _run():
 
 	if(state == "escape"):
 		removeCharacter("eliza")
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		aimCameraAndSetLocName("med_nearlab")
 		playAnimation(StageScene.Solo, "stand")
 		
@@ -644,7 +644,7 @@ func _run():
 
 	if(state == "nap"):
 		aimCameraAndSetLocName("medical_paddedcell_player")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
 		
 		saynn("You sleep for a few hours. When you wake up, you notice something. The floor is.. soft. Yes, it’s a very soft floor, you almost don’t wanna open your eyes.")
@@ -691,7 +691,7 @@ func _run():
 		removeCharacter("eliza")
 		saynn("You get some good sleep. You open your eyes and realize that this wasn't a dream. You can't pinch your skin with that straitjacket on but everything is real, you're indeed stuck in a padded cell..")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 
 		# (sleep, end scene)
 		addButton("Continue", "What now?", "startMentalWard")
@@ -703,25 +703,25 @@ func _run():
 		})
 		
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You {pc.undressMessage}, leaving yourself fully naked with just the collar on. Eliza takes your clothing and neatly packs it away for now. She then puts on some latex gloves and walks up to you.")
 
 		saynn("[say=eliza]I will just check if you have any internal damage. Spread your legs for me like a good patient. It won’t hurt, promise.[/say]")
 
 		# (if has pussy and cock)
-		if(GM.pc.hasPenis() && GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You obey the doctor and spread your legs slightly, offering a great view of your {pc.cock} and {pc.pussyStretch} pussy. There is also a {pc.analStretch} tailhole hiding behind your balls.")
 
 			saynn("You blush slightly as Eliza leans down to do a visual check of your private bits. Her paw reaches out to brush over your shaft and cup the balls. After that, her digits land on your pussy slit and spread it open.")
 
 		# (else if has cock)
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You obey the doctor and spread your legs slightly, offering a great view of your {pc.cock}. There is also a {pc.analStretch} tailhole hiding behind your balls.")
 
 			saynn("You blush slightly as Eliza leans down to do a visual check of your private bits. Her paw reaches out to brush over your shaft and cup the balls. After that, her digits sneak further and land on your tailhole before prodding it a few times.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You obey the doctor and spread your legs slightly, offering a great view of your {pc.pussyStretch} pussy. There is also a {pc.analStretch} tailhole hiding behind your slit.")
 
 			saynn("You blush slightly as Eliza leans down to do a visual check of your private bits. Her paw reaches out to brush over your sex. After that, her digits land on your pussy petals and spread them open.")
@@ -733,7 +733,7 @@ func _run():
 			saynn("You blush slightly as Eliza leans down to do a visual check of your private bits. Her paw reaches out to brush over your crotch. After that, her digits sneak further and land on your tailhole before prodding it a few times.")
 
 		# (if both are tight)
-		if(GM.pc.hasTightHoles()):
+		if(ServiceLocator.safe_get_service(&"Player").hasTightHoles()):
 			saynn("[say=eliza]Pretty nice, I see barely any wear and tear. You don’t have much intercourses. Unless you use lube of course~.[/say]")
 
 			saynn("You blush even harder hearing Eliza comment on your sex life.")
@@ -813,7 +813,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("There is no time, you move the vials down to your slit and slide them inside one by one, hoping that the internal friction will be enough to keep them from falling out.")
 
 		# (else)
@@ -829,7 +829,7 @@ func _run():
 		saynn("[say=pc]Thanks..[/say]")
 
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Eliza raises her brow at you. But then she just grabs your uniform and gives it to you. You carefully put your stuff on while she approaches her chemistry station and makes sure everything is okay there before closing the crate.")
 
 		# (else)
@@ -841,7 +841,7 @@ func _run():
 		addButton("Leave", "You’re almost free!", "leave1")
 
 	if(state == "leave1"):
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		aimCameraAndSetLocName("med_nearlab")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
@@ -860,21 +860,21 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Do you like the leash~?",
 			"We will fix you real soon",
 			"Smile to the nurses",
 		]])
 		
 	if(_action == "take_pill"):
-		if(GM.pc.getPain() > 0):
-			GM.pc.addPain(-100)
-		elif(GM.pc.getIntoxicationLevel() > 0.1):
-			GM.pc.addIntoxication(-1.0)
-		elif(GM.pc.getLust() > 0):
-			GM.pc.addLust(-100)
+		if(ServiceLocator.safe_get_service(&"Player").getPain() > 0):
+			ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		elif(ServiceLocator.safe_get_service(&"Player").getIntoxicationLevel() > 0.1):
+			ServiceLocator.safe_get_service(&"Player").addIntoxication(-1.0)
+		elif(ServiceLocator.safe_get_service(&"Player").getLust() > 0):
+			ServiceLocator.safe_get_service(&"Player").addLust(-100)
 		else:
-			GM.pc.addPain(-100)
+			ServiceLocator.safe_get_service(&"Player").addPain(-100)
 	
 	if(_action == "fight"):
 		setFlag("TaviModule.ch2PCAttackedEliza", true)
@@ -908,28 +908,28 @@ func _react(_action: String, _args):
 	
 	if(_action == "cum_inside"):
 		getCharacter("eliza").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 		
 	if(_action == "pull_out"):
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 	
 	if(_action == "tribcum"):
-		GM.pc.rubsVaginasWith("eliza")
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 		
 	if(_action == "nap"):
 		setFlag("TaviModule.ch2PCGotPutIntoMentalByEliza", true)
 		getModule("MedicalModule").preparePCForMentalWard()
 	
 	if(_action == "sleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	if(_action == "explain"):
-		GM.pc.addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
 		
 	if(_action == "inside"):
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("lube"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("lube"))
 	
 	if(_action == "startMentalWard"):
 		runScene("MentalWardScene")

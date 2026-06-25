@@ -28,5 +28,5 @@ func onButton(_method, _args):
 	if(_method == "bulldogtalk"):
 		runScene("BulldogTalkScene")
 	if(_method == "fightclub"):
-		GM.pc.setLocation("fight_entrance")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_entrance")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

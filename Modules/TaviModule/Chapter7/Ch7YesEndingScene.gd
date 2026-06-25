@@ -378,14 +378,14 @@ func _react(_action: String, _args):
 	if(_action == "collars_off"):
 		processTime(3*60)
 		getCharacter("tavi").getInventory().removeItemFromSlot(InventorySlot.Neck)
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Neck)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Neck)
 
 	if(_action == "do_dream"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
 		getCharacter("tavi").resetEquipment()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		endScene()
 		return
 

@@ -196,7 +196,7 @@ func _run():
 		addButton("Enough", "That was enough of lewd for one time", "stripping_enough")
 		addButton("Ask to masturbate", "Order Rahi to touch herself in front of you", "stripping_masturbate")
 		if (getModule("RahiModule").isSkillLearned("rahiSkillSex")):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Rail her", "(Sex) Pin Rahi against the window and breed her pussy for being so sexy", "stripping_rail")
 			addButton("Finger her", "(Sex) Pin Rahi against the window and fuck her pussy with your digits", "stripping_fingering")
 	if(state == "stripping_enough"):
@@ -1478,7 +1478,7 @@ func getSuccChance(minlevel, maxlevel, minchance, maxchance):
 	return Util.roundF(getModule("RahiModule").getSkillSuccessChanceAdv("rahiSkillExhibit", minlevel, maxlevel, minchance, maxchance), 1)
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "pstocks_straponwith", [strapon])
 
@@ -1510,7 +1510,7 @@ func _react(_action: String, _args):
 
 	if(_action == "stripping_masturbate"):
 		processTime(10*60)
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 
 	if(_action == "stripping_rail"):
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
@@ -1523,7 +1523,7 @@ func _react(_action: String, _args):
 	if(_action == "stripping_rail_cuminside"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "parGenerateEncounter"):
 		processTime(1*60)
@@ -1615,7 +1615,7 @@ func _react(_action: String, _args):
 
 	if(_action == "ppee_offermouth"):
 		processTime(3*60)
-		GM.pc.cummedInMouthBy("rahi", FluidSource.Pissing)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("rahi", FluidSource.Pissing)
 		getModule("RahiModule").advanceSkill("rahiSkillWatersports")
 		getModule("RahiModule").advanceSkill("rahiSkillDominance")
 
@@ -1630,7 +1630,7 @@ func _react(_action: String, _args):
 
 	if(_action == "flaundry_grope_lick"):
 		processTime(6*60)
-		GM.pc.cummedInMouthBy("rahi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("rahi", FluidSource.Vagina)
 
 	if(_action == "flaundry_grope_breed"):
 		processTime(5*60)
@@ -1639,8 +1639,8 @@ func _react(_action: String, _args):
 	if(_action == "flaundry_grope_breed_inside"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	if(_action == "pstocks_unlock"):
 		processTime(3*60)
@@ -1664,8 +1664,8 @@ func _react(_action: String, _args):
 	if(_action == "pstocks_breed_cuminside"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	if(_action == "pstocks_breed_cleancum"):
 		processTime(5*60)
@@ -1674,14 +1674,14 @@ func _react(_action: String, _args):
 	if(_action == "pstocks_straponwith"):
 		processTime(10*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		getCharacter("rahi").cummedInVaginaBy("pc", FluidSource.Strapon)
 
 	if(_action == "pstocks_strapon_clean"):
 		processTime(5*60)
 
 	if(_action == "removestraponandend"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		endScene()
 		return
 

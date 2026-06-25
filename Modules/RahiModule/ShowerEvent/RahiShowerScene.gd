@@ -79,13 +79,13 @@ func _run():
 		saynn("You feel that she is not as nervous as she was, she is even leaning into your touch as you keep rubbing her back, slowly shifting down and now focusing on the area around her calm tail. As you focus your attention on rubbing her tail, it wraps around your hand and you can hear quiet moaning coming from her, she keeps arching her back and rubbing against you.")
 
 		# (if has dick)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You can’t help but to be aroused by that, your {pc.cock} fills with blood and tries to become hard but your chastity prevents it. Your cage rubs against the feline’s fit buttocks but she doesn’t seem to mind it. She embraces it, gently squeezing your member between her legs as best as your cage allows for it.")
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You can’t help but to be aroused by that, your {pc.cock} fills with blood and becomes more hard each second, its tip rubs against the feline’s fit buttocks but she doesn’t seem to mind it. She embraces it, gently squeezing your member between her legs.")
 
 		# (if has non-flat breasts)
-		if(GM.pc.hasNonFlatBreasts()):
+		if(ServiceLocator.safe_get_service(&"Player").hasNonFlatBreasts()):
 			saynn("You feel your nips becoming stiffer as she rubs against your {pc.breasts}. You can’t help but to let out a little pleasure noise of your own.")
 
 		saynn("[say=pc]You like it?[/say]")
@@ -408,7 +408,7 @@ func _react(_action: String, _args):
 		processTime(randi_range(20, 40)*60)
 	
 	if(_action == "rub_her_back"):
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter("rahi").afterTakingAShower()
 	
 	if(_action == "use_condom"):
@@ -422,22 +422,22 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "make_her_cum"):
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_showerlick")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_showerlick")
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
 
 	if(_action == "cum_inside"):
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
 		if(usedCondom):
-			var chance = GM.pc.useBestCondom()
-			condomBroke = GM.pc.shouldCondomBreakWhenFucking("rahi", chance)
+			var chance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
+			condomBroke = ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("rahi", chance)
 		
 		if(!usedCondom || (usedCondom && condomBroke)):
 			getCharacter("rahi").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
-			GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_showerfuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_showerfuck")
 		else:
-			GM.pc.addSkillExperience(Skill.SexSlave, 50, "rahi_showerfuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "rahi_showerfuck")
 			addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "endthescene"):
 		endScene()

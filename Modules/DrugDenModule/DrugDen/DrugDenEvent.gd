@@ -7,14 +7,14 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom)
 
 func run(_triggerID, _args):
-	if(GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return
 	
-	if(GM.pc.getLocation() == GM.main.DrugDenRun.getNextLevelRoom()):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getNextLevelRoom()):
 		saynn("You see a vertical ladder here that leads deeper into the maintenance tunnels..")
 		addButton("Next level", "Go to the next level!", "go")
 	
-	var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+	var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 	if(drugDenEvent != null):
 		var interactInfo:Dictionary = drugDenEvent.getInteractInfo()
 		
@@ -37,24 +37,24 @@ func run(_triggerID, _args):
 				
 	
 func react(_triggerID, _args):
-	if(GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return false
 	
-	if(GM.main.DrugDenRun.hasEncounterInRoom(GM.pc.getLocation())):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.hasEncounterInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())):
 		
-		var encounterType:int = GM.main.DrugDenRun.getEncounterType(GM.pc.getLocation())
+		var encounterType:int = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEncounterType(ServiceLocator.safe_get_service(&"Player").getLocation())
 		if(encounterType == DrugDen.ENCOUNTER_NORMAL):
-			if(!GM.main.DrugDenRun.getFlag("FirstEncounterHap", false)):
-				GM.main.DrugDenRun.setFlag("FirstEncounterHap", true)
+			if(!ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getFlag("FirstEncounterHap", false)):
+				ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.setFlag("FirstEncounterHap", true)
 				runScene("DrugDenEncounterFirstScene")
 			else:
 				runScene("DrugDenEncounterInstantFightScene")
 		elif(encounterType == DrugDen.ENCOUNTER_BOSS):
-			#var previousLoc:String = GM.world.applyDirectionID(GM.pc.getLocation(), GM.world.opposite(_args[1]))
+			#var previousLoc:String = ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").getLocation(), ServiceLocator.safe_get_service(&"World").opposite(_args[1]))
 			runScene("DrugDenEncounterBossScene")
 		return true
 	
-	if(GM.main.DrugDenRun.shouldShowLevelUpScreen()):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.shouldShowLevelUpScreen()):
 		runScene("DungeonLevelUpScene")
 	
 	return false
@@ -64,7 +64,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "go"):
-		GM.main.DrugDenRun.nextLevel()
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.nextLevel()
 	if(_method == "doEventInteraction"):
 		var drugDenEvent = _args[0]
 		var theResult:Dictionary = drugDenEvent.doInteract(_args[1], _args[2])

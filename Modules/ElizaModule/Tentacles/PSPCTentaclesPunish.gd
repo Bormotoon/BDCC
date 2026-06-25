@@ -16,7 +16,7 @@ func resolveCustomCharacterName(_charID):
 
 func _run():
 	if(state == ""):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		addCharacter("PCTentacles")
 		hasNeuro = getFlag("ElizaModule.tent_neurolink", false)
 		playAnimation(StageScene.TentaclesGrope, "tease", {pc=slaveID, plant=true})

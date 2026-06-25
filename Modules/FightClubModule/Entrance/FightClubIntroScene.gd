@@ -6,7 +6,7 @@ func _init():
 func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
-		GM.pc.setLocation("fight_entrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_entrance")
 		aimCameraAndSetLocName("fight_entrance")
 
 	if(state == ""):
@@ -45,7 +45,7 @@ func _run():
 		addCharacter("avy")
 		addCharacter("kait")
 		aimCameraAndSetLocName("fight_neararena")
-		GM.pc.setLocation("fight_neararena")
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_neararena")
 
 		saynn("The red lunges forward with her fist out, aiming to hit the other girl in the face. The lilac sees it coming and ducks under it before counter-attacking and scratching the girl’s cheek, causing some blood. Who said the fights are gonna be clean.")
 

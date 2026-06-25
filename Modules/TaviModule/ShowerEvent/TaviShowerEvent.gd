@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TakingAShower)
 
 func react(_triggerID, _args):
-	if(getModuleFlag("TaviModule", "Tavi_ShowerEventHappened") || !TaviModule.trustsPC() || !RNG.chance(15) || !(GM.pc.hasPenis() || GM.pc.hasVagina())):
+	if(getModuleFlag("TaviModule", "Tavi_ShowerEventHappened") || !TaviModule.trustsPC() || !RNG.chance(15) || !(ServiceLocator.safe_get_service(&"Player").hasPenis() || ServiceLocator.safe_get_service(&"Player").hasVagina())):
 		return false
 	
 	setModuleFlag("TaviModule", "Tavi_ShowerEventHappened", true)

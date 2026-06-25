@@ -47,7 +47,7 @@ func _run():
 		addButton("Follow", "See where she will bring you", "back_to_lobby")
 		
 	if(state == "back_to_lobby"):
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		aimCameraAndSetLocName("med_lobbymain")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
@@ -63,17 +63,17 @@ func _react(_action: String, _args):
 		endScene()
 		return
 	if(_action == "endthescene_rushback"):
-		GM.pc.setLocation("yard_deadend2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_deadend2")
 		endScene()
 		return
 	if(_action == "do_give_up"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 	if(_action == "stop_run"):
-		GM.pc.setLocation("medical_hospitalwards")
-		GM.main.stopDungeonRun()
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_hospitalwards")
+		ServiceLocator.safe_get_service(&"MainScene").stopDungeonRun()
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 
 
 

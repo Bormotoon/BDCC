@@ -293,7 +293,7 @@ func _run():
 
 		saynn("Luckily, you and Tavi found a good spot to hide in before all that happened.. Behind some crates.. but with a great view of arriving ships. You were waiting for a very specific one.. Time passes.. You almost begin to miss having that collar on.")
 
-		var pcChildAmount = GM.CS.getChildrenAmountOf("pc")
+		var pcChildAmount = ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOf("pc")
 		if (pcChildAmount > 1):
 			saynn("You also stole all your kids from the nursery while you still could have.. Yes, all "+str(pcChildAmount)+" of them.. All of them are with you.")
 
@@ -943,7 +943,7 @@ func _react(_action: String, _args):
 	if(_action == "remove_collars"):
 		processTime(3*60)
 		getCharacter("tavi").getInventory().removeItemFromSlot(InventorySlot.Neck)
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Neck)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Neck)
 
 	if(_action == "nova_talks_with_integrity"):
 		processTime(10*60)
@@ -965,11 +965,11 @@ func _react(_action: String, _args):
 		getCharacter("rahi").resetEquipment()
 
 	if(_action == "do_dream"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
 		getCharacter("tavi").resetEquipment()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		endScene()
 		return
 

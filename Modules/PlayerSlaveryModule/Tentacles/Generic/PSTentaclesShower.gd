@@ -4,21 +4,21 @@ func _init():
 	sceneID = "PSTentaclesShower"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
-	GM.pc.afterTakingAShower()
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
+	ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 	processTime(60*10)
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.Showering, "body", {pc="pc", bodyState={naked=true}})
@@ -34,7 +34,7 @@ func _run():
 
 		saynn("There is liquid soap here too. You put some on your hands and start working it into your hair and body.")
 
-		if (GM.pc.isEggStuffed()):
+		if (ServiceLocator.safe_get_service(&"Player").isEggStuffed()):
 			saynn("You obviously notice how big your belly is.. from all the eggs that are inside you. Your hands carefully rub all across it.")
 
 			if (_tentacles.isNormal() || _tentacles.isTiny() || _tentacles.isSmalll()):
@@ -52,8 +52,8 @@ func _run():
 			else:
 				addDisabledButton("Masturbate", "The tentacles already prefer to be lusty..")
 	if(state == "do_touch_self"):
-		addCharacter(GM.main.PS.getTentaclesCharID())
-		if (GM.pc.hasReachablePenis()):
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.Showering, "stroke", {pc="pc", bodyState={naked=true, hard=true}, cum=true,pcCum=true})
 			saynn("You decide to give the tentacles a small show and start stroking your {pc.penis} while they are watching!")
 
@@ -65,7 +65,7 @@ func _run():
 
 			saynn("That felt good.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true, hard=true}})
 			saynn("You decide to give the tentacles a small show and start rubbing your {pc.pussyStretch} pussy while they are watching!")
 
@@ -77,7 +77,7 @@ func _run():
 
 			saynn("That felt good.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			playAnimation(StageScene.Showering, "rub", {pc="pc", bodyState={naked=true, hard=true}})
 			saynn("You decide to give the tentacles a small show and reach down to your chastity cage. You play and tug on it while they are watching! You can't really reach your locked dick to stimulate it directly.. but it still feels nice.")
 
@@ -102,7 +102,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -110,7 +110,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_touch_self"):
 		_tentacles.setPrefer(_tentacles.EVENT_LEWD)
-		if(!GM.pc.isWearingChastityCage()):
-			GM.pc.orgasmFrom("pc")
+		if(!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	setState(_action)

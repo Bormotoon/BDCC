@@ -8,7 +8,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.MasturbationSpottedGuard)
 
 func react(_triggerID, _args):
-	if(GM.main.getFlag("PunishmentsModule.FirstTimeCaughtMasturbating")):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("PunishmentsModule.FirstTimeCaughtMasturbating")):
 		return
 	
 	if(_triggerID == Trigger.MasturbationSpottedInmate):
@@ -16,7 +16,7 @@ func react(_triggerID, _args):
 	if(_triggerID == Trigger.MasturbationSpottedGuard):
 		runScene("CaughtFirstTimeStaff")
 	
-	GM.main.setFlag("PunishmentsModule.FirstTimeCaughtMasturbating", true)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag("PunishmentsModule.FirstTimeCaughtMasturbating", true)
 	return true
 
 func getPriority():

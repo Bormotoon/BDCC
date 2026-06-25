@@ -129,13 +129,13 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "get_blue"):
-		GM.pc.addCredits(-15)
-		GM.pc.getTFHolder().undoAllTransformations()
+		ServiceLocator.safe_get_service(&"Player").addCredits(-15)
+		ServiceLocator.safe_get_service(&"Player").getTFHolder().undoAllTransformations()
 		setFlag("ElizaModule.firstHelpTFHap", true)
 		addMessage("You paid 15 credits")
 
 	if(_action == "get_red"):
-		GM.pc.getTFHolder().makeAllTransformationsPermanent()
+		ServiceLocator.safe_get_service(&"Player").getTFHolder().makeAllTransformationsPermanent()
 		setFlag("ElizaModule.firstHelpTFHap", true)
 
 	setState(_action)

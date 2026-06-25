@@ -95,7 +95,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "take_them_off"):
 		setFlag("PortalPantiesModule.Panties_FleshlightsReturnedPanties", true)
-		var item:ItemBase = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
+		var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
 		if(item.id == "PortalPanties"):
 			item.destroyMe()
 	

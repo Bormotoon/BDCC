@@ -63,7 +63,7 @@ func _run():
 
 		saynn("Your eyes close.. any other thought slowly drifts away.. any worries.. any stress.. any problems.. none of it matters. There is only milking.. your only purpose.. to make as much milk as you can..")
 
-		saynn("Breathy moans slip from your lips.. on their own.. Your body is squirming more.."+str(" Your neglected pussy is soaked with juices, making your inner thighs wet.." if GM.pc.hasReachableVagina() else "")+""+str(" Your {pc.penis} is throbbing lightly.." if GM.pc.hasPenis() else "")+"")
+		saynn("Breathy moans slip from your lips.. on their own.. Your body is squirming more.."+str(" Your neglected pussy is soaked with juices, making your inner thighs wet.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str(" Your {pc.penis} is throbbing lightly.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+"")
 
 		saynn("[say=pc]..moo..[/say]")
 
@@ -91,7 +91,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_milking")
 	if(state == "after_milking"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		aimCameraAndSetLocName("med_nearmilking")
 		saynn("Eliza carefully removes the suction cups.. exposing your nips to the cold, sterile air.")
 
@@ -113,11 +113,11 @@ func _react(_action: String, _args):
 	if(_action == "get_locked"):
 		processTime(5*60)
 		var thePump = GlobalRegistry.createItem("BreastPump")
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
 
 	if(_action == "do_milk_start"):
 		processTime(5*60)
-		var thePump = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearTop)
+		var thePump = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearTop)
 		if(thePump):
 			var theFluids = thePump.getFluids()
 			if(theFluids):
@@ -125,7 +125,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_milk_faster"):
 		processTime(5*60)
-		var thePump = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearTop)
+		var thePump = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearTop)
 		if(thePump):
 			var theFluids = thePump.getFluids()
 			if(theFluids):
@@ -133,11 +133,11 @@ func _react(_action: String, _args):
 
 	if(_action == "do_milk_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	if(_action == "after_milking"):
 		processTime(3*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.UnderwearTop)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.UnderwearTop)
 
 	setState(_action)
 

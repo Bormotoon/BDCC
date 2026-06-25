@@ -10,7 +10,7 @@ func _initScene(_args = []):
 	
 func _reactInit():
 	processTime(5*60)
-	GM.pc.setLocation(locToTp)
+	ServiceLocator.safe_get_service(&"Player").setLocation(locToTp)
 	endScene()
 	
 func _run():

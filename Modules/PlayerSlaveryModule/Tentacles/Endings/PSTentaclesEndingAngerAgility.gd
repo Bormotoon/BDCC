@@ -4,18 +4,18 @@ func _init():
 	sceneID = "PSTentaclesEndingAngerAgility"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		_tentacles.doAnim("idle")
@@ -120,8 +120,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "pleading")
 	if(state == "pleading"):
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		aimCameraAndSetLocName("pstent_near_lastroom")
 		_tentacles.setMonsterLoc("pstent_near_lastroom")
 		_tentacles.setScientistsLoc("pstent_lastroom")
@@ -160,7 +160,7 @@ func _run():
 		aimCameraAndSetLocName("pstent_lastroom")
 		_tentacles.setMonsterLoc("pstent_lastroom")
 		_tentacles.setScientistsLoc("pstent_lastroom")
-		playAnimation(StageScene.Duo, "stand", {pc=GM.main.PS.getScientist1CharID(), npc=GM.main.PS.getScientist2CharID()})
+		playAnimation(StageScene.Duo, "stand", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID(), npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()})
 		saynn("You and the tentacles step inside some kind of lab. There is lots of expensive-looking science equipment around.. a fridge.. a separate compartment with beds.. a bathroom.. and also a few computers. The sight reminded you of your own cell that you had here for some reason.")
 
 		saynn("[say=pc]So that's how you live. Pretty miserable.[/say]")
@@ -211,8 +211,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "guy_dead")
 	if(state == "guy_dead"):
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		_tentacles.doAnim("idle", {pc=GM.main.PS.getScientist2CharID()})
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		_tentacles.doAnim("idle", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()})
 		saynn("Hearing your response.. and seeing you raise the rifle, the wolf dashes towards the exit out of pure desperation.")
 
 		saynn("A thick tentacle catches him mid-sprint, wrapping around his legs and lifting him into the air.")
@@ -324,7 +324,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "docks")
 	if(state == "docks"):
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		aimCameraAndSetLocName("pstent_scientist_2")
 		_tentacles.setMonsterLoc("pstent_scientist_2")
 		saynn("You head back into the docks.. but now with the tentacles.")
@@ -349,7 +349,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "in_space")
 	if(state == "in_space"):
-		removeCharacter(GM.main.PS.getTentaclesCharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 		aimCameraAndSetLocName("pstent_escapepod")
 		playAnimation(StageScene.Solo, "sit")
 		saynn("You're drifting through space.. the fuel has long run-out. Your pod has a way of sending an SOS signal.. but that's about it.")
@@ -358,8 +358,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "near_detective")
 	if(state == "near_detective"):
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		removeCharacter(_tentacles.getTentaclesCharID())
 		addCharacter("intro_detective")
 		playAnimation(StageScene.Solo, "sit")
@@ -397,8 +397,8 @@ func _run():
 		addButton("Continue", "See what happens next", "fastforward")
 	if(state == "fastforward"):
 		removeCharacter("intro_detective")
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		addCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="risha"})
 		saynn("Next moment you know it.. you're being flown back to your concrete home.. first class, as usual.")
@@ -424,7 +424,7 @@ func _run():
 		addButton("Continue", "You had your fun", "doEndSlavery")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -432,16 +432,16 @@ func _react(_action: String, _args):
 
 	if(_action == "fastforward"):
 		processTime(60*42)
-		GM.main.PSH.unlockEndingAddMessage("Tentacles", "murder")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("Tentacles", "murder")
 	
 	if(_action == "near_detective"):
 		_tentacles.strippedByDetective()
 	
 	if(_action == "doEndSlavery"):
 		endScene()
-		GM.main.endCurrentScene()
-		GM.main.stopPlayerSlavery()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		return
 
 	setState(_action)

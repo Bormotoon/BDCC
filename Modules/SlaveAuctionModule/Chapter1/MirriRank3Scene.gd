@@ -114,7 +114,7 @@ func _run():
 		addButton("Lead her", "Bring Mirri to the place", "waterfall_tp")
 	if(state == "waterfall_tp"):
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		playAnimation(StageScene.GivingBirth, "idle", {pc="mirri"})
 		saynn("The journey to the waterfall wasn't too eventful. Mirri's armor.. even if incomplete.. seems to be enough to fool most staff members.")
 
@@ -365,7 +365,7 @@ func _run():
 
 		saynn("You deepen the kiss.. and she responds eagerly, a pleased purr vibrating between you and her. Catgirl's hips shift in your lap, her tail wrapping around your leg as she snuggles closer, her body swaying rhythmically with every kiss..")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("She loses your kiss for a second to whisper something.")
 
 			saynn("[say=mirri]..I brought a strapon.. if you want..[/say]")
@@ -594,8 +594,8 @@ func _react(_action: String, _args):
 
 	if(_action == "do_sex"):
 		getModule("SlaveAuctionModule").addMirriAffection(0.1)
-		if(!GM.pc.hasReachablePenis()):
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
+		if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
 			isStrapon = true
 
 	if(_action == "do_sex_sex"):
@@ -608,10 +608,10 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		if(!isStrapon):
 			addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "endthescene_removestrapon"):
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		endScene()
 		return
 

@@ -221,7 +221,7 @@ func _run():
 		addButton("Relationship", "See where your relationship is headed", "relationship")
 		addButton("Leave", "Enough talking", "endthescene")
 		
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["rahiSlavery"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["rahiSlavery"])
 		
 	if(state == "talk"):
 		saynn("What do you wanna talk about with Rahi.")
@@ -310,7 +310,7 @@ func _run():
 		
 		if(getFlag("RahiModule.wearingPortalPanties")):
 			addButton("Remove portal panties", "Take them back from Rahi", "take_portal_panties_back")
-		elif(GM.pc.getInventory().hasItemID("PortalPanties")):
+		elif(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("PortalPanties")):
 			addButton("Give portal panties", "Ask Rahi to wear these panties that you have", "make_rahi_wear_portal_panties")
 		
 		addButton("Back", "Go back a menu", "")
@@ -396,7 +396,7 @@ func _run():
 		
 		saynn("(You will unlock more as your relationship progresses)")
 		var titles = [
-			GM.pc.getName(), "Master", "Mistress",
+			ServiceLocator.safe_get_service(&"Player").getName(), "Master", "Mistress",
 		]
 		var currentRank = getModule("RahiModule").getSlaveryStage()
 		if(currentRank >= 2):
@@ -434,8 +434,8 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "set_title"):
-		if(_args[0] == GM.pc.getName()):
-			GM.main.clearFlag("RahiModule.rahiPCName")
+		if(_args[0] == ServiceLocator.safe_get_service(&"Player").getName()):
+			ServiceLocator.safe_get_service(&"MainScene").clearFlag("RahiModule.rahiPCName")
 		else:
 			setFlag("RahiModule.rahiPCName", _args[0])
 		setState("")
@@ -497,12 +497,12 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "make_rahi_wear_portal_panties"):
-		GM.pc.getInventory().removeXOfOrDestroy("PortalPanties", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("PortalPanties", 1)
 		setFlag("RahiModule.wearingPortalPanties", true)
 		getCharacter("rahi").resetEquipment()
 		
 	if(_action == "take_portal_panties_back"):
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("PortalPanties"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("PortalPanties"))
 		setFlag("RahiModule.wearingPortalPanties", false)
 		getCharacter("rahi").getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
 

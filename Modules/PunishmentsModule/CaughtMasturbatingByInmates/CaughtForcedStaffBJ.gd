@@ -65,15 +65,15 @@ func _run():
 		saynn("You nuzzle the guy’s ballsack and stick your tongue into the base of his cock where the knot starts. The guards around you watch the show and smile.")
 
 		# (if player red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=maleguard_canine]Pretty good, makes me wonder why you’re not a lilac. Should we fix that, guys?[/say]")
 
 		# (if player orange)
-		elif(GM.pc.getInmateType() == InmateType.General):
+		elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=maleguard_canine]Inmates from the general block are the best, they aren’t overly slutty and also won’t bite your dick off, it feels so good to use them.[/say]")
 
 		# (if lilac)
-		elif(GM.pc.getInmateType() == InmateType.SexDeviant):
+		elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=maleguard_canine]Show us why you’re a lilac.[/say]")
 
 		saynn("The guy doesn’t force you in any way, allowing you to do things at your own pace. You give that cock a good lick, starting from the knot and going up along the length before parting your lips wider and letting his shaft go past your teeth and rub against the walls of your mouth. You try not to look at them anymore as that makes you blush. Though you do feel the guy’s cock reacting, leaking pre onto your tongue.")
@@ -138,9 +138,9 @@ func _run():
 		saynn("The dickgirl lets out a passionate moan as her cock starts cumming inside your mouth, quickly stuffing your belly with her hot seed. All the while you sit on your knees and swallow her load like a good cock slut, your eyes are closed as you are focused on giving the girl the best experience.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} is hard as your chastity allows, you wish you could stroke yourself at this moment..")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} is hard as a rock, you wish you could stroke yourself at this moment..")
 
 		saynn("[say=shemaleguard]Ah~.. Such a good little fucktoy.[/say]")
@@ -155,29 +155,29 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["maleguard_canine", GM.pc.getLocation(), "main_punishment_spot"])
+		runScene("ParadedOnALeashScene", ["maleguard_canine", ServiceLocator.safe_get_service(&"Player").getLocation(), "main_punishment_spot"])
 
 	if(_action == "startstocks"):
 		#runScene("StocksPunishmentScene", ["maleguard_canine"])
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 
 	if(_action in ["cum"]):
 		processTime(60*6)
-		GM.pc.gotThroatFuckedBy("maleguard_canine")
-		GM.pc.cummedInMouthBy("maleguard_canine")
-		GM.pc.cummedOnBy("maleguard_canine")
-		GM.pc.addLust(20)
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "caught_staff_forcedbj")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("maleguard_canine")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("maleguard_canine")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("maleguard_canine")
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "caught_staff_forcedbj")
 		
 	if(_action in ["cum1"]):
 		processTime(60*6)
-		GM.pc.gotThroatFuckedBy("shemaleguard")
-		GM.pc.cummedInMouthBy("shemaleguard")
-		GM.pc.cummedOnBy("shemaleguard")
-		GM.pc.addLust(20)
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "caught_staff_forcedbj2")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("shemaleguard")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("shemaleguard")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("shemaleguard")
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "caught_staff_forcedbj2")
 		
 	if(_action == "endthescene"):
 		endScene()

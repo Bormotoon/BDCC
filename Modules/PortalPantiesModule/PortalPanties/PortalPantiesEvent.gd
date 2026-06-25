@@ -10,7 +10,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TakingAShower)
 	
 func react(_triggerID, _args):
-	if(!GM.pc.isWearingPortalPanties()):
+	if(!ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 		return false
 	
 	var currentMode = getFlag("PortalPantiesModule.Panties_Mode", 0)
@@ -24,7 +24,7 @@ func react(_triggerID, _args):
 	elif(currentMode == 2):
 		nonQuestMult = 0.05
 	
-	if(GM.QS.isActive("PortalPantiesQuest")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isActive("PortalPantiesQuest")):
 		nonQuestMult = 1.0
 		
 	if(getFlag("PortalPantiesModule.Panties_FleshlightsFoundFleshlights") && !getFlag("PortalPantiesModule.Panties_FleshlightsReturnedToAlex")):
@@ -35,7 +35,7 @@ func react(_triggerID, _args):
 		if(currentCooldown <= 0):
 			if(RNG.chance(20 * nonQuestMult)):
 				setFlag("PortalPantiesModule.Panties_SceneCooldown", int(min(20, round(4 / nonQuestMult))))
-				return GM.ES.triggerReact("PortalPantiesEvent")
+				return ServiceLocator.safe_get_service(&"EventSystem").triggerReact("PortalPantiesEvent")
 		else:
 			increaseFlag("PortalPantiesModule.Panties_SceneCooldown", -1)
 	
@@ -46,17 +46,17 @@ func react(_triggerID, _args):
 			
 		# Waited 3 hours = 90% chance
 		if(RNG.chance(hoursPassed * 30.0 * nonQuestMult)):
-			return GM.ES.triggerReact("PortalPantiesEvent")
+			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact("PortalPantiesEvent")
 	
 	if(_triggerID == Trigger.WakeUpInCell):
 		
 		if(RNG.chance(75 * nonQuestMult)):
-			return GM.ES.triggerReact("PortalPantiesSleepingEvent")
+			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact("PortalPantiesSleepingEvent")
 	
 	if(_triggerID == Trigger.TakingAShower):
 		
 		if(RNG.chance(50 * nonQuestMult)):
-			return GM.ES.triggerReact("PortalPantiesShowerEvent")
+			return ServiceLocator.safe_get_service(&"EventSystem").triggerReact("PortalPantiesShowerEvent")
 	
 	return false
 	

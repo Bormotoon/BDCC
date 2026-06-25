@@ -4,8 +4,8 @@ func _init():
 	sceneID = "PSTentaclesAngrySmall"
 
 func _reactInit():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	
 	var possible:Array = []
 	
@@ -28,18 +28,18 @@ func _reactInit():
 		setState(RNG.pick(possible))
 	
 	if(state == "0"):
-		GM.pc.addPain(10)
+		ServiceLocator.safe_get_service(&"Player").addPain(10)
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		saynn("You shouldn't see this.")
@@ -159,7 +159,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

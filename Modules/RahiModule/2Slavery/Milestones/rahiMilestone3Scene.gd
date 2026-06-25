@@ -438,7 +438,7 @@ func _run():
 
 		saynn("Your body and mind joins very soon too, you can't help but to squirm around Rahi's pussy while yours is squirting all over hers too. This sure isn't dry humping, the ecstatic sensations make your mind go blank for a few seconds, you catch yourself drooling at some point.")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("This pussy orgasm drains your balls too, causing your {pc.penis} to shoot out many strings of {pc.cum}, creating quite a mess!")
 
 		saynn("You both keep riding your orgasms out, the constant grinding causes overstimulation to your pussies, making you want to quiver harder.")
@@ -572,8 +572,8 @@ func _react(_action: String, _args):
 
 	if(_action == "vaginal_condom"):
 		usedCondom = true
-		var chance = GM.pc.useBestCondom()
-		condomBroke = GM.pc.shouldCondomBreakWhenFucking("rahi", chance)
+		var chance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
+		condomBroke = ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("rahi", chance)
 		setState("vaginal_start")
 		return
 
@@ -589,8 +589,8 @@ func _react(_action: String, _args):
 			getCharacter("rahi").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
 		else:
 			addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "rahi_takes_a_bath"):
 		processTime(30*60)
@@ -607,11 +607,11 @@ func _react(_action: String, _args):
 
 	if(_action == "trib_cum_together"):
 		processTime(5*60)
-		GM.pc.rubsVaginasWith("rahi")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.cummedOnBy("rahi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("rahi", FluidSource.Vagina)
 		getCharacter("rahi").cummedOnBy("pc", FluidSource.Vagina)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "trib_calming_down"):
 		processTime(10*60)
@@ -619,9 +619,9 @@ func _react(_action: String, _args):
 	if(_action == "eat_rahi_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedOnBy("rahi", FluidSource.Vagina, 0.2)
-		GM.pc.cummedOnBy("rahi", FluidSource.Vagina, 0.3)
-		GM.pc.cummedInMouthBy("rahi", FluidSource.Vagina, 0.4)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("rahi", FluidSource.Vagina, 0.3)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("rahi", FluidSource.Vagina, 0.4)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "bring_rahi_back"):
 		processTime(10*60)

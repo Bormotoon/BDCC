@@ -56,7 +56,7 @@ func _run():
 		aimCamera("med_lobbyne")
 		playAnimation(StageScene.Solo, "walk")
 		setLocationName("Medical lobby")
-		GM.pc.setLocation("med_lobbyne")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyne")
 		
 		saynn("Eliza walks you through some corridors and brings you to the exit. She then unlocks your straitjacket and takes it off.")
 
@@ -148,7 +148,7 @@ func _run():
 		aimCamera("med_lobbyne")
 		playAnimation(StageScene.Solo, "walk")
 		setLocationName("Medical lobby")
-		GM.pc.setLocation("med_lobbyne")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyne")
 		
 		saynn("Seems like no one knows that you escaped so there aren’t many guards around. You manage to sneak past all of them and make your way back to the medical lobby!")
 
@@ -157,7 +157,7 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_lobbyne", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_lobbyne", [
 			"Come back soon~",
 			"Aw, shame that I have to let you out",
 			"You've been such a good test subject, patient~",

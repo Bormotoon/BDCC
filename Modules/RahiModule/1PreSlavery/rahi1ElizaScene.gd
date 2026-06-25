@@ -238,7 +238,7 @@ func _run():
 		playAnimation(StageScene.Solo, "stand")
 		removeCharacter("eliza")
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		saynn("You step out of the dimly-lit room and look around. The contrast is high, the bright medical corridor makes you squint until your eyes adjust.")
 
 		saynn("Time to go.")
@@ -251,7 +251,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "follow_nurse"):
-		runScene("ParadedOnALeashScene", ["nurse", GM.pc.getLocation(), "med_lobbymain"])
+		runScene("ParadedOnALeashScene", ["nurse", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_lobbymain"])
 
 	if(_action == "follow_eliza"):
 		runScene("ParadedOnALeashScene", ["eliza", "med_lobbymain", "medical_confessionary"])

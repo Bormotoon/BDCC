@@ -14,14 +14,14 @@ func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
 		
-		var nurseryTasks:Array = GM.main.SCI.getNurseryTasks() if !recallMode else GM.main.SCI.peekNurseryTasks()
+		var nurseryTasks:Array = ServiceLocator.safe_get_service(&"MainScene").SCI.getNurseryTasks() if !recallMode else ServiceLocator.safe_get_service(&"MainScene").SCI.peekNurseryTasks()
 		
 		if(!recallMode):
 			saynn("You're standing in front of a holographic bounty board. It scans your collar.. and shows you these tasks:")
 		
 		if(nurseryTasks.is_empty()):
 			if(recallMode):
-				if(GM.main.SCI.didGenerateNurseryTasksToday()):
+				if(ServiceLocator.safe_get_service(&"MainScene").SCI.didGenerateNurseryTasksToday()):
 					saynn("You can't remember any bounties that you haven't yet completed.. You should probably check the bounty board tomorrow.")
 				else:
 					saynn("You don't know which bounties does the bounty board have. You should go check it down in the nursery!")
@@ -39,9 +39,9 @@ func _run():
 				sayn("Reward: "+task.getRewardString())
 				saynn(task.getDeadlineString())
 		
-		if(getFlag("ElizaModule.s1hap", false) && GM.main.SCI.didGenerateNurseryTasksToday()):
+		if(getFlag("ElizaModule.s1hap", false) && ServiceLocator.safe_get_service(&"MainScene").SCI.didGenerateNurseryTasksToday()):
 			sayn("- SPECIAL BOUNTY")
-			var charIDWithDrug:String = GM.main.SCI.getRandomNpcIDForStrangeDrug()
+			var charIDWithDrug:String = ServiceLocator.safe_get_service(&"MainScene").SCI.getRandomNpcIDForStrangeDrug()
 			if(charIDWithDrug == "" || getCharacter(charIDWithDrug) == null):
 				saynn("Intelligence is being gathered. Come back tomorrow.")
 			else:
@@ -75,13 +75,13 @@ func _run():
 		saynn("The ad claims that 30% of the donated fluids will be directed towards the development of new medical drugs.")
 		
 		addButton("Back", "You changed your mind", "")
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			
 			if(equippedItem.getFluids() != null):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "pickDonate", [equippedItem])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem.getFluids() != null):
 				if(theitem.getFluids().isEmpty()):
 					addDisabledButton(theitem.getStackName(), "(This item is empty)\n\n"+theitem.getVisisbleDescription())
@@ -101,8 +101,8 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "do_reroll"):
-		GM.pc.addCredits(-1)
-		GM.main.SCI.rerollTasks()
+		ServiceLocator.safe_get_service(&"Player").addCredits(-1)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.rerollTasks()
 		
 	if(_action == "pickDonate"):
 		var item:ItemBase = _args[0]
@@ -115,8 +115,8 @@ func _react(_action: String, _args):
 		for fluidID in fluidAmmounts:
 			var fluidAmount:float = fluidAmmounts[fluidID]
 			
-			GM.main.SCI.handleBountyFluid(fluidID, fluidAmount)
-			GM.main.SCI.addFluid(fluidID, fluidAmount*0.3)
+			ServiceLocator.safe_get_service(&"MainScene").SCI.handleBountyFluid(fluidID, fluidAmount)
+			ServiceLocator.safe_get_service(&"MainScene").SCI.addFluid(fluidID, fluidAmount*0.3)
 		fluids.clear()
 
 	setState(_action)
@@ -141,8 +141,8 @@ func getDebugActions():
 
 func doDebugAction(_id, _args = {}):
 	if(_id == "completeTasks"):
-		while(!GM.main.SCI.peekNurseryTasks().is_empty()):
-			var task = GM.main.SCI.peekNurseryTasks()[0]
+		while(!ServiceLocator.safe_get_service(&"MainScene").SCI.peekNurseryTasks().is_empty()):
+			var task = ServiceLocator.safe_get_service(&"MainScene").SCI.peekNurseryTasks()[0]
 			task.completeSelf()
 
 func saveData():

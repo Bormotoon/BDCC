@@ -128,10 +128,10 @@ func getAuctionSettings():
 	}
 
 func sellToSlavery(theCharID:String):
-	GM.main.removeDynamicCharacter(theCharID)
+	ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacter(theCharID)
 
 func sellToAuction(theCharID:String):
-	GM.main.removeDynamicCharacter(theCharID)
+	ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacter(theCharID)
 
 func getMirriGreeting() -> String:
 	var customGreet:String = getFlag("SlaveAuctionModule.customMirriGreeting", "")
@@ -248,7 +248,7 @@ func unlockUpgrade(_upgradeID:String):
 		return
 	setFlag("SlaveAuctionModule."+_upgradeID+"Can", true)
 	var upgradeName = getUpgrades()[_upgradeID]["name"]
-	GM.main.addMessage("Upgrade '"+upgradeName+"' level "+str(getFlag("SlaveAuctionModule."+_upgradeID, 0)+1)+" is unlocked for purchase!")
+	ServiceLocator.safe_get_service(&"MainScene").addMessage("Upgrade '"+upgradeName+"' level "+str(getFlag("SlaveAuctionModule."+_upgradeID, 0)+1)+" is unlocked for purchase!")
 
 func onSlaveSold(_theChar:BaseCharacter, _howMuchCreds:int):
 	increaseFlag("SlaveAuctionModule.totalSlavesSold")
@@ -461,7 +461,7 @@ func getUpgrades():
 func getBidderInfo() -> String:
 	var resultAr:Array = []
 	
-	for bidder in GM.main.SAB.peekBidders():
+	for bidder in ServiceLocator.safe_get_service(&"MainScene").SAB.peekBidders():
 		resultAr.append(Util.join(bidder.getBidderInfoNoAuction(), "\n"))
 	
 	return Util.join(resultAr, "\n\n")

@@ -20,5 +20,5 @@ func onButton(_method, _args):
 			runScene("DrugDenKidlat8Scene")
 			return
 		
-		if(!GM.ES.triggerReact(Trigger.TalkingToNPC, ["kidlat"])):
+		if(!ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["kidlat"])):
 			runScene("KidlatTalkScene")

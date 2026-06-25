@@ -30,4 +30,4 @@ func onButton(_method, _args):
 			setFlag("TaviModule.Ch5StoleDatapadFromGuard", true)
 		else:
 			addMessage("This guard doesn't have a datapad. You gotta check someone else.")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

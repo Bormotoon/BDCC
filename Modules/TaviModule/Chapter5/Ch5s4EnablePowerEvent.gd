@@ -20,6 +20,6 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "startscene"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Ch5s4EnablePowerScene")
 		

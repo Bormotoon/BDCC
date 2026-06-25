@@ -139,7 +139,7 @@ func _run():
 
 		saynn("The captain reaches his palm towards the kitty now.")
 
-		saynn("[say=captain]Do you Rahi, take this inmate to be your lawfully wedded "+str("wife" if GM.pc.getGender() == Gender.Female else "husband")+", to live together in harmony, to love {pc.him}, comfort {pc.him}, in good times and not so good times, to have and to hold, from this day forward, as long as you both shall live?[/say]")
+		saynn("[say=captain]Do you Rahi, take this inmate to be your lawfully wedded "+str("wife" if ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female else "husband")+", to live together in harmony, to love {pc.him}, comfort {pc.him}, in good times and not so good times, to have and to hold, from this day forward, as long as you both shall live?[/say]")
 
 		saynn("She inhales air audibly, taking her time.")
 
@@ -163,7 +163,7 @@ func _run():
 
 		saynn("After putting the rings on each other's fingers, you continue to hold hands. Rahi looks you into the eyes.")
 
-		saynn("[say=captain]By the authority vested in me by AlphaCorp, I now pronounce you "+str("wife" if GM.pc.getGender() == Gender.Female else "husband")+" and wife. You may kiss.[/say]")
+		saynn("[say=captain]By the authority vested in me by AlphaCorp, I now pronounce you "+str("wife" if ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female else "husband")+" and wife. You may kiss.[/say]")
 
 		addButton("Kiss", "Might as well..", "do_kiss")
 	if(state == "do_kiss"):
@@ -514,7 +514,7 @@ func _react(_action: String, _args):
 		getCharacter("rahi").afterTakingAShower()
 
 	if(_action == "say_i_do"):
-		GM.pc.getInventory().forceEquipStoreOther(GlobalRegistry.createItem("RingRahi"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(GlobalRegistry.createItem("RingRahi"))
 
 	if(_action == "continue_hug"):
 		processTime(5*60)
@@ -560,7 +560,7 @@ func _react(_action: String, _args):
 		addExperienceToPlayer(500)
 		setFlag("RahiModule.rahiMile8Happened", true)
 		addMessage("Task completed")
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("RingRahi"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("RingRahi"))
 		addMessage("You kept the second ring")
 
 	setState(_action)

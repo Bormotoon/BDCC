@@ -11,22 +11,22 @@ func _run():
 		
 		saynn("You will have to leave all your items here. They will be returned to you after the run. Your stats/perks will also be temporary reset while you're there.")
 		
-		var highestLevel:int = int(GM.main.getFlag("DrugDenModule.HighestDrugDenLevel", 0))
+		var highestLevel:int = int(ServiceLocator.safe_get_service(&"MainScene").getFlag("DrugDenModule.HighestDrugDenLevel", 0))
 		sayn("Highest reached level: "+str(highestLevel))
 		
-		var raidedLabsAmount:int = int(GM.main.getFlag("DrugDenModule.RaidedLabs", 0))
+		var raidedLabsAmount:int = int(ServiceLocator.safe_get_service(&"MainScene").getFlag("DrugDenModule.RaidedLabs", 0))
 		saynn("Amount of drug labs that you have looted/destroyed: "+str(raidedLabsAmount))
 		
 		saynn("Do you wanna start a new run?")
 		
-		if(GM.pc.isWearingPortalPanties()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 			addDisabledButton("New run", "Your portal panties have bluespace tech in them which will interfere with Eliza's nanobots. Take them off first!")
 		else:
 			addButton("New run", "Start exploring the tunnels", "do_start")
 		addButton("Cancel", "You changed your mind!", "endthescene")
 
 	if(state == "do_start"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		
 		saynn("You stash your belongings in the designated stash and squeeze into the maintenance vent...")
 		
@@ -46,8 +46,8 @@ func _react(_action: String, _args):
 		setFlag("DrugDenModule.FirstTimeHappened", true)
 		return
 	if(_action == "do_start"):
-		GM.main.DrugDenRun = DrugDen.new()
-		GM.main.DrugDenRun.start()
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun = DrugDen.new()
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.start()
 
 
 	setState(_action)

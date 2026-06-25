@@ -4,7 +4,7 @@ func _init():
 	sceneID = "LiftWeightsScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.ApproachedWeightsBench)):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.ApproachedWeightsBench)):
 		endScene()
 		return
 
@@ -15,18 +15,18 @@ func _run():
 
 		saynn("You take a seat on the bench, deciding what you wanna do.")
 		
-		if(GM.pc.hasEffect(StatusEffect.WorkOut) || GM.pc.hasEffect(StatusEffect.WorkOutLight)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.WorkOut) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.WorkOutLight)):
 			addDisabledButton("Light workout", "You already did a work out recently")
 			addDisabledButton("Heavy workout", "You already did a work out recently")
 		else:
 			addButtonWithChecks("Light workout", "Do some dumbbell exercises", "light_workout", [], [ButtonChecks.HasStamina])
 			addButtonWithChecks("Heavy workout", "Grab a heavy barbell", "heavy_workout", [], [ButtonChecks.HasStamina, [ButtonChecks.StatCheck, Stat.Strength, 10]])
 		addButton("Leave", "You don't wanna do anything", "endthescene")
-		GM.ES.triggerRun(Trigger.ApproachedWeightsBench)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.ApproachedWeightsBench)
 
 	if(state == "light_workout"):
 		# (if low strength)
-		if(GM.pc.getStat(Stat.Strength) < 10):
+		if(ServiceLocator.safe_get_service(&"Player").getStat(Stat.Strength) < 10):
 			saynn("Your strength isn’t enough to lift super heavy things so you decide not to push yourself. You grab a pair of dumbbells and prepare yourself by straightening your posture and tensing your core muscles.")
 
 			saynn("You try to hold your upper arms still as you begin to curl one of the weights up to your shoulder level. After that, you slowly exhale and return it back to the starting position. Then you repeat the same but with the other weight.")
@@ -61,13 +61,13 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "light_workout"):
 		processTime(60*10)
-		GM.pc.addStamina(-30)
-		GM.pc.addEffect(StatusEffect.WorkOutLight)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.WorkOutLight)
 	
 	if(_action == "heavy_workout"):
 		processTime(60*20)
-		GM.pc.addStamina(-40)
-		GM.pc.addEffect(StatusEffect.WorkOut)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-40)
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.WorkOut)
 	
 	if(_action == "endthescene"):
 		endScene()

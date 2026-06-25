@@ -7,7 +7,7 @@ func _init():
 	sceneID = "ElizaGenericUnlockDrugScene"
 
 func _reactInit():
-	var allStrangePills:Array = GM.main.SCI.getPCUnknownStrangePills()
+	var allStrangePills:Array = ServiceLocator.safe_get_service(&"MainScene").SCI.getPCUnknownStrangePills()
 	
 	if(allStrangePills.is_empty()):
 		setState("no_drugs_found")
@@ -20,8 +20,8 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		aimCameraAndSetLocName("med_researchlab")
-		if (GM.pc.getLocation() != "med_researchlab"):
-			GM.pc.setLocation("med_researchlab")
+		if (ServiceLocator.safe_get_service(&"Player").getLocation() != "med_researchlab"):
+			ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 			saynn("[say=pc]I think I got something you can scan.[/say]")
 
 			saynn("[say=eliza]Great~. Let's go to the lab.[/say]")
@@ -121,7 +121,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func getPill():
-	return GM.pc.getInventory().getItemByUniqueID(drugUniqueID)
+	return ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(drugUniqueID)
 
 func getTF():
 	return GlobalRegistry.getTransformationRef(tfID)
@@ -140,7 +140,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_unlock_tf"):
 		processTime(25*60)
-		GM.main.SCI.doUnlockTF(tfID)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF(tfID)
 		var thePill = getPill()
 		if(thePill != null):
 			thePill.removeXOrDestroy(1)
@@ -150,10 +150,10 @@ func _react(_action: String, _args):
 
 	if(_action == "yes_eat_pill"):
 		processTime(10*60)
-		if(!GM.pc.getTFHolder().canStartTransformation(tfID)):
+		if(!ServiceLocator.safe_get_service(&"Player").getTFHolder().canStartTransformation(tfID)):
 			setState("eat_no_effect")
 		else:
-			GM.pc.getTFHolder().startTransformation(tfID)
+			ServiceLocator.safe_get_service(&"Player").getTFHolder().startTransformation(tfID)
 			setState("eat_has_effect")
 		return
 

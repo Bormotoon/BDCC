@@ -14,7 +14,7 @@ func run(_triggerID, _args):
 	if(!character.isDynamicCharacter()):
 		return
 	
-	if(npcID == GM.main.SCI.peekRandomNpcIDForStrangeDrug()):
+	if(npcID == ServiceLocator.safe_get_service(&"MainScene").SCI.peekRandomNpcIDForStrangeDrug()):
 		addButton("Strange pill!", "Take it from them", "doTakePill")
 	
 func getPriority():
@@ -22,6 +22,6 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "doTakePill"):
-		GM.main.SCI.clearRandomNpcIDForStrangeDrug()
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("TFPill"))
+		ServiceLocator.safe_get_service(&"MainScene").SCI.clearRandomNpcIDForStrangeDrug()
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("TFPill"))
 		addMessage("You search through their pockets and find a weird-looking pill!")

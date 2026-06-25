@@ -433,9 +433,9 @@ func _run():
 		addButton("Circle cell", "Give Rahi some walkies around her cell", "pup_cell")
 		addButton("Fetch", "Play fetch with Rahi", "pup_fetch")
 		if (getModule("RahiModule").isSkillLearned("rahiSkillSex")):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Breed Rahi", "(Sex) Fuck your pet", "pup_breed_rahi")
-			if (GM.pc.canWearStrapon()):
+			if (ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 				addButton("Strapon Rahi", "(Sex) Fuck your pet with a strapon", "pup_strapon_rahi")
 			addButtonWithChecks("Face-fuck", "(Sex) Fuck Rahi's mouth", "pup_facefuck_rahi", [], [ButtonChecks.HasReachablePenis])
 			addButtonWithChecks("Grind face", "(Sex) Grind your pet's face with your pussy", "pup_grind_rahi", [], [ButtonChecks.HasReachableVagina])
@@ -857,7 +857,7 @@ func _react(_action: String, _args):
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		var fluids = strapon.getFluids()
 		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-		GM.pc.getInventory().equipItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 
 	if(_action == "pup_facefuck_rahi"):
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
@@ -878,8 +878,8 @@ func _react(_action: String, _args):
 	if(_action == "pup_breed_cum"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	if(_action == "pup_strapon_fuck"):
 		processTime(6*60)
@@ -890,11 +890,11 @@ func _react(_action: String, _args):
 	if(_action == "pup_strapon_cum"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	if(_action == "removestraponandend"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Strapon)
 		endScene()
 		return
 
@@ -904,8 +904,8 @@ func _react(_action: String, _args):
 	if(_action == "pup_facefuck_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "rahi_facefuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "rahi_facefuck")
 
 	if(_action == "pup_facefuck_pee"):
 		processTime(5*60)
@@ -915,8 +915,8 @@ func _react(_action: String, _args):
 	if(_action == "pup_grind_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "rahi_grind")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "rahi_grind")
 
 	if(_action == "pup_grind_pee"):
 		processTime(5*60)

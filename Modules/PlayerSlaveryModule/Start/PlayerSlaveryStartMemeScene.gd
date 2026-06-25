@@ -18,7 +18,7 @@ func _run():
 
 		saynn("You bend down and try to grab the chip.. but it's stuck in place. No wonder no one has bothered to pick it up, the thing feels like it's glued to the floor.")
 
-		if (GM.pc.getStamina() > 0):
+		if (ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 			addButton("Use strength!", "Apply extra force", "grab2")
 		else:
 			addDisabledButton("Use strength!", "You don't have any stamina")
@@ -89,7 +89,7 @@ func _run():
 
 		addButton("Give up", "Now might be a good time to stop", "grab5_cancel")
 		addButton("Step on it", "Step on the wire and try to get the chip!", "grab5_fail")
-		if (GM.pc.getInventory().hasItemID("Shiv")):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("Shiv")):
 			addButton("Use a shiv", "Cut the thin wire with a shiv!", "grab6")
 		else:
 			addDisabledButton("Shiv", "You don't have a shiv so you can't cut the wire")
@@ -191,17 +191,17 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "grab2"):
-		GM.pc.addStamina(-10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-10)
 
 	if(_action == "grab4"):
 		processTime(3*60)
-		GM.pc.addStamina(10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(10)
 
 	if(_action == "grab5"):
 		processTime(3*60)
 
 	if(_action == "grab5_fail"):
-		GM.pc.addPain(5)
+		ServiceLocator.safe_get_service(&"Player").addPain(5)
 
 	if(_action == "start_slavery"):
 		endScene()

@@ -1052,34 +1052,34 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "start_backstory"):
-		GM.main.overridePC()
-		GM.pc.setName("Rahi")
-		GM.pc.setGender(Gender.Female)
-		GM.pc.setSpecies([Species.Feline])
-		GM.pc.resetBodypartsToDefault()
-		GM.pc.giveBodypart(GlobalRegistry.createBodypart("ponytailhair"))
+		ServiceLocator.safe_get_service(&"MainScene").overridePC()
+		ServiceLocator.safe_get_service(&"Player").setName("Rahi")
+		ServiceLocator.safe_get_service(&"Player").setGender(Gender.Female)
+		ServiceLocator.safe_get_service(&"Player").setSpecies([Species.Feline])
+		ServiceLocator.safe_get_service(&"Player").resetBodypartsToDefault()
+		ServiceLocator.safe_get_service(&"Player").giveBodypart(GlobalRegistry.createBodypart("ponytailhair"))
 		var breasts = GlobalRegistry.createBodypart("humanbreasts")
 		breasts.size = 3
-		GM.pc.giveBodypart(breasts)
-		GM.pc.pickedThickness = 50
-		GM.pc.pickedFemininity = 100
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("EngineerClothes"))
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("GasMask"))
-		GM.pc.updateNonBattleEffects()
-		getCharacter("rahi").copySkinTo(GM.pc)
+		ServiceLocator.safe_get_service(&"Player").giveBodypart(breasts)
+		ServiceLocator.safe_get_service(&"Player").pickedThickness = 50
+		ServiceLocator.safe_get_service(&"Player").pickedFemininity = 100
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("EngineerClothes"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("GasMask"))
+		ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
+		getCharacter("rahi").copySkinTo(ServiceLocator.safe_get_service(&"Player"))
 
 	if(_action == "rahi_takes_shower"):
-		GM.pc.getInventory().clear()
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("LeatherJacket"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().clear()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("LeatherJacket"))
 
 	if(_action == "rahi_visits_police_station"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
 
 	if(_action == "try_to_slip_past_jake"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 	if(_action == "story_ends"):
-		GM.main.clearOverridePC()
+		ServiceLocator.safe_get_service(&"MainScene").clearOverridePC()
 		processTime(60*60)
 
 	setState(_action)

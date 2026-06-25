@@ -4,8 +4,8 @@ func _init():
 	sceneID = "PSTentaclesWindowSmall"
 
 func _reactInit():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	
 	var possible:Array = []
 	
@@ -38,14 +38,14 @@ func _reactInit():
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		saynn("You stare at the window.")
@@ -234,10 +234,10 @@ func _run():
 
 		saynn("The tentacles stare at you for a bit.. and then try to get behind you.. or under you.. everywhere around you.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("One of the tentacles slides directly over your crotch.. its slick tip brushing against your pussy.")
 
-		elif (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("One of the tentacles slides directly over your crotch.. its slick tip brushing against your {pc.penis}.")
 
 		else:
@@ -426,7 +426,7 @@ func _run():
 
 		saynn("[say=pc]Don't be shy, you can explore me.[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The tentacles don't seem very interested.. so you catch one and slip it down between your legs, letting it rub against your {pc.vaginaStretch} pussy..")
 
 		else:
@@ -838,17 +838,17 @@ func _run():
 
 		saynn("Moments later, an impulse of intense, artificial pleasure spikes near your crotch.. quickly spreading throughout the rest of your body, catching every nerve. You start panting.. fast.. and then it happens.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your back arches. A hot gush of your juices hit the floor as your pussy clenches around nothing, squirting wildly in helpless pulses. You let out a choked, silent gasp, your body twitching from the immense uncontrollable pleasure waves that crash over you.. again and again.. As soon as one of your orgasms stops, another one starts..")
 
 			saynn("At some point your body is physically unable to sit upright anymore. You collapse onto the floor.. and squirm hard as your pussy keeps pulsing and clenching, shooting fountains of juices until there is no wetness left.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your back arches. A hot, thick rope of {pc.cum} hits the floor as your dick twitches and jumps, shooting wildly in helpless pulses. You let out a choked, silent gasp, your body jerking from the immense uncontrollable pleasure waves that crash over you.. again and again.. As soon as one of your orgasms stops, another one starts..")
 
 			saynn("At some point your body is physically unable to stay upright anymore. You collapse onto the floor.. and twitch hard as your {pc.penis} keeps pulsing and throbbing, shooting strings of seed until there is nothing left.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your back arches. Your poor caged up dick twitches in its little prison.. until the pressure becomes too much to endure. A hot, thick rope of {pc.cum} hits the floor, your locked cock shooting wildly in helpless pulses. You let out a choked, silent gasp, your body jerking from the immense uncontrollable pleasure waves that crash over you.. again and again.. As soon as one of your orgasms stops, another one starts..")
 
 			saynn("At some point your body is physically unable to stay upright anymore. You collapse onto the floor.. and twitch hard as your {pc.penis} keeps pulsing and throbbing, shooting weak strings of seed until there is nothing left.")
@@ -1151,13 +1151,13 @@ func _run():
 
 		saynn("You begin kissing and suckling on your own fingers.. while your other palm squeezes your chest, the touch sends a jolt of sensation directly into your trapped consciousness.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("More and more muffled noises of pleasure leave your occupied mouth, your pussy getting coated with a slick layer of your juices.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("More and more muffled noises of pleasure leave your occupied mouth, your cock getting hard, the tip gaining a shy drop of your pre.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("More and more muffled noises of pleasure leave your occupied mouth, your cock trying to get hard in its cage, the tip gaining a shy drop of your pre.")
 
 		else:
@@ -1215,13 +1215,13 @@ func _run():
 		saynn("[say=pc]I want to please you. I want your touch. I want your approval.[/say]")
 
 		_tentacles.talk("Show us your desire.")
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your hands begin to move again.. but slower now. They slide down your body, following its curves. One hand reaches between your legs, your digits wrapping around your hard cock and proceeding to stroke it. The other drifts back to your chest, fingers pinching and rolling your hard nipple.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your hands begin to move again.. but slower now. They slide down your body, following its curves. One hand reaches between your legs, your digits wrapping around your chastity cage.. and tugging on it. The other drifts back to your chest, fingers pinching and rolling your hard nipple.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your hands begin to move again.. but slower now. They slide down your body, following its curves. One hand reaches between your legs, your digits finding your clit and proceeding to play with it. The other drifts back to your chest, fingers pinching and rolling your hard nipple.")
 
 		else:
@@ -1254,7 +1254,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -1346,7 +1346,7 @@ func _react(_action: String, _args):
 		_tentacles.train(_tentacles.STAT_ANGER)
 
 	if(_action == "8_letit"):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		_tentacles.train(_tentacles.STAT_LUST)
 
 	if(_action == "9_stayquiet"):

@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TalkingToNPC, "tavi")
 
 func react(_triggerID, _args):
-	if(GM.QS.isCompleted("TaviQuest2") && !getFlag("TaviModule.ch1ApproachedAfterQuest2")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("TaviQuest2") && !getFlag("TaviModule.ch1ApproachedAfterQuest2")):
 		
 		runScene("Ch1s1ApproachingTavi")
 		setFlag("TaviModule.ch1ApproachedAfterQuest2", true)

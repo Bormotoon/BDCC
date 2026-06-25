@@ -28,8 +28,8 @@ func _init():
 	
 func _getName():
 	var theName:String = "Tentacles"
-	if(GM.main != null):
-		var newName:String = GM.main.getFlag("ElizaModule.tent_name", "")
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		var newName:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.tent_name", "")
 		if(!newName.is_empty()):
 			theName = newName
 	return theName
@@ -79,7 +79,7 @@ func getCustomAttribute(id):
 	return .getCustomAttribute(id)
 
 func prepareForSex():
-	var theMood:String = GM.main.getFlag("ElizaModule.tent_mood", "") # "" mean kind lusty
+	var theMood:String = ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.tent_mood", "") # "" mean kind lusty
 	var thePers:Personality = personality
 	var theFetishHolder:FetishHolder = fetishHolder
 	
@@ -129,7 +129,7 @@ func prepareForSex():
 		thePers.setStat(PersonalityStat.Mean, -0.1)
 
 func tentaclesProcessTalk(_text:String) -> String:
-	if(!GM.main.getFlag("ElizaModule.tent_neurolink", false)):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("ElizaModule.tent_neurolink", false)):
 		return ""
 	return _text
 

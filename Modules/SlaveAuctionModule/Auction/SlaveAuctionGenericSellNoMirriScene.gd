@@ -78,7 +78,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addSlaveButtons():
-	var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 	for charID in slaves:
 		var character:DynamicCharacter = getCharacter(charID)
 		var npcSlavery:NpcSlave = character.getNpcSlavery()
@@ -138,7 +138,7 @@ func _react(_action: String, _args):
 	if(_action == "do_sell_slave_succ"):
 		removeCharacter(slaveID)
 		getModule("SlaveAuctionModule").sellToSlavery(slaveID)
-		GM.pc.addCredits(creditsToGive)
+		ServiceLocator.safe_get_service(&"Player").addCredits(creditsToGive)
 		addMessage("You received "+str(creditsToGive)+" credits.")
 
 	setState(_action)

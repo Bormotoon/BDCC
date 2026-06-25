@@ -9,9 +9,9 @@ func getVisibleName():
 func getProgress():
 	var result = []
 	
-	var amountOfNurseryTasks:int = GM.main.SCI.getAmountOfCompletedNurseryTasks()
-	var amountOfPillsUnlocked:int = GM.main.SCI.getUnlockedStrangePillsCount()
-	var amountOfPillsTested:int = GM.main.SCI.getTestedStrangePillsCount()
+	var amountOfNurseryTasks:int = ServiceLocator.safe_get_service(&"MainScene").SCI.getAmountOfCompletedNurseryTasks()
+	var amountOfPillsUnlocked:int = ServiceLocator.safe_get_service(&"MainScene").SCI.getUnlockedStrangePillsCount()
+	var amountOfPillsTested:int = ServiceLocator.safe_get_service(&"MainScene").SCI.getTestedStrangePillsCount()
 	var s1hap:bool = getFlag("ElizaModule.s1hap", false)
 	var s2hap:bool = getFlag("ElizaModule.s2hap", false)
 	var s3hap:bool = getFlag("ElizaModule.s3hap", false)
@@ -23,7 +23,7 @@ func getProgress():
 
 	result.append("Eliza Quinn has told you to do 3 nursery bounties if you want to get a chance to become her lab assistant.\nApproach the bounty board in the nursery to see today's bounties. You have currently done "+str(amountOfNurseryTasks)+" task"+("s" if amountOfNurseryTasks != 1 else "")+".")
 	
-	var nurseryTasks:Array = GM.main.SCI.peekNurseryTasks()
+	var nurseryTasks:Array = ServiceLocator.safe_get_service(&"MainScene").SCI.peekNurseryTasks()
 	if(!nurseryTasks.is_empty()):
 		var taskText:String = "Bounties that you remember:"
 		for taskA in nurseryTasks:

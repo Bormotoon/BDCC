@@ -102,11 +102,11 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "continue"):
-		GM.pc.addCredits(2)
-		GM.pc.setLocation("eng_workshop")
+		ServiceLocator.safe_get_service(&"Player").addCredits(2)
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_workshop")
 		
 	if(_action == "refuse"):
-		GM.pc.addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
 		addMessage("Ow, that really hurt")
 	
 	if(_action == "endthescene"):

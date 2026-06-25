@@ -448,10 +448,10 @@ func _run():
 		else:
 			saynn("And you're not the only one who reached their peak.. Nova's cock is throbbing inside you as the tip starts shooting seed directly inside your womb, stuffing it full of her sticky seed! You can hear little gasps coming from her as she is cumming so you arch your back more and cover her mouth too. For some reason Nova is sucking on your fingers though.. what a slut..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("All this was enough for your caged up cock to suddenly start shooting weak spurts of {pc.cum} out, leaving a little mess on the stone tiles..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("All this was enough for your {pc.penis} to suddenly start shooting strong spurts of {pc.cum} out, leaving a little mess on the stone tiles..")
 
 		saynn("Your body shivers so much.. But you're not allowed to make a single noise or they will hear.. So you're forced to stay Nova's cock warmer..")
@@ -514,10 +514,10 @@ func _run():
 		else:
 			saynn("And you're not the only one who reached their peak.. Nova's cock is throbbing inside you as the tip starts shooting seed deep inside your nethers, stuffing you full of her sticky seed! You can hear little gasps coming from her as she is cumming so you arch your back more and cover her mouth too. For some reason Nova is sucking on your fingers though.. what a slut..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("All this was enough for your caged up cock to suddenly start shooting weak spurts of {pc.cum} out, leaving a little mess on the stone tiles..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("All this was enough for your {pc.penis} to suddenly start shooting strong spurts of {pc.cum} out, leaving a little mess on the stone tiles..")
 
 		saynn("Your body shivers so much.. But you're not allowed to make a single noise or they will hear.. So you're forced to stay Nova's cock warmer..")
@@ -579,7 +579,7 @@ func _run():
 		addButton("Continue", "See what happens next", "in_bathrooms")
 	if(state == "in_bathrooms"):
 		aimCameraAndSetLocName("main_bathroom2")
-		GM.pc.setLocation("main_dressing2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_dressing2")
 		saynn("You enter the prison's bathroom. It's a long room with a whole row of toilet stalls and sinks. No inmates seem to be here. No obvious signs of a fight either.")
 
 		saynn("[say=nova]You know, I don't hear any screams.[/say]")
@@ -1203,10 +1203,10 @@ func _run():
 		addButton("Continue", "See what happens next", "nostrapon_nova_bully_menu")
 	if(state == "do_piss"):
 		playAnimation(StageScene.SexFeetPlay, "pin", {pc="pc", npc="nova", npcBodyState={naked=true}, bodyState={naked=true, hard=true}})
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Time to really humiliate Nova. She gets a little concerned when you suddenly expose your {pc.penis} and direct it towards her belly.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Time to really humiliate Nova. She gets a little concerned when you suddenly expose your {pc.pussyStretch} pussy and spread the sensitive folds with your digits.")
 
 		else:
@@ -1231,13 +1231,13 @@ func _run():
 		saynn("Nova looks at her fur that now has a golden tint to it. You're still holding her pinned so she can't even get up and wash it away in the showers. She is forced to endure being your piss toilet and carry your scent. You make sure to get some good angles of this cute piss-slut for the recording.")
 
 		addButton("Enough", "That was fun", "nova_bully_menu")
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage() || GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Piss in mouth", "Humiliate her further", "do_piss_mouth")
 	if(state == "do_piss_mouth"):
 		playAnimation(StageScene.SexFaceSitting, "sit", {pc="pc", npc="nova", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("Even though you humiliated Nova super hard.. your bladder is still not completely empty. So why not take advantage of her shocked state?")
 
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Suddenly, you sit on her face and shove your {pc.penis} into her mouth. Husky's eyes open wider when you let the urge come again and begin pissing down her throat!")
 
 		else:
@@ -1459,7 +1459,7 @@ func _run():
 		playAnimation(StageScene.SexStanding, "tease", {npc="pc", pc="nova", bodyState={naked=true,hard=true,condom=true}, npcBodyState={naked=true, hard=true}})
 		saynn("Nova switches off her armor and begins to slowly strip the metal pieces before taking off her belt and leaving it all in a neat pile. You can see the datapad right there, attached to her belt.. But she still holds you pinned to the wall.. It seems you need another plan..")
 
-		saynn("All the while Nova unzips her undersuit, exposing her sheath with the red canine cock already peeking out of it. You can feel its pointy tip already brushing up against your "+str("pussy" if GM.pc.hasReachableVagina() else "tailhole")+"..")
+		saynn("All the while Nova unzips her undersuit, exposing her sheath with the red canine cock already peeking out of it. You can feel its pointy tip already brushing up against your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "tailhole")+"..")
 
 		saynn("[say=nova]What~? You wanted to be with me, didn't you~. Unless that was a lie as well.[/say]")
 
@@ -1469,7 +1469,7 @@ func _run():
 
 		saynn("It seems that datapad will have to wait..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Get fucked", "Nova is about to fuck you", "nova_vaginal_fuck")
 		else:
 			addButton("Get fucked", "Nova is about to fuck you", "nova_anal_fuck")
@@ -1523,10 +1523,10 @@ func _run():
 
 		saynn("The sensations are too much, it only takes a few seconds of her cock being inside you before you cum hard, your body shaking and squirming around it, your legs wanna give but Nova supports you.. with more than just her paws..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The pressure in your chastity cage becomes too much. Your poor locked away cock starts shooting little strings of {pc.cum}, leaving stains on the concrete wall before you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The stimulation on your pleasure points becomes too much. Your own {pc.penis} starts shooting thick strings of {pc.cum}, leaving stains on the concrete wall before you.")
 
 		saynn("[say=pc]Yes-s-s! Mommy is knotting her slutty whore of a pet![/say]")
@@ -1614,10 +1614,10 @@ func _run():
 
 		saynn("The sensations are too much, it only takes a few seconds of her cock being inside you before you cum hard, your body shaking and squirming around it, your legs wanna give but Nova supports you.. with more than just her paws..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("That knot is pushing directly on your prostate.. The pressure in your chastity cage becomes too much. Your poor locked away cock starts shooting little strings of {pc.cum}, leaving stains on the concrete wall before you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("That knot is pushing directly on your prostate until it becomes too much. Your own {pc.penis} starts shooting thick strings of {pc.cum}, leaving stains on the concrete wall before you.")
 
 		saynn("[say=pc]Yes-s-s! Mommy is knotting her slutty whore of a pet![/say]")
@@ -1686,7 +1686,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "nova_bully_menu")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_strapon_fuck", [strapon])
 
@@ -1735,9 +1735,9 @@ func _react(_action: String, _args):
 		processTime(6*60)
 
 	if(_action == "rough_sleepfuck_usecondom"):
-		var chanceToBreak = GM.pc.useBestCondom()
+		var chanceToBreak = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 		usedCondom = true
-		if(GM.pc.shouldCondomBreakWhenFucking("nova", chanceToBreak)):
+		if(ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("nova", chanceToBreak)):
 			condomBroke = true
 		setState("rough_sleepfuck_start")
 		return
@@ -1747,12 +1747,12 @@ func _react(_action: String, _args):
 		if(!usedCondom || condomBroke):
 			getCharacter("nova").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
 		if(usedCondom && !condomBroke):
-			addFilledCondomToLootIfPerk(GM.pc.createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+			addFilledCondomToLootIfPerk(ServiceLocator.safe_get_service(&"Player").createFilledCondom())
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "rough_ride_vaginal_usecondom"):
-		var chanceToBreak = GM.pc.useBestCondom()
+		var chanceToBreak = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 		usedCondom = true
 		if(getCharacter("nova").shouldCondomBreakWhenFucking("pc", chanceToBreak)):
 			condomBroke = true
@@ -1761,23 +1761,23 @@ func _react(_action: String, _args):
 
 	if(_action == "rough_ride_vaginal_cum"):
 		processTime(10*60)
-		GM.pc.gotVaginaFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("nova")
 		if(!usedCondom || condomBroke):
-			GM.pc.cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
 		if(usedCondom && !condomBroke):
 			addFilledCondomToLootIfPerk(getCharacter("nova").createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "rough_ride_anal_cum"):
 		processTime(10*60)
-		GM.pc.gotAnusFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("nova")
 		if(!usedCondom || condomBroke):
-			GM.pc.cummedInAnusByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
 		if(usedCondom && !condomBroke):
 			addFilledCondomToLootIfPerk(getCharacter("nova").createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "fight_bathroom"):
 		runScene("FightScene", ["novaArena"], "nova_bathroom_fight")
@@ -1859,7 +1859,7 @@ func _react(_action: String, _args):
 	if(_action == "do_fuck_putcondom"):
 		usedCondom = true
 		condomBroke = false
-		if(GM.pc.shouldCondomBreakWhenFucking("nova", 30)):
+		if(ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("nova", 30)):
 			condomBroke = true
 		setState("do_fuck_fuck")
 		return
@@ -1869,14 +1869,14 @@ func _react(_action: String, _args):
 		if(!usedCondom || condomBroke):
 			getCharacter("nova").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
 		if(usedCondom && !condomBroke):
-			addFilledCondomToLootIfPerk(GM.pc.createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+			addFilledCondomToLootIfPerk(ServiceLocator.safe_get_service(&"Player").createFilledCondom())
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "do_strapon_fuck"):
 		processTime(10*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		didFuck = true
 
 	if(_action == "do_strapon_actually"):
@@ -1884,7 +1884,7 @@ func _react(_action: String, _args):
 		getCharacter("nova").cummedInVaginaBy("pc", FluidSource.Strapon)
 
 	if(_action == "nostrapon_nova_bully_menu"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		setState("nova_bully_menu")
 		return
 
@@ -1894,7 +1894,7 @@ func _react(_action: String, _args):
 
 	if(_action == "swallow_pill_oops"):
 		processTime(6*60)
-		GM.pc.addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
 
 	if(_action == "nova_gets_rekt"):
 		processTime(3*60)
@@ -1915,13 +1915,13 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		if(getCharacter("nova").shouldCondomBreakWhenFucking("pc", 20)):
 			condomBroke = true
-		GM.pc.gotVaginaFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("nova")
 		if(condomBroke):
-			GM.pc.cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
 		if(!condomBroke):
 			addFilledCondomToLootIfPerk(getCharacter("nova").createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "nova_anal_fuck_louder"):
 		processTime(5*60)
@@ -1930,13 +1930,13 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		if(getCharacter("nova").shouldCondomBreakWhenFucking("pc", 20)):
 			condomBroke = true
-		GM.pc.gotAnusFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("nova")
 		if(condomBroke):
-			GM.pc.cummedInAnusByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
 		if(!condomBroke):
 			addFilledCondomToLootIfPerk(getCharacter("nova").createFilledCondom())
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	setState(_action)
 
@@ -1959,8 +1959,8 @@ func _react_scene_end(_tag, _result):
 			setState("won_bathroom_nova")
 		else:
 			setState("lost_bathroom_nova")
-			GM.pc.addPain(300)
-			GM.pc.doWound("nova")
+			ServiceLocator.safe_get_service(&"Player").addPain(300)
+			ServiceLocator.safe_get_service(&"Player").doWound("nova")
 
 func saveData():
 	var data = super.saveData()

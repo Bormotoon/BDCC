@@ -7,11 +7,11 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "cd_near_captain_office")
 
 func react(_triggerID, _args):
-	if(GM.QS.isCompleted("TaviQuest2")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("TaviQuest2")):
 		return false
-	if(!GM.main.getModuleFlag("TaviModule", "Tavi_Quest2Started", false)):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_Quest2Started", false)):
 		return false
-	if(!GM.main.getModuleFlag("TaviModule", "Tavi_Quest2MetHer", false)):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_Quest2MetHer", false)):
 		return false
 	
 	runScene("TaviQuest2Skar")

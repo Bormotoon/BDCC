@@ -92,9 +92,9 @@ func isKidlatNaked():
 	return getFlag("DrugDenModule.Kidlat2Hap", false) && !getFlag("DrugDenModule.Kidlat3Hap", false)
 
 func regenerateKidlatItems():
-	if(GM.main.DrugDenRun == null):
+	if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun == null):
 		return
-	var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+	var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 	if(drugDenEvent == null || drugDenEvent.id != "KidlatShop"):
 		return
 	drugDenEvent.generateItemsToSell()

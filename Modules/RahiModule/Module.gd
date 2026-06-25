@@ -184,22 +184,22 @@ func resetFlagsOnNewDay():
 	if(getFlag("RahiModule.rahiNeedsReward", false)):
 		setFlag("RahiModule.rahiNeedsReward", false)
 	
-	if(GM.main.getModuleFlag("RahiModule", "Rahi_NotThereToday", false)):
-		GM.main.setModuleFlag("RahiModule", "Rahi_NotThereToday", false)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_NotThereToday", false)):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_NotThereToday", false)
 	
 	# Chill near waterfall event stuff
-	if(!GM.main.getModuleFlag("RahiModule", "Rahi_ChillHappened", false) && !GM.main.getModuleFlag("RahiModule", "Rahi_Denied", false)):
-		if(GM.main.getModuleFlag("RahiModule", "Rahi_ChillCooldown", 0) > 0):
-			GM.main.increaseModuleFlag("RahiModule", "Rahi_ChillCooldown", -1)
+	if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_ChillHappened", false) && !ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_Denied", false)):
+		if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_ChillCooldown", 0) > 0):
+			ServiceLocator.safe_get_service(&"MainScene").increaseModuleFlag("RahiModule", "Rahi_ChillCooldown", -1)
 
-		if(GM.main.getModuleFlag("RahiModule", "Rahi_ChillCooldown", 0) == 0 && GM.main.getModuleFlag("RahiModule", "Rahi_GaveApple", false)):
-			GM.main.setModuleFlag("RahiModule", "Rahi_ChillWillHappen", true)
-			GM.main.setModuleFlag("RahiModule", "Rahi_ChillCooldown", randi_range(1, 3))
+		if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_ChillCooldown", 0) == 0 && ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_GaveApple", false)):
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_ChillWillHappen", true)
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_ChillCooldown", randi_range(1, 3))
 		else:
-			GM.main.setModuleFlag("RahiModule", "Rahi_ChillWillHappen", false)
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_ChillWillHappen", false)
 
 static func trustsPC():
-	return GM.main.getModuleFlag("RahiModule", "Rahi_ShowerHappened", false)
+	return ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_ShowerHappened", false)
 
 func canAdvanceStage():
 	var currentStage = getFlag("RahiModule.rahiSlaveryStage", 0)

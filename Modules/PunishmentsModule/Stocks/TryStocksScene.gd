@@ -38,7 +38,7 @@ func _react(_action: String, _args):
 	if(_action == "getCaptured"):
 		#runScene("StocksPunishmentScene")
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 	
 	setState(_action)

@@ -83,7 +83,7 @@ func _run():
 
 			saynn("You step around your pets. And there it is, a glorious butt stack. Both of the girls' asses are out on full display. Rahi is squirming slightly while Tavi is rubbing against her, their tails intertwining.")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			addButtonWithChecks("Put on strapon", "Have some fun with the girls first", "pick_strapon", [], [ButtonChecks.HasStraponAndCanWear])
 		else:
 			addButton("Whip cock out", "Have some fun with the girls first", "whip_cock_out")
@@ -726,7 +726,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "put_on_strapon", [strapon])
 
@@ -745,7 +745,7 @@ func _react(_action: String, _args):
 		creamed = true
 
 	if(_action == "start_walkies"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	if(_action == "do_fuck_rahi"):
 		processTime(5*60)
@@ -766,8 +766,8 @@ func _react(_action: String, _args):
 	if(_action == "do_fuck_tavi_cum"):
 		processTime(6*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "do_fuck_rahi_fast"):
 		processTime(10*60)
@@ -775,8 +775,8 @@ func _react(_action: String, _args):
 	if(_action == "do_fuck_rahi_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "leash_pets"):
 		processTime(3*60)
@@ -796,7 +796,7 @@ func _react(_action: String, _args):
 	if(_action == "put_on_strapon"):
 		processTime(3*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "do_strapon_rahi"):
 		processTime(5*60)
@@ -816,22 +816,22 @@ func _react(_action: String, _args):
 
 	if(_action == "do_strapon_tavi_cum"):
 		processTime(6*60)
-		straponLoaded = GM.pc.isWearingLoadedStrapon()
-		straponContents = GM.pc.getStraponContentsReadableString()
+		straponLoaded = ServiceLocator.safe_get_service(&"Player").isWearingLoadedStrapon()
+		straponContents = ServiceLocator.safe_get_service(&"Player").getStraponContentsReadableString()
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon, 1.0 if fuckedRahi else 0.5)
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "do_strapon_rahi_fast"):
 		processTime(10*60)
 
 	if(_action == "do_strapon_rahi_cum"):
 		processTime(5*60)
-		straponLoaded = GM.pc.isWearingLoadedStrapon()
-		straponContents = GM.pc.getStraponContentsReadableString()
+		straponLoaded = ServiceLocator.safe_get_service(&"Player").isWearingLoadedStrapon()
+		straponContents = ServiceLocator.safe_get_service(&"Player").getStraponContentsReadableString()
 		getCharacter("rahi").cummedInVaginaBy("pc", FluidSource.Strapon, 1.0 if fuckedTavi else 0.5)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	setState(_action)
 

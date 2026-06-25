@@ -112,13 +112,13 @@ func _run():
 		saynn("Your body begins to feel very warm, especially near your crotch. Rubbing yourself feels so-o-o good.. The pain is still there but the other sensations are so overwhelming..")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though your hair is being pulled, your {pc.cock} is trying to get hard and is already leaking pre.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Even though your hair is being pulled, your {pc.cock} is getting hard and already leaking pre.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your slit gets wet and needy, that cock in front of your face suddenly doesn’t look so scary..")
 
 		saynn("People around are watching but you can’t help but to let out a passionate moan and stick your tongue out before giving that knotted cock a lick over its whole length, catching the precum that's hanging from its tip.")
@@ -144,11 +144,11 @@ func _run():
 		saynn("It’s just too much, his cock steals your ability to breathe or even moan, your throat gets tighter around that shaft, milking it for all its cum. You try to force out some muffled moans but can’t, your own orgasm overtakes your body out of nowhere, you cum without even being stimulated!")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You, flexing your kegel muscles too much, resulted in your {pc.cock} wasting its load! Even if it was a ruined orgasm, it felt so good.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your slit squirts the female juices all over the floor, who knew you could cum from giving a blow job.")
 
 		saynn("As he starts to pull out, the last strings of his cum land into your opened mouth and onto your face, leaving quite a fancy mess. You’re forced to wear his facials and have a constant taste of his cock now. But wow it was worth it, you swallow everything you can get to and then offer the guy a view of your empty mouth.")
@@ -164,33 +164,33 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "sleep"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 		
-		if(GM.pc.canDamageClothes()):
-			GM.pc.damageClothes()
+		if(ServiceLocator.safe_get_service(&"Player").canDamageClothes()):
+			ServiceLocator.safe_get_service(&"Player").damageClothes()
 			brokeClothes = true
 
 	if(_action == "get_drugged"):
-		GM.pc.addIntoxication(0.7)
-		GM.pc.addLust(100)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.7)
+		ServiceLocator.safe_get_service(&"Player").addLust(100)
 
 	if(_action in ["cum", "cumDrugged"]):
 		processTime(60*6)
-		GM.pc.gotThroatFuckedBy("inmateMale")
-		GM.pc.cummedInMouthBy("inmateMale")
-		GM.pc.cummedOnBy("inmateMale")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("inmateMale")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("inmateMale")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("inmateMale")
 		if(_action == "cumDrugged"):
-			GM.pc.orgasmFrom("inmateMale")
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom("inmateMale")
 			
 			if(RNG.chance(50)):
 				var zone = BodyWritingsZone.getRandomZone()
-				GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+				ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 				addMessage("He also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "caught_inmate_forcedbj")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "caught_inmate_forcedbj")
 		
 	if(_action == "shove_away"):
 		processTime(60*1)
-		GM.pc.addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
 
 	if(_action == "endthescene"):
 		endScene()

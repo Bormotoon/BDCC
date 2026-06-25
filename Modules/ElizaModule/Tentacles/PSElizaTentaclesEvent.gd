@@ -26,7 +26,7 @@ func run(_triggerID, _args):
 	if(_triggerID == Trigger.TalkingToNPC):
 		if(getFlag("ElizaModule.tent_started", false) && !getFlag("ElizaModule.tent_born", false)):
 			if(!getFlag("ElizaModule.tent_firstegg", false)):
-				if (GM.pc.getInventory().hasItemID("PlantEgg")):
+				if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("PlantEgg")):
 					addButton("Give plant egg!", "Give Eliza the tentacle egg that she wanted", "doFirst")
 				else:
 					addDisabledButton("Give plant egg!", "You don't have any tentacle eggs to give to Eliza..")
@@ -39,10 +39,10 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "doFirst"):
-		GM.main.endCurrentScene()
-		GM.pc.getInventory().removeXOfOrDestroy("PlantEgg", 1)
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("PlantEgg", 1)
 		setFlag("ElizaModule.tent_firstegg", true)
 		runScene("PSElizaTentaclesFirstEgg")
 	if(_method == "giveEgg"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("PSElizaTentaclesGiveEgg")

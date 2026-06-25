@@ -8,8 +8,8 @@ func registerTriggers(es):
 
 func react(_triggerID, _args):
 	var possible:Array = []
-	for charID in GM.main.RS.special:
-		var theSpecial:SpecialRelationshipBase = GM.main.RS.special[charID]
+	for charID in ServiceLocator.safe_get_service(&"MainScene").RS.special:
+		var theSpecial:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.special[charID]
 		if(theSpecial.id != "SoftSlavery"):
 			continue
 		var theNpcOwner:NpcOwnerBase = theSpecial.npcOwner

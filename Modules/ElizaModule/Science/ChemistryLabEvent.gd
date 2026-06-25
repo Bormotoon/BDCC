@@ -9,7 +9,7 @@ func registerTriggers(es):
 
 func run(_triggerID, _args):
 	if(_triggerID == Trigger.TalkingToNPC):
-		if(GM.pc.getTFHolder().hasActiveTransformations()):
+		if(ServiceLocator.safe_get_service(&"Player").getTFHolder().hasActiveTransformations()):
 			addButton("I'm transformed!", "Ask the feline to help you with your changing body", "ask_help_tf")
 	
 	var hasLabAccess:bool = getModule("ElizaModule").hasLabAccess()
@@ -17,9 +17,9 @@ func run(_triggerID, _args):
 		return
 
 	if(_triggerID == Trigger.TalkingToNPC):
-		if(getFlag("ElizaModule.s2hap") && GM.main.SCI.doesPCHaveUnknownStrangePills()):
+		if(getFlag("ElizaModule.s2hap") && ServiceLocator.safe_get_service(&"MainScene").SCI.doesPCHaveUnknownStrangePills()):
 			addButton("Strange pill!", "Make Eliza scan the strange pill that you have", "scan_strange_pill")
-		if(GM.main.SCI.hasTFsCanScan(GM.pc)):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasTFsCanScan(ServiceLocator.safe_get_service(&"Player"))):
 			addButton("Get scanned!", "Make Eliza scan the effects of your current transformations", "scan_tfs")
 		return
 	#if(getFlag("ElizaModule.firstDrugTestHappened")):
@@ -32,10 +32,10 @@ func onButton(_method, _args):
 	if(_method == "lab"):
 		runScene("ChemistryLabScene")
 	if(_method == "scan_strange_pill"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("ElizaGenericUnlockDrugScene")
 	if(_method == "scan_tfs"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("ElizaGenericTestDrugScene")
 	if(_method == "ask_help_tf"):
 		runScene("ElizaHelpGotTransformedScene")

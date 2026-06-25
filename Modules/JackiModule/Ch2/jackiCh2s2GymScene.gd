@@ -241,13 +241,13 @@ func _run():
 		playAnimation(StageScene.SexRimming, "fast", {npc="jacki", pc="pc", bodyState={exposedCrotch=true,hard=true}})
 		saynn("You yank on her hair again, pushing her head into your {pc.masc} butt more, causing her muzzle to spread your buttcheeks and her snout to touch your {pc.analStretch} star. You can feel her warm breath on your sensitive bits.. and that makes you more eager to continue..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your poor cock is getting hard in its little cage.. well, trying to..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your {pc.penis} is quickly getting hard, a drop of precum hanging from its tip.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Even though you press her muzzle against your anus, your pussy slit becomes aroused too, your folds shining wet.")
 
 		saynn("Jacki winces from pain, huffing and puffing more. She tries to pull away.. but she can't do that without losing some of her hair in the process.")
@@ -262,26 +262,26 @@ func _run():
 
 		saynn("And that starts to feel.. quite good. You use your digits to scratch her head while she keeps rimming you, switching between sucking and licking. Your tailhole reacts to the teasing by clenching and twitching.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked away cock is dripping pre a lot.. Without being able to stimulate it, what Jacki does feels so much better..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your hard cock is twitching too.. from just how good this feels.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your dripping pussy folds twitch too.. from just how good this feels.")
 
 		saynn("[say=pc]There we go. I knew you had it in you.[/say]")
 
 		saynn("Jacki closes her eyes from embarrassment.. and just continues, giving your asshole little kisses before prodding it with her tongue more.. until the tip slips inside. The wolfie starts to wiggle her tongue inside, exploring your inner walls.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("She quickly finds your swole prostate.. and begins focusing on it, kneading and rubbing it. And her doing that makes your legs shake, your poor cock putting an immense amount of pressure onto its cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("She quickly finds your swole prostate.. and begins focusing on it, kneading and rubbing it. And her doing that makes your legs shake, your cock is leaking more transparent stuff while throbbing..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Her strong tongue manages to find and massage your g-spot through the inner wall, making your legs shake. Moans are escaping from you while your pussy is dripping more juices..")
 
 		saynn("Quite a few eyes are directed towards you.. but Jacki doesn't care, she keeps lapping at your inner walls, bringing you so much pleasure that you already feel close..")
@@ -293,13 +293,13 @@ func _run():
 		playAnimation(StageScene.SexRimming, "sex", {npc="jacki", pc="pc", pcCum=true, bodyState={exposedCrotch=true,hard=true}})
 		saynn("You don't even have to encourage her anymore, Jacki is treating your ass so well.. that you can't hold back anymore..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You arch your back and let out a cute passionate moan as your locked throbbing cock starts shooting weak lines of {pc.cum} through the little hole of the metal cage. Your hand grips Jacki's hair harder, bringing her some discomfort.. while you feel amazing..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You arch your back and grunt as your {pc.penis} starts to throb and shoot thick lines of {pc.cum}, one after another. Your hand grips Jacki's hair harder, bringing her some discomfort.. while you feel amazing..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You arch your back and let out a cute passionate moan while your neglected pussy releases a fountain of juices. You squirt while moaning loudly, your hand grips Jacki's hair harder, bringing her some discomfort.. while you feel amazing..")
 
 		else:
@@ -612,7 +612,7 @@ func _run():
 
 		saynn("[say=jacki]What?[/say]")
 
-		saynn("Your gaze moves down to your crotch."+str(" A crotch that has a visible bump, outlining your boner." if !GM.pc.isFullyNaked() else "")+" Jacki follows your gaze.. and pouts more.")
+		saynn("Your gaze moves down to your crotch."+str(" A crotch that has a visible bump, outlining your boner." if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else "")+" Jacki follows your gaze.. and pouts more.")
 
 		saynn("[say=jacki]..fine.[/say]")
 
@@ -1472,7 +1472,7 @@ func _run():
 		removeCharacter("eliza")
 		playAnimation(StageScene.Duo, "sit", {npc="jacki", npcAction="sit"})
 		aimCameraAndSetLocName("yard_eastCorridor")
-		GM.pc.setLocation("yard_eastCorridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_eastCorridor")
 		saynn("[say=jacki]So yeah. That's about it. My first experiences here weren't exactly pleasant.[/say]")
 
 		saynn("Getting your pussy stitched up like that? Obviously no one would like that.")
@@ -1494,7 +1494,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "jog_afterchat"):
 		aimCameraAndSetLocName("yard_northCorridor")
-		GM.pc.setLocation("yard_northCorridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_northCorridor")
 		if (lust < 0.2):
 			playAnimation(StageScene.Duo, "stand", {npc="jacki"})
 			saynn("By the end of your jogging session, Jacki is panting softly. She leans against one of the big rocks and holds her other paw on her thigh, rubbing it.")
@@ -1585,7 +1585,7 @@ func _run():
 		addButton("Showers", "See what's there", "jog_afterchat_shower_do")
 	if(state == "jog_afterchat_shower_do"):
 		aimCameraAndSetLocName("main_shower2")
-		GM.pc.setLocation("main_shower2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_shower2")
 		addCharacter("jacki", ["naked"])
 		saynn("You enter the dressing room.")
 
@@ -1650,7 +1650,7 @@ func _run():
 		addButton("Jog", "Jog together with Jacki", "jog_afterchat_jogmore")
 	if(state == "jog_afterchat_jogmore"):
 		aimCameraAndSetLocName("yard_firstroom")
-		GM.pc.setLocation("yard_firstroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_firstroom")
 		playAnimation(StageScene.Duo, "jog", {npc="jacki", npcAction="jog", flipNPC=true})
 		saynn("And so you continue jogging with Jacki. There is not much to chat about anymore so you just enjoy the scenery.")
 
@@ -2489,7 +2489,7 @@ func _run():
 	if(state == "do_creepfollow_follow"):
 		playAnimation(StageScene.Solo, "jog", {pc="jacki"})
 		aimCameraAndSetLocName("yard_eastCorridor")
-		GM.pc.setLocation("yard_eastCorridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_eastCorridor")
 		saynn("You quietly follow Jacki, trying to stay in the shadows of tall greenery when can. After leaving the gym, Jacki switches from a normal walk to a jog. Huh, looks like this is her way of staying fit.")
 
 		saynn("Or maybe this just gives her a small semblance of freedom. Either way, you step behind as fast as you can without raising suspicion.")
@@ -2516,7 +2516,7 @@ func _run():
 			addDisabledButton("Moans", "Jacki needs to have a horsecock dildo")
 	if(state == "do_creepfollow_horsedildo"):
 		aimCameraAndSetLocName("yard_vaulthere")
-		GM.pc.setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
 		playAnimation(StageScene.Solo, "struggle", {pc="jacki", bodyState={exposedCrotch=true}})
 		saynn("You follow the faint noises that are coming from some secluded corner of the yard.. until you stumble upon something quite interesting.")
 
@@ -2639,7 +2639,7 @@ func _run():
 	if(state == "do_creepfollow_block"):
 		playAnimation(StageScene.Duo, "stand", {npc="jacki"})
 		aimCameraAndSetLocName("yard_vaulthere")
-		GM.pc.setLocation("yard_vaulthere")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_vaulthere")
 		saynn("You let Jacki follow her normal route while you yourself head straight for one of the secluded spots.. Spots that she usually passes. It's a dead end.. which is perfect.")
 
 		saynn("The shadow between some tall bushes is your best friend. A few minutes later you hear a familiar noise of someone's hindpaws stepping on a stonepath at a pace that's faster than normal walking. Good.")
@@ -3320,7 +3320,7 @@ func _run():
 		addButton("Medical", "Bring Jacki there", "bring_jacki_to_medical")
 	if(state == "bring_jacki_to_medical"):
 		aimCameraAndSetLocName("med_lobby_start")
-		GM.pc.setLocation("med_lobby_start")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobby_start")
 		playAnimation(StageScene.Solo, "stand")
 		saynn("And so you grab Jacki and forcibly pull her behind you while she leaves a red and white trail behind her.")
 
@@ -3542,7 +3542,7 @@ func _run():
 		addButton("Continue", "See what happens next", "do_enslave_end")
 	if(state == "do_enslave_end"):
 		aimCameraAndSetLocName("med_lobby_start")
-		GM.pc.setLocation("med_lobby_start")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobby_start")
 		playAnimation(StageScene.Hug, "hug", {npc="jacki"})
 		saynn("Doctor Quinn guides you back into the medical lobby after you unchain the wolfie.")
 
@@ -3663,7 +3663,7 @@ func _run():
 
 		saynn("[say=eliza]Since Jacki is still chained up.. maybe you would like to try her pussy~? I can look away if you want.[/say]")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=pc]I can't really..[/say]")
 
 			saynn("The feline nods-nods and quickly grabs some strapon harness and offers it to you. This one has a knotted canine dildo installed. Jacki bites her lip when she sees it.")
@@ -3869,7 +3869,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "do_enslave_fuck_afterfuck")
 func addPlasticBottleButtons():
-	var items = GM.pc.getInventory().getItemsWithTag(ItemTag.PlasticBottle)
+	var items = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.PlasticBottle)
 	for item in items:
 		if(item.getFluids().isEmpty()):
 			addDisabledButton(item.getStackName(), item.getVisisbleDescription())
@@ -3877,17 +3877,17 @@ func addPlasticBottleButtons():
 			addButton(item.getStackName(), item.getVisisbleDescription(), "jog_afterbigjog_givebottle", [item])
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "jog_anal_strapon", [strapon])
 
 func addStraponButtons2():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_grab_strapon", [strapon])
 
 func addSlaveTattooNames():
-	var possible = ["Buttslut", str(GM.pc.getName())+"'s slut", str(GM.pc.getName())+"'s whore", str(GM.pc.getName())+"'s Slave", "Cum In My Ass", "Slave", str(GM.pc.getName())+"'s Bitch"]
+	var possible = ["Buttslut", str(ServiceLocator.safe_get_service(&"Player").getName())+"'s slut", str(ServiceLocator.safe_get_service(&"Player").getName())+"'s whore", str(ServiceLocator.safe_get_service(&"Player").getName())+"'s Slave", "Cum In My Ass", "Slave", str(ServiceLocator.safe_get_service(&"Player").getName())+"'s Bitch"]
 
 	for t in possible:
 		addButton(t, "Tattoo this on Jacki's ass", "do_enslave_brand_pick", [t])
@@ -3919,7 +3919,7 @@ func _react(_action: String, _args):
 
 	if(_action == "mem_stocks"):
 		aimCameraAndSetLocName("main_punishment_spot")
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		runScene("JackiStuckInStocksScene")
 		endScene()
 		return
@@ -3954,7 +3954,7 @@ func _react(_action: String, _args):
 
 	if(_action == "perv_makehersuckass_cum"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	if(_action == "perv_suckass_kiss"):
 		processTime(5*60)
@@ -3962,15 +3962,15 @@ func _react(_action: String, _args):
 		getModule("JackiModule").addAnger(10)
 
 	if(_action == "gift_apple"):
-		GM.pc.getInventory().removeXOfOrDestroy("appleitem", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("appleitem", 1)
 		getModule("JackiModule").addAnger(-15)
 
 	if(_action == "gift_energydrink"):
-		GM.pc.getInventory().removeXOfOrDestroy("EnergyDrink", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("EnergyDrink", 1)
 		getModule("JackiModule").addAnger(-10)
 
 	if(_action == "gift_lube"):
-		GM.pc.getInventory().removeXOfOrDestroy("lube", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("lube", 1)
 		getModule("JackiModule").addAnger(-6)
 		getModule("JackiModule").degradeSkill("jackiSkillButtslut", 4)
 		getModule("JackiModule").degradeSkill("jackiSkillSounding", 4)
@@ -3981,7 +3981,7 @@ func _react(_action: String, _args):
 
 	if(_action == "gift_heatpill"):
 		if(corruption > 0.5):
-			GM.pc.getInventory().removeXOfOrDestroy("HeatPill", 1)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("HeatPill", 1)
 			getModule("JackiModule").addLust(10)
 			getCharacter("jacki").forceIntoHeat()
 		else:
@@ -3990,25 +3990,25 @@ func _react(_action: String, _args):
 	if(_action == "gift_horsecockdildo"):
 		if(corruption > 0.4 || lust > 0.4):
 			setFlag("JackiModule.jackiReceivedHorsecockDildo", true)
-			GM.pc.getInventory().removeXOfOrDestroy("HorsecockDildo", 1)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("HorsecockDildo", 1)
 			getModule("JackiModule").addCorruption(10)
 		else:
 			getModule("JackiModule").addAnger(10)
 
 	if(_action == "gift_sportybra"):
-		GM.pc.getInventory().removeXOfOrDestroy("sportyTop", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("sportyTop", 1)
 		setFlag("JackiModule.jackiReceivedBra", true)
 		getCharacter("jacki").resetEquipment()
 		getModule("JackiModule").addAnger(-20)
 
 	if(_action == "gift_sportyshorts"):
-		GM.pc.getInventory().removeXOfOrDestroy("sportyBriefs", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("sportyBriefs", 1)
 		setFlag("JackiModule.jackiReceivedShorts", true)
 		getCharacter("jacki").resetEquipment()
 		getModule("JackiModule").addAnger(-20)
 
 	if(_action == "gift_credits_free"):
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		getModule("JackiModule").addAnger(-20)
 		getModule("JackiModule").addCorruption(10)
 
@@ -4019,17 +4019,17 @@ func _react(_action: String, _args):
 	if(_action == "gift_creds_hj_double"):
 		processTime(10*60)
 		getModule("JackiModule").addCorruption(10)
-		GM.pc.addCredits(-10)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-10)
 		getCharacter("jacki").cummedOnBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	if(_action == "gift_creds_hj_cum"):
 		processTime(10*60)
 		getModule("JackiModule").addAnger(5)
 		getModule("JackiModule").addCorruption(6)
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		getCharacter("jacki").cummedOnBy("pc", FluidSource.Penis, 0.05)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	if(_action == "kind_yoga_together"):
 		processTime(5*60)
@@ -4042,8 +4042,8 @@ func _react(_action: String, _args):
 
 	if(_action == "kind_yoga_togehter_try"):
 		processTime(10*60)
-		GM.pc.addEffect(StatusEffect.Yoga)
-		GM.pc.addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Yoga)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 		getModule("JackiModule").addAnger(-5)
 
 	if(_action == "kind_yoga_togehter_slack"):
@@ -4063,7 +4063,7 @@ func _react(_action: String, _args):
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 		getModule("JackiModule").makeJackiBusy()
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	if(_action == "kind_massage_forcedfisting_cum"):
 		processTime(6*60)
@@ -4074,7 +4074,7 @@ func _react(_action: String, _args):
 		processTime(15*60)
 		getModule("JackiModule").addAnger(-5)
 		getModule("JackiModule").addLust(6)
-		GM.pc.addStamina(-10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-10)
 
 	if(_action == "jog_afterchat"):
 		processTime(10*60)
@@ -4116,12 +4116,12 @@ func _react(_action: String, _args):
 	if(_action == "jog_afterchat_shower_do"):
 		processTime(10*60)
 		getCharacter("jacki").afterTakingAShower()
-		GM.pc.afterTakingAShower()
-		GM.pc.addStamina(20)
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").addStamina(20)
 
 	if(_action == "jog_afterchat_jogmore"):
 		processTime(10*60)
-		GM.pc.addStamina(10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(10)
 
 	if(_action == "jog_afterbigjog"):
 		processTime(10*60)
@@ -4166,8 +4166,8 @@ func _react(_action: String, _args):
 
 	if(_action == "jog_try_piercings_finger"):
 		processTime(15*60)
-		GM.pc.cummedInMouthBy("jacki", FluidSource.Vagina, 0.7)
-		GM.pc.cummedOnBy("jacki", FluidSource.Vagina, 0.3)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("jacki", FluidSource.Vagina, 0.7)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("jacki", FluidSource.Vagina, 0.3)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 		getModule("JackiModule").addAnger(-5)
 		getModule("JackiModule").addCorruption(3)
@@ -4197,14 +4197,14 @@ func _react(_action: String, _args):
 	if(_action == "jog_breed_fuck_cuminside"):
 		processTime(10*60)
 		getCharacter("jacki").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addLust(10)
 		getModule("JackiModule").addCorruption(5)
 
 	if(_action == "jog_breed_fuck_pullout"):
 		processTime(10*60)
 		getCharacter("jacki").cummedOnBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addLust(5)
 		getModule("JackiModule").addCorruption(10)
 
@@ -4214,7 +4214,7 @@ func _react(_action: String, _args):
 	if(_action == "jog_anal_fuck_cuminside"):
 		processTime(15*60)
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(3)
 		getModule("JackiModule").addAnger(-2)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
@@ -4222,7 +4222,7 @@ func _react(_action: String, _args):
 	if(_action == "jog_anal_fuck_pullout"):
 		processTime(15*60)
 		getCharacter("jacki").cummedOnBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addLust(3)
 		getModule("JackiModule").addAnger(2)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
@@ -4230,7 +4230,7 @@ func _react(_action: String, _args):
 	if(_action == "jog_anal_strapon"):
 		processTime(5*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "jog_anal_strapon_inside"):
 		processTime(3*60)
@@ -4238,14 +4238,14 @@ func _react(_action: String, _args):
 	if(_action == "jog_anal_strapon_cum"):
 		processTime(15*60)
 		getCharacter("jacki").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(3)
 		getModule("JackiModule").addAnger(-2)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 
 	if(_action == "endthescene_unequpstrapon"):
 		endScene()
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		return
 
 	if(_action == "jog_sounding_intro"):
@@ -4344,24 +4344,24 @@ func _react(_action: String, _args):
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 		#getModule("JackiModule").makeJackiBusy()
 		getModule("JackiModule").addCorruption(5)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "do_grab_anal_cuminside"):
 		getModule("JackiModule").addCorruption(2)
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "do_grab_anal_pullout"):
 		getModule("JackiModule").addLust(2)
 		getCharacter("jacki").cummedOnBy("pc")
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40)
 
 	if(_action == "do_grab_strapon"):
 		processTime(5*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "do_grab_strapon_ramitin"):
 		processTime(3*60)
@@ -4371,8 +4371,8 @@ func _react(_action: String, _args):
 		#getModule("JackiModule").makeJackiBusy()
 		getModule("JackiModule").addCorruption(6)
 		getCharacter("jacki").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "do_grab_strapon_pullout"):
 		processTime(3*60)
@@ -4386,7 +4386,7 @@ func _react(_action: String, _args):
 	if(_action == "do_grab_urethra_fuck_cum"):
 		processTime(6*60)
 		getCharacter("jacki").addEffect(StatusEffect.JackiCumInUrethra)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(8)
 
 	if(_action == "bring_jacki_to_medical"):
@@ -4436,7 +4436,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_enslave_strapon"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
 		processTime(3*60)
 
 	if(_action == "do_enslave_fuck"):
@@ -4453,17 +4453,17 @@ func _react(_action: String, _args):
 
 	if(_action == "do_enslave_fuck_cuminside"):
 		getCharacter("jacki").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	if(_action == "do_enslave_fuck_pullout"):
 		getCharacter("jacki").cummedOnBy("pc")
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	if(_action == "do_enslave_fuck_afterfuck"):
 		processTime(10*60)
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 
 	if(_action == "do_enslave_strapon_penetrate"):
 		processTime(6*60)
@@ -4472,8 +4472,8 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "do_enslave_strapon_knot"):
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	setState(_action)
 

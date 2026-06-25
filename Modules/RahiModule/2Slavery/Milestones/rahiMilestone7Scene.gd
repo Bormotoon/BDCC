@@ -84,7 +84,7 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="sit"})
 		aimCameraAndSetLocName("med_lobbymain")
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		saynn("Butterflies must have infested your belly. Because you feel so.. light. You go down to the medical wing and approach the counter behind which Eliza sits. She raises her brow and puts her cup away when she sees you.")
 
 		saynn("[say=eliza]What's up?[/say]")
@@ -178,7 +178,7 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="sit"})
 		aimCameraAndSetLocName("med_lobbymain")
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		saynn("You enter the medical wing lobby. And it's just like you remember it, a big white sterile room. Doctor Quinn is sitting behind the counter. As you approach her, she notices your presence.")
 
 		saynn("[say=eliza]What's up?[/say]")

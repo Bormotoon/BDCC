@@ -418,11 +418,11 @@ func _react(_action: String, _args):
 	if(_action == "do_breed_inside"):
 		processTime(3*60)
 		getCharacter("kidlat").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_breed_pullout"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_breed_after"):
 		processTime(3*60)
@@ -436,7 +436,7 @@ func _react(_action: String, _args):
 	if(_action == "do_bj_throatpie"):
 		processTime(3*60)
 		getCharacter("kidlat").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_bj_end"):
 		processTime(3*60)
@@ -447,7 +447,7 @@ func _react(_action: String, _args):
 	if(_action == "do_lick_fast"):
 		processTime(3*60)
 		getCharacter("kidlat").cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_lick_after"):
 		processTime(3*60)

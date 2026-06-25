@@ -121,7 +121,7 @@ func _run():
 		saynn("You pull your hands away, leaving them rest by your sides. Obeying seems to be so.. arousing. You blush and moan softly for your Mistress.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You can feel your slit becoming more wet the longer Eliza stares at it. She traces a digit around your pussy lips and then licks it.")
 
 			saynn("[say=eliza]Spread them~. Hands behind your back.[/say]")
@@ -143,7 +143,7 @@ func _run():
 			saynn("Fuck, you think you blanked there for a second.")
 
 		# (if has reachable cock)
-		elif(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You can feel your {pc.cock} trying to become harder while Eliza stares at you. She traces a digit along your cage and gives it a little rub.")
 			
 			saynn("[say=eliza]Spread your legs~. Hands behind your back, no touching.[/say]")
@@ -164,7 +164,7 @@ func _run():
 			
 			saynn("Fuck, you think you blanked there for a second.")
 		
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You can feel your {pc.cock} becoming harder while Eliza stares at you. She traces a digit along your length and gives your tip a little rub.")
 
 			saynn("[say=eliza]Spread your legs~. Hands behind your back, no touching.[/say]")
@@ -228,22 +228,22 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, patient",
 			"Today's experiment should be interesting",
 			"Smile to the nurses",
 		]])
 	
 	if(_action == "resist"):
-		GM.pc.addPain(30)
+		ServiceLocator.safe_get_service(&"Player").addPain(30)
 		MedicalModule.addPCSanity(-0.1)
 		MedicalModule.addPCBehavior(-0.1)
 	
 	if(_action == "obey"):
 		MedicalModule.addPCBehavior(0.1)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("You received 1 work credit!")
 		
 		setModuleFlag("MedicalModule", "Mental_ExpObeyDrug", Util.maxi(1, getModuleFlag("MedicalModule", "Mental_ExpObeyDrug", 0)))

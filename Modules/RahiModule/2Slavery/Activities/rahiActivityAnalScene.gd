@@ -678,7 +678,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_random_sex"):
 		var possible = []
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			possible.append("sex1")
 		else:
 			possible.append("sex2_strapon")
@@ -709,9 +709,9 @@ func _react(_action: String, _args):
 	if(_action == "sex1_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
-		GM.pc.addSkillExperience(Skill.CumLover, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.CumLover, 30, "rahi_anal")
 
 	if(_action == "sex1_pee"):
 		processTime(5*60)
@@ -723,7 +723,7 @@ func _react(_action: String, _args):
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		var fluids = strapon.getFluids()
 		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-		GM.pc.getInventory().equipItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 
 	if(_action == "sex2_start"):
 		processTime(5*60)
@@ -731,12 +731,12 @@ func _react(_action: String, _args):
 	if(_action == "sex2_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
-		GM.pc.addSkillExperience(Skill.CumLover, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.CumLover, 30, "rahi_anal")
 
 	if(_action == "removestraponfrompc"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Strapon)
 		endScene()
 		return
 

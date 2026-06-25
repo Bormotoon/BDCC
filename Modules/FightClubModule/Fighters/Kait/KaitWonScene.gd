@@ -32,7 +32,7 @@ func _run():
 		addDisabledButton("Join", "Begin the Team Escape route (not done, sorry)")
 		addButton("Just leave", "You don’t feel like doing anything with her", "just_leave")
 		addButton("Beat her up", "(brutal noncon) She is just a lilac slut, no need to listen to her", "beat_her_up")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["kait"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["kait"])
 
 	if(state == "just_leave"):
 		saynn("[say=pc]Your idea seems pretty bad. Look around. It’s a fortress. Just learn to live here.[/say]")
@@ -105,7 +105,7 @@ func _run():
 
 		addButton("Leave now", "She suffered enough", "leave_now")
 		if(OPTIONS.isContentEnabled(ContentType.Watersports)):
-			if(GM.pc.hasPenis() || GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis() || ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				addButton("Piss on her", "Humiliate that bitch", "piss_on_her")
 			else:
 				addDisabledButton("Piss on her", "You need a cock or a pussy to piss on her")
@@ -129,8 +129,8 @@ func _run():
 		})
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("You stand near Kait’s body and expose your {pc.cock} that’s locked away behind a chastity cage. The urge comes quickly, a stream of warm piss emerges from the tip of your dick and offers the cat on the ground a golden shower. She winces and tries to cover herself but the piss gets everywhere, you make sure to coat her hair, face, exposed tits and her legs with your gross fluids. A puddle of piss is getting bigger under Kait, the way she is panting there is no way she didn’t catch the scent.")
 			else:
 				saynn("You stand near Kait’s body and pull out your {pc.cock}. The urge comes quickly, a stream of warm piss emerges from the tip of your dick and offers the cat on the ground a golden shower. She winces and tries to cover herself but the piss gets everywhere, you make sure to coat her hair, face, exposed tits and her legs with your gross fluids. A puddle of piss is getting bigger under Kait, the way she is panting there is no way she didn’t catch the scent.")
@@ -140,7 +140,7 @@ func _run():
 			saynn("You silently climb over the fence and go get your reward. Kait knew this place doesn't have rules.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You stand near Kait’s body and expose your {pc.pussyStretch} pussy. The urge comes quickly, a stream of warm piss emerges from your urethra and offers the cat on the ground a golden shower. She winces and tries to cover herself but the piss gets everywhere, you make sure to coat her hair, face, exposed tits and her legs with your gross fluids. A puddle of piss is getting bigger under Kait, the way she is panting there is no way she didn’t catch the scent.")
 
 			saynn("You finish marking her and cover your slit. Her clothes are now all damp and ruined, kitty’s white fur now has many yellow spots, showcasing the piss quite clearly. It will be a while before she can wash it all off, including the gross scent. The crowd is laughing at the poor kitty that got humiliated so hard.")
@@ -244,12 +244,12 @@ func _react(_action: String, _args):
 	
 	if(_action == "inside"):
 		getCharacter("kait").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kait")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "kait_roughfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kait")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "kait_roughfuck")
 	
 	if(_action == "pull_out"):
-		GM.pc.orgasmFrom("kait")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "kait_roughfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kait")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "kait_roughfuck")
 	
 	if(_action == "endthescene"):
 		endScene()

@@ -72,7 +72,7 @@ func _run():
 		saynn("He might be right but it still makes you frown. Whatever.")
 
 		# (if masculine)
-		if(GM.pc.getFemininity() <= 40):
+		if(ServiceLocator.safe_get_service(&"Player").getFemininity() <= 40):
 			saynn("You grab the panties and start putting them on. They don’t really fit your masculine look but they seem to be stretchy enough.")
 
 		# (if else)
@@ -80,15 +80,15 @@ func _run():
 			saynn("You grab the panties and start putting them on. The material seems quite stretchy, allowing for a good fit.")
 
 		# (if has cock and pussy)
-		if(GM.pc.hasPenis() && GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Although, you do feel the cold metal brushing against your dick and pussy, causing some discomfort. The panties also bulge out quite a bit in the front, their shape doesn’t really hide your genitals.")
 
 		# (else if has cock)
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Although, you do feel the cold metal brushing against your dick, causing some discomfort. The panties also bulge out quite a bit in the front, their shape doesn’t really hide your genitals.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Although, you do feel the cold metal brushing against your pussy, causing some discomfort. But otherwise, they look and feel like normal panties.")
 
 		# (else)
@@ -107,15 +107,15 @@ func _run():
 		saynn("You carefully watch his actions. Foxy grabs a few tube-like objects, they look like cylinders but with a few buttons. You also notice that the top side has some kind of aperture, the same kind that the devices in your panties have. You begin to wonder..")
 
 		# (if has cock and pussy)
-		if(GM.pc.hasPenis() && GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("But just before you can realize what’s going on, the foxy turns on all the tubes, causing them to start humming. And a few seconds later, the apertures on them open, revealing.. your genitals. Yes, one of the tubes seems to have your exact {pc.cock} sticking out of it with the two others showing your pussy and your {pc.analStretch} anus! You look down and realize that you can’t take off your panties anymore, it's like they’re glued to your skin! And the bulge that was once there is now missing.")
 
 		# (if has just cock)
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("But just before you can realize what’s going on, the foxy turns on all the tubes, causing them to start humming. And a few seconds later, the apertures on them open, revealing.. your genitals. Yes, one of the tubes seems to have your exact {pc.cock} sticking out of it with the two others showing your {pc.analStretch} anus! You look down and realize that you can’t take off your panties anymore, it's like they’re glued to your skin! And the bulge that was once there is now missing.")
 
 		# (if has just pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("But just before you can realize what’s going on, the foxy turns on all the tubes, causing them to start humming. And a few seconds later, the apertures on them open, revealing.. your genitals. Yes, one of the tubes seems to have your pussy on top of it and the other one showing off your {pc.analStretch} anus! You look down and realize that you can’t take off your panties anymore, it's like they’re glued to your skin!")
 
 		# (if nothing)
@@ -123,7 +123,7 @@ func _run():
 			saynn("But just before you can realize what’s going on, the foxy turns on all the tubes, causing them to start humming. And a few seconds later, the apertures on them open, revealing.. your genitals. Yes, the tube seems to be showing off your {pc.analStretch} anus on top of it! You look down and realize that you can’t take off your panties anymore, it's like they’re glued to your skin!")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your eyes open wide as you see the foxy fidgeting with the tube that has your pussy on it. Alex seems just as fascinated as you, he places a digit on your clit and gives it a rub, causing you to moan. Even though you’re a few steps away. He then spreads your {pc.pussyStretch} pussy folds open and shows off to you how wet they are..")
 
 		# (else)
@@ -205,12 +205,12 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "put_them_on"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("PortalPanties"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("PortalPanties"))
 		
 	if(_action == "nah"):
-		var item:ItemBase = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
+		var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
 		if(item != null):
-			GM.pc.getInventory().unequipItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(item)
 			item.destroyMe()
 		setFlag("PortalPantiesModule.Panties_PcDenied", true)
 

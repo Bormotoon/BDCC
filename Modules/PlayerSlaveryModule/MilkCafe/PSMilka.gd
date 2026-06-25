@@ -61,6 +61,6 @@ func updateBodyparts():
 	#		paintBodyparts()
 	#elif(hasBodypart(BodypartSlot.Horns)):
 	#	removeBodypart(BodypartSlot.Horns)
-	if(GM.main.PS && GM.main.PS.id == "MilkCafe"):
+	if(ServiceLocator.safe_get_service(&"MainScene").PS && ServiceLocator.safe_get_service(&"MainScene").PS.id == "MilkCafe"):
 		var breasts: BodypartBreasts = getBodypart(BodypartSlot.Breasts)
-		breasts.size = GM.main.PS.getMilkaBreastSize()
+		breasts.size = ServiceLocator.safe_get_service(&"MainScene").PS.getMilkaBreastSize()

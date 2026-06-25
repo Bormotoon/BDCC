@@ -44,7 +44,7 @@ func _run():
 
 		saynn("[say=tavi]The simpler the plan, the less can go wrong~. Let's do this.[/say]")
 
-		if (isVirgin && !getFlag("TaviModule.Ch6TaviRegrewHymen", false) && GM.pc.hasReachablePenis()):
+		if (isVirgin && !getFlag("TaviModule.Ch6TaviRegrewHymen", false) && ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			if (isCorrupt):
 				saynn("Tavi was about to follow you but then she had a change of mind, her clawed paw landing on your shoulder.")
 
@@ -389,7 +389,7 @@ func _run():
 	if(state == "near_checkpoint"):
 		playAnimation(StageScene.Duo, "stand", {npc="tavi"})
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("And here you are. Standing before the checkpoint. Tavi is standing by your side.")
 
 		saynn("You don't have any laser rifles or shiny armor to protect yourself. Just your fists and bodies and a strong desire to get out of this place. Or maybe you just wanna make the captain pay for what he did? Does it matter in the end? Not really.")
@@ -450,7 +450,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight2_npc")
 	if(state == "lost_fight"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		playAnimation(StageScene.Solo, "defeat")
 		saynn("You lost the fight.. And so you and Tavi get thrown out back into the main hall.")
 
@@ -582,7 +582,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight3_risha")
 	if(state == "lost_risha"):
 		playAnimation(StageScene.Duo, "defeat", {npc="risha"})
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("You drop to your knees before Risha. It hurts.")
 
@@ -722,7 +722,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight4_nova")
 	if(state == "lost_nova"):
 		playAnimation(StageScene.Solo, "defeat")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("You drop to your knees, defeated by Nova. She puts her baton away and clips a leash to your collar. Tavi decides not to fight it and lets Nova clip a leash to her collar too.")
 
@@ -861,7 +861,7 @@ func _run():
 		addButtonWithChecks("Let Tavi help", "Endure Skar's attacks until Tavi helps you win", "skar_tavihelp", [], [[ButtonChecks.StatCheck, Stat.Vitality, 20]])
 	if(state == "skar_lost"):
 		playAnimation(StageScene.Solo, "defeat")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("As you get defeated, Skar grabs you and Tavi by the collar and drags you away.")
 
@@ -987,26 +987,26 @@ func _react(_action: String, _args):
 	if(_action == "rough_cum"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 60)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 60)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "rough_otherfuck"):
 		processTime(20*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "rough_otherfuck2"):
 		processTime(20*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "rough_afterfuck"):
 		processTime(3*60*60)
-		GM.pc.addPain(-600)
-		GM.pc.addStamina(600)
+		ServiceLocator.safe_get_service(&"Player").addPain(-600)
+		ServiceLocator.safe_get_service(&"Player").addStamina(600)
 
 	if(_action == "vir_bed"):
 		processTime(5*60)
@@ -1022,13 +1022,13 @@ func _react(_action: String, _args):
 	if(_action == "vir_cum"):
 		processTime(8*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 60)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 60)
 
 	if(_action == "vir_cuddle"):
 		processTime(60*60)
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
 
 	if(_action == "checkpoint_firstguard"):
 		processTime(2*60)

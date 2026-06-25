@@ -4,8 +4,8 @@ func _init():
 	sceneID = "PSTentaclesPlaySmall"
 
 func _reactInit():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	
 	var possible:Array = [""]
 	
@@ -14,14 +14,14 @@ func _reactInit():
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		_tentacles.doAnimDuo("idle")
@@ -200,12 +200,12 @@ func _run():
 			saynn("[say=pc]AH![/say]")
 
 		else:
-			if (GM.pc.hasReachableVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				saynn("That's when one of the sneaky ones quietly reaches out.. and suddenly starts rubbing your pussy!")
 
 				saynn("[say=pc]Ah..[/say]")
 
-			elif (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("That's when one of the sneaky ones quietly reaches out.. and suddenly starts stroking your {pc.penis}!")
 
 				saynn("[say=pc]Ah.[/say]")
@@ -851,7 +851,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

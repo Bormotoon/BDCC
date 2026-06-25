@@ -24,7 +24,7 @@ func _run():
 		isVirgin = getModule("TaviModule").isVirgin()
 		sexSkill = getModule("TaviModule").getSkillScore("taviSkillSex")
 		if (isVirgin):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Take Tavi's virginity", "You'd need to do that before any other kind of vaginal sex", "take_virginity_penis")
 			else:
 				addButtonWithChecks("Take Tavi's virginity", "You'd need to do that before any other kind of vaginal sex", "take_virginity_pickstrapon", [], [ButtonChecks.HasStraponAndCanWear])
@@ -245,7 +245,7 @@ func _run():
 
 		saynn("She seems to be eager to learn. That's good.")
 
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=pc]I want you to.. tease me. Make it mildly sexual but don't go too far. Mhm? I will guide you.[/say]")
 
 		else:
@@ -257,13 +257,13 @@ func _run():
 	if(state == "teasing_watch"):
 		playAnimation(StageScene.SexOral, "tease", {npc="tavi", bodyState={exposedCrotch=true, hard=true}})
 		var foundAnything = false
-		if (!GM.pc.isFullyNaked()):
+		if (!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Slowly and deliberately, Tavi starts undressing you. She {pc.undressMessageS} until you are mostly naked. Then she shifts herself closer to you and begins to wonder where to start..")
 
 		else:
 			saynn("Tavi shifts herself closer to you and begins to wonder where to start..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			foundAnything = true
 			saynn("After exposing your {pc.penis}, Tavi takes a moment to appreciate the sight before her. Your chastity cage is certainly making her curious. She looks at you and then leans in closer, nuzzling it, making you become aroused even without direct stimulation.")
 
@@ -277,7 +277,7 @@ func _run():
 
 			saynn("Her attention shifts to your balls. She nuzzles the area just above them and then licks each of your orbs a few times. Her tongue feels nice, it has a sandpaper-like texture to it.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			foundAnything = true
 			saynn("After exposing your {pc.penis}, Tavi takes a moment to appreciate the sight before her. She looks at you and then leans in closer, nuzzling and even nipping at the sensitive skin, making you become aroused.")
 
@@ -291,7 +291,7 @@ func _run():
 
 			saynn("Her attention shifts to your balls. She nuzzles the area just above them and then licks each of your orbs a few times. Her tongue feels nice, it has a sandpaper-like texture to it.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn(""+str("Next, Tavi moves her head lower, reaching your {pc.pussyStretch} pussy." if foundAnything else "After exposing your {pc.pussyStretch} pussy, Tavi takes a moment to appreciate the sight before her.")+" She brings her maw closer and lets you feel her warm breath on your sensitive flesh.")
 
 			foundAnything = true
@@ -319,7 +319,7 @@ func _run():
 
 		saynn("A mix of curiosity and desire shines in the feline's eyes. She slowly moves close to you before gracefully lowering herself to her knees before you. Tavi learned that gesture quite quickly.")
 
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("With a gentle touch, you guide Tavi's paws to your waist, indicating what you want her to do.")
 
 		else:
@@ -463,13 +463,13 @@ func _run():
 
 		saynn("A mix of curiosity and desire shines in the feline's eyes. She slowly moves close to you before gracefully lowering herself to her knees before you. Tavi learned that gesture quite quickly.")
 
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("With a gentle touch, you guide Tavi's paws to your waist, indicating what you want her to do.")
 
 		else:
 			saynn("With a gentle touch, you guide Tavi's paws to your waist, helping them undress you, until your crotch gets exposed.")
 
-		saynn("[say=pc]I wanna teach you the art of giving pleasure. I don't really have a"+str(" free" if GM.pc.isWearingChastityCage() else "")+" dick for you to practice on. But we can use this instead.[/say]")
+		saynn("[say=pc]I wanna teach you the art of giving pleasure. I don't really have a"+str(" free" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+" dick for you to practice on. But we can use this instead.[/say]")
 
 		saynn("You produce one of the strapons that Tavi had and begin securing it around your waist. Tavi admires the sight, her paws sliding over your thighs.")
 
@@ -821,7 +821,7 @@ func _run():
 
 		saynn("She nods and obeys your touch, slowly lowering herself until her head is roughly at your belt level.")
 
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Your exposed {pc.pussyStretch} pussy is already in her view, making her cheeks glow.")
 
 			saynn("[say=pc]Closer~.[/say]")
@@ -834,11 +834,11 @@ func _run():
 		addButton("Watch", "See what Tavi will do", "pussylick_watch")
 	if(state == "pussylick_watch"):
 		playAnimation(StageScene.SexOral, "tease", {npc="tavi", bodyState={exposedCrotch=true, hard=true}})
-		if (GM.pc.isFullyNaked()):
-			saynn("Tavi bites her lips and slowly brings herself closer. You spread your legs open, offering the feline a great view of your pussy"+str(" and your {pc.penis}" if GM.pc.hasPenis() else "")+".")
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
+			saynn("Tavi bites her lips and slowly brings herself closer. You spread your legs open, offering the feline a great view of your pussy"+str(" and your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 		else:
-			saynn("Tavi bites her lips and slowly brings herself closer. Her paws tug on your clothing, exposing your private bits to her eyes. You spread your legs open, offering the feline a great view of your {pc.pussyStretch} pussy"+str(" and your {pc.penis}" if GM.pc.hasPenis() else "")+".")
+			saynn("Tavi bites her lips and slowly brings herself closer. Her paws tug on your clothing, exposing your private bits to her eyes. You spread your legs open, offering the feline a great view of your {pc.pussyStretch} pussy"+str(" and your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 		saynn("[say=pc]You're gonna eat me out, Tavi. Don't worry, I will guide you.[/say]")
 
@@ -1224,7 +1224,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "take_virginity_strapon", [strapon])
 
@@ -1243,7 +1243,7 @@ func _react(_action: String, _args):
 
 	if(_action == "firstbj_pick"):
 		getModule("TaviModule").advanceSkill("taviSkillSex")
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			usedStrapon = false
 			setState("firstbj")
 		else:
@@ -1252,7 +1252,7 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "pussylick"):
@@ -1260,7 +1260,7 @@ func _react(_action: String, _args):
 
 	if(_action == "cowgirl_pick"):
 		getModule("TaviModule").advanceSkill("taviSkillSex")
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			usedStrapon = false
 			setState("cowgirl")
 		else:
@@ -1269,12 +1269,12 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "anal_pick"):
 		getModule("TaviModule").advanceSkill("taviSkillSex")
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			usedStrapon = false
 			setState("anal")
 		else:
@@ -1283,7 +1283,7 @@ func _react(_action: String, _args):
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		return
 
 	if(_action == "cancel_lesson"):
@@ -1294,7 +1294,7 @@ func _react(_action: String, _args):
 	if(_action == "take_virginity_strapon"):
 		processTime(10*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		getModule("TaviModule").advanceSkill("taviSkillSex")
 
 	if(_action == "do_fuck_inside"):
@@ -1324,7 +1324,7 @@ func _react(_action: String, _args):
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
 
 	if(_action == "endthescene_unequipstrapon"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		endScene()
 		return
 
@@ -1340,17 +1340,17 @@ func _react(_action: String, _args):
 	if(_action == "firstbj_facial"):
 		processTime(2*60)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "firstbj_mouth"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "firstbj_throatpie"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "firstbj_start_strapon"):
 		processTime(2*60)
@@ -1361,7 +1361,7 @@ func _react(_action: String, _args):
 	if(_action == "firstbj_strapon_pull_out"):
 		processTime(2*60)
 		getCharacter("tavi").cummedOnBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "firstbj_strapon_deepthroat"):
 		processTime(2*60)
@@ -1369,10 +1369,10 @@ func _react(_action: String, _args):
 	if(_action == "firstbj_strapon_facefuck"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "endthescene_removestrapon"):
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		endScene()
 		return
 
@@ -1385,12 +1385,12 @@ func _react(_action: String, _args):
 	if(_action == "cowgirl_inside"):
 		processTime(5*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "cowgirl_outside"):
 		processTime(5*60)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "cowgirl_lie_strapon"):
 		processTime(3*60)
@@ -1414,17 +1414,17 @@ func _react(_action: String, _args):
 
 	if(_action == "pussylick_cum"):
 		processTime(2*60)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "pussylick_squirt"):
 		processTime(2*60)
 		getCharacter("tavi").cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "pussylick_grind"):
 		processTime(2*60)
 		getCharacter("tavi").cummedOnBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "anal_prepare"):
 		processTime(8*60)
@@ -1444,7 +1444,7 @@ func _react(_action: String, _args):
 	if(_action == "anal_cuminside"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "anal_prepare_strapon"):
 		processTime(8*60)

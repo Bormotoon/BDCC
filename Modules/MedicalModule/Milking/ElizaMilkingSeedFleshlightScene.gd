@@ -157,7 +157,7 @@ func _run():
 		addButton("Continue", "See what happens next", "socket_gives_fleshlight_back")
 	if(state == "socket_gives_fleshlight_back"):
 		playAnimation(StageScene.Duo, "stand", {pc="socket", npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("Only when Socket is certain for sure that your orgasm has ended, she carefully pulls the fleshlight off of your shaft, making sure to hold it in a way that won't spill anything.")
 
 		saynn("[say=socket]Oh, there is some left on you still![/say]")
@@ -201,9 +201,9 @@ func _react(_action: String, _args):
 
 	if(_action == "process_cum"):
 		processTime(3*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("socket")
-		GM.pc.fillBalls()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").fillBalls()
 		getCharacter("socket").cummedInVaginaBy("pc")
 
 	if(_action == "socket_gives_fleshlight_back"):

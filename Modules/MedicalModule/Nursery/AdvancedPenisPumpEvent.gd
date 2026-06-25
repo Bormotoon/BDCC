@@ -10,7 +10,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TakingAShower)
 	
 func react(_triggerID, _args):
-	var currentTime = GM.main.getTimeInGlobalSeconds()
+	var currentTime = ServiceLocator.safe_get_service(&"MainScene").getTimeInGlobalSeconds()
 	var lastTimeMilked = getFlag("MedicalModule.AdvPenisPumpLastMilked", 0)
 	
 	# Means this event runs every 30 minutes basically
@@ -19,26 +19,26 @@ func react(_triggerID, _args):
 	else:
 		return false
 	
-	if(!GM.pc.getInventory().hasItemIDEquipped("PenisPumpAdvanced") || !GM.pc.hasPenis()):
+	if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped("PenisPumpAdvanced") || !ServiceLocator.safe_get_service(&"Player").hasPenis()):
 		return false
 	
-	var cumProducion = GM.pc.getBodypart(BodypartSlot.Penis).getFluidProduction()
+	var cumProducion = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Penis).getFluidProduction()
 	if(cumProducion == null):
 		return false
 	
-	if(GM.pc.canBeSeedMilked() && cumProducion.getFluidLevel()>=1.0):
-		var penisPump = GM.pc.getInventory().getEquippedItemByID("PenisPumpAdvanced")
+	if(ServiceLocator.safe_get_service(&"Player").canBeSeedMilked() && cumProducion.getFluidLevel()>=1.0):
+		var penisPump = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemByID("PenisPumpAdvanced")
 		if(penisPump == null):
 			return false
 		
-		GM.pc.addSkillExperience(Skill.Breeder, 10)
-		var howMuchTransferred = GM.pc.getBodypart(BodypartSlot.Penis).getFluids().transferTo(penisPump, 1.0)
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 10)
+		var howMuchTransferred = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Penis).getFluids().transferTo(penisPump, 1.0)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		if(howMuchTransferred > 0.0):
-			GM.main.addMessage("Your penis pump engages, milking your cock until you orgasm hard! It collects "+str(Util.roundF(howMuchTransferred))+" ml of {pc.cum} during your orgasm.")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your penis pump engages, milking your cock until you orgasm hard! It collects "+str(Util.roundF(howMuchTransferred))+" ml of {pc.cum} during your orgasm.")
 			
 			if(penisPump.getFluids().isFull()):
-				GM.main.addMessage("Your penis pump is now full!")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Your penis pump is now full!")
 		
 
 	return false

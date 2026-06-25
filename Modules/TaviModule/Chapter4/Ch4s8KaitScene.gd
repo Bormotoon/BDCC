@@ -231,7 +231,7 @@ func _run():
 
 		saynn("You throw the coin onto the floor before stomping on it, causing sparks. Kait covers her face with her paw that's not broken yet. Hissing can be heard from her each time she tries to move a muscle, the cat must be in huge pain. Some painkillers would help to prolong the.. fun.")
 
-		if (GM.pc.getInventory().hasItemID("painkillers")):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("painkillers")):
 			addButton("To stocks", "Drug the kitty up and throw her into stocks", "use_painkillers_and_go_stocks")
 		else:
 			addDisabledButton("To stocks", "You don't have any painkillers")
@@ -385,7 +385,7 @@ func _run():
 	if(state == "start_stocks_kait"):
 		setFlag("TaviModule.Ch4KaitIntoStocks", true)
 		aimCameraAndSetLocName("main_punishment_spot")
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		playAnimation(StageScene.Duo, "stand", {npc="kait", npcBodyState={naked=true}})
 		saynn("You grab Kait by the collar and begin to pull her out of her cell and towards the main hall. The snow leopard does try to struggle but overall obeys your grasp.")
 
@@ -453,7 +453,7 @@ func _run():
 	if(state == "use_painkillers_and_go_stocks"):
 		setFlag("TaviModule.Ch4KaitIntoStocks", true)
 		aimCameraAndSetLocName("main_punishment_spot")
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		playAnimation(StageScene.Duo, "stand", {npc="kait", npcBodyState={naked=true}})
 		saynn("You'd love to punish that cat more for how she got you and Tavi into trouble. For how rude she was. But Kait doesn't seem to be doing too well, her wounds bring her lots of pain. So you produce a painkillers pill before bringing it to Kait's maw.")
 
@@ -604,7 +604,7 @@ func _run():
 		playAnimation(StageScene.StocksSex, "tease", {npc="pc", pc="kait", pcCum=true, npcCum=true, bodyState={naked=true}, npcBodyState={exposedCrotch=true, hard=true}})
 		saynn("Suddenly Kait lets out a muffled moan, her whole body shivers while her pussy gets tight around your cock, too tight for you to just endure it. You pound her cunt a few more times before your own orgasm overwhelms you, strings after strings of {pc.cum} stuff the cat's womb, quickly overflowing it. Your dick keeps throbbing inside the slut's pulsating cunt, your balls are being milked dry.")
 
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your legs shake too, your own pussy squirts all over the floor, the stimulation was too much!")
 
 		saynn("You let go of the tail and yank your cock a few seconds later, letting the last waves of {pc.cum} land on the girl's fluffy ass and back. Her fur if white but the seed is still clearly visible, especially where her dark dots are.")
@@ -687,23 +687,23 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["kait"], "kaitfight")
 
 	if(_action == "use_painkillers_and_go_stocks"):
-		GM.pc.getInventory().removeXOfOrDestroy("painkillers", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("painkillers", 1)
 
 	if(_action == "kait_cums_facesitting"):
 		processTime(60*10)
-		GM.pc.cummedOnBy("kait", FluidSource.Vagina)
-		GM.pc.cummedInMouthBy("kait", FluidSource.Vagina)
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("kait", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("kait", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "kait_prepares_to_ride_anal"):
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "cum_kait_riding_anal"):
 		processTime(10*60)
 		getCharacter("kait").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("kait")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kait")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	if(_action == "force_kait_to_undress"):
 		processTime(60*5)
@@ -723,8 +723,8 @@ func _react(_action: String, _args):
 	if(_action == "cum_inside_kait"):
 		processTime(60*10)
 		getCharacter("kait").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kait")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kait")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	if(_action == "start_grinding_kaits_face"):
 		processTime(6*60)
@@ -733,8 +733,8 @@ func _react(_action: String, _args):
 		processTime(60*10)
 		getCharacter("kait").cummedInMouthBy("pc", FluidSource.Vagina)
 		getCharacter("kait").cummedOnBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("kait")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kait")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	setState(_action)
 

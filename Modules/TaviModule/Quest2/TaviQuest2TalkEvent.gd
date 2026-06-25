@@ -7,10 +7,10 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "hall_mainentrance")
 
 func run(_triggerID, _args):
-	if(!GM.main.getModuleFlag("TaviModule", "Tavi_Quest2Started", false) || GM.main.getModuleFlag("TaviModule", "Tavi_Quest2MetHer", false)):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_Quest2Started", false) || ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_Quest2MetHer", false)):
 		return
 	
-	if(GM.main.getDays() > GM.main.getModuleFlag("TaviModule", "Tavi_Quest2Day", 0)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() > ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_Quest2Day", 0)):
 		addButtonUnlessLate("Tavi", "Wait for Tavi to show up", "talk")
 	else:
 		addDisabledButton("Tavi", "Wait until tomorrow before doing this")

@@ -119,7 +119,7 @@ func _run():
 		
 		addButton("Close", "Close the portal", "disconnectPortal")
 		addButtonWithChecks("Lick it!", "Lick the pussy", "vagina_lick", [], [[ButtonChecks.NotOralBlocked]])
-		if(GM.pc.hasEffect(StatusEffect.HasCumInsideMouth)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideMouth)):
 			addButtonWithChecks("Spit inside", "Spit whatever your have in your mouth into that pussy", "vagina_lick_spit", [], [[ButtonChecks.NotOralBlocked], [ButtonChecks.ContentEnabled, ContentType.CumStealing]])
 		else:
 			addDisabledButton("Spit inside", "You don't have anything in your mouth")
@@ -227,7 +227,7 @@ func _run():
 		
 		addButton("Close", "Close the portal", "disconnectPortal")
 		addButtonWithChecks("Lick it!", "Lick the tailhole", "anus_lick", [], [[ButtonChecks.NotOralBlocked]])
-		if(GM.pc.hasEffect(StatusEffect.HasCumInsideMouth)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.HasCumInsideMouth)):
 			addButtonWithChecks("Spit inside", "Spit whatever your have in your mouth into that ass", "anus_lick_spit", [], [[ButtonChecks.NotOralBlocked], [ButtonChecks.ContentEnabled, ContentType.CumStealing]])
 		else:
 			addDisabledButton("Spit inside", "You don't have anything in your mouth")
@@ -340,7 +340,7 @@ func _run():
 		else:
 			addButtonWithChecks("Suck it!", "Suck this dick", "penis_suck", [], [[ButtonChecks.NotOralBlocked]])
 			
-			if(GM.pc.getInventory().getUniqueAmountOf("PortalPantiesFleshlight") >= 2):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().getUniqueAmountOf("PortalPantiesFleshlight") >= 2):
 				addButton("Proxy fuck", "Make that cock fuck someone else's hole through the other fleshlight.", "penis_proxyfuck_choose")
 			else:
 				addDisabledButton("Proxy fuck", "You need 2 fleshlights to do this")
@@ -1002,7 +1002,7 @@ func _run():
 			saynn(extraText)
 			extraText = ""
 		
-		if(GM.pc.getArousal() >= 1.0):
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0):
 			saynn("You're about to cum!")
 			
 			addButton("Cum inside", "Cum inside them", "vagina_fuck_inside")
@@ -1069,7 +1069,7 @@ func _run():
 			saynn(extraText)
 			extraText = ""
 		
-		if(GM.pc.getArousal() >= 1.0):
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0):
 			saynn("You're about to cum!")
 			
 			addButton("Cum inside", "Cum inside them", "anus_fuck_inside")
@@ -1102,7 +1102,7 @@ func calcArousalBasedOnKink(_char, _theKink):
 
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		endScene()
 		return
 	
@@ -1114,19 +1114,19 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.AnalSexGiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.AnalSexReceiving) * sameMult)
-		if(GM.pc.getArousal() >= 1.0 && portalCharID != "pc"):
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.AnalSexReceiving) * sameMult)
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{pc.You} {pc.youVerb('orgasm')} hard, {pc.yourHis} {asshole} pulsing a lot!"
-			GM.pc.orgasmFrom(portalCharID)
-			GM.pc.setArousal(0.0)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+			ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 	
 	if(_action == "penis_masturbate_anus_inside"):
 		processTime(60*2)
-		GM.pc.gotAnusFuckedBy(portalCharID)
-		GM.pc.cummedInAnusBy(portalCharID)
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1140,19 +1140,19 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.VaginalSexGiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.VaginalSexReceiving) * sameMult)
-		if(GM.pc.getArousal() >= 1.0 && portalCharID != "pc"):
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.VaginalSexReceiving) * sameMult)
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{pc.You} {pc.youVerb('orgasm')} hard, {pc.yourHis} {pussy} pulsing a lot!"
-			GM.pc.orgasmFrom(portalCharID)
-			GM.pc.setArousal(0.0)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+			ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 	
 	if(_action == "penis_masturbate_vagina_inside"):
 		processTime(60*2)
-		GM.pc.gotVaginaFuckedBy(portalCharID)
-		GM.pc.cummedInVaginaBy(portalCharID)
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1166,19 +1166,19 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.AnalSexGiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.AnalSexReceiving) * sameMult)
-		if(GM.pc.getArousal() >= 1.0 && portalCharID != "pc"):
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.AnalSexReceiving) * sameMult)
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{pc.You} {pc.youVerb('orgasm')} hard, {pc.yourHis} {asshole} pulsing a lot!"
-			GM.pc.orgasmFrom(portalCharID)
-			GM.pc.setArousal(0.0)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+			ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 	
 	if(_action == "penis_ride_anus_inside"):
 		processTime(60*2)
-		GM.pc.gotAnusFuckedBy(portalCharID)
-		GM.pc.cummedInAnusBy(portalCharID)
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1192,19 +1192,19 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.VaginalSexGiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.VaginalSexReceiving) * sameMult)
-		if(GM.pc.getArousal() >= 1.0 && portalCharID != "pc"):
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.VaginalSexReceiving) * sameMult)
+		if(ServiceLocator.safe_get_service(&"Player").getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{pc.You} {pc.youVerb('orgasm')} hard, {pc.yourHis} {pussy} pulsing a lot!"
-			GM.pc.orgasmFrom(portalCharID)
-			GM.pc.setArousal(0.0)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+			ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 	
 	if(_action == "penis_ride_vagina_inside"):
 		processTime(60*2)
-		GM.pc.gotVaginaFuckedBy(portalCharID)
-		GM.pc.cummedInVaginaBy(portalCharID)
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1219,8 +1219,8 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.AnalSexReceiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.AnalSexGiving) * sameMult)
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.AnalSexGiving) * sameMult)
 		if(connectedChar.getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{npc.You} {npc.youVerb('orgasm')} hard, {npc.yourHis} {anus} pulsing a lot!"
 			connectedChar.orgasmFrom("pc")
@@ -1230,8 +1230,8 @@ func _react(_action: String, _args):
 		processTime(60*2)
 		getCharacter(portalCharID).gotAnusFuckedBy("pc")
 		getCharacter(portalCharID).cummedInAnusBy("pc")
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1246,8 +1246,8 @@ func _react(_action: String, _args):
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.addLust(10)
 		connectedChar.addArousal(calcArousalBasedOnKink(connectedChar, Fetish.VaginalSexReceiving) * sameMult)
-		GM.pc.addLust(10)
-		GM.pc.addArousal(calcArousalBasedOnKink(GM.pc, Fetish.VaginalSexGiving) * sameMult)
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(calcArousalBasedOnKink(ServiceLocator.safe_get_service(&"Player"), Fetish.VaginalSexGiving) * sameMult)
 		if(connectedChar.getArousal() >= 1.0 && portalCharID != "pc"):
 			extraText = "{npc.You} {npc.youVerb('orgasm')} hard, {npc.yourHis} {pussy} pulsing a lot!"
 			connectedChar.orgasmFrom("pc")
@@ -1257,8 +1257,8 @@ func _react(_action: String, _args):
 		processTime(60*2)
 		getCharacter(portalCharID).gotVaginaFuckedBy("pc")
 		getCharacter(portalCharID).cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom(portalCharID)
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(portalCharID != "pc"):
 			var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 			connectedChar.orgasmFrom("pc")
@@ -1338,16 +1338,16 @@ func _react(_action: String, _args):
 	
 	if(_action == "anus_lick_swallow"):
 		processTime(60*2)
-		#GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
-		#GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
+		#ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
+		#ServiceLocator.safe_get_service(&"Player").cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.orgasmFrom(portalCharID)
 		connectedChar.setArousal(0.0)
 	
 	if(_action == "anus_lick_spit"):
 		processTime(60)
-		extraText = GM.pc.getBodypartContentsStringList(BodypartSlot.Head)
-		var howMuch = GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Head, portalCharID, BodypartSlot.Anus, 0.2, 20.0)
+		extraText = ServiceLocator.safe_get_service(&"Player").getBodypartContentsStringList(BodypartSlot.Head)
+		var howMuch = ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Head, portalCharID, BodypartSlot.Anus, 0.2, 20.0)
 		var newSexEvent:SexEvent = SexEvent.new()
 		newSexEvent.type = SexEvent.HoleSpitted
 		newSexEvent.sourceCharID = "pc"
@@ -1356,7 +1356,7 @@ func _react(_action: String, _args):
 		#newSexEvent.isSexEngine = true
 		#newSexEvent.sexEngine = getSexEngine()
 		
-		GM.pc.sendSexEvent(newSexEvent)
+		ServiceLocator.safe_get_service(&"Player").sendSexEvent(newSexEvent)
 		if(portalCharID != "pc"):
 			getCharacter(portalCharID).sendSexEvent(newSexEvent)
 	
@@ -1375,16 +1375,16 @@ func _react(_action: String, _args):
 	
 	if(_action == "vagina_lick_swallow"):
 		processTime(60*2)
-		GM.pc.cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
-		GM.pc.cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(portalCharID, FluidSource.Vagina, randf_range(0.3,0.5))
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy(portalCharID, FluidSource.Vagina, randf_range(0.1,0.4))
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.orgasmFrom(portalCharID)
 		connectedChar.setArousal(0.0)
 	
 	if(_action == "vagina_lick_spit"):
 		processTime(60)
-		extraText = GM.pc.getBodypartContentsStringList(BodypartSlot.Head)
-		var howMuch = GM.pc.bodypartTransferFluidsToAmount(BodypartSlot.Head, portalCharID, BodypartSlot.Vagina, 0.2, 20.0)
+		extraText = ServiceLocator.safe_get_service(&"Player").getBodypartContentsStringList(BodypartSlot.Head)
+		var howMuch = ServiceLocator.safe_get_service(&"Player").bodypartTransferFluidsToAmount(BodypartSlot.Head, portalCharID, BodypartSlot.Vagina, 0.2, 20.0)
 		var newSexEvent:SexEvent = SexEvent.new()
 		newSexEvent.type = SexEvent.HoleSpitted
 		newSexEvent.sourceCharID = "pc"
@@ -1393,7 +1393,7 @@ func _react(_action: String, _args):
 		#newSexEvent.isSexEngine = true
 		#newSexEvent.sexEngine = getSexEngine()
 		
-		GM.pc.sendSexEvent(newSexEvent)
+		ServiceLocator.safe_get_service(&"Player").sendSexEvent(newSexEvent)
 		if(portalCharID != "pc"):
 			getCharacter(portalCharID).sendSexEvent(newSexEvent)
 	
@@ -1412,8 +1412,8 @@ func _react(_action: String, _args):
 	
 	if(_action == "penis_suck_swallow"):
 		processTime(60*2)
-		GM.pc.gotThroatFuckedBy(portalCharID)
-		GM.pc.cummedInMouthBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy(portalCharID)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(portalCharID)
 		var connectedChar = GlobalRegistry.getCharacter(portalCharID)
 		connectedChar.orgasmFrom(portalCharID)
 		connectedChar.setArousal(0.0)
@@ -1452,7 +1452,7 @@ func _react(_action: String, _args):
 		portalCharID = character.getID()
 		if(!character.isPlayer()):
 			addCharacter(portalCharID)
-			#GM.main.updateCharacterUntilNow(portalCharID)
+			#ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(portalCharID)
 		setState("connected")
 		return
 
@@ -1469,17 +1469,17 @@ func isPCPortal():
 func getNpcsWithPortalPanties():
 	var result = []
 	
-	if(GM.pc.isWearingPortalPanties()):
-		result.append(GM.pc)
+	if(ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
+		result.append(ServiceLocator.safe_get_service(&"Player"))
 	
-	var staticChars = GM.main.getCharacters()
+	var staticChars = ServiceLocator.safe_get_service(&"MainScene").getCharacters()
 	for charID in staticChars:
 		var character:Character = staticChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):
 			character.updateNonBattleEffects()
 			result.append(character)
 	
-	var dynamicChars = GM.main.getDynamicCharacters()
+	var dynamicChars = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacters()
 	for charID in dynamicChars:
 		var character:Character = dynamicChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):

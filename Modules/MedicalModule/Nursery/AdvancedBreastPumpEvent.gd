@@ -10,7 +10,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TakingAShower)
 	
 func react(_triggerID, _args):
-	var currentTime = GM.main.getTimeInGlobalSeconds()
+	var currentTime = ServiceLocator.safe_get_service(&"MainScene").getTimeInGlobalSeconds()
 	var lastTimeMilked = getFlag("MedicalModule.AdvBreastPumpLastMilked", 0)
 	
 	# Means this event runs every 30 minutes basically
@@ -19,7 +19,7 @@ func react(_triggerID, _args):
 	else:
 		return false
 	
-	if(!GM.pc.getInventory().hasItemIDEquipped("BreastPumpAdvanced")):
+	if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped("BreastPumpAdvanced")):
 		return false
 	
 	var maxMilk = 2000.0
@@ -28,33 +28,33 @@ func react(_triggerID, _args):
 	if(_triggerID == Trigger.Waiting && _args.size() > 0):
 		maxMilk = min(2000.0 * _args[0], 6000.0)
 	
-	var lactation = GM.pc.getBodypart(BodypartSlot.Breasts).getFluidProduction()
+	var lactation = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts).getFluidProduction()
 	if(lactation == null):
 		return false
 	
-	if(lactation is Lactation && lactation.getFluidLevelForOptimalSize() < 0.9 && GM.pc.canBeMilked()):
+	if(lactation is Lactation && lactation.getFluidLevelForOptimalSize() < 0.9 && ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 		return false
 	
-	var beganLactating = GM.pc.stimulateLactation()
+	var beganLactating = ServiceLocator.safe_get_service(&"Player").stimulateLactation()
 	
-	if(GM.pc.canBeMilked()):
-		var breastPump = GM.pc.getInventory().getEquippedItemByID("BreastPumpAdvanced")
+	if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
+		var breastPump = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemByID("BreastPumpAdvanced")
 		if(breastPump == null):
 			return false
 		
-		GM.pc.addSkillExperience(Skill.Milking, 10)
-		var howMuchTransferred = GM.pc.getBodypart(BodypartSlot.Breasts).getFluids().transferAmountTo(breastPump, maxMilk)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
+		var howMuchTransferred = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts).getFluids().transferAmountTo(breastPump, maxMilk)
 		if(howMuchTransferred > 0.0):
-			GM.main.addMessage("Your breast pumps engage, milking your breasts for "+str(Util.roundF(howMuchTransferred))+" ml")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your breast pumps engage, milking your breasts for "+str(Util.roundF(howMuchTransferred))+" ml")
 			
 			if(breastPump.getFluids().isFull()):
-				GM.main.addMessage("Your breast pumps are now full!")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Your breast pumps are now full!")
 		
 	else:
 		if(beganLactating):
-			GM.main.addMessage("Your breast pumps engage, stimulating your breasts for a few minutes until you suddenly [b]begin lactating[/b]!")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your breast pumps engage, stimulating your breasts for a few minutes until you suddenly [b]begin lactating[/b]!")
 		else:
-			GM.main.addMessage("Your breast pumps engage, stimulating your breasts for a few minutes but not getting any milk.")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Your breast pumps engage, stimulating your breasts for a few minutes but not getting any milk.")
 		
 	return false
 	

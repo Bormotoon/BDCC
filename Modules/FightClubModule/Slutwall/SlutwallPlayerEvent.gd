@@ -14,5 +14,5 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "slutwall"):
-		GM.main.IS.startInteraction("InSlutwall", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InSlutwall", {inmate="pc"})
 		#runScene("SlutwallPlayerScene")

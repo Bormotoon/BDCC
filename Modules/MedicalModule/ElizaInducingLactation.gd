@@ -34,7 +34,7 @@ func _run():
 		saynn("[say=eliza]Take a seat.[/say]")
 
 		# (if hands or arms blocked)
-		if(GM.pc.hasBlockedHands() || GM.pc.hasBoundArms()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			saynn("She is nice enough to remove your arm restraints for now.")
 
 		saynn("Eliza walks towards one of the lockers and starts preparing. You sit on the cold table and watch the doctor. She grabs clean white latex gloves and a respirator-like mask and puts them on. She catches your concerned gaze.")
@@ -44,7 +44,7 @@ func _run():
 		saynn("It’s not like you were worried but maybe now you should be. Doctor walks up to one of the stations and starts working. She mixes a few unknown chemicals in the beaker, then adds some water and starts heating it up. The fluid inside slowly turns cyan, the lab is filled with a scent of freshness, it’s almost like you can feel the cold breeze wash over your body.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=eliza]Quite strange for a red to be doing this willingly.[/say]")
 
 			saynn("[say=pc]It’s not really your business.[/say]")
@@ -79,15 +79,15 @@ func _run():
 		saynn("[say=pc]Yeah..[/say]")
 
 		# (if has vagina)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your hand moves down to your crotch. Wow, you’re wet. You sneakily tease yourself, your digits rubbing your clit, trying to battle that warm feeling.")
 
 		# (if has cock)
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Wow, you feel your {pc.cock} becoming harder, you sneakily stroke yourself, trying to battle that warm feeling.")
 
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Your free hand jumps onto your chest, you can feel your {pc.breasts} becoming.. heavier.. nipples.. itching.. Eliza watches as you cup your breasts with your palms, perky stiff nips rub against your hands through the clothing, you notice small wet spots appearing on it.")
 
 		# (else)
@@ -105,7 +105,7 @@ func _run():
 		saynn("[say=eliza]Oh yeah? You wanna be milked like a silly cow that you are~? Gonna moo for me~?[/say]")
 
 		# (if clothed)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You blush hard and are unable to hide it. You can feel your full {pc.breasts} leaking through the clothing, a few drops of {pc.milk} slide down the cloth. And that’s without being touched.")
 
 		# (else)
@@ -125,7 +125,7 @@ func _run():
 	if(state == "leave"):
 		playAnimation(StageScene.Solo, "walk")
 		aimCamera("med_nearlab")
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		setLocationName("Med corridor")
 		
 		saynn("Eliza brings you out of the lab and then unleashes you.")
@@ -140,7 +140,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, inmate",
 			"Full breasts will start to itch if you don't milk them, don't forget~",
 			"We have a zero accidents reported policy, you should be fine",
@@ -149,11 +149,11 @@ func _react(_action: String, _args):
 	
 	if(_action == "sure"):
 		processTime(29*60)
-		var breasts:BodypartBreasts = GM.pc.getBodypart(BodypartSlot.Breasts)
+		var breasts:BodypartBreasts = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts)
 		breasts.induceLactation()
 		
-		GM.pc.addIntoxication(0.5)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.5)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 		processTime(60)
 		addMessage("You're lactating! The drug has intoxicated you")
 

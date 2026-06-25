@@ -13,7 +13,7 @@ func run(_triggerID, _args):
 	
 	if(!getFlag("RahiModule.rahi4SceneHappened")):
 		return
-	if(GM.main.getDays() <= getFlag("RahiModule.rahi4DayHappened", 0)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() <= getFlag("RahiModule.rahi4DayHappened", 0)):
 		return
 	
 	addButtonUnlessLate("Rahi", "Talk to the feline", "talk")
@@ -23,7 +23,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "talk"):
-		if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["rahiSlavery"])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["rahiSlavery"])):
 			return
 		
 		if(!getFlag("RahiModule.rahi5SceneHappened")):

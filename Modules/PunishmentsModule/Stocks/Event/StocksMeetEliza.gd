@@ -11,7 +11,7 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.StocksSexOral, "tease", {npc="eliza"})
 		# (if can see)
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("You see a familiar doctor walking past you. She notices you and walks up to you.")
 
 		# (if can’t see)
@@ -27,7 +27,7 @@ func _run():
 		])+"[/say]")
 
 		# (if gagged)
-		if(GM.pc.isGagged()):
+		if(ServiceLocator.safe_get_service(&"Player").isGagged()):
 			saynn("You try to say something but can only make muffled noises with your gag. Eliza chuckles and pets your head before leaving.")
 
 		# (if not gagged)

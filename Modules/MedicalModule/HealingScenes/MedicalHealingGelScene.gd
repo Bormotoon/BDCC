@@ -29,7 +29,7 @@ func _run():
 		saynn("You and the doctor enter the lab, a sterile looking space with no shortage of expensive equipment. Eliza brings you into the middle of the room where some kind of hi-tech table is placed. It has a computer attached to it and a bunch of extra hardware that you don’t even recognize.")
 
 		# (if has clothes)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=eliza]You can give me your clothes. Then lay down on your back and spread your legs.[/say]")
 
 		# (else)
@@ -55,7 +55,7 @@ func _run():
 		# (END FIRST TIME)
 
 		# (if has clothes)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You weigh your options and decide that the machine’s touch is probably better rather than having to suffer with the constant pain. You {pc.undressMessage} before giving all your belongings to Eliza. Then you lie down on the table and spread your legs, exposing your damaged private bits.")
 
 		# (else)
@@ -85,7 +85,7 @@ func _run():
 		addButton("Continue", "See what happens next", "continue")
 
 	if(state == "continue"):
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			playAnimation(StageScene.BDSMMachineFuck, "insidedouble", {cum=true, bodyState={naked=true, hard=true}})
 		else:
 			playAnimation(StageScene.BDSMMachineFuck, "inside", {cum=true, bodyState={naked=true, hard=true}})
@@ -93,7 +93,7 @@ func _run():
 		saynn("You hear hydraulic motors working as the table brings some kind of tool out. You look down and see a sturdy metal arm with.. some kind of phallic object attached to it. Looks like a blue dildo that has a transparent tube running through it. And the tip of that tube is leaking something.. The arm is hovering between your legs.")
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("[say=eliza]Oh, right, I forgot.[/say]")
 
 			saynn("Eliza presses another button a second similar dildo shows up, same size, same blue color.")
@@ -115,7 +115,7 @@ func _run():
 		# (END FIRST TIME)
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Eliza chuckles and starts pressing more buttons. The arms bring the long phallic objects to your holes. When the tips touch your sensitive flesh you can’t help but to flinch away. They’re cold!")
 
 		# (else)
@@ -133,7 +133,7 @@ func _run():
 		# (END FIRST TIME)
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("At this point you’re not sure if this is actually designed to heal your holes or if Eliza just wants to torture you. Blue dildos press against your irritated damaged flesh again and this time they don’t pull away, making you squirm from sudden sensations. But the more they rub against your privates, the less pain you feel, they must be coated with something. But before you get used to them completely, they both suddenly penetrate you and slide inside, making everything numb and cold inside too. You can’t help but to let out a moan and arch your back when that happens.. These damn cuffs seem to be so strong.")
 
 		# (else)
@@ -143,7 +143,7 @@ func _run():
 		saynn("[say=eliza]Apples won’t keep me away~.[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("At least they seem to just rest inside you, slowly numbing more and more of your lower part of the body. Your holes are constantly stretched by these dildo-like tools but you don’t feel any discomfort. Which is a nice change.")
 
 			saynn("[say=eliza]We need to heal you from the inside too.[/say]")
@@ -151,7 +151,7 @@ func _run():
 			saynn("Eliza lets you rest like that for a bit before pressing something else. The bases of the dildos suddenly begin to inflate with something, it’s like they are growing knots. And at the same time the arms start applying more pressure onto your holes, trying to force the fat orbs inside too. They are struggling at first but the machine has no mercy, it whirls louder and louder until finally squeezing both knots inside you!")
 
 			# (if has penis)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.penis} throbs and then shoots out a load, your prostate enjoyed being smashed a little too much. Eliza chuckles.")
 
 			saynn("You arch your back harder, squirming while the dildos begin stuffing your holes with something. Something cold and sticky. One of them is pressed directly against your womb entering, painting the insides. The other one stuffs your guts full of this unknown stuff too. And since the knots prevent any leakage, your belly quickly begins to look somewhat inflated.. Eliza takes note of that.")
@@ -169,7 +169,7 @@ func _run():
 			saynn("Eliza lets you rest like that for a bit before pressing something else. The base of the dildo suddenly begins to inflate with something, it’s like it’s growing a knot. And at the same time the arm starts applying more pressure onto your hole, trying to force the fat orb inside. The arm is struggling at first but the machine has no mercy, it whirls louder and louder until finally squeezing the knot inside you!")
 
 			# (if has penis)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.penis} throbs and then shoots out a load, your prostate enjoyed being smashed a little too much. Eliza chuckles.")
 
 			saynn("You arch your back harder, squirming while the dildo begins stuffing your hole with something. Something cold and sticky. It stuffs your guts full of this stuff. And since the knot prevents any leakage, your belly quickly begins to look somewhat inflated.. Eliza takes note of that.")
@@ -184,7 +184,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="stand"})
 		
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You’re left to rest like that for about ten minutes before Eliza presses the button to deflate the knots and retract the dildos out of your holes. And as they are being pulled out, the last of the healing gel pours onto your pussy and ass, creating a lewd mess.")
 
 		# (else)
@@ -211,11 +211,11 @@ func _react(_action: String, _args):
 		processTime(60*3)
 	
 	if(_action == "continue"):
-		GM.pc.afterHealingGelTreatment()
+		ServiceLocator.safe_get_service(&"Player").afterHealingGelTreatment()
 		processTime(60*20)
 	
 	if(_action == "endthescene"):
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		setFlag("MedicalModule.Medical_FirstTimeHealingGelHappened", true)
 		endScene()
 		return

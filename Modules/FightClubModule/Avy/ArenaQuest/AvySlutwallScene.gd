@@ -509,10 +509,10 @@ func _run():
 		else:
 			saynn("[say=avy]I don't understand how.. but I'm not complaining.. fuck..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked up cock is bobbing up and down ever so slightly while you ride Avy, that cage securing it tightly. But still, the sight of a caged up inmate riding a slutwall whore is probably quite entertaining for the people who stand in line, waiting for their turn.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.penis} is bobbing up and down while you ride Avy, providing entertainment for inmates who stand in line, waiting for their turn.")
 
 		addButton("Faster", "That cock feels so good", "do_ride_vaginal_faster")
@@ -547,10 +547,10 @@ func _run():
 
 		saynn("It seems you two cum at the same time, your bodies are shaking and convulsing together as multiple waves of pure euphoria washes over you. Your inner walls pulse and contract around that knot while Avy's cock twitches and starts shooting hot sticky cum directly into your awaiting womb.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("It quickly gets too much for you, your poor caged up cock is leaking {pc.cum} that flows down your cage and then drips down on Avy's tail, leaving a cute mess.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("It quickly gets too much for you, your own hard dick is wasting its load by shooting {pc.cum} directly forward, leaving quite a mess on the floor.")
 
 		saynn("You're lucky you didn't fall yet, your legs and arms are shaking so much.. but at least you got that extra anchor point.. Loud moans escape from you while the knot continues to provide a constant source of stimulation, prolonging and enhancing your orgasm so much that you suddenly squirt, a fountain of your juices erupts from your slit.")
@@ -574,10 +574,10 @@ func _run():
 		else:
 			saynn("[say=avy]I don't understand how.. but I'm not complaining.. fuck..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You can feel pressure on your prostate, your locked up cock is bobbing up and down ever so slightly while you ride Avy, that cage securing it tightly. But still, the sight of a caged up inmate riding a slutwall whore is probably quite entertaining for the people who stand in line, waiting for their turn.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You can feel pressure on your prostate, your own {pc.penis} is bobbing up and down while you ride Avy, providing entertainment for inmates who stand in line, waiting for their turn.")
 
 		addButton("Faster", "That cock feels so good", "do_ride_anal_faster")
@@ -612,10 +612,10 @@ func _run():
 
 		saynn("It seems you two cum at the same time, your bodies are shaking and convulsing together as multiple waves of pure euphoria washes over you. Your inner walls pulse and contract around that knot while Avy's cock twitches and starts shooting hot sticky cum deep inside you.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Her knot puts so much pressure on your prostate that it quickly gets too much for you, your poor caged up cock is leaking {pc.cum} that flows down your cage and then drips down on Avy's tail, leaving a cute mess.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Her knot puts so much pressure on your prostate that it quickly gets too much for you, your own hard dick is wasting its load by shooting {pc.cum} directly forward, leaving quite a mess on the floor.")
 
 		saynn("You're lucky you didn't fall yet, your legs and arms are shaking so much.. but at least you got that extra anchor point.. Loud moans escape from you while the knot continues to provide a constant source of stimulation, prolonging and enhancing your orgasm, making you feel like you're drugged up.")
@@ -626,7 +626,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "main")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "strapon_anus_with", [strapon])
 
@@ -688,7 +688,7 @@ func _react(_action: String, _args):
 
 	if(_action == "strapon_anus_with"):
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "strapon_anus_start"):
 		processTime(3*60)
@@ -708,7 +708,7 @@ func _react(_action: String, _args):
 		addBodywritingMaybe()
 
 	if(_action == "removestraponandback"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		setState("")
 		return
 
@@ -735,7 +735,7 @@ func _react(_action: String, _args):
 		addBodywritingMaybe()
 
 	if(_action == "finger_condom_cum"):
-		GM.pc.useWorstCondom()
+		ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		processTime(3*60)
 		addBroke(0.03, 0.05)
 		getCharacter("avy").addTallymarkButt()
@@ -753,7 +753,7 @@ func _react(_action: String, _args):
 	if(_action == "do_deepthroat"):
 		processTime(3*60)
 		addBroke(0.03, 0.05)
-		GM.pc.cummedInMouthBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("avy")
 		getCharacter("avy").addTallymarkButt()
 		addBodywritingMaybe()
 
@@ -769,8 +769,8 @@ func _react(_action: String, _args):
 	if(_action == "do_ride_vaginal_knot"):
 		processTime(10*60)
 		addBroke(0.05, 0.1)
-		GM.pc.cummedInVaginaBy("avy")
-		GM.pc.gotVaginaFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("avy")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("avy")
 		getCharacter("avy").addTallymarkButt()
 		addBodywritingMaybe()
 
@@ -780,9 +780,9 @@ func _react(_action: String, _args):
 	if(_action == "do_ride_anal_knot"):
 		processTime(10*60)
 		addBroke(0.05, 0.1)
-		GM.pc.cummedInAnusBy("avy")
-		GM.pc.gotAnusFuckedBy("avy")
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("avy")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 		getCharacter("avy").addTallymarkButt()
 		addBodywritingMaybe()
 

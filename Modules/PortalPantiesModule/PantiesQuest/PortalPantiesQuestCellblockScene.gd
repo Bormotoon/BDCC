@@ -50,7 +50,7 @@ func _run():
 		saynn("Oh no. They are holding your fleshlights, you clearly see your own bits and even notice yourself clenching from fear.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You see him holding your pussy and then forcing in two digits before spreading the folds open, showing off your wet folds to inmates around. That makes you gasp and cover your mouth a second later. Some lilac raises his brow.")
 
 		# (if no pussy)
@@ -60,8 +60,8 @@ func _run():
 		saynn("[sayMale]Oh yeah, look. This slutty hole tries to suck my fingers in.[/say]")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Another inmate is fidgeting with the fleshlight that has your caged up cock on it, she wiggles it in the air and bites her lip seeing how realistic your balls sway.")
 			else:
 				saynn("Another inmate is fidgeting with the fleshlight that has your cock on it, she wiggles it in the air and bites her lip seeing how realistic your balls sway.")
@@ -69,7 +69,7 @@ func _run():
 			saynn("[sayFemale]Can I keep this part~?[/sayFemale]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("More inmates are crowding around your holes and teasing them, both your pussy and the tailhole are being rubbed and prodded! Inmates chuckle and discuss the way your holes twitch after any touch and even begin to look aroused, so realistic. You can’t help but to grab onto your crotch with one hand while still covering your mouth with another.")
 
 		# (if no pussy)
@@ -160,7 +160,7 @@ func _run():
 
 		addButtonWithChecks("Lick pussy", "Lick your own pussy", "lick_pussy", [], [ButtonChecks.HasVagina])
 		addButton("Lick anus", "Rim yourself", "lick_anus")
-		if(!GM.pc.isWearingChastityCage()):
+		if(!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			addButtonWithChecks("Suck dick", "Suck your own dick", "suck_dick", [], [ButtonChecks.HasPenis])
 		else:
 			addDisabledButton("Suck dick", "You can't suck a chastity cage :(")
@@ -195,7 +195,7 @@ func _run():
 		saynn("Their snarky remarks feel humiliating. You continue teasing your own star, dragging the tongue around it with a little circular motions before prodding in the middle. Despite the situation, it feels quite.. arousing.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while other inmates are prodding at your pussy and even stretching it open with their fingers before spitting into it.")
 
 		saynn("You do a few lapping motions with your tongue and coat it generously with your saliva while moaning softly from the sensations, you always know where it feels the best for you.")
@@ -215,7 +215,7 @@ func _run():
 		saynn("Their snarky remarks feel humiliating. You continue teasing your own dick, dragging the tongue over the whole length and then focusing on the head, making little circle motions around the tip. Despite the situation, it feels quite.. arousing. You leak some precum that you quickly catch and swallow.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while other inmates are prodding at your pussy and even stretching it open with their fingers before spitting into it.")
 
 		# (else)
@@ -230,7 +230,7 @@ func _run():
 		playAnimation(StageScene.SexPortal, "fast", {pc="stud", npc="pc", bodyState={exposedCrotch=true, hard=true}})
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("But just before you can make yourself cum, the horsie returns and grabs the fleshlight with your pussy for himself.")
 
 			saynn("[say=stud]You’re not walking away without my foals.[/say]")
@@ -267,7 +267,7 @@ func _run():
 		playAnimation(StageScene.SexPortal, "inside", {pc="stud", npc="pc", bodyState={exposedCrotch=true, hard=true}})
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The stud feels the tightness and only gets eager, he slides your pussy over his cock fast and rough until the peak. He lets out a wild horse noise while his cock starts stuffing your womb full of his virile thick seed. Your belly receives an even bigger bump from such a big load. Your eyes roll up from the immense amount of pleasure.")
 
 			saynn("[say=pc]Fuck..[/say]")
@@ -376,7 +376,7 @@ func _run():
 		saynn("Bright blush shines on your cheeks, you’re not even sure if you should do anything, them playing with your private bits feels kinda nice after all..")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("One of the inmates keeps sliding his digits in and out of your aroused sex while watching you squirm and try to close the legs.")
 
 		# (else)
@@ -384,15 +384,15 @@ func _run():
 			saynn("One of the inmates keeps sliding his digits in and out of your aroused {pc.analStretch} anus while watching you squirm and try to close the legs.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("One of the girls keeps teasing your chastity cage before hugging it between her generous breasts. Too bad you can’t really feel her grinding your cage against her tits..")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("One of the girls keeps stroking your cock before hugging it between her generous breasts and grinding your shaft like that. Feels so fucking good.")
 
 		saynn("[sayMale]You like it, huh?[/sayMale]")
 
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Someone walks up behind you and starts undressing you! He undoes and removes all the clothing, leaving you in nothing but the portal panties. You don’t resist much, all the teasing made you quite horny for more attention and this surely will provide some.")
 
 		saynn("You’re mostly naked. And quite needy too, your own hands slide over your {pc.masc} body, sometimes going over your {pc.breasts} as well. All the while your bits are getting teased and prodded by all the inmates. Some of them began pulling their shorts down, exposing cocks and stroking themselves!")
@@ -405,7 +405,7 @@ func _run():
 
 	if(state == "continue2"):
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The first hard cock pierces your moist pussy folds, making you moan and get down to your knees. The canine shaft stretches you enough and starts sliding in and out at a steady rate, letting you get used to the size and girth.")
 
 			saynn("All the while, someone else’s cock prods at your tailhole a few times before applying substantially more pressure and sinking into the other fleshlights. Fuck, are they really gonna fuck both of your holes at the same time.")
@@ -413,7 +413,7 @@ func _run():
 			saynn("The answer is quite obvious, inmates get a better grasp on the fleshlights and use them for their purpose, pleasuring themselves with your needy fuckholes. And you don’t really mind, you love the experience, more moans escape from you while the cocks pound you from a distance.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis() && !GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("One of the girls seems like she wants to be on a safe side, she puts a condom over your hard shaft before exposing her pussy slit and stuffing it with your length, using your {pc.cock} as a dildo.")
 
 			saynn("Other inmates are awaiting their turn or just stroke themselves while watching you squirming around on the floor, the sight of a moving bump on your belly is quite hot.")
@@ -421,9 +421,9 @@ func _run():
 			saynn("So much onslaught is done to your bits, your first climax overwhelms you very soon, causing you to arch your back and throw your head back, moaning into the air while the inmates around begin firing the loads, covering you with their seed.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your cock shoots out a weak load through the chastity cage! Your {pc.cum} lands on the breasts of the curious girl.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your cock stuffs the condom inside the girl full of your {pc.cum}. She takes it out and quickly ties it up so nothing leaks out.")
 
 			saynn("Your holes get tight around the intruding cocks, a few moments later you hear some manly grunts and then feel your womb and butt getting stuffed with virile seed!")
@@ -439,7 +439,7 @@ func _run():
 			saynn("The inmate gets a better grasp on the fleshlights and uses it for its purpose, pleasuring himself with your needy fuckhole. And you don’t really mind, you love the experience, more moans escape from you while the cock pounds you from a distance.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis() && !GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("One of the girls seems like she wants to be on a safe side, she puts a condom over your hard shaft before exposing her pussy slit and stuffing it with your length, using your {pc.cock} as a dildo.")
 
 			saynn("Other inmates are awaiting their turn or just stroke themselves while watching you squirming around on the floor, the sight of a moving bump on your belly is quite hot.")
@@ -447,9 +447,9 @@ func _run():
 			saynn("So much onslaught is done to your bits, your first climax overwhelms you very soon, causing you to arch your back and throw your head back, moaning into the air while the inmates around begin firing the loads, covering you with their seed.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your cock shoots out a weak load through the chastity cage! Your {pc.cum} lands on the breasts of the curious girl.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your cock stuffs the condom inside the girl full of your {pc.cum}. She takes it out and quickly ties it up so nothing leaks out.")
 
 			saynn("Your fuckhole gets tight around the intruding cock, a few moments later you hear some manly grunts and then feel your butt getting stuffed with virile seed!")
@@ -460,15 +460,15 @@ func _run():
 
 	if(state == "continue3"):
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("After the inmates are done using your fleshlights, another two take their place, already exposing their hard cocks and thrusting inside your used fuckholes, not even letting them leak the excess cum out first.")
 
 			saynn("So much pleasure, your eyes start to roll up slightly after each thrust, tongue rolls out the mouth and drools a bit, your hands keep rubbing your body.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Another, much more brave girl, grabs the fleshlight with your locked cock and cleans it with her tongue before trapping the device between her legs. She then starts lowering herself onto it, the tip of your chastity cage gently kisses her pussy lips before she proceeds to grind you, the only thing she can do with that cage on you. But she seems to be enjoying herself nonetheless.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Another, much more brave girl, grabs the fleshlight with your cock and cleans it with her tongue before trapping the device between her legs. She then starts lowering herself onto it, the tip of your shaft gently kisses her pussy lips before spreading them open and sliding inside. After she gets used to your size, she starts riding the toy, using your dick for her pleasure.")
 
 			saynn("More inmates force themselves over the edge, covering you with extra semen and making you look so messy. More passionate love noises escape from you while you watch your holes getting fucked so effortlessly.")
@@ -476,15 +476,15 @@ func _run():
 			saynn("The guys quickly pick up the pace and efficiently fuck you, never leaving at least one hole without a dick. Soon they also reach their peaks, grunting as their cocks start snowballing your holes, stuffing them with more cum while the old one is still there. Your womb is full to the brim already. And soon, another climax overwhelms you as well, making your body shiver and your legs shake from involuntary muscle contractions.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The girl grinding your chastity cage moans and has her share of the pie as well, your member starts shooting weak spurts of {pc.cum} that land on her pussy.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("The girl riding your cock moans and has her share of the pie as well, your {pc.cock} starts shooting {pc.cum} directly into her womb, stuffing her full.")
 
 			saynn("The guys then pull out, leaving your holes to gape and leak for a bit.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis() && !GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Another female inmate then steals two of the fleshlights, one with your cock and one with your pussy. She starts rubbing your cock against your own slit, sending shivers down your spine.")
 
 				saynn("[sayFemale]I wonder, can we make that slut fuck {pc.himself}? Beg for it~[/sayFemale]")
@@ -496,9 +496,9 @@ func _run():
 			saynn("So much pleasure, your eyes start to roll up slightly after each thrust, tongue rolls out the mouth and drools a bit, your hands keep rubbing your body.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Another, much more brave girl, grabs the fleshlight with your locked cock and cleans it with her tongue before trapping the device between her legs. She then starts lowering herself onto it, the tip of your chastity cage gently kisses her pussy lips before she proceeds to grind you, the only thing she can do with that cage on you. But she seems to be enjoying herself nonetheless.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Another, much more brave girl, grabs the fleshlight with your cock and cleans it with her tongue before trapping the device between her legs. She then starts lowering herself onto it, the tip of your shaft gently kisses her pussy lips before spreading them open and sliding inside. After she gets used to your size, she starts riding the toy, using your dick for her pleasure.")
 
 			saynn("More inmates force themselves over the edge, covering you with extra semen and making you look so messy. More passionate love noises escape from you while you watch your hole getting fucked so effortlessly.")
@@ -506,21 +506,21 @@ func _run():
 			saynn("The guys quickly pick up the pace and efficiently fuck you, never leaving your fuckhole without a dick. Soon they also reach their peaks, grunting as their cocks start snowballing you, stuffing your butt with more cum while the old one is still there. And soon, another climax overwhelms you as well, making your body shiver and your legs shake from involuntary muscle contractions.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The girl grinding your chastity cage moans and has her share of the pie as well, your member starts shooting weak spurts of {pc.cum} that land on her pussy.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("The girl riding your cock moans and has her share of the pie as well, your {pc.cock} starts shooting {pc.cum} directly into her womb, stuffing her full.")
 
 			saynn("The guys then pull out, leaving your hole to gape and leak for a bit.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis() && !GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Another female inmate then steals both fleshlights, one with your cock and one with your anus. She starts rubbing your cock against your own ring, sending shivers down your spine.")
 
 				saynn("[sayFemale]I wonder, can we make that slut fuck {pc.himself}? Beg for it~[/sayFemale]")
 
 		addButton("More", "You just want more", "more")
-		if(!GM.pc.isWearingChastityCage()):
+		if(!ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			addButtonWithChecks("Self-fuck", "That sounds too hot to pass up", "self-fuck", [], [ButtonChecks.HasPenis])
 		else:
 			addButton("Self-fuck", "You can't do that with chastity on :(")
@@ -531,7 +531,7 @@ func _run():
 		playAnimation(StageScene.SexPortalProxy, "fast", {pc=femaleNpcID, npc="pc", npcBodyState={hard=true, naked=true}})
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your eyes glow from lust while watching your own cock twitching and dripping over your own slit.")
 
 			saynn("[say=pc]Please..[/say]")
@@ -581,7 +581,7 @@ func _run():
 
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The girl starts sliding the pussy fleshlight faster, causing it to make wet noises as your {pc.cock} is hammering at your pleasure point while keeping the folds stretched open.")
 
 			saynn("More passionate moans can be heard from you as the climax waves make you quiver and shake. Your cock starts throbbing and pulsating before shooting sticky hot {pc.cum} inside your own pussy, adding to what is currently in your womb already. It feels so good, your own pussy is milking your balls dry.")
@@ -652,14 +652,14 @@ func getSomeoneWithDick():
 	var thenpc = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.HasPenis], [NpcCon.NoChastity]], InmateGenerator.new(), {NpcGen.HasPenis: true, NpcGen.NoChastity: true})
 	if(thenpc == null || thenpc == ""):
 		return "inmateMaleCanine"
-	GM.main.updateCharacterUntilNow(thenpc)
+	ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(thenpc)
 	return thenpc
 
 func getAFemale():
 	var thenpc = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.Gender, Gender.Female], [NpcCon.HasReachableVagina]], InmateGenerator.new(), {NpcGen.HasVagina: true})
 	if(thenpc == null || thenpc == ""):
 		return "inmateMaleCanine"
-	GM.main.updateCharacterUntilNow(thenpc)
+	ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(thenpc)
 	return thenpc
 
 func _react(_action: String, _args):
@@ -667,15 +667,15 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["stud"], "studfight")
 	
 	if(_action == "creampie!"):
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("stud")
-			GM.pc.cummedInVaginaBy("stud")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("stud")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("stud")
 		else:
-			GM.pc.gotAnusFuckedBy("stud")
-			GM.pc.cummedInAnusBy("stud")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("stud")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("stud")
 		
-		GM.pc.orgasmFrom("stud")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "portalpanties_studfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("stud")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "portalpanties_studfuck")
 		
 	if(_action == "continue2"):
 		var pickedInmate = getSomeoneWithDick()
@@ -683,28 +683,28 @@ func _react(_action: String, _args):
 		npcsToUse = [pickedInmate, pickedInmate2]
 		playRandomSexAnim()
 		
-		GM.pc.cummedOnBy(RNG.pick(npcsToUse))
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy(pickedInmate)
-			GM.pc.cummedInVaginaBy(pickedInmate)
-			GM.pc.gotAnusFuckedBy(pickedInmate2)
-			GM.pc.cummedInAnusBy(pickedInmate2)
-			GM.pc.orgasmFrom(pickedInmate)
-			GM.pc.addTallymarkCrotch()
-			GM.pc.addTallymarkButt()
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy(RNG.pick(npcsToUse))
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 		else:
-			GM.pc.gotAnusFuckedBy(pickedInmate)
-			GM.pc.cummedInAnusBy(pickedInmate)
-			GM.pc.gotAnusFuckedBy(pickedInmate2)
-			GM.pc.cummedInAnusBy(pickedInmate2)
-			GM.pc.orgasmFrom(pickedInmate)
-			GM.pc.addTallymarkButt()
-			GM.pc.addTallymarkButt()
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 			
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "portalpanties_gangfuck")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "portalpanties_gangfuck")
 		addMessage("Someone keeps track of the amount of times you were fucked")
 		var zone = BodyWritingsZone.getRandomZone()
-		GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+		ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 		addMessage("Someone also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 	
 	if(_action == "continue3"):
@@ -713,64 +713,64 @@ func _react(_action: String, _args):
 		npcsToUse.append_array([pickedInmate, pickedInmate2])
 		playRandomSexAnim()
 		
-		GM.pc.cummedOnBy(RNG.pick(npcsToUse))
-		GM.pc.cummedOnBy(RNG.pick(npcsToUse))
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy(pickedInmate)
-			GM.pc.cummedInVaginaBy(pickedInmate)
-			GM.pc.gotAnusFuckedBy(pickedInmate2)
-			GM.pc.cummedInAnusBy(pickedInmate2)
-			GM.pc.orgasmFrom(pickedInmate)
-			GM.pc.addTallymarkCrotch()
-			GM.pc.addTallymarkButt()
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy(RNG.pick(npcsToUse))
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy(RNG.pick(npcsToUse))
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 		else:
-			GM.pc.gotAnusFuckedBy(pickedInmate)
-			GM.pc.cummedInAnusBy(pickedInmate)
-			GM.pc.gotAnusFuckedBy(pickedInmate2)
-			GM.pc.cummedInAnusBy(pickedInmate2)
-			GM.pc.orgasmFrom(pickedInmate)
-			GM.pc.addTallymarkButt()
-			GM.pc.addTallymarkButt()
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate2)
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 			
 		var zone = BodyWritingsZone.getRandomZone()
-		GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+		ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 		addMessage("Someone also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 	
 	if(_action == "more"):
 		for _i in range(randi_range(3,5)):
 			var randValue = randi_range(0, 100)
-			if(randValue < 40 && GM.pc.hasVagina()):
+			if(randValue < 40 && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				var pickedInmate = getSomeoneWithDick()
 				npcsToUse.append(pickedInmate)
 				
-				GM.pc.gotVaginaFuckedBy(pickedInmate)
-				GM.pc.cummedInVaginaBy(pickedInmate)
-				GM.pc.addTallymarkCrotch()
+				ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(pickedInmate)
+				ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(pickedInmate)
+				ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
 			elif(randValue < 80):
 				var pickedInmate = getSomeoneWithDick()
 				npcsToUse.append(pickedInmate)
 				
-				GM.pc.gotAnusFuckedBy(pickedInmate)
-				GM.pc.cummedInAnusBy(pickedInmate)
-				GM.pc.addTallymarkButt()
+				ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate)
+				ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate)
+				ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
 			else:
-				GM.pc.cummedOnBy(RNG.pick(npcsToUse))
+				ServiceLocator.safe_get_service(&"Player").cummedOnBy(RNG.pick(npcsToUse))
 				
 				var zone = BodyWritingsZone.getRandomZone()
-				GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+				ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 				addMessage("Someone left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 	
 	if(_action == "cum_inside_self"):
 		randomSexShouldStop = true
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("pc")
-			GM.pc.cummedInVaginaBy("pc")
-			GM.pc.addTallymarkCrotch()
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("pc")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("pc")
+			ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
 		else:
-			GM.pc.gotAnusFuckedBy("pc")
-			GM.pc.cummedInAnusBy("pc")
-			GM.pc.addTallymarkButt()
-		GM.pc.orgasmFrom("pc")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("pc")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("pc")
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 	
 	if(_action == "self-fuck"):
 		femaleNpcID = getAFemale()
@@ -780,7 +780,7 @@ func _react(_action: String, _args):
 		addExperienceToPlayer(50)
 		
 	if(_action == "offer_20_creds"):
-		GM.pc.addCredits(-20)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-20)
 	
 	if(_action == "endthescene"):
 		endScene()

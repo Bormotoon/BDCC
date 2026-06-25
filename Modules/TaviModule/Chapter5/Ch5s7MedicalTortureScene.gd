@@ -6,7 +6,7 @@ func _init():
 func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
-		saynn("Darkness.. All you see is yourself. "+str("Still wearing your uniform.. " if !GM.pc.isFullyNaked() else "")+"Still wearing that firm collar around your neck.")
+		saynn("Darkness.. All you see is yourself. "+str("Still wearing your uniform.. " if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else "")+"Still wearing that firm collar around your neck.")
 
 		saynn("You look down at your hands and see them covered in bruises, little cuts, wounds..")
 
@@ -53,7 +53,7 @@ func _run():
 
 		saynn("Things are happening very fast.. You hear some kind of machine turning on behind you..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Continue", "See what happens next", "pc_punishment_vag")
 		else:
 			addButton("Continue", "See what happens next", "pc_punishment_anal")
@@ -75,22 +75,22 @@ func _run():
 
 		saynn("[say=eliza]A small constant amount of it makes us get used to it. We get numb if you will.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though you have no say in any of this.. you can't deny that it feels too good.. So good that your caged up cock is leaking precum. Eliza catches some of it onto her paw and does something to it.")
 
 			saynn("[say=eliza]Tasty~. I love leaky patients. Caged-up ones especially~.[/say]")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even though you have no say in any of this.. you can't deny that it feels too good.. So good that your {pc.penis} is leaking precum. Eliza catches some of it onto her paw and does something to it.")
 
 			saynn("[say=eliza]Tasty~. I love leaky patients.[/say]")
 
 		saynn("Your body is quickly pushed to the brink of ecstasy. Your muscles clenching tightly around the invading object.. as an explosive release rocks through you, causing a muffled loud scream of pleasure to escape your gagged mouth.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weak strings of {pc.cum} leak out of your locked up dick as it twitches and throbs behind the cage, struggling to get hard.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Strong strings of {pc.cum} fly from the tip of your cock as it twitches and throbs, leaving quite a mess. Probably..")
 
 		saynn("[say=eliza]A spike of sensations at the right time can cause.. a change~. Ohh~. Already.[/say]")
@@ -158,22 +158,22 @@ func _run():
 
 		saynn("[say=eliza]A small constant amount of it makes us get used to it. We get numb if you will.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though you have no say in any of this.. you can't deny that it feels too good.. So good that your caged up cock is leaking precum. Eliza catches some of it onto her paw and does something to it.")
 
 			saynn("[say=eliza]Tasty~. I love leaky patients. Caged-up ones especially~.[/say]")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even though you have no say in any of this.. you can't deny that it feels too good.. So good that your {pc.penis} is leaking precum. Eliza catches some of it onto her paw and does something to it.")
 
 			saynn("[say=eliza]Tasty~. I love leaky patients.[/say]")
 
 		saynn("Your body is quickly pushed to the brink of ecstasy. Your muscles clenching tightly around the invading object.. as an explosive release rocks through you, causing a muffled loud scream of pleasure to escape your gagged mouth.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weak strings of {pc.cum} leak out of your locked up dick as it twitches and throbs behind the cage, struggling to get hard.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Strong strings of {pc.cum} fly from the tip of your cock as it twitches and throbs, leaving quite a mess. Probably..")
 
 		saynn("[say=eliza]A spike of sensations at the right time can cause.. a change~. Ohh~. Already.[/say]")
@@ -227,11 +227,11 @@ func _run():
 		playAnimation(StageScene.Sleeping, "idle", {bodyState={naked=true}})
 		removeCharacter("eliza")
 		removeCharacter("tavi")
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("You open your eyes.. And actually see something this time. It's your cell.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence!")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence!")
 
 		saynn("They probably didn't let Tavi go. Whatever they were testing on her, it was working.")
 
@@ -243,55 +243,55 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_wakeup"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		processTime(60*83)
-		GM.pc.removeAllRestraints()
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("blindfold"))
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("inmateanklecuffs"))
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("inmateanklecuffs"))
 
 	if(_action == "pc_punishment_vag"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("ballgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("ballgag"))
 		processTime(2*60)
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "pc_punishment_anal"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("ballgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("ballgag"))
 		processTime(2*60)
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "pc_punishment_vag_more"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
 
 	if(_action == "pc_punishment_vag_blur"):
 		processTime(30*60)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
 
 	if(_action == "pc_punishment_vag_sybian"):
 		processTime(30*60)
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "skip_to_next_day"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 	if(_action == "pc_punishment_anal_more"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 30)
 
 	if(_action == "pc_punishment_anal_blur"):
 		processTime(30*60)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 30)
 
 	if(_action == "pc_punishment_anal_sybian"):
 		processTime(30*60)
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	setState(_action)

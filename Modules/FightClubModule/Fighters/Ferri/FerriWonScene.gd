@@ -23,7 +23,7 @@ func _run():
 
 		addButton("Let her go", "You feel merciful", "let_her_go")
 		addButton("Petplay", "Make that dracat act like a puppy", "petplay")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["ferri"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["ferri"])
 
 	if(state == "let_her_go"):
 		saynn("[say=pc]Fine, then I won’t do anything to you.[/say]")

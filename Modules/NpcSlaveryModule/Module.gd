@@ -55,7 +55,7 @@ func canEnslave():
 	return getSlavesSpace()
 
 func canKidnapCharacterReason(character) -> Array:
-	var theSpecialRelationship:SpecialRelationshipBase = GM.main.RS.getSpecialRelationship(character.getID())
+	var theSpecialRelationship:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(character.getID())
 	if(theSpecialRelationship):
 		var theSpecialCanInfo:Array = theSpecialRelationship.canEnslaveReason(true)
 		if(!theSpecialCanInfo[0]):
@@ -70,13 +70,13 @@ func canKidnapCharacterReason(character) -> Array:
 	return [true]
 
 func canStartEnslavingCharacterReason(character) -> Array:
-	var theSpecialRelationship:SpecialRelationshipBase = GM.main.RS.getSpecialRelationship(character.getID())
+	var theSpecialRelationship:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(character.getID())
 	if(theSpecialRelationship):
 		var theSpecialCanInfo:Array = theSpecialRelationship.canEnslaveReason(false)
 		if(!theSpecialCanInfo[0]):
 			return [theSpecialCanInfo[0], theSpecialCanInfo[1]]
 	
-	var pcRestraintsPreventChoking:bool = GM.pc.hasBlockedHands() || GM.pc.hasBoundArms()
+	var pcRestraintsPreventChoking:bool = ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()
 	if(pcRestraintsPreventChoking):
 		return [false, "You can't do that with restraints on your arms.."]
 	if(!character.getInventory().hasEquippedItemWithTag(ItemTag.AllowsEnslaving)):
@@ -85,26 +85,26 @@ func canStartEnslavingCharacterReason(character) -> Array:
 	return [true]
 
 func getSlaves():
-	return GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	return ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 
 func hasSlaves():
-	return int(GM.main.getDynamicCharactersPoolSize(CharacterPool.Slaves)) > 0
+	return int(ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPoolSize(CharacterPool.Slaves)) > 0
 
 func hasFreeSpaceToEnslave():
-	var currentSlaveAmount = int(GM.main.getDynamicCharactersPoolSize(CharacterPool.Slaves))
+	var currentSlaveAmount = int(ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPoolSize(CharacterPool.Slaves))
 
 	var freeSpace = getSlavesSpace() - currentSlaveAmount
 	return freeSpace > 0
 
 func makeSurePCHasSlaveSpace():
-	var currentSlaveAmount = int(GM.main.getDynamicCharactersPoolSize(CharacterPool.Slaves))
+	var currentSlaveAmount = int(ServiceLocator.safe_get_service(&"MainScene").getDynamicCharactersPoolSize(CharacterPool.Slaves))
 
 	var freeSpace = getSlavesSpace() - currentSlaveAmount
 	if(freeSpace <= 0):
 		setFlag("NpcSlaveryModule.slavesSpace", currentSlaveAmount + 1)
 
 func slavesHaveAnyEvents():
-	var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 	
 	for charID in slaves:
 		var character:DynamicCharacter = GlobalRegistry.getCharacter(charID)
@@ -147,11 +147,11 @@ func doEnslaveCharacter(npcID, defaultSlaveType = SlaveType.Slut):
 	theChar.setNpcSlavery(newNpcSlavery)
 	newNpcSlavery.onEnslave()
 	
-	GM.main.IS.deletePawn(npcID)
-	GM.main.removeDynamicCharacterFromAllPools(npcID)
-	GM.main.addDynamicCharacterToPool(npcID, CharacterPool.Slaves)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacterFromAllPools(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").addDynamicCharacterToPool(npcID, CharacterPool.Slaves)
 	
-	GM.main.RS.onGettingEnslavedByPlayer(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").RS.onGettingEnslavedByPlayer(npcID)
 	
 	return true
 
@@ -167,8 +167,8 @@ func doFreeEnslavedCharacter(npcID):
 	theChar.setEnslaveQuest(null)
 	theChar.setNpcSlavery(null)
 	
-	GM.main.removeDynamicCharacterFromAllPools(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").removeDynamicCharacterFromAllPools(npcID)
 	var newPool = theChar.getCharacterPool()
 	if(newPool != null):
-		GM.main.addDynamicCharacterToPool(npcID, newPool)
+		ServiceLocator.safe_get_service(&"MainScene").addDynamicCharacterToPool(npcID, newPool)
 	

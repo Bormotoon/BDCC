@@ -6,7 +6,7 @@ var currentActionType = AuctionActionType.NoType
 var savedAuctionArgs:Dictionary = {}
 
 func _initScene(_args = []):
-	charID = _args[0] if _args.size() > 0 else RNG.pick(GM.main.dynamicCharacters)
+	charID = _args[0] if _args.size() > 0 else RNG.pick(ServiceLocator.safe_get_service(&"MainScene").dynamicCharacters)
 	slaveAuction.setCharID(charID)
 	addCharacter(charID)
 	

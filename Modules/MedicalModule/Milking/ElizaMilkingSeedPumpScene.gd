@@ -77,7 +77,7 @@ func _run():
 		addButton("Continue", "See what happens next", "undo_restraints")
 	if(state == "undo_restraints"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("She helps you to get up, unclipping the leash, unlocking the cuffs and taking off the penis pump. Feels weird to be standing straight again.. but your cock not being stroked constantly feels even weirder..")
 
 		saynn("[say=eliza]Thank you for being such an eager contributor~.[/say]")
@@ -98,7 +98,7 @@ func _react(_action: String, _args):
 	if(_action == "get_locked"):
 		processTime(5*60)
 		var thePump = GlobalRegistry.createItem("PenisPump")
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
 
 	if(_action == "do_milk_start"):
 		processTime(5*60)
@@ -107,12 +107,12 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "process_cum"):
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("pc")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "undo_restraints"):
 		processTime(3*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.Penis)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Penis)
 
 	setState(_action)
 

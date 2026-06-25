@@ -16,7 +16,7 @@ func _run():
 		addCharacter("risha")
 		playAnimation(StageScene.StocksSexOral, "tease", {npc="risha"})
 		# (if can see)
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("A guard walks up to you, a familiar one. It’s the lynx that helped to process you here.")
 
 		# (if can’t see)
@@ -37,7 +37,7 @@ func _run():
 			saynn("[say=risha]Here is the deal. I’m so fucking horny. You suck me off right here and now and I will even reward you.[/say]")
 
 		# (if can’t oral)
-		if(GM.pc.isOralBlocked()):
+		if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 			saynn("[say=risha]I will even remove your gag free of charge.[/say]")
 
 		addButton("Shake head", "You don’t wanna be paid for sex", "shake_head")
@@ -112,27 +112,27 @@ func _react(_action: String, _args):
 		processTime(randi_range(30, 60)*60)
 
 	if(_action == "nod"):
-		if(GM.pc.hasTallymarks()):
+		if(ServiceLocator.safe_get_service(&"Player").hasTallymarks()):
 			hadTallymarks = true
 		
 		if(rishaPayed):
-			GM.pc.addCredits(1)
+			ServiceLocator.safe_get_service(&"Player").addCredits(1)
 			addMessage("You received 1 credit")
 		
-		if(GM.pc.isOralBlocked()):
+		if(ServiceLocator.safe_get_service(&"Player").isOralBlocked()):
 			rishaRemovedGag = true
-			GM.pc.freeMouthDeleteAll()
+			ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()
 			
 		if(RNG.chance(40)):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 			addMessage("Risha also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 			
-		GM.pc.addTallymarkFace()
-		GM.pc.cummedInMouthBy("risha")
-		GM.pc.cummedOnBy("risha")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "risha_stocksblow")
-		GM.pc.gotThroatFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").addTallymarkFace()
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("risha")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "risha_stocksblow")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("risha")
 
 	if(_action == "endthescene"):
 		endScene()

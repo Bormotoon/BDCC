@@ -44,10 +44,10 @@ func _run():
 
 		saynn("Without explaining anything, you put cuffs on Rahi's paws and ankles. Then you bring her to one of the urinals and start chaining her to it. Kitty looks at you with pleading eyes, the ring gag forces her mouth to be wide opened and also makes her drool.")
 
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You expose your {pc.penis} and press it against Rahi's lips. Then you wait for the urge to happen..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You expose your {pc.pussyStretch} pussy and press it against Rahi's lips. Then you wait for the urge to happen..")
 
 		else:

@@ -4,21 +4,21 @@ func _init():
 	sceneID = "PSTentaclesWindowAlone"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	processTime(60*10)
-	GM.pc.addLust(-20)
+	ServiceLocator.safe_get_service(&"Player").addLust(-20)
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
@@ -47,7 +47,7 @@ func _run():
 				addDisabledButton("Someone", "You don't have anyone to share this view with..")
 	if(state == "get_attention"):
 		_tentacles.doAnim("idle")
-		addCharacter(GM.main.PS.getTentaclesCharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 		saynn("You get the attention of the tentacles and invite them to look at the view.")
 
 		saynn("[say=pc]The world is bigger than you think.[/say]")
@@ -61,7 +61,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

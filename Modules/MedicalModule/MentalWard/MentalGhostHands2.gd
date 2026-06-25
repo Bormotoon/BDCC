@@ -166,12 +166,12 @@ func _run():
 
 		saynn("[say=eliza]Oh yeah? You wanna be fucked by a ghost so much~?[/say]")
 
-		if(GM.pc.isHeavilyPregnant()):
+		if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("You look down only to be greeted with the top of your own gravid midsection, the knot of a transparent canine cock felt between your thighs right against your vagina. You see one of the ghost paws pat the side of your strained tummy rubbing it's way across and around it and getting a grip to push you back onto the tip of the canine cock while the other goes for your hair.") 
 			
 			saynn("Your {pc.pussyStretch} petals gets penetrated by a sudden thrust as you let out a loud moan and spread your legs more for that cock instinctively.")
 
-		elif(GM.pc.isVisiblyPregnant()):
+		elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("You look down between your legs and see the tip of the transparent canine cock stick out from just above the round curve of your belly as it presses.")
 			saynn("But you don’t get to do that for very long, a ghost paw grabs your hair and pulls back on it while the second one directs the cock directly towards your {pc.pussyStretch} pussy hole followed by a sudden thrust. Your petals get forced spread, your pussy gets penetrated by the cock as you let out a loud moan and spread your legs more for that cock instinctively.")
 
@@ -180,7 +180,7 @@ func _run():
 
 		saynn("[say=eliza]Yeah, your body tells me everything~[/say]")
 
-		saynn("The paws let go of the hair and instead land on your {pc.breasts}, giving them a slight massage "+str("giving little streams of milk from your nipples" if GM.pc.canBeMilked() else "")+" while the cock starts exploring and stretching your insides. You rest your face against the cold wall while the cock hammers at your pleasure point and tries to break into the womb. Your slit leaks juices all over it, coating the shaft like lube. But very quickly, your inner walls begin to clench around it, showing that you are close and also making Eliza moan from pleasure too as the other end of her strapon shifts inside her.")
+		saynn("The paws let go of the hair and instead land on your {pc.breasts}, giving them a slight massage "+str("giving little streams of milk from your nipples" if ServiceLocator.safe_get_service(&"Player").canBeMilked() else "")+" while the cock starts exploring and stretching your insides. You rest your face against the cold wall while the cock hammers at your pleasure point and tries to break into the womb. Your slit leaks juices all over it, coating the shaft like lube. But very quickly, your inner walls begin to clench around it, showing that you are close and also making Eliza moan from pleasure too as the other end of her strapon shifts inside her.")
 
 		addButton("Cum!", "You're gonna cum", "cum!")
 
@@ -188,9 +188,9 @@ func _run():
 		saynn("The last thrusts get very close, you let your tongue out and drool while the disembodied dick fucks you rough. Its knot starts to slip past your folds, stretching them very wide in the process. And sure enough, one last thrust was enough for the whole cock to slip inside and break into your babymaker. You hear the doctor’s moans and a second later you cum too, your body starts shaking and shivering while squirting all over the floor. All the while the strapon stuffs your womb with a huge load of warm cum lube, making you feel full without the danger of getting pregnant, hopefully.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("It was too much pleasure, your {pc.cock} puts a lot of pressure on it’s cage and then wastes its load on the wall in front of you.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("It was too much pleasure, your {pc.cock} wastes its load on the wall in front of you.")
 
 		saynn("[say=eliza]Ah~.. Yeah, I should use this toy more often~[/say]")
@@ -213,12 +213,12 @@ func _run():
 
 		saynn("[say=eliza]Oh yeah? You wanna be fucked by a ghost so much~?[/say]")
 
-		if(GM.pc.isHeavilyPregnant()):
+		if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("You look down only to be greeted with the top of your own gravid midsection, the knot of a transparent canine cock felt between your thighs.")
 			saynn("You see one of the ghost paws pat the side of your strained tummy, rubbing it's way across and around it and getting a grip to push you back onto the canine cock, while the other goes for your hair.")
 			saynn("Your {pc.analStretch} anus gets penetrated by a sudden thrust as you let out a loud moan and spread your legs more for that cock instinctively.")
 
-		elif(GM.pc.isVisiblyPregnant()):
+		elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("You look down between your legs and see the tip of the transparent canine cock stick out from just above the round curve of your belly as it slides between your thighs.")
 			saynn("But you don’t get to do that for very long, a ghost paw grabs your hair and pulls back on it while the second one directs the cock directly towards your tailhole followed by a sudden thrust. Your {pc.analStretch} anus gets penetrated by the cock as you let out a loud moan and spread your legs more for that cock instinctively.")
 
@@ -227,7 +227,7 @@ func _run():
 
 		saynn("[say=eliza]Yeah, your body tells me everything~[/say]")
 
-		saynn("The paws let go of the hair and instead land on your {pc.breasts}, giving them a slight massage "+str("giving little streams of milk from your nipples" if GM.pc.canBeMilked() else "")+"while the cock starts exploring and stretching your insides. You rest your face against the cold wall while the cock hammers at your pleasure point and tries to slide deeper each time. The shaft is prelubed which allows it to fuck you nice and fast. But very quickly, your inner walls begin to clench around it, showing that you are close and also making Eliza moan from pleasure too as the other end of her strapon shifts inside her.")
+		saynn("The paws let go of the hair and instead land on your {pc.breasts}, giving them a slight massage "+str("giving little streams of milk from your nipples" if ServiceLocator.safe_get_service(&"Player").canBeMilked() else "")+"while the cock starts exploring and stretching your insides. You rest your face against the cold wall while the cock hammers at your pleasure point and tries to slide deeper each time. The shaft is prelubed which allows it to fuck you nice and fast. But very quickly, your inner walls begin to clench around it, showing that you are close and also making Eliza moan from pleasure too as the other end of her strapon shifts inside her.")
 
 		addButton("Cum!", "You're gonna cum", "cum!1")
 
@@ -235,9 +235,9 @@ func _run():
 		saynn("The last thrusts get very close, you let your tongue out and drool while the disembodied dick fucks you rough. Its knot starts to slip past your star, stretching it very wide in the process. And sure enough, one last thrust was enough for the whole cock to slip inside your butt. You hear the doctor’s moans and a second later you cum too, your body starts shaking and shivering, legs barely support you. All the while the strapon stuffs your fuckhole with a huge load of warm cum lube, making you feel full.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("It was too much pleasure, your {pc.cock} puts a lot of pressure on it’s cage and then wastes its load on the wall in front of you.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("It was too much pleasure, your {pc.cock} wastes its load on the wall in front of you.")
 
 		saynn("[say=eliza]Ah~.. Yeah, I should use this toy more often~[/say]")
@@ -268,38 +268,38 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, patient",
 			"Today's experiment should be interesting",
 			"Smile to the nurses",
 		]])
 	
 	if(_action == "get_drugged"):
-		GM.pc.addIntoxication(0.8)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.8)
 
 	if(_action == "mouth"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Head, 30)
-		GM.pc.cummedInMouthBy("eliza", FluidSource.Strapon)
-		GM.pc.cummedOnBy("eliza", FluidSource.Strapon)
-		#GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 25)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Head, 30)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("eliza", FluidSource.Strapon)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Strapon)
+		#ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 25)
 
 	if(_action == "cum!"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
-		GM.pc.cummedInVaginaBy("eliza", FluidSource.Strapon)
-		GM.pc.cummedOnBy("eliza", FluidSource.Strapon)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Vagina, 30)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("eliza", FluidSource.Strapon)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Strapon)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 		
 	if(_action == "cum!1"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 30)
-		GM.pc.cummedInAnusBy("eliza", FluidSource.Strapon)
-		GM.pc.cummedOnBy("eliza", FluidSource.Strapon)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 30)
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("eliza", FluidSource.Strapon)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Strapon)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 		
 	if(_action == "continue"):
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("You received 1 work credit!")
 		
 		setModuleFlag("MedicalModule", "Mental_ExpGhostHands", Util.maxi(2, getModuleFlag("MedicalModule", "Mental_ExpGhostHands", 0)))

@@ -30,7 +30,7 @@ func _run():
 		addButton("Main hall", "See if Tavi is there", "step_main_hall")
 	if(state == "step_main_hall"):
 		aimCameraAndSetLocName("main_stairs_n")
-		GM.pc.setLocation("main_stairs_n")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_stairs_n")
 		removeCharacter("kait")
 		addCharacter("tavi", ["naked"])
 		addCharacter("eliza")

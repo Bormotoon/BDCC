@@ -97,7 +97,7 @@ func _run():
 		playAnimation(StageScene.SexStealth, "teasebusy", {pc="pc", npc="socket", bodyState={hard=true}})
 		saynn("You put your hands on Socket and casually grope and fondle her butt and play with her breasts while she continues her work, disassembling and repairing the camera. Occasionally you have to stop and give Socket the tool that she needs.. but then it's back to groping.")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You're getting quite hard from this.. but she doesn't seem to mind your member poking her rear.")
 
 		saynn("[say=socket]Oh, I got a great idea![/say]")
@@ -670,7 +670,7 @@ func _run():
 
 		saynn("Risha and Avy approach you, your eyes already spot their crotches bulging..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("[say=risha]{pc.His} cunt is mine.[/say]")
 
 			saynn("Avy tilts her head.")
@@ -728,10 +728,10 @@ func _run():
 
 		saynn("[say=avy]I prefer knots.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You feel a lot of pressure building behind your chastity cage, the pounding makes your locked away cock attempt to get hard again and again..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock is hard and swaying back and forth, the pounding makes it drip squirts of precum again and again..")
 
 		saynn("[say=risha]Yeah, of course you do~. All foxes do.[/say]")
@@ -763,10 +763,10 @@ func _run():
 
 		saynn("Avy's knot bumps into your mouth.. Risha's cock rams into your organic barricade..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up cock is throbbing, putting pressure onto its cage desperately..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your {pc.penis} is throbbing, ready to burst any second..")
 
 		saynn("You're close..")
@@ -788,10 +788,10 @@ func _run():
 
 		saynn("[say=avy]Fuck, that feels good.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked penis is dribbling {pc.cum} through the little hole in the chastity cage, your balls tensing up a little as you leave a mess on your belly.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock is shooting long strings of {pc.cum}, your balls tensing up as you leave a mess on your belly.")
 
 		saynn("The lack of oxygen is making you feel drugged, your eyes rolling up while the dickgirls are just using you as their cocksleeve now.")
@@ -828,10 +828,10 @@ func _run():
 
 		saynn("[say=avy]I prefer knots.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You feel a lot of pressure building behind your chastity cage, the pounding makes your locked away cock attempt to get hard again and again, your prostate being stimulated..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock is hard and swaying back and forth, the pounding makes it drip squirts of precum again and again, your prostate being stimulated..")
 
 		saynn("[say=risha]Yeah, of course you do~. All foxes do.[/say]")
@@ -863,10 +863,10 @@ func _run():
 
 		saynn("Avy's knot bumps into your mouth.. The barb's on Risha's cock become more stiff..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up cock is throbbing, putting pressure onto its cage desperately..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your {pc.penis} is throbbing, ready to burst any second..")
 
 		saynn("You're close..")
@@ -888,10 +888,10 @@ func _run():
 
 		saynn("[say=avy]Fuck, that feels good.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate is getting destroyed, your locked penis is dribbling {pc.cum} through the little hole in the chastity cage, your balls tensing up a little as you leave a mess on your belly.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate is getting destroyed, your cock is shooting long strings of {pc.cum}, your balls tensing up as you leave a mess on your belly.")
 
 		saynn("The lack of oxygen is making you feel drugged, your eyes rolling up while the dickgirls are just using you as their cocksleeve now.")
@@ -969,8 +969,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "socket_brings_cell")
 	if(state == "socket_brings_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		removeCharacter("avy")
 		removeCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="socket"})
@@ -1027,7 +1027,7 @@ func _run():
 
 		saynn("[say=pc]Hey there, sleepy head.[/say]")
 
-		if (!GM.pc.hasPenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=socket]I was thinking.. I know you don't have a penis..[/say]")
 
 			saynn("That's a scary start for a conversation..")
@@ -1153,7 +1153,7 @@ func _run():
 
 		saynn("Eventually that seems to have some effect on her body. Socket starts to squirm ever so slightly. She parts her legs a bit and presses her pussy against your thigh.. pussy that is getting wet.")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You can stop there.. or try to risk it..")
 
 		else:
@@ -1208,7 +1208,7 @@ func _react(_action: String, _args):
 
 	if(_action == "first_justwatch"):
 		processTime(10*60)
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "first_grope"):
 		processTime(10*60)
@@ -1218,8 +1218,8 @@ func _react(_action: String, _args):
 
 	if(_action == "first_stay_horny"):
 		processTime(5*60)
-		GM.pc.addLust(30)
-		GM.pc.addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 
 	if(_action == "first_stealth_fingering"):
 		processTime(5*60)
@@ -1233,7 +1233,7 @@ func _react(_action: String, _args):
 	if(_action == "first_stealth_sex_cum"):
 		processTime(3*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "second_camera"):
 		getCharacter("socket").resetEquipment()
@@ -1242,7 +1242,7 @@ func _react(_action: String, _args):
 		processTime(25*60)
 
 	if(_action == "second_resist"):
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "second_sex_sex"):
 		processTime(3*60)
@@ -1253,7 +1253,7 @@ func _react(_action: String, _args):
 	if(_action == "second_sex_cum"):
 		processTime(3*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 
 	if(_action == "third"):
 		processTime(10*60)
@@ -1279,11 +1279,11 @@ func _react(_action: String, _args):
 
 	if(_action == "pc_loses_to_avy_risha_anyway"):
 		processTime(4*60)
-		GM.pc.addPain(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(200)
 
 	if(_action == "submit_sex_pick"):
 		processTime(5*60)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			setState("submit_sex_vag")
 		else:
 			setState("submit_sex_anal")
@@ -1297,13 +1297,13 @@ func _react(_action: String, _args):
 
 	if(_action == "submit_sex_vag_cum"):
 		processTime(3*60)
-		GM.pc.gotVaginaFuckedBy("risha")
-		GM.pc.gotThroatFuckedBy("avy")
-		GM.pc.cummedInVaginaBy("risha")
-		GM.pc.cummedInMouthBy("avy")
-		if(GM.pc.isWearingChastityCage() || GM.pc.hasReachablePenis()):
-			GM.pc.cummedOnBy("pc")
-		GM.pc.orgasmFrom("risha")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("avy")
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
 
 	if(_action == "submit_sex_anal_sex"):
 		processTime(3*60)
@@ -1313,13 +1313,13 @@ func _react(_action: String, _args):
 
 	if(_action == "submit_sex_anal_cum"):
 		processTime(3*60)
-		GM.pc.gotAnusFuckedBy("risha")
-		GM.pc.gotThroatFuckedBy("avy")
-		GM.pc.cummedInAnusBy("risha")
-		GM.pc.cummedInMouthBy("avy")
-		if(GM.pc.isWearingChastityCage() || GM.pc.hasReachablePenis()):
-			GM.pc.cummedOnBy("pc")
-		GM.pc.orgasmFrom("risha")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("avy")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("avy")
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() || ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
 
 	if(_action == "socket_saves_pc"):
 		processTime(5*60)
@@ -1333,8 +1333,8 @@ func _react(_action: String, _args):
 
 	if(_action == "do_sleep"):
 		processTime(3*60*60)
-		GM.pc.addPain(-200)
-		GM.pc.addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
 
 	if(_action == "say_free_womb"):
 		setFlag("SocketModule.removedWombImplant", true)
@@ -1358,7 +1358,7 @@ func _react(_action: String, _args):
 	if(_action == "do_sleepfuck_cum"):
 		processTime(5*60)
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 
 	setState(_action)
 

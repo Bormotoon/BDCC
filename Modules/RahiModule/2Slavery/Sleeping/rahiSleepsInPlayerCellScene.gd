@@ -190,18 +190,18 @@ func _run():
 
 		saynn("You don't show any resistance.. letting Rahi push the rubber toy deeper into your {pc.analStretch} tailhole, stretching you out..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The strapon finds your prostate and presses on it.. Your locked up dick wakes up almost instantly and starts to desperately try to get hard.. but the metal cage is stronger.. leaving you only to drip precum onto the bed sheets..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The strapon finds your prostate and presses on it.. Your {pc.penis} wakes up almost instantly and starts to get hard.. The tip drops precum onto the bed sheets..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Even though Rahi is not going for your pussy, even just feeling her stretch your other hole makes you get wet and needy.. Your slit dripping juices onto the bed sheets.")
 
 		saynn("After Rahi has.. fitted.. most of the toy inside you.. she starts moving her hips back and forth, pounding your willing ass at a slow but steady pace. Again, you try not to resist and just obediently take it but your body keeps squirming under your kitty's body.. She could feel the heat of your body and the tightness of your {pc.thick} ass and it made her more eager.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("This continues for a while.. your prostate produces some transparent fluid that then gets forced out of your caged up dick when Rahi massages that spot with her toy. Desperate for release, you begin to moan softly into the pillow.. Your kitty hears that and places her paw on your chastity cage, trying to tease your cock through it.. but she can't quite get to it.. all she can do is pound your ass with her rubber cock..")
 
 			saynn("You're completely relaxed on the bed.. And soon, a feeling begins to arise inside you.. a pressure, a different kind of it. The more that rubber head stokes your prostate, the bigger that pressure is. This might be it, you can't think about anything else but it. Your mind wants that release so much.. that it actually causes it..")
@@ -210,14 +210,14 @@ func _run():
 
 			saynn("[say=rahi]Such a good slut..[/say]")
 
-		elif (GM.pc.hasPenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("This continues for a while.. your prostate produces some transparent fluid that then gets forced out of your {pc.penis} when Rahi massages that spot with her toy. Desperate for release, you begin to moan softly into the pillow.. Your kitty hears that and places her paw on your shaft, slowly stroking it.. But even that was enough to finally bring you over the edge..")
 
 			saynn("Your anal ring clenches around Rahi's strapon as you suddenly cum! Your whole body shivering while the inflated prostate gets milked by your kitty, making your cock slowly leak {pc.cum} onto the bed. She whispers again..")
 
 			saynn("[say=rahi]Such a good slut..[/say]")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("This continues for a while. Even though your anus is not that sensitive to allow you to cum just from anal, Rahi's strapon actually manages to knead your g-spot through the inner wall.. and that slowly drives you insane. Desperate for release, you begin to moan softly into the pillow.. Your kitty hears that and places her paw on your wet pussy and starts rubbing your clit with little circular motions.. and even that was enough to finally bring you over the edge..")
 
 			saynn("Your anal ring clenches around Rahi's strapon as you suddenly cum! Your whole body shivering while the neglected pussy sprays your girlcum all over the bed. She whispers again..")
@@ -247,12 +247,12 @@ func _run():
 
 		saynn("As the minutes pass, Rahi continues to gently finger you, slowly bringing you to the brink of orgasm. Finally, with one last stroke of your g-spot, you cum.. your body shivering and squirming under Rahi's touch while your lips produce incredibly cute noises.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though it was a vaginal orgasm, it still triggers your locked up cock to throb and shoot weak lines of {pc.cum} through the firm metal cage, creating quite a mess..")
 
 			saynn("After your long moment of ecstatic pleasure is over, Rahi pulls her digits out and does her best to clean your cage with her wet digits before bringing them to her mouth and using her feline tongue to lick it all off.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even though it was a vaginal orgasm, it still triggers your {pc.penis} to throb and leak thick sticky {pc.cum}, creating quite a mess..")
 
 			saynn("After your long moment of ecstatic pleasure is over, Rahi pulls her digits out and does her best to clean your shaft with her wet digits before bringing them to her mouth and using her feline tongue to lick it all off.")
@@ -371,14 +371,14 @@ func _react(_action: String, _args):
 			var possible = []
 			possible.append("leggrind")
 		
-			if(GM.pc.hasReachablePenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				possible.append("blowjob")
 				possible.append("cowgirl")
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				possible.append("chastitycum")
-			if(GM.pc.hasReachableAnus() && domLevel >= 6):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachableAnus() && domLevel >= 6):
 				possible.append("pegging")
-			if(GM.pc.hasReachableVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				possible.append("fingering")
 				possible.append("pussylicking")
 			if(getModule("RahiModule").getSkillScore("rahiSkillPetplay") > 5):
@@ -394,19 +394,19 @@ func _react(_action: String, _args):
 		
 			if(newState in ["blowjob", "chastitycum"]):
 				getCharacter("rahi").cummedInMouthBy("pc")
-				GM.pc.orgasmFrom("rahi")
+				ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 			if(newState == "cowgirl"):
-				condomBroke = GM.pc.shouldCondomBreakWhenFucking("rahi", 30.0)
+				condomBroke = ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("rahi", 30.0)
 				if(condomBroke):
 					getCharacter("rahi").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
 				else:
 					addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
-				GM.pc.orgasmFrom("rahi")
+				ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 			if(newState in ["fingering"]):
-				GM.pc.orgasmFrom("rahi")
+				ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 			if(newState in ["pussylicking"]):
 				getCharacter("rahi").cummedInMouthBy("pc", FluidSource.Vagina)
-				GM.pc.orgasmFrom("rahi")
+				ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 		
 			if(newState != null):
 				setState(newState)
@@ -416,34 +416,34 @@ func _react(_action: String, _args):
 
 	if(_action == "pegging_doit"):
 		processTime(10*60)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "pegging_doturntables"):
 		getCharacter("rahi").resetEquipment()
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			setState("pegging_haspenis")
 		else:
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			#var fluids = strapon.getFluids()
 			#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-			GM.pc.getInventory().equipItem(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 			setState("pegging_stealstrapon")
 		return
 
 	if(_action == "pegging_haspenis_cuminside"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	if(_action == "pegging_haspenis_pullout"):
 		processTime(5*60)
 		getCharacter("rahi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "rahi_breed")
 
 	if(_action == "removestraponandleave"):
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		endScene()
 		return
 

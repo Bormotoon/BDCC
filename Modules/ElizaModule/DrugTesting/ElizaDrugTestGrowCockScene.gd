@@ -273,7 +273,7 @@ func _react(_action: String, _args):
 
 	if(_action == "pc_strokes_allow_facials"):
 		processTime(2*60)
-		GM.pc.cummedOnBy("eliza")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza")
 		getCharacter("eliza").orgasmFrom("eliza")
 
 	if(_action == "pc_strokes_no_facials"):

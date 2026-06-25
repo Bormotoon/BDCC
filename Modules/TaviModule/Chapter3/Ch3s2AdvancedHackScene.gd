@@ -44,7 +44,7 @@ func _react_scene_end(_tag, _result):
 				processTime(10*60)
 				addMessage("You got 50 credits! But there is something else too..")
 				addItemToSavedItems(GlobalRegistry.createItem("HorsecockDildo"))
-				GM.pc.addCredits(50)
+				ServiceLocator.safe_get_service(&"Player").addCredits(50)
 				addExperienceToPlayer(100)
 				setState("after_completed")
 				setFlag("TaviModule.ch3CompletedSafeHack", true)

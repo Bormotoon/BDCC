@@ -106,7 +106,7 @@ func _react(_action: String, _args):
 		endScene()
 		processTime(30*5)
 		
-		GM.main.increaseModuleFlag("TaviModule", "Tavi_Submissiveness")
+		ServiceLocator.safe_get_service(&"MainScene").increaseModuleFlag("TaviModule", "Tavi_Submissiveness")
 		return
 
 

@@ -435,7 +435,7 @@ func _run():
 		saynn("Her voice sounds demonic, a deep evil echo follows behind. It’s like your soul is vibrating together with her laugh. Tavi looks hot, literally.. But this can’t be real. It must be a dream!")
 
 		saynn("[say=pc]T-this is insane.. It must be the drug. I’m under the influence, none of this is real![/say]")
-		saynn("Two giant wings sprawl from behind Tavi’s back. She hops towards you with their help and pins you into the floor with her hoof." +   ( " The hoof that starts burning any clothes that you are wearing, leaving you quite exposed. Her green flames don’t seem to be hurting you though." if(!GM.pc.isFullyNaked())   else " Your naked chest looks like it’s on fire but her green flames don’t seem to be hurting you though.")   )
+		saynn("Two giant wings sprawl from behind Tavi’s back. She hops towards you with their help and pins you into the floor with her hoof." +   ( " The hoof that starts burning any clothes that you are wearing, leaving you quite exposed. Her green flames don’t seem to be hurting you though." if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked())   else " Your naked chest looks like it’s on fire but her green flames don’t seem to be hurting you though.")   )
 
 		saynn("[say=tavi]Haha. You think this is just a dream? But who says that you will wake up? SILLY THING.[/say]")
 
@@ -499,7 +499,7 @@ func _run():
 		saynn("Tavi tilts her head slightly before moving her cock back and shoving it into your face, letting you see the inflated glands on its flared tip. And the scent it’s.. so arousing. You nuzzle the offered cock and give it a little smooch.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("All the while your own cock is getting harder. Tavi sees that and smirks.")
 
 		# (else if has pussy)
@@ -515,7 +515,7 @@ func _run():
 		saynn("You look up at Tavi and audibly swallow her precum. It’s thick and salty.. But also so nice. You feel it numbing your pain away, instead replacing it with.. a desire. Your mind is racing wild.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} is throbbing and leaking pre more. Tavi sees your cage but it seems she doesn’t like its look so she grabs onto it and breaks the lock with ease. She then motions with her hand again and one of the metal rods gets ripped out of the metal floor before twisting into a little arched spiral. It starts pressing on your cock’s head, battling your erection before another rod bends around your balls and welds together with the first, creating a little neat chastity cage.")
 			
 			saynn("[say=tavi]What? Thought I would release it? No~. You’re getting a proper cage. You don’t need that useless dick with me, cutie~.[/say]")
@@ -523,7 +523,7 @@ func _run():
 			saynn("What? Your hands reach out for your crotch but quickly realize that the cage is there. And that it doesn’t have a keyhole or any other ways to take it off. Tavi chuckles with her demonic voice.")
 			
 			saynn("[say=tavi]Miss it already? Such a shame that it’s permanent~.[/say]")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			
 			saynn("Your {pc.cock} is throbbing and leaking pre more. Tavi finally decides to take action against that. She motions with her hand again and one of the metal rods gets ripped out of the metal floor before twisting into a little arched spiral. It starts pressing on your cock’s head, battling your erection before another rod bends around your balls and welds together with the first, creating a little neat chastity cage.")
 
@@ -553,11 +553,11 @@ func _run():
 		saynn("[say=pc]Uh.. it w-won’t fit.[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The tip of Tavi’s cock finds your pussy slit and starts rubbing against it, trying to catch the pussy hole. It slips past a few times before Tavi finally finds a good position where the flared tip is pressed directly against your slit. One rough thrust and Tavi shoves her horsecock deep inside your sex, the petals get forcibly spread wide by her flat tip, making you cry out a loud moan.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your trapped dick desperately tries to get hard but the metal cage is keeping it completely flaccid for your Miss.")
 
 			saynn("[say=tavi]Oh yeah? Nghh, such a tight hole.[/say]")
@@ -571,7 +571,7 @@ func _run():
 			saynn("Your mind is overwhelmed by the amount of pleasure, your eyes already want to roll up while your first orgasm creeps up on you. A few more thrusts and you start squirming in Tavi’s hands, your poor stretched pussy squirting its fluids from so much stimulation. It feels so good that you wanna scream.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your useless cock shoots a few weak strings of {pc.cum} past the permanent cage.")
 
 			saynn("[say=pc]Y-yes!.. Ah~.. Miss Tavi! Make me yours![/say]")
@@ -589,7 +589,7 @@ func _run():
 			saynn("The tip of Tavi’s cock finds your tailhole and starts prodding at it, testing how tight your backdoor is. It slips past the hole a few times before Tavi finally finds a good position where the flared tip is pressed directly against your anus. One rough thrust and Tavi shoves her horsecock deep inside your sex, the soft flesh gets forcibly spread wide by her flat tip, making you cry out a loud moan.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your trapped dick desperately tries to get hard but the metal cage is keeping it completely flaccid for your Miss.")
 
 			saynn("[say=tavi]Oh yeah? Nghh, such a tight hole.[/say]")
@@ -603,7 +603,7 @@ func _run():
 			saynn("Your mind is overwhelmed by the amount of pleasure, your eyes already want to roll up while your first orgasm creeps up on you. A few more thrusts and you start squirming in Tavi’s hands, your poor stretched tailhole pulsating so much stimulation. It feels so good that you wanna scream.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your useless cock shoots a few weak strings of {pc.cum} past the permanent cage.")
 
 			saynn("[say=pc]Y-yes!.. Ah~.. Miss Tavi! Make me yours![/say]")
@@ -626,7 +626,7 @@ func _run():
 		})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Tavi switches to slow powerful thrusts before finally shoving her flared cock balls deep inside you, causing the bump on your belly to be even bigger. As she does that, you cum hard, arching your back as much as Tavi’s paws allow and moaning like a slut for her. Your pussy clenches around her shaft, trying to milk it. And after a few grunts from Tavi, her balls start tensing up as a load after load of hot magma-like seed begin flowing into your womb and instantly stuffing it to the brim.")
 
 			saynn("[say=tavi]Take it all my servant! That’s the last day of you not being pregnant with my imps![/say]")
@@ -636,7 +636,7 @@ func _run():
 			saynn("You look down and notice that the womb tattoo is glowing brightly, a little symbol appears on it that signifies the successful impregnation.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("All the while your cock twitches against the tight metal cage and wastes another pathetic load onto the floor.")
 
 			saynn("And the cum just doesn’t stop, Tavi’s cock keeps throbbing and shooting more and more of her seed directly inside you, extending your own orgasm. Demonic grunts escape from the tall cat as she enjoys your pussy draining her balls.")
@@ -656,7 +656,7 @@ func _run():
 			saynn("You look down and notice that the womb tattoo is glowing brightly, a little symbol appears on it that signifies the successful impregnation.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("All the while your cock twitches against the tight metal cage and wastes another pathetic load onto the floor.")
 
 			saynn("And the cum just doesn’t stop, Tavi’s cock keeps throbbing and shooting more and more of her seed directly inside you, extending your own orgasm. Demonic grunts escape from the tall cat as she enjoys your butt draining her balls.")
@@ -821,7 +821,7 @@ func _run():
 		saynn("Tavi tilts her head before spreading her strong legs more, offering a greater view of her slick-looking pussy. She then makes a gesture with her hand that pulls your collar closer to her female crotch, your lips pressing against her enticing sensitive folds. All the while your exposed cock is getting visibly harder, just feeling the scent of her pussy makes you aroused.")
 
 		# (else if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while your own pussy slit is getting needy too, arousal drips from your sex onto the last piece of land.")
 
 		saynn("[say=tavi]I would lock your cock away forever. But. I think there is some fun to be had. Lick, servant.[/say]")
@@ -913,11 +913,11 @@ func _run():
 		saynn("Tavi tilts her head before spreading her strong legs more, offering a greater view of her slick-looking pussy. She then makes a gesture with her hand that pulls your collar closer to her female crotch, your lips pressing against her enticing sensitive folds.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("All the while your exposed cock is getting visibly harder, just feeling the scent of her pussy makes you aroused.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while your own pussy slit is getting needy too, arousal drips from your sex onto the last piece of land.")
 
 		saynn("Tavi’s demon tail springs into action, reaching for your chin and giving you some scritches with its pointy tip. And when you try to avoid its attention, it gently slaps you on the cheek.")
@@ -933,7 +933,7 @@ func _run():
 		saynn("All the while Tavi’s tail shifts down to your chest and tickles your {pc.breasts} before poking each nipple, teasing you until you squirm. Such a bratty tail.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} is throbbing and leaking pre more. Tavi sees your cage but it seems she doesn’t like its look so she grabs onto it and breaks the lock with ease. She then motions with her hand again and one of the metal rods gets ripped out of the metal floor before twisting into a little arched spiral. It starts pressing on your cock’s head, battling your erection before another rod bends around your balls and welds together with the first, creating a little neat chastity cage.")
 			
 			saynn("[say=tavi]What? Thought I would release it? No~. You’re getting a proper cage. You don’t need that useless dick with me, cutie~.[/say]")
@@ -942,7 +942,7 @@ func _run():
 			
 			saynn("[say=tavi]Miss it already? Can’t remove it without me, it’s permanent~.[/say]")
 		
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			
 			saynn("Your {pc.cock} is throbbing and leaking pre more. Tavi finally decides to take action against that. She motions with her hand again and one of the metal rods gets ripped out of the metal floor before twisting into a little arched spiral. It starts pressing on your cock’s head, battling your erection before another rod bends around your balls and welds together with the first, creating a little neat chastity cage.")
 
@@ -984,7 +984,7 @@ func _run():
 		saynn("She lowers herself onto your face even more, your nostrils and mouth are both covered by her sensitive folds, making you suffocate slightly while you pleasure her. Without the ability to talk, you just quickly nod a few times, causing your nose to rub against her slit. That forces a moan out of Tavi, she chuckles and lets you breathe.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The tail is acting more bold now that it has Tavi’s protection, the pointy tip finds your {pc.pussyStretch} pussy and rubs against it, a very unusual feeling. But it feels nice, the tail gets coated in your juices before prodding a few times at the hole itself. Oh no, is it gonna do it? You can’t even react fast enough before the tail stretches your folds open wide and slips inside you.")
 
 			saynn("Little muffled noises begin to escape from you while the tail explores your insides. It finds the g-spot and presses at it a few times, making you clench your whole body as a huge spike of pleasure washes over it.")
@@ -998,7 +998,7 @@ func _run():
 		# (end)
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your trapped dick desperately tries to get hard but the metal cage is keeping it completely flaccid for your Miss.")
 
 		addButton("Continue", "See what happens next", "continue14")
@@ -1017,7 +1017,7 @@ func _run():
 		saynn("Tavi starts grinding you with her wet pussy, more little moans escape from her while she coats your face with her juices. You just stick your tongue out and let the demon cat slide back and forth over it.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The tail inside your pussy hears Tavi and indeed begins to act like a cock, retracting a bit just to ram itself deep inside you a second later. The pointy tip smashes your cervix and starts pounding you hard! You can’t help but to produce more muffled moans, you can’t endure this for very long!")
 
 		# (else)
@@ -1038,7 +1038,7 @@ func _run():
 		})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The tail quickly brings you over the line, you try to arch your back and moan but Tavi has you pinned onto the floor. Not being able to squirm only makes you cum harder, your slit clenches around the flexible demon tail and squirts from overstimulation.")
 
 		# (else)
@@ -1046,7 +1046,7 @@ func _run():
 			saynn("The tail quickly brings you over the line, you try to arch your back and moan but Tavi has you pinned onto the floor. Not being able to squirm only makes you cum harder, your tailhole clenches around the flexible demon tail and pulsates from overstimulation.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your useless cock shoots a few weak strings of {pc.cum} past the permanent cage.")
 
 		saynn("And at the same time, Tavi closes her thighs around your head tighter while producing a few long growly moans in a row, her slit twitches and squirts juices all over your face. Some of her fluids land onto your tongue and into your mouth, leaving a sweet taste.")
@@ -1080,11 +1080,11 @@ func _react(_action: String, _args):
 	
 	if(_action == "teeth"):
 		processTime(10*60)
-		GM.pc.cummedOnBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi")
 
 	if(_action == "mark_me"):
 		processTime(10*60)
-		GM.pc.pissedOnBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("tavi")
 	
 	if(_action == "endthescene"):
 		endScene()

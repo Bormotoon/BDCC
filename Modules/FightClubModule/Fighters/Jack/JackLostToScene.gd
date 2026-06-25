@@ -21,7 +21,7 @@ func _run():
 
 		addButtonWithChecks("Offer a condom", "(oral) Maybe the horsie won’t breed you raw", "offer_a_condom", [], [ButtonChecks.HasCondoms])
 		addButton("Breeding", "See what happens next..", "breeding")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["jack"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["jack"])
 
 	if(state == "offer_a_condom"):
 		# (needs a condom)
@@ -73,9 +73,9 @@ func _run():
 		saynn("Your whole body is tensed up hard, including your throat. But the stud pushes past that, shoving his horse cock deeper, gradually stretching you out. Your eyes already start to roll up slightly on their own from the lack of oxygen.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own {pc.cock} is putting a lot of pressure against your chastity cage and leaking profusely, who thought that deepthroating can be so arousing.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own {pc.cock} is hard as a rock and leaking profusely, who thought that deepthroating can be so arousing.")
 
 		saynn("[say=jack]So tight.[/say]")
@@ -87,13 +87,13 @@ func _run():
 		saynn("Oh wow, you’re surprised you managed to endure such an onslaught on your throat for so long. But the main event is still yet to happen, as your stretched fuckhole clenches tighter around the shaft, Jack switches to slow powerful thrusts instead, pushing himself to his peak until finally letting out a horse whinny and cumming. As the cum travels through his shaft, his dick pulsates and throbs while you are forced to sit still and obey his flared cock stuffing the condom inside you with so much sticky stuff that your belly quickly starts to look inflated.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} shoots out a weak load too! Being used as a cock sleeve felt so good that you managed to cum just from that. Through the cage even.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} shoots out its load too! Being used as a cock sleeve felt so good that you managed to cum just from that.")
 
 		# (else if has pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your wet pussy squirts out juices all over the floor. Being used as a cock sleeve felt so good that you managed to cum just from that.")
 
 		saynn("After Jack is done using your throat, he gradually retracts his cock while leaving the filled rubber balloon inside, so lewd. There is zero mess, he ties up the condom and chuckles watching your slutty eyes and open mouth.")
@@ -115,7 +115,7 @@ func _run():
 			npcBodyState={exposedCrotch=true,},
 		})
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Jack makes you turn around and puts his free hand over your crotch, possessively feeling your pussy. His touch isn’t soft or gentle but you find it arousing. His bulge is pressing against your {pc.thick} butt.")
 
 			saynn("[say=jack]Such a good catch.[/say]")
@@ -129,7 +129,7 @@ func _run():
 		saynn("Resisting doesn’t seem to work against him, there is a reason this stud is one of the best fighters here on the arena. You might as well try to get some pleasure out of it..")
 
 		# (if has clothing)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Jack {pc.undressMessageS}, leaving you naked and exposed. The crowd quickly takes note of your {pc.breasts}.")
 
 		# (else)
@@ -147,7 +147,7 @@ func _run():
 		saynn("You shake your head and glance down at the ground. Jack crouches behind you and presses a hand into your back, making you stand on all fours and stick your ass up for him.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The stud takes it slow, holding you with one hand and guiding his shaft with another, the flared tip of his cock brushing against your {pc.pussyStretch} slit and lubricating it with pre. You produce some soft noises while your outer folds are being parted and your pussy entering being prodded. Such girth causes you to bite your lip and grip the floor tighter. Your inner walls slowly stretch until the fat head finally manages to sink in. That’s when he thrusts his hips forward, forcing half of his cock inside and making you squirm from the sensations of being penetrated.")
 
 			saynn("[say=jack]Pretty tight.[/say]")
@@ -193,7 +193,7 @@ func _run():
 		})
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("After a few strong thrusts Jack neighs and forces his entire shaft inside you, smashing your womb before proceeding to stuff it! You bend your back and cry out a passionate moan while your babymaker is being filled to the brim with thick white horse cum. There is not nearly enough space, you can’t stop squirming around his cock while your soft insides are being painted white with some cum already escaping back and creating a quite wet mess.")
 
 			saynn("[say=pc]F-f-ffuuck!..[/say]")
@@ -228,22 +228,22 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "offer_a_condom"):
-		GM.pc.useBestCondom()
+		ServiceLocator.safe_get_service(&"Player").useBestCondom()
 	
 	if(_action == "open_mouth"):
-		GM.pc.gotThroatFuckedBy("jack")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "jack_condombj")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("jack")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "jack_condombj")
 		addFilledCondomToLootIfPerk(getCharacter("jack").createFilledCondom())
 	
 	if(_action == "get_bred"):
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("jack")
-			GM.pc.cummedInVaginaBy("jack")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("jack")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("jack")
 		else:
-			GM.pc.gotAnusFuckedBy("jack")
-			GM.pc.cummedInAnusBy("jack")
-		GM.pc.orgasmFrom("jack")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "jack_getbred")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("jack")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("jack")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jack")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "jack_getbred")
 
 	if(_action == "endthescene"):
 		endScene()

@@ -1337,7 +1337,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "luxe_badauction_after")
 	if(state == "luxe_badauction_after"):
-		GM.pc.setLocation("market_market")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_market")
 		removeCharacter("mirri")
 		addCharacter("luxe")
 		playAnimation(StageScene.Duo, "stand", {npc="luxe"})
@@ -1412,7 +1412,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "luxe_mirrisold_good")
 	if(state == "luxe_mirrisold_good"):
-		GM.pc.setLocation("market_market")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_market")
 		removeCharacter("mirri")
 		addCharacter("luxe")
 		playAnimation(StageScene.Duo, "stand", {npc="luxe"})
@@ -1637,7 +1637,7 @@ func _react(_action: String, _args):
 
 	if(_action == "middle_mirri_leaves"):
 		processTime(3*60)
-		GM.pc.addCredits(250)
+		ServiceLocator.safe_get_service(&"Player").addCredits(250)
 		addMessage("You received 250 credits!")
 		setFlag("SlaveAuctionModule.mirriNotBlacktail", true)
 		addExperienceToPlayer(250)
@@ -1679,13 +1679,13 @@ func _react(_action: String, _args):
 		getCharacter("mirri").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("inmateanklecuffs"))
 
 	if(_action == "badend_restart"):
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		setState("mirri_mans_up")
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Neck)
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Wrists)
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Ankles)
@@ -1693,9 +1693,9 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_skip_luxe_fight"):
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Neck)
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Wrists)
 		getCharacter("mirri").getInventory().clearSlot(InventorySlot.Ankles)
@@ -1730,29 +1730,29 @@ func _react(_action: String, _args):
 
 	if(_action == "luxe_badauction_after"):
 		processTime(3*60)
-		GM.pc.addCredits(250)
+		ServiceLocator.safe_get_service(&"Player").addCredits(250)
 		addMessage("You got 250 credits!")
 
 	if(_action == "luxe_mirrisold_good"):
 		processTime(3*60)
-		GM.pc.addCredits(creditsToGive)
+		ServiceLocator.safe_get_service(&"Player").addCredits(creditsToGive)
 		addMessage("You received "+str(creditsToGive)+" credits!")
 
 	if(_action == "badend_restart_luxe"):
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		setState("mirri_mans_up")
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
 		lostAtLeastOnce = true
 		return
 
 	if(_action == "do_skip_mirri_fight"):
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		setState("luxe_fight_won")
 		return
 

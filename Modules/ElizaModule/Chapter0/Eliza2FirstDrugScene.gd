@@ -26,7 +26,7 @@ func _run():
 		addButton("Biolab", "See what she wants to do", "in_biolab")
 	if(state == "in_biolab"):
 		aimCameraAndSetLocName("med_researchlab")
-		GM.pc.setLocation("med_researchlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 		saynn("You follow the white corridor and enter the research lab. Doctor Quinn is already there, preparing her equipment.")
 
 		saynn("[say=eliza]I gave your collar access to this area. But don't venture in too deep, nurses will still kick your butt if they see you.[/say]")
@@ -381,14 +381,14 @@ func _react(_action: String, _args):
 
 	if(_action == "brewing_process"):
 		processTime(5*60)
-		GM.main.SCI.doUnlockTF("Demonification")
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF("Demonification")
 
 	if(_action == "eat_pill"):
 		processTime(10*60)
-		if(!GM.pc.getTFHolder().canStartTransformation("Demonification")):
+		if(!ServiceLocator.safe_get_service(&"Player").getTFHolder().canStartTransformation("Demonification")):
 			setState("eat_no_effect")
 		else:
-			GM.pc.getTFHolder().startTransformation("Demonification")
+			ServiceLocator.safe_get_service(&"Player").getTFHolder().startTransformation("Demonification")
 			setState("eat_has_effect")
 		return
 

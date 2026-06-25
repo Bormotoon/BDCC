@@ -289,7 +289,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="rahi"})
 		addCharacter("rahi")
 		aimCameraAndSetLocName("cellblock_orange_nearcell")
-		GM.pc.setLocation("cellblock_orange_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_orange_nearcell")
 		saynn("You follow the stone pathways that lead to the main hall. Rahi steps behind you, her head tilted down.")
 
 		saynn("Together, you step down the stairs to the cellblock and find Rahi's cell in the general block. Rahi sits on her bed.")

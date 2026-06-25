@@ -1021,15 +1021,15 @@ func _react(_action: String, _args):
 
 	if(_action == "put_on_armor"):
 		processTime(3*60)
-		GM.pc.removeAllRestraints()
-		GM.pc.getInventory().forceEquipStoreOther(GlobalRegistry.createItem("GuardArmorRiot"))
-		GM.pc.getInventory().forceEquipStoreOther(GlobalRegistry.createItem("GuardHelmetRiot"))
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(GlobalRegistry.createItem("GuardArmorRiot"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(GlobalRegistry.createItem("GuardHelmetRiot"))
 		
 		getCharacter("tavi").removeAllRestraints()
 		getCharacter("tavi").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("GuardArmorRiot"))
 		getCharacter("tavi").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("GuardHelmetRiot"))
 		
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("StunBaton"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("StunBaton"))
 
 	if(_action == "near_checkpoint"):
 		processTime(5*60)
@@ -1090,17 +1090,17 @@ func _react(_action: String, _args):
 		setFlag("TaviModule.Ch5OnlyTaviPunished", true)
 
 	if(_action == "fight_armored_tavi"):
-		GM.pc.addPain(-200)
-		GM.pc.addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
 		runScene("FightScene", ["taviArmored"], "tavi_armored_fight")
 		return
 
 	if(_action == "start_next_scene"):
 		endScene()
 		getCharacter("tavi").resetEquipment()
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
-		GM.pc.getInventory().clearSlot(InventorySlot.Body)
-		GM.pc.getInventory().findAndEquipInmateUniform()
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Body)
+		ServiceLocator.safe_get_service(&"Player").getInventory().findAndEquipInmateUniform()
 		
 		if(getFlag("TaviModule.Ch5OnlyTaviPunished")):
 			runScene("Ch5s7PlayerCellScene")
@@ -1119,8 +1119,8 @@ func _react_scene_end(_tag, _result):
 			setState("cp_guard_won")
 		else:
 			setState("cp_guard_lost")
-		GM.pc.addPain(-250)
-		GM.pc.addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-250)
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
 
 	if(_tag == "kait_fight"):
 		processTime(3 * 60)
@@ -1130,8 +1130,8 @@ func _react_scene_end(_tag, _result):
 			setState("kait_won")
 		else:
 			setState("kait_lost")
-		GM.pc.addPain(-250)
-		GM.pc.addStamina(200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-250)
+		ServiceLocator.safe_get_service(&"Player").addStamina(200)
 
 	if(_tag == "captain_fight"):
 		processTime(10 * 60)

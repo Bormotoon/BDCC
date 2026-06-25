@@ -15,5 +15,5 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "startnova"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Ch5s2NovaScene")

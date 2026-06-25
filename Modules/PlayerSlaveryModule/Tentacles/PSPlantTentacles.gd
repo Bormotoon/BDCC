@@ -27,9 +27,9 @@ func _init():
 	}
 	
 func _getName():
-	if(GM.main != null):
-		if(GM.main.PS && GM.main.PS.id == "Tentacles"):
-		 return GM.main.PS.getMonsterName()
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS && ServiceLocator.safe_get_service(&"MainScene").PS.id == "Tentacles"):
+		 return ServiceLocator.safe_get_service(&"MainScene").PS.getMonsterName()
 	return "Plant Tentacles"
 
 func getGender():
@@ -77,7 +77,7 @@ func getCustomAttribute(id):
 	return .getCustomAttribute(id)
 
 func tentaclesProcessTalk(_text:String) -> String:
-	var currentSlavery = GM.main.PS
+	var currentSlavery = ServiceLocator.safe_get_service(&"MainScene").PS
 	if(!currentSlavery || currentSlavery.id != "Tentacles"):
 		return ""
 	return currentSlavery.processTalkText(_text)

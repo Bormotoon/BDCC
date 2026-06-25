@@ -7,11 +7,11 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "mining_nearentrance")
 
 func react(_triggerID, _args):
-	if(!GM.main.getFlag("Mining_IntroducedToMinning") || GM.main.getModuleFlag("TaviModule", "Tavi_IntroducedTo")):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("Mining_IntroducedToMinning") || ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IntroducedTo")):
 		return false
 		
-	GM.main.setModuleFlag("TaviModule", "Tavi_IntroducedTo", true)
-	GM.main.applyWorldEdit("TaviWorldEdit")
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("TaviModule", "Tavi_IntroducedTo", true)
+	ServiceLocator.safe_get_service(&"MainScene").applyWorldEdit("TaviWorldEdit")
 	runScene("TaviFirstEncounterScene")
 	return true
 

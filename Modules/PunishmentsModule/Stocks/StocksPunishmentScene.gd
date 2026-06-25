@@ -6,12 +6,12 @@ func _init():
 	sceneID = "StocksPunishmentScene"
 
 func _reactInit():
-	GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("StocksStatic"))
+	ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("StocksStatic"))
 
 func _run():
 	if(state == ""):
 		playAnimation(StageScene.Stocks, "idle")
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		aimCamera("main_punishment_spot")
 		
 		saynn("You’re stuck in stocks, there is very little you can do, the movement of your head and arms is blocked by a giant metal frame with 3 holes, its angle is forcing you to constantly stay bent forward, exposing your butt, your ankles are chained so you can’t really move them too. You’re completely helpless.")
@@ -21,7 +21,7 @@ func _run():
 		addButton("Wait", "Stay quiet and try to get some rest (You might get something done to you but you will never be fucked unwillingly)", "wait")
 		addButton("Be loud", "Ask to be freed. You might not get the type of attention that you want. (Anything can happen)", "be_loud")
 		addButton("Struggle", "Maybe you can escape somehow", "struggle")
-		if(!GM.pc.getInventory().hasLockedStaticRestraints()):
+		if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasLockedStaticRestraints()):
 			addButton("Escape", "Sweet freedom!", "endthescene")
 		else:
 			addDisabledButton("Escape", "You can't escape while the stocks are locked")
@@ -34,7 +34,7 @@ func _run():
 
 	if(state == "be_loud"):
 		# (if not blindfolded)
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("You look around to the best of your abilities and beg loudly.")
 
 		# (if blindfolded)
@@ -63,7 +63,7 @@ func _run():
 	if(state == "aftersleep"):
 		saynn("You wake up on time just like everyone else but with one difference, you’re still bound in stocks.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 		
 		addButton("Continue", "What's next", "")
 
@@ -71,21 +71,21 @@ func triggerRandomEvent(escapeChance, _lewdChance, _willingSexChance, _unWilling
 	var eventType = RNG.pickWeighted(["StocksEscape", "StocksEvent", "StocksWillingSex", "StocksUnWillingSex", ""], [escapeChance, _lewdChance, _willingSexChance, _unWillingSexChance, _nothingChance])
 	
 	if(eventType == "StocksEscape"):
-		if(GM.ES.triggerReact("StocksEscape")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksEscape")):
 			endScene()
 			return true
 	
 	if(eventType == "StocksEvent"):
-		if(GM.ES.triggerReact("StocksEvent")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksEvent")):
 			return true
 
 			
 	if(eventType == "StocksWillingSex"):
-		if(GM.ES.triggerReact("StocksWillingSex")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksWillingSex")):
 			return true
 			
 	if(eventType == "StocksUnWillingSex"):
-		if(GM.ES.triggerReact("StocksUnWillingSex")):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("StocksUnWillingSex")):
 			return true
 	
 	return false
@@ -103,30 +103,30 @@ func getEscapeChance(isLoud = false):
 
 func _react(_action: String, _args):
 	if(_action == "aftersleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleeping()
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleeping()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 	
 	if(_action == "wait" || _action == "be_loud"):
 		processTime(60*30)
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("sleeping")
 			return
 
 	
 	if(_action == "afterbeloud"):
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		triggerRandomEvent(getEscapeChance(true), 20, 30, 30, 30)
 		setState("")
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 		amountOfEventsPassed += 1
 		return
 	
 	if(_action == "afterjustwait"):
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		triggerRandomEvent(getEscapeChance(), 20, 20, 0, 50)
 		setState("")
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 		amountOfEventsPassed += 1
 		return
 	
@@ -142,7 +142,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func _onSceneEnd():
-	GM.pc.getInventory().clearStaticRestraints()
+	ServiceLocator.safe_get_service(&"Player").getInventory().clearStaticRestraints()
 
 
 func saveData():
@@ -170,4 +170,4 @@ func getDebugActions():
 func doDebugAction(_id, _args = {}):
 	if(_id == "instantEscape"):
 		endScene()
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

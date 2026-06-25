@@ -297,8 +297,8 @@ func resetFlagsOnNewDay():
 		setFlag("TaviModule.Ch6Tiredness", 0)
 
 static func makeTaviAngry():
-	GM.main.setModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer", true)
-	GM.main.setModuleFlag("TaviModule", "Tavi_AngryUntilDay", GM.main.getDays() + 2)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer", true)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("TaviModule", "Tavi_AngryUntilDay", ServiceLocator.safe_get_service(&"MainScene").getDays() + 2)
 	
 static func getPunishmentScene():
 	return RNG.pick([
@@ -306,7 +306,7 @@ static func getPunishmentScene():
 		])
 
 static func trustsPC():
-	return !GM.main.getModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer", false) && GM.main.getModuleFlag("TaviModule", "Tavi_IntroducedTo", false)
+	return !ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer", false) && ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IntroducedTo", false)
 
 func getAllSkills():
 	return ["taviSkillCombat", "taviSkillSex", "taviSkillMasochism", "taviSkillPetplay", "taviSkillWatersports"]
@@ -463,6 +463,6 @@ func addCorruption(howMuch, showMessage = true):
 	if(showMessage):
 		var diff = currentCorruption - oldCor
 		if(diff > 0.0):
-			GM.main.addMessage("Tavi's corruption has increased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Tavi's corruption has increased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
 		elif(diff < 0.0):
-			GM.main.addMessage("Tavi's corruption has decreased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Tavi's corruption has decreased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")

@@ -69,10 +69,10 @@ func _init():
 	]
 
 func resetFlagsOnNewDay():
-	if(GM.main.getFlag("PortalPantiesModule.Alex_BusyDays", 0) > 0):
-		GM.main.increaseFlag("PortalPantiesModule.Alex_BusyDays", -1)
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("PortalPantiesModule.Alex_BusyDays", 0) > 0):
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("PortalPantiesModule.Alex_BusyDays", -1)
 
 func registerEventTriggers():
-	GM.ES.registerEventTrigger("PortalPantiesEvent", EventTriggerWeighted.new())
-	GM.ES.registerEventTrigger("PortalPantiesShowerEvent", EventTriggerWeighted.new())
-	GM.ES.registerEventTrigger("PortalPantiesSleepingEvent", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("PortalPantiesEvent", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("PortalPantiesShowerEvent", EventTriggerWeighted.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("PortalPantiesSleepingEvent", EventTriggerWeighted.new())

@@ -7,7 +7,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingSolo, "idle", {bodyState={naked=true}})
 		
 		saynn("You open your eyes and realize that this is that day again. Dimly-lit room, fancy furniture, an iron hook that your wrists are cuffed to. Looking down you see your own permanent cage. You can’t hide it, you might be kinda excited.")
@@ -69,7 +69,7 @@ func _run():
 		saynn("[say=risha]So you’re the new buttslut in the making, huh.[/say]")
 
 		# (if has cock bigger than Risha)
-		if(GM.pc.getPenisSize() > getCharacter("risha").getPenisSize()):
+		if(ServiceLocator.safe_get_service(&"Player").getPenisSize() > getCharacter("risha").getPenisSize()):
 			saynn("She glances at your caged up cock and frowns.")
 
 			saynn("[say=risha]Your cock size is where your luck has run out.[/say]")
@@ -85,7 +85,7 @@ func _run():
 		saynn("She stands in front of you but her paw reaches out to behind your {pc.thick} ass and finds your {pc.analStretch} pucker that she claws softly, making you clench.")
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("[say=risha]As much as I’d love to breed your pussy.. This nice doctor over here has asked me to help you. How can I say no?[/say]")
 
 		# (else)
@@ -243,7 +243,7 @@ func _run():
 	if(state == "continue5"):
 		removeCharacter("risha")
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		saynn("Eliza sighs and uncuffs your hands, letting you stand on your shaking legs.")
@@ -265,9 +265,9 @@ func _react(_action: String, _args):
 		processTime(randi_range(3,8)*60)
 
 	if(_action == "continue3"):
-		GM.pc.cummedInAnusBy("risha")
-		GM.pc.orgasmFrom("risha")
-		GM.pc.gotAnusFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("risha")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("risha")
 
 	if(_action == "endthescene"):
 		endScene()

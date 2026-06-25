@@ -11,11 +11,11 @@ func _run():
 		saynn("[say=eliza]Yes, with all the current DNA that we have, it will cost us "+str(getModule("ElizaModule").getTentaclesCostStr())+" to produce a perfect specimen.[/say]")
 
 		addButton("Enough", "Enough talking about this", "endthescene")
-		if (GM.pc.getInventory().hasItemID("PlantEgg")):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("PlantEgg")):
 			addButton("Give egg", "Give Eliza another egg!", "give_egg")
 		else:
 			addDisabledButton("Give egg", "You don't have any plant eggs in your inventory")
-		if (GM.pc.getCredits() >= getModule("ElizaModule").getTentaclesCost()):
+		if (ServiceLocator.safe_get_service(&"Player").getCredits() >= getModule("ElizaModule").getTentaclesCost()):
 			addButton("Pay "+getModule("ElizaModule").getTentaclesCostStr()+"", "Pay this many credits to create a perfect egg", "begin_stuff")
 		else:
 			addDisabledButton("Pay "+getModule("ElizaModule").getTentaclesCostStr(), "You don't have this many credits..")
@@ -35,11 +35,11 @@ func _react(_action: String, _args):
 
 	if(_action == "give_egg"):
 		getModule("ElizaModule").addTentacleEgg()
-		GM.pc.getInventory().removeXOfOrDestroy("PlantEgg", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("PlantEgg", 1)
 		addMessage("Total amount of eggs given is "+str(getFlag("ElizaModule.tent_eggs", 0)))
 
 	if(_action == "begin_stuff"):
-		GM.pc.addCredits(-getModule("ElizaModule").getTentaclesCost())
+		ServiceLocator.safe_get_service(&"Player").addCredits(-getModule("ElizaModule").getTentaclesCost())
 		runScene("PSElizaTentaclesBorn")
 		setFlag("ElizaModule.tent_born", true)
 		endScene()

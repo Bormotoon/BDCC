@@ -260,14 +260,14 @@ func _react(_action: String, _args):
 	if(_action == "forget_grind"):
 		processTime(7*60)
 		getCharacter("rahi").cummedOnBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 		gotGrindedDuringSleep = true
 
 	if(_action == "forget_sex_cuminside"):
 		processTime(3*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("pc")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_breed")
 
 	setState(_action)
 

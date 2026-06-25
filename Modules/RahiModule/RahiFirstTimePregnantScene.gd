@@ -10,7 +10,7 @@ func _run():
 		
 	if(state == ""):
 		# (if loc == main_bench2)
-		if(GM.pc.getLocation() == "main_bench2"):
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "main_bench2"):
 			saynn("While wandering around the prison you notice the familiar brown kitty, sitting on her bench.")
 
 		# (if loc == cellblock_nearcells else)

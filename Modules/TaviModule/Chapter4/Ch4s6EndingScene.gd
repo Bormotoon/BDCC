@@ -196,34 +196,34 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "tavi_forces_doors"):
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("GasMask"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("GasMask"))
 
 	if(_action == "tavi_starts_dying"):
-		GM.pc.addPain(50)
-		GM.pc.addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
 
 	if(_action == "tavi_almost_dies"):
-		GM.pc.addPain(50)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "tavi_prepares_to_die"):
-		GM.pc.addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 
 	if(_action == "tavi_saved"):
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("LatexSuit"))
-		GM.pc.addPain(-10)
-		GM.pc.addStamina(10)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("LatexSuit"))
+		ServiceLocator.safe_get_service(&"Player").addPain(-10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(10)
 
 	if(_action == "latexParasite_leaves"):
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("Leotard"))
-		GM.pc.getInventory().unequipSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("Leotard"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlot(InventorySlot.Eyes)
 
 	if(_action == "tavi_tricks_elena"):
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
 
 	if(_action == "end_flashback"):
-		GM.main.clearOverridePC()
+		ServiceLocator.safe_get_service(&"MainScene").clearOverridePC()
 		endScene()
 		runScene("Ch4s7CaptainScene")
 		return

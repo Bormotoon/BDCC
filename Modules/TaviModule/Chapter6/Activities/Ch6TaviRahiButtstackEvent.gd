@@ -14,7 +14,7 @@ func react(_triggerID, _args):
 	#ACEPREGEXPAC = Tavi/Rahi Buttstack scene can happen if either characters are pregnant
 #	if(getCharacter("tavi").isVisiblyPregnant() || getCharacter("rahi").isVisiblyPregnant()):
 #		return false
-	if(GM.pc.hasBoundArms() || GM.pc.hasBoundLegs() || GM.pc.hasBlockedHands() || GM.pc.isBlindfolded() || GM.pc.isGagged()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBoundLegs() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").isBlindfolded() || ServiceLocator.safe_get_service(&"Player").isGagged()):
 		return false
 	
 	setFlag("TaviModule.Ch6TaviAndRahiStackSceneHappened", true)

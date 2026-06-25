@@ -4,7 +4,7 @@ func _init():
 	sceneID = "TaviTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["tavi"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["tavi"])):
 		endScene()
 		return
 
@@ -32,7 +32,7 @@ func _run():
 		addButton("Attack", "This can only go one way", "attack")
 		if(getModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer")):
 			var day = getModuleFlag("TaviModule", "Tavi_AngryUntilDay", -10)
-			if(GM.main.getDays() >= day):
+			if(ServiceLocator.safe_get_service(&"MainScene").getDays() >= day):
 				addButton("Submit", "Try and patch things up", "submit")
 			else:
 				addDisabledButton("Submit", "Tavi is still angry at you, try again in a day or two")
@@ -45,16 +45,16 @@ func _run():
 				addButton("Plot to escape", "Tavi mentioned she can help you to escape", "plot_to_escape")
 			
 			if(getModuleFlag("TaviModule", "Tavi_NeedsApple") && !getModuleFlag("TaviModule", "Tavi_GotApple")):
-				if(GM.pc.getInventory().hasItemID("appleitem")):
+				if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("appleitem")):
 					addButton("Give apple", "Tavi wants an apple", "give_apple")
 				else:
 					addDisabledButton("Give apple", "You don't have one")
 					
-			if(GM.QS.isCompleted("TaviAppleQuest") && !getModuleFlag("TaviModule", "Tavi_Quest2Started", false)):
+			if(ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("TaviAppleQuest") && !getModuleFlag("TaviModule", "Tavi_Quest2Started", false)):
 				addButton("What now", "Ask Tavi what now", "quest2start")
 		
 		addButton("Leave", "Do something else", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["tavi"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["tavi"])
 		
 	if(state == "appearance"):
 		saynn("You see a very tall feline, about 2 meters high. Her most unique thing is her fur, it’s of a strange purple color bundled together with bright green spots and lines, which make her very visible in the dark, purple of her belly and maw areas are more light than the rest. She has side swept hair, length is medium, barely reaching her shoulder. The hair is purple as well with a few hair strands behind green. Her eyes are different in color, right one is red and left is green. You can see that the inside of her ears, mouth and tongue are all toxic-green, meaning that that’s the color of her flesh and blood. She seems pretty fit but you don’t spot any pronounced muscles, looks like most of her strength is focused in her legs, the femine hips look curvy. Behind her is a normal feline tail.")
@@ -257,7 +257,7 @@ func _run():
 
 
 	if(state == "give_apple"):
-		var apples = GM.pc.getInventory().getAllOf("appleitem")
+		var apples = ServiceLocator.safe_get_service(&"Player").getInventory().getAllOf("appleitem")
 		var pcStoleApple = false
 		for apple in apples: # if at least one apple is illegal, present that one to tavi
 			if !apple.isLegal:

@@ -107,9 +107,9 @@ func _run():
 
 		addButton("Continue", "See what happens next", "in_cell")
 	if(state == "in_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Duo, "stand", {npc="mirri", bodyState={leashedBy="mirri"}})
-		slaveAmount = GM.main.getPCSlaveAmount()
+		slaveAmount = ServiceLocator.safe_get_service(&"MainScene").getPCSlaveAmount()
 		saynn("She steps into your cell, staring at her forearm, under her wrist armor.. She was about to do something.. but then her ears picked up on someone's breathing.")
 
 		saynn("[say=mirri]Huh?[/say]")
@@ -938,8 +938,8 @@ func _run():
 		addButton("Continue", "See what happens next", "back_to_bdcc")
 	if(state == "back_to_bdcc"):
 		removeCharacter("mirri")
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("You were about to scream.. but then you realize.. you're back in your cell.")
 
 		saynn("She just.. teleported you.")
@@ -960,7 +960,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_attack"):
 		processTime(3*60)
-		GM.pc.addPain(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
 
 	if(_action == "in_cell"):
 		processTime(3*60)
@@ -993,17 +993,17 @@ func _react(_action: String, _args):
 
 	if(_action == "flash_and_tie"):
 		processTime(3*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ropeharness"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ropeharness"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
 
 	if(_action == "pc_tpd"):
 		processTime(3*60)
 
 	if(_action == "try_save"):
 		processTime(2*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.Mouth)
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Mouth)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
 
 	if(_action == "girl_captured_again"):
 		processTime(3*60)
@@ -1023,7 +1023,7 @@ func _react(_action: String, _args):
 
 	if(_action == "mirri_gives_pc_offer"):
 		processTime(3*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.Torso)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Torso)
 
 	if(_action == "mirri_invisible"):
 		processTime(3*60)

@@ -130,7 +130,7 @@ func _react(_action: String, _args):
 		processTime(randi_range(10, 40)*60)
 
 	if(_action == "talk_it_out"):
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 		addMessage("Ow, that was slightly painful")
 
 	if(_action == "endthescene"):

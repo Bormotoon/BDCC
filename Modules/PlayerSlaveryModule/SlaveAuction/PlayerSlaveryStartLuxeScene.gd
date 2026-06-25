@@ -6,7 +6,7 @@ func _init():
 	sceneID = "PlayerSlaveryStartLuxeScene"
 
 func _reactInit():
-	GM.main.PSH.storePlayersItems()
+	ServiceLocator.safe_get_service(&"MainScene").PSH.storePlayersItems()
 	addMessage("All your items were safely stored")
 
 func _run():

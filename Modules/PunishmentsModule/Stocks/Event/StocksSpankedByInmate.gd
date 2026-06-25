@@ -4,19 +4,19 @@ func _init():
 	sceneID = "StocksSpankedByInmate"
 
 func _reactInit():
-	GM.pc.addLust(20)
+	ServiceLocator.safe_get_service(&"Player").addLust(20)
 	addMessage("+20 lust")
 	
 	if(RNG.chance(50)):
 		var zone = BodyWritingsZone.getRandomZone()
-		GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+		ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 		addMessage("Someone also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 		
 
 func _run():
 	if(state == ""):
 		# (if can see)
-		if(!GM.pc.isBlindfolded()):
+		if(!ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("You can feel someone walking towards you from behind. You try to look back but can only catch glimpses of an inmate uniform.")
 
 		# (if blind)
@@ -48,9 +48,9 @@ func _run():
 		saynn("The inmate puts his hands on you and gropes your rear before giving it another firm spank, making your butt jiggle. You let out a muffled noise.")
 
 		# (if has vagina && chance)
-		if(GM.pc.hasReachableVagina() && RNG.chance(50)):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina() && RNG.chance(50)):
 			# (if clothed)
-			if(!GM.pc.isFullyNaked()):
+			if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 				saynn("His hand lands on your crotch and rubs it. You can feel his digits digging into the fabric. You try to close your legs but he just spanks you again and forces them open. You moan softly as he teases you..")
 
 			# (if naked)
@@ -58,9 +58,9 @@ func _run():
 				saynn("His hand reaches down to your crotch area, you can feel his digits tracing around your exposed cunt. You try to close your legs but he just spanks you again and forces them open. You moan softly as he teases you..")
 
 		# (if has cock && chance)
-		if(GM.pc.hasReachablePenis() && RNG.chance(50)):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && RNG.chance(50)):
 			# (if clothed)
-			if(!GM.pc.isFullyNaked()):
+			if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 				saynn("Then his hand slides down to your bulge, digits dig into the cloth and give your ballsack a gentle squeeze. Then he starts stroking you out through the clothing, sliding his hand back and forth. It’s arousing.")
 
 			# (if naked)

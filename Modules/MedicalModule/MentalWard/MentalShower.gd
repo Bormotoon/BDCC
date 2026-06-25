@@ -97,7 +97,7 @@ func _run():
 	if(state == "clean_inside"):
 		playAnimation(StageScene.Showering, "crotch", {pc="pc", bodyState={naked=true}})
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You spread your {pc.pussyStretch} pussy lips and wait if anything comes out. It all quickly goes down the drain. You then do the same with your butt. At least you don’t have to do this while Eliza is watching.")
 
 		# (else)
@@ -117,7 +117,7 @@ func _run():
 		playAnimation(StageScene.ShoweringDuo, "tease", {pc="pc", npc="eliza", bodyState={naked=true}})
 
 #ACEOREGEXPAC - Experiments Shower has a few lines for being heavily pregnant
-		if(GM.pc.isHeavilyPregnant()):
+		if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("You step under the shower head and proceed to wash yourself. Hair, face, shoulders, {pc.breasts}, your {pc.masc} body. You can’t cover yourself forever so Eliza catches a few glimpses of your privates.")
 			saynn("With how heavy and burdensome your pregnancy is, you have to really give yourself a stretch and rub down over your belly. It's fine, It's not like you can't do it, just takes longer, but Eliza's gaze does remain firmly on your strained midriff as you work.")
 		else:
@@ -128,7 +128,7 @@ func _run():
 
 	if(state == "clean_inside1"):
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You spread your {pc.pussyStretch} pussy lips and wait if anything comes out. It all quickly goes down the drain. You then do the same with your butt. Eliza smirks watching you do that and it makes you blush.")
 
 		# (else)
@@ -148,30 +148,30 @@ func _run():
 		saynn("You notice Eliza staring and decide to do a little performance for her, you get under the shower head and start with slowly swaying your {pc.masc} hips to the sides. Your palms capture some water and then slide along your {pc.thick} body, going over your {pc.breasts} and then giving your butt a little smack. You notice Eliza raising her brow.")
 
 		# (if has pussy and cock)
-		if(GM.pc.hasVagina() && GM.pc.hasPenis()):
-			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if GM.pc.isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring, {pc.pussyStretch} pussy and a {pc.cock}, the full package!")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina() && ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring, {pc.pussyStretch} pussy and a {pc.cock}, the full package!")
 
 		# (if has just pussy)
-		elif(GM.pc.hasVagina()):
-			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if GM.pc.isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring and {pc.pussyStretch} pussy, all your girly bits!")
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring and {pc.pussyStretch} pussy, all your girly bits!")
 
 		# (if just cock)
-		elif(GM.pc.hasPenis()):
-			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if GM.pc.isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring and a {pc.cock}, all your bits!")
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("You do a bold move and bend forward, spreading your legs "+str("showing the underside of your heavy pregnancy between your legs" if ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant() else "")+"and offering Eliza a good view on your {pc.analStretch} anal ring and a {pc.cock}, all your bits!")
 
 		# (else)
 		else:
-			saynn("You do a bold move and bend forward, spreading your legs"+str("showing the underside of your heavy pregnancy between your legs" if GM.pc.isHeavilyPregnant() else "")+" and offering Eliza a good view on your {pc.analStretch} anal ring, all your privates!")
+			saynn("You do a bold move and bend forward, spreading your legs"+str("showing the underside of your heavy pregnancy between your legs" if ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant() else "")+" and offering Eliza a good view on your {pc.analStretch} anal ring, all your privates!")
 
 		saynn("Eliza seems to be quite shocked, you look behind and see her blushing. You let out a soft chuckle and sway your {pc.thick} butt more for her while you pretend to clean yourself, water drips down your back.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You even spread your pussy for her, just to stun her for longer and show that you’re not afraid to show off your body.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("You even rub your cage sneakily until your member is hard behind the chastity.")
 			else:
 				saynn("You even stroke yourself sneakily until your {pc.cock} is fully hard.")
@@ -190,27 +190,27 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "shower!"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "medical_shower", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "medical_shower", [
 			"Almost there, patient",
 		]])
 
 	if(_action in ["clean_inside", "clean_inside1"]):
-		GM.pc.clearOrificeFluids()
+		ServiceLocator.safe_get_service(&"Player").clearOrificeFluids()
 		processTime(60 * 10)
 
 	if(_action in ["ask_to_look_away" , "be_watched", "show"]):
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		processTime(60 * 10)
 		
 		addMessage("You feel fresh and clean")
 		
 		if(_action == "be_watched"):
-			GM.pc.addSkillExperience(Skill.Exhibitionism, 10)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 10)
 		if(_action == "clean_inside1"):
-			GM.pc.addSkillExperience(Skill.Exhibitionism, 10)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 10)
 		if(_action == "show"):
 			MedicalModule.addPCBehavior(0.05)
-			GM.pc.addSkillExperience(Skill.Exhibitionism, 40)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 40)
 
 	if(_action == "resist"):
 		MedicalModule.addPCBehavior(-0.1)
@@ -232,6 +232,6 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func calculateStealChance():
-	var result = -30.0 + getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) * 130.0 + GM.pc.getStat(Stat.Agility) * 2.0
+	var result = -30.0 + getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) * 130.0 + ServiceLocator.safe_get_service(&"Player").getStat(Stat.Agility) * 2.0
 	
 	return clamp(result, 0.0, 100.0)

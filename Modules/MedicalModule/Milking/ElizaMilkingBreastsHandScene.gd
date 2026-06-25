@@ -84,7 +84,7 @@ func _run():
 		addButton("Continue", "See what happens next", "do_milk_process")
 	if(state == "do_milk_process"):
 		playAnimation(StageScene.BreastGroping, "tease", {pc="eliza", npc="pc", milkTank=true, npcBodyState={exposedChest=true, hard=true}})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("She carefully releases your breasts, after ensuring that the last traces of your {pc.milk} got captured in the reservoir before you.")
 
 		saynn("[say=eliza]Thank you for donating your milk. You were incredible.[/say]")
@@ -117,7 +117,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_milk_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	setState(_action)
 

@@ -32,7 +32,7 @@ func _run():
 		addButton("Help her", "Help kitty get to the medical wing", "help_kitty")
 	if(state == "help_kitty"):
 		aimCameraAndSetLocName("medical_nursery")
-		GM.pc.setLocation("medical_nursery")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nursery")
 		addCharacter("nurse")
 		playAnimation(StageScene.Duo, "sit", {pc = "nurse", npc="rahi", npcAction="stand"})
 		saynn("Together, you make your way through the dimly lit corridors of the prison, Rahi occasionally pausing to steady herself against the walls. At least it seems that your presence brings a sense of comforting reassurance to her, your touch helping her walk.")
@@ -154,7 +154,7 @@ func _run():
 
 		saynn("[say=pc]Yeah, see the feline behind the glass? I wanna join her.[/say]")
 
-		if (!GM.pc.isTooLewd()):
+		if (!ServiceLocator.safe_get_service(&"Player").isTooLewd()):
 			saynn("The nurse lazily turns her head, looking at Rahi. Then she looks back at you and quickly scans you with her eyes, probably looking for anything.. inappropriate.")
 
 			saynn("[say=nurse]Why?[/say]")
@@ -188,7 +188,7 @@ func _run():
 
 		saynn("The nurse lazily scans you with her eyes again.")
 
-		if (!GM.pc.isTooLewd()):
+		if (!ServiceLocator.safe_get_service(&"Player").isTooLewd()):
 			saynn("[say=nurse]Sure, that's better. You have ten minutes.[/say]")
 
 			saynn("She presses a button on her computer that opens one of the locked doors.")
@@ -305,7 +305,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		var bornChilds = getCharacter("rahi").giveBirth()
 		bornChildAmount = bornChilds.size()
-		bornString = GM.CS.getChildBirthInfoString(bornChilds)
+		bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
 
 	if(_action == "near_kindergarden"):
 		processTime(3*60*60)

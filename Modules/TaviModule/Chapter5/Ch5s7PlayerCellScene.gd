@@ -6,7 +6,7 @@ func _init():
 func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
-		saynn("Darkness.. All you see is yourself. "+str("Still wearing your uniform.. " if !GM.pc.isFullyNaked() else "")+"Still wearing that firm collar around your neck.")
+		saynn("Darkness.. All you see is yourself. "+str("Still wearing your uniform.. " if !ServiceLocator.safe_get_service(&"Player").isFullyNaked() else "")+"Still wearing that firm collar around your neck.")
 
 		saynn("You look down at your hands and see them covered in bruises, little cuts, wounds..")
 
@@ -30,7 +30,7 @@ func _run():
 
 		saynn("Your eyes quickly scan the room.. there is only you.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence! AlphaCorp hopes that you are enjoying your stay here. Even if the road to reeducation is never easy.")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence! AlphaCorp hopes that you are enjoying your stay here. Even if the road to reeducation is never easy.")
 
 		saynn("[say=pc]Hello? Anyone?[/say]")
 
@@ -102,14 +102,14 @@ func _run():
 		addButton("Rest", "Might as well just gather more strength..", "do_rest_again")
 	if(state == "do_rest_again"):
 		removeCharacter("skar")
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Sleeping, "idle")
 		saynn("You spend the whole day in solitary. Skar never showed up again so you were just left alone with your thoughts. Whatever they wanted to do with Tavi.. they probably did it..")
 
 		saynn("Sometime during the night some guards find you and unchain you from the ceiling before bringing you to your cell. You didn't quite see who it was. But at least the bed is much more comfy than.. a metal hook.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence!")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence!")
 
 		addButton("Wake up", "Time to do something", "endthescene")
 
@@ -119,16 +119,16 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_wakeup"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		processTime(60*83)
 
 	if(_action == "skar_walks_in"):
 		processTime(30*60)
 
 	if(_action == "do_rest_again"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		addMessage("New task added")
 
 	setState(_action)

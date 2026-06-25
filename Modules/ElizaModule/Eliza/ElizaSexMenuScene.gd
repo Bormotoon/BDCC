@@ -20,7 +20,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		saynn("What kinky stuff do you want to do with Eliza?")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			addButtonWithChecks("Vaginal", "Lock Eliza to the fancy table and fuck her!", "vag_start", [], [[ButtonChecks.HasReachablePenis]])
 		else:
 			addButtonWithChecks("Vaginal", "Lock Eliza to the fancy table and fuck her with one of your strapons!", "vag_start_strapon", [], [[ButtonChecks.HasStraponAndCanWear]])
@@ -33,7 +33,7 @@ func _run():
 		else:
 			addDisabledButton("Scarlet..", "(Soft Incest) Complete Eliza's storyline first to unlock this")
 		if (getCharacter("eliza").hasReachablePenis()):
-			if (GM.pc.hasReachableVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				addButtonWithChecks("Get fucked!", "Allow Eliza to fuck your pussy", "futa_sex", [], [[ButtonChecks.HasReachableVagina]])
 			addButton("Get pegged!", "Allow Eliza to fuck your ass", "futa_sex_anal")
 		addButton("Back", "You changed your mind", "cancethescene")
@@ -120,7 +120,7 @@ func _run():
 		addCharacter("eliza", ["naked"])
 		aimCameraAndSetLocName("med_milkingroom")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcBodyState={exposedChest=true}})
-		GM.pc.setLocation("med_milkingroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_milkingroom")
 		saynn("You bring Eliza out into the big room that is fully dedicated to one special activity..")
 
 		saynn("Along one of the walls there are many huge fluid tanks.. with connected pipes that are running all across the ceiling.")
@@ -458,7 +458,7 @@ func _run():
 		playAnimation(StageScene.SexPinnedBehind, "tease", {pc="pc", npc="eliza", npcBodyState={underwear=true}})
 		addCharacter("eliza", ["naked"])
 		aimCameraAndSetLocName("med_researchlab")
-		GM.pc.setLocation("med_researchlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 		saynn("Without hesitation, you hop over the counter and grab Eliza by that fancy necklace that she has, using it as a short leash.")
 
 		saynn("[say=eliza]Eek![/say]")
@@ -990,7 +990,7 @@ func _run():
 
 		saynn("Fun stuff..")
 
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "s2_milking"):
 		saynn("You're standing near Eliza's counter. She seems to be filling out some kind of reports, her mind distracted. But one close look from you is enough to make her blush.")
@@ -1162,7 +1162,7 @@ func _run():
 		addButton("Follow", "See where Eliza brings you and Scarlet", "s2_in_milking_room")
 	if(state == "s2_in_milking_room"):
 		aimCameraAndSetLocName("med_milkingroom")
-		GM.pc.setLocation("med_milkingroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_milkingroom")
 		saynn("Eliza brings you to the big open space that has a very specific purpose. The ceiling has many pipes running through it, connecting the many stalls on one side of the room to the giant fluid tanks on the other.")
 
 		saynn("She guides you and Scarlet into one of the stalls.. and then also brings a small milk tank.")
@@ -1589,10 +1589,10 @@ func _run():
 
 		saynn("Four feline hands land on your {pc.masc} body.. exploring and stripping anything that's strippable.. You can feel their purring as they rub their bodies against you, Scarlet's giant breasts and Eliza's big ones pressed against your sides.")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=elizaMom]I got dibs on {pc.his} cock.[/say]")
 
-			saynn("[say=eliza]Well.. what if {pc.he} doesn't have one.."+str(" One that isn't locked with a cute chastity cage.." if GM.pc.isWearingChastityCage() else "")+"[/say]")
+			saynn("[say=eliza]Well.. what if {pc.he} doesn't have one.."+str(" One that isn't locked with a cute chastity cage.." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+"[/say]")
 
 			saynn("Scarlet smiles.")
 
@@ -1774,7 +1774,7 @@ func _run():
 		removeCharacter("elizaMom")
 		playAnimation(StageScene.Solo, "stand")
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("Your journey back wasn't as interesting. You've walked into some guards.. who were quite confused about how you were able to get up there.")
 
 		saynn("You managed to talk your way out.. and so they just threw you back into the cell block.")
@@ -1802,7 +1802,7 @@ func _run():
 
 		saynn("Eliza follows her mother. Together, they surround you, Scarlet pushing you further into the center of the space with a playful hip-bump.. her curvy body making it easy.")
 
-		saynn("Their hands begin to wander over your {pc.masc} figure.. stripping you of anything that's strippable and teasing your curves.. "+str("Your cock has gotten hard in an instant.. but you get a feeling that you won't get to use it much.." if (hasPP && !GM.pc.isWearingChastityCage()) else "")+""+str("Your cock tries to get hard in its cage.. but the metal prevents it from doing so.." if (hasPP && GM.pc.isWearingChastityCage()) else "")+"")
+		saynn("Their hands begin to wander over your {pc.masc} figure.. stripping you of anything that's strippable and teasing your curves.. "+str("Your cock has gotten hard in an instant.. but you get a feeling that you won't get to use it much.." if (hasPP && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()) else "")+""+str("Your cock tries to get hard in its cage.. but the metal prevents it from doing so.." if (hasPP && ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()) else "")+"")
 
 		saynn("Scarlet leans close to your ear, her voice is close to purring..")
 
@@ -1834,7 +1834,7 @@ func _run():
 
 		saynn("They're deciding how they're gonna fuck you.. While you're just acting like a subby mess, moaning softly..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Eliza puts her free paw on your locked cock and squeezes your balls slightly..")
 
 			saynn("[say=eliza]Your little locked toy is leaking so much already~.[/say]")
@@ -1857,7 +1857,7 @@ func _run():
 
 			saynn("[say=elizaMom]I know, just something for the future~.[/say]")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=eliza]But first.. I gotta take care of something useless~. Hold {pc.his} hair.[/say]")
 
 			saynn("Scarlet takes hold of your hair.. while Eliza crouches in front of your crotch. She pulls out a little metal object.. a cage..")
@@ -2086,7 +2086,7 @@ func _run():
 		addCharacter("eliza")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("Your journey back wasn't as interesting. Eliza walks you back to the main elevator and brings you down to the cellblock..")
 
 		saynn("[say=eliza]There we are. Have fun~.[/say]")
@@ -2401,7 +2401,7 @@ func _run():
 		removeCharacter("elizaMom")
 		playAnimation(StageScene.Solo, "stand")
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("Your journey back wasn't as interesting. You've walked into some guards.. who were quite confused about how you were able to get up there.")
 
 		saynn("You managed to talk your way out.. and so they just threw you back into the cell block.")
@@ -2466,7 +2466,7 @@ func _run():
 
 		saynn("[say=pc]Ah.. ah..[/say]")
 
-		saynn("She holds you pinned and rocks in and out of you, doing rough slow thrusts, letting you feel the full length of her cock, angled in such a way so that it can hit your "+str("g-spot" if !isAnal else "")+""+str("p-spot" if (isAnal && GM.pc.hasPenis()) else "")+""+str("pleasure spot" if (isAnal && !GM.pc.hasPenis()) else "")+".")
+		saynn("She holds you pinned and rocks in and out of you, doing rough slow thrusts, letting you feel the full length of her cock, angled in such a way so that it can hit your "+str("g-spot" if !isAnal else "")+""+str("p-spot" if (isAnal && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+""+str("pleasure spot" if (isAnal && !ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+".")
 
 		saynn("[say=eliza]Yeah.. you like my cock, don't you?[/say]")
 
@@ -2488,7 +2488,7 @@ func _run():
 
 		saynn("[say=eliza]Cum for me-..[/say]")
 
-		saynn("She growls as she unloads inside you, her balls tensing up as her seed surges deep into your "+str("womb" if !isAnal else "nethers")+" in thick, hot ropes. You feel each pulse of her orgasm as her length twitches, buried completely within you. With a shudder, your own peak catches up with you, pleasure crashing over you in waves that tremble through your limbs"+str(", your own {pc.penis} shooting spurts of {pc.cum}, wasting it" if GM.pc.hasPenis() else "")+".")
+		saynn("She growls as she unloads inside you, her balls tensing up as her seed surges deep into your "+str("womb" if !isAnal else "nethers")+" in thick, hot ropes. You feel each pulse of her orgasm as her length twitches, buried completely within you. With a shudder, your own peak catches up with you, pleasure crashing over you in waves that tremble through your limbs"+str(", your own {pc.penis} shooting spurts of {pc.cum}, wasting it" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 		saynn("[say=pc]Ah-h.. mhh.ahh.. nhh..[/say]")
 
@@ -2525,7 +2525,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addStraponButtons(thestate):
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), thestate, [strapon])
 
@@ -2566,8 +2566,8 @@ func _react(_action: String, _args):
 
 	if(_action == "do_milk_first"):
 		processTime(3*60)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "stop_milking"):
 		processTime(3*60)
@@ -2575,8 +2575,8 @@ func _react(_action: String, _args):
 
 	if(_action == "milk_more"):
 		getCharacter("eliza").fillBreasts(randf_range(0.7, 1.0))
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "sybian_milking"):
 		processTime(3*60)
@@ -2589,11 +2589,11 @@ func _react(_action: String, _args):
 
 	if(_action == "milking_sybian_turn_on"):
 		processTime(15*60)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Vagina)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Vagina)
 		getCharacter("eliza").fillBreasts(1.0)
 		getCharacter("eliza").fillBreasts(1.0)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "stop_milking_after_all"):
 		processTime(3*60)
@@ -2614,8 +2614,8 @@ func _react(_action: String, _args):
 		isStrapon=true
 		setState("vag_on_table")
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidType("Cum")):
@@ -2631,17 +2631,17 @@ func _react(_action: String, _args):
 	if(_action == "vag_sex_cum"):
 		processTime(10*60)
 		getCharacter("eliza").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "vag_sex_pullout"):
 		processTime(10*60)
 		getCharacter("eliza").cummedOnBy("pc")
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "vag_sex_cum_strapon"):
 		processTime(10*60)
 		getCharacter("eliza").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		setState("vag_sex_cum")
 		return
 
@@ -2649,7 +2649,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "endthescene_unequipstrapon"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		endScene()
 		return
 
@@ -2685,8 +2685,8 @@ func _react(_action: String, _args):
 
 	if(_action == "s2_pc_milks_scarlet"):
 		processTime(3*60)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.3)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.3)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "s2_eliza_takes_spot"):
 		processTime(3*60)
@@ -2694,17 +2694,17 @@ func _react(_action: String, _args):
 	if(_action == "s2_eliza_starts_milking_scarlet"):
 		processTime(5*60)
 		getCharacter("elizaMom").fillBreasts()
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.2)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.2)
 
 	if(_action == "s2_eliza_starts_milking_scarlet_fast"):
 		processTime(5*60)
 		getCharacter("elizaMom").fillBreasts()
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.4)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts, true, 0.4)
 
 	if(_action == "s2_eliza_starts_milking_scarlet_cum"):
 		processTime(5*60)
 		getCharacter("elizaMom").fillBreasts()
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("elizaMom"), BodypartSlot.Breasts)
 
 	if(_action == "s2_after_eliza_milks_scarlet"):
 		processTime(3*60)
@@ -2724,9 +2724,9 @@ func _react(_action: String, _args):
 
 	if(_action == "s3_spitroast"):
 		isAnal = true
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			isAnal = false
-		hasPP = GM.pc.hasPenis()
+		hasPP = ServiceLocator.safe_get_service(&"Player").hasPenis()
 		var strapon = GlobalRegistry.createItem("StraponCanine")
 		strapon.clothesColor = Color("E096C7")
 		var fluids = strapon.getFluids()
@@ -2740,12 +2740,12 @@ func _react(_action: String, _args):
 
 	if(_action == "s3_rng_tease"):
 		processTime(3*60)
-		if(!GM.pc.hasReachablePenis()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			isStrapon = true
 			var strapon = GlobalRegistry.createItem("StraponCanine")
 			var fluids = strapon.getFluids()
 			fluids.addFluid("CumLube", 534.0)
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "s3_rng_sex"):
 		processTime(5*60)
@@ -2762,15 +2762,15 @@ func _react(_action: String, _args):
 			getCharacter("elizaMom").cummedInVaginaBy("pc")
 		else:
 			getCharacter("elizaMom").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.cummedOnBy("eliza")
-		GM.pc.orgasmFrom("elizaMom")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("elizaMom")
 
 	if(_action == "s3_rng_after"):
 		processTime(3*60)
 
 	if(_action == "s3_rng_slipout"):
 		processTime(3*60)
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 
 	if(_action == "s3_leave"):
 		processTime(10*60)
@@ -2783,25 +2783,25 @@ func _react(_action: String, _args):
 
 	if(_action == "s3_spit_fast"):
 		processTime(5*60)
-		GM.pc.gotThroatFuckedBy("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("eliza")
 		if(isAnal):
-			GM.pc.gotAnusFuckedBy("elizaMom")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("elizaMom")
 		else:
-			GM.pc.gotVaginaFuckedBy("elizaMom")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("elizaMom")
 
 	if(_action == "s3_spit_cum"):
 		processTime(5*60)
-		if(GM.pc.hasPenis()):
-			GM.pc.cummedOnBy("pc")
-		GM.pc.gotThroatFuckedBy("eliza")
-		GM.pc.orgasmFrom("elizaMom")
-		GM.pc.cummedInMouthBy("eliza", FluidSource.Strapon)
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("elizaMom")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("eliza", FluidSource.Strapon)
 		if(isAnal):
-			GM.pc.gotAnusFuckedBy("elizaMom")
-			GM.pc.cummedInAnusBy("elizaMom", FluidSource.Strapon)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("elizaMom")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("elizaMom", FluidSource.Strapon)
 		else:
-			GM.pc.gotVaginaFuckedBy("elizaMom")
-			GM.pc.cummedInVaginaBy("elizaMom", FluidSource.Strapon)
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("elizaMom")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("elizaMom", FluidSource.Strapon)
 
 	if(_action == "s3_spit_after"):
 		processTime(5*60)
@@ -2836,7 +2836,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("eliza").cummedInVaginaBy("pc", FluidSource.Penis, 0.45)
 		getCharacter("elizaMom").cummedInVaginaBy("pc", FluidSource.Penis)
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "s3_tower_after_cum"):
 		processTime(3*60)
@@ -2859,12 +2859,12 @@ func _react(_action: String, _args):
 	if(_action == "futa_sex_cum"):
 		processTime(5*60)
 		if(isAnal):
-			GM.pc.gotAnusFuckedBy("eliza")
-			GM.pc.cummedInAnusBy("eliza")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("eliza")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("eliza")
 		else:
-			GM.pc.gotVaginaFuckedBy("eliza")
-			GM.pc.cummedInVaginaBy("eliza")
-		GM.pc.orgasmFrom("eliza")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("eliza")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("eliza")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "futa_cuddle"):
 		processTime(5*60)

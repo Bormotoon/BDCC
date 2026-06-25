@@ -120,14 +120,14 @@ func register():
 	GlobalRegistry.registerFightClubFighter("res://Modules/FightClubModule/Fighters/Avy/AvyFighter.gd")
 
 func registerEventTriggers():
-	GM.ES.registerEventTrigger("ArenaFighterPCLost", EventTriggerLocation.new())
-	GM.ES.registerEventTrigger("ArenaFighterPCWon", EventTriggerLocation.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("ArenaFighterPCLost", EventTriggerLocation.new())
+	ServiceLocator.safe_get_service(&"EventSystem").registerEventTrigger("ArenaFighterPCWon", EventTriggerLocation.new())
 
 func resetFlagsOnNewDay():
 	pass
 
 static func getPCRank():
-	return GM.main.getFlag("FightClubModule.FightClubPCRank", FightClubRank.FuckMeat)
+	return ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.FightClubPCRank", FightClubRank.FuckMeat)
 
 static func raisePCRankTo(newRank):
 	var currentRank = getPCRank()
@@ -135,12 +135,12 @@ static func raisePCRankTo(newRank):
 	var newRankOrder = FightClubRank.getOrder(newRank)
 	
 	if(newRankOrder < currentRankOrder):
-		GM.main.setFlag("FightClubModule.FightClubPCRank", newRank)
+		ServiceLocator.safe_get_service(&"MainScene").setFlag("FightClubModule.FightClubPCRank", newRank)
 		return true
 	return false
 
 static func isFighterDefeated(fighterID):
-	var defeated = GM.main.getFlag("FightClubModule.FightClubDefeatedFighters", {})
+	var defeated = ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.FightClubDefeatedFighters", {})
 	if(defeated.has(fighterID) && defeated[fighterID]):
 		return true
 	
@@ -165,9 +165,9 @@ static func getNextFighter():
 	return null
 
 static func markFighterAsDefeated(fighterID):
-	var defeated = GM.main.getFlag("FightClubModule.FightClubDefeatedFighters", {})
+	var defeated = ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.FightClubDefeatedFighters", {})
 	defeated[fighterID] = true
-	GM.main.setFlag("FightClubModule.FightClubDefeatedFighters", defeated)
+	ServiceLocator.safe_get_service(&"MainScene").setFlag("FightClubModule.FightClubDefeatedFighters", defeated)
 
 func isReadyToFightAvy():
 	var ranks = FightClubRank.getAll()

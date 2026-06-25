@@ -285,27 +285,27 @@ func _run():
 			addButton("Use Tavi", "Make use of Tavi's mouth", "use_tavi_as_toilet")
 		addButton("Enough", "Return back to the cell", "endthescene")
 	if(state == "use_tavi_as_toilet"):
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.SexOral, "tease", {npc="tavi", bodyState={naked=true, hard=true}, npcBodyState={naked=true}})
 		else:
 			playAnimation(StageScene.SexOral, "start", {npc="tavi", bodyState={naked=true, hard=true}, npcBodyState={naked=true}})
 		saynn("[say=pc]Yeah. Get on your knees.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Tavi smiles and slowly lowers herself to her knees before admiring the sight before her. Your locked away member is twitching slightly behind its contains, feeling Tavi's breath. She drags her tongue over your chastity cage before slipping it under it and licking the tip.")
 
 			saynn("[say=tavi]Use me as your piss toilet.. I won't lose a drop..[/say]")
 
 			saynn("Tavi parts her lips and lets your cage into her mouth. Her obedient lusty eyes look up at you, she is waiting patiently..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Tavi smiles and slowly lowers herself to her knees before admiring the sight before her. Your {pc.penis} is semi-hard and twitching slightly, feeling Tavi's breath. She drags her tongue over your length before kissing the tip.")
 
 			saynn("[say=tavi]Use me as your piss toilet.. I won't lose a drop..[/say]")
 
 			saynn("Tavi parts her lips and grabs the head of your member with them. Her obedient lusty eyes look up at you, she is waiting patiently..")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Tavi smiles and slowly lowers herself to her knees before admiring the sight before her. Your {pc.pussyStretch} pussy is twitching slightly, feeling Tavi's breath. She drags her tongue over your folds before kissing the little clit.")
 
 			saynn("[say=tavi]Use me as your piss toilet.. I won't lose a drop..[/say]")
@@ -492,7 +492,7 @@ func _react(_action: String, _args):
 
 	if(_action == "shower_with_tavi"):
 		processTime(5*60)
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter("tavi").afterTakingAShower()
 
 	if(_action == "shower_alone"):
@@ -531,7 +531,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_rail_tavi"):
 		processTime(10*60)
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		if(getModule("TaviModule").isVirgin()):
 			tookVirginity = true
 			setFlag("TaviModule.TaviIsNotVirgin", true)
@@ -543,12 +543,12 @@ func _react(_action: String, _args):
 	if(_action == "rough_cuminside"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		getModule("TaviModule").addCorruption(3)
 
 	if(_action == "rough_pullout"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		getModule("TaviModule").addCorruption(-3)
 
 	setState(_action)

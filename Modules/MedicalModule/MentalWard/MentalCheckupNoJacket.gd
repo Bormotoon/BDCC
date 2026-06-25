@@ -93,7 +93,7 @@ func _react(_action: String, _args):
 	if(_action == "surrender"):
 		MedicalModule.addPCBehavior(-0.1)
 
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
 
 	if(_action == "attack"):
 		MedicalModule.addPCBehavior(-0.9)
@@ -110,7 +110,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "leave_her"):
-		GM.pc.addPain(5)
+		ServiceLocator.safe_get_service(&"Player").addPain(5)
 	
 	setState(_action)
 
@@ -128,5 +128,5 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(50)
 		else:
 			setState("surrender")
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
 			addExperienceToPlayer(10)

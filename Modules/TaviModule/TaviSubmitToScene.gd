@@ -20,7 +20,7 @@ func _run():
 
 		addButton("Give up", "It’s not worth it", "give_up")
 		
-		if(!GM.pc.isGagged()):
+		if(!ServiceLocator.safe_get_service(&"Player").isGagged()):
 			addButton("Get on your knees", "Try harder, this will involve feet and a lot of humiliation", "get_on_your_knees")
 		else:
 			addDisabledButton("Get on your knees", "You need your mouth to be free for this")
@@ -94,7 +94,7 @@ func _run():
 		saynn("You nod. Tavi pulls her toes out of your mouth and rubs your saliva into your face, making you look like a subby mess.")
 		
 		addButton("End", "The humiliation..", "endthescene")
-		if(GM.pc.hasReachablePenis() || GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("I want more", "That amount of humiliation wasn’t enough", "i_want_more")
 		else:
 			addDisabledButton("I want more", "You need a pussy or reachable cock for this")
@@ -106,12 +106,12 @@ func _run():
 			npcBodyState={exposedCrotch=true,hard=true,},
 		})
 		
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("But then she shifts her leg down to your crotch area, her foot rubs it and then sneaks under your clothing.")
 		else:
 			saynn("But then she shifts her leg down to your crotch, her foot spreads your legs and traces around your privates.")
 
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 
 			saynn("Your cock is hard, very hard, all that humiliation has really turned you on. Tavi’s foot presses your shaft into your abdomen and gives it a gentle foot massage. It feels weird but also pleasurable, you open your mouth and let out a little noise, then another, and another. Tall cat chuckles and continues, one of her toes finds the tip of your cock and rubs it specifically, making you squirm.")
 
@@ -119,7 +119,7 @@ func _run():
 
 			saynn("You leak pre and Tavi uses her foot to spread it around and then continues to stroke your shaft in such a strange way. But it feels good, you begin to breathe deeply, random shivers appear throughout your body, your cock throbs and twitches, you’re getting kinda close and Tavi feels it.")
 
-			if(!GM.pc.isFullyNaked()):
+			if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 				saynn("[say=tavi]Gonna leave a mess in your pants, huh~?[/say]")
 			else:
 				saynn("[say=tavi]Gonna leave a mess, huh~?[/say]")
@@ -128,14 +128,14 @@ func _run():
 
 			saynn("[say=tavi]Very good~. Go clean yourself, cutie. Unless you like being messy, I can understand that too~[/say]")
 
-		elif(GM.pc.hasReachableVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You’re wet between your legs, very wet, all that humiliation has really turned you on. Tavi’s foot finds your sensitive petals and gently rubs them, it feels strange and weird but also kinda pleasurable, you can’t help but to open your mouth and let out a few cute noises. Tall cat chuckles and continues to do her thing, one of her toes finds your clit and rubs it from side to side, making you squirm.")
 
 			saynn("[say=tavi]You like it, huh? I see that you do~[/say]")
 
 			saynn("Your pussy leaks more of your female juices, Tavi uses her foot to spread it around your crotch and then resumes rubbing you further, pleasuring you in such a strange way. But it feels good, you breathe deeply and keep moaning for your miss, random shivers appear throughout your body, you’re getting kinda close and Tavi feels it.")
 
-			if(!GM.pc.isFullyNaked()):
+			if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 				saynn("[say=tavi]Gonna cum like that, with your pants, huh~?[/say]")
 			else:
 				saynn("[say=tavi]Gonna cum like that, huh~?[/say]")
@@ -160,14 +160,14 @@ func _react(_action: String, _args):
 		processTime(60*10)
 	
 	if(_action == "i_want_more"):
-		GM.main.addRoomMemoryCurrentLoc("You can still smell the scent of Tavi's juices here..", 2)
+		ServiceLocator.safe_get_service(&"MainScene").addRoomMemoryCurrentLoc("You can still smell the scent of Tavi's juices here..", 2)
 		processTime(60*10)
-		if(GM.pc.hasReachablePenis()):
-			GM.pc.orgasmFrom("tavi")
-			GM.pc.cummedOnBy("pc", FluidSource.Penis)
-		elif(GM.pc.hasReachableVagina()):
-			GM.pc.orgasmFrom("tavi")
-			GM.pc.cummedOnBy("pc", FluidSource.Vagina)
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc", FluidSource.Penis)
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("pc", FluidSource.Vagina)
 	
 	setState(_action)
 

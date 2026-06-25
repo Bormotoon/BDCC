@@ -6,14 +6,14 @@ func _init():
 	sceneID = "PortalPantiesSleepingLewdScene"
 
 func _reactInit():
-	GM.pc.addCredits(1)
+	ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 func _run():
 	if(state == ""):
 		saynn("You were still sleeping in your cell, enjoying the empty pointless dreams that your mind produces. Little stories that are composed out of familiar elements that seem so meaningless together.")
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Oh, but this dream seems particularly interesting. Quite lewd too, someone’s hand is reaching down for your crotch and gives your pussy slit a rub, making you quite wet.")
 
 			saynn("Then the hand gets pulled away, replaced with a dick that brushes against your sex. You begin to wonder if it's still a dream even, the sensations are quite real.")
@@ -30,7 +30,7 @@ func _run():
 
 	if(state == "keep_sleeping"):
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You try to really immerse yourself into that dream and push away the awakening. Dream-you spreads {pc.his} legs more for that cock and lets it spread your {pc.pussyStretch} pussy wide before entering it.")
 
 			saynn("This surreal experience feels so good to you, little passionate moans escape from your lips as the cock starts fucking you in a dream. While the other you is squirming around in {pc.his} bed, reaching for the portal panties. Such a nice dream.")
@@ -62,7 +62,7 @@ func _run():
 		playAnimation(StageScene.SexAllFours, RNG.pick(["sex", "fast", "sexflop", "fastflop"]), {onlySub=true, npc="pc", npcBodyState={naked=true}})
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You open your eyes and realize that nothing of it was a dream, you indeed feel a cock rubbing against your pussy through the portal panties before suddenly penetrating your sex!")
 
 			saynn("You try to get up but the rough thrusts pin you to the bed. You turn around and get on all fours, moaning while someone’s cock pounds your slit hard, making you shift forward each time.")
@@ -100,13 +100,13 @@ func _react(_action: String, _args):
 			pickedInmate = "inmateMaleCanine"
 		npcID = pickedInmate
 		
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy(pickedInmate)
-			GM.pc.cummedInVaginaBy(pickedInmate)
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(pickedInmate)
 		else:
-			GM.pc.gotAnusFuckedBy(pickedInmate)
-			GM.pc.cummedInAnusBy(pickedInmate)
-		GM.pc.orgasmFrom(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
 	
 	if(_action == "endthescene"):
 		endScene()

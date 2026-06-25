@@ -276,7 +276,7 @@ func _run():
 		removeCharacter("rahi")
 		playAnimation(StageScene.Solo, "sit")
 		aimCameraAndSetLocName("med_lobbyse")
-		GM.pc.setLocation("med_lobbyse")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyse")
 		saynn("You find the nearest bench and take a seat. You just now realize how shaky your hands are.")
 
 		saynn("Time drags on for what feels like forever. At least nothing is under your control anymore.")
@@ -383,7 +383,7 @@ func _run():
 	if(state == "bring_rahi_to_her_cell"):
 		playAnimation(StageScene.Duo, "stand", {npc="rahi"})
 		aimCameraAndSetLocName("cellblock_orange_nearcell")
-		GM.pc.setLocation("cellblock_orange_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_orange_nearcell")
 		saynn("You help Rahi get to her cell. The feline turns around and kisses your cheek. This kiss offers you hope, the thing that you lacked.")
 
 		saynn("[say=rahi]Thank you.. Sorry for being like that..[/say]")

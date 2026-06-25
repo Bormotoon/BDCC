@@ -20,7 +20,7 @@ func _run():
 		
 		saynn("Who do you want to check on?")
 		
-		var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+		var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 		
 		for charID in slaves:
 			var character:DynamicCharacter = getCharacter(charID)
@@ -42,10 +42,10 @@ func _react(_action: String, _args):
 		else:
 			var noMirri = getModule("SlaveAuctionModule").noMirri()
 			if(noMirri):
-				GM.pc.setLocation("market_market")
+				ServiceLocator.safe_get_service(&"Player").setLocation("market_market")
 			else:
-				GM.pc.setLocation("market_intro")
-			#GM.pc.setLocation("market_intro")
+				ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
+			#ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
 			addMessage("You use your bluespace relay-tag to teleport to the Blacktail Market.")
 			
 		return
@@ -55,7 +55,7 @@ func _react(_action: String, _args):
 		var npcSlavery:NpcSlave = character.getNpcSlavery()
 		
 		if(!npcSlavery.isDoingActivity() || (npcSlavery.isDoingActivity() && npcSlavery.getActivity().shouldTriggerEventsOnTalk())):
-			if(GM.ES.triggerReact("TalkedWithSlave", [character.getID(), "SlaveTalkScene"])):
+			if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact("TalkedWithSlave", [character.getID(), "SlaveTalkScene"])):
 				endScene()
 				return
 		

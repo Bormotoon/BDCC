@@ -4,7 +4,7 @@ func _init():
 	sceneID = "AlexRynardTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["alexrynard"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["alexrynard"])):
 		endScene()
 		return
 
@@ -26,7 +26,7 @@ func _run():
 		if(GlobalRegistry.getItemIDsByTagSlow(ItemTag.SoldByAlexRynard).size() > 0):
 			addButton("Buy", "See what you can buy from Alex", "buyscene")
 		addButton("Leave", "That was enough talking", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["alexrynard"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["alexrynard"])
 		
 
 	if(state == "talk"):
@@ -49,7 +49,7 @@ func _run():
 			addButton("Bluespace", "What is bluespace", "bluespace")
 			addButton("Him", "Why is he here", "him")
 #ACEPREGEXPAC - New Talk scene about preg
-			if(getFlag("AlexRynardModule.ch2FinalSceneHappened") && GM.pc.isVisiblyPregnant() || (getCharacter("alexrynard").isVisiblyPregnant())):
+			if(getFlag("AlexRynardModule.ch2FinalSceneHappened") && ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() || (getCharacter("alexrynard").isVisiblyPregnant())):
 				addButton("Pregnancy", "All things related to pregnancy", "pregnancytalk")
 			else:
 				addDisabledButton("Pregnancy", "Alex should trust you enough.. and you should be pregnant, obviously")

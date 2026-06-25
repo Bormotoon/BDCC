@@ -8,7 +8,7 @@ func registerTriggers(es):
 	es.addTrigger(self, "PortalPantiesSleepingEvent")
 	
 func react(_triggerID, _args):
-	if(getFlag("PortalPantiesModule.Panties_FleshlightsGotStolen") && !GM.QS.isCompleted("PortalPantiesQuest")):
+	if(getFlag("PortalPantiesModule.Panties_FleshlightsGotStolen") && !ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("PortalPantiesQuest")):
 		return false
 	
 	if(_triggerID == "PortalPantiesEvent"):

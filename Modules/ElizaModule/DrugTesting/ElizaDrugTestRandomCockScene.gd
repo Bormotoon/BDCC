@@ -231,7 +231,7 @@ func _react(_action: String, _args):
 
 	if(_action == "eliza_cums"):
 		processTime(3*60)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Penis)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Penis)
 
 	if(_action == "turn_off_machine"):
 		processTime(3*60)

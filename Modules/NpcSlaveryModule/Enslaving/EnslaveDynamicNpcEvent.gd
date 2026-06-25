@@ -46,5 +46,5 @@ func onButton(_method, _args):
 	if(_method == "doenslave"):
 		runScene("EnslaveDynamicNpcScene", [_args[0]])
 	if(_method == "dokidnap"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("KidnapDynamicNpcScene", [_args[0]])

@@ -7,9 +7,9 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "cellblock_lilac_nearcell")
 	
 func run(_triggerID, _args):
-	if(GM.QS.isActive("Ch3TaviQuest") && !getFlag("TaviModule.Ch4KaitSceneHappened") && getFlag("TaviModule.Ch4ServedPunishment")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isActive("Ch3TaviQuest") && !getFlag("TaviModule.Ch4KaitSceneHappened") && getFlag("TaviModule.Ch4ServedPunishment")):
 		
-		if(GM.main.getTime() <= 7*60*60):
+		if(ServiceLocator.safe_get_service(&"MainScene").getTime() <= 7*60*60):
 			addButtonWithChecks("Kait", "Look around for Kait and 'ask' her some questions.", "kait", [], [ButtonChecks.NotHandsBlocked, ButtonChecks.NotArmsRestrained, ButtonChecks.NotBlindfolded])
 		else:
 			addDisabledButton("Kait", "Kait is not here currently. Come back during the mornings before 7am")

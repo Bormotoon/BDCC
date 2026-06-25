@@ -4,7 +4,7 @@ func _init():
 	sceneID = "PSTentaclesTemplate"
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 	
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
@@ -14,7 +14,7 @@ func _run():
 		
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 	
 	if(_action == "endthescene"):
 		endScene()

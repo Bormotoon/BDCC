@@ -172,9 +172,9 @@ func _run():
 		addButton("Tavi's cell", "Find her cell", "find_tavi_cell")
 	if(state == "find_tavi_cell"):
 		aimCameraAndSetLocName("cellblock_red_nearcell")
-		GM.pc.setLocation("cellblock_red_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_red_nearcell")
 		playAnimation(StageScene.Sleeping, "idle", {pc="tavi", bodyState={naked=true}})
-		setFlag("TaviModule.Ch5TaviSavedDay", GM.main.getDays())
+		setFlag("TaviModule.Ch5TaviSavedDay", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		saynn("You go down to the level where all the cell blocks are and enter the high security one.")
 
 		saynn("[say=pc]Where is your cell, Tavi?[/say]")

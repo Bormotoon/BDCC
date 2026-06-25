@@ -73,7 +73,7 @@ func _run():
 
 			saynn("She giggles, biting her lip.")
 
-			if (!GM.pc.hasReachablePenis()):
+			if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("[say=kidlat]C'mon.. I even have a cute toy 'ere that you can use..[/say]")
 
 				saynn("Oh yeah, there is a strapon harness in her box. Kitty really came prepared.")
@@ -104,14 +104,14 @@ func _run():
 
 			saynn("She bites her lip, her other hand tugging her shorts down just enough to show a glimpse of her cyan clit.")
 
-			if (!GM.pc.hasReachablePenis()):
+			if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("[say=kidlat]C'mon.. I even have a cute toy 'ere that you can use..[/say]")
 
 				saynn("Oh yeah, there is still a strapon harness in her box. Kitty really wants you to use it..")
 
 		addButton("Drunk?", "Ask her why she is drunk", "ask_why_drunk")
 		addButton("Sex", "Might as well fuck that horny kitty", "do_sex")
-		if (GM.pc.getInventory().getAmountOf("AnaphrodisiacPill") >= 1):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("AnaphrodisiacPill") >= 1):
 			addButton("Anaphrodisiac", "(Progress story) Feed her a pill that will kill her libido", "give_anaphrodisiac")
 		else:
 			addDisabledButton("Anaphrodisiac", "(Anaphrodisiac pill missing) Feed her a pill that will kill her libido. She will probably be more willing to answer your questions when not so horny.")
@@ -136,7 +136,7 @@ func _run():
 		saynn("[say=kidlat]Well.. you can also just buy something before you piss off.. works for me.[/say]")
 
 		addButton("Sex", "Might as well fuck that horny kitty", "do_sex")
-		if (GM.pc.getInventory().getAmountOf("AnaphrodisiacPill") >= 1):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("AnaphrodisiacPill") >= 1):
 			addButton("Anaphrodisiac", "(Progress story) Feed her a pill that will kill her libido", "give_anaphrodisiac")
 		else:
 			addDisabledButton("Anaphrodisiac", "(Anaphrodisiac pill missing) Feed her a pill that will kill her libido. She will probably be more willing to answer your questions when not so horny.")
@@ -496,16 +496,16 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_sex"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			setState("do_vagsex")
 		else:
 			isStrapon = true
 			setState("do_vagsex")
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
 		return
 
 	if(_action == "give_anaphrodisiac"):
-		GM.pc.getInventory().removeXOfOrDestroy("AnaphrodisiacPill", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("AnaphrodisiacPill", 1)
 
 	if(_action == "do_browse"):
 		endScene()
@@ -532,11 +532,11 @@ func _react(_action: String, _args):
 	if(_action == "do_vagsex_inside"):
 		processTime(3*60)
 		getCharacter("kidlat").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_vagsex_pullout"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "do_vagsex_pullback"):
 		processTime(3*60)
@@ -544,7 +544,7 @@ func _react(_action: String, _args):
 	if(_action == "do_sex_helpup"):
 		processTime(3*60)
 		if(isStrapon):
-			GM.pc.removeStrapon()
+			ServiceLocator.safe_get_service(&"Player").removeStrapon()
 
 	setState(_action)
 

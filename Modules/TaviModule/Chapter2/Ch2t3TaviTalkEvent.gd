@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TalkingToNPC, "tavi")
 	
 func run(_triggerID, _args):
-	if(GM.QS.isCompleted("Ch2ElizaQuest") && !getFlag("TaviModule.ch2DrugsGaveToTavi")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("Ch2ElizaQuest") && !getFlag("TaviModule.ch2DrugsGaveToTavi")):
 		addButtonUnlessLate("Drugs", "Show her the drugs you stole", "tavidrugs")
 
 func getPriority():
@@ -15,7 +15,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "tavidrugs"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Ch2t3TaviDrugsScene")
 		setFlag("TaviModule.ch2DrugsGaveToTavi", true)
 

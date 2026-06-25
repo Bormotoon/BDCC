@@ -15,16 +15,16 @@ func _initScene(_args = []):
 	npcExtra2 = _args[3]
 
 func _reactInit():
-	var theNemesis:SpecialRelationshipBase = GM.main.RS.getSpecialRelationship(npcMain)
+	var theNemesis:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.getSpecialRelationship(npcMain)
 	if(theNemesis && theNemesis.id == "Nemesis"):
 		nemesisReason = theNemesis.getReason()
 	
 	#if(getCharacter(npcMain).hasEnslaveQuest()):
 	getCharacter(npcMain).setEnslaveQuest(null)
 	
-	GM.main.IS.deletePawn(npcMain)
-	GM.main.IS.deletePawn(npcExtra1)
-	GM.main.IS.deletePawn(npcExtra2)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(npcMain)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(npcExtra1)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(npcExtra2)
 	
 	if(ambushPlace == "shower"):
 		ambushType = RNG.pick(["showeritems"])
@@ -36,24 +36,24 @@ func _reactInit():
 		ambushType = RNG.pick(["normalshiv", "normaldrugged_stamina"])
 	
 	if(ambushType == "showeritems"):
-		transferAllEquippedItems(GM.pc, getCharacter("TempAmbushStash"))
-		transferHelpfulItems(GM.pc, getCharacter("TempAmbushStash"))
-		GM.pc.afterTakingAShower()
+		transferAllEquippedItems(ServiceLocator.safe_get_service(&"Player"), getCharacter("TempAmbushStash"))
+		transferHelpfulItems(ServiceLocator.safe_get_service(&"Player"), getCharacter("TempAmbushStash"))
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 	if(ambushType == "canteendrugged_lust"):
-		GM.pc.addLust(GM.pc.lustThreshold())
-		GM.pc.forceIntoHeat()
+		ServiceLocator.safe_get_service(&"Player").addLust(ServiceLocator.safe_get_service(&"Player").lustThreshold())
+		ServiceLocator.safe_get_service(&"Player").forceIntoHeat()
 		addMessage("You feel VERY lusty..")
 	if(ambushType == "normaldrugged_stamina"):
-		GM.pc.addStamina(-GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"Player").addStamina(-ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		addMessage("You feel VERY weak..")
 	if(ambushType == "normalshiv"):
-		GM.pc.addPain(30)
-		GM.pc.doWound(npcMain)
+		ServiceLocator.safe_get_service(&"Player").addPain(30)
+		ServiceLocator.safe_get_service(&"Player").doWound(npcMain)
 	if(ambushType == "cellbondage"):
-		transferHelpfulItems(GM.pc, getCharacter("TempAmbushStash"))
+		transferHelpfulItems(ServiceLocator.safe_get_service(&"Player"), getCharacter("TempAmbushStash"))
 		var possibleRestraints:Array = ["basketmuzzle", "blindfold", "bondagemittens", "inmateanklecuffs", "inmatewristcuffs"]
 		possibleRestraints.shuffle()
-		var addedList := GM.pc.getInventory().forceRestraintsList(possibleRestraints, 2)
+		var addedList := ServiceLocator.safe_get_service(&"Player").getInventory().forceRestraintsList(possibleRestraints, 2)
 		if(addedList.is_empty()):
 			addMessage("Looks like they didn't really manage to add more bondage gear onto you..")
 		elif(addedList.size() == 1):
@@ -201,11 +201,11 @@ func _run():
 		
 		saynn("But as you do.. you begin to feel something. It suddenly became very hot in here.")
 		
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked away cock is getting really tight in its small cage.. You feel so needy all of the sudden.")
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock is getting hard and drippy.. leaking pre.. You feel so needy all of the sudden.")
-		elif(GM.pc.hasReachableVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your pussy is getting wet and sensitive.. you're falling into heat.. you need to do something about it..")
 		else:
 			saynn("You feel so needy all of the sudden..")
@@ -441,7 +441,7 @@ func _run():
 	
 func _react(_action: String, _args):
 	if(_action == "endthescene"):
-		transferAllItems(getCharacter("TempAmbushStash"), GM.pc)
+		transferAllItems(getCharacter("TempAmbushStash"), ServiceLocator.safe_get_service(&"Player"))
 		if(ambushType == "showeritems"):
 			addMessage("All your items were returned to your inventory.")
 		endScene()
@@ -449,7 +449,7 @@ func _react(_action: String, _args):
 	if(_action == "start_first_fight"):
 		runScene("FightScene", [npcExtra1], "first_fight")
 		if(ambushType == "normalshiv"):
-			GM.pc.addEffect(StatusEffect.Bleeding, [8])
+			ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.Bleeding, [8])
 		return
 	if(_action == "start_second_fight"):
 		runScene("FightScene", [npcExtra2], "second_fight")
@@ -458,25 +458,25 @@ func _react(_action: String, _args):
 		runScene("FightScene", [npcMain], "third_fight")
 		return
 	if(_action == "start_slavery"):
-		transferAllItems(getCharacter("TempAmbushStash"), GM.pc)
+		transferAllItems(getCharacter("TempAmbushStash"), ServiceLocator.safe_get_service(&"Player"))
 		endScene()
-		GM.main.RS.stopSpecialRelationship(npcMain)
+		ServiceLocator.safe_get_service(&"MainScene").RS.stopSpecialRelationship(npcMain)
 		
 		if(willSoftSlavery):
 			processTime(randi_range(60, 180)*60)
-			GM.main.RS.startSpecialRelantionship("SoftSlavery", npcMain)
+			ServiceLocator.safe_get_service(&"MainScene").RS.startSpecialRelantionship("SoftSlavery", npcMain)
 			runScene("NpcOwnerEventRunnerScene", [npcMain, "Intro", ["ambush"]])
 			return
 		
 		runScene(getModule("PlayerSlaveryModule").getSlaveryStartScene())
 		return
 	if(_action == "startPunish"):
-		transferAllItems(getCharacter("TempAmbushStash"), GM.pc)
+		transferAllItems(getCharacter("TempAmbushStash"), ServiceLocator.safe_get_service(&"Player"))
 		endScene()
-		var thePawn = GM.main.IS.spawnPawn(npcMain)
+		var thePawn = ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawn(npcMain)
 		if(thePawn):
-			thePawn.setLocation(GM.pc.getLocation())
-			GM.main.IS.startInteraction("PunishInteraction", {punisher="pc", target=npcMain})
+			thePawn.setLocation(ServiceLocator.safe_get_service(&"Player").getLocation())
+			ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("PunishInteraction", {punisher="pc", target=npcMain})
 		return
 
 	setState(_action)
@@ -489,11 +489,11 @@ func _react_scene_end(_tag, _result):
 			setState("second_fight")
 			
 			if(ambushType == "canteendrugged_lust"):
-				GM.pc.addLust(GM.pc.lustThreshold())
-				GM.pc.forceIntoHeat()
+				ServiceLocator.safe_get_service(&"Player").addLust(ServiceLocator.safe_get_service(&"Player").lustThreshold())
+				ServiceLocator.safe_get_service(&"Player").forceIntoHeat()
 				addMessage("You still feel VERY lusty..")
 			if(ambushType == "normaldrugged_stamina"):
-				GM.pc.addStamina(-GM.pc.getMaxStamina())
+				ServiceLocator.safe_get_service(&"Player").addStamina(-ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 				addMessage("You still feel VERY weak..")
 		else:
 			setState("lost_fight")
@@ -504,11 +504,11 @@ func _react_scene_end(_tag, _result):
 			setState("third_fight")
 			
 			if(ambushType == "canteendrugged_lust"):
-				GM.pc.addLust(GM.pc.lustThreshold())
-				GM.pc.forceIntoHeat()
+				ServiceLocator.safe_get_service(&"Player").addLust(ServiceLocator.safe_get_service(&"Player").lustThreshold())
+				ServiceLocator.safe_get_service(&"Player").forceIntoHeat()
 				addMessage("You still feel VERY lusty..")
 			if(ambushType == "normaldrugged_stamina"):
-				GM.pc.addStamina(-GM.pc.getMaxStamina())
+				ServiceLocator.safe_get_service(&"Player").addStamina(-ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 				addMessage("You still feel VERY weak..")
 		else:
 			setState("lost_fight")
@@ -516,7 +516,7 @@ func _react_scene_end(_tag, _result):
 		processTime(10 * 60)
 		var battlestate = _result[0]
 		if(battlestate == "win"):
-			GM.main.RS.stopSpecialRelationship(npcMain)
+			ServiceLocator.safe_get_service(&"MainScene").RS.stopSpecialRelationship(npcMain)
 			setState("won_all_fights")
 		else:
 			setState("lost_fight")

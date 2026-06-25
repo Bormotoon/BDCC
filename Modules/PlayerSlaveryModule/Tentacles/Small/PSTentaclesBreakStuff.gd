@@ -8,27 +8,27 @@ func _init():
 	sceneID = "PSTentaclesBreakStuff"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
-		if (GM.pc.getLocation() == "pstent_fridge"):
+		if (ServiceLocator.safe_get_service(&"Player").getLocation() == "pstent_fridge"):
 			eventKind = "fridge"
-		elif (GM.pc.getLocation() == "pstent_play"):
+		elif (ServiceLocator.safe_get_service(&"Player").getLocation() == "pstent_play"):
 			eventKind = "table"
-		elif (GM.pc.getLocation() == "pstent_left"):
+		elif (ServiceLocator.safe_get_service(&"Player").getLocation() == "pstent_left"):
 			eventKind = "door"
-		elif (GM.pc.getLocation() == "pstent_important"):
+		elif (ServiceLocator.safe_get_service(&"Player").getLocation() == "pstent_important"):
 			eventKind = "window"
 		_tentacles.doAnim("whip")
 		anger = _tentacles.anger
@@ -230,7 +230,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

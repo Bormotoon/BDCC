@@ -15,6 +15,6 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "start"):
-		#GM.main.DrugDenRun = DrugDen.new()
-		#GM.main.DrugDenRun.start()
+		#ServiceLocator.safe_get_service(&"MainScene").DrugDenRun = DrugDen.new()
+		#ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.start()
 		runScene("DrugDenStartScene")

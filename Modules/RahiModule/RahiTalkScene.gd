@@ -4,7 +4,7 @@ func _init():
 	sceneID = "RahiTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["rahi"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["rahi"])):
 		endScene()
 		return
 
@@ -14,8 +14,8 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="rahi", npcAction="sit"})
 		
 	if(state == ""):
-		if(!GM.main.getModuleFlag("RahiModule", "Rahi_Introduced")):
-			GM.main.setModuleFlag("RahiModule", "Rahi_Introduced", true)
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_Introduced")):
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_Introduced", true)
 			
 			saynn("While wandering around the cellblock you stumble upon a feline, a new face. She is sitting on a metal bench, legs tucked under her with her fluffy tail on top that she idly strokes from time to time. Her orange uniform and collar show that she is from a general block, she doesn’t look very intimidating.")
 
@@ -73,12 +73,12 @@ func _run():
 			addDisabledButton("Embrace kitty", "She doesn't trust you enough")
 		
 		if(!getModuleFlag("RahiModule", "Rahi_GaveApple")):
-			if(GM.pc.getInventory().hasItemID("appleitem")):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("appleitem")):
 				addButton("Offer apple", "Maybe she would like one", "giveapple")
 			else:
 				addDisabledButton("Offer apple", "You need an apple for this")
 		addButton("Leave", "Do something else", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["rahi"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["rahi"])
 		
 	if(state == "appearance"):
 		saynn("You see a 1.6m feline girl with a ponytail and a pair of cute cat ears on top of her head. Brown-colored fur covers her body with her belly and maw being of a slightly lighter color. She has long white whiskers and blue eyes that she uses to mostly look down. Behind her is a feline tail that seems to have a mind of its own. Her uniform spots an orange trim and has a number P-12406 attached to it. Wrists and ankles are weighted down by the bulky cuffs and her neck has an inmate collar, the same one that you are wearing. She doesn’t seem particularly strong, the curves of her body are feminine and her body proportions seem of a pretty average housecat, not too slim and not too thick.")
@@ -100,7 +100,7 @@ func _run():
 		saynn("[say=rahi]You wanna talk about something? Meow..[/say]")
 		
 		addButton("Who are you", "Ask the feline’s name", "who_are_you")
-		if(!GM.main.getModuleFlag("RahiModule", "Rahi_AskedName")):
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_AskedName")):
 			addDisabledButton("Speech", "She doesn't know you yet")
 			addDisabledButton("Why are you here", "She doesn't know you yet")
 			addDisabledButton("What is this place", "She doesn't know you yet")
@@ -246,11 +246,11 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "giveapple"):
-		GM.main.setModuleFlag("RahiModule", "Rahi_GaveApple", true)
-		GM.pc.getInventory().removeXOfOrDestroy("appleitem", 1)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_GaveApple", true)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("appleitem", 1)
 	
 	if(_action == "who_are_you"):
-		GM.main.setModuleFlag("RahiModule", "Rahi_AskedName", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("RahiModule", "Rahi_AskedName", true)
 	
 	if(_action == "embrace"):
 		runScene("RahiEmbraceScene")

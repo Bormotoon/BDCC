@@ -4,12 +4,12 @@ func _init():
 	sceneID = "PSTentaclesWalker"
 
 func _run():
-	var tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 	
 	if(state == ""):
 		saynn("You're free to wander around your cell.")
-		var roomID:String = GM.pc.location
-		var _roomInfo = GM.world.getRoomByID(roomID)
+		var roomID:String = ServiceLocator.safe_get_service(&"Player").location
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(roomID)
 		aimCameraAndSetLocName(roomID)
 		
 		if(tentacles.getMonsterLoc() == roomID && !tentacles.hasEvent()):
@@ -21,22 +21,22 @@ func _run():
 		if(!theText.is_empty()):
 			saynn(theText)
 
-		if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.NORTH)):
 			addButtonAt(6, "North", "Go north", "go", [GameWorld.Direction.NORTH, Direction.North])
 		else:
 			addDisabledButtonAt(6, "North", "Can't go north")
 			
-		if(GM.world.canGoID(roomID, GameWorld.Direction.WEST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.WEST)):
 			addButtonAt(10, "West", "Go west", "go", [GameWorld.Direction.WEST, Direction.West])
 		else:
 			addDisabledButtonAt(10, "West", "Can't go west")
 			
-		if(GM.world.canGoID(roomID, GameWorld.Direction.SOUTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.SOUTH)):
 			addButtonAt(11, "South", "Go south", "go", [GameWorld.Direction.SOUTH, Direction.South])
 		else:
 			addDisabledButtonAt(11, "South", "Can't go south")
 		
-		if(GM.world.canGoID(roomID, GameWorld.Direction.EAST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.EAST)):
 			addButtonAt(12, "East", "Go east",  "go", [GameWorld.Direction.EAST, Direction.East])
 		else:
 			addDisabledButtonAt(12, "East", "Can't go east")
@@ -47,26 +47,26 @@ func _run():
 		
 
 func _react(_action: String, _args):
-	var tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 	
 	if(_action == "endthescene"):
 		endScene()
 		return
 	if(_action == "go"):
 		playAnimation(StageScene.Solo, "walk")
-		GM.pc.setLocation(GM.world.applyDirectionID(GM.pc.location, _args[0]))
-		processTime((30 if !GM.pc.hasBoundLegs() else 60))
-		aimCameraAndSetLocName(GM.pc.location)
-		#GM.ES.triggerReact(Trigger.EnteringRoom, [GM.pc.location, _args[1]])
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").location, _args[0]))
+		processTime((30 if !ServiceLocator.safe_get_service(&"Player").hasBoundLegs() else 60))
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").location)
+		#ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.EnteringRoom, [ServiceLocator.safe_get_service(&"Player").location, _args[1]])
 		
 		tentacles.processTurn()
 		
-		var eventInfo:Array = tentacles.checkEvent(self, GM.pc.getLocation())
+		var eventInfo:Array = tentacles.checkEvent(self, ServiceLocator.safe_get_service(&"Player").getLocation())
 		if(!eventInfo.is_empty()):
 			runScene(eventInfo[0], eventInfo[1] if eventInfo.size() > 1 else [])
 			return
-		elif(!GM.main.checkExtraScenes(true, true)):
-			if(GM.main.showLog()):
+		elif(!ServiceLocator.safe_get_service(&"MainScene").checkExtraScenes(true, true)):
+			if(ServiceLocator.safe_get_service(&"MainScene").showLog()):
 				return
 		
 			tentacles.afterWalkCheck()
@@ -82,7 +82,7 @@ func supportsShowingPawns() -> bool:
 	return true
 
 func getDebugActions():
-	return GM.main.PS.getDebugActions()
+	return ServiceLocator.safe_get_service(&"MainScene").PS.getDebugActions()
 
 func doDebugAction(id, args = {}):
-	GM.main.PS.doDebugAction(id, args)
+	ServiceLocator.safe_get_service(&"MainScene").PS.doDebugAction(id, args)

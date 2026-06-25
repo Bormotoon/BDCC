@@ -80,7 +80,7 @@ func _react(_action: String, _args):
 
 	if(_action == "do_milk_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	setState(_action)
 

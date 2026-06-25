@@ -9,7 +9,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingSolo, "idle", {bodyState={naked=true}})
 		
 		saynn("You open your eyes and realize that this is that day again. Dimly-lit room, fancy furniture, an iron hook that your wrists are cuffed to. Looking down you see your own permanent cage. You can’t hide it, you might be kinda excited.")
@@ -246,7 +246,7 @@ func _run():
 	if(state == "leave"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		saynn("Eliza brings you out into the corridor and scratches you behind the head.")
 
@@ -278,14 +278,14 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "cum"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 20)
-		howMuchMilked = GM.pc.milkSeed()
-		GM.pc.orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 20)
+		howMuchMilked = ServiceLocator.safe_get_service(&"Player").milkSeed()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "nod"):
-		var thebodypart = GM.pc.getBodypart(BodypartSlot.Head)
+		var thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Head)
 		if(thebodypart != null):
-			thebodypart.addFluidOrifice(GM.pc.getFluidType(FluidSource.Penis), howMuchMilked, GM.pc.getFluidDNA(FluidSource.Penis))
+			thebodypart.addFluidOrifice(ServiceLocator.safe_get_service(&"Player").getFluidType(FluidSource.Penis), howMuchMilked, ServiceLocator.safe_get_service(&"Player").getFluidDNA(FluidSource.Penis))
 		
 	if(_action in ["had_no_choice", "shake_head"]):
 		increaseFlag("MedicalModule.Chastity_OptionalBadBehavourCounter")

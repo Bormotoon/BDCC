@@ -9,7 +9,7 @@ func _run():
 		
 	if(state == ""):
 		# (if no hands)
-		if(GM.pc.hasBlockedHands()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 			saynn("You can’t use your hands at all so you have to.. wiggle.. until the keycard falls out. You grab it with your mouth. Hmm. You look around. Padded walls, floor.. You don’t see any spots to use the card. Was it all for nothing?")
 
 		# (if hands)
@@ -37,11 +37,11 @@ func _run():
 		aimCamera("med_lobbyne")
 		playAnimation(StageScene.Solo, "walk")
 		setLocationName("Medical lobby")
-		GM.pc.setLocation("med_lobbyne")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyne")
 		setModuleFlag("MedicalModule", "Mental_PlayerEscaped", true)
 		
 		# (if no hands)
-		if(GM.pc.hasBlockedHands()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 			saynn("Luckily you seem to have found the airlock that leads to the lobby. There is a button on the wall you can’t press with your hands so lean down to its level and boop it with your face. The airlock opens.")
 
 		# (if hands)

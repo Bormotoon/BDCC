@@ -48,12 +48,12 @@ func createBodyparts():
 func onGivingBirth(_impregnatedEggCells: Array, _newkids: Array):
 	super.onGivingBirth(_impregnatedEggCells, _newkids)
 	
-	GM.main.increaseModuleFlag("RahiModule", "Rahi_GaveBirthTimes", 1)
+	ServiceLocator.safe_get_service(&"MainScene").increaseModuleFlag("RahiModule", "Rahi_GaveBirthTimes", 1)
 
 func getBirthWaitTime():
 	return 60*60*24*2
 
 func getDefaultEquipment():
-	if(GM.main != null && GM.main.getFlag("RahiModule.wearingPortalPanties")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("RahiModule.wearingPortalPanties")):
 		return ["inmatecollar", "inmateuniform", "PortalPantiesUnlocked"]
 	return ["inmatecollar", "inmateuniform"]

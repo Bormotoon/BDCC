@@ -44,10 +44,10 @@ func _run():
 
 		saynn("She does a quick last visual check..")
 
-		if (GM.pc.hasEffect(StatusEffect.StretchedPainfullyAnus) || GM.pc.hasEffect(StatusEffect.StretchedPainfullyPussy) || GM.pc.hasEffect(StatusEffect.Wounded)):
+		if (ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyAnus) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyPussy) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Wounded)):
 			saynn("[say=eliza]Looks like you had quite the night.. You should pay me a visit sometime if this doesn't heal. I love testing.. I mean.. helping.[/say]")
 
-		elif (GM.pc.getPainLevel() >= 0.5):
+		elif (ServiceLocator.safe_get_service(&"Player").getPainLevel() >= 0.5):
 			saynn("[say=eliza]So many bruises.. You should try and sleep them off. I have just the place, very soft~. No? Aw.[/say]")
 
 		else:

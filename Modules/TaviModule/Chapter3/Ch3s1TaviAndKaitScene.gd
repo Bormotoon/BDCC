@@ -323,7 +323,7 @@ func _run():
 
 	if(state == "telecomms"):
 		aimCameraAndSetLocName("eng_neartransmitter")
-		GM.pc.setLocation("eng_neartransmitter")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_neartransmitter")
 		
 		saynn("You follow this new corridor. Very soon the floor underneath switches to a metal catwalk going over some kind of rocky surface. The walls soon switch to stone too.")
 

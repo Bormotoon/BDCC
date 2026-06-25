@@ -36,15 +36,15 @@ func _run():
 			saynn("The girl barks at you from over the shoulder of the main guy.")
 
 			# (if general inmate)
-			if(GM.pc.getInmateType() == InmateType.General):
+			if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 				saynn("[say=gymbully3]That’s right, general block bitch. Couldn’t even pull a trigger to earn yourself red clothes?[/say]")
 
 			# (if red inmate)
-			elif(GM.pc.getInmateType() == InmateType.HighSec):
+			elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 				saynn("[say=gymbully3]Yeah, pay up or fuck off, bitch.[/say]")
 
 			# (if lilac)
-			elif(GM.pc.getInmateType() == InmateType.SexDeviant):
+			elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 				saynn("[say=gymbully3]You better pay before you get shared between all the inmates here, lilac slut.[/say]")
 		
 		# (if not the first time)
@@ -53,7 +53,7 @@ func _run():
 
 			saynn("[say=gymbully]You know why we’re here. Pay up or leave.[/say]")
 
-		if(GM.pc.getCredits() >= 5):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 5):
 			addButton("Pay", "Well, what can you do", "pay")
 		else:
 			addDisabledButton("Pay", "Not enough credits")
@@ -108,7 +108,7 @@ func _react(_action: String, _args):
 
 	if(_action == "pay"):
 		processTime(5 * 60)
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 
 	if(_action == "fight"):
 		runScene("FightScene", ["gymbully"], "gymbullyfight")
@@ -143,9 +143,9 @@ func _react_scene_end(_tag, _result):
 		else:
 			setState("if_lost")
 			
-			if(GM.pc.getCredits() >= 5):
+			if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 5):
 				gotPayed = true
-				GM.pc.addCredits(-5)
+				ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 			else:
 				gotPayed = false
 			#addExperienceToPlayer(5)

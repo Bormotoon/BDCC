@@ -44,7 +44,7 @@ func _run():
 
 		saynn("She is even trying to beg you. Doing her best at least.")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=pc]What if I can't?[/say]")
 
 			saynn("Tavi quickly reaches under her bed and pulls out.. a strapon harness. Right. She wants you to take her virginity with that.")
@@ -52,7 +52,7 @@ func _run():
 		saynn("Tavi's current corruption is {taviCorruption}.")
 
 		addButton("Fingers", "Just use your fingers to satisfy Tavi without taking her virginity", "do_fingers")
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			addButton("Fuck Tavi", "Use your new pet's pussy", "do_fuck")
 		else:
 			addButton("Fuck Tavi", "Use your new pet's pussy with a strapon", "do_fuck_strapon")
@@ -367,7 +367,7 @@ func _react(_action: String, _args):
 		var strapon = GlobalRegistry.createItem("StraponCanine")
 		var fluids = strapon.getFluids()
 		fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-		GM.pc.getInventory().equipItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 		setFlag("TaviModule.TaviIsNotVirgin", true)
 
 	if(_action == "tavi_licks_juices"):
@@ -377,10 +377,10 @@ func _react(_action: String, _args):
 	if(_action == "you_lick_juices"):
 		processTime(3*60)
 		getModule("TaviModule").addCorruption(-1)
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "start_talk_scene"):
-		GM.pc.removeStrapon()
+		ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		endScene()
 		setFlag("TaviModule.Ch6TaviSatisfied", true)
 		runScene("Ch6TaviTalkScene")

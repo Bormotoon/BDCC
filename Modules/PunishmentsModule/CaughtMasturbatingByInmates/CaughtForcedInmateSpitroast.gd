@@ -16,15 +16,15 @@ func _run():
 		saynn("Your first instinct is to break free and punch one of them but the guys basically sandwich you, giving very little leeway, rendering your strength useless. Instead you shove one away and then are met with a smack on your ass. Ow.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=inmateMale]Being a red doesn’t mean you’re untouchable, slut.[/say]")
 
 		# (if general)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=inmateMale]Wearing orange doesn’t protect you against public use, slut.[/say]")
 
 		# (if lilac)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=inmateMale]Shut up and do what you’re good at, being used in public, lilac slut.[/say]")
 
 		saynn("They keep groping your {pc.masc} ass and {pc.breasts} but surely they won’t stop there.")
@@ -73,7 +73,7 @@ func _run():
 		saynn("Little transparent strings of precum hang from the tips of their cocks before landing on your hair, marking you with their scents. Catching the eyes of other inmates as they pass by makes you feel even more embarrassed, you place your palms on the guy’s knees to try and keep them somewhat away. But they keep jerking themselves off and panting while watching you blush.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You can’t deny that the view makes you somewhat horny, your slit is getting wet and needy from watching all these cocks..")
 
 		saynn("[say=inmateMale]Hope you’re ready~. Here comes a big one.[/say]")
@@ -92,7 +92,7 @@ func _run():
 
 	if(state == "submit"):
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Can’t escape their grasp, might as well try to enjoy it, you hold onto the inmate in front and pant slightly while they explore your body, shoving their paws under your clothes and rubbing your privates.")
 
 		# (if naked)
@@ -100,7 +100,7 @@ func _run():
 			saynn("Can’t escape their grasp, might as well try to enjoy it, you hold onto the inmate in front and pant slightly while they explore your body, sliding their paws over your curves and rubbing your privates.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The inmates notice your lack of resistance and only get more eager, one paw reaches down to your slit and starts playing with the clit, making you moan slightly.")
 
 		# (if no pussy)
@@ -110,9 +110,9 @@ func _run():
 		saynn("You begin to enjoy it even though they are still acting rough with you, both inmates expose their cocks, a knotted canine one is rubbing between your legs while a barbed feline one leaks precum onto your hips.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own {pc.cock} is becoming quite hard too in its little cage, begging for some attention that it obviously won’t receive.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own {pc.cock} is becoming quite hard too, begging for some attention that it probably won’t receive.")
 
 		saynn("[say=pc]H-hey..[/say]")
@@ -127,25 +127,25 @@ func _run():
 		saynn("You obey the rough touch and lean forward just to have the second guy catch you and move his barbed cock near your face, letting you see it from a very close distance.")
 
 		# (if has clothes and pussy)
-		if(!GM.pc.isFullyNaked() && GM.pc.hasVagina()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked() && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while the guy tugs on your clothes and removes enough to expose your wet pussy! He gives your ass a smack and watches you squirm before him.")
 
 		# (if no clothes and pussy)
-		elif(GM.pc.isFullyNaked() && GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").isFullyNaked() && ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while the guy forces you to spread your legs more, exposing your wet pussy! He gives your ass a smack and watches you squirm before him.")
 
 		# (if has clothes and no pussy)
-		elif(!GM.pc.isFullyNaked() && !GM.pc.hasVagina()):
+		elif(!ServiceLocator.safe_get_service(&"Player").isFullyNaked() && !ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while the guy tugs on your clothes and removes enough to expose your {pc.analStretch} tailhole! He lubes it up with his spit and gives your ass a smack before watching you squirm.")
 
 		# (if no clothes and no pussy)
-		elif(GM.pc.isFullyNaked() && !GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").isFullyNaked() && !ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("All the while the guy forces you to spread your legs more, exposing your {pc.analStretch} tailhole! He lubes it up with his spit and gives your ass a smack before watching you squirm.")
 
 		saynn("Fuck, you’re feeling kinda excited, you stick your tongue out and give the barbed member a little lick, tasting his pre. All the while the guy behind slides his cock between your {pc.thick} buns, teasing. You wish they would start fucking you already, your legs are spread and mouth is slightly opened while you are bent forward with cocks on both sides.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("They seem to be in sync between each other, it's hard to notice but they both seem to nod before suddenly thrusting inside you, barbed cock parts your lips and slides down your throat while the knotted cock gets shoved from the other end, stretching your pussy enough to enter inside the fuckhole and coat your wet inner walls with pre.")
 
 			saynn("You’d happily let out a pleasure noise but your mouth is busy while the both guys ares fucking your holes. The feline cock testing your gag reflex and scratching at the throat walls with its soft barbs while the knotted one gets rammed deeper down your sex with each thrust, causing you to bounce between the two dicks.")
@@ -153,7 +153,7 @@ func _run():
 			saynn("You hold onto the cat before you and eagerly treat his cock with your tongue and lips, your ass gets smacked again but you don’t even care, that only adds to the sensations. You blush seeing others watch you being spitroasted.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your pleasure point being rubbed makes you leak pre almost constantly, your cock is throbbing each time you’re being pounded.")
 
 		# (if has no pussy)
@@ -165,14 +165,14 @@ func _run():
 			saynn("You hold onto the cat before you and eagerly treat his cock with your tongue and lips, your ass gets smacked again but you don’t even care, that only adds to the sensations. You blush seeing others watch you being spitroasted.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your pleasure point being rubbed makes you leak pre almost constantly, your cock is throbbing each time you’re being pounded.")
 
 		addButton("Creampies", "With extra cream please", "creampies")
 
 	if(state == "creampies"):
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You are stuck between the two inmates, being spitroasted hard. You feel the guy’s knot inflate as it slaps against your pussy folds, struggling to fit. The other guy’s barbs are getting harder too, causing them to rake at your throat walls more.")
 
 			saynn("[say=inmateMale]Fuck, hope you like pups.[/say]")
@@ -180,7 +180,7 @@ func _run():
 			saynn("Huh? Before you can realize it, the guy knots you, shoving his meaty orb down your slit and stretching it wide before the whole cock gets concealed inside you. He breaks into your womb and starts filling it full of sticky virile seed! All the while the cat meets you by shoving his barbed cock as deep as your throat allows before cumming too, stuffing your belly. So much sudden stimulation sends you over the edge, causing your body to squirm, both your pussy and throat clench around the shafts, milking them for all their cum.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wastes its load and leaves a mess on the floor. At least it felt amazing.")
 
 			saynn("[say=inmateMale]So-o good, this slut is a natural.[/say]")
@@ -196,7 +196,7 @@ func _run():
 			# (scene ends)
 
 		# (if no pussy)
-		if(!GM.pc.hasVagina()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You are stuck between the two inmates, being spitroasted hard. You feel the guy’s knot inflate as it slaps against your {pc.analStretch} anus, struggling to fit. The other guy’s barbs are getting harder too, causing them to rake at your throat walls more.")
 
 			saynn("[say=inmateMale]Fuck, gonna..[/say]")
@@ -204,7 +204,7 @@ func _run():
 			saynn("Huh? Before you can realize it, the guy knots you, shoving his meaty orb down your tailhole and stretching it wide before the whole cock gets concealed inside you. He knots your fuckhole and starts filling it full of sticky warm seed! All the while the cat meets you by shoving his barbed cock as deep as your throat allows before cumming too, stuffing your belly. So much sudden stimulation sends you over the edge, causing your body to squirm, both your ass and throat clench around the shafts, milking them for all their cum.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wastes its load and leaves a mess on the floor. At least it felt amazing.")
 
 			saynn("[say=inmateMale]So-o good, this slut is a natural.[/say]")
@@ -224,43 +224,43 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "kick_balls"):
-		GM.pc.addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
 
 	if(_action == "resist"):
-		GM.pc.addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
 
 	if(_action == "get_cummed_on"):
 		processTime(60*6)
-		GM.pc.cummedOnBy("inmateMale")
-		GM.pc.cummedOnBy("inmateMale2")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("inmateMale")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("inmateMale2")
 		
 		if(RNG.chance(50)):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 			addMessage("They also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 
 	if(_action == "creampies"):
 		processTime(60*6)
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("inmateMale")
-			GM.pc.cummedInVaginaBy("inmateMale")
-			GM.pc.addTallymarkCrotch()
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("inmateMale")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("inmateMale")
+			ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
 		else:
-			GM.pc.gotAnusFuckedBy("inmateMale")
-			GM.pc.cummedInAnusBy("inmateMale")
-			GM.pc.addTallymarkButt()
-		GM.pc.cummedOnBy("inmateMale")
-		GM.pc.gotThroatFuckedBy("inmateMale2")
-		GM.pc.cummedInMouthBy("inmateMale2")
-		GM.pc.addTallymarkFace()
-		GM.pc.cummedOnBy("inmateMale2")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "caught_inmate_spitroast")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("inmateMale")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("inmateMale")
+			ServiceLocator.safe_get_service(&"Player").addTallymarkButt()
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("inmateMale")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("inmateMale2")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("inmateMale2")
+		ServiceLocator.safe_get_service(&"Player").addTallymarkFace()
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("inmateMale2")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "caught_inmate_spitroast")
 		
 		addMessage("They drew some tallymarks on you")
 		
 		if(RNG.chance(50)):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 			addMessage("They also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 
 	if(_action == "endthescene"):

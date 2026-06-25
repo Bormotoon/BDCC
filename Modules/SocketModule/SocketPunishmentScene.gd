@@ -7,7 +7,7 @@ func _init():
 
 func _reactInit():
 	var possible = ["tieup", "tieup"]
-	if(!GM.pc.isWearingHypnovisor()):
+	if(!ServiceLocator.safe_get_service(&"Player").isWearingHypnovisor()):
 		possible.append("hypnovisor")
 	
 	var pickedRandom = RNG.pick(possible)
@@ -15,20 +15,20 @@ func _reactInit():
 	if(pickedRandom == "hypnovisor"):
 		var visor = GlobalRegistry.createItem("HypnovisorMk0")
 		visor.restraintData.setLevel(5)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(visor)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("bondagemittens"))
-		HypnokinkUtil.raiseSuggestibilityTo(GM.pc, 75)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(visor)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("bondagemittens"))
+		HypnokinkUtil.raiseSuggestibilityTo(ServiceLocator.safe_get_service(&"Player"), 75)
 	
 	
 	if(pickedRandom == "tieup"):
 		var rope = GlobalRegistry.createItem("ropeharness")
 		rope.restraintData.setLevel(5)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(rope)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesAnkle"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("bondagemittens"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(rope)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesAnkle"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("bondagemittens"))
 	
 	setState(pickedRandom)
 	
@@ -110,7 +110,7 @@ func _run():
 	if(state == "escape_rest3"):
 		saynn("You have rested for some hours..")
 
-		if (GM.main.isVeryLate()):
+		if (ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			saynn("Somehow, you managed to spend the whole day struggling! Time to sleep..")
 
 			addButton("Sleep", "Do sleep", "escape_sleep")
@@ -131,7 +131,7 @@ func _run():
 
 		saynn("[say=pc]It's okay. Gonna untie me now?[/say]")
 
-		if (GM.pc.isBlindfolded()):
+		if (ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("No response.. again..")
 
 			saynn("[say=pc]Right..[/say]")
@@ -189,23 +189,23 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "escape_do_getup"):
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 	if(_action == "escape_rest1"):
 		processTime(60*60)
-		GM.pc.addStamina(15)
+		ServiceLocator.safe_get_service(&"Player").addStamina(15)
 
 	if(_action == "escape_rest2"):
 		processTime(60*60)
-		GM.pc.addStamina(15)
+		ServiceLocator.safe_get_service(&"Player").addStamina(15)
 
 	if(_action == "escape_rest3"):
 		processTime(70*60)
-		GM.pc.addStamina(15)
+		ServiceLocator.safe_get_service(&"Player").addStamina(15)
 
 	if(_action == "escape_sleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 
 	setState(_action)
 

@@ -20,7 +20,7 @@ func _run():
 		addCharacter("directortau")
 		addCharacter("jaxontau")
 		aimCameraAndSetLocName("taviroom_bed")
-		GM.pc.setLocation("taviroom_bed")
+		ServiceLocator.safe_get_service(&"Player").setLocation("taviroom_bed")
 		playAnimation(StageScene.Duo, "stand", {pc="directortau", npc="jaxontau"})
 		saynn("[say=directortau]What about this one?[/say]")
 
@@ -319,20 +319,20 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "start_flashback"):
-		GM.main.overridePC()
-		GM.pc.setName("Tavi")
-		GM.pc.setGender(Gender.Female)
-		GM.pc.setSpecies([Species.Feline])
-		GM.pc.resetBodypartsToDefault()
-		GM.pc.giveBodypart(GlobalRegistry.createBodypart("tavihair"))
+		ServiceLocator.safe_get_service(&"MainScene").overridePC()
+		ServiceLocator.safe_get_service(&"Player").setName("Tavi")
+		ServiceLocator.safe_get_service(&"Player").setGender(Gender.Female)
+		ServiceLocator.safe_get_service(&"Player").setSpecies([Species.Feline])
+		ServiceLocator.safe_get_service(&"Player").resetBodypartsToDefault()
+		ServiceLocator.safe_get_service(&"Player").giveBodypart(GlobalRegistry.createBodypart("tavihair"))
 		var breasts = GlobalRegistry.createBodypart("humanbreasts")
 		breasts.size = 3
-		GM.pc.giveBodypart(breasts)
-		GM.pc.pickedThickness = 50
-		GM.pc.pickedFemininity = 90
-		GM.pc.getInventory().equipItem(GlobalRegistry.createItem("Leotard"))
-		GM.pc.updateNonBattleEffects()
-		getCharacter("tavi").copySkinTo(GM.pc)
+		ServiceLocator.safe_get_service(&"Player").giveBodypart(breasts)
+		ServiceLocator.safe_get_service(&"Player").pickedThickness = 50
+		ServiceLocator.safe_get_service(&"Player").pickedFemininity = 90
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(GlobalRegistry.createItem("Leotard"))
+		ServiceLocator.safe_get_service(&"Player").updateNonBattleEffects()
+		getCharacter("tavi").copySkinTo(ServiceLocator.safe_get_service(&"Player"))
 		#playAnimationForceReset(StageScene.Solo, "stand")
 
 	if(_action == "take_shower"):

@@ -10,7 +10,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingSolo, "idle", {bodyState={naked=true}})
 		
 		saynn("You open your eyes and realize that this is that day again. Dimly-lit room, fancy furniture, an iron hook that your wrists are cuffed to. Looking down you see your own permanent cage. You can’t hide it, you might be kinda excited.")
@@ -212,7 +212,7 @@ func _run():
 		saynn("[say=tavi]You’re so easy to handle with this thing, pet.[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Tavi slowly picks up the pace, she clearly never had a dick between her legs before but she seems to be a quick learner, already going so fast that you feel her fake balls slapping against your wet pussy slit.")
 
 		# (else)
@@ -335,13 +335,13 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "continue3"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 35)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 35)
 		
 	if(_action == "beg"):
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		
 	if(_action == "just_cum"):
-		GM.pc.addLust(100)
+		ServiceLocator.safe_get_service(&"Player").addLust(100)
 		
 	if(_action in ["stay_silent", "just_cum"]):
 		increaseFlag("MedicalModule.Chastity_OptionalBadBehavourCounter")

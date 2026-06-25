@@ -6,20 +6,20 @@ func _init():
 	sceneID = "PSTentaclesFirstSex"
 
 func _reactInit():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	_tentacles.didFirstSexEvent = true
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.TentaclesStroke, "tease", {plant=true})
@@ -169,7 +169,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -190,10 +190,10 @@ func _react(_action: String, _args):
 
 func _react_scene_end(_tag, _result):
 	if(_tag == "tentaclesSex"):
-		var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+		var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 		_tentacles.trainUntilFive(_tentacles.STAT_LUST)
 		_tentacles.didFirstSexEvent = true
-		if(!_tentacles.noticedEgged && GM.pc.isEggStuffedBy(_tentacles.getTentaclesCharID())):
+		if(!_tentacles.noticedEgged && ServiceLocator.safe_get_service(&"Player").isEggStuffedBy(_tentacles.getTentaclesCharID())):
 			setState("8_afterEgged")
 			_tentacles.noticedEgged = true
 		else:

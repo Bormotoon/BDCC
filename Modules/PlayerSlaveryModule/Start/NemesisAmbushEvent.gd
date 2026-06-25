@@ -29,11 +29,11 @@ func react(_triggerID, _args):
 	return false
 
 func getNearbyAmbushInteraction(onlySameLoc:bool = false) -> PawnInteractionBase:
-	for charID in GM.main.RS.special:
-		var theSpecial:SpecialRelationshipBase = GM.main.RS.special[charID]
+	for charID in ServiceLocator.safe_get_service(&"MainScene").RS.special:
+		var theSpecial:SpecialRelationshipBase = ServiceLocator.safe_get_service(&"MainScene").RS.special[charID]
 		if(theSpecial.id != "Nemesis"):
 			continue
-		var thePawn := GM.main.IS.getPawn(charID)
+		var thePawn := ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(charID)
 		if(!thePawn):
 			continue
 		var theInteraction:PawnInteractionBase = thePawn.getInteraction()
@@ -41,7 +41,7 @@ func getNearbyAmbushInteraction(onlySameLoc:bool = false) -> PawnInteractionBase
 			continue
 		if(!theInteraction.canAmbush()):
 			continue
-		if(onlySameLoc && theInteraction.getLocation() != GM.pc.getLocation()):
+		if(onlySameLoc && theInteraction.getLocation() != ServiceLocator.safe_get_service(&"Player").getLocation()):
 			continue
 		return theInteraction
 	return null

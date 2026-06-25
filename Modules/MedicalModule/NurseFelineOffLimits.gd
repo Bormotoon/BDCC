@@ -57,7 +57,7 @@ func _run():
 		saynn("You pin the defeated nurse to the floor. She doesn’t seem to struggle much.")
 
 		# (if has hands)
-		if(!GM.pc.hasBlockedHands()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 			saynn("You use her cuffs to cuff her, rendering her mostly helpless.")
 
 		saynn("[say=nurse]"+RNG.pick([
@@ -91,7 +91,7 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["nurse"], "nursefight")
 	
 	if(_action == "getrestrained"):
-		for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
 			addMessage(item.getForcedOnMessage())
 	
 	if(_action == "oh_no"):

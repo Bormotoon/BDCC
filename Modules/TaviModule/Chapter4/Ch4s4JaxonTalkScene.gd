@@ -518,16 +518,16 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "tavi_gets_shot"):
-		GM.pc.addPain(300)
+		ServiceLocator.safe_get_service(&"Player").addPain(300)
 
 	if(_action == "tavi_gets_cuffed"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 
 	if(_action == "tavi_kills_dude"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 	if(_action == "tavi_walks"):
-		GM.pc.addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
 
 	if(_action == "tavi_visits_director"):
 		endScene()

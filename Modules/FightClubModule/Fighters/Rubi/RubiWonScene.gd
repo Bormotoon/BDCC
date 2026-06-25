@@ -18,7 +18,7 @@ func _run():
 		addButton("Leave him", "Not doing anything would be the biggest punishment to him", "leave_him")
 		addButton("Finger him", "There is nothing more humiliating than having your ass fingered in public", "finger_him")
 		addButtonWithChecks("Rail him", "Use his butt for your pleasure", "rail_him", [], [ButtonChecks.HasReachablePenis])
-		GM.ES.triggerRun("ArenaFighterPCWon", ["rubi"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["rubi"])
 
 	if(state == "leave_him"):
 		saynn("The crowd starts to boo at you as you step away from him. Some inmates seem kinda upset with your decision. As you start climbing the fence, Rubi suddenly gets on all fours and crawls closer to you, almost begging.")
@@ -104,8 +104,8 @@ func _react(_action: String, _args):
 	
 	if(_action == "rail_him"):
 		getCharacter("rubi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("rubi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rubi_railhim")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rubi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rubi_railhim")
 	
 	if(_action == "endthescene"):
 		endScene()

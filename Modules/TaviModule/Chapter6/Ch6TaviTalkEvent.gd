@@ -13,7 +13,7 @@ func run(_triggerID, _args):
 	
 	if(!getFlag("TaviModule.Ch5FoundPunishedTavi")):
 		return
-	if(GM.main.getDays() <= getFlag("TaviModule.Ch5TaviSavedDay", 0)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() <= getFlag("TaviModule.Ch5TaviSavedDay", 0)):
 		addDisabledButton("Tavi", "Give her some rest. Come back tomorrow")
 		return
 	
@@ -26,7 +26,7 @@ func onButton(_method, _args):
 	if(_method == "talk"):
 		getCharacter("tavi").updateBodyparts()
 		
-		if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["taviSlavery"])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["taviSlavery"])):
 			return
 		
 		if(!getFlag("TaviModule.Ch6IntroHappened")):

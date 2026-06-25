@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "medical_storage")
 	
 func run(_triggerID, _args):
-	if(GM.QS.isActive("Ch2ElizaQuest") && !getFlag("TaviModule.ch2PCStoleDrugs")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isActive("Ch2ElizaQuest") && !getFlag("TaviModule.ch2PCStoleDrugs")):
 		saynn("You notice a crate that had vials with the red drug that you need to steal.")
 		
 		addButtonUnlessLate("Tavi drugs", "Steal the drugs!", "stealdrugs")
@@ -17,8 +17,8 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "stealdrugs"):
-		GM.main.addMessage("You open the crate and steal the special vials!")
-		GM.main.addMessage("Task completed!")
-		GM.pc.addExperience(100)
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("You open the crate and steal the special vials!")
+		ServiceLocator.safe_get_service(&"MainScene").addMessage("Task completed!")
+		ServiceLocator.safe_get_service(&"Player").addExperience(100)
 		setFlag("TaviModule.ch2PCStoleDrugs", true)
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

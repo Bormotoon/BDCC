@@ -121,7 +121,7 @@ func _run():
 		playAnimation(StageScene.SexOral, "tease", {npc="tavi", npcBodyState={naked=true}, bodyState={exposedCrotch=true, hard=true}})
 		saynn("As soon as you present your {pc.penis} and your {pc.analStretch} tailhole to Tavi, she eagerly gets on her knees before you.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("One of her paws lands on your chastity cage and gentle tugs on it while the second sneaks between your legs and finds your cute tailhole, one of the digits already prodding it.")
 
 			saynn("She smiles and breathes warmly onto your locked member until it starts leaking precum. Tavi catches it onto her tongue and swallows it. So hot..")
@@ -183,33 +183,33 @@ func _react(_action: String, _args):
 
 	if(_action == "let_bite"):
 		processTime(5*60)
-		GM.pc.addPain(20)
-		GM.pc.addLust(-200)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		addMessage("You feel weak..")
 
 	if(_action == "let_suck"):
 		processTime(5*60)
-		GM.pc.addLust(-200)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		addMessage("You feel weak..")
 
 	if(_action == "let_lick"):
 		processTime(5*60)
-		GM.pc.addLust(-200)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		getCharacter("tavi").cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		addMessage("You feel weak..")
 
 	if(_action == "let_prostate_milk"):
 		processTime(5*60)
-		GM.pc.addLust(-200)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		getCharacter("tavi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		addMessage("You feel weak..")
 
 	if(_action == "start_talking"):

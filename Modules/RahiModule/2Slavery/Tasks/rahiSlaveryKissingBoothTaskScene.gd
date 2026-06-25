@@ -302,7 +302,7 @@ func _react(_action: String, _args):
 		elif(earnedCredits > 1):
 			addMessage("You received "+str(earnedCredits)+" credits")
 		if(earnedCredits > 0):
-			GM.pc.addCredits(earnedCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(earnedCredits)
 
 	if(_action == "stop_task"):
 		#getCharacter("rahi").resetEquipment()
@@ -321,7 +321,7 @@ func _react(_action: String, _args):
 		elif(earnedCredits > 1):
 			addMessage("You received "+str(earnedCredits)+" credits")
 		if(earnedCredits > 0):
-			GM.pc.addCredits(earnedCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(earnedCredits)
 
 	if(_action == "medium_someone"):
 		processTime(20*60)
@@ -335,7 +335,7 @@ func _react(_action: String, _args):
 		elif(earnedCredits > 1):
 			addMessage("You received "+str(earnedCredits)+" credits")
 		if(earnedCredits > 0):
-			GM.pc.addCredits(earnedCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(earnedCredits)
 
 	if(_action == "hard_someone"):
 		processTime(20*60)
@@ -355,7 +355,7 @@ func _react(_action: String, _args):
 		elif(earnedCredits > 1):
 			addMessage("You received "+str(earnedCredits)+" credits")
 		if(earnedCredits > 0):
-			GM.pc.addCredits(earnedCredits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(earnedCredits)
 
 	setState(_action)
 

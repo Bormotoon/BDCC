@@ -88,8 +88,8 @@ func _run():
 		addButton("Never mind", "You changed your mind", "")
 
 	if(state == "first_expansion_do_pay"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		
 		saynn("You nod and pay Socket the credits. As you do that, she whips out a giant industrial drill head that consists out of 3 rotating modules with plenty of 'teeth' on each.. Her eyes are burning brightly while she is holding it.")
 		
@@ -148,18 +148,18 @@ func _react(_action: String, _args):
 	
 	if(_action == "pay_upgrade"):
 		setFlag(_args[0], true)
-		GM.pc.addCredits(-_args[1])
+		ServiceLocator.safe_get_service(&"Player").addCredits(-_args[1])
 		addMessage(_args[2])
 		return
 	
 	if(_action == "first_expansion_do_pay"):
 		processTime(60*60)
-		GM.pc.addCredits(-getModule("NpcSlaveryModule").getSlavesSpaceUpgradeCost())
+		ServiceLocator.safe_get_service(&"Player").addCredits(-getModule("NpcSlaveryModule").getSlavesSpaceUpgradeCost())
 		increaseFlag("NpcSlaveryModule.slavesSpace")
 		
 	if(_action == "do_cell_expansion"):
 		processTime(60*60)
-		GM.pc.addCredits(-getModule("NpcSlaveryModule").getSlavesSpaceUpgradeCost())
+		ServiceLocator.safe_get_service(&"Player").addCredits(-getModule("NpcSlaveryModule").getSlavesSpaceUpgradeCost())
 		increaseFlag("NpcSlaveryModule.slavesSpace")
 		
 	setState(_action)

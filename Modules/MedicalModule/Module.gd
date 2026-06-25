@@ -163,14 +163,14 @@ func _init():
 	]
 
 func resetFlagsOnNewDay():
-	GM.main.setModuleFlag("MedicalModule", "Nursery_hadFreeAppleFromPerkToday", false)
-	GM.main.setModuleFlag("MedicalModule", "Med_wasMilkedToday", false)
-	GM.main.setModuleFlag("MedicalModule", "Mental_CheckupHappened", false)
-	GM.main.setModuleFlag("MedicalModule", "Mental_ExperimentHappened", false)
-	GM.main.setModuleFlag("MedicalModule", "Mental_ShowerHappened", false)
-	GM.main.setModuleFlag("MedicalModule", "Mental_PlayerEscaped", false)
-	if(GM.main.getFlag("MedicalModule.Eliza_BusyDays", 0) > 0):
-		GM.main.increaseFlag("MedicalModule.Eliza_BusyDays", -1)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Nursery_hadFreeAppleFromPerkToday", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Med_wasMilkedToday", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_CheckupHappened", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_ExperimentHappened", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_ShowerHappened", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PlayerEscaped", false)
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("MedicalModule.Eliza_BusyDays", 0) > 0):
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("MedicalModule.Eliza_BusyDays", -1)
 	if(getFlag("MedicalModule.Medical_StoleDrugsToday")):
 		setFlag("MedicalModule.Medical_StoleDrugsToday", false)
 	setFlag("MedicalModule.Milked_Breasts", false)
@@ -178,34 +178,34 @@ func resetFlagsOnNewDay():
 	setFlag("MedicalModule.Milked_Pussy", false)
 
 func preparePCForMentalWard():
-	GM.pc.removeAllRestraints()
-	GM.pc.getInventory().unequipSlot(InventorySlot.UnderwearBottom)
-	GM.pc.getInventory().unequipSlot(InventorySlot.UnderwearTop)
+	ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+	ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlot(InventorySlot.UnderwearBottom)
+	ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlot(InventorySlot.UnderwearTop)
 	
-	GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
+	ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("LatexStraitjacket"))
 	
 	resetFlagsOnGettingIntoMentalWard()
 
 func resetFlagsOnGettingIntoMentalWard():
-	GM.main.setModuleFlag("MedicalModule", "Mental_PCBehavior", 0.1)
-	GM.main.setModuleFlag("MedicalModule", "Mental_PCSanity", 0.0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCBehavior", 0.1)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCSanity", 0.0)
 	
-	GM.main.setModuleFlag("MedicalModule", "Mental_ExpObeyDrug", 0)
-	GM.main.setModuleFlag("MedicalModule", "Mental_ExpTentacles", 0)
-	GM.main.setModuleFlag("MedicalModule", "Mental_ExpGhostHands", 0)
-	GM.main.setModuleFlag("MedicalModule", "Mental_HasKeycard", false)
-	GM.main.setModuleFlag("MedicalModule", "Mental_PlayerEscaped", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_ExpObeyDrug", 0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_ExpTentacles", 0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_ExpGhostHands", 0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_HasKeycard", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PlayerEscaped", false)
 
 static func addPCBehavior(value):
-	GM.main.setModuleFlag("MedicalModule", "Mental_PCBehavior", GM.main.getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) + value)
-	if(GM.main.getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) < 0.0):
-		GM.main.setModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0)
-	if(GM.main.getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) > 1.0):
-		GM.main.setModuleFlag("MedicalModule", "Mental_PCBehavior", 1.0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCBehavior", ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) + value)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) < 0.0):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCBehavior", 0.0) > 1.0):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCBehavior", 1.0)
 
 static func addPCSanity(value):
-	GM.main.setModuleFlag("MedicalModule", "Mental_PCSanity", GM.main.getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) + value)
-	if(GM.main.getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) < 0.0):
-		GM.main.setModuleFlag("MedicalModule", "Mental_PCSanity", 0.0)
-	if(GM.main.getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) > 1.0):
-		GM.main.setModuleFlag("MedicalModule", "Mental_PCSanity", 1.0)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCSanity", ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) + value)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) < 0.0):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCSanity", 0.0)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Mental_PCSanity", 0.0) > 1.0):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Mental_PCSanity", 1.0)

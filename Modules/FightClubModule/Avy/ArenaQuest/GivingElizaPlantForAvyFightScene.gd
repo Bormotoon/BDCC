@@ -23,7 +23,7 @@ func _run():
 	if(state == "follow_to_lab"):
 		aimCameraAndSetLocName("med_researchlab")
 		playAnimation(StageScene.Duo, "sit", {npc="eliza", npcAction="stand"})
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		saynn("You follow the feline as she walks you through some sterile corridor.")
 
 		saynn("[say=eliza]I wrote a whole paper about that plant.. Luckily there isn't a lack of test subjects in this prison~. Sometimes unwilling. But they come around.[/say]")
@@ -86,7 +86,7 @@ func _run():
 		addButton("Continue", "See what happens next", "no_lewds_ready")
 	if(state == "no_lewds_ready"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="stand"})
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		saynn("The drug is finally ready so Eliza carefully turns off the heater and fills a few syringes with the result before marking them as muscle stimulants.")
 
 		saynn("[say=eliza]Great~. I will give these to Risha. Give it some time and pay your inmate a visit. Make sure you have fun, okay?[/say]")
@@ -424,12 +424,12 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "sex_chastity_tease"):
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 
 	if(_action == "sex_generic"):
 		processTime(10*60)
-		GM.pc.addLust(20)
-		GM.pc.cummedOnBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Vagina)
 
 	if(_action == "cowgirl_go"):
 		processTime(5*60)
@@ -440,28 +440,28 @@ func _react(_action: String, _args):
 	if(_action == "cowgirl_cum"):
 		processTime(2*60)
 		getCharacter("eliza").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	if(_action == "after_cowgirl_sex"):
 		addMessage("Task updated")
 
 	if(_action == "chastity_cum"):
 		processTime(5*60)
-		GM.pc.cummedOnBy("eliza", FluidSource.Vagina)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "after_tease"):
 		addMessage("Task updated")
 
 	if(_action == "trib_start"):
 		processTime(3*60)
-		GM.pc.rubsVaginasWith("eliza")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("eliza")
 
 	if(_action == "trib_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 
 	setState(_action)
 

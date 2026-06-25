@@ -21,8 +21,8 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "enter"):
-		if(GM.pc.getLocation() == "med_lobbynw"):
-			GM.pc.setLocation("med_staffonly_door1")
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() == "med_lobbynw"):
+			ServiceLocator.safe_get_service(&"Player").setLocation("med_staffonly_door1")
 		else:
-			GM.pc.setLocation("med_staffonly_door2")
-		GM.main.reRun()
+			ServiceLocator.safe_get_service(&"Player").setLocation("med_staffonly_door2")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

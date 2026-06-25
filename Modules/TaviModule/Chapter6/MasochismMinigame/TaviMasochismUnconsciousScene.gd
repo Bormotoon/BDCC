@@ -256,7 +256,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "strapon_tavi", [strapon])
 
@@ -291,21 +291,21 @@ func _react(_action: String, _args):
 	if(_action == "fuck_tavi_inside"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "fuck_tavi_pullout"):
 		processTime(3*60)
 		getCharacter("tavi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "fuck_wakeup_cuddle"):
 		processTime(3*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	if(_action == "strapon_tavi"):
 		processTime(3*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "strapon_tavi_push"):
 		processTime(3*60)
@@ -316,7 +316,7 @@ func _react(_action: String, _args):
 	if(_action == "strapon_tavi_cum"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	setState(_action)
 

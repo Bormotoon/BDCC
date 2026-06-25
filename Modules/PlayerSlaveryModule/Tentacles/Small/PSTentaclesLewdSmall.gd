@@ -4,8 +4,8 @@ func _init():
 	sceneID = "PSTentaclesLewdSmall"
 
 func _reactInit():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	
 	var possible:Array = []
 	
@@ -18,14 +18,14 @@ func _reactInit():
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		_tentacles.doAnimDuo("idle")
@@ -236,11 +236,11 @@ func _run():
 
 		saynn("The sensations make you moan ever so quietly. The tentacles pulse gently in response, probably feeling encouraged.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			playAnimation(StageScene.TentaclesGrope, "grope", {plant=true, bodyState={naked=true,hard=true}})
 			saynn("One slick tendril joins and dips lower, following the line of your stomach. It brushes, like a feather, over your pussy.. a teasing touch that makes your breath hitch. It doesn't press further, just rests there for a second, sending warmth throughout your whole body.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.TentaclesGrope, "stroke", {plant=true, bodyState={naked=true,hard=true}})
 			saynn("One slick tendril joins and dips lower, coiling loosely around your thighs before sliding inward. It grazes, ever so softly, against your {pc.penis}.. a slow, casual stroke along your length that sends warmth throughout your whole body.")
 
@@ -303,13 +303,13 @@ func _run():
 
 		saynn("The tentacles feel your complete trust.. and put a little more pressure, closing your throat completely. All you can do is silently gasp for oxygen. The spots begin to dance more fiercely in your eyes, the whole cell starts becoming all rainbow-y.. At the same time, the all-consuming darkness creeps further, narrowing your vision to an extremely small circle.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Feels good.. Your pussy slit is wet from the extremely high levels of arousal..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Feels good.. Your cock is throbbing super hard from the extremely high levels of arousal..")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Feels good.. Your locked away cock is throbbing super hard in its cage from the extremely high levels of arousal.")
 
 		saynn("Without even realizing it, you go limp.. completely helpless and airless.. suspended only by the tentacles' grip.")
@@ -344,13 +344,13 @@ func _run():
 
 		saynn("[say=pc]Mmh..[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Another tentacle finds its way between your thighs, now rubbing against your slick pussy, catching your wetness onto itself and sharing its juices back.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Another tentacle finds its way between your thighs, now rubbing against your dick, catching your pre onto itself and coating your member with its juices instead.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Another tentacle finds its way between your thighs, now rubbing against your chastity cage, catching the pre that your locked dick is leaking and coating your little cage with its juices instead.")
 
 		else:
@@ -446,7 +446,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -485,17 +485,17 @@ func _react(_action: String, _args):
 		_tentacles.doJog()
 
 	if(_action == "6_cum"):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		var tentID:String = _tentacles.getTentaclesCharID()
 		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
-		GM.pc.cummedOnBy(tentID, FluidSource.Penis)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy(tentID, FluidSource.Penis)
 		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
-		GM.pc.cummedInMouthBy(tentID, FluidSource.Penis)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(tentID, FluidSource.Penis)
 
 	if(_action == "7_cum"):
 		var tentID:String = _tentacles.getTentaclesCharID()
 		getCharacter(tentID).fillBalls(randf_range(0.2, 0.5))
-		GM.pc.cummedInMouthBy(tentID, FluidSource.Penis)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(tentID, FluidSource.Penis)
 
 	if(_action == "8_startSex"):
 		_tentacles.prepareForSex()
@@ -506,10 +506,10 @@ func _react(_action: String, _args):
 
 func _react_scene_end(_tag, _result):
 	if(_tag == "tentaclesSex"):
-		var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+		var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 		_tentacles.train(_tentacles.STAT_LUST)
 		_tentacles.train(_tentacles.STAT_LUST, false)
-		if(!_tentacles.noticedEgged && GM.pc.isEggStuffedBy(_tentacles.getTentaclesCharID())):
+		if(!_tentacles.noticedEgged && ServiceLocator.safe_get_service(&"Player").isEggStuffedBy(_tentacles.getTentaclesCharID())):
 			setState("8_afterEgged")
 			_tentacles.noticedEgged = true
 		else:

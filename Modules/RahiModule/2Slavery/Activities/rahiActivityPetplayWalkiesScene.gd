@@ -49,7 +49,7 @@ func _run():
 	if(state == "walkies"):
 		playAnimation(StageScene.PuppyDuo, "walk", {npc="rahi", npcAction="walk", flipNPC=true, npcBodyState={naked=true, leashedBy="pc"}})
 		
-		var _roomInfo = GM.world.getRoomByID(path[0])
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(path[0])
 		var roomName = str(_roomInfo.getName())
 		var possibleBarks = ["You are leading your leashed Rahi.", "Rahi eagerly sniffs around the "+roomName+".", "Rahi eagerly follows you, her tail wagging with excitement as she eagerly sniffs at the various objects in her path.", "Rahi lags behind, her restraints slowing her down. You tug on the leash, urging her to keep moving.", "Rahi catches up and walks beside you, her fluffy body pressed close to your leg as she leans against you for comfort.", "As you walk, Rahi occasionally tugs on the leash, prompting you to correct her behavior and keep her in line.", "Rahi wags her tail happily as you walk her around on the leash", "You hear Rahi's happy panting as she follows you obediently on the leash.", "You notice Rahi's tongue hanging out of her mouth as she pants excitedly during walkies.", "Rahi lets out a playful bark, remaining you that she's still a happy pup.", "You feel Rahi's fluffy tail brushing against your leg as she walks beside you on the leash."]
 		var rareBarks = ["You notice a group of inmates eyeing your pet hungrily and tug on the leash a little firmer.", "Rahi starts to pull on the leash, trying to chase after a nearby mouse. What a silly pet. You make sure to explain to her that she is a pup and not a cat.", "Rahi gets distracted by a shiny object on the ground before you tug on her leash.", "One of the female guards gives Rahi a disapproving look as you walk by. Better behave.", "You spot a group of inmates fighting in the distance. Better avoid them.", "Rahi suddenly stops and softly barks at a passing guard. She seems to be in a playful mood.", "Rahi's ears perk up as she catches some unknown scent, causing her to strain against the leash in excitement.", "Rahi gets excited about something and starts to pull on the leash, trying to explore her surroundings."]
@@ -180,14 +180,14 @@ func _run():
 
 		addButton("Play fetch", "Throw the stick", "yard1_fetch")
 		if (getModule("RahiModule").isSkillLearned("rahiSkillSex")):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Breed Rahi", "(Sex) Tell Rahi that you have a better stick for her", "yard1_breed")
-			if (GM.pc.canWearStrapon()):
+			if (ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 				addButton("Strapon Rahi", "(Sex) Tell Rahi that you have a better stick for her in a from of a strapon", "yard1_breed_strapon")
 		if (getModule("RahiModule").getSkillScore("rahiSkillAnal") >= 3):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Anal sex", "(Anal) Tell Rahi that you have a better stick for her", "yard1_anal")
-			if (GM.pc.canWearStrapon()):
+			if (ServiceLocator.safe_get_service(&"Player").canWearStrapon()):
 				addButton("Anal sex", "(Anal) Tell Rahi that you have a better stick for her in a form of a strapon", "yard1_anal_strapon")
 	if(state == "yard1_fetch"):
 		playAnimation(StageScene.PuppyDuo, "throw", {npc="rahi", npcAction="walk", npcBodyState={naked=true}})
@@ -580,7 +580,7 @@ func _run():
 		saynn("After she was done licking your fingers, it was time to return back to Rahi's cell.")
 
 		addButton("Enough", "See what happens next", "returntocell")
-		if (GM.pc.hasReachablePenis() || GM.pc.hasReachableVagina() || GM.pc.isWearningChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").hasReachableVagina() || ServiceLocator.safe_get_service(&"Player").isWearningChastityCage()):
 			addButton("Pee on her", "You kinda wanna pee too now..", "yard2_peeonrahi")
 	if(state == "yard2_peeonrahi"):
 		playAnimation(StageScene.PuppyPinned, "pinned", {npc="rahi", npcBodyState={naked=true}, bodyState={exposedCrotch=true, hard=true}})
@@ -592,7 +592,7 @@ func _run():
 
 		saynn("[say=pc]This is for being so stubborn.[/say]")
 
-		if (GM.pc.hasReachablePenis() || GM.pc.isWearningChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearningChastityCage()):
 			saynn("You expose your {pc.penis} and begin waiting for the urge to happen. And soon enough, Rahi feels warmth spreading against her fur as a stream of yellow piss begins washing over her.")
 
 		else:
@@ -617,7 +617,7 @@ func _run():
 		addButton("Continue", "See what happens next", "returntocell")
 	if(state == "shower1"):
 		playAnimation(StageScene.PuppySexOral, "tease", {npc="rahi", npcBodyState={naked=true}, bodyState={naked=true}})
-		if(GM.pc.isFullyNaked()):
+		if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You walk into the dressing room and look around. Both, Rahi and you, are already naked, so you just take her leash and walk into the space where all the showerheads are. Your pet carefully peeks her muzzle from behind the corner first, seeing if anyone is there. But luckily, everyone seems to be busy.")
 		else:
 			saynn("You walk into the dressing room and prepare, taking off any clothes until you are naked. Luckily, Rahi is already naked, so you just take her leash and walk into the space where all the showerheads are. Your pet carefully peeks her muzzle from behind the corner first, seeing if anyone is there. But luckily, everyone seems to be busy.")
@@ -1093,7 +1093,7 @@ func _react(_action: String, _args):
 		var startLocation = "cellblock_orange_nearcell"
 		pickedLoc = "waterfall"
 		endLocation = "yard_waterfall"
-		path = GM.world.calculatePath(startLocation, endLocation)
+		path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 		path.remove_at(0)
 		setState("start_walkies")
 		return
@@ -1103,7 +1103,7 @@ func _react(_action: String, _args):
 		var startLocation = "cellblock_orange_nearcell"
 		pickedLoc = "canteen"
 		endLocation = "hall_canteen"
-		path = GM.world.calculatePath(startLocation, endLocation)
+		path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 		path.remove_at(0)
 		setState("start_walkies")
 		return
@@ -1113,7 +1113,7 @@ func _react(_action: String, _args):
 		var startLocation = "cellblock_orange_nearcell"
 		pickedLoc = "shower"
 		endLocation = "main_shower1"
-		path = GM.world.calculatePath(startLocation, endLocation)
+		path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 		path.remove_at(0)
 		setState("start_walkies")
 		return
@@ -1123,7 +1123,7 @@ func _react(_action: String, _args):
 		var startLocation = "cellblock_orange_nearcell"
 		pickedLoc = "yard"
 		endLocation = "yard_northCorridor"
-		path = GM.world.calculatePath(startLocation, endLocation)
+		path = ServiceLocator.safe_get_service(&"World").calculatePath(startLocation, endLocation)
 		path.remove_at(0)
 		setState("start_walkies")
 		return
@@ -1133,10 +1133,10 @@ func _react(_action: String, _args):
 		var nextLoc = path[0]
 		path.remove_at(0)
 		
-		if(!GM.world.hasRoomID(nextLoc)):
+		if(!ServiceLocator.safe_get_service(&"World").hasRoomID(nextLoc)):
 			return
 		
-		GM.pc.setLocation(nextLoc)
+		ServiceLocator.safe_get_service(&"Player").setLocation(nextLoc)
 		aimCameraAndSetLocName(nextLoc)
 		if(path.size() == 0):
 			#setState("arrived")
@@ -1197,7 +1197,7 @@ func _react(_action: String, _args):
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		#var fluids = strapon.getFluids()
 		#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-		GM.pc.getInventory().equipItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 
 	if(_action == "yard1_anal"):
 		getModule("RahiModule").advanceSkill("rahiSkillAnal")
@@ -1208,10 +1208,10 @@ func _react(_action: String, _args):
 		var strapon = GlobalRegistry.createItem(RNG.pick(straponTypes))
 		#var fluids = strapon.getFluids()
 		#fluids.addFluid("CumLube", randi_range(3, 5)*100.0)
-		GM.pc.getInventory().equipItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().equipItem(strapon)
 
 	if(_action == "returntocell"):
-		GM.pc.setLocation("cellblock_orange_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_orange_nearcell")
 		aimCameraAndSetLocName("cellblock_orange_nearcell")
 		endScene()
 		return
@@ -1222,26 +1222,26 @@ func _react(_action: String, _args):
 	if(_action == "yard1_anal_cuminside"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
 
 	if(_action == "yard1_anal_cumoutside"):
 		processTime(5*60)
 		getCharacter("rahi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
 
 	if(_action == "yard1_anal_shove_strapon"):
 		processTime(5*60)
 
 	if(_action == "yard1_anal_cum_strapon"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_anal")
 
 	if(_action == "returntocellremovestrapon"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Strapon)
-		GM.pc.setLocation("cellblock_orange_nearcell")
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Strapon)
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_orange_nearcell")
 		aimCameraAndSetLocName("cellblock_orange_nearcell")
 		endScene()
 		return
@@ -1252,22 +1252,22 @@ func _react(_action: String, _args):
 	if(_action == "yard1_breed_cum"):
 		processTime(5*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
 
 	if(_action == "yard1_breed_cumoutside"):
 		processTime(5*60)
 		getCharacter("rahi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
 
 	if(_action == "yard1_breed_start_strapon"):
 		processTime(5*60)
 
 	if(_action == "yard1_breed_cum_strapon"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_vaginal")
 
 	if(_action == "yard2_tickle"):
 		processTime(3*60)
@@ -1279,63 +1279,63 @@ func _react(_action: String, _args):
 
 	if(_action == "shower1_finishup"):
 		processTime(10*60)
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter("rahi").afterTakingAShower()
 
 	if(_action == "shower1_cleaninside"):
 		processTime(10*60)
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter("rahi").afterTakingAShower()
 		getCharacter("rahi").clearOrificeFluidsCheckBlocked()
 
 	if(_action == "shower1_feetplay"):
 		processTime(10*60)
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 		getCharacter("rahi").afterTakingAShower()
 		getModule("RahiModule").advanceSkill("rahiSkillExhibit")
 
 	if(_action == "canteen1_eat"):
 		processTime(5*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 
 	if(_action == "canteen1_cuteeat"):
 		processTime(5*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 
 	if(_action == "canteen1_suckdick"):
 		getModule("RahiModule").advanceSkill("rahiSkillExhibit")
 		processTime(10*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 		getCharacter("rahi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "canteen1_lickpussy"):
 		getModule("RahiModule").advanceSkill("rahiSkillExhibit")
 		processTime(10*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 		getCharacter("rahi").cummedInMouthBy("pc", FluidSource.Vagina)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "ev4_facefuck"):
 		processTime(5*60)
 		getModule("RahiModule").advanceSkill("rahiSkillProstitution")
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 		getCharacter("rahi").cummedInMouthBy(npc_id)
 
 	if(_action == "ev4_pussygrind"):
 		processTime(5*60)
 		getModule("RahiModule").advanceSkill("rahiSkillProstitution")
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 		getCharacter("rahi").cummedInMouthBy(npc_id, FluidSource.Vagina)
 
 	if(_action == "ev5_fuck"):
 		processTime(5*60)
 		getModule("RahiModule").advanceSkill("rahiSkillProstitution")
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 
 	if(_action == "ev5_letpee"):
 		getModule("RahiModule").advanceSkill("rahiSkillWatersports")
@@ -1343,7 +1343,7 @@ func _react(_action: String, _args):
 		getCharacter(npc_id).pissedOnBy("rahi")
 
 	if(_action == "ev5_cuminside"):
-		GM.pc.addCredits(10)
+		ServiceLocator.safe_get_service(&"Player").addCredits(10)
 		getCharacter("rahi").cummedInVaginaBy(npc_id)
 
 	if(_action == "ev5_cumoutside"):

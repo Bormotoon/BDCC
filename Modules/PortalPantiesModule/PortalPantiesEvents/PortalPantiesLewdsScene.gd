@@ -18,9 +18,9 @@ func _reactInit():
 	var possible = [
 		"anal",
 	]
-	if(GM.pc.hasVagina()):
+	if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 		possible.append("vaginal")
-	if(GM.pc.hasPenis() && !GM.pc.isWearingChastityCage() && !GM.pc.hasReachablePenis()):
+	if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 		possible.append("cock")
 		possible.append("cock")
 
@@ -45,7 +45,7 @@ func _reactInit():
 		npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {})
 	if(npcID == null || npcID == ""):
 		npcID = "inmateMaleCanine"
-	GM.main.updateCharacterUntilNow(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(npcID)
 	
 	var theChar:BaseCharacter = getCharacter(npcID)
 	if(theChar != null):
@@ -60,7 +60,7 @@ func _reactInit():
 		else:
 			cockType = "generic"
 		
-	GM.pc.addCredits(1)
+	ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
@@ -103,7 +103,7 @@ func _run():
 				"Someone’s hard cock suddenly gets shoved deep into your pussy through your portal panties!",
 			]))
 			
-		if(GM.pc.getLust() >= 50):
+		if(ServiceLocator.safe_get_service(&"Player").getLust() >= 50):
 			saynn("You whisper to yourself lustfully.")
 			
 			saynn(RNG.pick([
@@ -203,7 +203,7 @@ func _run():
 				"A hard cock suddenly gets shoved deep into your butthole through your portal panties!",
 			]))
 			
-		if(GM.pc.getLust() >= 50):
+		if(ServiceLocator.safe_get_service(&"Player").getLust() >= 50):
 			saynn("You whisper to yourself lustfully.")
 			
 			saynn(RNG.pick([
@@ -425,14 +425,14 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action in ["vaginal_cum"]):
-		GM.pc.gotVaginaFuckedBy(npcID)
-		GM.pc.cummedInVaginaBy(npcID)
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(npcID)
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 	
 	if(_action in ["anal_cum"]):
-		GM.pc.gotAnusFuckedBy(npcID)
-		GM.pc.cummedInAnusBy(npcID)
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(npcID)
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 	
 	if(_action == "cockSuckCum"):
 		getCharacter(npcID).gotThroatFuckedBy("pc", false)
@@ -458,7 +458,7 @@ func _react(_action: String, _args):
 		getCharacter(npcID).cummedOnBy("pc")
 	
 	if(_action in ["cockSuckCum", "cockStrokingCum", "cockCondomCumNoBreak", "cockCondomCumBreak", "cockAnalCum", "cockVaginalCum", "cockTeaseThighsCumInside", "cockTeaseThighsCumOutside"]):
-		GM.pc.orgasmFrom(npcID)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(npcID)
 	
 	
 	if(_action == "endthescene"):

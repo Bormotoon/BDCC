@@ -64,7 +64,7 @@ func _run():
 		playAnimation(StageScene.BDSMMachineFuck, "wand", {pc="pc", bodyState={naked=true, hard=true, pcCum=true, chains=[["hoseshort", "breastpump", "scene", "milkIntake"]]}})
 		saynn("You look at the option that sounds the most interesting.. and soon, a new manipulator gets brought out.")
 
-		saynn("A sleek wand massager gets pressed against your exposed, quivering "+str("pussy" if !isAnal else "tailhole")+". Without delay, it begins to vibrate.. a deep, resonant hum that resonates against your inner sensitive spots."+str(". your prostate." if (isAnal && GM.pc.hasPenis()) else "")+" You can't help but to start moaning a lot, a sudden spike of pleasure is further intensifying the milk flow, your tits are squirting out more little beads of {pc.milk}.")
+		saynn("A sleek wand massager gets pressed against your exposed, quivering "+str("pussy" if !isAnal else "tailhole")+". Without delay, it begins to vibrate.. a deep, resonant hum that resonates against your inner sensitive spots."+str(". your prostate." if (isAnal && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+" You can't help but to start moaning a lot, a sudden spike of pleasure is further intensifying the milk flow, your tits are squirting out more little beads of {pc.milk}.")
 
 		saynn("[say=pc]Mhh.. ahh.. f-fuck..[/say]")
 
@@ -118,7 +118,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_milking")
 	if(state == "after_milking"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		aimCameraAndSetLocName("med_nearmilking")
 		saynn("Eliza carefully removes the suction cups.. exposing your nips to the cold, sterile air.")
 
@@ -145,7 +145,7 @@ func _run():
 
 		saynn("Pregnant cows give the most milk.. Breeding is good..")
 
-		saynn("The dildo keeps pounding you, aligned in such a way that it can hit your pleasure spot with most efficiency.."+str(" your prostate.." if (isAnal && GM.pc.hasPenis()) else "")+""+str(" your g-spot.." if (!isAnal) else "")+"")
+		saynn("The dildo keeps pounding you, aligned in such a way that it can hit your pleasure spot with most efficiency.."+str(" your prostate.." if (isAnal && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+""+str(" your g-spot.." if (!isAnal) else "")+"")
 
 		saynn("Two sources of stimulations combine together.. a constant, relentless suction on your breasts.. and an intense fucking of your "+str("pussy slit" if !isAnal else "{pc.analStretch} anus")+". It feels so good, your whole body begins trying to squirm, your muscles hardly obey your brain..")
 
@@ -215,10 +215,10 @@ func _run():
 		saynn("Pregnant cows give the most milk.. Breeding is good..")
 
 		if (!isAnal):
-			saynn("The tools keep pounding you, aligned in such a way that they can hit all of your pleasure spots with most efficiency.."+str(" your prostate.." if (GM.pc.hasPenis()) else "")+""+str(" your g-spot.." if (!isAnal) else "")+"")
+			saynn("The tools keep pounding you, aligned in such a way that they can hit all of your pleasure spots with most efficiency.."+str(" your prostate.." if (ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+""+str(" your g-spot.." if (!isAnal) else "")+"")
 
 		else:
-			saynn("The tools keep pounding you, aligned in such a way that they can hit all of your buttons with most efficiency.."+str(" your prostate gets smashed again and again, your {pc.penis} leaking pre non-stop.." if (GM.pc.hasPenis()) else "")+"")
+			saynn("The tools keep pounding you, aligned in such a way that they can hit all of your buttons with most efficiency.."+str(" your prostate gets smashed again and again, your {pc.penis} leaking pre non-stop.." if (ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+"")
 
 		saynn("Three sources of stimulations combine together.. a constant, relentless suction on your breasts.. and an intense fucking of your "+str("holes" if !isAnal else "stretched-wide asshole")+". It feels so good, your whole body begins trying to squirm, your muscles hardly obey your brain..")
 
@@ -280,11 +280,11 @@ func _react(_action: String, _args):
 			var theFluids = thePump.getFluids()
 			if(theFluids):
 				theFluids.addFluid("Milk", 400.0)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(thePump)
 
 	if(_action == "choose_wand"):
-		GM.pc.orgasmFrom("pc")
-		if(GM.pc.hasReachableVagina()):
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			isAnal = false
 		else:
 			isAnal = true
@@ -298,48 +298,48 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "choose_double"):
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			isAnal = false
 		else:
 			isAnal = true
 
 	if(_action == "wand_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	if(_action == "after_milking"):
 		processTime(5*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.UnderwearTop)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.UnderwearTop)
 
 	if(_action == "vag_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("pc")
-		var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina if !isAnal else BodypartSlot.Anus)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		var thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Vagina if !isAnal else BodypartSlot.Anus)
 		if(thebodypart != null):
 			thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
 
 	if(_action == "vag_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	if(_action == "double_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 		if(isAnal):
-			var thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
+			var thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
 				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0)*2.0, null)
 		else:
-			var thebodypart = GM.pc.getBodypart(BodypartSlot.Vagina)
+			var thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Vagina)
 			if(thebodypart != null):
 				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
-			thebodypart = GM.pc.getBodypart(BodypartSlot.Anus)
+			thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus)
 			if(thebodypart != null):
 				thebodypart.addFluidOrifice("CumLube", randf_range(250.0, 350.0), null)
 
 	if(_action == "double_process"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerBreasts()
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerBreasts()
 
 	setState(_action)
 

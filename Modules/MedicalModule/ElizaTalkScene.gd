@@ -4,7 +4,7 @@ func _init():
 	sceneID = "ElizaTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["eliza"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["eliza"])):
 		endScene()
 		return
 
@@ -14,8 +14,8 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="stand"})
 		
 	if(state == ""):
-		if(!GM.main.getModuleFlag("MedicalModule", "Eliza_IntroducedMedical")):
-			GM.main.setModuleFlag("MedicalModule", "Eliza_IntroducedMedical", true)
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Eliza_IntroducedMedical")):
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Eliza_IntroducedMedical", true)
 			
 			saynn("Medical wing lobby looks bright, the walls are made out of white concrete and are well-lit by many fluorescent lights. Behind the counter you see a doctor, a familiar face, the one who processed you on the day of your arrival. She is sitting on an office chair and sipping coffee. Her mug seems to be a personal one, your gaze catches the words ‘best mom’ written on it.")
 
@@ -51,7 +51,7 @@ func _run():
 		if(getModuleFlag("MedicalModule", "Med_pcKnowsAboutMilking")):
 			addButton("Milking", "See how you can be milked", "milking_menu")
 			
-#			if(GM.pc.hasPerk(Perk.MilkNoSoreNipples) || (!getModuleFlag("MedicalModule", "Med_wasMilkedToday", false) && !GM.pc.hasEffect(StatusEffect.SoreNipplesAfterMilking))):
+#			if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.MilkNoSoreNipples) || (!getModuleFlag("MedicalModule", "Med_wasMilkedToday", false) && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.SoreNipplesAfterMilking))):
 #				addButton("Milking", "Ask to be milked", "milking")
 #			else:
 #				addDisabledButton("Milking", "Give yourself some rest")
@@ -59,7 +59,7 @@ func _run():
 			addDisabledButton("Milking", "Talk about it with Eliza first")
 		
 		var isHurt = false
-		if(GM.pc.getPainLevel() > 0.5 || GM.pc.hasEffect(StatusEffect.Wounded) || GM.pc.hasEffect(StatusEffect.StretchedPainfullyPussy) || GM.pc.hasEffect(StatusEffect.StretchedPainfullyAnus)):
+		if(ServiceLocator.safe_get_service(&"Player").getPainLevel() > 0.5 || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.Wounded) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyPussy) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyAnus)):
 			isHurt = true
 			
 		if(isHurt):
@@ -74,7 +74,7 @@ func _run():
 			addButton("Sex!", "Have some fun with Eliza", "start_sex_menu")
 			
 		addButton("Leave", "Do something else", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["eliza"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["eliza"])
 		
 	if(state == "healmenu"):
 		saynn("[say=pc]Uh.. doc. I don’t feel too good. Can you fix me again?[/say]")
@@ -91,13 +91,13 @@ func _run():
 		
 		saynn("[say=eliza]But if your damage is only related to your private bits, I can do a different approach. That one only costs 5 credits.[/say]")
 		
-		if(GM.pc.getCredits() < 10):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() < 10):
 			saynn("Eliza takes a quick look at your records through her datapad.")
 		
 			saynn("[say=eliza]And if you don’t have enough credits still.. I have the permission to make inmate accounts go into the negatives. In case things are very bad.[/say]")
 		
 		addButton("Cryopod", "Pay 10 credits and receive a cryopod treatment that heals most wounds and damage", "cryopodsimple")
-		if(GM.pc.hasEffect(StatusEffect.StretchedPainfullyPussy) || GM.pc.hasEffect(StatusEffect.StretchedPainfullyAnus)):
+		if(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyPussy) || ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.StretchedPainfullyAnus)):
 			addButtonWithChecks("Heal privates", "Pay 5 credits and receive an 'injection' of healing gel into your privates", "healinggel", [], [ButtonChecks.HasReachableAnus])
 		else:
 			addDisabledButton("Heal privates", "Your private bits didn't sustain any damage")
@@ -170,7 +170,7 @@ func _run():
 			#addMessage("[Whatever Rahi has planned for Eliza's content, I dont know it. Sorry. -Ace]")
 			
 			addButton("Continue", "Continue talking", "talk")
-		elif(GM.CS.getChildrenAmountOfOnlyMother("eliza") > 0):
+		elif(ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOfOnlyMother("eliza") > 0):
 			saynn("[say=pc]Your mug. Are you a mother?[/say]")
 
 			saynn("Doctor looks at her own coffee mug and sighs audibly.")
@@ -273,7 +273,7 @@ func _run():
 		addButton("Experiments", "Ask to be experimented on. This will probably include being a test subject for medical drugs that have unknown properties and also testing new prototypes (Warning, the scenes will include a lot of drug use, non-permanent transformations and mind-altering experiences)", "startexperiments")
 		
 		if(!getFlag("MedicalModule.PC_ReceivedPermanentCage")):
-			if(!GM.pc.hasReachablePenis()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addDisabledButton("Obedience training", "(forced chastity content) You need a reachable penis to be able to start this program")
 			else:
 				addButton("Obedience training", "(forced chastity content) One of the booklets says that there is a new research going on that claims to improve low obedience levels of inmates", "startobedient")
@@ -297,8 +297,8 @@ func _run():
 		if(getModule("ElizaModule").hasLabAccess()):
 			sayTanksVolume()
 		
-		if(!GM.pc.hasSoreNipples()):
-			if(GM.pc.canBeMilked()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasSoreNipples()):
+			if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 				if(canBeMilked()):
 					addButton("Milk..", "Show the ways Eliza can milk your breasts", "milk_breasts_menu")
 				else:
@@ -307,21 +307,21 @@ func _run():
 				addDisabledButton("Milk..", "Your breasts can't be milked")
 		else:
 			addDisabledButton("Milk..", "Your nips are sore, give your breasts a rest!")
-		if(GM.pc.canBeSeedMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeSeedMilked()):
 			if(canBeSeedMilked()):
 				addButton("Seed..", "Show the ways Eliza can milk your penis", "milk_penis_menu")
 			else:
 				addDisabledButton("Seed..", "Your balls are not full enough to be seed-milked")
 		else:
 			addDisabledButton("Seed..", "There is no way to seed-milk you..")
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			if(!getFlag("MedicalModule.Milked_Pussy", false)):
 				addButton("Girlcum..", "Show the ways Eliza can milk your pussy", "milk_vagina_menu")
 			else:
 				addDisabledButton("Girlcum..", "You already milked your pussy today, give it a break!")
 		else:
 			addDisabledButton("Girlcum..", "You don't have a reachable vagina in order for Eliza to milk it")
-		if(GM.main.SCI.hasMilkingTier3()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasMilkingTier3()):
 			if(!getFlag("MedicalModule.Milked_Breasts", false) && !getFlag("MedicalModule.Milked_Penis", false) && !getFlag("MedicalModule.Milked_Pussy", false)):
 				addButton("Quick milking", "Ask Eliza to milk everything at once and fast!", "do_start_milking_scene_quick")
 			else:
@@ -338,13 +338,13 @@ func _run():
 			sayTanksVolume()
 
 		addButton("Hand-milking", "Let Eliza milk your breasts with her hands", "do_start_milking_scene_breasts", ["ElizaMilkingBreastsHandScene"])
-		if(GM.main.SCI.hasMilkingTier1()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasMilkingTier1()):
 			addButton("Stall Hand-milking", "Let Eliza milk your breasts with her hands while in a milking stall", "do_start_milking_scene_breasts", ["ElizaMilkingBreastsStallScene"])
 			addButton("Breast pumps", "Let Eliza use industrial breast pumps on you", "do_start_milking_scene_breasts", ["ElizaMilkingBreastsPumpsScene"])
 		else:
 			addDisabledButton("Stall Hand-milking", "You need to become Eliza's assistant and upgrade the lab enough to use this option.")
 			addDisabledButton("Breast pumps", "You need to become Eliza's assistant and upgrade the lab enough to use this option.")
-		if(GM.main.SCI.hasMilkingTier2()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasMilkingTier2()):
 			addButton("Milking machine", "Let Eliza use a milking machine to milk your breasts", "do_start_milking_scene_breasts", ["ElizaMilkingBreastsBDSMMachineScene"])
 		else:
 			addDisabledButton("Milking machine", "You need to become Eliza's assistant and upgrade the lab enough to use this option.")
@@ -359,13 +359,13 @@ func _run():
 			
 		addButtonWithChecks("Hand-milking", "Let Eliza milk your cock with her hands", "do_start_milking_scene_seed", ["ElizaMilkingSeedHandScene"], [[ButtonChecks.HasReachablePenis]])
 		addButton("Prostate milking", "Let Eliza milk your cock by milking your prostate directly with her fingers", "do_start_milking_scene_seed", ["ElizaMilkingProstateHandScene"])
-		if(GM.main.SCI.hasMilkingTier1()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasMilkingTier1()):
 			addButtonWithChecks("Penis pump", "Let Eliza milk your cock with an industrial penis pump", "do_start_milking_scene_seed", ["ElizaMilkingSeedPumpScene"], [[ButtonChecks.HasReachablePenis]])
 			addButton("Strapon milking", "Let Eliza milk your cock by pegging your butt with a strapon, milking your prostate that way", "do_start_milking_scene_seed", ["ElizaMilkingProstateStraponScene"])
 		else:
 			addDisabledButton("Penis pump", "You need to become Eliza's assistant and upgrade the lab enough to use this option.")
 			addDisabledButton("Strapon milking", "You need to become Eliza's assistant and upgrade the lab enough to use this option.")
-		if(GM.main.SCI.hasMilkingTier2()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasMilkingTier2()):
 			addButtonWithChecks("Pawjob", "Let Eliza milk your cock by with her hind paws", "do_start_milking_scene_seed", ["ElizaMilkingSeedPawjobScene"], [[ButtonChecks.HasReachablePenis]])
 			if(getFlag("SocketModule.h5completed", false)):
 				addButtonWithChecks("Fleshlight", "Let Eliza invite someone else to milk your cock with a fleshlight", "do_start_milking_scene_seed", ["ElizaMilkingSeedFleshlightScene"], [[ButtonChecks.HasReachablePenis]])
@@ -398,7 +398,7 @@ func _run():
 			saynn("The doctor steps away from the counter and walks behind some wall just to appear a few seconds later from one of the airlocks. She walks up to you and starts observing you.")
 
 			# (if has forever flat breasts)
-			if(!GM.pc.hasNonFlatBreasts()):
+			if(!ServiceLocator.safe_get_service(&"Player").hasNonFlatBreasts()):
 				saynn("[say=eliza]Sadly I can’t really milk you, your {pc.breasts} have too small milk production glands. You would need your breasts enlarged first.[/say]")
 
 				saynn("Aww.")
@@ -413,11 +413,11 @@ func _run():
 
 			saynn("You don’t quite understand what she means but you nod anyway. Eliza puts her hands under your {pc.breasts} and gets a feel for their weight. Then she starts to firmly squeeze them. You can’t help but to let out a little moan.")
 
-			var breasts:BodypartBreasts = GM.pc.getBodypart(BodypartSlot.Breasts)
+			var breasts:BodypartBreasts = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts)
 			# (if lactating and clothed)
 			
 			if(breasts.getProducedFluidAmount() > 0.1):
-				if(!GM.pc.isFullyNaked()):
+				if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 					saynn("Her efforts weren’t useless, after a bit of breast kneading, you notice two little damp spots appearing on your clothing roughly where your nips are.")
 
 					saynn("[say=eliza]Oh yes. These are some juicy milk jugs you got there. We can do it.[/say]")
@@ -438,7 +438,7 @@ func _run():
 				return
 		else:
 			# (not first time)
-			var breasts:BodypartBreasts = GM.pc.getBodypart(BodypartSlot.Breasts)
+			var breasts:BodypartBreasts = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts)
 
 			saynn("[say=pc]I want my breasts to be milked..[/say]")
 
@@ -458,12 +458,12 @@ func _run():
 			sayn("Amount of milk donated: "+str(floor(getModuleFlag("MedicalModule", "Med_milkMilked", 0.0)))+" ml")
 			saynn("Amount of times milked: "+str(getModuleFlag("MedicalModule", "Med_milkedMilkTimes", 0)))
 			
-		if(GM.pc.canBeMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			addButton("Hand milking", "You’re not very picky, the old-fashioned way will do just fine", "milk_handmilk")
 		else:
 			addDisabledButton("Hand milking", "You can't be milked right now")
 		if(getModuleFlag("MedicalModule", "Med_milkedMilkTimes", 0) >= 1 && getModuleFlag("MedicalModule", "Med_milkMilked", 0.0) > 0.0):
-			if(GM.pc.canBeMilked()):
+			if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 				addButton("Milking pumps", "An automated way of milking sounds nice", "milk_pumps")
 			else:
 				addDisabledButton("Milking pumps", "You can't be milked right now")
@@ -483,7 +483,7 @@ func _run():
 			saynn("The doctor steps away from the counter and walks behind some wall just to appear a few seconds later from one of the airlocks. She walks up to you and starts observing you, focusing mostly on your crotch.")
 
 			# (if has reachable cock)
-			if(GM.pc.hasReachablePenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("[say=eliza]Yes, that can be arranged, we always need more genetic material.[/say]")
 
 				saynn("She offers you a cheeky smile.")
@@ -506,8 +506,8 @@ func _run():
 			saynn("Amount of times seed milked: "+str(getModuleFlag("MedicalModule", "Med_milkedSeedTimes", 0)))
 			
 			
-		if(GM.pc.canBeSeedMilked()):
-			if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeSeedMilked()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Hand milking", "Why deny the woman’s touch..", "milk_handseedmilk")
 			else:
 				addDisabledButton("Hand milking", "You need your cock to be free for this..")
@@ -520,12 +520,12 @@ func _run():
 		addButton("Never mind", "You changed your mind", "")
 
 func sayTanksVolume():
-	var storedFluids:Dictionary = GM.main.SCI.getStoredFluidsWithDefauls()
+	var storedFluids:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getStoredFluidsWithDefauls()
 	
 	sayn("Fluid tanks contents:")
 	for fluidID in storedFluids:
 		var fluidAmount:float = storedFluids[fluidID]
-		var fluidLimit:float = GM.main.SCI.getStoredFluidLimit(fluidID)
+		var fluidLimit:float = ServiceLocator.safe_get_service(&"MainScene").SCI.getStoredFluidLimit(fluidID)
 		var fluidName:String = "Unknown fluid"
 		
 		var fluid:FluidBase = GlobalRegistry.getFluid(fluidID)
@@ -582,13 +582,13 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "cryopodsimple"):
-		GM.pc.addCredits(-10)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-10)
 		runScene("MedicalHealCryopodScene")
 		endScene()
 		return
 	
 	if(_action == "healinggel"):
-		GM.pc.addCredits(-5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 		runScene("MedicalHealingGelScene")
 		endScene()
 		return
@@ -637,18 +637,18 @@ func _react(_action: String, _args):
 
 
 func canBeMilked() -> bool:
-	if(!GM.pc.hasBodypart(BodypartSlot.Breasts)):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBodypart(BodypartSlot.Breasts)):
 		return false
-	var breasts: BodypartBreasts = GM.pc.getBodypart(BodypartSlot.Breasts)
+	var breasts: BodypartBreasts = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Breasts)
 	var production: FluidProduction = breasts.getFluidProduction()
 	if(production == null):
 		return false
 	return production.getFluidAmount() >= 300.0 || production.getFluidLevel() >= 0.4
 
 func canBeSeedMilked() -> bool:
-	if(!GM.pc.hasBodypart(BodypartSlot.Penis)):
+	if(!ServiceLocator.safe_get_service(&"Player").hasBodypart(BodypartSlot.Penis)):
 		return false
-	var penis: BodypartPenis = GM.pc.getBodypart(BodypartSlot.Penis)
+	var penis: BodypartPenis = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Penis)
 	var production: FluidProduction = penis.getFluidProduction()
 	if(production == null):
 		return false

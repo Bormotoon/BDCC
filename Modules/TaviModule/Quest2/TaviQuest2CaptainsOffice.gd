@@ -180,7 +180,7 @@ func _run():
 	if(state == "continue2"):
 		playAnimation(StageScene.Solo, "walk")
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		removeCharacter("captain")
 		
 		saynn("Risha brings you back into the cellblock and unleashes you.")
@@ -195,7 +195,7 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "endthescene"):
-		GM.main.setModuleFlag("TaviModule", "Tavi_Quest2Completed", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("TaviModule", "Tavi_Quest2Completed", true)
 		addMessage("Task completed")
 		addExperienceToPlayer(50)
 		endScene()

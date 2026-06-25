@@ -23,7 +23,7 @@ func _run():
 		addButton("Leave", "You won and that all that matters", "leave")
 		addButtonWithChecks("Vaginal", "Ride him using your pussy", "vaginal", [], [ButtonChecks.HasReachableVagina])
 		addButton("Anal", "Ride him while taking his cock up your butt", "anal")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["jack"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["jack"])
 
 
 	if(state == "leave"):
@@ -57,7 +57,7 @@ func _run():
 		saynn("[say=jack]Be my guest, pretty thing.[/say]")
 
 		# (if clothed)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You {pc.undressMessage}, leaving yourself naked and your {pc.pussyStretch} pussy exposed. Then you shift back slightly and grab onto the sides of Jack’s shorts to slowly tug them down, allowing his cock to spring back after being caught on the elastic band.")
 
 		# (else)
@@ -126,9 +126,9 @@ func _run():
 		saynn("Your first orgasm quickly overtakes your body, passionate moans leave your mouth while your slit starts pulsating around the shaft, your legs and arms shiver while the rest of your body tenses up. Fuck it feels good, you push yourself through your climax and keep riding the horse, causing Jack to let out another animal noise, he seems to be close.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your pleasure point got rubbed to the point of your {pc.cock} shooting out a weak line of {pc.cum}. And then a few more, messing up your chastity cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your pleasure point got rubbed to the point of your {pc.cock} shooting out a strong line of {pc.cum}. And then a few more.")
 
 		addButton("Inside", "Let the horsie cum", "inside")
@@ -192,7 +192,7 @@ func _run():
 			saynn("[say=pc]Oh.. fuck.. fuck-fuck.[/say]")
 
 			# (if visibly pregnant)
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("[say=jack]You’re already pregnant, why worry.[/say]")
 
 				saynn("[say=pc]Yeah.. I guess you’re right. Still..[/say]")
@@ -229,7 +229,7 @@ func _run():
 		saynn("[say=jack]Be my guest, pretty thing.[/say]")
 
 		# (if clothed)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("You {pc.undressMessage}, leaving yourself naked and your {pc.analStretch} tailhole exposed. Then you shift back slightly and grab onto the sides of Jack’s shorts to slowly tug them down, allowing his cock to spring back after being caught on the elastic band.")
 
 		# (else)
@@ -299,9 +299,9 @@ func _run():
 		saynn("Your first orgasm quickly overtakes your body, passionate moans leave your mouth while your anal ring starts pulsating around the shaft, your legs and arms shiver while the rest of your body tenses up. Fuck it feels good, you push yourself through your climax and keep riding the horse, causing Jack to let out another animal noise, he seems to be close.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate got rubbed to the point of your {pc.cock} shooting out a weak line of {pc.cum}. And then a few more, messing up your chastity cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your prostate got rubbed to the point of your {pc.cock} shooting out a strong line of {pc.cum}. And then a few more.")
 
 		addButton("Inside", "Let the horsie cum", "inside1")
@@ -365,7 +365,7 @@ func _run():
 			saynn("[say=pc]Oh.. fuck.[/say]")
 
 			# (if visibly pregnant)
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("[say=jack]You’re already pregnant, why worry.[/say]")
 
 				saynn("[say=pc]Yeah.. I guess you’re right.[/say]")
@@ -388,30 +388,30 @@ func _run():
 func _react(_action: String, _args):
 	if(_action in ["condom", "condom1"]):
 		usedCondom = true
-		var chance = GM.pc.useBestCondom()
-		condomBroke = getCharacter("jack").shouldCondomBreakWhenFucking(GM.pc, chance)
+		var chance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
+		condomBroke = getCharacter("jack").shouldCondomBreakWhenFucking(ServiceLocator.safe_get_service(&"Player"), chance)
 		
 	if(_action == "inside"):
-		GM.pc.gotVaginaFuckedBy("jack")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("jack")
 		if(!usedCondom || condomBroke):
-			GM.pc.cummedInVaginaByAdvanced("jack", {condomBroke=condomBroke})
-			GM.pc.cummedOnBy("jack")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("jack", {condomBroke=condomBroke})
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("jack")
 		elif(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("jack").createFilledCondom())
 		
-		GM.pc.orgasmFrom("jack")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "jack_getbred")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jack")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "jack_getbred")
 		
 	if(_action == "inside1"):
-		GM.pc.gotAnusFuckedBy("jack")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("jack")
 		if(!usedCondom || condomBroke):
-			GM.pc.cummedInAnusBy("jack")
-			GM.pc.cummedOnBy("jack")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("jack")
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("jack")
 		elif(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("jack").createFilledCondom())
 		
-		GM.pc.orgasmFrom("jack")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "jack_getbred")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jack")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "jack_getbred")
 	
 	if(_action == "endthescene"):
 		endScene()

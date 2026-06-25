@@ -14,7 +14,7 @@ func _run():
 		hasPP = getCharacter("eliza").hasReachablePenis()
 		saynn("You ask the doctor to milk your prostate. She nods and brings you into the special room.. the one that has an advanced table installed.")
 
-		saynn("You expose your {pc.penis} and wait for her orders. You feel excited a bit, your member is already getting hard.."+str(" well.. trying to, in its cage." if GM.pc.isWearingChastityCage() else "")+"")
+		saynn("You expose your {pc.penis} and wait for her orders. You feel excited a bit, your member is already getting hard.."+str(" well.. trying to, in its cage." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+"")
 
 		saynn("Eliza offers you to get a little closer to the table.. what could go wrong..")
 
@@ -38,12 +38,12 @@ func _run():
 
 			saynn("She pulls her lace panties down, exposing a {eliza.penis}. She is quite hard already..")
 
-			saynn("[say=eliza]Yeah, exactly.. Today, I'm gonna milk your prostate with my cock~."+str(" I don't even need a strap, I already have a perfect tool to milk someone who is wearing a cage.." if GM.pc.isWearingChastityCage() else " I don't even need a strap, I already have a perfect tool to milk submissive inmates.")+"[/say]")
+			saynn("[say=eliza]Yeah, exactly.. Today, I'm gonna milk your prostate with my cock~."+str(" I don't even need a strap, I already have a perfect tool to milk someone who is wearing a cage.." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else " I don't even need a strap, I already have a perfect tool to milk submissive inmates.")+"[/say]")
 
 		else:
 			saynn("She then grabs a prepared strapon harness and secures it around her waist.. adding some extra spice to her look.")
 
-			saynn("[say=eliza]Mhm.. Today, I'm gonna milk your prostate with this strap."+str(" Perfect tool to milk someone who is wearing a cage.." if GM.pc.isWearingChastityCage() else " Perfect tool to milk submissive inmates.")+"[/say]")
+			saynn("[say=eliza]Mhm.. Today, I'm gonna milk your prostate with this strap."+str(" Perfect tool to milk someone who is wearing a cage.." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else " Perfect tool to milk submissive inmates.")+"[/say]")
 
 		saynn("You gulp while looking back over your shoulder.. The corners of her mouth slightly raise when her gaze catches your subby stare..")
 
@@ -67,7 +67,7 @@ func _run():
 
 		saynn("[say=pc]Ah..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked away cock twitches.. dripping some pre.. a small bead of prostate fluid escaping, now hanging from the tip of your cage. Your inner walls hug the shiny shaft nicely..")
 
 		else:
@@ -103,7 +103,7 @@ func _run():
 
 		saynn("[say=pc]Ah!.. AHh-hh..[/say]")
 
-		saynn("You throw your head back and let out some lovely moans while your whole body shudders beneath her relentless pegging.. Your tailhole is pulsing wildly around that "+str("strap" if !hasPP else "shaft")+" while your "+str("locked little cock starts to throb inside its cage" if GM.pc.isWearingChastityCage() else "{pc.penis} starts to throb")+", shooting weak spurts of {pc.cum} at the same rate as Eliza's thrusts..")
+		saynn("You throw your head back and let out some lovely moans while your whole body shudders beneath her relentless pegging.. Your tailhole is pulsing wildly around that "+str("strap" if !hasPP else "shaft")+" while your "+str("locked little cock starts to throb inside its cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "{pc.penis} starts to throb")+", shooting weak spurts of {pc.cum} at the same rate as Eliza's thrusts..")
 
 		saynn("[say=eliza]You're cumming? Good. Let's not leave even a drop of that useless seed in your balls~.[/say]")
 
@@ -129,7 +129,7 @@ func _run():
 		addButton("Continue", "See what happens next", "get_up_after")
 	if(state == "get_up_after"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		aimCameraAndSetLocName("med_nearmilking")
 		saynn("Eliza"+str(" takes off her harness and" if !hasPP else "")+" presses a few buttons on the computer that make it let go of your limbs.")
 
@@ -164,10 +164,10 @@ func _react(_action: String, _args):
 
 	if(_action == "process_cum"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 		if(hasPP):
-			GM.pc.cummedInAnusBy("eliza")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("eliza")
 
 	if(_action == "after_milking"):
 		processTime(5*60)

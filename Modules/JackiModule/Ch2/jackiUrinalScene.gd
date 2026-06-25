@@ -38,7 +38,7 @@ func _run():
 		addButton("Investigate", "See what is it about", "investigate")
 	if(state == "investigate"):
 		aimCameraAndSetLocName("main_bathroom2")
-		GM.pc.setLocation("main_bathroom2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bathroom2")
 		addCharacter("jacki", ["naked"])
 		addCharacter("gymbully")
 		addCharacter("gymbully2")
@@ -979,7 +979,7 @@ func playRandomSexAnim():
 			return
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "pick_straponass", [strapon])
 
@@ -1006,13 +1006,13 @@ func _react(_action: String, _args):
 
 	if(_action == "dec_payfordept"):
 		if(!isMemories):
-			GM.pc.addCredits(-45)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-45)
 		getModule("JackiModule").addAnger(-15)
 		getModule("JackiModule").addCorruption(-5)
 
 	if(_action == "pay10"):
 		if(!isMemories):
-			GM.pc.addCredits(-10)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-10)
 		onlyOne = true
 
 	if(_action == "offerself"):
@@ -1061,29 +1061,29 @@ func _react(_action: String, _args):
 
 	if(_action == "pc_gets_put_into_urinal"):
 		processTime(10*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ringgag"))
 
 	if(_action == "pc_used_first"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
-		GM.pc.cummedInMouthBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("gymbully3", FluidSource.Vagina, randf_range(0.4, 0.8))
 		if(OPTIONS.isContentEnabled(ContentType.Watersports)):
-			GM.pc.cummedOnBy("gymbully3", FluidSource.Pissing, randf_range(0.5, 1.0))
-			GM.pc.cummedInMouthBy("gymbully3", FluidSource.Pissing, randf_range(0.2, 0.3))
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully3", FluidSource.Pissing, randf_range(0.5, 1.0))
+			ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("gymbully3", FluidSource.Pissing, randf_range(0.2, 0.3))
 
 	if(_action == "pc_used_second"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("gymbully", FluidSource.Penis, randf_range(0.4, 0.8))
-		GM.pc.cummedInMouthBy("gymbully", FluidSource.Penis, 1.0)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully", FluidSource.Penis, randf_range(0.4, 0.8))
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("gymbully", FluidSource.Penis, 1.0)
 
 	if(_action == "second_pees_too"):
-		GM.pc.cummedOnBy("gymbully", FluidSource.Pissing, randf_range(0.5, 1.0))
-		GM.pc.cummedInMouthBy("gymbully", FluidSource.Pissing, randf_range(0.2, 0.3))
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("gymbully", FluidSource.Pissing, randf_range(0.5, 1.0))
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("gymbully", FluidSource.Pissing, randf_range(0.2, 0.3))
 
 	if(_action == "after_first_two"):
 		processTime(30*60)
-		GM.pc.addCredits(5)
+		ServiceLocator.safe_get_service(&"Player").addCredits(5)
 		addMessage("You got 5 credits for being a meat toilet..")
 
 	if(_action == "pick_stroke"):
@@ -1114,11 +1114,11 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("jacki").cummedOnBy("pc", FluidSource.Penis, randf_range(0.6, 0.8))
 		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Penis)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
 
 	if(_action == "return_back_or_enough"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		if(onlyOne):
 			setState("after_once_use")
 			getModule("JackiModule").makeJackiBusy()
@@ -1137,7 +1137,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		getCharacter("jacki").cummedOnBy("pc", FluidSource.Vagina, randf_range(0.6, 0.8))
 		getCharacter("jacki").cummedInMouthBy("pc", FluidSource.Vagina, randf_range(0.2, 0.4))
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
 
 	if(_action == "pick_pussrub_piss"):
@@ -1156,7 +1156,7 @@ func _react(_action: String, _args):
 	if(_action == "pick_fuckass_cum"):
 		processTime(5*60)
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 
@@ -1168,7 +1168,7 @@ func _react(_action: String, _args):
 	if(_action == "pick_straponass"):
 		processTime(5*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "pick_straponass_thrust"):
 		processTime(5*60)
@@ -1179,7 +1179,7 @@ func _react(_action: String, _args):
 	if(_action == "pick_straponass_cum"):
 		processTime(5*60)
 		getCharacter("jacki").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 		getModule("JackiModule").addCorruption(5)
 		getModule("JackiModule").advanceSkill("jackiSkillButtslut")
 

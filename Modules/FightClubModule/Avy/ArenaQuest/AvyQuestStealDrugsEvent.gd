@@ -22,4 +22,4 @@ func onButton(_method, _args):
 		setFlag("FightClubModule.StolePlantForEliza", true)
 		addMessage("You stole the pink plant, task updated!")
 		addExperienceToPlayer(50)
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

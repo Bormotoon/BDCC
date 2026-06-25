@@ -7,7 +7,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingSolo, "idle", {bodyState={naked=true}})
 		
 		saynn("You open your eyes and realize that this is that day again. Dimly-lit room, fancy furniture, an iron hook that your wrists are cuffed to. Looking down you see your own permanent cage. You can’t hide it, you might be kinda excited.")
@@ -238,7 +238,7 @@ func _run():
 	if(state == "continue6"):
 		removeCharacter("rahi")
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		saynn("Doctor Quinn stares at you and giggles. She talks to you while uncuffing your hands, being careful not to step into the mess that you made.")
@@ -272,19 +272,19 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "continue3"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 20)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 20)
 		
 	if(_action == "continue4"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 30)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 		
 	if(_action == "no"):
-		GM.pc.addPain(10)
+		ServiceLocator.safe_get_service(&"Player").addPain(10)
 		
 	if(_action == "badendscene"):
 		increaseFlag("MedicalModule.Chastity_OptionalBadBehavourCounter")
 		increaseFlag("MedicalModule.Chastity_OptionalBadBehavourCounter")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		endScene()
 		getCharacter("rahi").resetEquipment()

@@ -9,7 +9,7 @@ func registerTriggers(es):
 	es.addTrigger(self, "PortalPantiesShowerEvent")
 	
 func react(_triggerID, _args):
-	var questIsCompleted = GM.QS.isCompleted("PortalPantiesQuest")
+	var questIsCompleted = ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("PortalPantiesQuest")
 	
 	if(!getFlag("PortalPantiesModule.Panties_FleshlightsGotStolen") && !questIsCompleted):
 		return false

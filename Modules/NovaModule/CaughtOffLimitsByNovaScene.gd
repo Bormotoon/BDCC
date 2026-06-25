@@ -9,7 +9,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="nova", npcAction="stand"})
 		
 	if(state == ""):
-		GM.main.setModuleFlag("NovaModule", "Nova_SawPC", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_SawPC", true)
 		
 		saynn("You hear someone’s footsteps behind, sounds like heavy boots. You decide to hide behind the nearest wall and hope not to be spotted. You hear a female voice.")
 
@@ -76,7 +76,7 @@ func _run():
 		saynn("You do as she says, walking up to the nearest wall and leaning forwards, waiting to be frisked.")
 
 		# (if girl)
-		if(GM.pc.getGender() != Gender.Male):
+		if(ServiceLocator.safe_get_service(&"Player").getGender() != Gender.Male):
 			saynn("[say=nova]Good girl~ Now stand still while I work on you.[/say]")
 		else:
 			# (if boy)
@@ -84,13 +84,13 @@ func _run():
 
 		saynn("Nova stops behind and puts her hands on you.")
 
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("She starts with the obvious, her palms run along your outer garments, from top to bottom. She checks the back, chest, armpits, belt, hips, legs, making sure to go through all the pockets you might have.")
 		else:
 			saynn("Even though you’re naked, she still runs her paws along the curves of your body, checking everywhere, under your armpits, your back and chest areas, your lower half. Nova crouches and does a visual check too.")
 
 		# (if has something)
-		if(GM.pc.hasIllegalItems()):
+		if(ServiceLocator.safe_get_service(&"Player").hasIllegalItems()):
 			saynn("[say=nova]Ohh~ I will be taking that. That is some contraband you have there, cutie~[/say]")
 		else:
 			# (if found nothing)
@@ -99,7 +99,7 @@ func _run():
 			saynn("[say=nova]Very good~[/say]")
 
 		# (if has non-flat breasts):
-		if(GM.pc.hasNonFlatBreasts()):
+		if(ServiceLocator.safe_get_service(&"Player").hasNonFlatBreasts()):
 			saynn("Her paws land on your breasts, digits slowly trace along and around them, getting a feel for your mounds. You think that this is part of the procedure but then Nova’s hands switch to straight-up groping, you can’t feel but to moan when you feel your breasts being squeezed and fondled. It feels like she is trying to milk you.")
 
 			saynn("[say=nova]Someone seems a little excited~[/say]")
@@ -125,18 +125,18 @@ func _run():
 
 		saynn("[say=nova]There you go, wasn’t too hard was it?[/say]")
 
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Nova then crouches behind you and puts her hand on your crotch, feeling your chastity cage that seems to be leaking pre and your pair of balls. It’s quite arousing.")
 			else:
 				saynn("Nova then crouches behind you and puts her hand on your crotch, feeling your hard shaft that seems to be leaking pre and your pair of balls. It's quite arousing.")
 
-			if(GM.pc.hasReachableVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				saynn("Then Nova’s paw shifts down to your wet cunt and brushes against it too, feeling its wetness,  you shiver and try to hide your moans when Nova finds your clit and gives it a rub.")
 
 			saynn("[say=nova]Such a cute little slut~[/say]")
 
-		elif(GM.pc.hasReachableVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Nova then crouches behind you and puts her hand to your crotch. You’re aroused and the guard feels that. Your wet pussy is wet even through your uniform, you shiver and try to hide your moans when Nova finds your clit and gives it a rub.")
 
 			saynn("[say=nova]Such a cute little slut~[/say]")
@@ -213,13 +213,13 @@ func _run():
 
 		saynn("[say=nova]You will see~[/say]")
 
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Nova begins stripping your clothes. You notice that and try to resist but she is clearly overpowering you. Before long all your privates are exposed.")
 
 			saynn("[say=pc]Hey![/say]")
 
 		# (if not restrained)
-		if(!GM.pc.hasBoundArms()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			saynn("She catches your arms and wrenches them behind your back before restraining you with bulky metal cuffs.")
 
 			saynn("[say=nova]That will make sure you don’t do anything silly~[/say]")
@@ -254,8 +254,8 @@ func _run():
 		saynn("You hesitate. But it seems like there is no choice, you bend forward and place your neck in the middle hole. Nova then unlocks your cuffs and places your hands where they need to be before closing and locking the stocks, rendering you completely helpless. You test how sturdy they are and can’t even move your neck, you’re stuck in a very compromising position where your private bits are visible to anyone. Stocks are made out of a metal unlockable frame, a rubber pad underneath and some chains on the bottom that Nova uses to make you spread your legs more.")
 
 		# (if only has cock)
-		if(GM.pc.hasPenis() && !GM.pc.hasReachableVagina()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Nova puts her hand on your balls and gives them a gentle squeeze. She then rubs the tip of your chastity cage and tries to get you hard. She then licks one of her digits and then prods at your backdoor. She manages to slide one in and then feels your prostate, causing you to start leaking pre.")
 			else:
 				saynn("Nova puts her hand on your balls and gives them a gentle squeeze. She then rubs the head of your cock and strokes you until you become hard. She also licks one of her digits and then prods at your backdoor. She manages to slide one in and then feels your prostate, causing you to start leaking pre.")
@@ -264,14 +264,14 @@ func _run():
 
 		# (if has vagina)
 		
-		if(!GM.pc.hasPenis() && GM.pc.hasReachableVagina()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Nova puts her hand on your exposed slit and gives it a rub, she uses her digit to trace along your sensitive lips and then spreads them open before giving you a spank.")
 
 			saynn("[say=nova]Hope you like being fucked without a rubber~. Prepare to be used a lot.[/say]")
 
 		# (if has both)
-		if(GM.pc.hasPenis() && GM.pc.hasReachableVagina()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Nova puts her hand on your balls and gives them a gentle squeeze, she then rubs both your caged up cock and your cunt until you become aroused and needy. She also manages to slip one of her digits down your backdoor where she prods at your prostate, making you leak pre.")
 			else:
 				saynn("Nova puts her hand on your balls and gives them a gentle squeeze, she then rubs both your cock and your cunt until you become aroused and needy. She also manages to slip one of her digits down your backdoor where she prods at your prostate, making you leak pre.")
@@ -291,33 +291,33 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "submittosearch"):
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 		
-		for item in GM.pc.getInventory().getItemsWithTag(ItemTag.Illegal):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.Illegal):
 			addMessage(item.getStackName()+" was taken away")
-		for item in GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.Illegal):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemsWithTag(ItemTag.Illegal):
 			addMessage(item.getStackName()+" was taken away")
 
 	if(_action == "humiliateAngel"):
 		runScene("HumiliateNovaScene")
-		GM.main.setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
 		endScene()
 		return
 		
 	if(_action == "rideSubbyAngel"):
 		runScene("RideSubbyNovaScene")
-		GM.main.setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
 		endScene()
 		return
 		
 	if(_action == "fuckSubbyAngel"):
 		runScene("FuckSubbyNovaScene")
-		GM.main.setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_GotHumiliatedByPC", true)
 		endScene()
 		return
 		
 	if(_action == "agree_to_suck"):
-		if(GM.pc.freeMouthDeleteAll()):
+		if(ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()):
 			addMessage("Nova was nice enough to remove your gag before this")
 		runScene("SuckNovaCockScene")
 		endScene()
@@ -328,8 +328,8 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "endthesceneStealItems"):
-		GM.pc.getInventory().removeItemsList(GM.pc.getInventory().getItemsWithTag(ItemTag.Illegal))
-		GM.pc.getInventory().removeEquippedItemsList(GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.Illegal))
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemsList(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.Illegal))
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItemsList(ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemsWithTag(ItemTag.Illegal))
 		
 		endScene()
 		return
@@ -338,7 +338,7 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["nova"], "novafight")
 	
 	if(_action == "beleashedtostocks"):
-		runScene("ParadedOnALeashScene", ["nova", GM.pc.getLocation(), "main_punishment_spot", [
+		runScene("ParadedOnALeashScene", ["nova", ServiceLocator.safe_get_service(&"Player").getLocation(), "main_punishment_spot", [
 			"I love parading bratty cuties around~",
 			"Everyone's looking at you~",
 			"I like leashes, don't you?",
@@ -352,13 +352,13 @@ func _react(_action: String, _args):
 	if(_action == "startstocks"):
 		#runScene("StocksPunishmentScene", ["nova"])
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 		
 	if(_action == "punishment"):
-		GM.pc.getInventory().unequipSlotUnlessRestraint(InventorySlot.Body)
-		GM.pc.getInventory().unequipSlotUnlessRestraint(InventorySlot.UnderwearBottom)
-		GM.pc.getInventory().unequipSlotUnlessRestraint(InventorySlot.UnderwearTop)
+		ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlotUnlessRestraint(InventorySlot.Body)
+		ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlotUnlessRestraint(InventorySlot.UnderwearBottom)
+		ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlotUnlessRestraint(InventorySlot.UnderwearTop)
 	
 	setState(_action)
 

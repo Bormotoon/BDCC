@@ -6,11 +6,11 @@ func _init():
 	sceneID = "PortalPantiesFirstLewdScene"
 
 func _reactInit():
-	GM.pc.addCredits(1)
+	ServiceLocator.safe_get_service(&"Player").addCredits(1)
 	npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [[NpcCon.Species, Species.Canine], [NpcCon.HasPenis], [NpcCon.NoChastity]], InmateGenerator.new(), {NpcGen.Species: Species.Canine, NpcGen.HasPenis: true, NpcGen.NoChastity: true})
 	if(npcID == null || npcID == ""):
 		npcID = "inmateMaleCanine"
-	GM.main.updateCharacterUntilNow(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").updateCharacterUntilNow(npcID)
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "npc"):
@@ -20,7 +20,7 @@ func _run():
 	if(state == ""):
 		playAnimation(StageScene.SexPortal, "tease", {pc=npcID, npc="pc", bodyState={exposedCrotch=true,hard=true}})
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You were going somewhere when you suddenly felt some activity in your panties. Someone’s breathing warmly over your pussy which makes it react by twitching ever so slightly and getting moist.")
 
 			saynn("[say=pc]Oh, again so soon..[/say]")
@@ -34,7 +34,7 @@ func _run():
 			saynn("[say=pc]T-That’s not supposed to happen..[/say]")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} is hard as a rock but it seems nobody cares about it at the moment, they just want your pussy.")
 
 			saynn("They keep fingering you for a while until you get all wet and needy.")
@@ -54,7 +54,7 @@ func _run():
 			saynn("[say=pc]T-That’s not supposed to happen..[/say]")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} is hard as a rock but it seems nobody cares about it at the moment, they just want your ass.")
 
 			saynn("They keep fingering you for a while until you get all lubed up and needy.")
@@ -65,7 +65,7 @@ func _run():
 	if(state == "inside"):
 		playAnimation(StageScene.SexPortal, "inside", {pc=npcID, npc="pc", bodyState={exposedCrotch=true,hard=true}})
 		
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("But the digits are eventually retracted out of your slit, letting you calm down somewhat. But not for long, now you feel some kind of fleshy object brushing against your folds. Is that a.. cock?")
 
 			saynn("There is no way it’s not, you gasp as you feel it finding your {pc.pussyStretch} pussy hole and stretching it wide open with ease. The cock gets shoved deeper inside, your belly even shows the outline, it's clearly a canine one. And it’s fucking your pussy..")
@@ -86,7 +86,7 @@ func _run():
 		# (They cum inside you, make you cum)
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("That doesn’t seem like one of the tests, you didn’t agree to being fucked by someone you can’t even see! You gasp and cover your mouth as the cock starts pounding your pussy rough and fast, treating it like a fuckhole. You really hope nobody can see the outline of a cock sliding up and down across your belly or hear your muffled noises as you try to supress the moans.")
 
 			saynn("Your free hand grabs onto the portal panties and desperately tries to take them off. Even if you tear the fabric off that will just reveal the portal devices which won’t help you at all. Fuck.")
@@ -118,7 +118,7 @@ func _run():
 		# (They cum inside you, make you cum)
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You bite your lip and whisper lewdly to yourself, your eyes fill with lust.")
 
 			saynn("[say=pc]Finally they’re doing something fun with my holes~.[/say]")
@@ -174,15 +174,15 @@ func _react(_action: String, _args):
 	if(_action in ["resist", "enjoy"]):
 		var pickedInmate = npcID
 		
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy(pickedInmate)
-			GM.pc.cummedInVaginaBy(pickedInmate)
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy(pickedInmate)
 		else:
-			GM.pc.gotAnusFuckedBy(pickedInmate)
-			GM.pc.cummedInAnusBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy(pickedInmate)
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy(pickedInmate)
 		
-		GM.pc.orgasmFrom(pickedInmate)
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "portalpanties_firstsex")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "portalpanties_firstsex")
 		
 	if(_action == "continue"):
 		addMessage("Task was updated")

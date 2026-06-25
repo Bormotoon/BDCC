@@ -45,15 +45,15 @@ func _run():
 		saynn("The guy frowns at your response and keeps his shock remote ready.")
 
 		# (if highsec)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=alexrynard]It doesn’t work like that, red. You better convince me real good if you don’t want your neck to be fried.[/say]")
 
 		# (if general)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=alexrynard]You ain’t got enough teeth to scare me, orange toy. But you better convince me real good if you don’t want your neck to be fried.[/say]")
 
 		# (if lilac)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=alexrynard]A lilac sextoy is trying to scare me? That’s funny. You better convince me real good if you don’t want your neck to be fried.[/say]")
 
 		saynn("He doesn’t seem to be overly intimidated by you, he needs answers that you really don’t wanna share.")
@@ -121,7 +121,7 @@ func _run():
 
 	if(state == "just_leave"):
 		aimCameraAndSetLocName("eng_lobby")
-		GM.pc.setLocation("eng_lobby")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_lobby")
 		removeCharacter("alexrynard")
 		addCharacter("maleguard_canine")
 		
@@ -136,7 +136,7 @@ func _run():
 
 	if(state == "hit_him_again"):
 		aimCameraAndSetLocName("eng_lobby")
-		GM.pc.setLocation("eng_lobby")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_lobby")
 		removeCharacter("alexrynard")
 		addCharacter("maleguard_canine")
 		
@@ -200,7 +200,7 @@ func _run():
 		# (OPTIONS ARE FIGHT AND USE STUN BATON)
 
 		addButton("Fight", "Begin the fight", "fight_foxy")
-		if(GM.pc.getInventory().hasItemID("StunBaton")):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("StunBaton")):
 			addButton("Use stun baton", "Exploit his weakness", "use_stun_baton")
 		else:
 			addDisabledButton("Use stun baton", "You don't have one")
@@ -226,7 +226,7 @@ func _run():
 
 	if(state == "knock_him_out"):
 		aimCameraAndSetLocName("eng_lobby")
-		GM.pc.setLocation("eng_lobby")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_lobby")
 		removeCharacter("alexrynard")
 		addCharacter("maleguard_canine")
 		# (no encounter)
@@ -244,7 +244,7 @@ func _run():
 
 	if(state == "leave_him_be"):
 		aimCameraAndSetLocName("eng_lobby")
-		GM.pc.setLocation("eng_lobby")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_lobby")
 		removeCharacter("alexrynard")
 		addCharacter("maleguard_canine")
 		# (guard encounter)
@@ -285,7 +285,7 @@ func _run():
 		saynn("Ohh~ He is so eager. But you don’t mind that. In fact, you welcome it, pulling your hands away from his girth before turning around and slightly bending forward, offering him your {pc.thick} {pc.masc} butt.")
 
 		# (if has clothes)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Then you pull any clothes that were covering your rear down before spreading your cute buttcheeks for him, offering the guy a great view of your private bits.")
 
 		# (else)
@@ -376,7 +376,7 @@ func _run():
 		saynn("[say=alexrynard]First I will deal with you, curious inmate. Do you know what happens to curious inmates?[/say]")
 
 		# (if has clothes and pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("He removes enough of your clothes to expose your {pc.pussyStretch} pussy slit. He then slaps your exposed ass, making you blush from feeling so helpless.")
 
 		# (if has clothes and no pussy)
@@ -391,7 +391,7 @@ func _run():
 		playAnimation(StageScene.Sybian, "idle", {bodyState={exposedCrotch=true,}})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You just shake your head and then feel the leash pulling you down. You have to obey it or the collar will start choking you. As you get onto your knees you feel the foxy guiding you onto something. Some kind of.. seat? A very low seat, you have to spread your legs quite a bit to be able to sit on it. Your clit and some of your pussy are resting on a little ribbed platform and your holes are pressed against some kind of bumps..")
 
 		# (else)
@@ -409,7 +409,7 @@ func _run():
 		saynn("A sybian? Oh no.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Before you can resist it, the foxy produces more zip ties and starts tying your legs to the kinky seat. After that, he presses some buttons on it and the machine springs to life. The little bumps that are pressing against your holes are actually little dildos. They begin to slowly sink themselves inside you, stretching you out enough in the process.")
 
 		# (else)
@@ -440,7 +440,7 @@ func _run():
 		playAnimation(StageScene.Sybian, "ride", {bodyState={exposedCrotch=true,}})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("He flicks some switch that makes the motors inside the sybian engage. You immediately let out a noise of pleasure as the ribbed panel under your clit starts to vibrate together with the dildos shifting inside you.")
 
 		# (else)
@@ -454,7 +454,7 @@ func _run():
 		saynn("And all the while, the foxy seems to be busy fixing the tv. A slap later and the static that you’ve been hearing all this time is replaced by some AlphaCorp propaganda news. You can’t see it obviously but you hear a very enthusiastic voice explaining how many new worlds and planets were freed from enslavement that is The Syndicate. The foxy seems to just drop his butt onto the sofa, relaxing.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You can’t focus on the surroundings for very long, the two dildos inside you slide in and out at a steady rate before the motors inside them turn on as well, providing extra pleasure. You can’t help but to moan while your clit and the pussy lips get stimulated by the little pad. Very soon after that your first orgasm overwhelms you, making you quiver around the machine hard while it continues to push you further past your peak.")
 
 		# (else)
@@ -462,11 +462,11 @@ func _run():
 			saynn("You can’t focus on the surroundings for very long, the dildo inside you slides in and out at a steady rate before the motors inside it turn on as well, providing extra pleasure. You can’t help but to moan while your taint area gets stimulated by the little pad. Very soon after that your first orgasm overwhelms you, making you quiver around the machine hard while it continues to push you further past your peak.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} starts throbbing and shooting its load onto the floor before you. It feels so good to have your prostate stimulated from both sides.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Very soon you find yourself shivering and leaning to the sides, trying to escape the vibrations. Your private bits are very sensitive after your climax but the machine doesn’t care, it just keeps stimulating your clit and the g-spot inside your slit.")
 
 		# (else)
@@ -502,7 +502,7 @@ func _run():
 		saynn("Oh no. Is he planning to keep you here on the vibrating seat for the whole night? You try to tell him not to but can only make muffled noises while another orgasm overwhelms you.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your overstimulated pussy squirts and showers the sybian with your female juices. You arch your back and squirm, causing the pain from the zipties and pleasure from the little dildos combine in a spicy mix of otherworldly sensations.")
 
 		# (else)
@@ -510,7 +510,7 @@ func _run():
 			saynn("Your overstimulated anus clenches around the vibrating rod hard. You arch your back and squirm, causing the pain from the zipties and pleasure from the little dildo combine in a spicy mix of otherworldly sensations.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your balls are resting on the vibrating ribbed panel and are getting milked dry, you waste another load messing up the floor before you. But only the foxy can see how big of a mess you made.")
 
 		saynn("[say=alexrynard]Mhm. Enjoy your stay.[/say]")
@@ -532,11 +532,11 @@ func _run():
 	if(state == "sybian"):
 		playAnimation(StageScene.Sybian, "ride", {bodyState={exposedCrotch=true,}})
 		
-		var lustLevel = GM.pc.getLustLevel()
+		var lustLevel = ServiceLocator.safe_get_service(&"Player").getLustLevel()
 		# (if low lust)
 		if(lustLevel < 0.2):
 			# (if has pussy)
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("You’re still recovering after your last orgasm so you can think straight at least. But the sybian is relentless, the two dildoes buzz inside you while pressing against all your sensitive points.")
 
 			# (else)
@@ -547,7 +547,7 @@ func _run():
 
 		# (if has pussy)
 		elif(lustLevel < 0.4):
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("You try to relax and get some strength back. Your pussy and ass are becoming less sensitive so the vibrations are slowly turning you on again. You can’t help but to let out a muffled noise of pleasure.")
 
 			# (else)
@@ -558,7 +558,7 @@ func _run():
 
 		# (if has pussy)
 		elif(lustLevel < 0.6):
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your pussy gets stimulated more and more, all you hear is that buzz. But it feels so good.. You can’t just sit still on the machine anymore, you shift constantly while your toes curl up sometimes.")
 
 		# (else)
@@ -569,7 +569,7 @@ func _run():
 
 		# (if has pussy)
 		elif(lustLevel < 0.8):
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("You can’t stop moaning, your pussy is dripping juices onto the machine. You can’t stop squirming which makes you tug against the zip ties involuntary. You feel like you don’t have much time, the pleasure slowly fills your mind.. Maybe you shouldn’t resist it?..")
 
 		# (else)
@@ -580,7 +580,7 @@ func _run():
 
 		# (if has pussy)
 		else:
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Oh no, you feel the next climax creeping on to you. A very powerful one. Your needy slit is squirting a little while it's being edged, your muffled moans are resonating in your head. If you cum now you won’t be able to resist it any longer.")
 
 				# (else)
@@ -588,13 +588,13 @@ func _run():
 				saynn("Oh no, you feel the next climax creeping on to you. A very powerful one. Your needy tailhole is clenching more and more while you’re being edged, your muffled moans are resonating in your head. If you cum now you won’t be able to resist it any longer.")
 
 	if(state in ["startsybian", "sybian"]):
-		if(GM.pc.getLustLevel() >= 1.0):
+		if(ServiceLocator.safe_get_service(&"Player").getLustLevel() >= 1.0):
 			addDisabledButton("Endure", "You're too horny to endure this..")
 		else:
 			addButton("Endure", "Try to gather some strength in the process", "endure")
 		addButtonWithChecks("Struggle", "Resist against your restraints!", "struggle", [], [ButtonChecks.HasStamina])
 		addButton("Give up", "It’s just too much..", "give_up")
-		if(GM.pc.hasBlockedHands() || GM.pc.hasBoundArms() || GM.pc.hasBoundLegs()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 			addDisabledButton("Escape", "You can't escape because of the restraints")
 		else:
 			addButton("Escape", "You’re free!", "escape")
@@ -604,7 +604,7 @@ func _run():
 		playAnimation(StageScene.Solo, "stand")
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You swiftly get off the sybian and can finally get a breather. Your legs shake a little, your pussy is tingling. Waves of heat spread out throughout your body. The two orgasms that you got were enough, any more and you think you would lose it.")
 
 		# (else)
@@ -634,7 +634,7 @@ func _run():
 	if(state == "give_up"):
 		playAnimation(StageScene.Sybian, "intense", {pcCum=true, bodyState={exposedCrotch=true,hard=true}})
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("It’s just too much, you succumb to the constant source of pleasure and quit resisting completely. Very soon after a third orgasm overwhelms you, making your pussy squirt out all the femcum that it had. You moan like a desperate slut and let yourself enjoy this one fully.")
 
 		# (else)
@@ -642,7 +642,7 @@ func _run():
 			saynn("It’s just too much, you succumb to the constant source of pleasure and quit resisting completely. Very soon after a third orgasm overwhelms you, making your anal ring get tight around the vibrating tip. You moan like a desperate slut and let yourself enjoy this one fully.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your balls are dry so all your cock can do is drip {pc.cum} and throb a lot.")
 
 		saynn("You realize that this is only the beginning.. But you don’t care, you’re already spacing out. Your tongue is drooling onto yourself while you begin to ride the sybian yourself.")
@@ -659,7 +659,7 @@ func _run():
 
 		saynn("The sound of your moans mixed together the sybian vibrating against your private bits has become so normal..")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 
 		addButton("Time?", "Something will happen next?", "time?")
 
@@ -726,7 +726,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow_guard"):
-		runScene("ParadedOnALeashScene", ["maleguard_canine", GM.pc.getLocation(), "main_punishment_spot", [
+		runScene("ParadedOnALeashScene", ["maleguard_canine", ServiceLocator.safe_get_service(&"Player").getLocation(), "main_punishment_spot", [
 			"Walk faster, inmate",
 			"I don't have all day",
 			"Stocks are waiting for you",
@@ -734,15 +734,15 @@ func _react(_action: String, _args):
 		]])
 	
 	if(_action == "follow2"):
-		runScene("ParadedOnALeashScene", ["alexrynard", GM.pc.getLocation(), "main_punishment_spot", [
+		runScene("ParadedOnALeashScene", ["alexrynard", ServiceLocator.safe_get_service(&"Player").getLocation(), "main_punishment_spot", [
 		]])
 	
 	if(_action == "follow_foxy"):
-		runScene("ParadedOnALeashScene", ["alexrynard", GM.pc.getLocation(), "eng_breakroom", []])
+		runScene("ParadedOnALeashScene", ["alexrynard", ServiceLocator.safe_get_service(&"Player").getLocation(), "eng_breakroom", []])
 	
 	if(_action == "time_passes_again"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	if(_action in ["time_passes_again", "time?", "time_passes_again", "time_passes"]):
 		processTime(randi_range(70,120)*60)
@@ -754,7 +754,7 @@ func _react(_action: String, _args):
 		setFlag("TaviModule.ch2PCLearnedCode", true)
 		addMessage("Task completed!")
 		addExperienceToPlayer(100)
-		GM.pc.getInventory().removeXOfOrDestroy("StunBaton", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("StunBaton", 1)
 		setFlag("PortalPantiesModule.Alex_BusyDays", 1)
 
 	if(_action == "board"):
@@ -779,37 +779,37 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "startStocks"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		#runScene("StocksPunishmentScene")
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 		
 	if(_action in ["surrender", "after_seduced"]):
 		processTime(5*60)
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		var zipties = GlobalRegistry.createItem("ZiptiesWrist")
 		zipties.setRestraintLevel(3)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(zipties)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(zipties)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 
 	if(_action == "shake_head"):
 		processTime(5*60)
 		var zipties = GlobalRegistry.createItem("ZiptiesAnkle")
 		zipties.setRestraintLevel(4)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(zipties)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(zipties)
 
 	if(_action in ["stay_silent", "taunt_him"]):
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 	if(_action in ["moan", "resist"]):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 		
 	if(_action == "endure"):
 		processTime(5*60)
-		GM.pc.addLust(20)
-		GM.pc.addStamina(50)
-		GM.pc.addPain(-10)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(-10)
 		setState("sybian")
 		addMessage("You got some strength back")
 		return
@@ -822,13 +822,13 @@ func _react(_action: String, _args):
 		
 	if(_action == "escape"):
 		processTime(5*60)
-		GM.pc.freeEyesDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeEyesDeleteAll()
 
 	if(_action == "time?"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 	
 	if(_action == "give_up"):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "endthescene"):
 		endScene()
@@ -839,7 +839,7 @@ func _react(_action: String, _args):
 func _react_scene_end(_tag, _result):
 	if(_tag == "strugglesybian"):
 		addMessage("The sybian makes it very hard to concentrate")
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 		setState("sybian")
 	
 	if(_tag == "guardfight"):

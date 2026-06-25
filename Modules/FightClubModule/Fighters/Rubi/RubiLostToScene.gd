@@ -21,7 +21,7 @@ func _run():
 
 		addButtonWithChecks("Power bottom", "See what happens to you", "power_bottom", [], [ButtonChecks.HasReachablePenis])
 		addButton("He cums on you", "See what happens", "he_cums_on_you")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["rubi"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["rubi"])
 
 	if(state == "power_bottom"):
 		# (if has cock)
@@ -36,7 +36,7 @@ func _run():
 		saynn("[say=rubi]You're gonna serve as my fucktoy![/say]")
 
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("He {pc.undressMessageS}. He then makes you spread your legs, causing your {pc.cock} to be exposed!")
 
 		# (if naked)
@@ -118,11 +118,11 @@ func _react(_action: String, _args):
 	
 	if(_action == "cum!"):
 		getCharacter("rubi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("rubi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rubi_powerbottom")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rubi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rubi_powerbottom")
 	
 	if(_action == "let_it_happen"):
-		GM.pc.cummedOnBy("rubi")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("rubi")
 	
 	if(_action == "endthescene"):
 		endScene()

@@ -44,7 +44,7 @@ func _init():
 	sceneID = "MentalWardScene"
 
 func _reactInit():
-	GM.pc.setLocation("medical_paddedcell_player")
+	ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 
 func _run():
 	#if(state == ""):
@@ -53,11 +53,11 @@ func _run():
 	if(state == ""):
 		aimCameraAndSetLocName("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		
 		saynn("You’re stuck in a mental ward cell with nothing to do. Padded walls surround you, even the bulky door has a soft layer to it. The only thing connecting you to the outside world is a small reinforced window and an air vent that’s far above your reach.")
 		
-		if(GM.pc.hasBlockedHands()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands()):
 			saynn("You sit against a wall, constantly hugging yourself. Maybe this place isn’t that bad.")
 		else:
 			saynn("You sit against a wall, not constantly hugging yourself for once.")
@@ -107,7 +107,7 @@ func _run():
 	if(state == "dosleep"):
 		saynn("You sleep in your cell.")
 		
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 		
 		addButton("Continue", "Time to wake up", "")
 
@@ -119,7 +119,7 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "afterrest"):
 		# Random scene checks
-		if(!getModuleFlag("MedicalModule", "Mental_CheckupHappened", false) && GM.main.getTime() >= 9*60*60):
+		if(!getModuleFlag("MedicalModule", "Mental_CheckupHappened", false) && ServiceLocator.safe_get_service(&"MainScene").getTime() >= 9*60*60):
 			setModuleFlag("MedicalModule", "Mental_CheckupHappened", true)
 			
 			if(isPCWearingAStraitjacket()):
@@ -136,7 +136,7 @@ func _react(_action: String, _args):
 			setState("")
 			return
 		
-		if(!getModuleFlag("MedicalModule", "Mental_ExperimentHappened", false) && GM.main.getTime() >= 14*60*60):
+		if(!getModuleFlag("MedicalModule", "Mental_ExperimentHappened", false) && ServiceLocator.safe_get_service(&"MainScene").getTime() >= 14*60*60):
 			setModuleFlag("MedicalModule", "Mental_ExperimentHappened", true)
 			
 			if(!isPCWearingAStraitjacket()):
@@ -150,7 +150,7 @@ func _react(_action: String, _args):
 			setState("")
 			return
 		
-		if(!getModuleFlag("MedicalModule", "Mental_ShowerHappened", false) && GM.main.getTime() >= 19*60*60):
+		if(!getModuleFlag("MedicalModule", "Mental_ShowerHappened", false) && ServiceLocator.safe_get_service(&"MainScene").getTime() >= 19*60*60):
 			setModuleFlag("MedicalModule", "Mental_ShowerHappened", true)
 			
 			if(isPCWearingAStraitjacket()):
@@ -166,17 +166,17 @@ func _react(_action: String, _args):
 		
 	
 	if(_action == "dosleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	if(_action == "rest"):
-		if(GM.main.getTime() >= 21*60*60):
+		if(ServiceLocator.safe_get_service(&"MainScene").getTime() >= 21*60*60):
 			setState("sleeping")
 		else:
 			setState("resting")
 			processTime(60*60*2)
 		MedicalModule.addPCSanity(randf_range(0.02, 0.04))
-		GM.main.showLog()
+		ServiceLocator.safe_get_service(&"MainScene").showLog()
 		return
 
 	if(_action == "endthescene"):
@@ -197,7 +197,7 @@ func _react(_action: String, _args):
 	setState(_action)
 
 func isPCWearingAStraitjacket():
-	if(GM.pc.getInventory().hasItemIDEquipped("LatexStraitjacket")):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped("LatexStraitjacket")):
 		return true
 	return false
 
@@ -211,7 +211,7 @@ func _react_scene_end(_tag, _result):
 			
 			if(res == "escape" || res == "good"):
 				if(res == "good"):
-					GM.pc.getInventory().unequipSlotRemoveIfRestraint(InventorySlot.Body)
+					ServiceLocator.safe_get_service(&"Player").getInventory().unequipSlotRemoveIfRestraint(InventorySlot.Body)
 				
 				endScene()
 				
@@ -237,5 +237,5 @@ func getDebugActions():
 func doDebugAction(_id, _args = {}):
 	if(_id == "instantEscape"):
 		endScene()
-		GM.pc.setLocation("med_lobbymain")
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

@@ -196,13 +196,13 @@ func _run():
 
 		saynn("Every rapid pump slams you forward.. before he yanks you back, your moans echoing around the mountains as the other slaves and goons watch you get fucked raw. Ricky knot slaps against your sensitive rim.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate gets smashed again and again.. your poor locked little cock dripping pre onto the cold black rock, putting a desperate amount of pressure onto the metal walls. Surely he will let you be his pet for putting out so much..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate gets smashed again and again.. Your own cock bobbing up and down, dripping pre onto the cold black rock. Surely he will let you be his pet for putting out so much..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Even though it's your ass that's getting railed, your pussy is dripping lots, your inner pleasure spots gets stimulated through the walls of your asshole by his fat cock. Surely he will let you be his pet for putting out so much..")
 
 		addButton("Continue", "See what happens next", "flirt_cum")
@@ -214,13 +214,13 @@ func _run():
 
 		saynn("[say=pc]Ahh..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your muscles clench instinctively around him. Your prostate gets so much pressure put on it that you can't hold back anymore! Your caged member twitches in its tight cage, shooting weak strings of {pc.cum} onto the ground.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your muscles clench instinctively around him. Your prostate gets so much pressure put on it that you can't hold back anymore! Your {pc.penis} twitches and throbs too, wasting its load, shooting strings of {pc.cum} onto the ground.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your muscles clench instinctively around him. Your g-pose gets massaged by his knot so much that you can't hold back anymore! Loud slutty moans escape you as your neglected pussy twitches and squirts, showering the ground with your juices.")
 
 		else:
@@ -303,7 +303,7 @@ func _react(_action: String, _args):
 
 	if(_action == "after_landing"):
 		processTime(10*60)
-		GM.pc.setLocation("psmine_sleep")
+		ServiceLocator.safe_get_service(&"Player").setLocation("psmine_sleep")
 
 	if(_action == "near_cages"):
 		processTime(3*60)
@@ -313,16 +313,16 @@ func _react(_action: String, _args):
 
 	if(_action == "flirt_cum"):
 		processTime(3*60)
-		GM.pc.gotAnusFuckedBy("psricky")
-		GM.pc.cummedInAnusBy("psricky")
-		GM.pc.orgasmFrom("psricky")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("psricky")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("psricky")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("psricky")
 
 	if(_action == "flirt_after_sex"):
 		processTime(3*60)
 
 	if(_action == "go_sleep"):
-		GM.main.startNewDay()
-		GM.pc.addStamina(10000)
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").addStamina(10000)
 
 	if(_action == "start_gameplay"):
 		endScene()

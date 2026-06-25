@@ -15,7 +15,7 @@ func _run():
 
 		saynn("[say=rahi]Sorry she couldn’t do it earlier, it’s scary when others are watching..[/say]")
 
-		if(!GM.main.getModuleFlag("RahiModule", "Rahi_Introduced")):
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("RahiModule", "Rahi_Introduced")):
 			saynn("Huh, she is talking about herself in third person?")
 
 			saynn("[say=pc]Um.. thanks anyways.[/say]")

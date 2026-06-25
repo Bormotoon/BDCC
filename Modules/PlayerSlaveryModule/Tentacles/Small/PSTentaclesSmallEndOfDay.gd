@@ -6,21 +6,21 @@ func _init():
 	sceneID = "PSTentaclesSmallEndOfDay"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
-		GM.pc.setLocation(_tentacles.getMonsterLoc())
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.getMonsterLoc())
 		aimCameraAndSetLocName(_tentacles.getMonsterLoc())
 		
 		biggestStat = _tentacles.getBiggestStat()
@@ -56,7 +56,7 @@ func _run():
 		addCharacter(_tentacles.getTentaclesCharID())
 		playAnimation(StageScene.TentaclesDuo, "sleep", {plant=true,tentaclesSizeSmall=true})
 		aimCameraAndSetLocName(_tentacles.LOC_MIDDLE)
-		GM.pc.setLocation(_tentacles.LOC_MIDDLE)
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_MIDDLE)
 		saynn("[say=pc]How about.. {psTentacles}?[/say]")
 
 		if (biggestStat == _tentacles.STAT_ANGER):
@@ -91,7 +91,7 @@ func _run():
 		addCharacter(_tentacles.getScientist2CharID())
 		playAnimation(StageScene.Duo, "stand", {pc=_tentacles.getScientist1CharID(), npc=_tentacles.getScientist2CharID()})
 		aimCameraAndSetLocName(_tentacles.LOC_IMPORTANT)
-		GM.pc.setLocation(_tentacles.LOC_IMPORTANT)
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_IMPORTANT)
 		_tentacles.tpScientistsWindow()
 		saynn("You approach the reinforced window. On the other side you see two familiar scientists standing under the sterile corridor lights.")
 
@@ -177,7 +177,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

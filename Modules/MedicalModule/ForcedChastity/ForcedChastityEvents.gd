@@ -15,23 +15,23 @@ func react(_triggerID, _args):
 		runScene("ForcedChastityReceiveRingScene")
 		return true
 	
-	if(GM.pc.isWearingPortalPanties()):
+	if(ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 		return false
 	if(getFlag("MedicalModule.Eliza_BusyDays", 0) > 0):
 		return false
-	if(!GM.pc.getInventory().hasItemIDEquipped("ChastityCagePermanent") && !GM.pc.getInventory().hasItemIDEquipped("ChastityCagePermanentNormal")):
+	if(!ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped("ChastityCagePermanent") && !ServiceLocator.safe_get_service(&"Player").getInventory().hasItemIDEquipped("ChastityCagePermanentNormal")):
 		return false
 	
 	var lastDayEventHappened = getFlag("MedicalModule.Chastity_LastEventDay", 0)
-	if(GM.main.getDays() < (lastDayEventHappened + 5)): #5 is default. Switch to 1 for testing
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() < (lastDayEventHappened + 5)): #5 is default. Switch to 1 for testing
 		return false
 	
 	var currentEventNumber = getFlag("MedicalModule.Chastity_EventNumber", 0)
 	
 	#						DON'T FORGET THESE
 	if(currentEventNumber in [0, 1, 2, 3, 4, 5, 6]):
-		setFlag("MedicalModule.Chastity_LastEventDay", GM.main.getDays())
-		GM.pc.removeAllRestraints()
+		setFlag("MedicalModule.Chastity_LastEventDay", ServiceLocator.safe_get_service(&"MainScene").getDays())
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		
 		if(currentEventNumber == 0):
 			setFlag("MedicalModule.Chastity_EventNumber", 1)

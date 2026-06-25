@@ -16,7 +16,7 @@ func getAnnouncerIntroduction():
 	return "You shouldn't see this"
 	
 func getRank():
-	#if(GM.main.getFlag("FightClubModule.AvyGotRekt")):
+	#if(ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.AvyGotRekt")):
 	#	return FightClubRank.FuckMeat
 	return FightClubRank.GrandChampion
 

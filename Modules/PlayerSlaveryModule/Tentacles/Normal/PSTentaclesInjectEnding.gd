@@ -7,18 +7,18 @@ func _init():
 	sceneID = "PSTentaclesInjectEnding"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		aimCameraAndSetLocName(_tentacles.getMonsterLoc())
@@ -129,9 +129,9 @@ func _run():
 		addButton("Continue", "See what happens next", "choke_talk")
 	if(state == "choke_talk"):
 		aimCameraAndSetLocName(_tentacles.LOC_IMPORTANT)
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
-		playAnimation(StageScene.Duo, "kneel", {pc="pc", npc=GM.main.PS.getScientist1CharID()})
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
+		playAnimation(StageScene.Duo, "kneel", {pc="pc", npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()})
 		if (!flagInjectForced):
 			saynn("You look through the window.. and see the scientists. They have cut their extra coffee break short.. probably because of all the noise.")
 
@@ -240,9 +240,9 @@ func _run():
 		addButton("Continue", "See what happens next", "mindtalk")
 	if(state == "mindtalk"):
 		aimCameraAndSetLocName(_tentacles.LOC_IMPORTANT)
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
-		playAnimation(StageScene.Duo, "kneel", {pc="pc", npc=GM.main.PS.getScientist1CharID()})
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
+		playAnimation(StageScene.Duo, "kneel", {pc="pc", npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()})
 		if (!flagInjectForced):
 			saynn("You look through the window.. and see the scientists. They have cut their extra coffee break short.. probably because they saw everything through the security camera.")
 
@@ -275,8 +275,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "near_detective")
 	if(state == "near_detective"):
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		removeCharacter(_tentacles.getTentaclesCharID())
 		addCharacter("intro_detective")
 		playAnimation(StageScene.Solo, "sit")
@@ -314,8 +314,8 @@ func _run():
 		addButton("Continue", "See what happens next", "fastforward")
 	if(state == "fastforward"):
 		removeCharacter("intro_detective")
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		addCharacter("risha")
 		playAnimation(StageScene.Duo, "stand", {npc="risha"})
 		saynn("Next moment you know it.. you're being flown back to your concrete home.. first class, as usual.")
@@ -341,7 +341,7 @@ func _run():
 		addButton("Continue", "You had your fun", "doEndSlavery")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -355,9 +355,9 @@ func _react(_action: String, _args):
 
 	if(_action == "doEndSlavery"):
 		endScene()
-		GM.main.endCurrentScene()
-		GM.main.stopPlayerSlavery()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		return
 
 	setState(_action)

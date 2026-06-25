@@ -26,7 +26,7 @@ func _run():
 	if(state == "continue1"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="stand", bodyState={naked=true}})
 		aimCameraAndSetLocName("med_nearlab")
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		
 		saynn("Time passes swiftly. Eventually Eliza wakes you up and turns off the machine before getting you out, healed and refreshed.")
 
@@ -44,7 +44,7 @@ func _react(_action: String, _args):
 		processTime(60*10)
 	
 	if(_action == "continue"):
-		GM.pc.afterCryopodTreatment()
+		ServiceLocator.safe_get_service(&"Player").afterCryopodTreatment()
 		processTime(60*60*4)
 	
 	if(_action == "endthescene"):

@@ -23,7 +23,7 @@ func run(_triggerID, _args):
 					else:
 						addDisabledButton("Milking", "You can only give to Eliza slaves that have submitted to you. Otherwise they would run away, duh!")
 					
-		if(getModule("ElizaModule").hasLabAccess() && GM.main.SCI.hasTFsCanScan(character)):
+		if(getModule("ElizaModule").hasLabAccess() && ServiceLocator.safe_get_service(&"MainScene").SCI.hasTFsCanScan(character)):
 			addButton("Scan TFs!", "Make Eliza Quinn scan the transformations of your slave!", "do_scan_slave", [_args[1]])
 		return
 	
@@ -39,7 +39,7 @@ func run(_triggerID, _args):
 	if(!getModule("ElizaModule").hasLabAccess()):
 		return
 	
-	if(GM.main.SCI.hasTFsCanScan(character)):
+	if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasTFsCanScan(character)):
 		addButton("Scan TFs!", "Bring them to Eliza Quinn so she can scan their transformations!", "do_scan_them", [_args[0]])
 		
 
@@ -48,8 +48,8 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "do_scan_them"):
-		GM.main.endCurrentScene()
-		GM.main.IS.deletePawn(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(_args[0])
 		runScene("ElizaGenericNPCTestDrugScene", [_args[0]])
 
 	if(_method == "do_scan_slave"):
@@ -59,7 +59,7 @@ func onButton(_method, _args):
 		var npcID = _args[0]
 		var character:DynamicCharacter = getCharacter(npcID)
 		var npcSlave:NpcSlave = character.getNpcSlavery()
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		npcSlave.startActivity("MilkingInMedical")
 		addMessage("Your slave will now be milked every day!")
 		# Maybe a scene here

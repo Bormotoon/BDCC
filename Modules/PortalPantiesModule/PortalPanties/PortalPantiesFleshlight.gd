@@ -26,7 +26,7 @@ func canSell():
 	return true
 
 func getTags():
-	if(GM.main != null && (GM.main.getFlag("PortalPantiesModule.Panties_PcDenied") || GM.main.getFlag("PortalPantiesModule.Panties_FleshlightsReturnedToAlex"))):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && (ServiceLocator.safe_get_service(&"MainScene").getFlag("PortalPantiesModule.Panties_PcDenied") || ServiceLocator.safe_get_service(&"MainScene").getFlag("PortalPantiesModule.Panties_FleshlightsReturnedToAlex"))):
 		return [ItemTag.SoldByAlexRynard]
 	return []
 

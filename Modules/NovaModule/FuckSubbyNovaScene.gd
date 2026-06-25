@@ -238,8 +238,8 @@ func _react(_action: String, _args):
 		_action = RNG.pick(["cum_inside", "pull_out"])
 	
 	if(_action == "pull_out"):
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "nova_subbyfuck")
-		GM.pc.orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "nova_subbyfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
 	
 	if(_action == "cum_inside"):
 		if(usedCondom):
@@ -247,20 +247,20 @@ func _react(_action: String, _args):
 			if(usedNovasCondom):
 				chance = 50
 			else:
-				chance = GM.pc.useBestCondom()
+				chance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 			
-			condomBroke = GM.pc.shouldCondomBreakWhenFucking("nova", chance)
+			condomBroke = ServiceLocator.safe_get_service(&"Player").shouldCondomBreakWhenFucking("nova", chance)
 
 		if(!usedCondom || (usedCondom && condomBroke)):
-			GM.main.addRoomMemoryCurrentLoc("You notice some cum stains, a sign that somebody had sex here", 1)
+			ServiceLocator.safe_get_service(&"MainScene").addRoomMemoryCurrentLoc("You notice some cum stains, a sign that somebody had sex here", 1)
 			
 			getCharacter("nova").cummedInVaginaByAdvanced("pc", {condomBroke=condomBroke})
-			GM.pc.addSkillExperience(Skill.SexSlave, 20, "nova_subbyfuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "nova_subbyfuck")
 		else:
-			GM.pc.addSkillExperience(Skill.SexSlave, 40, "nova_subbyfuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "nova_subbyfuck")
 			addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
 		
-		GM.pc.orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
 	
 	setState(_action)
 

@@ -48,9 +48,9 @@ func _run():
 		if (getModule("RahiModule").isSkillLearned("rahiSkillMasochist")):
 			addButton("Nipple clamps", "(Masochist) Make it painful for Rahi", "nipple_clamps")
 		if (getModule("RahiModule").isSkillLearned("rahiSkillSex")):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButton("Blow job", "(Sex) Make her suck you off like this", "blow_job")
-			if (GM.pc.hasReachableVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 				addButton("Sit on face", "(Sex) Sit on her face with your pussy", "pussy_sit")
 		if (getModule("RahiModule").getSlaveryStage() >= 3):
 			addButton("Complete isolation", "Add even more restraints", "complete_isolation")
@@ -343,10 +343,10 @@ func _run():
 
 			saynn("Your muscles begin to tense up uncontrollably while your legs shake and lose strength to keep you up. Rahi keeps eagerly licking you out until she gets a warm shower that's coming from your squirting pulsating slit. You arch your back and let the orgasm waves flow through you, assisted by your personal pussy licker.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The pressure in your chastity cage gets too much, your locked dick suddenly begins to shoot strings of {pc.cum} past the metal frame, creating oh quite the mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("The pressure in your {pc.penis} gets too much, it suddenly begins to shoot out strings of {pc.cum}, creating oh quite the mess on the floor.")
 
 			saynn("After the climax begins to fade, you just keep sitting on Rahi's face, letting her clean up any wetness.")
@@ -364,10 +364,10 @@ func _run():
 
 			saynn("Your muscles begin to tense up uncontrollably while your legs shake and lose strength to keep you up. Rahi keeps eagerly licking you out even after she gets a warm shower that's coming from your squirting pulsating slit, she makes sure to collect as much girlcum as she can in her mouth. You arch your back and let the orgasm waves flow through you, assisted by your personal pussy licker.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The pressure in your chastity cage gets too much, your locked dick suddenly begins to shoot strings of {pc.cum} past the metal frame, creating oh quite the mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("The pressure in your {pc.penis} gets too much, it suddenly begins to shoot out strings of {pc.cum}, creating oh quite the mess on the floor.")
 
 			saynn("After the climax begins to fade, you just keep sitting on Rahi's face, letting her clean up any wetness.")
@@ -385,10 +385,10 @@ func _run():
 
 			saynn("Your whole body locks up and shivers uncontrollably, your arms and legs shaking, struggling to keep you still. Your pussy twitches and pulsates, Rahi overstimulates your flower so much that you start squirting all over her face, covering her with your juices until she has to close her eyes. She tries to catch as much of your girlcum as she can, swiftly swallowing it, before returning to licking you down there.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The pressure in your chastity cage gets too much, your locked dick suddenly begins to shoot strings of {pc.cum} past the metal frame, creating oh quite the mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("The pressure in your {pc.penis} gets too much, it suddenly begins to shoot out strings of {pc.cum}, creating oh quite the mess on the floor.")
 
 			saynn("After the climax begins to fade, you just keep sitting on Rahi's face, letting her clean up any wetness.")
@@ -481,7 +481,7 @@ func _react(_action: String, _args):
 
 	if(_action == "take_a_nap"):
 		processTime(2*60*60)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 
 	if(_action == "vibrator"):
 		var rahi = getCharacter("rahi")
@@ -530,16 +530,16 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
 		getCharacter("rahi").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_facefuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_facefuck")
 
 	if(_action == "pussy_start_lick"):
 		processTime(10*60)
 		getCharacter("rahi").cummedOnBy("pc", FluidSource.Vagina, 0.7)
 		getCharacter("rahi").cummedInMouthBy("pc", FluidSource.Vagina, 0.3)
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 		getModule("RahiModule").advanceSkill("rahiSkillSex")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rahi_grind")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rahi_grind")
 
 	if(_action == "isolation_nap"):
 		processTime(60*60)

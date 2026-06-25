@@ -11,7 +11,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		isEgged = GM.pc.isEggStuffed()
+		isEgged = ServiceLocator.safe_get_service(&"Player").isEggStuffed()
 		saynn("You open your eyes.. and immediately feel that something is different. No, it's not the ceiling of your cell, that's for sure.")
 
 		saynn("A scent.. there is a certain scent in the air. An expensive perfume.")
@@ -59,7 +59,7 @@ func _run():
 			if (isEgged):
 				saynn("Your hand instinctively lands on your belly.. a belly that is still very round.")
 
-			elif (GM.pc.isVisiblyPregnant()):
+			elif (ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("Your hand instinctively lands on your belly.. a belly that is still round.. but for a different reason.")
 
 			else:

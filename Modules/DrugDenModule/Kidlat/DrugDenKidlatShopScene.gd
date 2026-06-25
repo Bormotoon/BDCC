@@ -12,7 +12,7 @@ func _run():
 		addCharacter("kidlat", [] if !getModule("DrugDenModule").isKidlatNaked() else ["naked"])
 		playAnimation(StageScene.Duo, "stand", {npc="kidlat", kidlatBox=true, further=true, npcBodyState={naked=getModule("DrugDenModule").isKidlatNaked()}})
 		var customGreet = getModule("DrugDenModule").getKidlatCustomGreeting()
-		var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+		var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 		var isFirstTimeThisFloor:bool = drugDenEvent.isFirstTimeThisFloor()
 		var isFirstTimeThisRun:bool = drugDenEvent.isFirstTimeThisRun()
 		var isOutOfItems:bool = drugDenEvent.isOutOfItems()
@@ -53,14 +53,14 @@ func _run():
 		if (isBound):
 			if (!drugDenEvent.wasKidlatGroped()):
 				addButton("Grope", "Grope the helpless shopkeeper", "do_grope")
-				if (GM.pc.getInventory().getAmountOf("restraintkey") >= 2):
+				if (ServiceLocator.safe_get_service(&"Player").getInventory().getAmountOf("restraintkey") >= 2):
 					addButton("Unlock restraints", "Kidlat has 2 pairs of cuffs on her so you will need to use 2 restraint keys to unlock her!", "do_unlock_restraints")
 				else:
 					addDisabledButton("Unlock restraints", "(Not enough restraint keys) Kidlat has 2 pairs of cuffs on her so you will need to use 2 restraint keys to unlock her!")
 			else:
 				addDisabledButton("Grope", "You already groped her, give the poor kitty some rest")
 				addDisabledButton("Unlock restraints", "Groping her and then immediately saving her would be kinda suspicious..")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["kidlatShop"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["kidlatShop"])
 	if(state == "just_unlock_this_time"):
 		saynn("You use the restraint keys to unlock the poor Kidlat.")
 
@@ -309,28 +309,28 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "buyKidlatItem"):
-		var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+		var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 		buyLine = drugDenEvent.doBuyItem(_args[0])
 		return
 
 	if(_action == "get_bapped"):
 		setFlag("DrugDenModule.KidlatBap", true)
-		var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+		var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 		drugDenEvent.hasBap = false
 
 	if(_action == "do_sell"):
-		var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+		var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 		buyLine = drugDenEvent.doStealAll()
 		return
 
 	if(_action == "do_grope"):
-		var drugDenEvent = GM.main.DrugDenRun.getEventInRoom(GM.pc.getLocation())
+		var drugDenEvent = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getEventInRoom(ServiceLocator.safe_get_service(&"Player").getLocation())
 		runScene("DrugDenKidlatBoundGropeScene")
 		drugDenEvent.wasGroped = true
 		return
 
 	if(_action == "do_unlock_restraints"):
-		GM.pc.getInventory().removeXOfOrDestroy("restraintkey", 2)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("restraintkey", 2)
 		setFlag("DrugDenModule.KidlatLockedUpRandomly", false)
 		if(!getFlag("DrugDenModule.Kidlat5Hap", false)):
 			setFlag("DrugDenModule.Kidlat5Hap", true)

@@ -19,26 +19,26 @@ func _run():
 		
 		saynn("You stand inside the laboratory.")
 		
-		sayn("Science points: " + str(GM.main.SCI.getSciencePoints()))
-		sayn("Unlocked transformation pills: "+str(GM.main.SCI.getUnlockedStrangePillsCount())+"/"+str(GM.main.SCI.getTotalStrangePillCount()))
-		sayn("Tested transformation pills: "+str(GM.main.SCI.getTestedStrangePillsCount())+"/"+str(GM.main.SCI.getTotalStrangePillCount()))
-		saynn("Upgrades: "+str(GM.main.SCI.getUpgradeCount())+"/"+str(GM.main.SCI.getTotalUpgradeCount()))
+		sayn("Science points: " + str(ServiceLocator.safe_get_service(&"MainScene").SCI.getSciencePoints()))
+		sayn("Unlocked transformation pills: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getUnlockedStrangePillsCount())+"/"+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getTotalStrangePillCount()))
+		sayn("Tested transformation pills: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getTestedStrangePillsCount())+"/"+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getTotalStrangePillCount()))
+		saynn("Upgrades: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgradeCount())+"/"+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getTotalUpgradeCount()))
 		
 		sayTanksVolume()
 		
 		# DEBUG INFO
 		if(false):
-			sayn("MAX SCIENCE FOR UNLOCKING TFS: "+str(GM.main.SCI.getMaxScienceFromUnlockingTFs()))
-			sayn("MAX SCIENCE FOR UNLOCKING+TESTING TFS: "+str(GM.main.SCI.getMaxScienceFromUnlockingAndTestingTFs()))
-			saynn("ALL UPGRADES COST: "+str(GM.main.SCI.getAllUpgradesScienceCost()))
+			sayn("MAX SCIENCE FOR UNLOCKING TFS: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getMaxScienceFromUnlockingTFs()))
+			sayn("MAX SCIENCE FOR UNLOCKING+TESTING TFS: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getMaxScienceFromUnlockingAndTestingTFs()))
+			saynn("ALL UPGRADES COST: "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getAllUpgradesScienceCost()))
 		
 		addButton("Create", "See what you can create in this lab", "create_menu")
 		addButton("Fluids", "See what you can do with the fluid tanks", "fluid_tanks")
 		addButton("Upgrades", "Look at the list of possible upgrades", "upgrades")
 		addButton("Database", "Look at the database of everything that you have unlocked or researched", "database")
-		if(GM.main.SCI.hasUpgrade("bluespaceStash")):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("bluespaceStash")):
 			addButton("Stash", "Look at your personal item stash", "look_stash")
-		if(GM.main.SCI.doesPCHaveUnknownStrangePills()):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.doesPCHaveUnknownStrangePills()):
 			addButton("Strange pill!", "Make Eliza scan the strange pill that you have", "scan_strange_pill")
 		addButton("Leave", "Time to go", "endthescene")
 	
@@ -51,11 +51,11 @@ func _run():
 		addButton("Fill", "Fill the tanks with one of your items", "tank_fill_select")
 		addButton("Clear", "Select one of the fluid tanks and fully empty it", "tank_clear_select")
 		
-		if(GM.main.SCI.hasUpgrade("shower1")):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower1")):
 			addButton("Shower", "Take a special shower that will collect all the fluids", "tank_shower")
-		if(GM.main.SCI.hasUpgrade("fluidInspector")):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("fluidInspector")):
 			addButton("Inspect container", "Use the lab's equipment to inspect one of your fluid containers and get full info about its contents", "inspect_select")
-		if(GM.main.SCI.hasUpgrade("fluidFilter")):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("fluidFilter")):
 			addButton("Filter container", "Use the lab's equipment to filter away fluids from one of your fluid containers", "filter_select")
 		
 		
@@ -66,13 +66,13 @@ func _run():
 		
 		saynn("Pick a fluid container that you want to filter. You will be able to remove selected fluids from that container.")
 		
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			
 			if(equippedItem.getFluids() != null && !equippedItem.getFluids().isEmpty()):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "tank_pickFilter", [equippedItem])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem.getFluids() != null):
 				if(theitem.getFluids().isEmpty()):
 					#addDisabledButton(theitem.getStackName(), "(This item is empty)\n\n"+theitem.getVisisbleDescription())
@@ -81,7 +81,7 @@ func _run():
 					addButton(theitem.getStackName(), theitem.getVisisbleDescription(), "tank_pickFilter", [theitem])
 	
 	if(state == "tank_pickFilter"):
-		var item:ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("ERROR, NO ITEM FOUND.")
 			addButton("Continue", "See what happens next", "filter_select")
@@ -120,13 +120,13 @@ func _run():
 		
 		saynn("Pick a fluid container that you want to inspect. The lab will show you full detailed information about the contents of that item.")
 		
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			
 			if(equippedItem.getFluids() != null && !equippedItem.getFluids().isEmpty()):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "tank_pickInspect", [equippedItem])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem.getFluids() != null):
 				if(theitem.getFluids().isEmpty()):
 					#addDisabledButton(theitem.getStackName(), "(This item is empty)\n\n"+theitem.getVisisbleDescription())
@@ -135,7 +135,7 @@ func _run():
 					addButton(theitem.getStackName(), theitem.getVisisbleDescription(), "tank_pickInspect", [theitem])
 		
 	if(state == "tank_pickInspect"):
-		var item:ItemBase = GM.pc.getInventory().getItemByUniqueID(uniqueItemID)
+		var item:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getItemByUniqueID(uniqueItemID)
 		if(item == null):
 			saynn("ERROR, NO ITEM FOUND.")
 			addButton("Continue", "See what happens next", "inspect_select")
@@ -193,13 +193,13 @@ func _run():
 		
 		sayTanksVolume()
 		
-		var equippedItems = GM.pc.getInventory().getAllEquippedItems()
+		var equippedItems = ServiceLocator.safe_get_service(&"Player").getInventory().getAllEquippedItems()
 		for slot in equippedItems:
 			var equippedItem:ItemBase = equippedItems[slot]
 			
 			if(equippedItem.getFluids() != null && !equippedItem.getFluids().isEmpty()):
 				addButton(equippedItem.getStackName(), equippedItem.getVisisbleDescription(), "tank_pickFillFrom", [equippedItem])
-		for theitem in GM.pc.getInventory().getItems():
+		for theitem in ServiceLocator.safe_get_service(&"Player").getInventory().getItems():
 			if(theitem.getFluids() != null):
 				if(theitem.getFluids().isEmpty()):
 					#addDisabledButton(theitem.getStackName(), "(This item is empty)\n\n"+theitem.getVisisbleDescription())
@@ -215,7 +215,7 @@ func _run():
 		
 		sayTanksVolume()
 		
-		var storedFluids:Dictionary = GM.main.SCI.getStoredFluids()
+		var storedFluids:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getStoredFluids()
 		for fluidID in storedFluids:
 			var fluidOBJ:FluidBase = GlobalRegistry.getFluid(fluidID)
 			var fluidName:String = fluidOBJ.getVisibleName() if fluidOBJ != null else fluidID
@@ -225,23 +225,23 @@ func _run():
 	if(state == "create_menu"):
 		addButton("Back", "Back to the previous menu", "")
 		
-		#var canConfigure:bool = GM.main.SCI.canConfigureDrugs()
+		#var canConfigure:bool = ServiceLocator.safe_get_service(&"MainScene").SCI.canConfigureDrugs()
 		
 		var entries:Dictionary = {}
 		
 		for tfID in GlobalRegistry.getTransformationRefs():
-			if(!GM.main.SCI.isTransformationUnlocked(tfID)):
+			if(!ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)):
 				continue
-			var canMakeResult:Array = GM.main.SCI.canMakePillResult(tfID)
+			var canMakeResult:Array = ServiceLocator.safe_get_service(&"MainScene").SCI.canMakePillResult(tfID)
 			var canMake:bool = canMakeResult[0]
 			var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
 			
-			var desc:String = GM.main.SCI.getMakePillDescription(tfID)
+			var desc:String = ServiceLocator.safe_get_service(&"MainScene").SCI.getMakePillDescription(tfID)
 			
 			var theActions:Array = []
 			if(canMake):
 				theActions = [["make", "Make"]]
-				if(tf.getPillCanConfigure() && GM.main.SCI.canConfigureDrugs()):
+				if(tf.getPillCanConfigure() && ServiceLocator.safe_get_service(&"MainScene").SCI.canConfigureDrugs()):
 					theActions = [["custom", "Custom"], ["make", "Make"]]
 			
 			entries[tfID] = {
@@ -250,7 +250,7 @@ func _run():
 				actions = theActions,
 			}
 		
-		var crafts:Dictionary = GM.main.SCI.getCraftableItems()
+		var crafts:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getCraftableItems()
 		for itemID in crafts:
 			var craftInfo:Dictionary = crafts[itemID]
 			var itemRef:ItemBase = GlobalRegistry.getItemRef(itemID)
@@ -264,13 +264,13 @@ func _run():
 				itemName = "Strange Pill"
 				itemDesc = "Use advanced algorithms to brute-force random molecular structures until we find one that has transformative properties.\n\nThis pill is guaranteed to be one that hasn't been unlocked yet (Unless you have unlocked all of them already). The cost of this pill will raise each time you make it."
 			
-			var itemFluidsReq:String = GM.main.SCI.canMakeGetFluidsDescription(craftInfo["fluids"])
-			var canMakeResult:Array = GM.main.SCI.canMakeHasFluids(craftInfo["fluids"])
+			var itemFluidsReq:String = ServiceLocator.safe_get_service(&"MainScene").SCI.canMakeGetFluidsDescription(craftInfo["fluids"])
+			var canMakeResult:Array = ServiceLocator.safe_get_service(&"MainScene").SCI.canMakeHasFluids(craftInfo["fluids"])
 			var canMake:bool = canMakeResult[0]
 			
 			if(craftInfo.has("science")):
-				itemFluidsReq = "Science points: "+str(craftInfo["science"])+"  (You have "+str(GM.main.SCI.getSciencePoints())+")\n"+itemFluidsReq
-				if(GM.main.SCI.getPoints() < craftInfo["science"]):
+				itemFluidsReq = "Science points: "+str(craftInfo["science"])+"  (You have "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getSciencePoints())+")\n"+itemFluidsReq
+				if(ServiceLocator.safe_get_service(&"MainScene").SCI.getPoints() < craftInfo["science"]):
 					canMake = false
 					if(canMakeResult[1] != ""):
 						canMakeResult[1] += "\n"
@@ -287,7 +287,7 @@ func _run():
 			}
 			
 		var inventory = genericInventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
 		var _ok = inventory.onInteractWith.connect(onMakeInteract)
@@ -302,11 +302,11 @@ func _run():
 			desc = "This list shows the upgrades that you have unlocked",
 		}
 		
-		var upgradesInfo:Dictionary = GM.main.SCI.getUpgrades()
+		var upgradesInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgrades()
 		var hasAnyUnlocked:bool = false
 		#sayn("Unlocked upgrades:")
 		for upgradeID in upgradesInfo:
-			if(!GM.main.SCI.hasUpgrade(upgradeID)):
+			if(!ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade(upgradeID)):
 				continue
 			entries["up_"+upgradeID] = {
 				name = upgradesInfo[upgradeID]["name"],
@@ -332,8 +332,8 @@ func _run():
 			var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
 			if(!tf.canUnlockAsPill()):
 				continue
-			var isUnlocked:bool = GM.main.SCI.isTransformationUnlocked(tfID)
-			var isTested:bool = isUnlocked && GM.main.SCI.isTransformationTested(tfID)
+			var isUnlocked:bool = ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)
+			var isTested:bool = isUnlocked && ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationTested(tfID)
 			
 			if(!isUnlocked):
 				#sayn(" - "+str(_i)+": Unknown")
@@ -368,7 +368,7 @@ func _run():
 
 			
 		var inventory = genericInventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
 		#var _ok = inventory.onItemSelected.connect(onInventoryItemSelected)
@@ -376,8 +376,8 @@ func _run():
 		
 	
 	if(state == "upgrades"):
-		var upgradesInfo:Dictionary = GM.main.SCI.getUpgrades()
-		var currentDrugAmount:int = GM.main.SCI.getUnlockedStrangePillsCount()
+		var upgradesInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgrades()
+		var currentDrugAmount:int = ServiceLocator.safe_get_service(&"MainScene").SCI.getUnlockedStrangePillsCount()
 		
 		#saynn("Here is a list of upgrades that are currently available. Select any upgrade to see more information about it.")
 		
@@ -387,9 +387,9 @@ func _run():
 		
 		addButton("Back", "Back to the previous menu", "")
 		for upgradeID in upgradesInfo:
-			if(GM.main.SCI.hasUpgrade(upgradeID)):
+			if(ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade(upgradeID)):
 				continue
-			if(!GM.main.SCI.isUpgradeVisible(upgradeID)):
+			if(!ServiceLocator.safe_get_service(&"MainScene").SCI.isUpgradeVisible(upgradeID)):
 				continue
 			hasAnyUpgrades = true
 			var upgradeInfo:Dictionary = upgradesInfo[upgradeID]
@@ -397,10 +397,10 @@ func _run():
 			#addButton(upgradeInfo["name"], "See info about this upgrade", "lookAtUpgrade", [upgradeID])
 			
 			
-			var canBuy:bool = upgradeInfo["cost"] <= GM.main.SCI.getPoints()
+			var canBuy:bool = upgradeInfo["cost"] <= ServiceLocator.safe_get_service(&"MainScene").SCI.getPoints()
 			var upgradeDesc:String = ""
 			upgradeDesc += upgradeInfo["desc"]
-			upgradeDesc += "\n\nYou have "+str(GM.main.SCI.getPoints())+" science points"
+			upgradeDesc += "\n\nYou have "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getPoints())+" science points"
 			upgradeDesc += "\nCost: [color="+("red" if !canBuy else "green")+"]"+str(upgradeInfo["cost"])+" science points[/color]"
 			if(upgradeInfo.has("drugAmount")):
 				var needDrugAmount:int = upgradeInfo["drugAmount"]
@@ -423,22 +423,22 @@ func _run():
 			}
 	
 		var inventory = genericInventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(0.75)
 		inventory.setEntries(entries)
 		var _ok = inventory.onInteractWith.connect(onUpgradesInteract)
 	
 	if(state == "lookAtUpgrade"):
-		var upgradeInfo:Dictionary = GM.main.SCI.getUpgrades()[pickedUpgrade]
+		var upgradeInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgrades()[pickedUpgrade]
 		
 		saynn("Upgrade name: "+upgradeInfo["name"])
 		sayn("Description:")
 		saynn(upgradeInfo["desc"])
 		sayn("Cost: "+str(upgradeInfo["cost"])+" science points")
-		sayn("You currently have "+str(GM.main.SCI.getPoints())+" science points")
+		sayn("You currently have "+str(ServiceLocator.safe_get_service(&"MainScene").SCI.getPoints())+" science points")
 		
 		addButton("Back", "Back to the previous menu", "upgrades")
-		if(GM.main.SCI.getPoints() >= upgradeInfo["cost"]):
+		if(ServiceLocator.safe_get_service(&"MainScene").SCI.getPoints() >= upgradeInfo["cost"]):
 			addButton("Buy", "Spend "+str(upgradeInfo["cost"])+" science points to get this upgrade", "doBuyUpgrade", [pickedUpgrade])
 		else:
 			addDisabledButton("Buy", "You don't have enough science points")
@@ -457,7 +457,7 @@ func _run():
 		addButton("Back", "Back to the previous menu", "database")
 	
 	if(state == "after_buy"):
-		var upgradeInfo:Dictionary = GM.main.SCI.getUpgrades()[pickedUpgrade]
+		var upgradeInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgrades()[pickedUpgrade]
 		saynn("You unlocked the '"+upgradeInfo["name"]+"' upgrade!")
 		addButton("Continue", "See what happens next", "upgrades")
 		
@@ -499,7 +499,7 @@ func _run():
 		
 		if(option.has("color") && option["color"]):
 			var colorPicker = colorPickerScene.instantiate()
-			GM.ui.addFullScreenCustomControl("colorpicker", colorPicker)
+			ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("colorpicker", colorPicker)
 			colorPicker.setCurrentColor(Color(pickedArgs[pickedTFOption]))
 			
 			addButton("Apply", "Select this color", "set_value_configure_color")
@@ -525,7 +525,7 @@ func _run():
 		saynn("Some transformation drugs have unique Eliza sex scenes attached to them. Here you can see and replay all of them.")
 		
 		for tfID in GlobalRegistry.getTransformationRefs():
-			if(!GM.main.SCI.isTransformationUnlocked(tfID)):
+			if(!ServiceLocator.safe_get_service(&"MainScene").SCI.isTransformationUnlocked(tfID)):
 				continue
 			var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
 			
@@ -556,18 +556,18 @@ func _run():
 
 func onUpgradesInteract(_upgradeID:String, _id, _args):
 	pickedUpgrade = _upgradeID
-	GM.main.pickOption("doBuyUpgrade", [_upgradeID])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("doBuyUpgrade", [_upgradeID])
 		
 func onMakeInteract(_upgradeID:String, _id, _args):
-	GM.main.pickOption("doMakeTFPill", [_upgradeID, _id])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("doMakeTFPill", [_upgradeID, _id])
 	
 func sayTanksVolume():
-	var storedFluids:Dictionary = GM.main.SCI.getStoredFluidsWithDefauls()
+	var storedFluids:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getStoredFluidsWithDefauls()
 	
 	sayn("Fluid tanks contents:")
 	for fluidID in storedFluids:
 		var fluidAmount:float = storedFluids[fluidID]
-		var fluidLimit:float = GM.main.SCI.getStoredFluidLimit(fluidID)
+		var fluidLimit:float = ServiceLocator.safe_get_service(&"MainScene").SCI.getStoredFluidLimit(fluidID)
 		var fluidName:String = "Unknown fluid"
 		
 		var fluid:FluidBase = GlobalRegistry.getFluid(fluidID)
@@ -594,14 +594,14 @@ func _react(_action: String, _args):
 		setState("configuring_drug")
 		return
 	if(_action == "set_value_configure_color"):
-		var colorPicker = GM.ui.getCustomControl("colorpicker")
+		var colorPicker = ServiceLocator.safe_get_service(&"UI").getCustomControl("colorpicker")
 		pickedArgs[pickedTFOption] = "#"+colorPicker.getCurrentColor().to_html(false)
 		setState("configuring_drug")
 		return
 	if(_action == "doBuyUpgrade"):
-		var upgradeInfo:Dictionary = GM.main.SCI.getUpgrades()[pickedUpgrade]
-		GM.main.SCI.addPoints(-upgradeInfo["cost"])
-		GM.main.SCI.unlockUpgrade(pickedUpgrade)
+		var upgradeInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getUpgrades()[pickedUpgrade]
+		ServiceLocator.safe_get_service(&"MainScene").SCI.addPoints(-upgradeInfo["cost"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.unlockUpgrade(pickedUpgrade)
 		#addMessage("You unlocked the '"+upgradeInfo["name"]+"' upgrade!")
 		#setState("upgrades")
 		setState("after_buy")
@@ -610,28 +610,28 @@ func _react(_action: String, _args):
 		var tfID:String = _args[0]
 		
 		if(_args[1] == "makeCraft"):
-			var theCrafts:Dictionary = GM.main.SCI.getCraftableItems()
+			var theCrafts:Dictionary = ServiceLocator.safe_get_service(&"MainScene").SCI.getCraftableItems()
 			var craftInfo:Dictionary = theCrafts[tfID]
 			var itemRef:ItemBase = GlobalRegistry.getItemRef(tfID)
 			
 			if(craftInfo.has("science")):
-				GM.main.SCI.addPoints(-craftInfo["science"])
-			GM.main.SCI.useFluidsToMakeSomething(craftInfo["fluids"])
+				ServiceLocator.safe_get_service(&"MainScene").SCI.addPoints(-craftInfo["science"])
+			ServiceLocator.safe_get_service(&"MainScene").SCI.useFluidsToMakeSomething(craftInfo["fluids"])
 			
 			addMessage("You have created '"+itemRef.getVisibleName()+"'!")
 			
 			if(tfID == "TFPill"):
-				GM.main.SCI.madeStrangePills += 1
+				ServiceLocator.safe_get_service(&"MainScene").SCI.madeStrangePills += 1
 				var newPill:ItemBase = GlobalRegistry.createItem(tfID)
 				newPill.makePillStrangeIfCan()
-				GM.pc.getInventory().addItem(newPill)
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newPill)
 			else:
-				GM.pc.getInventory().addItem(GlobalRegistry.createItem(tfID))
+				ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(tfID))
 			setState("")
 			return
 		
 		var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
-		if(_args[1] == "custom" && GM.main.SCI.canConfigureDrugs() && tf.getPillCanConfigure()):
+		if(_args[1] == "custom" && ServiceLocator.safe_get_service(&"MainScene").SCI.canConfigureDrugs() && tf.getPillCanConfigure()):
 			pickedTF = tfID
 			pickedArgs = {}
 			var theOptions:Dictionary = tf.getPillOptions()
@@ -640,17 +640,17 @@ func _react(_action: String, _args):
 			setState("configuring_drug")
 			return
 		
-		var newPill:ItemBase = GM.main.SCI.useFluidsToMakePill(tfID)
+		var newPill:ItemBase = ServiceLocator.safe_get_service(&"MainScene").SCI.useFluidsToMakePill(tfID)
 		if(newPill != null):
 			addMessage("You have created a "+tf.getPillName()+" pill!")
-			GM.pc.getInventory().addItem(newPill)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newPill)
 		
 		setState("")
 		return
 	if(_action == "do_create_configured_pill"):
 		var tfID:String = pickedTF
 		
-		var newPill:ItemBase = GM.main.SCI.useFluidsToMakePill(tfID, pickedArgs)
+		var newPill:ItemBase = ServiceLocator.safe_get_service(&"MainScene").SCI.useFluidsToMakePill(tfID, pickedArgs)
 		if(newPill != null):
 			var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
 			var configDescAr:Array = []
@@ -669,7 +669,7 @@ func _react(_action: String, _args):
 			newPill.setConfigDesc(Util.join(configDescAr, "\n"))
 			
 			addMessage("You have created a "+tf.getPillName()+" pill!")
-			GM.pc.getInventory().addItem(newPill)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newPill)
 		
 		setState("")
 		return
@@ -679,7 +679,7 @@ func _react(_action: String, _args):
 		var fluidOBJ:FluidBase = GlobalRegistry.getFluid(fluidID)
 		var fluidName:String = fluidOBJ.getVisibleName() if fluidOBJ != null else fluidID
 		
-		GM.main.SCI.clearFluid(fluidID)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.clearFluid(fluidID)
 		addMessage("'"+fluidName+"' fluid tank got cleared!")
 		return
 		
@@ -697,7 +697,7 @@ func _react(_action: String, _args):
 			if(theFluidOBJ == null):
 				continue
 			
-			var howMuchAdded:float = GM.main.SCI.addFluid(fluidID, fluidsByType[fluidID])
+			var howMuchAdded:float = ServiceLocator.safe_get_service(&"MainScene").SCI.addFluid(fluidID, fluidsByType[fluidID])
 			if(howMuchAdded > 0.0):
 				addMessage(str(Util.roundF(howMuchAdded, 1))+" ml of "+theFluidOBJ.getVisibleName()+" was deposited into the fluids tanks.")
 		fluids.clear()
@@ -825,23 +825,23 @@ func getDebugActions():
 
 func doDebugAction(_id, _args = {}):
 	if(_id == "addPoints"):
-		GM.main.SCI.addPoints(_args["points"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.addPoints(_args["points"])
 	if(_id == "addFluid"):
-		GM.main.SCI.addFluid(_args["fluidID"], _args["ml"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.addFluid(_args["fluidID"], _args["ml"])
 	if(_id == "unlockTF"):
-		GM.main.SCI.doUnlockTF(_args["tf"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF(_args["tf"])
 	if(_id == "testTF"):
-		GM.main.SCI.doUnlockTF(_args["tf"])
-		GM.main.SCI.doTestTF(_args["tf"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF(_args["tf"])
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doTestTF(_args["tf"])
 	if(_id == "unlockAll"):
 		for tfID in GlobalRegistry.getTransformationRefs():
-			GM.main.SCI.doUnlockTF(tfID)
+			ServiceLocator.safe_get_service(&"MainScene").SCI.doUnlockTF(tfID)
 	if(_id == "testAll"):
 		for tfID in GlobalRegistry.getTransformationRefs():
-			GM.main.SCI.doTestTF(tfID)
+			ServiceLocator.safe_get_service(&"MainScene").SCI.doTestTF(tfID)
 	if(_id == "lockAll"):
-		GM.main.SCI.unlockedTFs.clear()
-		GM.main.SCI.testedTFs.clear()
+		ServiceLocator.safe_get_service(&"MainScene").SCI.unlockedTFs.clear()
+		ServiceLocator.safe_get_service(&"MainScene").SCI.testedTFs.clear()
 
 func saveData():
 	var data = super.saveData()

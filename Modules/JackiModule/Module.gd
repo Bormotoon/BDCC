@@ -104,9 +104,9 @@ func addCorruption(howMuch, showMessage = true):
 	if(showMessage):
 		var diff = currentCorruption - oldCor
 		if(diff > 0.0):
-			GM.main.addMessage("Jacki's corruption has increased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's corruption has increased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
 		elif(diff < 0.0):
-			GM.main.addMessage("Jacki's corruption has decreased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's corruption has decreased to "+str(Util.roundF(currentCorruption * 100.0, 1))+"%")
 
 func addLust(howMuch, showMessage = true):
 	howMuch /= 100.0
@@ -126,9 +126,9 @@ func addLust(howMuch, showMessage = true):
 	if(showMessage):
 		var diff = currentLust - oldLust
 		if(diff > 0.0):
-			GM.main.addMessage("Jacki's lust has increased to "+str(Util.roundF(currentLust * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's lust has increased to "+str(Util.roundF(currentLust * 100.0, 1))+"%")
 		elif(diff < 0.0):
-			GM.main.addMessage("Jacki's lust has decreased to "+str(Util.roundF(currentLust * 100.0, 1))+"%")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's lust has decreased to "+str(Util.roundF(currentLust * 100.0, 1))+"%")
 
 
 func addAnger(howMuch, showMessage = true):
@@ -155,14 +155,14 @@ func addAnger(howMuch, showMessage = true):
 		
 		if(currentAnger > 0.0):
 			if(diff > 0.0):
-				GM.main.addMessage("Jacki's anger has increased to "+str(Util.roundF(currentAnger * 100.0, 1))+"%")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's anger has increased to "+str(Util.roundF(currentAnger * 100.0, 1))+"%")
 			elif(diff < 0.0):
-				GM.main.addMessage("Jacki's anger has decreased to "+str(Util.roundF(currentAnger * 100.0, 1))+"%")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's anger has decreased to "+str(Util.roundF(currentAnger * 100.0, 1))+"%")
 		else:
 			if(diff < 0.0):
-				GM.main.addMessage("Jacki's kindness has increased to "+str(Util.roundF(-currentAnger * 100.0, 1))+"%")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's kindness has increased to "+str(Util.roundF(-currentAnger * 100.0, 1))+"%")
 			elif(diff > 0.0):
-				GM.main.addMessage("Jacki's kindness has decreased to "+str(Util.roundF(-currentAnger * 100.0, 1))+"%")
+				ServiceLocator.safe_get_service(&"MainScene").addMessage("Jacki's kindness has decreased to "+str(Util.roundF(-currentAnger * 100.0, 1))+"%")
 
 func shouldWearSportsBra():
 	return getFlag("JackiModule.jackiReceivedBra", false)
@@ -217,7 +217,7 @@ func getButtTightness():
 	return "extremely stretchy"
 
 func makeJackiBusy(howManyDays = 1):
-	setFlag("JackiModule.jackiBusyUntil", GM.main.getDays() + howManyDays)
+	setFlag("JackiModule.jackiBusyUntil", ServiceLocator.safe_get_service(&"MainScene").getDays() + howManyDays)
 
 func getAngerText():
 	var currentAnger = getFlag("JackiModule.jackiAnger", 0.0)

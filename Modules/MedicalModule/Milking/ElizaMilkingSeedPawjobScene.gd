@@ -74,7 +74,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_milking")
 	if(state == "after_milking"):
 		playAnimation(StageScene.SexPawjob, "tease", {pc="pc", npc="eliza", bodyState={exposedCrotch=true, hard=true, condom=true}, npcBodyState={underwear=true}})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("Only when your orgasm begins to subside, Eliza stops using her paws, leaving your cock completely milked dry. Both, you and her, are left panting.")
 
 		saynn("[say=eliza]That was a nice workout.[/say]")
@@ -108,8 +108,8 @@ func _react(_action: String, _args):
 
 	if(_action == "process_cum"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "after_milking"):
 		processTime(3*60)

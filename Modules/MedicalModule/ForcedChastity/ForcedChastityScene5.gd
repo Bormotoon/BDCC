@@ -4,13 +4,13 @@ func _init():
 	sceneID = "ForcedChastityScene5"
 
 func _reactInit():
-	GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+	ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 
 func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.Solo, "kneel", {bodyState={naked=true}})
 		
 	if(state == ""):
@@ -306,7 +306,7 @@ func _run():
 	if(state == "tell_who"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		saynn("You tell her the name of who you wanna be fucked by.")
 
@@ -495,10 +495,10 @@ func _react(_action: String, _args):
 		processTime(randi_range(3,8)*60)
 
 	if(_action == "continue1"):
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 	
 	if(_action in ["continue2", "magic_wand"]):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 
 	if(_action == "pick"):
 		setFlag("MedicalModule.Chastity_SecondChosenPerson", _args[0])
@@ -506,7 +506,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "endthescene"):
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Wrists)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Wrists)
 		endScene()
 		return
 	

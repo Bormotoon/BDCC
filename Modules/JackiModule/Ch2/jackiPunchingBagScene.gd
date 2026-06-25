@@ -28,7 +28,7 @@ func _run():
 		addButton("Look around", "Maybe something here will help you figure out this mystery", "risha_bullies_jacki")
 	if(state == "risha_bullies_jacki"):
 		aimCameraAndSetLocName("gym_nearbathroom")
-		GM.pc.setLocation("gym_nearbathroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_nearbathroom")
 		addCharacter("jacki", ["naked"])
 		addCharacter("risha")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="risha", pc="jacki", bodyState={naked=true}})
@@ -366,12 +366,12 @@ func _run():
 
 		addButton("Uncuff her", "Actually save Jacki", "actually_save_jacki")
 		if (anger > -0.1):
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButtonWithChecks("Use her", "(Anal) Jacki is so vulnerable there. Maybe you should pick up where Risha has left off?", "do_betray_fuck", [], [ButtonChecks.HasReachablePenis])
 			else:
 				addButtonWithChecks("Use her", "(Anal) Jacki is so vulnerable there. Maybe you should pick up where Risha has left off?", "do_betray_strapon_pick", [], [ButtonChecks.HasStraponAndCanWear])
 		else:
-			if (GM.pc.hasReachablePenis()):
+			if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				addButtonWithChecks("Betray her", "(Anal) Jacki is so vulnerable there. Maybe you should pick up where Risha has left off?", "do_betray_fuck", [], [ButtonChecks.HasReachablePenis])
 			else:
 				addButtonWithChecks("Betray her", "(Anal) Jacki is so vulnerable there. Maybe you should pick up where Risha has left off?", "do_betray_strapon_pick", [], [ButtonChecks.HasStraponAndCanWear])
@@ -580,7 +580,7 @@ func _run():
 		addButton("Free her", "Might as well help her now", "do_betray_afterfuck_free")
 		addButton("Just leave", "Whatever. She can get out somehow", "do_betray_afterfuck_nofree")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_betray_strapon", [strapon])
 
@@ -626,7 +626,7 @@ func _react(_action: String, _args):
 
 	if(_action == "lost_nokiss"):
 		processTime(5*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 
 	if(_action == "lost_kiss_after"):
 		processTime(10*60)
@@ -661,23 +661,23 @@ func _react(_action: String, _args):
 		processTime(6*60)
 		getModule("JackiModule").addCorruption(2)
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	if(_action == "do_betray_afterfuck_free"):
 		processTime(5*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		getCharacter("jacki").removeAllRestraints()
 		getModule("JackiModule").addAnger(-2)
 
 	if(_action == "do_betray_afterfuck_nofree"):
 		processTime(5*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		getCharacter("jacki").removeAllRestraints()
 
 	if(_action == "do_betray_strapon"):
 		processTime(5*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "do_betray_strapon_stretch"):
 		if(!getModule("JackiModule").doBetray()):
@@ -692,7 +692,7 @@ func _react(_action: String, _args):
 		processTime(6*60)
 		getModule("JackiModule").addCorruption(2)
 		getCharacter("jacki").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
 
 	setState(_action)
 

@@ -11,7 +11,7 @@ func _init():
 	sceneID = "PSShaftMinerGameplayScene"
 
 func _reactInit():
-	GM.pc.setLocation("psmine_sleep")
+	ServiceLocator.safe_get_service(&"Player").setLocation("psmine_sleep")
 	setState("roam")
 
 func resolveCustomCharacterName(_charID):
@@ -21,60 +21,60 @@ func resolveCustomCharacterName(_charID):
 		return npc2ID
 
 func _run():
-	var roomID:String = GM.pc.getLocation()
+	var roomID:String = ServiceLocator.safe_get_service(&"Player").getLocation()
 	
 	if(state == ""):
 		saynn("If you see this, something went wrong.")
 	
 	
 	if(state == "roam"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
-		var _roomInfo = GM.world.getRoomByID(roomID)
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
+		var _roomInfo = ServiceLocator.safe_get_service(&"World").getRoomByID(roomID)
 
-		if(GM.pc.isBlindfolded() && !GM.pc.canHandleBlindness()):
+		if(ServiceLocator.safe_get_service(&"Player").isBlindfolded() && !ServiceLocator.safe_get_service(&"Player").canHandleBlindness()):
 			saynn(_roomInfo.getBlindDescription())
 		else:
 			saynn(_roomInfo.getDescription())
 		
-		var canMineInfo:Array = GM.main.PS.canMineSmart(roomID)
+		var canMineInfo:Array = ServiceLocator.safe_get_service(&"MainScene").PS.canMineSmart(roomID)
 		var canMine:bool = canMineInfo[0]
 		
-		if(GM.world.canGoID(roomID, GameWorld.Direction.NORTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.NORTH)):
 			addButtonAt(6, "North", "Go north", "go", [GameWorld.Direction.NORTH, Direction.North])
 		else:
 			addDisabledButtonAt(6, "North", "Can't go north")
-		if(GM.world.canGoID(roomID, GameWorld.Direction.WEST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.WEST)):
 			addButtonAt(10, "West", "Go west", "go", [GameWorld.Direction.WEST, Direction.West])
 		else:
 			addDisabledButtonAt(10, "West", "Can't go west")
-		if(GM.world.canGoID(roomID, GameWorld.Direction.SOUTH)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.SOUTH)):
 			addButtonAt(11, "South", "Go south", "go", [GameWorld.Direction.SOUTH, Direction.South])
 		else:
 			addDisabledButtonAt(11, "South", "Can't go south")
-		if(GM.world.canGoID(roomID, GameWorld.Direction.EAST)):
+		if(ServiceLocator.safe_get_service(&"World").canGoID(roomID, GameWorld.Direction.EAST)):
 			addButtonAt(12, "East", "Go east",  "go", [GameWorld.Direction.EAST, Direction.East])
 		else:
 			addDisabledButtonAt(12, "East", "Can't go east")
-		if(GM.main.PS.dudes.size() > 0):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.dudes.size() > 0):
 			addButtonAt(7, "Idle", "Just idle around, letting other slaves work", "justIdle")
 		
-		if(GM.main.PS.canRefresh()):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.canRefresh()):
 			addButtonAt(13, "Refreshments", "Use the minecart's refreshments", "useRefresh")
 		
-		if(GM.main.PS.nuggetsCarrying > 0):
-			if(GM.pc.getLocation() != GM.main.PS.LOC_ENTRANCE):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.nuggetsCarrying > 0):
+			if(ServiceLocator.safe_get_service(&"Player").getLocation() != ServiceLocator.safe_get_service(&"MainScene").PS.LOC_ENTRANCE):
 				addButtonAt(14, "Drop nuggets", "Drop all the nuggets that you are holding", "dropNuggets")
 			else:
 				addButton("Drop nuggets", "Drop all the nuggets that you are holding", "dropNuggets")
 		
 		
-		if(GM.main.PS.pushingMinecart):
-			if(GM.pc.getLocation() == GM.main.PS.LOC_ENTRANCE && GM.main.PS.nuggetsMinecart > 0):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart):
+			if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"MainScene").PS.LOC_ENTRANCE && ServiceLocator.safe_get_service(&"MainScene").PS.nuggetsMinecart > 0):
 				addButton("Unload minecart", "Unload the minecart and receive credits for all the ore nuggets.", "doUnloadMinecart")
 			addButton("Stop pushing", "Stop pushing the minecart", "stoppush")
 		
 		if(canMine):
-			if(GM.pc.getStamina() > 0):
+			if(ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 				addButton("Mine!", "Start mining", "domine")
 			else:
 				addDisabledButton("Mine!", "You don't have any stamina to do this")
@@ -82,46 +82,46 @@ func _run():
 			if(canMineInfo[1] != ""):
 				addDisabledButton("Mine!", canMineInfo[1])
 			
-		if(!GM.main.PS.pushingMinecart && GM.pc.getLocation() == GM.main.PS.minecartLoc):
-			if(GM.main.PS.nuggetsCarrying > 0):
-				if(GM.main.PS.canLoadMinecart()):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart && ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"MainScene").PS.minecartLoc):
+			if(ServiceLocator.safe_get_service(&"MainScene").PS.nuggetsCarrying > 0):
+				if(ServiceLocator.safe_get_service(&"MainScene").PS.canLoadMinecart()):
 					addButton("Load minecart", "Put all the ore nuggets into the minecart", "doLoadMinecart")
 				else:
 					addDisabledButton("Load minecart", "The minecart is full!")
 			addButton("Push minecart", "Start pushing the minecart", "startpush")
 		
-		if(!GM.main.PS.pushingMinecart && GM.main.PS.hasNuggetsIn(GM.pc.getLocation())):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart && ServiceLocator.safe_get_service(&"MainScene").PS.hasNuggetsIn(ServiceLocator.safe_get_service(&"Player").getLocation())):
 			addButton("Pick up nuggets", "Start picking up the ore nuggets", "start_nuggets_picking")
 		
 		if(roomID == "psmine_entrance"):
-			saynn("Upgrades unlocked: "+GM.main.PS.getUpgradesCompletionStr()+"")
+			saynn("Upgrades unlocked: "+ServiceLocator.safe_get_service(&"MainScene").PS.getUpgradesCompletionStr()+"")
 			
 			addButton("Upgrades", "See how you can upgrade your tools", "upgrades_menu")
 		
 
-		if(!GM.main.PS.pushingMinecart):
-			if(GM.pc.getLocation() == GM.main.PS.LOC_CAGE):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart):
+			if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"MainScene").PS.LOC_CAGE):
 				addButton("End day", "Sleep in the cage", "doSleep")
-				if(GM.main.PS.hasUpgrade("rest")):
+				if(ServiceLocator.safe_get_service(&"MainScene").PS.hasUpgrade("rest")):
 					addButton("Rest", "Rest in the cage for 2 hours and recover some stamina", "doRest")
 				#else:
 				#	addDisabledButton("Rest", "It's too late to rest")
 				
-				if(GM.main.PS.canHireDudes(1)):
+				if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDudes(1)):
 					addButton("Hire helper", "Hire one of the other slaves to work with you", "hire1_pickslave")
-				if(GM.main.PS.canHireDudes(2)):
+				if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDudes(2)):
 					addButton("Hire 2 helpers", "Hire two slaves to work with you", "hire2_pickslave")
 		
-		if(!GM.main.PS.pushingMinecart):
-			if(GM.pc.getLocation() == GM.main.PS.LOC_BOSS):
-				if(GM.main.PS.didReachTarget()):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart):
+			if(ServiceLocator.safe_get_service(&"Player").getLocation() == ServiceLocator.safe_get_service(&"MainScene").PS.LOC_BOSS):
+				if(ServiceLocator.safe_get_service(&"MainScene").PS.didReachTarget()):
 					addButton("Freedom!", "You have mined enough ore in order to leave!", "do_win")
 				else:
 					addDisabledButton("Freedom!", "You haven't mined enough ore in order to get your freedom..")
 				
 				addButtonAt(14, "Mine", "Do some mining here", "do_mine_boss")
 		
-		var theTexts:Array = GM.main.PS.getTextsForLocFinal(roomID)
+		var theTexts:Array = ServiceLocator.safe_get_service(&"MainScene").PS.getTextsForLocFinal(roomID)
 		if(!theTexts.is_empty()):
 			say(Util.join(theTexts, ""))
 		
@@ -144,11 +144,11 @@ func _run():
 		
 		saynn("What do you want them to do?")
 		
-		if(GM.main.PS.canHireDude(true)):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(true)):
 			addButton("Shaft miner", "They will do the mining", "hire1_pick_miner")
 		else:
 			addDisabledButton("Shaft miner", "You have too many of these already")
-		if(GM.main.PS.canHireDude(false)):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(false)):
 			addButton("Ore carrier", "They will carry the ore", "hire1_pick_carrier")
 		else:
 			addDisabledButton("Ore carrier", "You have too many of these already")
@@ -174,11 +174,11 @@ func _run():
 		
 		addButton("Continue", "Great news", "hire2_do")
 		
-#		if(GM.main.PS.canHireDude(true)):
+#		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(true)):
 #			addButton("Shaft miner", "They will do the mining", "hire2_pick_miner")
 #		else:
 #			addDisabledButton("Shaft miner", "You have too many of these already")
-#		if(GM.main.PS.canHireDude(false)):
+#		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(false)):
 #			addButton("Ore carrier", "They will carry the ore", "hire2_pick_carrier")
 #		else:
 #			addDisabledButton("Ore carrier", "You have too many of these already")
@@ -188,11 +188,11 @@ func _run():
 		
 		saynn("What do you want them to do?")
 		
-		if(GM.main.PS.canHireDude(true)):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(true)):
 			addButton("Shaft miner", "They will do the mining", "hire2_2_pick_miner")
 		else:
 			addDisabledButton("Shaft miner", "You have too many of these already")
-		if(GM.main.PS.canHireDude(false)):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.canHireDude(false)):
 			addButton("Ore carrier", "They will carry the ore", "hire2_2_pick_carrier")
 		else:
 			addDisabledButton("Ore carrier", "You have too many of these already")
@@ -203,7 +203,7 @@ func _run():
 		addButton("Leave", "Time to go", "stopMinigame")
 		
 	if(state == "pickup_screen"):
-		var amountOfNuggets:int = GM.main.PS.getNuggetsAmmountIn(GM.pc.getLocation())
+		var amountOfNuggets:int = ServiceLocator.safe_get_service(&"MainScene").PS.getNuggetsAmmountIn(ServiceLocator.safe_get_service(&"Player").getLocation())
 		saynn("There "+("is" if amountOfNuggets == 1 else "are")+" "+str(amountOfNuggets)+" "+("nugget" if amountOfNuggets == 1 else "nuggets")+" on the ground here!")
 		
 		for btnxIndx in nuggetButtons:
@@ -222,7 +222,7 @@ func _run():
 		
 		saynn("Welcome to the new day. You are still a slave, it's not a dream.")
 		
-		if(GM.main.PS.didReachTarget()):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.didReachTarget()):
 			saynn("[b]You have reached the target that Ricky has set! Go meet him![/b]")
 		
 		addButton("Continue", "Time to work!", "roam")
@@ -254,18 +254,18 @@ func _run():
 		addButton("Continue", "Time to go", "first_offer_spawn")
 	
 	if(state == "upgrades_menu"):
-		#saynn("Upgrades ("+GM.main.PS.getUpgradesCompletionStr()+"):")
+		#saynn("Upgrades ("+ServiceLocator.safe_get_service(&"MainScene").PS.getUpgradesCompletionStr()+"):")
 		
-		#var upgradesCanSee:Array = GM.main.PS.getUpgradesCanSee()
+		#var upgradesCanSee:Array = ServiceLocator.safe_get_service(&"MainScene").PS.getUpgradesCanSee()
 		
 		#for upgradeID in upgradesCanSee:
 			
 		
 		var entries:Dictionary = {}
 		
-		for upgradeID in GM.main.PS.getUpgradesCanSee():
-			var canUnlock:bool = GM.main.PS.canUnlockUpgrade(upgradeID)
-			var upgradeInfo:Dictionary = GM.main.PS.UpgradesDB[upgradeID]
+		for upgradeID in ServiceLocator.safe_get_service(&"MainScene").PS.getUpgradesCanSee():
+			var canUnlock:bool = ServiceLocator.safe_get_service(&"MainScene").PS.canUnlockUpgrade(upgradeID)
+			var upgradeInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").PS.UpgradesDB[upgradeID]
 			
 			entries[upgradeID] = {
 				name = upgradeInfo["name"]+" ("+str(upgradeInfo["cost"])+" credits)",
@@ -273,20 +273,20 @@ func _run():
 				actions = [["unlock", "Buy"]] if canUnlock else [],
 			}
 		
-		if(!GM.main.PS.upgrades.is_empty()):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.upgrades.is_empty()):
 			entries["=placeholderbuy="] = {
 				name = " === Unlocked Upgrades ===",
 				desc = "A list of what you have upgraded.",
 			}
-			for upgradeID in GM.main.PS.upgrades:
-				var upgradeInfo:Dictionary = GM.main.PS.UpgradesDB[upgradeID]
+			for upgradeID in ServiceLocator.safe_get_service(&"MainScene").PS.upgrades:
+				var upgradeInfo:Dictionary = ServiceLocator.safe_get_service(&"MainScene").PS.UpgradesDB[upgradeID]
 				entries[upgradeID] = {
 					name = upgradeInfo["name"],
 					desc = upgradeInfo["desc"]+"\n\nCost: "+str(upgradeInfo["cost"])+" credits",
 				}
 		
 		var inventory = genericInventoryScreenScene.instantiate()
-		GM.ui.addFullScreenCustomControl("inventory", inventory)
+		ServiceLocator.safe_get_service(&"UI").addFullScreenCustomControl("inventory", inventory)
 		inventory.setRightPanelStretchRation(1.25)
 		inventory.setEntries(entries)
 		var _ok = inventory.onInteractWith.connect(onMakeInteract)
@@ -295,12 +295,12 @@ func _run():
 	
 	
 func onMakeInteract(_upgradeID:String, _id, _args):
-	GM.main.pickOption("doBuyUpgrade", [_upgradeID])
+	ServiceLocator.safe_get_service(&"MainScene").pickOption("doBuyUpgrade", [_upgradeID])
 
 func calcNuggetButtons():
 	nuggetButtons = []
 	
-	var amountOfNuggets:int = GM.main.PS.getNuggetsAmmountIn(GM.pc.getLocation())
+	var amountOfNuggets:int = ServiceLocator.safe_get_service(&"MainScene").PS.getNuggetsAmmountIn(ServiceLocator.safe_get_service(&"Player").getLocation())
 	
 	var maxNuggets:int = Util.mini(10, amountOfNuggets)
 	var theButtonIDs:Array = range(14)
@@ -318,32 +318,32 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "doLoadMinecart"):
-		GM.main.PS.loadMinecartFromPC()
+		ServiceLocator.safe_get_service(&"MainScene").PS.loadMinecartFromPC()
 		doTurn()
 		return
 
 	if(_action == "doUnloadMinecart"):
-		GM.main.PS.unloadMinecart()
+		ServiceLocator.safe_get_service(&"MainScene").PS.unloadMinecart()
 		doTurn()
 		return
 
 	if(_action == "dropNuggets"):
-		GM.main.PS.dropAllNuggets()
+		ServiceLocator.safe_get_service(&"MainScene").PS.dropAllNuggets()
 		doTurn()
 		return
 
 	if(_action == "doPickUpNugget"):
 		var theIndx:int = _args[0]
 		nuggetButtons.erase(theIndx)
-		GM.main.PS.pickupNugget()
+		ServiceLocator.safe_get_service(&"MainScene").PS.pickupNugget()
 		
-		var extraPickUp:int = GM.main.PS.getExtraPickupAmount()
+		var extraPickUp:int = ServiceLocator.safe_get_service(&"MainScene").PS.getExtraPickupAmount()
 		for _i in range(extraPickUp):
 			if(!nuggetButtons.is_empty()):
 				nuggetButtons.erase(RNG.pick(nuggetButtons))
-			GM.main.PS.pickupNugget()
+			ServiceLocator.safe_get_service(&"MainScene").PS.pickupNugget()
 		
-		var amountOfNuggets:int = GM.main.PS.getNuggetsAmmountIn(GM.pc.getLocation())
+		var amountOfNuggets:int = ServiceLocator.safe_get_service(&"MainScene").PS.getNuggetsAmmountIn(ServiceLocator.safe_get_service(&"Player").getLocation())
 		if(amountOfNuggets <= 0):
 			setState("roam")
 			return
@@ -359,19 +359,19 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "doBuyUpgrade"):
-		GM.main.PS.payUnlockUpgrade(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").PS.payUnlockUpgrade(_args[0])
 		return
 
 	if(_action == "domine"):
-		GM.main.PS.doMine()
+		ServiceLocator.safe_get_service(&"MainScene").PS.doMine()
 		doTurn()
 		return
 	if(_action == "startpush"):
-		GM.main.PS.pushingMinecart = true
+		ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart = true
 		addMessage("You have started pushing the minecart!")
 		return
 	if(_action == "stoppush"):
-		GM.main.PS.pushingMinecart = false
+		ServiceLocator.safe_get_service(&"MainScene").PS.pushingMinecart = false
 		addMessage("You have stopped pushing the minecart!")
 		return
 
@@ -380,20 +380,20 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "go"):
-		GM.main.PS.prevPCLoc = GM.pc.getLocation()
+		ServiceLocator.safe_get_service(&"MainScene").PS.prevPCLoc = ServiceLocator.safe_get_service(&"Player").getLocation()
 		playAnimation(StageScene.Solo, "walk")
-		GM.pc.setLocation(GM.world.applyDirectionID(GM.pc.location, _args[0]))
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"World").applyDirectionID(ServiceLocator.safe_get_service(&"Player").location, _args[0]))
 		#processTime(600)
-		aimCameraAndSetLocName(GM.pc.location)
-		#GM.ES.triggerReact(Trigger.EnteringRoom, [GM.pc.location, _args[1]])
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").location)
+		#ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.EnteringRoom, [ServiceLocator.safe_get_service(&"Player").location, _args[1]])
 		
 		doTurn(true)
-		GM.main.PS.prevPCLoc = GM.pc.getLocation()
+		ServiceLocator.safe_get_service(&"MainScene").PS.prevPCLoc = ServiceLocator.safe_get_service(&"Player").getLocation()
 		
-		if(!GM.main.checkExtraScenes()):
-			GM.main.showLog()
+		if(!ServiceLocator.safe_get_service(&"MainScene").checkExtraScenes()):
+			ServiceLocator.safe_get_service(&"MainScene").showLog()
 		
-		if(GM.main.PS.shouldDoFirstSlaveOfferEvent()):
+		if(ServiceLocator.safe_get_service(&"MainScene").PS.shouldDoFirstSlaveOfferEvent()):
 			npc1ID = genSlaveID()
 			addCharacter(npc1ID)
 			setState("first_offer_slave")
@@ -401,9 +401,9 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "doSleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.main.PS.sleep()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").PS.sleep()
 	
 	if(_action == "do_win"):
 		endScene()
@@ -411,7 +411,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "do_mine_boss"):
-		if(!GM.main.PS.hasUpgrade("pick5")):
+		if(!ServiceLocator.safe_get_service(&"MainScene").PS.hasUpgrade("pick5")):
 			addMessage("You try to hit the reinforced door but your current tool bounces right off.")
 		else:
 			endScene()
@@ -449,7 +449,7 @@ func _react(_action: String, _args):
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired a shaft miner slave for one day!")
-		GM.main.PS.spawnDude(true)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(true)
 		return
 	if(_action == "first_offer_sex"):
 		runScene("GenericSexScene", [npc1ID, "pc", SexType.DefaultSex, {SexMod.BondageDisabled: true}])
@@ -468,42 +468,42 @@ func _react(_action: String, _args):
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired a shaft miner slave for one day!")
-		GM.main.PS.spawnDude(true)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(true)
 		return
 	if(_action == "hire1_pick_carrier"):
 		npc1ID = ""
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired an ore carrier slave for one day!")
-		GM.main.PS.spawnDude(false)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(false)
 		return
 	if(_action == "hire2_pick_miner"):
 		npc1ID = ""
 		clearCharacter()
 		setState("hire2_2_after_sex")
 		addMessage("You have hired a shaft miner slave for one day!")
-		GM.main.PS.spawnDude(true)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(true)
 		return
 	if(_action == "hire2_pick_carrier"):
 		npc1ID = ""
 		clearCharacter()
 		setState("hire2_2_after_sex")
 		addMessage("You have hired an ore carrier slave for one day!")
-		GM.main.PS.spawnDude(false)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(false)
 		return
 	if(_action == "hire2_2_pick_miner"):
 		npc2ID = ""
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired a shaft miner slave for one day!")
-		GM.main.PS.spawnDude(true)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(true)
 		return
 	if(_action == "hire2_2_pick_carrier"):
 		npc2ID = ""
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired an ore carrier slave for one day!")
-		GM.main.PS.spawnDude(false)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(false)
 		return
 	if(_action == "hire2_do"):
 		npc1ID = ""
@@ -511,17 +511,17 @@ func _react(_action: String, _args):
 		clearCharacter()
 		setState("roam")
 		addMessage("You have hired a shaft miner and an ore carrier slaves for one day!")
-		GM.main.PS.spawnDude(true)
-		GM.main.PS.spawnDude(false)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(true)
+		ServiceLocator.safe_get_service(&"MainScene").PS.spawnDude(false)
 		return
 	
 	if(_action == "useRefresh"):
-		GM.main.PS.doRefresh()
+		ServiceLocator.safe_get_service(&"MainScene").PS.doRefresh()
 		return
 	
 	if(_action == "doRest"):
 		processTime(60*60*2)
-		GM.main.PS.useStamina(-50)
+		ServiceLocator.safe_get_service(&"MainScene").PS.useStamina(-50)
 		for _i in range(12):
 			doTurn()
 		return
@@ -531,16 +531,16 @@ func _react(_action: String, _args):
 func doTurn(isMove:bool=false):
 	processTime(600)
 	if(isMove):
-		GM.main.PS.afterMove()
-	GM.main.PS.processTurn()
-	GM.main.PS.updateLoc()
+		ServiceLocator.safe_get_service(&"MainScene").PS.afterMove()
+	ServiceLocator.safe_get_service(&"MainScene").PS.processTurn()
+	ServiceLocator.safe_get_service(&"MainScene").PS.updateLoc()
 	
 	sleepCheck()
 
 func sleepCheck():
-	if(GM.main.isVeryLate()):
-		GM.pc.setLocation(GM.main.PS.LOC_CAGE)
-		aimCameraAndSetLocName(GM.pc.getLocation())
+	if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"MainScene").PS.LOC_CAGE)
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		setState("timeToSleep")
 
 func supportsShowingPawns() -> bool:

@@ -63,7 +63,7 @@ func _run():
 		addButton("Just destroy", "Just destroy the lab and move on", "just_destroy_lab")
 	
 		if(getFlag("DrugDenModule.Kidlat2Hap", false) && !getFlag("DrugDenModule.Kidlat3Hap", false)):
-			var drugDen:DrugDen = GM.main.DrugDenRun
+			var drugDen:DrugDen = ServiceLocator.safe_get_service(&"MainScene").DrugDenRun
 			if(!drugDen.getFlag("hasKidlatUniform", false)):
 				var uniformLevel = drugDen.getFlag("kidlatUniformFloor", -1)
 				
@@ -112,31 +112,31 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		var newPill:ItemBase = GlobalRegistry.createItem("TFPill")
 		newPill.makePillStrangeIfCan()
-		GM.pc.getInventory().addItem(newPill)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(newPill)
 		addMessage("You have created a strange pill")
-		GM.main.increaseFlag("DrugDenModule.RaidedLabs")
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("DrugDenModule.RaidedLabs")
 		
 	if(_action == "do_science"):
 		processTime(5*60)
-		GM.main.SCI.addPoints(20 + 5*int(GM.main.DrugDenRun.getLevel()/3.0) + 5*int(GM.main.DrugDenRun.getLevel()/9.0) + 5*int(GM.main.DrugDenRun.getLevel()/27.0))
-		GM.main.increaseFlag("DrugDenModule.RaidedLabs")
+		ServiceLocator.safe_get_service(&"MainScene").SCI.addPoints(20 + 5*int(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getLevel()/3.0) + 5*int(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getLevel()/9.0) + 5*int(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.getLevel()/27.0))
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("DrugDenModule.RaidedLabs")
 		
 	if(_action == "make_painkillers"):
 		processTime(5*60)
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
 		addMessage("You have created some painkillers")
-		GM.main.increaseFlag("DrugDenModule.RaidedLabs")
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("DrugDenModule.RaidedLabs")
 		
 	if(_action == "make_anaphrodisiac"):
 		processTime(5*60)
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("AnaphrodisiacPill"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("AnaphrodisiacPill"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("AnaphrodisiacPill"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("AnaphrodisiacPill"))
 		addMessage("You have created some anaphrodisiacs")
-		GM.main.increaseFlag("DrugDenModule.RaidedLabs")
+		ServiceLocator.safe_get_service(&"MainScene").increaseFlag("DrugDenModule.RaidedLabs")
 		
 	if(_action == "take_kidlat_uniform"):
 		addMessage("You find a uniform that looks a lot like Kidlat's! Better find her now or you will lose it.")
-		GM.main.DrugDenRun.setFlag("hasKidlatUniform", true)
+		ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.setFlag("hasKidlatUniform", true)
 		return
 		
 	if(_action == "startFight"):

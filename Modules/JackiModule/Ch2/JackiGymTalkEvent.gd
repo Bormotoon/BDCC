@@ -16,7 +16,7 @@ func run(_triggerID, _args):
 		return
 	
 
-	if(GM.main.getDays() < getFlag("JackiModule.jackiBusyUntil", -1)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() < getFlag("JackiModule.jackiBusyUntil", -1)):
 		saynn("Looks like Jacki is not here today.")
 		addDisabledButton("Jacki", "She is not here today. Come back some other day")
 		return
@@ -28,7 +28,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "talk"):
-		if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["jacki"])):
+		if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["jacki"])):
 			return
 
 		if(!getFlag("JackiModule.Jacki_ch2IntroSceneHappened")):

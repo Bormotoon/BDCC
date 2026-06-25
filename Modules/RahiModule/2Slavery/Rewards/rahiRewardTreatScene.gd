@@ -20,7 +20,7 @@ func _run():
 		saynn("Seems like that crate of toys also has some packaged treats if you don't possess anything edible. How convenient.")
 
 		addButton("Random treat", "Feed Rahi a random treat that you stole together", "random_treat")
-		if (GM.pc.getInventory().hasItemID("appleitem")):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("appleitem")):
 			addButton("Give apple", "Give your kitty an apple to chew on", "apple_treat")
 		else:
 			addDisabledButton("Give apple", "You don't have any apples")
@@ -183,7 +183,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "apple_treat"):
-		GM.pc.getInventory().removeXOfOrDestroy("appleitem", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("appleitem", 1)
 		increaseFlag("RahiModule.rahiTired", -2)
 
 	if(_action == "petplay_petbowl"):

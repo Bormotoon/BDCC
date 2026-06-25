@@ -112,5 +112,5 @@ func localCmd_withdraw(_args):
 		return "The account is empty, ask people to donate more often or we will go out of bussiness and be forced to close :("
 	else:
 		currentServer.data["credits"]=0
-		GM.pc.addCredits(creds)
+		ServiceLocator.safe_get_service(&"Player").addCredits(creds)
 		return "Transferring "+str(creds)+" credits to your account.. success!"

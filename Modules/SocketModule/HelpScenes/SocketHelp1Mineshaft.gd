@@ -226,7 +226,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_help")
 	if(state == "avoid_lewds_completely"):
 		playAnimation(StageScene.GeneratorOral, "tease", {pc="socket", npc="pc"})
-		saynn("It takes a lot of.. strength.. but you manage to shut your brain off completely and avoid even thinking about that pussy. You only focus on keeping the generator stable"+str(" while your cock stays hard as a rock" if GM.pc.hasReachablePenis() else "")+".")
+		saynn("It takes a lot of.. strength.. but you manage to shut your brain off completely and avoid even thinking about that pussy. You only focus on keeping the generator stable"+str(" while your cock stays hard as a rock" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+".")
 
 		saynn("[say=socket]Almost done![/say]")
 
@@ -246,7 +246,7 @@ func _run():
 	if(state == "after_help"):
 		aimCameraAndSetLocName("mining_nearentrance")
 		playAnimation(StageScene.Duo, "stand", {npc="socket"})
-		GM.pc.setLocation("mining_nearentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_nearentrance")
 		saynn("After completing the task, you and Socket exit the mineshafts. She turns towards you.")
 
 		saynn("[say=socket]Thank you! I might need your help again soon.[/say]")
@@ -320,7 +320,7 @@ func _react(_action: String, _args):
 
 	if(_action == "avoid_lewds"):
 		processTime(5*60)
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "breathe_warmly"):
 		processTime(3*60)
@@ -330,12 +330,12 @@ func _react(_action: String, _args):
 
 	if(_action == "avoid_lewds_completely"):
 		processTime(3*60)
-		GM.pc.addLust(70)
+		ServiceLocator.safe_get_service(&"Player").addLust(70)
 
 	if(_action == "socket_cums_on_pc"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("socket", FluidSource.Vagina, 0.3)
-		GM.pc.cummedInMouthBy("socket", FluidSource.Vagina, 0.2)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("socket", FluidSource.Vagina, 0.3)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("socket", FluidSource.Vagina, 0.2)
 		socketCame = true
 
 	setState(_action)

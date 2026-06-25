@@ -126,7 +126,7 @@ func _run():
 		playAnimation(StageScene.Sleeping, "idle", {bodyState={naked=true}})
 		addCharacter("eliza")
 		aimCameraAndSetLocName("medical_hospitalwards")
-		GM.pc.setLocation("med_lobby_start")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobby_start")
 		setFlag("TaviModule.Ch7CaptainSceneHappened", false)
 		saynn("You open your eyes.. Ow.. Being alive sucks.")
 
@@ -154,7 +154,7 @@ func _run():
 
 		saynn("[say=eliza]And looks like she is not dead. So you're in luck~.[/say]")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence!")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence!")
 
 		addButton("Get up", "Time to get up", "wakeup_in_med_up")
 	if(state == "wakeup_in_med_up"):
@@ -583,21 +583,21 @@ func _react(_action: String, _args):
 
 	if(_action == "just_came_to_fight"):
 		processTime(6*60)
-		GM.pc.addPain(-500)
-		GM.pc.addLust(-500)
-		GM.pc.addStamina(500)
+		ServiceLocator.safe_get_service(&"Player").addPain(-500)
+		ServiceLocator.safe_get_service(&"Player").addLust(-500)
+		ServiceLocator.safe_get_service(&"Player").addStamina(500)
 
 	if(_action == "start_fight"):
 		runScene("FightScene", ["captain"], "captain_fight")
 		return
 
 	if(_action == "lost_coma"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 
 	if(_action == "wakeup_in_med"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 	if(_action == "wakeup_in_med_up"):
 		processTime(3*60)

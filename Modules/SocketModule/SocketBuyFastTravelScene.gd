@@ -48,7 +48,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "buy_vent"):
 		setFlag("SocketModule."+selectedVent, true)
-		GM.pc.addCredits(-_args[0])
+		ServiceLocator.safe_get_service(&"Player").addCredits(-_args[0])
 		addMessage("Socket unlocked this vent! Check your personal cell.")
 		setState("")
 		return

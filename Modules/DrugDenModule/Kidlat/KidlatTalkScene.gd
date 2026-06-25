@@ -29,7 +29,7 @@ func _run():
 		addButton("Chat", "Ask her a few things", "chat_menu")
 		addButton("Sex", "See what lewd things you could do together", "sex_menu")
 		addButton("Leave", "Time to go", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["kidlat"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["kidlat"])
 	if(state == "chat_menu"):
 		saynn("What do you wanna chat about with Kidlat?")
 
@@ -225,26 +225,26 @@ func _run():
 	if(state == "sex_menu"):
 		saynn("How do you want to have fun with the kitty?")
 
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			addButtonWithChecks("Vaginal", "Fuck Kidlat's pussy", "sex_vag", [], [[ButtonChecks.HasReachablePenis]])
 		else:
 			addButtonWithChecks("Vaginal", "Fuck Kidlat's pussy with your picked strapon", "sex_vag_pick_strapon", [], [[ButtonChecks.HasStraponAndCanWear]])
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			addButtonWithChecks("Cowgirl", "Kidlat will ride you with her pussy", "sex_cowgirl", [], [[ButtonChecks.HasReachablePenis]])
 		else:
 			addButtonWithChecks("Cowgirl", "Kidlat will ride your picked strapon with her pussy", "sex_cowgirl_pick_strapon", [], [[ButtonChecks.HasStraponAndCanWear]])
 		if (getFlag("DrugDenModule.KidlatWearsPortalPanties")):
 			addButton("Portal panties", "Ask her to take off the portal panties", "sex_takeoff_portal_panties")
 		else:
-			if (GM.pc.getInventory().hasItemID("PortalPanties")):
+			if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("PortalPanties")):
 				addButton("Portal panties", "Ask Kidlat if she would want to wear portal panties", "sex_puton_portal_panties")
 			else:
 				addDisabledButton("Portal panties", "You don't have any..")
-		if (GM.pc.getInventory().hasKnownTFPillWithEffect("GrowPenisTF")):
+		if (ServiceLocator.safe_get_service(&"Player").getInventory().hasKnownTFPillWithEffect("GrowPenisTF")):
 			addButton("Grow cock", "Give Kidlat one of your DiRecto pills and see if she will grow a cock.. Be ready to service her", "sex_cock")
 		else:
 			addDisabledButton("Grow cock", "You need a DiRecto pill in your inventory in order to temporary give Kidlat a cock")
-		if (GM.main.getFlag("FightClubModule.BulldogBypassed")):
+		if (ServiceLocator.safe_get_service(&"MainScene").getFlag("FightClubModule.BulldogBypassed")):
 			addButton("Free use", "(Heavy sharing) See if Kidlat would be up to be put inside a slut wall for anyone to fuck", "sex_freeuse")
 		else:
 			addDisabledButton("Free use", "You need access to a slut wall if you want to put Kidlat into it for everyone to fuck.")
@@ -469,7 +469,7 @@ func _run():
 		addButton("Faster", "Make that kitty squirm", "sex_vag_sex_fast")
 	if(state == "sex_vag_sex_fast"):
 		playAnimation(StageScene.SexAgainstWall, "fast", {pc="pc", npc="kidlat", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var hasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var hasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		saynn("Your trusts become faster, each one full of your primal energy. Your low grunts vibrate inside Kidlat's ears, sending extra shivers of submission through her.")
 
 		saynn("[say=kidlat]U-use me.. ah..[/say]")
@@ -494,7 +494,7 @@ func _run():
 		addButton("Inside", "Breed that mew", "sex_vag_sex_cum")
 	if(state == "sex_vag_sex_cum"):
 		playAnimation(StageScene.SexAgainstWall, "inside", {pc="pc", npc="kidlat", pcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var hasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var hasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (isStrapon):
 			saynn("In one final burst of primal energy, you shove your whole strapon inside, stretching Kidlat's folds wide as the rubber tip breaks inside her womb.")
 
@@ -521,7 +521,7 @@ func _run():
 		addButton("Pull out", "Enough breeding", "sex_vag_sex_cum_pullout")
 	if(state == "sex_vag_sex_cum_pullout"):
 		playAnimation(StageScene.SexAgainstWall, "tease", {pc="pc", npc="kidlat", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		var hasKnot = GM.pc.bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
+		var hasKnot = ServiceLocator.safe_get_service(&"Player").bodypartHasTrait(BodypartSlot.Penis, PartTrait.PenisKnot)
 		if (isStrapon):
 			saynn("After using the kitty as your cockwarmer for some time, you finally pull out.. causing another torrent of fluids from Kidlat's used pussy.. Your strapon is fully covered in her juices.")
 
@@ -623,7 +623,7 @@ func _run():
 		saynn("[say=kidlat]Ah~.. that feels.. so bloody good..[/say]")
 
 		addButton("Just watch", "Watch Kidlat play with her new cock", "sex_cock_watch")
-		if (getCharacter("kidlat").isWearingPortalPanties() && GM.pc.getInventory().hasItemID("PortalPantiesFleshlight")):
+		if (getCharacter("kidlat").isWearingPortalPanties() && ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("PortalPantiesFleshlight")):
 			addButton("Portal panties", "Kidlat has portal panties.. why not give her the portal fleshlight as well and see what she will do with it?", "sex_cock_portal_panties")
 		else:
 			addDisabledButton("Portal panties", "Either Kidlat is not wearing portal panties or you don't have a portal fleshlight to offer to her")
@@ -971,7 +971,7 @@ func _run():
 
 		saynn("Feels great to be the first one to test that great dick, little quiet moans escape your lips as Kidlat starts doing slow, measured thrusts, pulling a bit back before letting her length fill the empty space inside you yet again. Your back arches further in response, your inner walls "+str("leave a layer of transparent juices on her canine member" if isVag else "become slick from the abundant amount of precum that her new canine member seems to be producing")+".")
 
-		if (!isVag && GM.pc.hasPenis()):
+		if (!isVag && ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("It quickly finds your little sensitive button.. and starts putting pressure on it.. already milking some prostate fluid out of it.")
 
 		saynn("[say=kidlat]Ah.. your "+str("pussy" if isVag else "tailhole")+" is just top-notch, luv.. I can't..[/say]")
@@ -1003,7 +1003,7 @@ func _run():
 
 		saynn("[say=kidlat]Okay, luv.. I won't.. ah..[/say]")
 
-		saynn("Kidlat's thrusts still take on a final, feral intensity.. pushing you over the edge in moments. Your whole body starts squirming under her grasp, your "+str("pussy" if isVag else "tailhole")+" clenching hard around her pulsing member"+str(", your prostate squeezed hard" if (!isVag && GM.pc.hasPenis()) else "")+".."+str(" Your {pc.penis} shooting {pc.cum} all over the cold floor, wasting its load.." if GM.pc.hasPenis() else "")+"")
+		saynn("Kidlat's thrusts still take on a final, feral intensity.. pushing you over the edge in moments. Your whole body starts squirming under her grasp, your "+str("pussy" if isVag else "tailhole")+" clenching hard around her pulsing member"+str(", your prostate squeezed hard" if (!isVag && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+".."+str(" Your {pc.penis} shooting {pc.cum} all over the cold floor, wasting its load.." if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+"")
 
 		saynn("But right after she is pushed over her edge, she finds the strength inside her to pull out and direct her cock away from your "+str("pussy" if isVag else "ass")+".. She moans and pants heavily while her body convulses from orgasmic waves, her knotted member throbbing as it sends beautiful white arcs of her seed through the air, one after another.. draining her balls..")
 
@@ -1057,8 +1057,8 @@ func _run():
 
 		saynn("[say=pc]Fuck-k..[/say]")
 
-		if (GM.pc.hasPenis()):
-			saynn("While she is breeding you, your {pc.penis} is wasting its load, shooting {pc.cum} onto the floor beneath you"+str(", your prostate smashed hard" if (!isVag && GM.pc.hasPenis()) else "")+".. but you don't mind that..")
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("While she is breeding you, your {pc.penis} is wasting its load, shooting {pc.cum} onto the floor beneath you"+str(", your prostate smashed hard" if (!isVag && ServiceLocator.safe_get_service(&"Player").hasPenis()) else "")+".. but you don't mind that..")
 
 		saynn("Your body keeps milking her cock until her balls are completely dry.. and now.. you two remain locked together..")
 
@@ -1618,7 +1618,7 @@ func _run():
 		addButton("Shower", "Time to shower", "sex_slutwall_shower")
 	if(state == "sex_slutwall_shower"):
 		aimCameraAndSetLocName("main_shower2")
-		GM.pc.setLocation("main_shower2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_shower2")
 		playAnimation(StageScene.ShoweringDuo, "shower", {pc="kidlat", npc="pc", bodyState={naked=true}, npcBodyState={naked=true}})
 		saynn("You bring Kidlat to the nearest shower room and support her.. while cold water begins to wash away any mess..")
 
@@ -1804,7 +1804,7 @@ func _run():
 
 		addButton("Unlock her", "Enough sex for Kidlat", "sex_slutwall_justunlock")
 func addStraponButtons(thestate):
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), thestate, [strapon])
 
@@ -1846,16 +1846,16 @@ func _react(_action: String, _args):
 	if(_action == "sex_takeoff_portal_panties"):
 		processTime(3*60)
 		setFlag("DrugDenModule.KidlatWearsPortalPanties", false)
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("PortalPanties"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("PortalPanties"))
 		getCharacter("kidlat").getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
 
 	if(_action == "sex_puton_portal_panties"):
 		setFlag("DrugDenModule.KidlatWearsPortalPanties", true)
-		GM.pc.getInventory().removeXOfOrDestroy("PortalPanties", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("PortalPanties", 1)
 		getCharacter("kidlat").resetEquipment()
 
 	if(_action == "sex_cock"):
-		GM.pc.getInventory().removeTFPillWithEffect("GrowPenisTF")
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeTFPillWithEffect("GrowPenisTF")
 
 	if(_action == "sex_freeuse"):
 		processTime(3*60)
@@ -1864,8 +1864,8 @@ func _react(_action: String, _args):
 		isStrapon=true
 		setState("sex_vag")
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidType("Cum")):
@@ -1876,8 +1876,8 @@ func _react(_action: String, _args):
 		isStrapon=true
 		setState("sex_cowgirl")
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidType("Cum")):
@@ -1899,11 +1899,11 @@ func _react(_action: String, _args):
 			getCharacter("kidlat").cummedInVaginaBy("pc", FluidSource.Strapon)
 		else:
 			getCharacter("kidlat").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "sex_cowgirl_after"):
 		processTime(10*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	if(_action == "sex_vag_grab"):
 		processTime(5*60)
@@ -1920,11 +1920,11 @@ func _react(_action: String, _args):
 			getCharacter("kidlat").cummedInVaginaBy("pc", FluidSource.Strapon)
 		else:
 			getCharacter("kidlat").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "sex_vag_sex_cum_pullout"):
 		processTime(10*60)
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	if(_action == "sex_cock_tf"):
 		processTime(5*60)
@@ -2007,20 +2007,20 @@ func _react(_action: String, _args):
 	if(_action == "sex_cock_vag_inside"):
 		processTime(5*60)
 		if(isVag):
-			GM.pc.gotVaginaFuckedBy("kidlat")
-			GM.pc.cummedInVaginaBy("kidlat")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("kidlat")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("kidlat")
 		else:
-			GM.pc.gotAnusFuckedBy("kidlat")
-			GM.pc.cummedInAnusBy("kidlat")
-		GM.pc.orgasmFrom("kidlat")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("kidlat")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "sex_cock_vag_pullout"):
 		processTime(5*60)
 		if(isVag):
-			GM.pc.gotVaginaFuckedBy("kidlat")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("kidlat")
 		else:
-			GM.pc.gotAnusFuckedBy("kidlat")
-		GM.pc.orgasmFrom("kidlat")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 
 	if(_action == "sex_cock_vag_inside_rest"):
 		processTime(15*60)
@@ -2137,7 +2137,7 @@ func _react(_action: String, _args):
 	if(_action == "sex_slutwall_shower"):
 		processTime(10*60)
 		getCharacter("kidlat").afterTakingAShower()
-		GM.pc.afterTakingAShower()
+		ServiceLocator.safe_get_service(&"Player").afterTakingAShower()
 
 	if(_action == "sex_slutwall_washinside"):
 		processTime(5*60)
@@ -2158,14 +2158,14 @@ func _react(_action: String, _args):
 	if(_action == "sex_slutwall_fuckher_cum"):
 		processTime(5*60)
 		getCharacter("kidlat").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("kidlat")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("kidlat")
 		getCharacter("kidlat").addBodywritingLowerBody()
 		getCharacter("kidlat").addTallymarkButt()
 
 	if(_action == "sex_slutwall_eather_lick"):
 		processTime(5*60)
 		getCharacter("kidlat").bodypartTransferFluidsTo(BodypartSlot.Vagina, "pc", BodypartSlot.Head, 0.6, 20.0)
-		GM.pc.cummedInMouthBy("kidlat", FluidSource.Vagina, 0.4)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("kidlat", FluidSource.Vagina, 0.4)
 
 	setState(_action)
 

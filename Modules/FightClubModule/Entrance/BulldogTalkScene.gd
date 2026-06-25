@@ -4,7 +4,7 @@ func _init():
 	sceneID = "BulldogTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["bulldog"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["bulldog"])):
 		endScene()
 		return
 
@@ -23,7 +23,7 @@ func _run():
 		else:
 			addDisabledButton("Sex?", "You already seduced him..")
 		addButton("Leave", "You don't feel like talking", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["bulldog"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["bulldog"])
 
 	if(state == "pay"):
 		saynn("[say=pc]How much was it again?[/say]")
@@ -32,7 +32,7 @@ func _run():
 
 		saynn("[say=bulldog]Fifty creds.[/say]")
 		
-		if(GM.pc.getCredits() >= 50):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 50):
 			addButton("Pay 50 credits", "Give him your hard earned credits", "pay_50_credits")
 		else:
 			addDisabledButton("Pay 50 credits", "You don't have that much..")
@@ -58,7 +58,7 @@ func _run():
 
 		saynn("[say=bulldog]Don’t oversell yourself. Twenty five.[/say]")
 
-		if(GM.pc.getCredits() >= 25):
+		if(ServiceLocator.safe_get_service(&"Player").getCredits() >= 25):
 			addButton("Pay 25 credits", "Give him your hard earned credits", "pay_25_credits")
 		else:
 			addDisabledButton("Pay 25 credits", "You don't have that much..")
@@ -117,15 +117,15 @@ func _react(_action: String, _args):
 	if(_action == "walk_in"):
 		processTime(3*60)
 		setFlag("FightClubModule.BulldogBypassed", true)
-		GM.pc.setLocation("fight_entrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_entrance")
 		endScene()
 		runScene("FightClubIntroScene")
 		return
 	
 	if(_action == "pay_50_credits"):
-		GM.pc.addCredits(-50)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-50)
 	if(_action == "pay_25_credits"):
-		GM.pc.addCredits(-25)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-25)
 	
 	if(_action == "sex?"):
 		runScene("BulldogSexScene")
@@ -148,7 +148,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "getthrownout"):
-		GM.pc.setLocation("gym_yoga")
+		ServiceLocator.safe_get_service(&"Player").setLocation("gym_yoga")
 		endScene()
 		return
 

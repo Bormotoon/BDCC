@@ -72,12 +72,12 @@ func _react(_action: String, _args):
 
 	if(_action == "after_scan"):
 		processTime(15*60)
-		GM.main.SCI.doTestTFsOf(GM.pc)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doTestTFsOf(ServiceLocator.safe_get_service(&"Player"))
 
 	if(_action == "eat_blue"):
-		GM.pc.getTFHolder().undoAllTransformations()
+		ServiceLocator.safe_get_service(&"Player").getTFHolder().undoAllTransformations()
 
 	if(_action == "eat_red"):
-		GM.pc.getTFHolder().makeAllTransformationsPermanent()
+		ServiceLocator.safe_get_service(&"Player").getTFHolder().makeAllTransformationsPermanent()
 
 	setState(_action)

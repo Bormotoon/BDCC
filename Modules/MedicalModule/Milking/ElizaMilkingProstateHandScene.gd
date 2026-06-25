@@ -49,7 +49,7 @@ func _run():
 
 		saynn("Makes sense.. you obey, exposing your {pc.penis} and covering it up with your hands..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("But Eliza's professional gaze seems to be trained on picking up even the slightest thing. She takes note of what's between your legs and offers you some extra words.")
 
 			saynn("[say=eliza]Chastity cage?[/say]")
@@ -92,7 +92,7 @@ func _run():
 
 		saynn("Eliza puts on a pair of pristine-looking white latex gloves that cling to her graceful fingers. She then also retrieves a lubricant tube and sits behind you.. her curious eyes can see your.. everything..")
 
-		saynn("Leaning forward, she begins to apply a generous amount of that lube along your exposed anal ring. The cool, slick sensations against your skin sends shivers racing down your spine. She starts spreading it too, doing little circular motions along your sensitive star.. making your muscles clench.. and your cock twitch"+str(" in its little cage" if GM.pc.isWearingChastityCage() else "")+"..")
+		saynn("Leaning forward, she begins to apply a generous amount of that lube along your exposed anal ring. The cool, slick sensations against your skin sends shivers racing down your spine. She starts spreading it too, doing little circular motions along your sensitive star.. making your muscles clench.. and your cock twitch"+str(" in its little cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+"..")
 
 		saynn("[say=pc]Ah..[/say]")
 
@@ -119,7 +119,7 @@ func _run():
 
 		saynn("[say=pc]Ahh..[/say]")
 
-		saynn("Your cock twitches more"+str(" in its tight cage" if GM.pc.isWearingChastityCage() else "")+".. a little bead of your precum already hanging from the tip.")
+		saynn("Your cock twitches more"+str(" in its tight cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+".. a little bead of your precum already hanging from the tip.")
 
 		saynn("Satisfied with the reaction, Eliza proceeds to gently knead that bean more, curling and wiggling her digits inside your tailhole. You're not sure if it's the lube that's making your prostate so sensitive.. or maybe it's her skilled fingers.. or this helpless position that you're in.. but you begin moaning, your body trying to convulse from little spasms that rock through you.. but the restraints keep you nice and still for her.")
 
@@ -135,7 +135,7 @@ func _run():
 
 		saynn("[say=pc]Ah.. ahh.. mhh.. ffhh.. hhh..[/say]")
 
-		saynn("Your breathing is deep and heavy.. passionate moans keep slipping past your lips.. "+str("Your member is desperately trying to get hard in its little prison.. which, in turn, makes you desperate too.. desperate for a release." if GM.pc.isWearingChastityCage() else "Your member is hard as a rock, desperate for any direct stimulation.. but not finding any.. which, in turn, makes you desperate too.. desperate for a release.")+"")
+		saynn("Your breathing is deep and heavy.. passionate moans keep slipping past your lips.. "+str("Your member is desperately trying to get hard in its little prison.. which, in turn, makes you desperate too.. desperate for a release." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "Your member is hard as a rock, desperate for any direct stimulation.. but not finding any.. which, in turn, makes you desperate too.. desperate for a release.")+"")
 
 		saynn("Here you are, squirming and panting and dripping.. about to cum.. while Eliza just keeps casualling sliping her digits in and out, stimulating your prostate with simple strokes. A little smile does shine on her face though..")
 
@@ -161,7 +161,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_milking")
 	if(state == "after_milking"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		aimCameraAndSetLocName("med_nearmilking")
 		saynn("Eliza takes off her gloves and presses a few buttons on the computer that make it let go of your limbs.")
 
@@ -197,8 +197,8 @@ func _react(_action: String, _args):
 
 	if(_action == "process_cum"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerPenis()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerPenis()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "after_milking"):
 		processTime(5*60)

@@ -110,7 +110,7 @@ func _run():
 
 		saynn("Avy moans quietly and tries to hump the air, it seems the drug's effect is at its peak.")
 
-		if (!GM.pc.hasReachablePenis()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("[say=announcer]But you can do anything you want with her now. Those are the rules! I can lend you a strapon just for this special occasion if you need one, baby.[/say]")
 
 		else:
@@ -495,10 +495,10 @@ func _run():
 
 		saynn("You don't even have to encourage her anymore, the foxy is willingly prodding her tongue deeper, exploring your soft inner walls and coating them with her saliva. With every flick and swirl, she sends you waves of pleasurable sensations. Some of the crowd loves it, some are just chuckling, some prefer to look the other way.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Foxy is reaching so deep that she easily finds your prostate and begins massaging it with her tongue, making you leak precum through that chastity cage of yours.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Foxy is reaching so deep that she easily finds your prostate and begins massaging it with her tongue, making you get hard and leak precum.")
 
 		saynn("[say=pc]Be a good girl and suck on it too, Avy.[/say]")
@@ -514,13 +514,13 @@ func _run():
 
 		saynn("Moans escape from you while Avy thrusts her tongue inside your {pc.analStretch} asshole faster, her lips exploring every inch of your sensitive entrance. Very soon your legs begin to shake and your tailhole clenches but the foxy is gripping your butt tightly while hammering away at your pleasure spots.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate is so swollen it's hard to miss it now. Avy feels you cumming and just keeps milking it, causing your locked dick to start dripping {pc.cum} from its cage. Hands-free orgasms aren't as powerful but they sure make your legs want to give up, your mind is extremely hazy from the sheer amount of pleasure..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate is so swollen it's hard to miss it now. Avy feels you cumming and just keeps milking it, causing your {pc.penis} to start dripping {pc.cum} at a steady rate. Hands-free orgasms aren't as powerful but they sure make your legs want to give up, your mind is extremely hazy from the sheer amount of pleasure..")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your neglected dripping pussy is suddenly pulsating, muscles visibly contracting and releasing while Avy manages to knead your g-spot through the inner wall enough for you to cum.")
 
 		saynn("As your orgasm starts to fade, Avy pulls away and tries to hide her aroused face.")
@@ -569,7 +569,7 @@ func _run():
 		addButton("Follow", "See where they bring her", "avy_in_slutwall")
 	if(state == "avy_in_slutwall"):
 		aimCameraAndSetLocName("fight_slutwall")
-		GM.pc.setLocation("fight_slutwall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("fight_slutwall")
 		playAnimation(StageScene.Slutwall, "idle", {pc="avy", bodyState={naked=true, hard=true, caged=isCaged}})
 		saynn("The crowd brings Avy to one of the corners of this big space that is clearly some abandoned maintenance room. This particular corner is special though, one of the walls got holes in them. Above it is a make-shift plate claiming that this is a 'slutwall'. Huh.")
 
@@ -587,7 +587,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "do_anal_strapon_pick", [strapon])
 
@@ -607,13 +607,13 @@ func _react(_action: String, _args):
 	if(_action == "pin_avy"):
 		processTime(3*60)
 		if(!getFlag("FightClubModule.AvyGotRekt", false)):
-			GM.pc.addCredits(100)
+			ServiceLocator.safe_get_service(&"Player").addCredits(100)
 			addExperienceToPlayer(300)
 			addMessage("You received 100 credits for your win! And also a ring.")
 			FightClubModule.markFighterAsDefeated("avy")
 			FightClubModule.raisePCRankTo(FightClubRank.GrandChampion)
 			setFlag("FightClubModule.AvyGotRekt", true)
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("RingFighter"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("RingFighter"))
 
 	if(_action == "add_chastity_cage"):
 		processTime(3*60)
@@ -643,16 +643,16 @@ func _react(_action: String, _args):
 	if(_action == "do_anal_cum"):
 		processTime(3*60)
 		getCharacter("avy").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("avy")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "use_offered_strapon"):
 		usedAnsStrapon = true
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("StraponCanine"))
 
 	if(_action == "do_anal_strapon_pick"):
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		usedAnsStrapon = false
 
 	if(_action == "do_anal_strapon_start"):
@@ -664,26 +664,26 @@ func _react(_action: String, _args):
 	if(_action == "do_anal_strapon_cum"):
 		processTime(3*60)
 		getCharacter("avy").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("avy")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "remove_strapon_and_choose"):
 		
 		if(usedAnsStrapon):
-			GM.pc.removeStrapon()
+			ServiceLocator.safe_get_service(&"Player").removeStrapon()
 		else:
-			GM.pc.unequipStrapon()
+			ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		
 		setState("choose_punish")
 		return
 
 	if(_action == "avy_likes_rimming"):
 		processTime(5*60)
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 
 	if(_action == "rim_even_better"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("avy")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("avy")
 
 	if(_action == "avy_in_slutwall"):
 		processTime(2*60)

@@ -10,7 +10,7 @@ func _run():
 		saynn("You’re wearing portal panties even while taking a shower, hopefully that won’t break them.")
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("But that’s not the thing that you should worry about, a bigger problem arises when you suddenly feel your pussy being fingered by someone. Unknown digits are spreading your folds wide and start hammering at your g-spot, forcing moans out of you.")
 
 			saynn(RNG.pick([
@@ -37,7 +37,7 @@ func _run():
 		playAnimation(StageScene.SexStanding, RNG.pick(["inside", "fast"]), {onlySub=true, npc="pc", npcBodyState={naked=true}})
 		
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("There is simply too much stimulation, the fingers keep fucking your slit until it starts pulsating and twitching around them and also showring them in your juices.")
 
 		# (if no pussy)
@@ -45,7 +45,7 @@ func _run():
 			saynn("There is simply too much stimulation, the fingers keep fucking your tailhole until it starts pulsating and twitching around them.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Wherever your cock is, you hope it didn’t attract much attention because the climax made you waste a load and probably make a mess around.")
 
 		saynn("The fingers push you through the orgasm and then just leave you alone, letting you catch your breath and finish showering.")
@@ -60,7 +60,7 @@ func _react(_action: String, _args):
 		if(pickedInmate == "" || pickedInmate == null):
 			pickedInmate = "inmateMaleCanine"
 
-		GM.pc.orgasmFrom(pickedInmate)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom(pickedInmate)
 	
 	if(_action == "endthescene"):
 		endScene()

@@ -15,7 +15,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "giveplant"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("GivingElizaPlantForAvyFightScene")
 		setFlag("FightClubModule.ReturnedPlantToEliza", true)
 

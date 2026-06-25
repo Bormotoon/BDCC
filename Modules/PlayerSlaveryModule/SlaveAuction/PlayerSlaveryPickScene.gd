@@ -8,7 +8,7 @@ func _run():
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand", {pc="pc"})
 		
-		saynn("There are "+str(GM.main.PSH.getPossibleSlaveriesAmount(false))+" possible player slavery scenarios.")
+		saynn("There are "+str(ServiceLocator.safe_get_service(&"MainScene").PSH.getPossibleSlaveriesAmount(false))+" possible player slavery scenarios.")
 		
 		saynn("You can either let the game choose randomly or pick one yourself.")
 		
@@ -21,7 +21,7 @@ func _run():
 		saynn("Which slavery scenario do you want to experience?")
 		
 		saynn("Unlocked Endings:")
-		sayn(GM.main.PSH.getEndingsInfo())
+		sayn(ServiceLocator.safe_get_service(&"MainScene").PSH.getEndingsInfo())
 		
 		for slaveryID in GlobalRegistry.getPlayerSlaveryDefs():
 			var thePlayerSlaveryDef:PlayerSlaveryDef = GlobalRegistry.getPlayerSlaveryDef(slaveryID)
@@ -44,17 +44,17 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "startRandomSlavery"):
-		var theSlaveryID:String = GM.main.PSH.getRandomPossibleSlaveryID()
+		var theSlaveryID:String = ServiceLocator.safe_get_service(&"MainScene").PSH.getRandomPossibleSlaveryID()
 		if(theSlaveryID == ""):
 			endScene()
 			return
 		endScene()
-		GM.main.startPlayerSlavery(theSlaveryID)
+		ServiceLocator.safe_get_service(&"MainScene").startPlayerSlavery(theSlaveryID)
 		return
 
 	if(_action == "doStartSlavery"):
 		endScene()
-		GM.main.startPlayerSlavery(_args[0])
+		ServiceLocator.safe_get_service(&"MainScene").startPlayerSlavery(_args[0])
 		return
 
 	setState(_action)

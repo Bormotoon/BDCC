@@ -109,7 +109,7 @@ func _react(_action: String, _args):
 		newEnslaveQuest.setSlaveType(_args[0])
 		newEnslaveQuest.generateTasks()
 		theChar.setEnslaveQuest(newEnslaveQuest)
-		GM.main.RS.sendSocialEvent("pc", npcID, SocialEventType.BeganGettingEnslaved)
+		ServiceLocator.safe_get_service(&"MainScene").RS.sendSocialEvent("pc", npcID, SocialEventType.BeganGettingEnslaved)
 
 	if(_action in ["try_enslave_choke", "try_enslave_chokeevenmore"]):
 		var theChar:DynamicCharacter = getCharacter(npcID)
@@ -147,4 +147,4 @@ func doDebugAction(_id, _args = {}):
 	if(_id == "quickEnslave"):
 		endScene()
 		runScene("KidnapDynamicNpcScene", [npcID])
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"MainScene").reRun()

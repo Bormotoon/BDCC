@@ -15,7 +15,7 @@ func _run():
 		addButton("Step out", "Look for Tavi in other blocks", "step_out")
 	if(state == "step_out"):
 		aimCameraAndSetLocName("main_stairs_n")
-		GM.pc.setLocation("main_stairs_n")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_stairs_n")
 		addCharacter("kait")
 		addCharacter("tavi")
 		playAnimation(StageScene.Duo, "stand", {pc="tavi", npc="kait"})

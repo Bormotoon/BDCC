@@ -23,16 +23,16 @@ func _reactInit():
 		"StunBaton": 0.05,
 		"Shiv": 0.3,
 	}
-	if(GM.pc.getPainLevel() > 0.6):
+	if(ServiceLocator.safe_get_service(&"Player").getPainLevel() > 0.6):
 		theLoot["appleitem"] *= 4.0
 		theLoot["painkillers"] *= 4.0
 		theLoot["Shiv"] *= 4.0
-	if(GM.pc.getStaminaLevel() < 0.3):
+	if(ServiceLocator.safe_get_service(&"Player").getStaminaLevel() < 0.3):
 		theLoot["EnergyDrink"] *= 4.0
 		theLoot["Shiv"] *= 4.0
-	if(GM.pc.hasActiveTransformations()):
+	if(ServiceLocator.safe_get_service(&"Player").hasActiveTransformations()):
 		theLoot["TFUndoPill"] = 4.0
-	if(GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.BDSMRestraint).size() > 0):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemsWithTag(ItemTag.BDSMRestraint).size() > 0):
 		theLoot["restraintkey"] *= 4.0
 	offerItemID = RNG.pickWeightedDict(theLoot)
 
@@ -150,7 +150,7 @@ func _react_scene_end(_tag, _result):
 		if(subSatisfaciton >= 0.9 && subTimesOrgasmed >= 2):
 			setState("sexSatisfied")
 			
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem(offerItemID))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(offerItemID))
 		else:
 			if(subTimesOrgasmed < 2):
 				reasonFail = "orgasms"

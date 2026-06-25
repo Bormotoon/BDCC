@@ -21,7 +21,7 @@ func loadData(_data):
 	pass
 
 func processStruggleTurn(_pc, _isActivelyStruggling):
-	if(RNG.chance(10) && (GM.main.getFlag("PortalPantiesModule.Panties_FleshlightsGotStolen") || !_pc.isPlayer())):
+	if(RNG.chance(10) && (ServiceLocator.safe_get_service(&"MainScene").getFlag("PortalPantiesModule.Panties_FleshlightsGotStolen") || !_pc.isPlayer())):
 		var possible = ["anus"]
 		if(_pc.hasVagina()):
 			possible.append("vag")

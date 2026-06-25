@@ -103,7 +103,7 @@ func _run():
 		saynn("She puts her hands on your {pc.breasts} and gives them a firm squeeze, her fingers wrap around your nipples and tug on them, trying to milk you. It feels good, you can’t stop moans from escaping your lips.")
 
 		# (if can milk)
-		if(GM.pc.canBeMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			saynn("And soon enough, drips of {pc.milk} began streaming down your breasts, you’re lactating. Eliza catches some of your {pc.milk} and licks her digits. You moo again..")
 
 			saynn("[say=eliza]Tasty. I should add this into my morning coffee~.[/say]")
@@ -143,17 +143,17 @@ func _react(_action: String, _args):
 
 	if(_action in ["bark", "meow", "moo"]):
 		MedicalModule.addPCBehavior(0.05)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		addMessage("That treat gave you some energy!")
 	
 	if(_action == "moo"):
-		var milkAmount = GM.pc.milk(0.1)
+		var milkAmount = ServiceLocator.safe_get_service(&"Player").milk(0.1)
 		if(milkAmount > 0.01):
 			addMessage(str(Util.roundF(milkAmount, 1))+" ml leaked from your breasts")
 	
 	if(_action == "growl_at"):
 		MedicalModule.addPCBehavior(-0.1)
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 
 	if(_action == "endthescene"):
 		endScene()

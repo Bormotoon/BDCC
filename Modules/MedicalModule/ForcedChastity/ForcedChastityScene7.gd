@@ -60,7 +60,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="eliza", bodyState={naked=true}})
 		addCharacter("eliza")
 		
@@ -280,7 +280,7 @@ func _run():
 
 	if(state == "thank_you"):
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		saynn("[say=pc]Thank you, doctor..[/say]")
 
@@ -295,7 +295,7 @@ func _run():
 
 	if(state == "leave"):
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		
 		saynn("She lets you out into the medical corridor. Time to go..")
 
@@ -461,7 +461,7 @@ func _run():
 		addButton("Uncuff her", "Keeping her restrained any longer would be rude", "uncuff_her")
 
 	if(state == "uncuff_her"):
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcAction="sit", bodyState={naked=true, hard=true}, npcBodyState={underwear=true}})
 		
 		saynn("You uncuff the feline and support her. But she seems to be doing fine, just with a little extra sway to her motions. Eliza smiles while watching {pc.cum} leaking out of her slit. She just shifts the panties back into their place, allowing them to get messy.")
@@ -495,12 +495,12 @@ func _react(_action: String, _args):
 		processTime(randi_range(3,8)*60)
 
 	if(_action == "bottom"):
-		GM.pc.addExperience(300)
+		ServiceLocator.safe_get_service(&"Player").addExperience(300)
 
 	if(_action == "breeder"):
-		GM.pc.addExperience(300)
-		if(GM.pc.isWearingChastityCage()):
-			GM.pc.getInventory().removeItemFromSlot(InventorySlot.Penis)
+		ServiceLocator.safe_get_service(&"Player").addExperience(300)
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Penis)
 
 	if(_action == "use_heat_pill"):
 		var eliza = getCharacter("eliza")

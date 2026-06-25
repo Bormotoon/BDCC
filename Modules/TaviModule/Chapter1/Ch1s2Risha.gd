@@ -56,19 +56,19 @@ func _run():
 		saynn("You decide that just watching the scene unfold won’t bring anything and act. You step in and block the clear path to Tavi. Risha raises her brow and aims the remote at you instead.")
 
 		# (if pc is red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=risha]Reds protecting reds, huh? I’m not surprised.[/say]")
 
 		# (if pc is general)
-		elif(GM.pc.getInmateType() == InmateType.General):
+		elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=risha]Why are you protecting a red. Stockholm syndrome?[/say]")
 
 		# (if pc is lilac)
-		elif(GM.pc.getInmateType() == InmateType.SexDeviant):
+		elif(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=risha]Hah. What are you gonna do, fuck me to death?[/say]")
 
 		# (if has clothes)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Instead of answering her, you just begin undressing, exposing just enough to make your private bits visible. Risha tilts her head and watches over your {pc.masc} curves.")
 
 		# (else)
@@ -82,11 +82,11 @@ func _run():
 		saynn("[say=risha]Hmm. I’d still rather fuck the cat, she was too cocky.[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You feel Risha’s hesitation and push further. You step towards her and turn around before bending and spread your legs for her, offering a great view of your {pc.pussyStretch} pussy and {pc.analStretch} ass.")
 
 		# (else if has cock)
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You feel Risha’s hesitation and push further. You step towards her and turn around before bending and spread your legs for her, offering a great view of your {pc.cock} and {pc.analStretch} butthole.")
 
 		# (else)
@@ -132,7 +132,7 @@ func _run():
 		saynn("[say=risha]Why not?[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("And since your {pc.pussyStretch} pussy is quite exposed already, Risha takes off her glove and gently runs her claws over your sensitive petals, sending shivers through your body. Yeah, she is clearly going for that hole.")
 
 		# (else)
@@ -146,9 +146,9 @@ func _run():
 		saynn("[say=pc]Kinky..[/say]")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own cock is getting somewhat hard behind the cage. Risha cups your balls and gives them a gentle squeeze.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own cock is getting somewhat hard. Risha cups your balls and gives them a gentle squeeze.")
 
 			saynn("[say=risha]Cute.[/say]")
@@ -162,7 +162,7 @@ func _run():
 		})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You dangle around a lot, having to pretty much stand on your toes as the pipe is quite high. Risha gets herself hard and stands behind you, her strong hand catches your leg and lifts it up while the second one guides her prickly cock down your sex.")
 
 			saynn("Your lips send out a few soft moans while the soft barbs are brushing against your slit. Your petals are getting spread by the shaft that then finds your pussy holes and starts putting pressure on it, stretching.")
@@ -190,19 +190,19 @@ func _run():
 		})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Risha still holds your leg lifted while proceeding to use you raw, almost pulling out her cock before thrusting deep inside. Her free paw lands on your chin and holds your jaw before forcing a few digits into your mouth. You can’t fight it, little moans escape while you begin to suck on offered fingers.")
 
 			saynn("[say=risha]Yeah, exactly how a proper slut must react.[/say]")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your chastity cage is just swaying around, the cock inside leaking pre while one of your pleasure points is being stimulated.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your own cock is just swaying around, leaking pre while one of your pleasure points is being stimulated.")
 
 			# (if has big breasts)
-			if(GM.pc.hasBigBreasts()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBigBreasts()):
 				saynn("Your {pc.breasts} are unconstrained and are sent to bounce each time you get pounded.")
 
 			saynn("The lynx quickly picks up the pace, eagerly fucking you, her barbed cock has reached your inner wall and began hammering at it, making you shake from so much sensations. You keep rattling the cuffs while the cat quickly brings your orgasm closer, you feel yourself getting tighter around her shaft.")
@@ -212,7 +212,7 @@ func _run():
 			saynn("The barbs are becoming stiffer, your tongue drools onto the fingers in your mouth as the orgasm overwhelms you. Muscles begin to tense up, you’re squirming a lot while the lynx keeps thrusting inside you, raking at your inner walls and making each wave of pleasure that much better.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wastes its {pc.cum} by messing up the floor.")
 
 			saynn("[say=risha]Nghh~. Gonna breed you.[/say]")
@@ -228,13 +228,13 @@ func _run():
 			saynn("[say=risha]Yeah, exactly how a proper slut must react.[/say]")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your chastity cage is just swaying around, the cock inside leaking dripping uncontrollably.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your own cock is just swaying around and dripping uncontrollably.")
 
 			# (if has big breasts)
-			if(GM.pc.hasBigBreasts()):
+			if(ServiceLocator.safe_get_service(&"Player").hasBigBreasts()):
 				saynn("Your {pc.breasts} are unconstrained and are sent to bounce each time you get pounded.")
 
 			saynn("The lynx quickly picks up the pace, eagerly fucking you, her barbed cock is hammering at your pleasure spot, making you shake from so much sensations. You keep rattling the cuffs while the cat quickly brings your orgasm closer, you feel yourself getting tighter around her shaft.")
@@ -244,7 +244,7 @@ func _run():
 			saynn("The barbs are becoming stiffer, your tongue drools onto the fingers in your mouth as the orgasm overwhelms you. Muscles begin to tense up, you’re squirming a lot while the lynx keeps thrusting inside you, raking at your inner walls and making each wave of pleasure that much better.")
 
 			# (if has cock)
-			if(GM.pc.hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wastes its {pc.cum} by messing up the floor.")
 
 			saynn("[say=risha]Nghh~. Gonna breed you.[/say]")
@@ -471,11 +471,11 @@ func _run():
 		})
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Tavi is still helping you to keep naked Risha in place so you take your time exposing your {pc.cock}.")
 
 		# (else if pussy)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Tavi is still helping you to keep naked Risha in place so you take your time exposing your pussy.")
 
 		# (else)
@@ -489,7 +489,7 @@ func _run():
 		saynn("[say=tavi]Sure, cutie~.[/say]")
 
 		# (if cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Without answering Risha’s question, you just hold your cock in her direction and try to force the urge. The lynx seems to eventually realize what your plan is about, she is panting and trying to break free again but it’s too late, a stream of yellow hot piss emerges from your dick and gives the guard a golden shower. She is whining and squirming as the gross fluids make her white fur look yellow, you make sure to piss all over her tits, belly and even her sheath.")
 
 		# (else if pussy)
@@ -622,24 +622,24 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "getCummedInside"):
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("risha")
-			GM.pc.cummedInVaginaBy("risha")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("risha")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("risha")
 		else:
-			GM.pc.gotAnusFuckedBy("risha")
-			GM.pc.cummedInAnusBy("risha")
-		GM.pc.orgasmFrom("risha")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("risha")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("risha")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
 		
-		GM.pc.addSkillExperience(Skill.SexSlave, 40)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40)
 		setFlag("TaviModule.ch1SeducedRishaAndGotFucked", true)
 	
 	if(_action == "struggle!"):
-		GM.pc.addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
 	
 	if(_action == "let_her_draw"):
 		for _i in range(3):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 	
 	if(_action == "draw_on_her"):
 		var risha = getCharacter("risha")

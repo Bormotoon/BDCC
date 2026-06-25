@@ -86,7 +86,7 @@ func _run():
 	if(state == "obey"):
 		# (sets room to lab)
 		aimCameraAndSetLocName("med_researchlab")
-		GM.pc.setLocation("med_researchlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 		
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", bodyState={exposedCrotch=true}})
 
@@ -198,7 +198,7 @@ func _run():
 
 	if(state == "continue"):
 		aimCameraAndSetLocName("med_nearlab")
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		
 		saynn("Eliza gets up and takes a good look at your new shiny cage.")
 
@@ -218,7 +218,7 @@ func _react(_action: String, _args):
 	processTime(randi_range(3, 5)*60)
 	
 	if(_action == "obey"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, inmate",
 			"Oh, I'm so excited",
 			"We have a zero accidents reported policy, you should be fine",
@@ -227,19 +227,19 @@ func _react(_action: String, _args):
 		]])
 	
 	if(_action == "shove!"):
-		GM.pc.addStamina(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-200)
 		
 	if(_action == "regular_one"):
 		setFlag("MedicalModule.PC_ReceivedPermanentCage", true)
 		setFlag("MedicalModule.PC_PickedFlatPermanentCage", false)
 		
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanentNormal"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanentNormal"))
 		
 	if(_action in ["flat_one", "neither"]):
 		setFlag("MedicalModule.PC_ReceivedPermanentCage", true)
 		setFlag("MedicalModule.PC_PickedFlatPermanentCage", true)
 		
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanent"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ChastityCagePermanent"))
 		
 
 	if(_action == "endthescene"):

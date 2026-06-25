@@ -8,7 +8,7 @@ func _init():
 func _initScene(_args = []):
 	npcID = _args[0]
 	addCharacter(npcID)
-	if(GM.pc.getLocation() == "med_lobbymain"):
+	if(ServiceLocator.safe_get_service(&"Player").getLocation() == "med_lobbymain"):
 		setState("bring_to_eliza")
 
 func resolveCustomCharacterName(_charID):
@@ -43,7 +43,7 @@ func _run():
 	if(state == "to_lab"):
 		playAnimation(StageScene.Duo, "stand", {pc="eliza", npc=npcID, npcBodyState={leashedBy="eliza"}})
 		aimCameraAndSetLocName("med_researchlab")
-		GM.pc.setLocation("med_researchlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_researchlab")
 		saynn("You tug on the leash and bring your test subject into the research lab.")
 
 		saynn("Eliza fetches a little hand-held scanner and begins to slowly move it over {npc.his} body.. {npc.name} squirms a bit in the process. Eventually, the feline gets enough data.")
@@ -100,7 +100,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "to_lab"):
-		GM.main.SCI.doTestTFsOf(getCharacter(npcID))
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doTestTFsOf(getCharacter(npcID))
 
 	if(_action == "eat_blue"):
 		getCharacter(npcID).getTFHolder().undoAllTransformations()

@@ -10,7 +10,7 @@ func _run():
 		
 	if(state == ""):
 		aimCamera("medical_near_pccell")
-		GM.pc.setLocation("medical_near_pccell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_near_pccell")
 		setLocationName("Near cells")
 		
 		saynn("Eliza holds your leash, you try to look brave even with that straitjacket on.")
@@ -79,13 +79,13 @@ func _run():
 
 	if(state == "sleep1"):
 		aimCamera("medical_paddedcell_player")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
 		setLocationName("Padded cell")
 		
 		saynn("You wake up in your padded cell. You have a little headache, such a familiar feeling.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 		# (scene ends)
 		
 		addButton("Continue", "What next..", "startmental")
@@ -94,8 +94,8 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "resist"):
-		GM.pc.addPain(100)
-		GM.pc.addStamina(-200)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-200)
 	
 	if(_action == "sleep1"):
 		getModule("MedicalModule").preparePCForMentalWard()
@@ -110,7 +110,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "sleep1"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	setState(_action)

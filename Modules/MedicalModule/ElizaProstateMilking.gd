@@ -11,7 +11,7 @@ func _run():
 		
 	if(state == ""):
 		# (if medium-low)
-		if(GM.pc.getSkillLevel(Skill.Milking) <= 2):
+		if(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Milking) <= 2):
 			saynn("[say=pc]Is it possible to do without touching the cock? Just curious..[/say]")
 
 			saynn("[say=eliza]Hm? Oh. Yeah, there is a way.[/say]")
@@ -34,7 +34,7 @@ func _run():
 		saynn("She brings you to a room that can only be described as a milking heaven. You notice a huge fluid storage tank and quite a few special milking stalls, not for animals but for humans. Eliza guides you into one of them. The stall itself is just some metal pipes, designed to keep the bull or the cow still, Eliza tied your leash to the stall’s frame.")
 
 		# (if clothed)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=eliza]Let’s get you undressed.[/say]")
 
 			saynn("She {pc.undressMessageS}. Then she grabs a milk container can and places it just under your {pc.cock}.")
@@ -46,7 +46,7 @@ func _run():
 			saynn("She grabs a milk container can and places it just under your {pc.cock}.")
 
 		# (if locked arms)
-		if(GM.pc.hasBlockedHands() || GM.pc.hasBoundArms()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			saynn("The doctor was nice enough to remove your restraints for now.")
 
 		saynn("Then Eliza produces a bottle of lube. She opens it, gets some on her fingers and walks behind you to observe your rear.")
@@ -54,7 +54,7 @@ func _run():
 		saynn("[say=eliza]Spread your butt for me, pretty toy~.[/say]")
 
 		# (if low skill)
-		if(GM.pc.getSkillLevel(Skill.Milking) <= 2):
+		if(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Milking) <= 2):
 			saynn("The command is a bit humiliating but you obey, you put your hands on your {pc.masc} buttcheeks and part them, offering Eliza the clear view of your {pc.analStretch} pucker.")
 
 		# (if high skill)
@@ -89,7 +89,7 @@ func _run():
 		saynn("[say=eliza]Oh yeah, there we go~. Feels good, doesn’t it?[/say]")
 
 		# (if low)
-		if(GM.pc.getSkillLevel(Skill.Milking) <= 2):
+		if(ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Milking) <= 2):
 			saynn("[say=pc]Yes..[/say]")
 
 		# (high)
@@ -117,7 +117,7 @@ func _run():
 
 		saynn("[say=eliza]Are you close?[/say]")
 
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The pressure in your chastity cage keeps building up, you are being constantly edged, you feel like you only need a bit more to go over the peak. And it feels so good.")
 		else:
 			saynn("The pressure in your cock keeps building up, you are being constantly edged, you feel like you only need a bit more to go over the peak. And it feels so good.")
@@ -149,7 +149,7 @@ func _run():
 		saynn("She grabs your leash and tugs you away from the stalls. You can barely walk.")
 
 		# (if clothed)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("She helps you to put your clothes back on.")
 
 		addButton("Follow", "Wow", "follow1")
@@ -157,7 +157,7 @@ func _run():
 	if(state == "follow1"):
 		aimCamera("med_nearmilking")
 		setLocationName("Corridor")
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		saynn("Eliza brings you out into the corridor. She unclips the leash and sends you off.")
@@ -171,7 +171,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_milkingroom", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_milkingroom", [
 			"Almost there, inmate",
 			"Feeling excited? You should be~",
 			"Thanks for participating in our program, inmate",
@@ -182,21 +182,21 @@ func _react(_action: String, _args):
 	if(_action == "give_in_completely"):
 		setModuleFlag("MedicalModule", "Med_wasMilkedToday", true)
 		processTime(60*60)
-		howMuchMilked = GM.pc.milkSeed()
-		GM.pc.orgasmFrom("eliza")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 10.0)
+		howMuchMilked = ServiceLocator.safe_get_service(&"Player").milkSeed()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 10.0)
 		
 		increaseModuleFlag("MedicalModule", "Med_seedMilked", howMuchMilked)
 		increaseModuleFlag("MedicalModule", "Med_milkedSeedTimes")
-		GM.main.SCI.handleBountyFluid(GM.pc.getFluidType(FluidSource.Penis), howMuchMilked)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.handleBountyFluid(ServiceLocator.safe_get_service(&"Player").getFluidType(FluidSource.Penis), howMuchMilked)
 		
 		addMessage(str(round(howMuchMilked / 10.0)*10.0)+" ml of cum was milked from your cock")
 
-		GM.pc.addSkillExperience(Skill.Milking, 60, "eliza_prostatemilking")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 60, "eliza_prostatemilking")
 		
 		if(howMuchMilked >= 60.0):
 			var credits = Util.maxi(1, int(floor(sqrt(howMuchMilked / 50.0) / 1.0)))
-			GM.pc.addCredits(credits)
+			ServiceLocator.safe_get_service(&"Player").addCredits(credits)
 			addMessage("You received "+str(credits)+" work "+Util.multipleOrSingularEnding(credits, "credit")+"!")
 
 	if(_action == "endthescene"):

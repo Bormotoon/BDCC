@@ -88,20 +88,20 @@ func getDefaultEquipment():
 	return ["SocketArmor", "SocketVisorUp", "SocketBackpack"]
 
 func getPortalSexHoleAvailable(_bodypartSlot):
-	if(GM.main != null && GM.main.getFlag("SocketModule.hasPortalPussy")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("SocketModule.hasPortalPussy")):
 		if(_bodypartSlot == BodypartSlot.Vagina):
 			return true
 	
 	return false
 
 func isWearingInvisiblePortalPanties():
-	if(GM.main != null && GM.main.getFlag("SocketModule.hasPortalPussy")):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null && ServiceLocator.safe_get_service(&"MainScene").getFlag("SocketModule.hasPortalPussy")):
 		return true
 	return false
 
 func updateBodyparts():
-	if(GM.main != null):
-		if(!GM.main.getFlag("SocketModule.removedWombImplant", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("SocketModule.removedWombImplant", false)):
 			skillsHolder.addPerk(Perk.StartNoHeat)
 			skillsHolder.addPerk(Perk.StartInfertile)
 		else:

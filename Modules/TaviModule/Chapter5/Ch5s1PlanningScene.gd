@@ -8,7 +8,7 @@ func _init():
 	sceneID = "Ch5s1PlanningScene"
 
 func _reactInit():
-	GM.pc.removeAllRestraints()
+	ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 func _run():
 	if(state == ""):

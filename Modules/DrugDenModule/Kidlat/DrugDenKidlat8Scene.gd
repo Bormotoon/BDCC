@@ -187,8 +187,8 @@ func _react(_action: String, _args):
 
 	if(_action == "do_cuddle_spend_time"):
 		processTime(60*60)
-		GM.pc.addPain(-500)
-		GM.pc.addStamina(500)
+		ServiceLocator.safe_get_service(&"Player").addPain(-500)
+		ServiceLocator.safe_get_service(&"Player").addStamina(500)
 
 	if(_action == "do_cuddle_wakeup"):
 		processTime(60*60)

@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.ApproachedWeightsBench)
 
 func run(_triggerID, _args):
-	if(GM.main.getTime() >= 22*60*60):
+	if(ServiceLocator.safe_get_service(&"MainScene").getTime() >= 22*60*60):
 		saynn("You notice Risha sitting on one of the benches")
 		
 		addButtonUnlessLate("Risha", "Ask what's up", "risha")

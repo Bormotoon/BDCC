@@ -25,8 +25,8 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "read_note"):
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("RingOfDevotion"))
-		GM.pc.addCredits(10)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("RingOfDevotion"))
+		ServiceLocator.safe_get_service(&"Player").addCredits(10)
 		addMessage("You received a ring and 10 credits")
 
 	if(_action == "endthescene"):

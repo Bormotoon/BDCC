@@ -509,7 +509,7 @@ func _run():
 		addButton("Ignore thought", "Resist the temptation", "no_spike_drink")
 		addButton("Spike her 'drink'", "Sneakily add an aphrodisiac pill to the fleshlight", "spike_socket_drink")
 	if(state == "no_spike_drink"):
-		GM.pc.setLocation("MedRoom2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("MedRoom2")
 		saynn("You push the naughty thoughts away and just finish restocking the vendomat.")
 
 		saynn("[say=pc]That should be it.[/say]")
@@ -534,7 +534,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "spike_socket_drink"):
-		GM.pc.setLocation("mining_elevator")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_elevator")
 		saynn("Sneakily, you open the pill bottle and grab a single pill. Then you shift closer to Socket and carefully drop it into her pussy. Luckily she didn't seem to hear the plop noise.")
 
 		saynn("The pill sinks to the bottom of her 'drink' and starts to dissolve. While that is happening, you just finish restocking the vendomat.")
@@ -605,7 +605,7 @@ func _run():
 		addButton("Continue", "See what happens next", "socket_squirts_on_herself")
 	if(state == "socket_squirts_on_herself"):
 		aimCameraAndSetLocName("mining_elevator")
-		GM.pc.setLocation("mining_elevator")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_elevator")
 		playAnimation(StageScene.SexPortalOral, "lickfast", {pc="socket", onlyRight=true})
 		saynn("You keep hearing the cute muffled noises from Socket.. Until you notice her pussy starting to twitch! And soon enough, it releases a gush of transparent fluids directly into her own face, her body squirming heavily while she just continues to lap up everything she can get to.")
 
@@ -640,7 +640,7 @@ func _run():
 
 		saynn("Why not. You move it closer to your mouth and start teasing her clit with the tip of your tongue, rubbing it left and right. That makes Socket grab onto her crotch portal device and moan quietly, her pussy getting incredibly wet.")
 
-		saynn("Finally, you decide to do a long lick, sliding your tongue along her petals and getting a feel for them. Yeah, there is still a faint cider aftertaste.. but it's mixed with something "+str("that makes your own pussy wet in seconds too.." if GM.pc.hasReachableVagina() else "that makes you really horny in seconds too..")+"")
+		saynn("Finally, you decide to do a long lick, sliding your tongue along her petals and getting a feel for them. Yeah, there is still a faint cider aftertaste.. but it's mixed with something "+str("that makes your own pussy wet in seconds too.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "that makes you really horny in seconds too..")+"")
 
 		saynn("[say=socket]Mm-m..[/say]")
 
@@ -651,7 +651,7 @@ func _run():
 		addButton("Faster", "Lick it faster", "socket_squirts_all_over_pc")
 	if(state == "socket_squirts_all_over_pc"):
 		aimCameraAndSetLocName("mining_elevator")
-		GM.pc.setLocation("mining_elevator")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_elevator")
 		playAnimation(StageScene.SexPortalOral, "lickfast", {npc="socket", pc="pc"})
 		saynn("Seeing Socket like this.. allows you to easily find and abuse her most sensitive spots. You find a little bump with your tongue.. and start hammering away at it, tongue-fucking the girl's pussy.. while she is squirming hard.")
 
@@ -696,7 +696,7 @@ func _run():
 
 		saynn("Socket approaches you and brings the toy that has her pussy sticking out close to your hard member. Seeing them close like that makes it easy for her to judge your size compared to her.. elasticity.")
 
-		var penSize = GM.pc.getPenisSize()
+		var penSize = ServiceLocator.safe_get_service(&"Player").getPenisSize()
 		if (penSize < 6):
 			saynn("[say=socket]At least you won't kill me. It's about how you use it, right?[/say]")
 
@@ -761,7 +761,7 @@ func _run():
 	if(state == "socket_penis_aftercum"):
 		playAnimation(StageScene.Duo, "stand", {npc="socket", npcAction=["hold_object", "res://Inventory/UnriggedModels/Fleshlight/FleshlightSocketStraw.tscn"]})
 		aimCameraAndSetLocName("mining_elevator")
-		GM.pc.setLocation("mining_elevator")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_elevator")
 		saynn("Socket slowly retrieves the fleshlight, being careful as to not spill anything. Then she just.. adds the straw back.")
 
 		saynn("[say=socket]Thanks! See you around..[/say]")
@@ -776,7 +776,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "take_a_sip"):
-		GM.pc.addIntoxication(0.6)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.6)
 
 	if(_action == "grab_box"):
 		processTime(5*60)
@@ -798,7 +798,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "socket_helps_pc_after_loss"):
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 
 	if(_action == "socket_after_won_risha"):
 		processTime(5*60)
@@ -832,8 +832,8 @@ func _react(_action: String, _args):
 
 	if(_action == "socket_squirts_all_over_pc"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("socket", FluidSource.Vagina, 0.2)
-		GM.pc.cummedInMouthBy("socket", FluidSource.Vagina, 0.1)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("socket", FluidSource.Vagina, 0.2)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("socket", FluidSource.Vagina, 0.1)
 
 	if(_action == "socket_penis_starts"):
 		processTime(3*60)
@@ -843,7 +843,7 @@ func _react(_action: String, _args):
 
 	if(_action == "socket_penis_cum"):
 		getCharacter("socket").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("socket")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("socket")
 
 	if(_action == "socket_penis_aftercum"):
 		processTime(3*60)
@@ -861,5 +861,5 @@ func _react_scene_end(_tag, _result):
 		else:
 			setState("lost_risha")
 			addExperienceToPlayer(5)
-			GM.pc.addCredits(-3)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-3)
 			addMessage("You lost 3 credits")

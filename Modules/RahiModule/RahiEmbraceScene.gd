@@ -94,7 +94,7 @@ func _react(_action: String, _args):
 		processTime(randi_range(5, 20)*60)
 	
 	if(_action == "milk_her"):
-		GM.pc.addSkillExperience(Skill.Milking, 30, "rahi_handmilking")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 30, "rahi_handmilking")
 		getCharacter("rahi").milk()
 
 	if(_action == "endthescene"):

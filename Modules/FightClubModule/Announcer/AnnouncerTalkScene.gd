@@ -4,7 +4,7 @@ func _init():
 	sceneID = "AnnouncerTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["announcer"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["announcer"])):
 		endScene()
 		return
 
@@ -25,7 +25,7 @@ func _run():
 		else:
 			addButton("Buy", "Maybe he sells something", "askbuy")
 		addButton("Leave", "Enough talking", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["announcer"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["announcer"])
 		if(!getFlag("FightClubModule.CanBuySlaveCollars")):
 			if(getModule("NpcSlaveryModule").canEnslave()):
 				addButton("Collars?", "Ask if he knows where you can get a spare collar", "ask_collars")
@@ -185,7 +185,7 @@ func _react(_action: String, _args):
 	if(_action == "unlock_collars"):
 		processTime(3*60)
 		setFlag("FightClubModule.CanBuySlaveCollars", true)
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("oldcollar"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("oldcollar"))
 		addMessage("You got a slave collar!")
 		addMessage("You can now buy more slave collars from Ans")
 

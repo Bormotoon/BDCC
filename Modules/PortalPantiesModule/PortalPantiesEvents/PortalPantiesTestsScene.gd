@@ -12,13 +12,13 @@ func _reactInit():
 			"pencils_poke",
 			"drink_poke",
 		]
-		if(GM.pc.hasPenis() && !GM.pc.hasReachablePenis() && !GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && !ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			possible.append_array([
 				"cock_only_poke",
 				"cock_tease_poke",
 				"cock_milker",
 			])
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			possible.append_array([
 				"pussy_tease_poke",
 				"pussy_pump",
@@ -26,7 +26,7 @@ func _reactInit():
 			])
 		setState(RNG.pick(possible))
 		
-	GM.pc.addCredits(1)
+	ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 func _run():
 
@@ -34,7 +34,7 @@ func _run():
 		playAnimation(StageScene.SexPortalMasturbation, RNG.pick(["inside"]), {onlyLeft=true, npc="pc"})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You feel cold air washing over your {pc.pussyStretch} pussy. You grab onto your crotch and realize that your pussy is still somewhere else entirely, such a strange feeling. Then you feel your sex being poked with some tool.. Probably a thermometer. And that’s it. Was that the first test?")
 
 			saynn("You brush a hand over your fancy panties and continue on your way as if nothing happened.")
@@ -52,13 +52,13 @@ func _run():
 		playAnimation(StageScene.SexPortalMasturbation, RNG.pick(["inside"]), {onlyLeft=true, npc="pc"})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Suddenly you feel latex brushing against your sex. Someone’s digits are gently spreading open your folds, causing you to bite your lip. You can’t even see whoever does it to you which makes it so much more exciting.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("You feel someone’s digits gently stroke your chastity cage, causing your cock to twitch. Can’t they do something more..")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("You feel yourself getting harder, you would expect your {pc.cock} to start applying pressure onto the panties but no, there is zero bulging. You feel someone’s digits gently stroke you, causing your cock to twitch. Can’t they do something more..")
 
 			saynn("Then you feel some object inserted into your slit.. it feels like a.. pen? And then there is much more stuffing your hole soon after. Are they using you to store their writing utensils? At least you got paid a credit for that still.")
@@ -68,9 +68,9 @@ func _run():
 			saynn("Suddenly you feel latex brushing against your butt. Someone’s digits are prodding at your tailhole and then gently spreading it open, causing you to bite your lip. You can’t even see whoever does it to you which makes it so much more exciting.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("You feel someone’s digits gently stroke your chastity cage, causing your cock to twitch. Can’t they do something more..")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("You feel yourself getting harder, you would expect your {pc.cock} to start applying pressure onto the panties but no, there is zero bulging. You feel someone’s digits gently stroke you, causing your cock to twitch. Can’t they do something more..")
 
 			saynn("Then you feel some object inserted into your butt.. it feels like a.. pen? And then there is much more stuffing your hole soon after. Are they using you to store their writing utensils? At least you got paid a credit for that still.")
@@ -83,7 +83,7 @@ func _run():
 		playAnimation(StageScene.SexPortalMasturbation, RNG.pick(["inside"]), {onlyLeft=true, npc="pc"})
 		
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You eek as suddenly someone inserts a cold speculum into your slit, spreading it wide open. You grab onto your panties but realize that there is nothing that you can do about your pussy while it’s attached to that fleshlight.")
 
 			saynn("Then you feel someone pouring in some kind of drink inside your sex. And.. then adding a straw? Someone is totally using your pussy as their personal mug. You almost don’t mind it though..")
@@ -108,7 +108,7 @@ func _run():
 		saynn("You feel digits attaching some kind of electrodes to your {pc.cock}. They start stimulating your shaft by sending a small amount of current through it. Your cock’s muscles react by tensing up, causing you to swiftly get hard.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Then you let out a gasp as the tip of your cock seems to be brushing.. against your own slit. You shut your legs and look around, hoping that no one sees you and your blushing face. You feel your sensitive folds being spread by your own flesh, you’re almost begging for it to happen but it all just ends with teasing.")
 
 		# (else)
@@ -174,7 +174,7 @@ func _run():
 		saynn("You also notice that one of the security cameras is directly watching you. The pump starts doing its work on your slit, applying pressure and pumping on it, causing your pussy lips to become more buffy. It feels so good that you can’t help but to start moaning.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Another pump is then connected to your {pc.cock} and idly sucks on it.")
 
 		addButton("Cum", "It’s gonna make you cum!", "cum")
@@ -186,7 +186,7 @@ func _run():
 		saynn("You close your legs and tilt your head down, trying to look normal to others but it’s really hard to endure this for long. The pump starts going through its cycles faster until you are pushed past the peak. You throw your head back and let out a very muffled but long moan as your slit starts squirting. And the pump takes full advantage of that, it collects all your juices and keeps milking you during the orgasm, causing your sex to squirt again and again.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} shoots out its load too before it gets collected by the pump. It felt so good to cum.")
 
 		addButton("Continue", "That wasn't too bad", "endthescene")
@@ -199,7 +199,7 @@ func _run():
 		
 		saynn("A cock milker gets attached to your {pc.cock}! You can’t see it, your portal panties aren’t even bulging but the thing already starts stroking you with a steady pace, getting you nice and hard.")
 
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("It feels so good, the fleshy ribbed texture of the milker vibrates, making you feel like you’re fucking someone and quickly pushing you to your first orgasm.")
 		else:
 			saynn("It feels so good, the fleshy ribbed texture of the milker makes you feel like you’re fucking someone, quickly pushing you to your first orgasm.")
@@ -219,10 +219,10 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action in ["cock_only_poke", "endure_it", "endure_it1"]):
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 	
 	if(_action in ["cum", "cum!"]):
-		GM.pc.orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 	
 	if(_action == "endthescene"):
 		endScene()

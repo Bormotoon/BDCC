@@ -105,10 +105,10 @@ func _init():
 	npcHasMenstrualCycle = true
 	
 func _getName():
-	if(GM.main != null):
-		if(!GM.main.getFlag("SlaveAuctionModule.knowsMirriName", false) && !GM.main.getFlag("SlaveAuctionModule.s2hap", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.knowsMirriName", false) && !ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.s2hap", false)):
 			return "Catgirl Guard"
-		if(GM.main.getFlag("SlaveAuctionModule.mirriNotBlacktail", false)):
+		if(ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.mirriNotBlacktail", false)):
 			return "Mirri"
 	return "Mirri Blacktail"
 

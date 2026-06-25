@@ -39,7 +39,7 @@ func _run():
 			else:
 				addButton("Hand-Milking", "Milk Tavi breasts with your hands", "lact_handmilking")
 				addButton("Breastfeeding", "Feed on Tavi's breasts with your mouth", "lact_breastfeeding")
-				if (GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
+				if (ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
 					addButton("Breast pump", "Use one of your breast pumps on Tavi's chest", "lact_pump_pick")
 				else:
 					addDisabledButton("Breast pump", "You don't have any breast pumps")
@@ -68,7 +68,7 @@ func _run():
 				addDisabledButton("Breast pump", "Give Tavi some rest, her nipples are still sore")
 			else:
 				addButton("Suck nipples", "Give some extra attention to Tavi's nipples", "nolact_suck")
-				if (GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
+				if (ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
 					addButton("Breast pump", "Use one of your breast pumps on Tavi's chest", "nolact_pump_pick")
 				else:
 					addDisabledButton("Breast pump", "You don't have any breast pumps")
@@ -516,7 +516,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addPumpButtons(go_id):
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), go_id, [pump])
 
@@ -567,7 +567,7 @@ func _react(_action: String, _args):
 			getCharacter("tavi").induceLactation()
 			setFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		processTime(2*60)
-		GM.pc.addSkillExperience(Skill.Milking, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
 
 	if(_action == "nolact_suck_do"):
 		processTime(18*60)
@@ -583,12 +583,12 @@ func _react(_action: String, _args):
 			setFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		processTime(2*60)
 		getCharacter("tavi").addEffect(StatusEffect.SoreNipplesAfterMilking)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "nolact_pump"):
 		var pump = _args[0]
 		breastPumpID = pump.getUniqueID()
-		GM.pc.getInventory().removeItem(pump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		getCharacter("tavi").getInventory().forceEquipStoreOther(pump)
 
 	if(_action == "nolact_pump_do"):
@@ -605,20 +605,20 @@ func _react(_action: String, _args):
 			setFlag("TaviModule.Ch6TaviLactationProgress", 0)
 		processTime(2*60)
 		getCharacter("tavi").addEffect(StatusEffect.SoreNipplesAfterMilking)
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 
 	if(_action == "removepumpandend"):
 		var pump = getCharacter("tavi").getInventory().getItemByUniqueID(breastPumpID)
 		if(pump != null):
 			getCharacter("tavi").getInventory().removeEquippedItem(pump)
-			GM.pc.getInventory().addItem(pump)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(pump)
 		endScene()
 		return
 
 	if(_action == "lact_handmilking_do"):
 		processTime(10*60)
 		var milkAmount = getCharacter("tavi").milk(randf_range(0.2,0.3))
-		GM.pc.addSkillExperience(Skill.Milking, 20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 20)
 		
 		addMessage("You milked Tavi for "+str(Util.roundF(milkAmount, 1))+" ml of milk")
 
@@ -629,17 +629,17 @@ func _react(_action: String, _args):
 	if(_action == "lact_handmilking_more"):
 		processTime(10*60)
 		var milkAmount = getCharacter("tavi").milk()
-		GM.pc.addSkillExperience(Skill.Milking, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
 		
 		addMessage("You milked Tavi for "+str(Util.roundF(milkAmount, 1))+" ml of milk")
 		getModule("TaviModule").addCorruption(2)
 
 	if(_action == "lact_breastfeeding_do"):
 		processTime(10*60)
-		GM.pc.breastFedBy("tavi", 0.4)
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(100)
-		GM.pc.addSkillExperience(Skill.Milking, 10)
+		ServiceLocator.safe_get_service(&"Player").breastFedBy("tavi", 0.4)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
 
 	if(_action == "lact_breastfeeding_enough"):
 		processTime(2*60)
@@ -651,15 +651,15 @@ func _react(_action: String, _args):
 	if(_action == "lact_breastfeeding_mommy"):
 		processTime(10*60)
 		getModule("TaviModule").addCorruption(2)
-		GM.pc.breastFedBy("tavi")
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(100)
-		GM.pc.addSkillExperience(Skill.Milking, 10)
+		ServiceLocator.safe_get_service(&"Player").breastFedBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
 
 	if(_action == "lact_pump"):
 		var pump = _args[0]
 		breastPumpID = pump.getUniqueID()
-		GM.pc.getInventory().removeItem(pump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		getCharacter("tavi").getInventory().forceEquipStoreOther(pump)
 
 	if(_action == "lact_pump_on"):
@@ -668,7 +668,7 @@ func _react(_action: String, _args):
 		getCharacter("tavi").stimulateLactation()
 		var howMuchTransferred = getCharacter("tavi").getBodypart(BodypartSlot.Breasts).getFluids().transferTo(pump, 0.6)
 		addMessage("The pump managed to milk Tavi's breasts for "+str(Util.roundF(howMuchTransferred))+" ml")
-		GM.pc.addSkillExperience(Skill.Milking, 30)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 30)
 		getCharacter("tavi").addEffect(StatusEffect.SoreNipplesAfterMilking)
 		getCharacter("tavi").updateAppearance()
 
@@ -682,7 +682,7 @@ func _react(_action: String, _args):
 		getCharacter("tavi").stimulateLactation()
 		var howMuchTransferred = getCharacter("tavi").getBodypart(BodypartSlot.Breasts).getFluids().transferTo(pump, 1.0)
 		addMessage("The pump managed to milk Tavi's breasts for "+str(Util.roundF(howMuchTransferred))+" ml")
-		GM.pc.addSkillExperience(Skill.Milking, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 10)
 		getCharacter("tavi").addEffect(StatusEffect.SoreNipplesAfterMilking)
 		getCharacter("tavi").updateAppearance()
 		getModule("TaviModule").addCorruption(2)

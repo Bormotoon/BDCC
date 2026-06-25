@@ -273,7 +273,7 @@ func _react(_action: String, _args):
 
 	if(_action == "about_to_leave"):
 		processTime(3*60)
-		GM.pc.getInventory().addItemID("PlantEggEliza")
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItemID("PlantEggEliza")
 		addMessage("You received a tentacle egg!")
 
 	setState(_action)

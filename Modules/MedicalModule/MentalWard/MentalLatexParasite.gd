@@ -93,13 +93,13 @@ func _run():
 		saynn("A few little black goo-tentacles form, they travel up your legs, one of them slides under your chastity belt and finds your {pc.analStretch} backdoor. It starts prodding it, seeing how easy your anal ring would give in. All the while you can’t even grab it, you’re forced to endure its onslaught on your tailhole. It slowly applies more and more pressure, stretching you out.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Another alien tentacle reaches your pussy, its pointy tip catches your sensitive clit and starts rubbing it. You can’t help but to bite your lip and let out a little moan, it feels as if a silicon dildo suddenly gained consciousness. You feel yourself becoming more wet, your slit attracts the alien even more, its tentacles trace across your petals and then spread them open. Your {pc.pussyStretch} pussy is exposed and you can’t do anything about it..")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("A single tentacle slips under your chastity and has wrapped around your half-erect member. It begins to slide along the length of your {pc.cock}, it’s stroking you hard. You let out a soft moan as a drop of your precum already shines on the tip of your cock. Another tentacle quickly catches that and seemingly just absorbs it. Your cock quickly becomes rock hard, putting a lot of pressure onto your poor cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("A single tentacle has wrapped around your half-erect member. It begins to slide along the length of your {pc.cock}, it’s stroking you hard. You let out a soft moan as a drop of your precum already shines on the tip of your cock. Another tentacle quickly catches that and seemingly just absorbs it. Your cock quickly becomes rock hard")
 
 		saynn("You catch a glimpse of Eliza’s face, she is blushing. And you feel like you can’t resist at all anymore..")
@@ -116,11 +116,11 @@ func _run():
 		saynn("One tentacle manages to slip down your rear. You let out a moan as it stretches your anal ring enough and has now began exploring you from the inside. It feels so strange, you can’t control a thing, you’re just left at the mercy of this alien. But it also feels very good, the tentacle shifts inside you so much..")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy is being violated too, another tentacle has found your pussy entering and began prodding at it. It doesn’t take much, you’re so wet that the tentacle manages to slip in with ease and then stretches you out more by becoming fatter. It fills you so well, you look down and see a little bump on your abdomen as the tentacle moves inside you and absorbs your female juices. A second one joines and attached itself to your clit, this one seems to be focused on suction.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("The tentacle around your cock keeps milking you for your precum, its stroking slowly becomes faster. Another few tentacles reach your ballsack and give it a little squeeze, they wrap around your balls and start kneading them, it feels like nothing you ever experienced.")
 
 		saynn("[say=pc]It’s too much..[/say]")
@@ -133,7 +133,7 @@ func _run():
 		saynn("The tentacles become so strong they can seemingly support your whole body, they wrap around your belly and raise you above the floor with some holding your legs. Now you feel truly helpless, letting out little moans as it milks you. The black goo spreads to your straitjacket too, it engulves it, turning it completely black. It goes up to your {pc.breasts}, little thin tentacles latch onto your nips and begin tugging on them, trying to stimulate. You can’t stop moaning..")
 
 		# (if lactating)
-		if(GM.pc.canBeMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			saynn("It only takes a few seconds before your breasts start to lactate, squirting with {pc.milk}. The tentacles form pump-like tips and attach themselves to your nipples. Then they start working on your breasts, sucking and doing strong pump motions until eventually creating a stable flow of your {pc.milk}. It all gets absorbed by the parasite, giving it more energy.")
 
 		saynn("The goo coats you up to the neck, it does the same thing with your collar as it did with your straitjacket, covering it in black latex. You notice one of the tentacles going up to your mouth, you stick your tongue out and give it a lick, it tastes like rubber. But it doesn’t stop there, you see the tip of the tentacle being formed into something phallic, it looks like a plug. The tentacle forces that plug into your mouth, it feels rubbery, you can’t bite on it even if you wanted, all you can do now is make muffled moans while it stretches your throat. From the back of the plug form two black straps that wrap around your head and connect behind it, finishing a gag. That tentacle then moves slightly up and produces a blindfold of the same design and wraps it around your eyes, completely stealing your sight. Last thing you saw was Eliza sneakily touching herself between her legs.")
@@ -146,13 +146,13 @@ func _run():
 		saynn("Even blindfolded and gagged, you have enough to worry about, the tentacle in your butt had began thrusting in and out at a steady pace, fucking you! Your {pc.analStretch} anus doesn’t even close fast enough before it’s stuffed again. Then a second tentacle joins, they begin pounding your butt interchangeably, stretching you out so much.")
 
 		# (if vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The tentacle in your pussy has found your sweet spot, the spot that made your arch your back and moan from pleasure. It began hammering at it, shifting the fat part in and out your cunt, fucking you like that. You feel like you won’t endure it for long, waves of ecstatic pleasure overwhelm your body. You can’t stop cumming, your poor stuffed pussy keeps squirting juices and that only makes the onslaught stronger, the parasite manages to slip another tentacle inside you and past your cervix! It’s fucking your womb and it feels unbelievable.")
 
 		# (if dick)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("One of the tentacles transforms its tip into a fleshlight and tries to engulf your {pc.cock} with it! You don’t get any direct stimulation but the feeling of your cage being pulled and pushed back and forth feels amazing. It doesn’t take much time before you cum, muffled moans escape from your gagged mouth as your throbbing cock stuffs that fleshlight full of {pc.cum}. It doesn’t stop there, the tentacle in your butt finds your prostate and focuses on it, roughly pounding it. That causes a huge spike of pleasure, your cock shoots {pc.cum} again and again, stuffing that fleshlight to the brim until your balls are completely drained.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("One of the tentacles transforms its tip into a fleshlight and engulfs your {pc.cock} with it! It feels amazing, the texture on the inside is bumpy and it’s so tight, the fleshlight then gets moved back and forth along your cock, letting you fuck it. It doesn’t take much time before you cum, muffled moans escape from your gagged mouth as your throbbing cock stuffs that fleshlight full of {pc.cum}. It doesn’t stop there, the tentacle in your butt finds your prostate and focuses on it, roughly pounding it. That causes a huge spike of pleasure, your cock shoots {pc.cum} again and again, stuffing that fleshlight to the brim until your balls are completely drained.")
 
 		saynn("It feels so good, you can’t stop cumming, your mind slowly slips into obscurity, drowning in a sea of pleasure. As the tentacles milk you more they only get stronger, their onslaught on your holes increases, the plug in your mouth increases in size, it starts stretching and fucking your throat. You’re completely helpless, being held above the floor with your legs spread open. It feels like something will happen any second, something big.")
@@ -165,7 +165,7 @@ func _run():
 		saynn("Suddenly your holes are being stuffed with black liquid goo! All the tentacles increase in size, they keep pounding you while cumming inside. Cumming so much that your belly quickly becomes cuminflated, the one in your throat sends goo directly to your belly, quickly filling it. The ones in your butt do the same, stuffing your butt to the brim.")
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy did not escape it too, the tentacle in your womb explodes with so much goo that it quickly overflows and already starts leaking, painting your inner walls black too.")
 
 		saynn("You arch your back and squirm desperately, you can’t stop cumming even now, when the latex parasite is cumming inside you. Muffled moans of pleasure is all you can make through that gag, you can’t even see how you look, you can’t see anything.")
@@ -176,7 +176,7 @@ func _run():
 
 	if(state == "take_a_nap"):
 		aimCamera("medical_paddedcell_player")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
 		setLocationName("Padded cell")
 		
@@ -198,7 +198,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["eliza", GM.pc.getLocation(), "med_researchlab", [
+		runScene("ParadedOnALeashScene", ["eliza", ServiceLocator.safe_get_service(&"Player").getLocation(), "med_researchlab", [
 			"Almost there, patient",
 			"Today's experiment should be interesting",
 			"Smile to the nurses",
@@ -206,26 +206,26 @@ func _react(_action: String, _args):
 		]])
 	
 	if(_action == "continue"):
-		GM.pc.orgasmFrom("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("latexParasite")
 	
 	if(_action == "let_it_happen"):
-		GM.pc.gotAnusFuckedBy("latexParasite")
-		GM.pc.gotThroatFuckedBy("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("latexParasite")
 		
-		GM.pc.orgasmFrom("latexParasite")
-		GM.pc.cummedInAnusBy("latexParasite")
-		GM.pc.cummedInMouthBy("latexParasite")
-		if(GM.pc.hasVagina()):
-			GM.pc.cummedInVaginaBy("latexParasite")
-			GM.pc.gotVaginaFuckedBy("latexParasite")
-		GM.pc.cummedOnBy("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("latexParasite")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("latexParasite")
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("latexParasite")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("latexParasite")
 		
-		if(GM.pc.canBeMilked()):
-			GM.pc.milk()
-		if(GM.pc.canBeSeedMilked()):
-			GM.pc.milkSeed()
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
+			ServiceLocator.safe_get_service(&"Player").milk()
+		if(ServiceLocator.safe_get_service(&"Player").canBeSeedMilked()):
+			ServiceLocator.safe_get_service(&"Player").milkSeed()
 		
-		GM.pc.addSkillExperience(Skill.SexSlave, 20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20)
 		MedicalModule.addPCBehavior(0.1)
 		
 		setModuleFlag("MedicalModule", "Mental_ExpTentacles", Util.maxi(1, getModuleFlag("MedicalModule", "Mental_ExpTentacles", 0)))

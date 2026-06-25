@@ -33,7 +33,7 @@ func _run():
 
 		addButton("Spare", "You don’t feel like humiliating him", "spare")
 		addButton("Humiliate", "That’s a nice chastity cage he has. You wonder if it will fit on him", "humiliate")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["axis"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["axis"])
 
 	if(state == "spare"):
 		saynn("[say=pc]Fine. You can stay alpha if you need it so much.[/say]")
@@ -287,14 +287,14 @@ func _run():
 func _react(_action: String, _args):
 	if(_action == "cum"):
 		getCharacter("axis").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("axis")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40, "axis_fuckhim")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("axis")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "axis_fuckhim")
 	
 	if(_action == "grind_face"):
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "axis_grindface")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "axis_grindface")
 	
 	if(_action == "cum1"):
-		GM.pc.orgasmFrom("axis")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("axis")
 	
 	if(_action == "endthescene"):
 		endScene()

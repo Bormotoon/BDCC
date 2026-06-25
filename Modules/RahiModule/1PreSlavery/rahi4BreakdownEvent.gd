@@ -14,9 +14,9 @@ func react(_triggerID, _args):
 		return false
 	if(!getFlag("RahiModule.rahi2SceneHappened")):
 		return false
-	if(GM.main.getDays() > getFlag("RahiModule.rahi3DayHappened", 0)):
+	if(ServiceLocator.safe_get_service(&"MainScene").getDays() > getFlag("RahiModule.rahi3DayHappened", 0)):
 		setFlag("RahiModule.rahi4SceneHappened", true)
-		setFlag("RahiModule.rahi4DayHappened", GM.main.getDays())
+		setFlag("RahiModule.rahi4DayHappened", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		runScene("rahi4BreakdownScene")
 		return true
 	return false

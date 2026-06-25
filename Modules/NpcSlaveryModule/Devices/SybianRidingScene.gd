@@ -16,17 +16,17 @@ func _run():
 		playAnimation(StageScene.Sybian, "idle", {pc="pc", bodyState={naked=true}})
 		saynn("Feeling horny, you decide to give your sybian machine a try.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Small silicone dildos slide up your holes as you lower yourself onto it, the soft texture brushing against your sensitive flesh.")
 
 			saynn("Your clit rests on a little ridged platform, the sensations sending shivers down your spine already.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Small silicone dildo slides up your tailhole as you lower yourself onto it, the soft texture brushing against your sensitive flesh.")
 
 			saynn("Your taint rests on a little ridged platform, the sensations sending shivers down your spine.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Small silicone dildo slides up your tailhole as you lower yourself onto it, the soft texture brushing against your sensitive flesh.")
 
 			saynn("Your taint rests on a little ridged platform, the sensations sending shivers down your spine and making your cock twitch slightly.")
@@ -41,15 +41,15 @@ func _run():
 		playAnimation(StageScene.SybianOral, "idle", {pc="pc", npc=npcID, bodyState={naked=true}})
 		saynn("You grab the sybian's little remote and flick the power switch.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The machine under you kicks into action, the dildos start vibrating inside you at an idly pace.. your pussy slit getting slightly wet around the toys already, the platform under your clit shifts ever so slightly, stimulating you.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The machine under you kicks into action, the dildo starts vibrating inside you at an idly pace, it's curved to perfectly massage your little prostate..")
 
 			saynn("Your locked away member tries to get hard but the metal keeps it in check, the platform under your taint shifts ever so slightly, stimulating you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The machine under you kicks into action, the dildo starts vibrating inside you at an idly pace, it's curved to perfectly massage your little prostate..")
 
 			saynn("It's enough to make your {pc.penis} drip pre, the platform under your taint shifts ever so slightly, stimulating you.")
@@ -70,20 +70,20 @@ func _run():
 			addButtonWithChecks("Eat them out", "Lick their pussy while riding the sybian", "do_ride_while_lick", [], [[ButtonChecks.NotOralBlocked]])
 		addButton("Just ride", "Ignore them", "just_ride")
 		addButton("Hump sybian", "Ignore them and hump the sybian", "just_hump")
-		if (GM.pc.hasReachablePenis() && GM.pc.getWornCondom() == null):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && ServiceLocator.safe_get_service(&"Player").getWornCondom() == null):
 			addButtonWithChecks("Put on a condom", "Wear a condom while doing this", "put_a_condom_on", [], [[ButtonChecks.HasCondoms]])
 	if(state == "alone_pick_how_ride"):
 		saynn("You grab the sybian's little remote and flick the power switch.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The machine under you kicks into action, the dildos start vibrating inside you at an idly pace.. your pussy slit getting slightly wet around the toys already, the platform under your clit shifts ever so slightly, stimulating you.")
 
-		elif (GM.pc.isWearingChastityCage()):
+		elif (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("The machine under you kicks into action, the dildo starts vibrating inside you at an idly pace, it's curved to perfectly massage your little prostate..")
 
 			saynn("Your locked away member tries to get hard but the metal keeps it in check, the platform under your taint shifts ever so slightly, stimulating you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("The machine under you kicks into action, the dildo starts vibrating inside you at an idly pace, it's curved to perfectly massage your little prostate..")
 
 			saynn("It's enough to make your {pc.penis} drip pre, the platform under your taint shifts ever so slightly, stimulating you.")
@@ -97,11 +97,11 @@ func _run():
 
 		addButton("Just ride", "Ignore them", "just_ride")
 		addButton("Hump sybian", "Ignore them and hump the sybian", "just_hump")
-		if (GM.pc.hasReachablePenis() && GM.pc.getWornCondom() == null):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && ServiceLocator.safe_get_service(&"Player").getWornCondom() == null):
 			addButtonWithChecks("Put on a condom", "Wear a condom while doing this", "put_a_condom_on", [], [[ButtonChecks.HasCondoms]])
 		addDisabledButton("Slaves", "You don't have any slaves that can join")
 	if(state == "sybian_loop"):
-		var pcArousal = GM.pc.getArousal()
+		var pcArousal = ServiceLocator.safe_get_service(&"Player").getArousal()
 		var isHighArousal = (pcArousal < 0.5)
 		if (rideMode == ""):
 			if (isHighArousal):
@@ -109,10 +109,10 @@ func _run():
 			else:
 				playAnimation(StageScene.Sybian, "intense", {pc="pc", bodyState={naked=true}})
 			if (isFirstRide):
-				if (GM.pc.hasReachableVagina()):
+				if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 					saynn("The machine hums as you begin to ride it with slow, deliberate movements, its toys pleasure your eager holes. Feels good already..")
 
-				elif (GM.pc.hasReachablePenis()):
+				elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 					saynn("The machine hums as you begin to ride it with slow, deliberate movements, its toy pleasuring your eager fuckhole, your {pc.penis} twitching and dripping pre. Feels good already..")
 
 				else:
@@ -120,30 +120,30 @@ func _run():
 
 			else:
 				if (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("Your pussy clenches around the silicone shaft, the ridges and bumps teasing your sensitive clit with each motion while the anal dildo keeps you feeling stuffed.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("Your {pc.analStretch} {anus} clenches around the silicone shaft while your prostate is being stimulated, the ridges and bumps teasing your taint with each motion, your {pc.penis} leaking pre.")
 
 					else:
 						saynn("Your {pc.analStretch} {anus} clenches around the silicone shaft while your pleasure spot is being stimulated, the ridges and bumps teasing your taint with each motion.")
 
 				elif (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("Your hips rock back and forth, driving the vibrating dildos deeper into your slick, eager pussy and {pc.analStretch}, clenching anus as you lose yourself in the throes of pleasure.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as you lose yourself in the throes of pleasure, your {pc.penis} twitching wildly.")
 
 					else:
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as you lose yourself in the throes of pleasure.")
 
 				else:
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("The ridged platform presses against your clit, sending waves of pleasure radiating through your body with each pass as you ride the sybian, lost in a haze of ecstasy.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("The ridged platform presses against your taint, sending waves of pleasure radiating through your body with each pass as you ride the sybian, lost in a haze of ecstasy.")
 
 					else:
@@ -171,10 +171,10 @@ func _run():
 			else:
 				playAnimation(StageScene.Sybian, "humpfast", {pc="pc", bodyState={naked=true}})
 			if (isFirstRide):
-				if (GM.pc.hasReachableVagina()):
+				if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 					saynn("Rather than ride the sybian peacefully, you decide to hump the fuck out of it, the two vibrating dildos sliding inside your slick holes as you ride the machine.")
 
-				elif (GM.pc.hasReachablePenis()):
+				elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 					saynn("Rather than ride the sybian peacefully, you decide to hump the fuck out of it, the vibrating dildo sliding inside your needy hole and making your {pc.penis} leak as you ride the machine.")
 
 				else:
@@ -182,30 +182,30 @@ func _run():
 
 			else:
 				if (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("The vibrating dildos slide in and out of your wet, eager pussy and {pc.analStretch} anus, your hand stimulating your clit.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("The vibrating dildos slide in and out of your eager {pc.analStretch} anus, your hand rubbing your {pc.penis}.")
 
 					else:
 						saynn("The vibrating dildos slide in and out of your eager {pc.analStretch} anus, your hand rubbing your taint.")
 
 				elif (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("The silicone shafts plunge deep into your hungry holes, filling you with an insatiable craving for more as you hump the sybian, lost in your own desire.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("The silicone shafts plunge deep into your hungry hole, filling you with an insatiable craving for more as you hump the sybian, your {pc.penis} bobs up and down while you are lost in your own desire.")
 
 					else:
 						saynn("The silicone shafts plunge deep into your hungry hole, filling you with an insatiable craving for more as you hump the sybian, lost in your own desire.")
 
 				else:
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("Your {pussy} and {anus} clench around the silicone shafts, milking them for all they're worth as you hump the sybian.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("Your {pc.analStretch} {anus} clenches around the silicone shaft, milking it for all it's worth as you hump the sybian.")
 
 					else:
@@ -235,10 +235,10 @@ func _run():
 			if (isFirstRide):
 				saynn("You call {npc.name} to get closer.. before pulling {npc.his} {npc.penis} out and getting it into your mouth, using your tongue to pleasure it..")
 
-				if (GM.pc.hasReachableVagina()):
+				if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 					saynn("At the same time, you begin to ride the humming machine with slow, deliberate movements, its toys pleasuring your eager holes. Feels so good to have all your holes stuffed..")
 
-				elif (GM.pc.hasReachablePenis()):
+				elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 					saynn("At the same time, you begin to ride the humming machine with slow, deliberate movements, its toy pleasuring your eager fuckhole, your {pc.penis} twitching and dripping pre. Feels so good to have all your holes stuffed..")
 
 				else:
@@ -246,30 +246,30 @@ func _run():
 
 			else:
 				if (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("You suck that cock eagerly, dragging your tongue over its length. Your pussy clenches around the silicone shaft, the ridges and bumps teasing your sensitive clit with each motion while the anal dildo keeps you feeling stuffed.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("You suck that cock eagerly, dragging your tongue over its length. Your {pc.analStretch} {anus} clenches around the silicone shaft while your prostate is being stimulated, the ridges and bumps teasing your taint with each motion, your {pc.penis} leaking pre.")
 
 					else:
 						saynn("You suck that cock eagerly, dragging your tongue over its length. Your {pc.analStretch} {anus} clenches around the silicone shaft while your pleasure spot is being stimulated, the ridges and bumps teasing your taint with each motion.")
 
 				elif (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("Your hips rock back and forth, driving the vibrating dildos deeper into your slick, eager pussy and {pc.analStretch}, clenching anus as your throat is being stretched by that nice cock.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as your throat is being stretched by that nice cock, your {pc.penis} twitching wildly.")
 
 					else:
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as your throat is being stretched by that nice cock.")
 
 				else:
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("The ridged platform presses against your clit, sending waves of pleasure radiating through your body with each pass as you ride the sybian and pleasure the cock of your slave at the same time.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("The ridged platform presses against your taint, sending waves of pleasure radiating through your body with each pass as you ride the sybian and pleasure the cock of your slave at the same time.")
 
 					else:
@@ -299,10 +299,10 @@ func _run():
 			if (isFirstRide):
 				saynn("You call {npc.name} to get closer.. before getting {npc.his} {npc.pussyStretch} pussy exposed and pressing your face into it, your tongue out and ready to please.")
 
-				if (GM.pc.hasReachableVagina()):
+				if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 					saynn("At the same time, you begin to ride the humming machine with slow, deliberate movements, its toys pleasuring your eager holes. Feels so good to have all your holes busy..")
 
-				elif (GM.pc.hasReachablePenis()):
+				elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 					saynn("At the same time, you begin to ride the humming machine with slow, deliberate movements, its toy pleasuring your eager fuckhole, your {pc.penis} twitching and dripping pre. Feels so good to have all your holes busy..")
 
 				else:
@@ -310,30 +310,30 @@ func _run():
 
 			else:
 				if (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("You eat that {pussy} eagerly, dragging your tongue along the petals and licking the clit. Your own pussy clenches around the silicone shaft, the ridges and bumps teasing your sensitive clit with each motion while the anal dildo keeps you feeling stuffed.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("You eat that {pussy} eagerly, dragging your tongue along the petals and licking the clit. Your {pc.analStretch} {anus} clenches around the silicone shaft while your prostate is being stimulated, the ridges and bumps teasing your taint with each motion, your {pc.penis} leaking pre.")
 
 					else:
 						saynn("You eat that {pussy} eagerly, dragging your tongue along the petals and licking the clit. Your {pc.analStretch} {anus} clenches around the silicone shaft while your pleasure spot is being stimulated, the ridges and bumps teasing your taint with each motion.")
 
 				elif (RNG.chance(33)):
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("Your hips rock back and forth, driving the vibrating dildos deeper into your slick, eager pussy and {pc.analStretch}, clenching anus as your tongue is exploring the inner walls of another wet slit.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as your tongue is exploring the slick inner walls of that {pussy}, your {pc.penis} twitching wildly.")
 
 					else:
 						saynn("Your hips rock back and forth, driving the vibrating dildo deeper into your needy, eager anus as your tongue is exploring the slick inner walls of that {pussy}.")
 
 				else:
-					if (GM.pc.hasReachableVagina()):
+					if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 						saynn("The ridged platform presses against your clit, sending waves of pleasure radiating through your body with each pass as you ride the sybian and pleasure your slave's {npc.pussyStretch} {pussy} at the same time.")
 
-					elif (GM.pc.hasReachablePenis()):
+					elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 						saynn("The ridged platform presses against your taint, sending waves of pleasure radiating through your body with each pass as you ride the sybian and pleasure your slave's {npc.pussyStretch} {pussy} at the same time.")
 
 					else:
@@ -366,10 +366,10 @@ func _run():
 			playAnimation(StageScene.Sybian, "ride", {pc="pc", pcCum=true, bodyState={naked=true, hard=true}})
 		elif (rideMode == "hump"):
 			playAnimation(StageScene.Sybian, "hump", {pc="pc", pcCum=true, bodyState={naked=true, hard=true}})
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your entire body trembles with the force of your climax, your pussy and ass spasming around the dildos as you succumb to the overwhelming waves of pleasure crashing over you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your entire body trembles with the force of your climax, your ass spasming around the dildo, your taint twitching as you succumb to the overwhelming waves of pleasure crashing over you.")
 
 		if (rideMode == "suck"):
@@ -380,13 +380,13 @@ func _run():
 			playAnimation(StageScene.SybianOral, "lick", {pc="pc", pcCum=true, npc=npcID, bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
 			saynn("Your slave's pussy gushes with sweet nectar, her juices coating your face as you eagerly lap at her dripping cunt, lost in the intoxicating taste of her arousal.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked up cock is throbbing while shooting {pc.cum} through the hole in the little chastity cage, your prostate being milked hard!")
 
-		elif (GM.pc.hasReachablePenis() && GM.pc.getWornCondom() != null):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis() && ServiceLocator.safe_get_service(&"Player").getWornCondom() != null):
 			saynn("Your {pc.penis} is throbbing while shooting {pc.cum} into the condom, filling it fast as your prostate is being milked hard!")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your {pc.penis} is throbbing while shooting strings of {pc.cum}, leaving quite a mess on the floor, your prostate being milked hard!")
 
 		saynn("You're left heavily panting after that great orgasm.")
@@ -402,7 +402,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		
 		var possibleSlaveIDs = []
-		var slaves = GM.main.getPCSlavesIDs()
+		var slaves = ServiceLocator.safe_get_service(&"MainScene").getPCSlavesIDs()
 		for slaveID in slaves:
 			var theChar:DynamicCharacter = getCharacter(slaveID)
 			if(theChar == null || !theChar.isSlaveToPlayer()):
@@ -415,8 +415,8 @@ func _react(_action: String, _args):
 			if(theChar.hasReachablePenis() || theChar.hasReachableVagina()):
 				possibleSlaveIDs.append(slaveID)
 		
-		GM.pc.addLust(10)
-		GM.pc.addArousal(GM.pc.getLustLevel() * 0.2)
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(ServiceLocator.safe_get_service(&"Player").getLustLevel() * 0.2)
 		
 		if(RNG.chance(100) && possibleSlaveIDs.size() > 0):
 			npcID = RNG.pick(possibleSlaveIDs)
@@ -452,28 +452,28 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "put_a_condom_on"):
-		var breakChance = GM.pc.useWorstCondom()
+		var breakChance = ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		var condomItem:ItemBase = GlobalRegistry.createItem("UsedCondom")
 		condomItem.breakChance = breakChance
-		GM.pc.getInventory().forceEquipStoreOther(condomItem)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOther(condomItem)
 		addMessage("You put an empty condom on!")
 		return
 
 	if(_action == "do_cum"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("pc")
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		if(rideMode == "suck"):
 			var theNpc = getCharacter(npcID)
-			GM.pc.gotThroatFuckedBy(npcID)
-			GM.pc.cummedInMouthBy(npcID)
+			ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy(npcID)
+			ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(npcID)
 			theNpc.orgasmFrom("pc")
 			if(theNpc.isSlaveToPlayer()):
 				theNpc.getNpcSlavery().addUnhappiness(-10.0)
 		if(rideMode == "lick"):
 			var theNpc = getCharacter(npcID)
-			GM.pc.cummedInMouthBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
-			GM.pc.cummedOnBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
+			ServiceLocator.safe_get_service(&"Player").cummedInMouthBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
+			ServiceLocator.safe_get_service(&"Player").cummedOnBy(npcID, FluidSource.Vagina, randf_range(0.3, 0.7))
 			theNpc.orgasmFrom("pc")
 			if(theNpc.isSlaveToPlayer()):
 				theNpc.getNpcSlavery().addUnhappiness(-10.0)
@@ -481,17 +481,17 @@ func _react(_action: String, _args):
 	if(_action == "do_next_loop"):
 		processTime(1*60)
 		isFirstRide = false
-		GM.pc.addLust(10)
-		GM.pc.addArousal(GM.pc.getLustLevel() * 0.2)
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addArousal(ServiceLocator.safe_get_service(&"Player").getLustLevel() * 0.2)
 		setState("sybian_loop")
 		return
 
 	if(_action == "endthescene_recovercondom"):
-		if(GM.pc.getWornCondom() != null):
-			GM.pc.getInventory().unequipItem(GM.pc.getWornCondom())
+		if(ServiceLocator.safe_get_service(&"Player").getWornCondom() != null):
+			ServiceLocator.safe_get_service(&"Player").getInventory().unequipItem(ServiceLocator.safe_get_service(&"Player").getWornCondom())
 			addMessage("You store the used condom!")
 		playAnimation(StageScene.Solo, "stand")
-		GM.pc.setArousal(0.0)
+		ServiceLocator.safe_get_service(&"Player").setArousal(0.0)
 		endScene()
 		return
 

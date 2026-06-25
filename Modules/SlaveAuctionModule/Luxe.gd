@@ -65,8 +65,8 @@ func _init():
 	}
 	
 func _getName():
-	if(GM.main != null):
-		if(!GM.main.getFlag("SlaveAuctionModule.knowsLuxeName", false)):
+	if(ServiceLocator.safe_get_service(&"MainScene") != null):
+		if(!ServiceLocator.safe_get_service(&"MainScene").getFlag("SlaveAuctionModule.knowsLuxeName", false)):
 			return "Wolf"
 	return "Luxe Blacktail"
 

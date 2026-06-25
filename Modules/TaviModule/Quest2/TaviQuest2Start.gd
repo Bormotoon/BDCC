@@ -38,7 +38,7 @@ func _react(_action: String, _args):
 		processTime(60*3)
 		
 		setModuleFlag("TaviModule", "Tavi_Quest2Started", true)
-		setModuleFlag("TaviModule", "Tavi_Quest2Day", GM.main.getDays())
+		setModuleFlag("TaviModule", "Tavi_Quest2Day", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		endScene()
 		return
 

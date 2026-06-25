@@ -149,7 +149,7 @@ func _run():
 		addButton("Continue", "See what happens next", "checkpoint")
 	if(state == "checkpoint"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("You and Tavi exit her cell and head towards the main hall. You walk up the stairs and take a closer look at the checkpoint.")
 
 		saynn("It clearly got.. overhauled a little. The most drastic difference is that there are two guards protecting it now. But there is also some kind of.. array of laser sensors, protecting the only passage. They don't seem to hurt the inmates that walk through.")

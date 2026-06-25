@@ -21,7 +21,7 @@ func _run():
 
 		addButton("Leave", "Nova suffered enough", "leave")
 		addButton("Power suit", "Her suit seems to be quite advanced, maybe it has some hidden functions", "power_suit")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["nova"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["nova"])
 
 	if(state == "leave"):
 		saynn("[say=pc]Consider yourself lucky, I’m not gonna fuck you.[/say]")
@@ -108,7 +108,7 @@ func _run():
 
 		addButton("Deny", "Nope, Nova is not cumming today", "deny")
 		addButtonWithChecks("Offer pussy", "Make her work for it", "offer_pussy", [], [ButtonChecks.HasReachableVagina])
-		if(GM.pc.hasReachablePenis() || GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis() || ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			addButtonWithChecks("Offer cock", "Make her work for it", "offer_cock", [], [])
 		else:
 			addDisabledButton("Offer cock", "You need a cock for this")
@@ -150,7 +150,7 @@ func _run():
 		saynn("But it works, you start moaning louder, your body squirms around that tongue until the moment you are shoved over the edge. Your legs shake, your finger accidently hits the ‘allow to cum’ button on the PDA, causing Nova’s suit to keep vibrating no matter what. It only takes a few seconds before Nova starts moaning loudly too, her covered up cock is shooting cum inside the undersuit, creating quite a mess underneath. But she doesn’t care, she is arching her back and eagerly licking you through your orgasm, causing your pussy to squirt juices into the girl’s face. It feels so good!")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own {pc.cock} starts shooting {pc.cum} onto Nova’s face and hair, making her look like a used cum slut!")
 
 		saynn("You leave the PDA on the floor and stand up. Nova is panting heavily, her suit has stopped pleasuring her after she came.")
@@ -169,7 +169,7 @@ func _run():
 
 	if(state == "offer_cock"):
 		# (needs cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			playAnimation(StageScene.SexOral, "tease", {
 				pc="pc", npc="nova", 
 				bodyState={exposedCrotch=true,hard=true},
@@ -199,7 +199,7 @@ func _run():
 			saynn("But it works, you start moaning, your body squirms around that mouth until the moment you are shoved over the edge. Your {pc.cock} starts shooting {pc.cum} deep down the girl’s throat, your finger accidently hits the ‘allow to cum’ button on the PDA, causing Nova’s suit to keep vibrating no matter what. It only takes a few seconds before Nova starts moaning loudly too, her covered up cock is shooting cum inside the undersuit, creating quite a mess underneath. But she doesn’t care, she is arching her back and eagerly abusing her throat on your cock through the orgasm, milking your balls for every last drop of {pc.cum}.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your neglected pussy sprays the floor with your juices, it just felt so fucking good!")
 
 		saynn("After your orgasm is over, you pull your cock out and rub it dry against Nova’s cheek. You give her a strict look and after a few seconds you see her swallowing your load. You leave the PDA on the floor and stand up. Nova is panting heavily, her suit has stopped pleasuring her after she came.")
@@ -217,13 +217,13 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "offer_pussy"):
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "nova_suitfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "nova_suitfuck")
 	
 	if(_action == "offer_cock"):
 		getCharacter("nova").cummedInMouthBy("pc")
-		GM.pc.orgasmFrom("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "nova_suitfuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "nova_suitfuck")
 	
 	if(_action == "endthescene"):
 		endScene()

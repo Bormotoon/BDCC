@@ -79,7 +79,7 @@ func _run():
 		addButton("Follow", "See where she will bring you", "near_drugden")
 	if(state == "near_drugden"):
 		aimCameraAndSetLocName("yard_deadend2")
-		GM.pc.setLocation("yard_deadend2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_deadend2")
 		saynn("Instead of heading toward the lab, Eliza surprises you by leading you in a completely different direction.")
 
 		saynn("The two of you step into the elevator and ride it up to the main floor of the prison. From there, you head towards the prison yard and begin following the stone pathways.")

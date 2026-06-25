@@ -358,7 +358,7 @@ func _run():
 	if(state == "some_hint"):
 		removeCharacter("luxe")
 		playAnimation(StageScene.Solo, "stand")
-		GM.pc.setLocation("market_near_luxe")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_near_luxe")
 		setFlag("SlaveAuctionModule.customMirriGreeting", "Welcome back. Excited for the family dinner? Help me sell more slaves and I will take you there!")
 		saynn("As the door opens to let you out, you feel that familiar breeze flowing past you. Might be because of the temperature difference. Things sure got heated in there..")
 

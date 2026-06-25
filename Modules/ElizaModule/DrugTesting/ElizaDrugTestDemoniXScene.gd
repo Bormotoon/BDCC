@@ -371,8 +371,8 @@ func _react(_action: String, _args):
 
 	if(_action == "lick_faster"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("eliza", FluidSource.Vagina)
-		GM.pc.cummedInMouthBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("eliza", FluidSource.Vagina)
 
 	if(_action == "after_lick"):
 		processTime(3*60)
@@ -394,8 +394,8 @@ func _react(_action: String, _args):
 
 	if(_action == "resist_lick_cum"):
 		processTime(5*60)
-		GM.pc.cummedOnBy("eliza", FluidSource.Vagina)
-		GM.pc.cummedInMouthBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("eliza", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("eliza", FluidSource.Vagina)
 
 	if(_action == "resist_grind_after"):
 		processTime(3*60)

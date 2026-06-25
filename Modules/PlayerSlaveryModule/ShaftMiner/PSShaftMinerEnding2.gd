@@ -305,7 +305,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "risha_items")
 	if(state == "risha_items"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		playAnimation(StageScene.Duo, "stand", {npc="risha"})
 		removeCharacter("intro_detective")
 		addCharacter("risha")
@@ -513,21 +513,21 @@ func _react(_action: String, _args):
 
 	if(_action == "escape1_actually_fucked"):
 		processTime(5*60)
-		GM.pc.addPain(1000)
-		GM.pc.addCredits(-GM.pc.getCredits())
+		ServiceLocator.safe_get_service(&"Player").addPain(1000)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-ServiceLocator.safe_get_service(&"Player").getCredits())
 
 	if(_action == "everything_dark"):
 		processTime(10*60)
 
 	if(_action == "got_saved"):
-		GM.main.startNewDay()
-		GM.pc.addPain(-1000)
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").addPain(-1000)
 		processTime(60*83)
 
 	if(_action == "risha_items"):
 		processTime(3*60)
-		GM.pc.setLocation(GM.pc.getCellLocation())
-		GM.main.stopPlayerSlavery()
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"MainScene").stopPlayerSlavery()
 		addMessage("All your items were returned to you.")
 
 	if(_action == "escape2_cages"):
@@ -543,9 +543,9 @@ func _react(_action: String, _args):
 		processTime(3*60)
 		
 	if(_action == "do_relax_escape1"):
-		GM.main.PSH.unlockEndingAddMessage("ShaftMiner", "killedboss")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("ShaftMiner", "killedboss")
 	if(_action == "escape2_ship"):
-		GM.main.PSH.unlockEndingAddMessage("ShaftMiner", "escaped")
+		ServiceLocator.safe_get_service(&"MainScene").PSH.unlockEndingAddMessage("ShaftMiner", "escaped")
 
 	setState(_action)
 

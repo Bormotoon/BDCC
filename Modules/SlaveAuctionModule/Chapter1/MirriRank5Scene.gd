@@ -337,7 +337,7 @@ func _run():
 	if(state == "stay_with_luxe"):
 		removeCharacter("mirri")
 		setFlag("SlaveAuctionModule.r5outcome", "luxe")
-		GM.pc.setLocation("market_near_luxe")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_near_luxe")
 		playAnimation(StageScene.Duo, "stand", {npc="luxe"})
 		saynn("You decide to stay with Luxe. He looks at the dinner table and sighs.")
 
@@ -391,7 +391,7 @@ func _run():
 		playAnimation(StageScene.Duo, "stand", {npc="mirri"})
 		aimCameraAndSetLocName("market_intro")
 		removeCharacter("luxe")
-		GM.pc.setLocation("market_intro")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_intro")
 		saynn("Rather than staying with Luxe, you decide to follow Mirri, leaving the wolf alone with his thoughts.")
 
 		saynn("You find the catgirl leaning over her laptop, her paws pressed into her desk. Her feline ears pick up on the noise of your steps.")
@@ -508,7 +508,7 @@ func _run():
 
 		saynn("[say=mirri]You're right~. Thank you.[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Mirri walks up to you and purrs quietly into your ear.")
 
 			saynn("[say=mirri]It would be a waste not to drain your balls in my mouth too.. you know..[/say]")
@@ -527,7 +527,7 @@ func _run():
 
 			addButton("69", "Agree to some licking and sucking fun", "69_agree")
 			addButton("Deny", "You'd rather not", "deny_69")
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Mirri walks up to you and purrs quietly into your ear.")
 
 			saynn("[say=mirri]It would be a waste not to drain your balls in my mouth too.. you know..[/say]")
@@ -540,7 +540,7 @@ func _run():
 
 			addButton("69", "Agree to some licking and sucking fun", "69_agree")
 			addButton("Deny", "You'd rather not", "deny_69")
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Mirri walks up to you and purrs quietly into your ear.")
 
 			saynn("[say=mirri]It would be a waste not to let me lick your cute pussy.. you know..[/say]")
@@ -575,10 +575,10 @@ func _run():
 
 		saynn("Mirri positions herself above you, her feline tail swaying as she straddles your face, her stripped panties taking up your whole view. She pulls them aside, revealing her wet needy flower. Seeing it from so close makes your mouth water already..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("She leans forward, her soft paws find your chastity cage and wrap around it. Her clawed digits trace it lightly, sending shivers through you.. before her lips press a teasing kiss against the tip. The warmth of her mouth sends a jolt of pleasure through your body.. even with the cage in the way.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("She leans forward, her soft paws wrapping around your length.. before her long feline tongue flicks out, teasing the tip.")
 
 		else:
@@ -590,14 +590,14 @@ func _run():
 
 		addButton("Continue", "See what happens next", "69_sex")
 	if(state == "69_sex"):
-		if (GM.pc.hasReachablePenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			playAnimation(StageScene.Sex69, "FM", {pc="pc", npc="mirri", bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
 		else:
 			playAnimation(StageScene.Sex69, "FF", {pc="pc", npc="mirri", bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Her praise is followed by taking your cage into her mouth, her lips wrapping around the metal. Even though the cage is in the way, her sharp feline tongue manages to slip under it and tease your poor locked drippy member.. the vibrations of her purring are making you squirm hard.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Her praise is followed by taking you deeper into her mouth, her lips sliding down your shaft with practiced ease. Her purring intensifies, sending delicious vibrations through you and making your cock ooze pre. She really knows how to work her magic..")
 
 		else:
@@ -605,16 +605,16 @@ func _run():
 
 		saynn("You focus on her in turn, your hands gripping her hips to pull her closer as your tongue delves into her folds, spreading and licking them. Her taste is nothing short of intoxicating.. every flick of your tongue earns you a breathless moan or a twitch of her tail.")
 
-		saynn("The room is filled with the wet, lewd sounds of both of your efforts, both of you strive to push the other closer to the edge.. almost like it's a race. Occasionally, she"+str(" releases your cock" if GM.pc.hasPenis() else " pulls away")+" just enough to gasp out some teasing remarks.")
+		saynn("The room is filled with the wet, lewd sounds of both of your efforts, both of you strive to push the other closer to the edge.. almost like it's a race. Occasionally, she"+str(" releases your cock" if ServiceLocator.safe_get_service(&"Player").hasPenis() else " pulls away")+" just enough to gasp out some teasing remarks.")
 
 		saynn("[say=mirri]That's all you've got, puppy? You're gonna have to try harder than that if you wanna keep up with me.[/say]")
 
 		saynn("Her words only make you increase your onslaught. Mirri's moans quickly grow louder as you find the perfect spot, your tongue circling and stroking her sensitive clit with precision. She gasps, her hips grinding against your face as she loses herself in the sensation.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Her pace on you quickens, her hands gripping your thighs for leverage as she keeps flicking her tongue under your cage and teasing your cock as best as she can, occasionally switching to your balls and giving them some nuzzles and little licks too. That and her weaponized purring are overwhelming.. both of you are already getting close..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Her pace on you quickens, her hands gripping your thighs for leverage as she takes you as deep as she can, her tight throat enveloping your whole length as her nose lands onto your balls. The tightness of her throat walls combined with that weaponized purring is overwhelming.. both of you are already getting close..")
 
 		else:
@@ -623,7 +623,7 @@ func _run():
 		addButton("Continue", "See what happens next", "69_cum")
 	if(state == "69_cum"):
 		playAnimation(StageScene.Sex69, "tease", {pc="pc", npc="mirri", bodyState={naked=true, hard=true}, npcBodyState={exposedCrotch=true, hard=true}})
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("And soon, Mirri lets out a muffled cry, her whole body shuddering as she reaches her climax. Her tongue pushes you over the edge as well, your {pc.penis} throbbing in her mouth while shooting weak ropes of {pc.cum}, one after another. She eagerly swallows every drop while you are busy swallowing her juices, the overstimulation made her pussy squirt all over your face..")
 
 			saynn("After both of your orgasms are over, Mirri pulls her mouth off of your cage and purrs contentedly while licking her lips.")
@@ -632,7 +632,7 @@ func _run():
 
 			saynn("She nuzzles your chastity and licks the last bits of your seed off before getting off.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("And soon, Mirri lets out a muffled cry, her whole body shuddering as she reaches her climax. Her tight throat pushes you over the edge as well, your {pc.penis} throbbing in her mouth while shooting thick ropes of {pc.cum}, one after another. She eagerly swallows every drop while you are busy swallowing her juices, the overstimulation made her pussy squirt all over your face..")
 
 			saynn("After both of your orgasms are over, Mirri pulls her mouth off of your cock and purrs contentedly while licking her lips.")
@@ -670,9 +670,9 @@ func _react(_action: String, _args):
 
 	if(_action == "begin_feast"):
 		processTime(10*60)
-		GM.pc.addPain(-500)
-		GM.pc.addStamina(500)
-		GM.pc.addLust(10)
+		ServiceLocator.safe_get_service(&"Player").addPain(-500)
+		ServiceLocator.safe_get_service(&"Player").addStamina(500)
+		ServiceLocator.safe_get_service(&"Player").addLust(10)
 
 	if(_action == "luxe_feels_bad"):
 		processTime(20*60)
@@ -688,13 +688,13 @@ func _react(_action: String, _args):
 
 	if(_action == "69_cum"):
 		processTime(3*60)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			getCharacter("mirri").cummedInMouthBy("pc")
 		else:
 			getCharacter("mirri").cummedInMouthBy("pc", FluidSource.Vagina, 0.8)
 			getCharacter("mirri").cummedOnBy("pc", FluidSource.Vagina, 0.2)
-		GM.pc.cummedInMouthBy("mirri", FluidSource.Vagina, 0.8)
-		GM.pc.cummedOnBy("mirri", FluidSource.Vagina, 0.2)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("mirri", FluidSource.Vagina, 0.8)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("mirri", FluidSource.Vagina, 0.2)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	setState(_action)

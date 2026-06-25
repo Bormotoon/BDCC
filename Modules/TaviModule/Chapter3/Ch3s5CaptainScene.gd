@@ -338,11 +338,11 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "surrender"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 		addExperienceToPlayer(200)
 
 	if(_action == "ending_surrendered"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		processTime(60*60*3)
 
 	if(_action == "first_fight"):
@@ -369,8 +369,8 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "startSolitary"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		runScene("Ch4s1SolitaryScene")
 		endScene()
 		return
@@ -413,7 +413,7 @@ func _react_scene_end(_tag, _result):
 		var battlestate = _result[0]
 		
 		if(battlestate == "win"):
-			GM.pc.addPain(200)
+			ServiceLocator.safe_get_service(&"Player").addPain(200)
 			setState("won_nova")
 			addExperienceToPlayer(200)
 		else:

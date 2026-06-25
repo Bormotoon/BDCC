@@ -488,7 +488,7 @@ func _run():
 
 		saynn("[say=pc]It's me, kitty. Get out of there. I won't hurt you.[/say]")
 
-		var rahiChildAmount = GM.CS.getChildrenAmountOf("rahi")
+		var rahiChildAmount = ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOf("rahi")
 		if (rahiChildAmount > 1):
 			saynn("You help Rahi get from under the bench. She is still wearing her inmate uniform and a collar around her neck. But.. you also notice her holding all her kittens and other cubs in her paws.. Yes, all "+str(rahiChildAmount)+" of them.. All of them are with her.. Somehow..")
 
@@ -895,7 +895,7 @@ func _react(_action: String, _args):
 	if(_action == "remove_collars"):
 		processTime(3*60)
 		getCharacter("tavi").getInventory().removeItemFromSlot(InventorySlot.Neck)
-		GM.pc.getInventory().removeItemFromSlot(InventorySlot.Neck)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.Neck)
 
 	if(_action == "tavi_calls_syndi"):
 		processTime(5*60)
@@ -930,11 +930,11 @@ func _react(_action: String, _args):
 		getCharacter("rahi").resetEquipment()
 
 	if(_action == "do_dream"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatecollar"))
 		getCharacter("tavi").resetEquipment()
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		endScene()
 		return
 

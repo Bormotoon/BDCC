@@ -58,7 +58,7 @@ func _run():
 		else:
 			addDisabledButton("Get pissed on", "(Watersports content is disabled) You would rather suffer the consequences")
 		addButton("Get marked", "Get Kait’s scent on you but not in a gross way", "get_marked")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["kait"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["kait"])
 
 	if(state == "get_pissed_on"):
 		# (piss version)
@@ -149,13 +149,13 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "get_pissed_on"):
-		GM.pc.pissedOnBy("kait")
-		GM.pc.addLust(20)
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("kait")
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
 	
 	if(_action == "get_marked"):
-		GM.pc.cummedOnBy("kait")
-		GM.pc.addLust(40)
-		GM.pc.addSkillExperience(Skill.CumLover, 30, "kait_getmarked")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("kait")
+		ServiceLocator.safe_get_service(&"Player").addLust(40)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.CumLover, 30, "kait_getmarked")
 
 	if(_action == "endthescene"):
 		endScene()

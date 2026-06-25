@@ -4,19 +4,19 @@ func _init():
 	sceneID = "PSTentaclesStart"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		playAnimation(StageScene.Solo, "stand")
@@ -37,7 +37,7 @@ func _run():
 	if(state == "wakeup"):
 		playAnimation(StageScene.GivingBirth, "idle", {pc="pc"})
 		aimCameraAndSetLocName("pstent_bed")
-		GM.pc.setLocation("pstent_bed")
+		ServiceLocator.safe_get_service(&"Player").setLocation("pstent_bed")
 		saynn("Your head hurts a little. A slow, throbbing ache is sitting behind your eyes.")
 
 		saynn("At least you're not dead.. but you really don't wanna open your eyes.. It sure looks like you have to.")
@@ -72,7 +72,7 @@ func _run():
 		addButton("Continue", "See what happens next", "start_main")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -80,12 +80,12 @@ func _react(_action: String, _args):
 
 	if(_action == "wakeup"):
 		processTime(60*57)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("Leotard"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("Leotard"))
 
 	if(_action == "skipStage"):
 		_tentacles.doSkipAction(_args[0])
 		endScene()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("Leotard"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("Leotard"))
 		runScene("PSTentaclesWalker")
 		return
 

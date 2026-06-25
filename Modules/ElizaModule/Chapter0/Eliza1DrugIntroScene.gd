@@ -187,7 +187,7 @@ func _run():
 		addButton("Follow", "Exit the lab", "exit_lab")
 	if(state == "exit_lab"):
 		aimCameraAndSetLocName("med_nearlab")
-		GM.pc.setLocation("med_nearlab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearlab")
 		saynn("You exit the lab with Quinn.")
 
 		saynn("[say=eliza]I'm gonna go get a coffee refill from the break room. I trust you will find the exit by yourself?[/say]")

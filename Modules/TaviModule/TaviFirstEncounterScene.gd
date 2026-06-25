@@ -21,7 +21,7 @@ func _run():
 
 		saynn("[say=tavi]I’m not a bully, I don’t beat inmates up.. for no reason, I treat everyone fairly. My name is Tavi. What’s yours?[/say]")
 
-		addButton("It's "+GM.pc.getName(), "Say your name", "sayname")
+		addButton("It's "+ServiceLocator.safe_get_service(&"Player").getName(), "Say your name", "sayname")
 
 	if(state == "sayname"):
 		saynn("[say=pc]I’m {pc.name}. What do you want?[/say]")
@@ -71,7 +71,7 @@ func _run():
 
 		saynn("[say=tavi]It means.. no lying to me.. no plotting against me.. simple. If my friend lies to me.. is that a good friend? I don’t think so. Are you gonna be loyal?[/say]")
 
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 			saynn("She also tugs on your head harness.")
 			saynn("[say=tavi]And I can help you with that too.[/say]")
 
@@ -99,7 +99,7 @@ func _run():
 
 		saynn("[say=tavi]I need a friend like you. A loyal friend. A friend that won’t lie to me. A friend that won’t snitch. Are you gonna be loyal?[/say]")
 
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 			saynn("She also tugs on your head harness.")
 			saynn("[say=tavi]And I can help you with that too.[/say]")
 
@@ -127,14 +127,14 @@ func _run():
 		
 		saynn("You feel her firm grasp and decide to comply. Without much resistance, you lower yourself and get on your knees before the tall cat. She can’t help but to smile and give you a few headpats.")
 
-		if(GM.pc.getGender() == Gender.Female):
+		if(ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Female):
 			saynn("[say=tavi]Good girl~[/say]")
-		elif(GM.pc.getGender() == Gender.Male):
+		elif(ServiceLocator.safe_get_service(&"Player").getGender() == Gender.Male):
 			saynn("[say=tavi]Good boy~[/say]")
 		else:
 			saynn("[say=tavi]Good little cutie~[/say]")
 			
-		#if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		#if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 		#	saynn("Tavi does something to your gag and the whole harness slips off of your head and falls onto the floor.")
 
 		#	saynn("[say=tavi]Can’t have you be gagged all the time~[/say]")
@@ -170,7 +170,7 @@ func _run():
 
 		saynn("[say=tavi]See? Wasn’t that hard, was it. I don’t mind brats as long as they behave when it matters~[/say]")
 
-		#if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		#if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 
 		#	saynn("Tavi does something to your gag and the whole harness slips off of your head and falls onto the floor.")
 
@@ -220,7 +220,7 @@ func _run():
 
 		saynn("[say=tavi]Wasn’t too hard, was it? I’m glad you picked the right choice. Since you are so prone to misbehave, there are gonna be rules for you.[/say]")
 
-		#if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		#if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 
 		#	saynn("Tavi does something to your gag and the whole harness slips off of your head and falls onto the floor.")
 
@@ -277,7 +277,7 @@ func _run():
 
 		saynn("You nod.")
 
-		#if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.Mouth) && GM.pc.isGagged()):
+		#if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.Mouth) && ServiceLocator.safe_get_service(&"Player").isGagged()):
 
 		#	saynn("Tavi does something to your gag and the whole harness slips off of your head and falls onto the floor.")
 
@@ -355,8 +355,8 @@ func _run():
 		saynn("Tavi throws the wet shorts away and keeps an eye contact with you as she stands to lower herself onto your face. She crouches, then kneels down, now giving you a great view at her slit. It almost seems pure, no abuse or anything, just a wet slit and a tight-looking anus of the same green color. You feel her wet pussy petals touch your face and begin to eagerly try to lick them again.")
 
 
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("As she sits down on your face, you can’t help but to sneak one of your hands down to your cage. You’re so turned on that your {pc.cock} leaks precum already. It’s useless but you begin to slowly stroke yourself, trying to get at least some stimulation.")
 			else:
 				saynn("As she sits down on your face, you can’t help but to sneak one of your hands down to your hard cock. You’re so turned on that it leaks precum already. You begin to slowly stroke yourself.")
@@ -365,10 +365,10 @@ func _run():
 
 			saynn("Little moans escape from your mouth.")
 
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("And your pussy is wet. Very wet. Your second hand joins the first and starts rubbing your little sensitive button.")
 
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("As she sits down on your face, you can’t help but to sneak one of your hands down to your crotch. Your digits find your sensitive button and begin to sneakily rub it. It just feels so good.")
 
 			saynn("[say=tavi]Don’t think I don’t see that~. But I will allow it.[/say]")
@@ -384,16 +384,16 @@ func _run():
 		saynn("You explore her soft depths, lapping at her green pussy walls and swallowing her girl fluids, enjoying seeing the tall cat quiver and hearing her moan. She then steals the initiative and pins you into the floor with her arms as she proceeds to grind her slit against your face and lips, moaning harder and harder, using you as a pleasure device.")
 
 
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("It’s so hot that you can’t help but to tease your chastity cage harder. Your shaft twitches under it and leaks a lot of precum, the balls beg for release.")
 			else:
 				saynn("It’s so hot that you can’t help but to stroke your cock harder. Your shaft twitches and leaks a lot of precum, the balls beg for release.")
 
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your other hand fingers your wet slit at a fast pace, causing it wet noises, it’s only a matter of time before you cum.")
 
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("It’s so hot that you can’t help but to push two of your digits inside your wet slit. While Tavi uses your face for her pleasure, you begin to finger yourself at a fast pace, pushing your digits in and out and pushing yourself closer to your climax.")
 
 		saynn("[say=tavi]Ah~.. Ready to swallow, my pet? Open your mouth for me.. mhm~[/say]")
@@ -401,13 +401,13 @@ func _run():
 		saynn("You obediently do it, your face is all covered in Tavi’s wetness already but she is clearly not done. She grinds herself close to her climax, moaning and panting heavily before raising her body slightly, giving you more breathing room. She then pins your head to the floor with one hand while pleasuring herself with the other. Her digits are mostly focused on her clit, she quickly rubs it from side to side, causing her legs to begin shaking and her whole body shivering. Only a few seconds pass before the waves of pleasure hit her body. She cums hard, arching her back and letting out some very passionate moans while her pussy contracts in an uneven rhythm. She was stimulated so much, her slit suddenly squirts, covering your face with her transparent girlcum, with some landing into your mouth.")
 
 
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Not too long after Tavi begins to climax, you do too. You pull your own shorts down so you don’t make a mess as you cum. Spurt after spurt of your semen lands on the floor nearby, you didn’t cum inside anyone but it’s still a great feeling to be used like this.")
 
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("And your pussy begins to spasm too from all the orgasmic waves hitting your body, your mind is begging for this moment to continue for as long as possible.")
 
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("And you quickly join her. Your fingers quickly get you to your own orgasm. You feel a wave after wave of pure ecstasy begin to overtake your body. Your muscles don’t listen, causing you to moan and shiver, your mind begging for this moment to continue for as long as possible.")
 
 		saynn("Eventually you both calm down though your hearts are still racing and Tavi is panting a lot. She slowly stands up and takes a look at the mess she left, smiling.")
@@ -422,7 +422,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "no1"):
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 		
 		addMessage("That was painful. You received 20 pain")
 		
@@ -432,15 +432,15 @@ func _react(_action: String, _args):
 		TaviModule.makeTaviAngry()
 	
 	if(_action in ["kneel", "submit", "submit1", "submit2"]):
-		if(GM.pc.freeMouthDeleteAll()):
+		if(ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()):
 			addMessage("Tavi does something to your gag and the whole harness slips off of your head and falls onto the floor.")
 	
 	if(_action == "obey"):
 		processTime(30*60)
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.cummedOnBy("tavi", FluidSource.Vagina)
-		GM.pc.cummedInMouthBy("tavi", FluidSource.Vagina)
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "tavi_firstencounter")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("tavi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("tavi", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "tavi_firstencounter")
 		addMessage("Tavi came on you, covering your body with her female juices")
 	
 	if(_action == "fight"):

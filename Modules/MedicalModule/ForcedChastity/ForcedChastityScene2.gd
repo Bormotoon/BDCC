@@ -7,7 +7,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="eliza", bodyState={naked=true}})
 		addCharacter("eliza")
 		
@@ -62,7 +62,7 @@ func _run():
 		saynn("Eliza also fetches the tube that she left on the table and steps behind you. You can’t turn your head around enough but you can guess that she opened it and got some onto her protected digits.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The excitement is killing you, your pussy becomes slightly aroused but it seems like Eliza is not planning to do anything with your flower. The scent is great though..")
 
 		saynn("[say=eliza]I will be touching you down there, don’t be afraid~.[/say]")
@@ -74,7 +74,7 @@ func _run():
 		saynn("[say=eliza]Wonder if you already did anything with your little star~.[/say]")
 
 		var anusLoosness = 0.0
-		var bodypartAnus = GM.pc.getBodypart(BodypartSlot.Anus)
+		var bodypartAnus = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Anus)
 		if(bodypartAnus != null):
 			var orifice = bodypartAnus.getOrifice()
 			if(orifice != null):
@@ -106,7 +106,7 @@ func _run():
 		saynn("[say=eliza]Good~. That’s your pleasure spot.[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your neglected pussy is so wet, the intimacy of the situation mixed with a professional hand is just too much.")
 
 		saynn("She stops going so hard on your prostate and instead rubs it with slow methodical motions, from left to right, from up to down, almost like she is trying to pump something through it. And it works, a single drop of precum leaks down your cage and onto your balls, soon followed by a few more. Eliza rests her chin on your shoulder and looks down at your member dripping through the cage.")
@@ -170,7 +170,7 @@ func _run():
 
 	if(state == "continue3"):
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		saynn("Doctor Quinn takes off the gloves and puts the lab coat on again before unchaining you.")
@@ -194,7 +194,7 @@ func _react(_action: String, _args):
 	
 	if(_action in ["everything_is_good", "ask_to_stop", "stay_silent"]):
 		processTime(5*60)
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 		
 		setFlag("MedicalModule.Chastity_Event2Choice2", _action)
 	

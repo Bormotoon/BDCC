@@ -6,7 +6,7 @@ func _init():
 	sceneID = "AvyTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["avy"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["avy"])):
 		endScene()
 		return
 
@@ -95,7 +95,7 @@ func _run():
 			
 		addButton("Rematch", "Fight one of your defeated opponents again", "rematchmenu")
 		addButton("Leave", "Gotta go", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["avy"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["avy"])
 
 	if(state == "rematchmenu"):
 		saynn("Who do you wanna rematch?")
@@ -236,12 +236,12 @@ func _react_scene_end(_tag, _result):
 			if(!FightClubModule.isFighterDefeated(savedFighterID)):
 				addExperienceToPlayer(arenaFighter.getWinExperience())
 				var addCredits = arenaFighter.getWinCredits()
-				GM.pc.addCredits(addCredits)
+				ServiceLocator.safe_get_service(&"Player").addCredits(addCredits)
 				addMessage("You received "+str(addCredits)+" "+Util.multipleOrSingularEnding(addCredits, "credit"))
 			else:
 				addExperienceToPlayer(arenaFighter.getRepeatWinExperience())
 				var addCredits = arenaFighter.getRepeatWinCredits()
-				GM.pc.addCredits(addCredits)
+				ServiceLocator.safe_get_service(&"Player").addCredits(addCredits)
 				addMessage("You received "+str(addCredits)+" "+Util.multipleOrSingularEnding(addCredits, "credit")+" for a rematch")
 				
 			FightClubModule.markFighterAsDefeated(savedFighterID)

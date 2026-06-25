@@ -116,7 +116,7 @@ func _run():
 		addButton("Continue", "See what happens next", "about_to_leave")
 	if(state == "about_to_leave"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_nearmilking")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_nearmilking")
 		saynn("Eliza helps you to get up. Your legs are still shaky.")
 
 		saynn("[say=eliza]Please come again later.[/say]")
@@ -142,8 +142,8 @@ func _react(_action: String, _args):
 
 	if(_action == "processCum"):
 		processTime(5*60)
-		amountCollected = GM.main.SCI.processMilkPlayerVagina()
-		GM.pc.orgasmFrom("eliza")
+		amountCollected = ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkPlayerVagina()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 
 	if(_action == "about_to_leave"):
 		processTime(3*60)

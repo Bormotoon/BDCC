@@ -174,7 +174,7 @@ func _react(_action: String, _args):
 
 
 	if(_action == "endthescene"):
-		GM.main.addRoomMemoryCurrentLoc("You remember humiliating Nova here not that long ago. Fun times", 3)
+		ServiceLocator.safe_get_service(&"MainScene").addRoomMemoryCurrentLoc("You remember humiliating Nova here not that long ago. Fun times", 3)
 		
 		endScene()
 		return

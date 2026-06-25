@@ -98,8 +98,8 @@ func _run():
 
 		addButton("Continue", "See what happens next", "in_cell")
 	if(state == "in_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		saynn("A few passing nurses and guards give you odd looks.. but no one dares to ask what it is that Eliza is carrying.")
 
 		saynn("She brings you back to your cell.")

@@ -23,7 +23,7 @@ func _run():
 		aimCameraAndSetLocName("medical_hospitalwards")
 		saynn("Your head.. hurts.. which makes you extremely happy for some reason. But that.. beeping noise.. is so annoying.. beep.. beep.. beep..")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence! AlphaCorp hopes that you are enjoying your stay here.")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence! AlphaCorp hopes that you are enjoying your stay here.")
 
 		saynn("You slowly open your eyes and notice.. that you're completely naked. Wait.. are those.. tentacles?.. penetrating your holes?.. You squint a little and realize that they're just plastic tubes that go from some medical machine to your nostrils. False alarm..")
 
@@ -91,7 +91,7 @@ func _run():
 		addButton("Continue", "See what happens next", "a_new_day")
 	if(state == "a_new_day"):
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence!")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence!")
 
 		saynn("It's the second day of you being here. And you feel.. fine? Better than before, that's for sure.")
 
@@ -211,7 +211,7 @@ func _run():
 		addButton("Continue", "See where she will bring you", "follow_eliza")
 	if(state == "follow_eliza"):
 		aimCameraAndSetLocName("med_lobbyne")
-		GM.pc.setLocation("med_lobbyne")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbyne")
 		saynn("The feline brings you out into the medical lobby before detaching the leash.")
 
 		saynn("[say=eliza]Well, good luck. I'm always here, behind the counter.[/say]")
@@ -230,14 +230,14 @@ func _react(_action: String, _args):
 		isFucked = getFlag("FightClubModule.GotFuckedByAvy", false)
 		isBeaten = getFlag("FightClubModule.GotDestroyedByAvy", false)
 		
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
-		GM.pc.afterCryopodTreatment()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"Player").afterCryopodTreatment()
 		processTime(60*60*2)
 
 	if(_action == "a_new_day"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 
 	if(_action == "ask_about_kait"):
 		processTime(3*60)

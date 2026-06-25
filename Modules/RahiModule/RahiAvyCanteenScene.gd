@@ -17,7 +17,7 @@ func _run():
 		saynn("[say=rahi]Most spots are taken and she doesn’t wanna sit near the reds..[/say]")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=pc]Well I’m a red as well.[/say]")
 
 			saynn("[say=rahi]You seem better than most reds.. Can she?..[/say]")
@@ -93,15 +93,15 @@ func _run():
 		saynn("The fox lets go of the feline’s collar and instead approaches you, she stands right behind you.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=avy]Is she your slut? Look at her, that little bitch has already found a new owner while I wasn’t looking. Wow.[/say]")
 
 		# (if general)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=avy]Oh yeah? And what are you gonna do?[/say]")
 
 		# (if pink)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=avy]A lilac toy is trying to tell me something? Shouldn’t your mouth be busy with staff cocks 24/7.[/say]")
 
 		saynn("[say=pc]I’m asking you.[/say]")
@@ -273,12 +273,12 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["avy"], "avyfight")
 
 	if(_action == "beg"):
-		GM.pc.addPain(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
 		addMessage("Ow, that was a painful lesson")
 		addExperienceToPlayer(50)
 		
 	if(_action == "aftermatch"):
-		GM.pc.addPain(-30)
+		ServiceLocator.safe_get_service(&"Player").addPain(-30)
 
 	if(_action == "endthescene"):
 		setModuleFlag("RahiModule", "Rahi_CanteenSceneHappened", true)

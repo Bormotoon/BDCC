@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TalkingToNPC, "alexrynard")
 	
 func run(_triggerID, _args):
-	if(GM.QS.isActive("Ch2AlexQuest") && !getFlag("TaviModule.ch2AlexTalkedTo")):
+	if(ServiceLocator.safe_get_service(&"QuestSystem").isActive("Ch2AlexQuest") && !getFlag("TaviModule.ch2AlexTalkedTo")):
 		addButtonUnlessLate("Mission", "You must figure out how to get to the bluespace transmitter", "startch2quest")
 
 func getPriority():
@@ -15,7 +15,7 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "startch2quest"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("Ch2a1AlexTalkScene")
 		setFlag("TaviModule.ch2AlexTalkedTo", true)
 

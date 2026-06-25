@@ -19,7 +19,7 @@ func _run():
 
 		addButton("Just leave", "She fought well, no need to humiliate her", "just_leave")
 		addButton("Fisting", "She wanted to fist you. Might as well repay her the favor", "fisting")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["rebel"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["rebel"])
 
 
 	if(state == "just_leave"):
@@ -147,7 +147,7 @@ func _run():
 
 func _react(_action: String, _args):
 	if(_action == "fisting"):
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rebel_fisther")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rebel_fisther")
 	
 	if(_action == "endthescene"):
 		endScene()

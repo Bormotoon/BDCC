@@ -18,7 +18,7 @@ func _run():
 		saynn("[say=femaleguard_feline]On your knees, hands behind your head. I won’t ask twice, inmate.[/say]")
 
 		# (if cuffed arms)
-		if(GM.pc.hasBoundArms()):
+		if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 			saynn("You rattle your chains for her.")
 
 			saynn("[say=pc]Can’t exactly do that.[/say]")
@@ -118,18 +118,18 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "obey"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 		
 	if(_action == "attack_her"):
-		GM.pc.addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
 		
-		for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
 			addMessage(item.getForcedOnMessage())
 
 	if(_action in ["cummedon"]):
 		processTime(60*6)
-		GM.pc.cummedOnBy("femaleguard_feline")
-		GM.pc.addLust(40)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("femaleguard_feline")
+		ServiceLocator.safe_get_service(&"Player").addLust(40)
 
 	if(_action == "endthescene"):
 		endScene()

@@ -134,7 +134,7 @@ func _react(_action: String, _args):
 			rahi.getInventory().equipItem(GlobalRegistry.createItem("ballgag"))
 			rahi.getInventory().equipItem(GlobalRegistry.createItem("bondagemittens"))
 		else:
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
 			addMessage("You receive an apple")
 
 	if(_action == "stop_task"):
@@ -162,7 +162,7 @@ func _react(_action: String, _args):
 			["a breeder pill", "BreederPill"],
 			]
 			var randomItem = RNG.pick(possibleItems)
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem(randomItem[1]))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem(randomItem[1]))
 			addMessage("You receive "+str(randomItem[0]))
 
 	if(_action == "hard_outcome"):
@@ -175,7 +175,7 @@ func _react(_action: String, _args):
 		else:
 			var creditAmount = randi_range(2, 5)
 			addMessage("You receive "+str(creditAmount)+" credits!")
-			GM.pc.addCredits(creditAmount)
+			ServiceLocator.safe_get_service(&"Player").addCredits(creditAmount)
 
 	setState(_action)
 

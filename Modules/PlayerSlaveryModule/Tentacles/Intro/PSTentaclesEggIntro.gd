@@ -4,25 +4,25 @@ func _init():
 	sceneID = "PSTentaclesEggIntro"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
-	addCharacter(GM.main.PS.getScientist1CharID())
-	addCharacter(GM.main.PS.getScientist2CharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		aimCameraAndSetLocName(_tentacles.LOC_SCIENTISTS)
-		playAnimation(StageScene.Duo, "stand", {pc=GM.main.PS.getScientist1CharID(), npc=GM.main.PS.getScientist2CharID()})
+		playAnimation(StageScene.Duo, "stand", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID(), npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()})
 		saynn("You approach the reinforced window, curious about the noise. On the other side of the thick glass is a brightly lit corridor.. and two figures who are watching you with great interest.")
 
 		saynn("On the right is a wolf with sharp, intelligent eyes. He sips from a steaming mug, his calculating gaze flicking over you.. before he says something to his colleague.")
@@ -123,7 +123,7 @@ func _run():
 
 		addButton("Look at it", "Do what they say", "do_approach_egg")
 	if(state == "do_approach_egg"):
-		GM.pc.setLocation(_tentacles.LOC_MIDDLE)
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_MIDDLE)
 		aimCameraAndSetLocName(_tentacles.LOC_MIDDLE)
 		playAnimation(StageScene.SoloBigEgg, "stand")
 		saynn("Carefully, you approach the new round object in the room.")
@@ -160,7 +160,7 @@ func supportsShowingPawns() -> bool:
 
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()

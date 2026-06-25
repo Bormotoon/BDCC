@@ -160,7 +160,7 @@ func _run():
 	if(state == "start_sentinel_intro"):
 		playAnimation(StageScene.Solo, "stand")
 		aimCameraAndSetLocName("eng_assemblylab")
-		GM.pc.setLocation("eng_assemblylab")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_assemblylab")
 		saynn("You quickly glance through all the documents for the last time, looking for any codes for the keypads. There doesn't seem to be any sadly. But, worst case, you just find something to smash the reinforced glass.")
 
 		saynn("Time to leave.")
@@ -281,10 +281,10 @@ func _run():
 		playAnimation(StageScene.SexCowgirl, "fast", {npc="pc", pc="sentinelx", pcCum=true, npcCum=true, bodyState={exposedCrotch=true,hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("Even though the android can't transform you.. it can still surely try.. Almost your whole body is now coated in this black shiny latex-like goo.. That keeps stimulating you with little bursts of electricity, making you more eager to ride it. Only your womb seems to still be untouched..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weirdly enough, instead of just coating your chastity cage, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Weirdly enough, instead of just coating your {pc.penis}, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
 		saynn("Very soon you find yourself bouncing on that cock while rubbing your body that feels so different.. Even your {pc.breasts} are all encased in this latex material that seems to.. make your nipples extremely sensitive.")
@@ -335,10 +335,10 @@ func _run():
 		playAnimation(StageScene.SexCowgirl, "fast", {npc="pc", pc="sentinelx", pcCum=true, npcCum=true, bodyState={exposedCrotch=true,hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("Even though the android can't transform you.. it can still surely try.. Almost your whole body is now coated in this black shiny latex-like goo.. That keeps stimulating you with little bursts of electricity, making you more eager to ride it. Only your depths seem to still be untouched..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weirdly enough, instead of just coating your chastity cage, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Weirdly enough, instead of just coating your {pc.penis}, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
 		saynn("Very soon you find yourself bouncing on that cock while rubbing your body that feels so different.. Even your {pc.breasts} are all encased in this latex material that seems to.. make your nipples extremely sensitive.")
@@ -383,7 +383,7 @@ func _run():
 
 		addButtonWithChecks("Vaginal", "It will fuck your pussy..", "sentinel_submit_pussy", [], [ButtonChecks.HasReachableVagina])
 		addButton("Anal", "It will fuck your ass..", "sentinel_submit_ass")
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Random", "Let it pick", "sentinel_submit_random")
 	if(state == "lost_sentinelx"):
 		playAnimation(StageScene.SexMissionary, "tease", {pc = "sentinelx", npc="pc", bodyState={exposedCrotch=true,hard=true}})
@@ -405,7 +405,7 @@ func _run():
 
 		addButtonWithChecks("Vaginal", "It will fuck your pussy..", "sentinel_submit_pussy", [], [ButtonChecks.HasReachableVagina])
 		addButton("Anal", "It will fuck your ass..", "sentinel_submit_ass")
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Random", "Let it pick", "sentinel_submit_random")
 	if(state == "sentinel_submit_pussy"):
 		playAnimation(StageScene.SexMissionary, "tease", {pc = "sentinelx", npc="pc", bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true,hard=true}})
@@ -424,10 +424,10 @@ func _run():
 		playAnimation(StageScene.SexMissionary, "fast", {pc = "sentinelx", npc="pc", bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true,hard=true}})
 		saynn("Even though the android can't transform you.. it can still surely try.. Gradually, your whole body gets coated in this black shiny latex-like goo.. Which keeps stimulating you with little bursts of electricity, adding to the sensations of being fucked by an android's cock. Only your womb seems to still be untouched..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weirdly enough, instead of just coating your chastity cage, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Weirdly enough, instead of just coating your {pc.penis}, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
 		saynn("Very soon you find yourself squirming hard while the machine holds you pinned, ramming its shaft deep inside.. The mask, gag and handcuffs make you unable to resist even if you wanted to.. but all the stimulation makes it so pleasurable, your inner walls clenching around that cock hard.. So much that its knot begins to grow and inflate..")
@@ -471,10 +471,10 @@ func _run():
 		playAnimation(StageScene.SexMissionary, "fast", {pc = "sentinelx", npc="pc", bodyState={exposedCrotch=true,hard=true}, npcBodyState={exposedCrotch=true,hard=true}})
 		saynn("Even though the android can't transform you.. it can still surely try.. Gradually, your whole body gets coated in this black shiny latex-like goo.. Which keeps stimulating you with little bursts of electricity, adding to the sensations of being fucked by an android's cock. Only your deep nethers seem to still be untouched..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Weirdly enough, instead of just coating your chastity cage, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Weirdly enough, instead of just coating your {pc.penis}, the black goo chooses to construct a little.. sphere around it.. and creating such a high amount of air pressure in it that your cock just.. gets forced to be limp.")
 
 		saynn("Very soon you find yourself squirming hard while the machine holds you pinned, ramming its shaft deep inside.. The mask, gag and handcuffs make you unable to resist even if you wanted to.. but all the stimulation makes it so pleasurable, your inner walls clenching around that cock hard.. So much that its knot begins to grow and inflate..")
@@ -542,11 +542,11 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "sentinel_ride_pussy_cum"):
-		GM.pc.cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
 		processTime(6*60)
-		GM.pc.gotVaginaFuckedBy("sentinelx")
-		GM.pc.cummedInVaginaBy("sentinelx")
-		GM.pc.orgasmFrom("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("sentinelx")
 
 	if(_action == "sentinel_ride_pussy_debait"):
 		processTime(3*60)
@@ -560,11 +560,11 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "sentinel_ride_ass_cum"):
-		GM.pc.cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
 		processTime(6*60)
-		GM.pc.gotAnusFuckedBy("sentinelx")
-		GM.pc.cummedInAnusBy("sentinelx")
-		GM.pc.orgasmFrom("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("sentinelx")
 
 	if(_action == "sentinel_ride_ass_debait"):
 		processTime(3*60)
@@ -577,21 +577,21 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "sentinel_submit_pussy_cum"):
-		GM.pc.cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
 		processTime(6*60)
-		GM.pc.gotVaginaFuckedBy("sentinelx")
-		GM.pc.cummedInVaginaBy("sentinelx")
-		GM.pc.orgasmFrom("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("sentinelx")
 
 	if(_action == "sentinel_submit_ass_fuck"):
 		processTime(5*60)
 
 	if(_action == "sentinel_submit_ass_cum"):
-		GM.pc.cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("sentinelx", FluidSource.Penis, 0.5)
 		processTime(6*60)
-		GM.pc.gotAnusFuckedBy("sentinelx")
-		GM.pc.cummedInAnusBy("sentinelx")
-		GM.pc.orgasmFrom("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("sentinelx")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("sentinelx")
 
 	setState(_action)
 

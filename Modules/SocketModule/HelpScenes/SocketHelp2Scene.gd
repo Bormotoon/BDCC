@@ -213,7 +213,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "unlock_fast_travel")
 	if(state == "unlock_fast_travel"):
-		GM.pc.setLocation("main_bathroom1")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bathroom1")
 		saynn("Socket takes a better look at the vent. Then she pulls out her datapad and takes a look at some kind of map.")
 
 		saynn("[say=socket]These vents seem to be all over the prison. Maybe I could overhaul them into a.. a quick transportation system of sorts? I would have to modify each vent and connect them all into a network.. but I think it's doable![/say]")
@@ -332,7 +332,7 @@ func _run():
 
 		addButton("Leave", "Time to go", "unlock_fasttravel_rough")
 	if(state == "unlock_fasttravel_rough"):
-		GM.pc.setLocation("main_bathroom1")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bathroom1")
 		saynn("Although, before you leave completely, you take one last look at the vent.")
 
 		saynn("Hmm.. You have seen many of them throughout the station. They're all probably connected into one network. Maybe you can use them as a.. quick transportation system of sorts. Socket would probably be able to modify them to allow for that.. after she gets out of the precarious state that she is in.")
@@ -714,16 +714,16 @@ func _react(_action: String, _args):
 
 	if(_action == "help_socket"):
 		processTime(10*60)
-		GM.pc.addStamina(-30)
-		GM.pc.addLust(20)
-		GM.pc.addPain(10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(10)
 
 	if(_action == "help_lewd_socket"):
 		processTime(5*60)
 
 	if(_action == "socket_help_actually"):
 		processTime(10*60)
-		GM.pc.addStamina(-30)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-30)
 
 	if(_action == "socket_rough_pussy"):
 		processTime(60*3)

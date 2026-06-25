@@ -191,7 +191,7 @@ func _run():
 		addButton("Continue", "See what happens next", "cock_leave_pick")
 	if(state == "cock_leave_vag"):
 		playAnimation(StageScene.Choking, "tease", {pc="tavi", npc="pc", bodyState={naked=true,hard=true}, npcBodyState={naked=true}})
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Angry Tavi snaps her fingers which makes her green spots blind you for a second. And while you are confused, the feline grabs one of your legs and raises it high while already aligning her barbed cock with one of your holes.. your {pc.pussyStretch} pussy..")
 
 		else:
@@ -216,7 +216,7 @@ func _run():
 
 		saynn("[say=tavi]Clench more, bitch.. Or you will be bleeding from your neck too.[/say]")
 
-		saynn("Her voice is mean and dry, her mind seemingly corrupted by the desire. You would try to call to her senses.. but all you can do is be her unwilling fucktoy"+str(". Your cock is hard but only because your body is being stimulated" if GM.pc.hasReachablePenis() else "")+". What can you do..")
+		saynn("Her voice is mean and dry, her mind seemingly corrupted by the desire. You would try to call to her senses.. but all you can do is be her unwilling fucktoy"+str(". Your cock is hard but only because your body is being stimulated" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+". What can you do..")
 
 		addButton("Continue", "See what happens next", "cock_leave_vag_faster")
 	if(state == "cock_leave_vag_faster"):
@@ -244,10 +244,10 @@ func _run():
 
 		saynn("You can only gasp silently as Tavi's cock starts shooting cum directly into your babymaker. Strings of thick virile seed painting your insides white while also stuffing you to the brim. She grunts and shivers while holding your throat tightly, her claws drawing some blood out of your neck.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("There is so much pressure behind your chastity cage.. That your locked cock also explodes with waves after waves of your {pc.cum}, all of it wasted.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("There is so much pressure inside your own cock.. that it also explodes with waves after waves of your {pc.cum}, all of it wasted.")
 
 		saynn("You're not even sure if you are orgasming or not. Corners of your vision are extremely dark.. but what you see.. is all rainbow-y and flashy, changing colors with various patterns. You feel high.. about to black out..")
@@ -296,7 +296,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "cock_leave_anal"):
 		playAnimation(StageScene.Choking, "tease", {pc="tavi", npc="pc", bodyState={naked=true,hard=true}, npcBodyState={naked=true}})
-		if (GM.pc.isFullyNaked()):
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Angry Tavi snaps her fingers which makes her green spots blind you for a second. And while you are confused, the feline grabs one of your legs and raises it high while already aligning her barbed cock with your fuckhole.. your {pc.anusStretch} anus..")
 
 		else:
@@ -321,7 +321,7 @@ func _run():
 
 		saynn("[say=tavi]Clench more, bitch.. Or you will be bleeding from your neck too.[/say]")
 
-		saynn("Her voice is mean and dry, her mind seemingly corrupted by the desire. You would try to call to her senses.. but all you can do is be her unwilling fucktoy"+str(". Your cock is hard but only because your prostate is being directly stimulated" if GM.pc.hasReachablePenis() else "")+". What can you do..")
+		saynn("Her voice is mean and dry, her mind seemingly corrupted by the desire. You would try to call to her senses.. but all you can do is be her unwilling fucktoy"+str(". Your cock is hard but only because your prostate is being directly stimulated" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+". What can you do..")
 
 		addButton("Continue", "See what happens next", "cock_leave_anal_faster")
 	if(state == "cock_leave_anal_faster"):
@@ -349,10 +349,10 @@ func _run():
 
 		saynn("You can only gasp silently as Tavi's cock starts shooting cum down your nethers. Strings of thick virile seed painting your insides white while also stuffing you to the brim. She grunts and shivers while holding your throat tightly, her claws drawing some blood out of your neck.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate got destroyed. There is so much pressure behind your chastity cage.. That your locked cock also explodes with waves after waves of your {pc.cum}, all of it wasted.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate got destroyed. There is so much pressure inside your own cock.. that it also explodes with waves after waves of your {pc.cum}, all of it wasted.")
 
 		saynn("You're not even sure if you are orgasming or not. Corners of your vision are extremely dark.. but what you see.. is all rainbow-y and flashy, changing colors with various patterns. You feel high.. about to black out..")
@@ -589,15 +589,15 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "submit_vag"):
 		playAnimation(StageScene.SexFullNelson, "tease", {pc="tavi", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if (GM.pc.isFullyNaked()):
-			saynn("The moment you nod, a low-pitched giggle can be heard from her before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if GM.pc.hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if GM.pc.hasReachablePenis() else "")+".")
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
+			saynn("The moment you nod, a low-pitched giggle can be heard from her before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+".")
 
 		else:
 			saynn("The moment you nod, Tavi snaps her fingers again, causing your clothes to dissolve too!")
 
 			saynn("[say=pc]How did you..[/say]")
 
-			saynn("A low-pitched giggle can be heard from her seconds before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if GM.pc.hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if GM.pc.hasReachablePenis() else "")+".")
+			saynn("A low-pitched giggle can be heard from her seconds before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+".")
 
 		saynn("Holding you like means.. that Tavi is.. strong.. way stronger than she usually is.")
 
@@ -616,10 +616,10 @@ func _run():
 
 		saynn("More little gasps escape from you as Tavi begins to move her hips while holding you still in the air, her arms trapping you into this submissive position of a fucktoy. She has a feline member between her legs but her barbs are still soft, just gently combing your slick inner walls.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though she is fucking your pussy, your caged dick up still tries to get hard from the indirect stimulation and your aroused state. So cute to see it flapping around as she rails you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even though she is fucking your pussy, your dick still gets hard and starts leaking precum from the indirect stimulation and your aroused state. So cute to see it flapping around as she rails you.")
 
 		saynn("Little growls escape from the feline behind you as she gradually increases the pace, pounding your pussy harder and even reaching your cervix, the inner barricade that defends your womb.")
@@ -633,10 +633,10 @@ func _run():
 		playAnimation(StageScene.SexFullNelson, "inside", {pc="tavi", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("And just before you do, Tavi gets a better grip on your limbs before doing a last powerful thrust, shoving her cock so deep, the barbed tip breaks into your womb and begins scratching at its wall, trying to cause a reaction.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your poor locked up cock starts wasting its load, shooting little strings of seed through the hole in the chastity cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your {pc.penis} is twitching while wasting its load, shooting strings of seed, all of them landing on the floor. Someone will have to clean them up with their tongue..")
 
 		saynn("Your cries of pleasure fill the air, most of your muscles tensing up, including your pussy ones, squeezing Tavi's cock so much that she follows soon after.")
@@ -663,21 +663,21 @@ func _run():
 		addButton("Continue", "That was nice", "endthescene")
 	if(state == "submit_anal"):
 		playAnimation(StageScene.SexFullNelson, "tease", {pc="tavi", npc="pc", bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
-		if (GM.pc.isFullyNaked()):
-			saynn("The moment you nod, a low-pitched giggle can be heard from her before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if GM.pc.hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if GM.pc.hasReachablePenis() else "")+".")
+		if (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
+			saynn("The moment you nod, a low-pitched giggle can be heard from her before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+".")
 
 		else:
 			saynn("The moment you nod, Tavi snaps her fingers again, causing your clothes to dissolve too!")
 
 			saynn("[say=pc]How did you..[/say]")
 
-			saynn("A low-pitched giggle can be heard from her seconds before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if GM.pc.hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if GM.pc.hasReachablePenis() else "")+".")
+			saynn("A low-pitched giggle can be heard from her seconds before she suddenly grabs you and pretty much folds you in half, grabbing your legs under the knees and pinning them to your shoulders before reaching further and interlocking her fingers behind your neck, forcing you into this extremely vulnerable position where your "+str("fuckable holes" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "only fuckable hole")+" are on full display"+str(", just like your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+".")
 
 		saynn("Holding you like means.. that Tavi is.. strong.. way stronger than she usually is.")
 
 		saynn("Both of her arms are busy holding you.. so she just shifts your whole frame so that her barbed dick gets aligned with your {pc.anusStretch} tailhole. She whispers into your ear while you already feel the tip of her cock prodding your anal ring and spreading her precum around it.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("[say=tavi]I know you have a pussy~. I want this one. I will be gentle~.[/say]")
 
 		else:
@@ -694,10 +694,10 @@ func _run():
 
 		saynn("More little gasps escape from you as Tavi begins to move her hips while holding you still in the air, her arms trapping you into this submissive position of a fucktoy. She has a feline member between her legs but her barbs are still soft, just gently combing your slick inner walls.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged dick up desperately tries to get hard from your prostate being stimulated and your aroused state. So cute to see it flapping around as she rails you.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your dick gets hard and starts leaking precum from your prostate being stimulated and your aroused state. So cute to see it flapping around as she rails you.")
 
 		saynn("Little growls escape from the feline behind you as she gradually increases the pace, pounding your ass harder and reaching deeper and deeper, stretching your anus walls wide.")
@@ -711,10 +711,10 @@ func _run():
 		playAnimation(StageScene.SexFullNelson, "inside", {pc="tavi", npc="pc", pcCum=true, npcCum=true, bodyState={naked=true, hard=true}, npcBodyState={naked=true, hard=true}})
 		saynn("And just before you do, Tavi gets a better grip on your limbs before doing a last powerful thrust, shoving her cock so deep, the barbed tip begins scratching at your guts.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate gets absolutely destroyed, your poor locked up cock starts wasting its load, shooting little strings of seed through the hole in the chastity cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate gets absolutely destroyed, your {pc.penis} is twitching while wasting its load, shooting strings of seed, all of them landing on the floor. Someone will have to clean them up with their tongue..")
 
 		saynn("Your cries of pleasure fill the air, most of your muscles tensing up, including your anus ones, squeezing Tavi's cock so much that she follows soon after.")
@@ -797,7 +797,7 @@ func taviSpeak(normalSpeak, corruptSpeak, pureSpeak):
 	return normalSpeak
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "chastity_strapon_anal", [strapon])
 
@@ -822,7 +822,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "submit_pick"):
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			setState(RNG.pick(["submit_vag", "submit_anal"]))
 		else:
 			setState("submit_anal")
@@ -835,7 +835,7 @@ func _react(_action: String, _args):
 		processTime(3*60)
 
 	if(_action == "cock_leave_pick"):
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			setState("cock_leave_vag")
 		else:
 			setState("cock_leave_anal")
@@ -844,18 +844,18 @@ func _react(_action: String, _args):
 
 	if(_action == "cock_leave_vag_fuck"):
 		processTime(5*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
 
 	if(_action == "cock_leave_vag_faster"):
 		processTime(5*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
 
 	if(_action == "cock_leave_vag_cum"):
 		processTime(10*60)
-		GM.pc.gotVaginaFuckedBy("tavi")
-		GM.pc.cummedInVaginaBy("tavi")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina, "tavi")
 
 	if(_action == "leave_aftercare"):
 		processTime(20*60)
@@ -864,18 +864,18 @@ func _react(_action: String, _args):
 
 	if(_action == "cock_leave_anal_fuck"):
 		processTime(5*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
 
 	if(_action == "cock_leave_anal_faster"):
 		processTime(5*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
 
 	if(_action == "cock_leave_anal_cum"):
 		processTime(10*60)
-		GM.pc.gotAnusFuckedBy("tavi")
-		GM.pc.cummedInAnusBy("tavi")
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Anus, "tavi")
 
 	if(_action == "chastity_force_lock"):
 		processTime(3*60)
@@ -903,7 +903,7 @@ func _react(_action: String, _args):
 	if(_action == "chastity_anal_cum"):
 		processTime(3*60)
 		getCharacter("tavi").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		setFlag("TaviModule.Ch6TaviShouldHaveCock", false)
 		getCharacter("tavi").updateBodyparts()
 
@@ -912,13 +912,13 @@ func _react(_action: String, _args):
 
 	if(_action == "submit_vag_cum"):
 		processTime(5*60)
-		if(Species.Feline in GM.pc.getSpecies()):
-			if(GM.pc.forceOvulate()):
+		if(Species.Feline in ServiceLocator.safe_get_service(&"Player").getSpecies()):
+			if(ServiceLocator.safe_get_service(&"Player").forceOvulate()):
 				addMessage("Tavi's barbs forced you to ovulate because of your feline genes.")
 		
-		GM.pc.gotVaginaFuckedBy("tavi")
-		GM.pc.cummedInVaginaBy("tavi")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "submit_after"):
 		processTime(3*60)
@@ -931,14 +931,14 @@ func _react(_action: String, _args):
 	if(_action == "submit_anal_cum"):
 		processTime(5*60)
 		
-		GM.pc.gotAnusFuckedBy("tavi")
-		GM.pc.cummedInAnusBy("tavi")
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 
 	if(_action == "chastity_strapon_anal"):
 		processTime(3*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "chastity_strapon_anal_faster"):
 		processTime(3*60)
@@ -946,12 +946,12 @@ func _react(_action: String, _args):
 
 	if(_action == "chastity_strapon_anal_cum"):
 		processTime(3*60)
-		GM.pc.orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
 		setFlag("TaviModule.Ch6TaviShouldHaveCock", false)
 		getCharacter("tavi").updateBodyparts()
 
 	if(_action == "endthescene_unequipstrapon"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		endScene()
 		return
 

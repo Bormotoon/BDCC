@@ -11,7 +11,7 @@ func run(_triggerID, _args):
 		addButtonUnlessLate("Credits", "Ask if you can help somehow", "startpanties")
 	else:
 		if(!getFlag("PortalPantiesModule.Panties_GavePantiesToAlex")):
-			if(GM.pc.getInventory().hasItemID("plainPanties")):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("plainPanties")):
 				addButtonUnlessLate("Give panties", "Give Alex the female panties that he wanted", "givepanties")
 			else:
 				addDisabledButton("Give panties", "You don't have generic female panties in your inventory")
@@ -34,7 +34,7 @@ func onButton(_method, _args):
 	if(_method == "givepanties"):
 		runScene("AlexRynardPantiesQuestGivePanties")
 		setFlag("PortalPantiesModule.Panties_GavePantiesToAlex", true)
-		GM.pc.getInventory().removeXOfOrDestroy("plainPanties", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("plainPanties", 1)
 	if(_method == "alexpantieswtf"):
 		runScene("AlexRynardPantiesQuestWTFScene")
 		setFlag("PortalPantiesModule.Panties_FleshlightsAskedAlex", true)

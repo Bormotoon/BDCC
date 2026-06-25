@@ -41,5 +41,5 @@ func _init():
 	]
 
 func resetFlagsOnNewDay():
-	if(GM.main.getModuleFlag("NovaModule", "Nova_NotThereToday")):
-		GM.main.setModuleFlag("NovaModule", "Nova_NotThereToday", false)
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("NovaModule", "Nova_NotThereToday")):
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("NovaModule", "Nova_NotThereToday", false)

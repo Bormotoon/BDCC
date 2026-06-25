@@ -14,7 +14,7 @@ func _run():
 		addButton("Continue", "See what happens next..", "do_drag_pc_off")
 	
 	if(state == "do_drag_pc_off"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		playAnimation(StageScene.GivingBirth, "idle", {pc="pc"})
 		
 		saynn("After a less-than-comfy sleeping experience, you finally open your eyes.. and realize that you are somewhere else..")
@@ -38,40 +38,40 @@ func _react(_action: String, _args):
 			"main_green_corridor11",
 			"med_mental5",
 		]
-		GM.pc.setLocation(RNG.pick(possibleLocs))
+		ServiceLocator.safe_get_service(&"Player").setLocation(RNG.pick(possibleLocs))
 		processTime(randi_range(120, 300)*60)
 		
-		if(GM.pc.getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom)):
-			var panties:ItemBase = GM.pc.getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasSlotEquipped(InventorySlot.UnderwearBottom)):
+			var panties:ItemBase = ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItem(InventorySlot.UnderwearBottom)
 			if(!panties.isRestraint()):
 				if(RNG.chance(75)):
 					addMessage("Your "+panties.getVisibleName()+" were stolen..")
-					GM.pc.getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
+					ServiceLocator.safe_get_service(&"Player").getInventory().removeItemFromSlot(InventorySlot.UnderwearBottom)
 					pantiesStolen = true
 		if(RNG.chance(50)):
-			if(GM.pc.getCredits() > 5):
-				GM.pc.addCredits(randi_range(2, 5))
+			if(ServiceLocator.safe_get_service(&"Player").getCredits() > 5):
+				ServiceLocator.safe_get_service(&"Player").addCredits(randi_range(2, 5))
 				addMessage("A few of your credits were stolen..")
 		if(RNG.chance(50)):
 			for _i in range(randi_range(2, 6)):
-				GM.pc.addBodywritingRandom()
+				ServiceLocator.safe_get_service(&"Player").addBodywritingRandom()
 			addMessage("Your body has something scribbled on it..")
 		if(OPTIONS.isContentEnabled(ContentType.Watersports)):
 			if(RNG.chance(10)):
-				GM.pc.pissedOnBy("pc")
+				ServiceLocator.safe_get_service(&"Player").pissedOnBy("pc")
 				addMessage("What is that scent.. gross..")
-		if(GM.pc.canBeMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			if(RNG.chance(30)):
-				GM.pc.milk()
-				GM.pc.addEffect(StatusEffect.SoreNipplesAfterMilking)
+				ServiceLocator.safe_get_service(&"Player").milk()
+				ServiceLocator.safe_get_service(&"Player").addEffect(StatusEffect.SoreNipplesAfterMilking)
 				addMessage("You find your breasts.. less heavy..")
-		if(GM.pc.canBeSeedMilked()):
+		if(ServiceLocator.safe_get_service(&"Player").canBeSeedMilked()):
 			if(RNG.chance(30)):
-				GM.pc.orgasmFrom("pc")
+				ServiceLocator.safe_get_service(&"Player").orgasmFrom("pc")
 				addMessage("You feel.. spent..")
 		if(RNG.chance(20)):
-			GM.pc.doWound()
-			GM.pc.addPain(10)
+			ServiceLocator.safe_get_service(&"Player").doWound()
+			ServiceLocator.safe_get_service(&"Player").addPain(10)
 			addMessage("What are these.. teeth marks..")
 	
 	setState(_action)

@@ -47,7 +47,7 @@ func _run():
 			saynn("You stick your tongue out and pant slightly for Nova and bounce eagerly.")
 
 		# (if non naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=nova]So-o~.. Last time I checked, pets usually don’t wear any clothes, do they~?[/say]")
 
 			saynn("You tilt your head slightly. Then you look down at your clothes and back at Nova. You shake your head subtly.")
@@ -57,13 +57,13 @@ func _run():
 			saynn("She starts undressing you as you stand completely still. Nova {pc.undressMessageS}. Eventually, you are left with no clothing, your privates are all exposed. But that’s how a pet should look like.")
 
 			# (if non flat breasts)
-			if(GM.pc.hasNonFlatBreasts()):
+			if(ServiceLocator.safe_get_service(&"Player").hasNonFlatBreasts()):
 				saynn("You cover your {pc.breasts} a bit but Nova is quick to swat your hands away.")
 
 				saynn("[say=nova]Much better~[/say]")
 
 		# (if naked)
-		if(GM.pc.isFullyNaked()):
+		if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=nova]You came prepared, I see~. No clothes just like it should be, pets aren’t supposed to wear anything.[/say]")
 
 			saynn("Your privates are all exposed but you stand proudly as Nova gives you a few pats on the head. You nod to her words, it’s a fact that pets are usually naked.")
@@ -137,18 +137,18 @@ func _run():
 			saynn("[say=pc]Mew![/say]")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("To be honest, even just doing this makes you feel horny, your exposed {pc.cock} is trying to get hard while dripping precum onto the stone tiles as you crawl forward. A caged up pet is probably such a good sight.")
 			else:
 				saynn("To be honest, even just doing this makes you feel horny, your exposed {pc.cock} is hard as a rock and dripping precum onto the stone tiles as you crawl forward.")
 
 			# (if also vagina)
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your slit is wet too, you wouldn’t mind a good breeding about now maybe..")
 
 		# (if just vagina)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("To be honest, even just doing this makes you feel horny, your exposed pussy is shiny wet and drips juices onto the stone tiles as you crawl forward. A good pet breeding session doesn’t seem like that bad of an idea..")
 
 		addButton("Follow", "Keep walking behind", "follow1")
@@ -211,16 +211,16 @@ func _run():
 		saynn("[say=nova]So adorable.[/say]")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("One of the inmates reaches for your {pc.cock} and gently fondles your balls. You feel like you’re ready to cum there and now, your cock is twitching and leaking even more precum. Between the animal noises you begin to produce little moans.")
 
 			# (if has pussy)
-			if(GM.pc.hasVagina()):
+			if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("Your pussy and {pc.breasts} receive some attention too, you pant and squirm more as your slit leaks with more of your juices, practically begging to be used.")
 
 
 		# (else if has vagina)
-		elif(GM.pc.hasVagina()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The female inmate reaches for your slit and gently rubs the clit while the guy puts his hands on your {pc.breasts} and gives them a good squeeze.  Between the animal noises you begin to produce little moans, you pant and squirm more as your slit leaks with more of your juices, practically begging to be used.")
 
 		saynn("[say=nova]And so horny.[/say]")
@@ -512,9 +512,9 @@ func _run():
 		saynn("Your whole body starts to experience orgasmic convulsions, your legs shake, body shivers, you squirm under Nova while your pussy gets tighter around her cock and starts to squirt. Your inner walls clench around the canine member, milking it while the cervix becomes less rigid and opens up more. Your passionate moans can probably be heard from a long distance so Nova decides to help you and shoves her paw into your mouth for you to suck on.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your cock throbs and shoots a weak line of {pc.cum} through the hole in your chastity cage onto the stone pathway underneath you!")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your cock throbs and shoots a strong line of {pc.cum} onto the stone pathway underneath you!")
 
 		saynn("[say=nova]Oh fuck, your cunt is gonna make me cum.[/say]")
@@ -624,9 +624,9 @@ func _run():
 			saynn("You ruff playfully and crawl around Nova on all fours before stopping before her and turning around so she can see your {pc.masc} butt in full glory. You wiggle it eagerly and spread your rear legs more so she can get a look at your {pc.analStretch} star.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your chastity cage wiggles too as you do it. You are horny so much that you keep dripping onto the stone floor.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wiggles too as you do it. You are horny so much that you keep dripping onto the stone floor.")
 
 		# (if kitty)
@@ -634,9 +634,9 @@ func _run():
 			saynn("You purr softly and crawl around Nova on all fours, making sure to put as much elegance as you can into your paw and hip movement. Then stop before Nova and teasingly offer her a view of your {pc.analStretch} star. You wiggle your {pc.masc} butt and watch her with your eyes full of desire.")
 
 			# (if has cock)
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your chastity cage wiggles too as you do it. You are horny so much that you keep dripping onto the stone floor.")
-			elif(GM.pc.hasPenis()):
+			elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 				saynn("Your {pc.cock} wiggles too as you do it. You are horny so much that you keep dripping onto the stone floor.")
 
 		saynn("[say=nova]My little pet wants to be fucked, huh~. How can I say no to that.[/say]")
@@ -675,7 +675,7 @@ func _run():
 		saynn("She gets on one knee behind you and puts her paws on your {pc.thick} buttcheeks. She gives each one a few firm smacks, causing them to bounce and you to moan in anticipation. Then she spreads them open and takes a good look at your tailhole. You don’t even notice as you spread your legs more, just cause you feel so needy. Nova then stretches open your star with two digits and spits inside.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You are so aroused that your {pc.cock} is throbbing already and leaking pre, creating a little wet spot underneath.")
 
 		saynn("[say=nova]Hope you like doggystyle, slut~[/say]")
@@ -687,11 +687,11 @@ func _run():
 		saynn("With one steady movement, Nova starts forcing her canine cock down your {pc.analStretch} rearhole. The pointy head finds your pucker resisting at first but with one hard push it stretches your star wide and slides inside with relative ease, preparing your butt for more thick parts of the cock that come soon after.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You arch your back and feel how her {nova.penisSizeStr} cock starts pushing against the bumpy sensitive spot that is your prostate, causing you to let out a passionate moan and drip with more precum.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("It’s very filling, so much that you feel the inner wall stretching out and pressing on your g-spot, your wet slit looks smaller than it usually is but more spread open instead.")
 
 		saynn("You tilt your head down and keep making noises of pleasure while Nova shoves her cock deeper, until the knot part is stopped by your ring. Fuck it feels great, every time you clench you feel more pleasure from increased friction and feeling of your butt being stretched.")
@@ -701,7 +701,7 @@ func _run():
 		saynn("Nova starts pulling her cock out, leaving the empty space behind. Space that you really want to get filled again. You moan eagerly and drag your hips back along with her cock, trying to keep more of it. But just before she withdraws it completely, she instead shoves it back deep with full strength, causing you to fall forward even. It feels, you squirm around the cock and don’t even try to get up, just holding your ass up so Nova can fuck you raw.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You moan as your p-spot is squeezed so much that your cock leaks some of your {pc.cum}.")
 
 		saynn("[say=nova]Bet you love it~. I do. Breaking little pets down until they’re a complete mess, begging to be stuffed with my cum 24/7.[/say]")
@@ -709,7 +709,7 @@ func _run():
 		saynn("She doesn’t stop and switches to ravaging your tailhole at a steady pace, slowly stretching your inner walls to fit her knotted member. You bite your lip and focus on enjoying the pleasurable sensations. You feel Nova’s knot becoming bigger as it fills up with blood, it doesn’t even fit inside you anymore, your tight ring is keeping it out.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("With each her thrust, your poor little prostate is getting pounded again and again, forcing your {pc.cock} to leak more of your {pc.cum}. You’re not even touching yourself and your cock is getting milked just from anal sex.")
 
 		saynn("The husky lands a spank on your butt and stands pulling your ass back for each thrust. You welcome that and help her, moving your hips to meet Nova’s dick, forcing it deeper each time. The knot is putting quite a bit of pressure on your backdoor, you feel it slowly winning over you clenching. Nova starts to grunt and pant heavily, she seems to be quite close. And so are you.")
@@ -729,13 +729,13 @@ func _run():
 		saynn("Nova puts her hand onto your back and pins you still while she pounds your butt with slow but powerful thrusts, stretching you out even more. Eventually your ring gets stretched so much that her meaty orb slips inside, sending waves of sharp sensations throughout your body. You’re squirming and moaning like a slut, you’re so full.")
 
 		# (if has cock, say)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your metal chastity cage puts a lot of pressure on your poor cock. Your prostate gets milked so much that it sends you over the edge, your cock shoots many weak lines of {pc.cum} that all hit the floor. You have created a mess!")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your prostate gets milked so much that it sends you over the edge, your cock shoots many weak lines of {pc.cum} that all hit the floor. You have created a mess!")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your G-spot gets rubbed enough through the inner wall that it causes overstimulation, your cunt squirts with your juices even though it never received any stimulation. You’re such a buttslut!")
 
 		saynn("[say=nova]Oh fuck-k.[/say]")
@@ -794,43 +794,43 @@ func _react(_action: String, _args):
 	
 	if(_action == "vaginalCondom"):
 		usedCondom = true
-		GM.pc.gotVaginaFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("nova")
 		setState("fucking")
 		return
 	
 	if(_action == "vaginalNoCondom"):
 		usedCondom = false
-		GM.pc.gotVaginaFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("nova")
 		setState("fucking")
 		return
 	
 	if(_action == "vaginalcum"):
 		if(usedCondom):
-			var chance = GM.pc.useBestCondom()
-			condomBroke = getCharacter("nova").shouldCondomBreakWhenFucking(GM.pc, chance)
+			var chance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
+			condomBroke = getCharacter("nova").shouldCondomBreakWhenFucking(ServiceLocator.safe_get_service(&"Player"), chance)
 
 		if(!usedCondom || (usedCondom && condomBroke)):
-			GM.pc.cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
-			GM.pc.addSkillExperience(Skill.SexSlave, 20, "nova_petfuck")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("nova", {condomBroke=condomBroke, knotted=true})
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "nova_petfuck")
 		else:
-			GM.pc.addSkillExperience(Skill.SexSlave, 40, "nova_petfuck")
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "nova_petfuck")
 			addFilledCondomToLootIfPerk(getCharacter("nova").createFilledCondom())
 		
-		GM.pc.orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
 	
 	if(_action == "anal_fucking"):
-		GM.pc.gotAnusFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("nova")
 	
 	if(_action == "anal_get_knotted"):
-		GM.pc.gotAnusFuckedBy("nova")
-		GM.pc.cummedInAnusByAdvanced("nova", {knotted=true})
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusByAdvanced("nova", {knotted=true})
 		
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "nova_petfuck")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "nova_petfuck")
 		
-		GM.pc.orgasmFrom("nova")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nova")
 	
 	if(_action == "hissgrowl"):
-		GM.pc.addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
 	
 	if(_action == "meow"):
 		isPuppy = false
@@ -847,19 +847,19 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "oral"):
-		GM.pc.gotThroatFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("nova")
 		
 	if(_action == "outside"):
-		GM.pc.cummedOnBy("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10, "nova_petsuckcock")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10, "nova_petsuckcock")
 		
 	if(_action == "take_it"):
-		GM.pc.cummedInMouthBy("nova")
-		#GM.pc.cummedOnBy("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "nova_petsuckcock")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("nova")
+		#ServiceLocator.safe_get_service(&"Player").cummedOnBy("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "nova_petsuckcock")
 	
 	if(_action in ["oral", "anal_fucking", "vaginalcum"]):
-		GM.main.addRoomMemoryCurrentLoc("You notice some cum stains, a sign that somebody had sex here. Meow? Bark?", 1)
+		ServiceLocator.safe_get_service(&"MainScene").addRoomMemoryCurrentLoc("You notice some cum stains, a sign that somebody had sex here. Meow? Bark?", 1)
 	
 	setState(_action)
 

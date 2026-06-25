@@ -255,7 +255,7 @@ func _run():
 		setFlag("JackiModule.Jacki_StocksPunishedByPC", true)
 		setFlag("JackiModule.Jacki_StocksFingeredByPC", true)
 		
-		if(!GM.pc.hasPenis()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=pc]I don’t really have anything to stuff her ass with, I guess I will use my hands.[/say]")
 
 			saynn("The guard chuckles.")
@@ -270,7 +270,7 @@ func _run():
 
 			saynn("The guard chuckles")
 			
-			if(GM.pc.isWearingChastityCage()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("[say=femaleguard_feline]Are you sure it's not because you're wearing a cage~? But sure. I can offer my stun baton stick~[/say]")
 			else:
 				saynn("[say=femaleguard_feline]Sure, whatever floats your boat. I can offer my stun baton stick~[/say]")
@@ -409,7 +409,7 @@ func _run():
 
 		addButton("Intimidate", "That seems like the best way of handling it", "attack")
 		addButtonWithChecks("Break stocks", "Use your raw strength", "break_stocks", [], [[ButtonChecks.StatCheck, Stat.Strength, 10]])
-		if(GM.pc.getInventory().hasItemID("restraintkey")):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("restraintkey")):
 			addButton("Use a restraint key", "Unlock the stocks with the universal key that you have", "use_a_restraint_key")
 		else:
 			addDisabledButton("Use a restraint key", "You don't have one")
@@ -617,7 +617,7 @@ func _run():
 		removeCharacter("gymbully")
 		removeCharacter("gymbully2")
 		aimCameraAndSetLocName("main_bathroom1")
-		GM.pc.setLocation("main_bathroom1")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_bathroom1")
 		setFlag("JackiModule.Jacki_StocksSavedByPC", true)
 		playAnimation(StageScene.Duo, "stand", {npc="jacki"})
 		# (knows name = true)
@@ -698,20 +698,20 @@ func _react(_action: String, _args):
 	if(_action in ["continue1", "continue2"]):
 		if(!getFlag("JackiModule.Jacki_ch2GotEnslaved")):
 			addExperienceToPlayer(50)
-			GM.pc.addCredits(1)
+			ServiceLocator.safe_get_service(&"Player").addCredits(1)
 	
 	if(_action == "cum_inside"):
 		getCharacter("jacki").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 		
 	if(_action == "pull_out"):
-		GM.pc.orgasmFrom("jacki")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("jacki")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 	
 	if(_action == "make_her_cum"):
-		GM.pc.addLust(20)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").addLust(20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 	
 	if(_action == "help"):
 		getCharacter("jacki").resetEquipment()
@@ -720,14 +720,14 @@ func _react(_action: String, _args):
 		runScene("FightScene", ["gymbully"], "gymbullyjackistocksfight")
 		
 	if(_action == "use_a_restraint_key"):
-		GM.pc.getInventory().removeXOfOrDestroy("restraintkey", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("restraintkey", 1)
 	
 	if(_action == "bullies_cum"):
-		GM.pc.addLust(30)
+		ServiceLocator.safe_get_service(&"Player").addLust(30)
 		var jacki = getCharacter("jacki")
 		jacki.cummedInMouthBy("gymbully")
 		jacki.cummedInAnusBy("gymbully2")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10)
 	
 	if(_action == "endthescene"):
 		getCharacter("jacki").removeAllRestraints()

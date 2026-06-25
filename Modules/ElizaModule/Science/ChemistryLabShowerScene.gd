@@ -4,7 +4,7 @@ func _init():
 	sceneID = "ChemistryLabShowerScene"
 
 func _reactInit():
-	GM.main.SCI.doPCShower()
+	ServiceLocator.safe_get_service(&"MainScene").SCI.doPCShower()
 	processTime(10*60)
 
 func _run():
@@ -17,7 +17,7 @@ func _run():
 		saynn("Any mess that you had on you gets collected and filtered.")
 
 		addButton("Enough", "Enough showering", "endthescene")
-		if (GM.main.SCI.hasUpgrade("shower2")):
+		if (ServiceLocator.safe_get_service(&"MainScene").SCI.hasUpgrade("shower2")):
 			addButton("Douche", "Collect the fluids from inside your holes as well", "collect_inside")
 		else:
 			addDisabledButton("Douche", "You don't have the required upgrade installed")
@@ -35,7 +35,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "collect_inside"):
-		GM.main.SCI.doPCShowerInside()
+		ServiceLocator.safe_get_service(&"MainScene").SCI.doPCShowerInside()
 		processTime(10*60)
 
 	setState(_action)

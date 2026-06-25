@@ -17,9 +17,9 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "searchfleshlights"):
-		if(GM.pc.getLocation() in ["cellblock_orange_nearcell", "cellblock_lilac_nearcell"]):
-			GM.main.addMessage("You look around but unable to find anyone with your fleshlights. They might be in another block")
-			GM.main.reRun()
+		if(ServiceLocator.safe_get_service(&"Player").getLocation() in ["cellblock_orange_nearcell", "cellblock_lilac_nearcell"]):
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You look around but unable to find anyone with your fleshlights. They might be in another block")
+			ServiceLocator.safe_get_service(&"MainScene").reRun()
 		else:
 			runScene("PortalPantiesQuestCellblockScene")
 			setFlag("PortalPantiesModule.Panties_FleshlightsFoundFleshlights", true)

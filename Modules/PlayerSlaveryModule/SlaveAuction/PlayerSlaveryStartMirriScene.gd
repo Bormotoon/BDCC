@@ -350,7 +350,7 @@ func _react(_action: String, _args):
 
 	if(_action == "get_stripped"):
 		processTime(3*60)
-		GM.main.PSH.storePlayersItems()
+		ServiceLocator.safe_get_service(&"MainScene").PSH.storePlayersItems()
 		addMessage("All your items were safely stored")
 
 	if(_action == "get_tpd"):

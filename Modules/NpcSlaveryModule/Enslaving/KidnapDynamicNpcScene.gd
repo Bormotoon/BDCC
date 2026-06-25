@@ -94,8 +94,8 @@ func _run():
 		addButton("Bring to cell", "Store your slave", "bring_cell")
 	
 	if(state == "bring_cell"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Duo, "stand", {npc=npcID, npcBodyState={chains=[["normal", "neck", "scene", "floor"]]} })
 		
 		saynn("Despite {npc.his} resistance, you bring {npc.name} to your cell and then chain {npc.him} to the floor.")
@@ -147,8 +147,8 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "do_kidnap"):
-		GM.pc.getReputation().addRep(RepStat.Alpha, 0.2)
-		GM.pc.getReputation().handleSpecialEvent("enslavesomeone")
+		ServiceLocator.safe_get_service(&"Player").getReputation().addRep(RepStat.Alpha, 0.2)
+		ServiceLocator.safe_get_service(&"Player").getReputation().handleSpecialEvent("enslavesomeone")
 		if(_args.size() > 0):
 			getModule("NpcSlaveryModule").doEnslaveCharacter(npcID, _args[0])
 		else:

@@ -41,7 +41,7 @@ func _run():
 
 			addButton("Next rank!", "Progress the story further", "do_next_rank")
 		addButton("Leave", "Enough talking", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["mirri"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["mirri"])
 	if(state == "bidders_info"):
 		saynn("Next bidders will have these preferences:")
 
@@ -490,14 +490,14 @@ func _run():
 
 		saynn("[say=mirri]Mine to hurt.[/say]")
 
-		saynn("..but there is no time to process the pain before another leash follows, hitting your chest now"+str(" and making your {pc.breasts} jiggle.." if GM.pc.hasBigBreasts() else "")+".. and then another.. and another.. You cry out in shock, your body squirming and making the chains rattle, your {pc.feet} barely touching the ground.")
+		saynn("..but there is no time to process the pain before another leash follows, hitting your chest now"+str(" and making your {pc.breasts} jiggle.." if ServiceLocator.safe_get_service(&"Player").hasBigBreasts() else "")+".. and then another.. and another.. You cry out in shock, your body squirming and making the chains rattle, your {pc.feet} barely touching the ground.")
 
 		saynn("[say=mirri]Mine to own.[/say]")
 
-		if (GM.pc.hasPenis()):
-			saynn("The last strike hits your {pc.thick} {pc.masc} thighs, forcing you to close your legs tightly. You feel the blood rushing down to your"+str(" locked" if GM.pc.isWearingChastityCage() else "")+" cock"+str(" and pussy slit" if GM.pc.hasVagina() else "")+"..")
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("The last strike hits your {pc.thick} {pc.masc} thighs, forcing you to close your legs tightly. You feel the blood rushing down to your"+str(" locked" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+" cock"+str(" and pussy slit" if ServiceLocator.safe_get_service(&"Player").hasVagina() else "")+"..")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The last strike hits your {pc.thick} {pc.masc} thighs, forcing you to close your legs tightly. You feel the blood rushing down to your pussy slit..")
 
 		else:
@@ -535,7 +535,7 @@ func _run():
 
 		saynn("[say=mirri]And you seem to like it just as much as me.[/say]")
 
-		saynn("Her other hand is dragging the tips of the whip between your legs.. dangerously close to your most sensitive areas.."+str(" Your pussy dripping like it's a small fountain by now.." if GM.pc.hasReachableVagina() else "")+""+str(" Your cock hard as a rock, swaying from the constant squirming.." if GM.pc.hasReachablePenis() else "")+""+str(" Your caged up toy is leaking in its little prison.." if GM.pc.isWearingChastityCage() else "")+"")
+		saynn("Her other hand is dragging the tips of the whip between your legs.. dangerously close to your most sensitive areas.."+str(" Your pussy dripping like it's a small fountain by now.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str(" Your cock hard as a rock, swaying from the constant squirming.." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+""+str(" Your caged up toy is leaking in its little prison.." if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+"")
 
 		saynn("She forces eye contact with her claws and then grins.")
 
@@ -570,10 +570,10 @@ func _run():
 
 		saynn("She brings the whip down one final time, leather snapping against your most vulnerable spot..")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("The crack of the whip lands square on your dangling balls, sending a shockwave of pain through your entire body. Your knees buckle and give up, making you dangle off of the chains, your mind blanking as a sudden orgasm rips through you, your {pc.penis} pulsing and spilling {pc.cum} helplessly under her control.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The whip tails strike your pussy exactly, the sharp stings sending a jolt of pain through your entire body. Your knees buckle and give up, making you dangle off of the chains, your mind blanking as a sudden orgasm rips through you, your thighs quivering as your slit releases a torrent of slick wetness down onto the floor..")
 
 		else:
@@ -997,10 +997,10 @@ func _run():
 
 		saynn("She crouches down near you.")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("[say=mirri]Maybe next time I will press it against something else.. Like your cock. Bet you'd be a real obedient little puppy then, won't you?[/say]")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("[say=mirri]Maybe next time I will press it against something else.. Like your cunt. Bet you'd be a real obedient little puppy then, won't you?[/say]")
 
 		else:
@@ -1118,7 +1118,7 @@ func _run():
 	if(state == "subwalkies_donothing"):
 		playAnimation(StageScene.Solo, "defeat", {pc="nova"})
 		removeCharacter("mirri")
-		GM.pc.setLocation("yard_northCorridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_northCorridor")
 		saynn("You decide to see how this will play out.")
 
 		saynn("Mirri frowns at you.. really hard. But you just shrug with your shoulders.")
@@ -1270,10 +1270,10 @@ func _run():
 
 		saynn("[say=mirri]That's what a good bitch gets.[/say]")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Each thrust is rough and deliberate, the thick toy pressing against your prostate, sending waves of pleasure through your body. You try to stay quiet.. but the sensation is overwhelming, your {pc.penis} stiffens and throbs, leaking pre onto the floor as Mirri rails your ass, the knot teasing but never quite pushing in all the way.")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Each thrust is rough and deliberate, the thick toy subtly massaging your pleasure spot through the inner wall, sending waves of pleasure through your body. You try to stay quiet.. but the sensation is overwhelming, your pussy dripping juices profusely as Mirri rails your ass, the knot teasing but never quite pushing in all the way.")
 
 		else:
@@ -1288,10 +1288,10 @@ func _run():
 
 		saynn("[say=mirri]My little puppy, begging to get knotted.[/say]")
 
-		if (GM.pc.hasPenis()):
-			saynn("You're panting now, the intense pleasure building with every thrust. The way the dildo rubs against your prostate makes it impossible to hold back. Your cock pulses"+str(" in its little cage" if GM.pc.isWearingChastityCage() else "")+", and before you can stop it, you cum hard, ropes of thick {pc.cum} shooting out, splattering onto the cold wooden floor beneath you. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting in your ass.")
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("You're panting now, the intense pleasure building with every thrust. The way the dildo rubs against your prostate makes it impossible to hold back. Your cock pulses"+str(" in its little cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+", and before you can stop it, you cum hard, ropes of thick {pc.cum} shooting out, splattering onto the cold wooden floor beneath you. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting in your ass.")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You're panting now, the intense pleasure building with every thrust. The way the fat dildo rubs your g-spot through the inner wall makes it impossible to hold back. Your {pc.vaginaStretch} pussy pulses, and before you can stop it, you cum hard, a shower of your girlcum shooting out, splattering onto the cold wooden floor beneath you. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting in your ass.")
 
 		else:
@@ -1304,10 +1304,10 @@ func _run():
 		addButton("Continue", "See what happens next", "subpuppy_ass_knot")
 	if(state == "subpuppy_ass_knot"):
 		playAnimation(StageScene.PuppySexAllFours, "inside", {pc="mirri", npc="pc", bodyState={exposedCrotch=true}, npcBodyState={naked=true, hard=true}, npcCum=true})
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("With one final push, she forces the whole length of the toy deep into your ass, stretching you to your limits, the knot locking inside you. The pressure sends you over the edge once more, your cock pulsing as another dribble of your seed leaks from your overstimulated body, coupled with a passionate moan.")
 
-		elif (GM.pc.hasVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("With one final push, she forces the whole length of the toy deep into your ass, stretching you to your limits, the knot locking inside you. The pressure sends you over the edge once more, your pussy clenching as another dribble of your girlcum leaks from your overstimulated body, coupled with a passionate moan.")
 
 		else:
@@ -1339,7 +1339,7 @@ func _run():
 
 		saynn("[say=mirri]That's what a good bitch gets.[/say]")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Each thrust is rough and deliberate, the thick toy pressing against your g-spot, sending waves of pleasure through your body. You try to stay quiet.. but the sensation is overwhelming, your {pc.penis} stiffens and throbs, leaking pre onto the floor as Mirri rails your cunt, the knot teasing but never quite pushing in all the way.")
 
 		else:
@@ -1354,8 +1354,8 @@ func _run():
 
 		saynn("[say=mirri]My little puppy, begging to get knotted.[/say]")
 
-		if (GM.pc.hasPenis()):
-			saynn("You're panting now, the intense pleasure building with every thrust. The way the dildo rubs against your pleasure spot makes it impossible to hold back. Your cock pulses"+str(" in its little cage" if GM.pc.isWearingChastityCage() else "")+", and before you can stop it, you cum hard, ropes of thick {pc.cum} shooting out, splattering onto the cold wooden floor beneath you, your pussy clenching hard around the silicon shaft. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting.")
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			saynn("You're panting now, the intense pleasure building with every thrust. The way the dildo rubs against your pleasure spot makes it impossible to hold back. Your cock pulses"+str(" in its little cage" if ServiceLocator.safe_get_service(&"Player").isWearingChastityCage() else "")+", and before you can stop it, you cum hard, ropes of thick {pc.cum} shooting out, splattering onto the cold wooden floor beneath you, your pussy clenching hard around the silicon shaft. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting.")
 
 		else:
 			saynn("You're panting now, the intense pleasure building with every thrust. The way the fat dildo rubs your g-spot makes it impossible to hold back. Your {pc.vaginaStretch} pussy pulses, and before you can stop it, you cum hard, a shower of your girlcum shooting out, splattering onto the cold wooden floor beneath you, your inner walls clench. Your whole body shudders as you're forced to ride the waves of your orgasm, every second is pure bliss, elevated by the relentless thrusting.")
@@ -1367,7 +1367,7 @@ func _run():
 		addButton("Continue", "See what happens next", "subpuppy_pussy_knot")
 	if(state == "subpuppy_pussy_knot"):
 		playAnimation(StageScene.PuppySexAllFours, "inside", {pc="mirri", npc="pc", bodyState={exposedCrotch=true}, npcBodyState={naked=true, hard=true}, npcCum=true})
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("With one final push, she forces the whole length of the toy deep into your slit, stretching you to your limits, the knot locking inside you, the tip breaking into your womb. The pressure sends you over the edge once more, your cock pulsing as another dribble of your seed leaks from your overstimulated body, coupled with a passionate moan.")
 
 		else:
@@ -1767,7 +1767,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "dom_hatefuck2_after")
 	if(state == "dom_hatefuck2_after"):
-		GM.pc.setLocation("market_nearmirri")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_nearmirri")
 		aimCameraAndSetLocName("market_nearmirri")
 		playAnimation(StageScene.Duo, "defeat", {npc="mirri", npcAction=["holdpistol", "res://Inventory/UnriggedModels/Pistol/Pistol.tscn"], npcBodyState={exposedCrotch=true}, bodyState={exposedCrotch=true, hard=true}})
 		saynn("Suddenly, she shoves you off, her body springing to life with a surge of energy that catches you completely off guard.")
@@ -2463,7 +2463,7 @@ func _run():
 
 		saynn("You chuckle and watch her walk away.")
 
-		GM.pc.setLocation("market_market")
+		ServiceLocator.safe_get_service(&"Player").setLocation("market_market")
 		setFlag("SlaveAuctionModule.customMirriGreeting", "You did NOT trick me. I was on top of it! I just played along like I said!")
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "dom_spank"):
@@ -2760,7 +2760,7 @@ func doDebugAction(_id, _args = {}):
 		getModule("SlaveAuctionModule").addRepCredits(int(_args["creds"]))
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "dom_straponfuck_puton", [strapon])
 
@@ -2844,23 +2844,23 @@ func _react(_action: String, _args):
 
 	if(_action == "subintro_teeth"):
 		processTime(5*60)
-		GM.pc.addLust(100)
+		ServiceLocator.safe_get_service(&"Player").addLust(100)
 
 	if(_action == "sub_painplay_chains"):
 		processTime(5*60)
-		GM.pc.doWound("mirri")
-		GM.pc.addPain(50)
+		ServiceLocator.safe_get_service(&"Player").doWound("mirri")
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
 
 	if(_action == "sub_painplay_panties"):
 		processTime(5*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
-		GM.pc.doWound("mirri")
-		GM.pc.addPain(50)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ballgag"))
+		ServiceLocator.safe_get_service(&"Player").doWound("mirri")
+		ServiceLocator.safe_get_service(&"Player").addPain(50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "sub_painplay_wakeup"):
 		processTime(60*60)
-		GM.pc.getInventory().clearSlot(InventorySlot.Mouth)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Mouth)
 
 	if(_action == "subpussy_table"):
 		processTime(5*60)
@@ -2876,8 +2876,8 @@ func _react(_action: String, _args):
 
 	if(_action == "subpussy_mirricum"):
 		processTime(3*60)
-		GM.pc.cummedOnBy("mirri", FluidSource.Vagina)
-		GM.pc.cummedInMouthBy("mirri", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("mirri", FluidSource.Vagina)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("mirri", FluidSource.Vagina)
 
 	if(_action == "subpussy_after"):
 		processTime(5*60)
@@ -2887,7 +2887,7 @@ func _react(_action: String, _args):
 
 	if(_action == "subpussy_peeactual"):
 		processTime(3*60)
-		GM.pc.cummedInMouthBy("mirri", FluidSource.Pissing)
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("mirri", FluidSource.Pissing)
 
 	if(_action == "subwalkies_suit"):
 		processTime(10*60)
@@ -2928,19 +2928,19 @@ func _react(_action: String, _args):
 
 	if(_action == "subpuppy_ass"):
 		processTime(5*60)
-		GM.pc.gotAnusFuckedBy("mirri")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("mirri")
 
 	if(_action == "subpuppy_pussy"):
 		processTime(5*60)
-		GM.pc.gotVaginaFuckedBy("mirri")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("mirri")
 
 	if(_action == "subpuppy_ass_fast"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "subpuppy_ass_knot"):
 		processTime(5*60)
-		GM.pc.gotAnusFuckedBy("mirri")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("mirri")
 
 	if(_action == "subpuppy_after_sex"):
 		processTime(5*60)
@@ -2948,11 +2948,11 @@ func _react(_action: String, _args):
 
 	if(_action == "subpuppy_pussy_fast"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "subpuppy_pussy_knot"):
 		processTime(5*60)
-		GM.pc.gotVaginaFuckedBy("mirri")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("mirri")
 
 	if(_action == "dom_start_fight"):
 		runScene("FightScene", ["mirri", "domFight"], "mirriFight")
@@ -3008,10 +3008,10 @@ func _react(_action: String, _args):
 			getCharacter("mirri").cummedInVaginaBy("pc")
 		else:
 			addFilledCondomToLootIfPerk(getCharacter("pc").createFilledCondom())
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_hatefuck_enough"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	if(_action == "dom_hatefuck2_fuck"):
 		processTime(10*60)
@@ -3023,7 +3023,7 @@ func _react(_action: String, _args):
 		processTime(10*60)
 		if(!isStrapon):
 			getCharacter("mirri").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_hatefuck2_after"):
 		processTime(5*60)
@@ -3040,25 +3040,25 @@ func _react(_action: String, _args):
 	if(_action == "dom_hatefuck3_cum"):
 		processTime(10*60)
 		getCharacter("mirri").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_hatefuck3_cum_strapon"):
 		processTime(10*60)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 		setState("dom_hatefuck3_cum")
 		return
 
 	if(_action == "endthescene_unequipstrapon"):
 		endScene()
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 		return
 
 	if(_action == "dom_straponfuck_puton"):
 		processTime(2*60)
 		isStrapon = true
 		var strapon = _args[0]
-		GM.pc.getInventory().removeItem(strapon)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 		var theFluids = strapon.getFluids()
 		if(theFluids != null):
 			if(theFluids.hasFluidType("Cum")):
@@ -3080,7 +3080,7 @@ func _react(_action: String, _args):
 	if(_action == "dom_straponfuck_fuck_cum"):
 		processTime(5*60)
 		getCharacter("mirri").cummedInVaginaBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_anal_fuck"):
 		processTime(5*60)
@@ -3091,12 +3091,12 @@ func _react(_action: String, _args):
 	if(_action == "dom_anal_cum"):
 		processTime(5*60)
 		getCharacter("mirri").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_anal_pullout"):
 		processTime(5*60)
 		getCharacter("mirri").cummedOnBy("pc")
-		GM.pc.orgasmFrom("mirri")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("mirri")
 
 	if(_action == "dom_rp_tie"):
 		processTime(5*60)

@@ -45,7 +45,7 @@ func _run():
 			addButtonWithChecks("Tribadism", "(Sex) This bed seems to be a good place for some kinky scissoring with Rahi..", "do_tribadism", [], [ButtonChecks.HasReachableVagina])
 			addButtonWithChecks("Reverse cowgirl", "(Sex) This bed seems to be a good place for some lewd times with Rahi..", "do_reversecowgirl", [], [ButtonChecks.HasReachablePenis])
 		if (getCharacter("rahi").canBeMilked()):
-			if (GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
+			if (ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump).size() > 0):
 				if (!getCharacter("rahi").hasEffect(StatusEffect.SoreNipplesAfterMilking)):
 					addButton("Breast pumps", "Use one of your breast pumps to milk Rahi's lactating breasts", "pick_breastpump")
 				else:
@@ -456,7 +456,7 @@ func _run():
 
 		addButton("Continue", "That was lewd", "endthescene")
 func addPumpButtons():
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.BreastPump)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.BreastPump)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), "milk_withpump", [pump])
 
@@ -468,8 +468,8 @@ func _react(_action: String, _args):
 
 	if(_action == "just_rest"):
 		processTime(10*60)
-		GM.pc.addStamina(50)
-		GM.pc.addPain(-50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(-50)
 		addMessage("That was a nice rest..")
 
 	if(_action == "give_massage"):
@@ -492,7 +492,7 @@ func _react(_action: String, _args):
 	if(_action == "milk_withpump"):
 		var pump = _args[0]
 		breastPumpID = pump.getUniqueID()
-		GM.pc.getInventory().removeItem(pump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(pump)
 		getCharacter("rahi").getInventory().forceEquipStoreOther(pump)
 
 	if(_action == "do_milk"):
@@ -501,25 +501,25 @@ func _react(_action: String, _args):
 		getCharacter("rahi").stimulateLactation()
 		var howMuchTransferred = getCharacter("rahi").getBodypart(BodypartSlot.Breasts).getFluids().transferTo(pump, 1.0)
 		addMessage("The pump managed to milk Rahi's breasts for "+str(Util.roundF(howMuchTransferred))+" ml")
-		GM.pc.addSkillExperience(Skill.Milking, 30)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 30)
 		getCharacter("rahi").addEffect(StatusEffect.SoreNipplesAfterMilking)
 		getCharacter("rahi").updateAppearance()
 
 	if(_action == "removepumpandend"):
 		var pump = getCharacter("rahi").getInventory().getItemByUniqueID(breastPumpID)
 		getCharacter("rahi").getInventory().removeEquippedItem(pump)
-		GM.pc.getInventory().addItem(pump)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(pump)
 		endScene()
 		return
 
 	if(_action == "tribadism_cum"):
 		processTime(5*60)
-		GM.pc.rubsVaginasWith("rahi")
-		GM.pc.orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").rubsVaginasWith("rahi")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
 
 	if(_action == "tribadism_pee"):
 		processTime(3*60)
-		GM.pc.pissedOnBy("rahi")
+		ServiceLocator.safe_get_service(&"Player").pissedOnBy("rahi")
 		getCharacter("rahi").pissedOnBy("pc")
 
 	if(_action == "reversecow_start"):
@@ -528,14 +528,14 @@ func _react(_action: String, _args):
 	if(_action == "reversecow_cuminside"):
 		processTime(10*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	if(_action == "reversecow_pullout"):
 		processTime(10*60)
 		getCharacter("rahi").cummedOnBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30)
 
 	setState(_action)
 

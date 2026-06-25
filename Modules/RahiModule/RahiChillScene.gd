@@ -84,7 +84,7 @@ func _run():
 
 	if(state == "continue"):
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		playAnimation(StageScene.Solo, "sit")
 		
 		saynn("She brings you to the little blue pond. Around you are a few bushes, stones and a bench. A little waterfall is going down from the top floor where the greenhouses are down into the pond, making it into more of a stream. Kitty takes her spot on the bench.")
@@ -190,7 +190,7 @@ func _run():
 
 	if(state == "bring_her_home"):
 		aimCameraAndSetLocName("cellblock_orange_nearcell")
-		GM.pc.setLocation("cellblock_orange_nearcell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_orange_nearcell")
 		playAnimation(StageScene.Solo, "walk")
 		
 		saynn("You decide not to mess with her sleep and carefully stand up while holding her. The kitten is quite light, probably the reason why she is so agile. You bring her back to the cellblock and look for her cell. Luckily they are numbered and the number corresponds to the one she has on her uniform. You enter her cell and gently put her into bed. You hide her bottle under the pillow and then cover the feline with a blanket. She doesn’t look to be too disturbed by the change of place, still snoozing away.")
@@ -209,11 +209,11 @@ func _react(_action: String, _args):
 		processTime(randi_range(3, 10)*60)
 	
 	if(_action == "take_a_sip"):
-		GM.pc.addIntoxication(0.3)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.3)
 		
 	if(_action == "bring_her_home"):
-		if(GM.pc.getPain() > 0):
-			GM.pc.addPain(-40)
+		if(ServiceLocator.safe_get_service(&"Player").getPain() > 0):
+			ServiceLocator.safe_get_service(&"Player").addPain(-40)
 			addMessage("That made you feel better")
 			
 		setModuleFlag("RahiModule", "Rahi_NotThereToday", true)

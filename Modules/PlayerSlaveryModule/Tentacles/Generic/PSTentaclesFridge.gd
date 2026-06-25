@@ -4,19 +4,19 @@ func _init():
 	sceneID = "PSTentaclesFridge"
 
 func _reactInit():
-	#addCharacter(GM.main.PS.getTentaclesCharID())
+	#addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 	pass
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		saynn("You open the fridge and see that it's stuffed full. Meat, veggies, fruits, snacks.. it all makes your mouth drool.")
@@ -33,7 +33,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
@@ -41,7 +41,7 @@ func _react(_action: String, _args):
 
 	if(_action == "doEatSnack"):
 		_tentacles.doTurn()
-		GM.pc.addPain(-50)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(-50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 
 	setState(_action)

@@ -118,7 +118,7 @@ func getFastTravelData():
 			buydesc = "Vent that bypasses the staff-only doors of the medical wing and leads to one of its corridors.",
 		}
 		# If can enter it normally
-		if(GM.QS.isCompleted("Ch2AlexQuest") || getFlag("AlexRynardModule.ch2CanEnterEngineering")):
+		if(ServiceLocator.safe_get_service(&"QuestSystem").isCompleted("Ch2AlexQuest") || getFlag("AlexRynardModule.ch2CanEnterEngineering")):
 			result["fastTravelEngBreakroom"] = {
 				cost = 25,
 				name = "Eng. break room",

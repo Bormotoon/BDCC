@@ -10,7 +10,7 @@ func registerTriggers(es):
 func react(_triggerID, _args):
 	if(getFlag("SocketModule.socketIntroduced")):
 		return false
-	if(GM.pc.getLevel() < 10 && !getFlag("PortalPantiesModule.Panties_FleshlightsReturnedToAlex") && !getFlag("PortalPantiesModule.Panties_PcDenied")):
+	if(ServiceLocator.safe_get_service(&"Player").getLevel() < 10 && !getFlag("PortalPantiesModule.Panties_FleshlightsReturnedToAlex") && !getFlag("PortalPantiesModule.Panties_PcDenied")):
 		return false
 		
 	setFlag("SocketModule.socketIntroduced", true)

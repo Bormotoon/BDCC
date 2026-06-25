@@ -463,7 +463,7 @@ func _run():
 		addButton("Follow", "See where she will bring you", "failed_follow")
 	if(state == "failed_follow"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", bodyState={leashedBy="eliza"}})
 		saynn("The elevator brings you back to the familiar floor.. Eliza walks you past the checkpoint.. and begins to take off the leash.")
 
@@ -639,7 +639,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_fail_cellblock")
 	if(state == "after_fail_cellblock"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", bodyState={leashedBy="eliza"}})
 		saynn("The elevator brings you back to the familiar floor.. Eliza walks you past the checkpoint.. and begins to take off the leash.")
 
@@ -999,7 +999,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_questions_end")
 	if(state == "after_questions_end"):
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", bodyState={leashedBy="eliza"}})
 		saynn("The elevator brings you back to the familiar floor.. Eliza walks you past the checkpoint.. and begins to take off the leash.")
 
@@ -1055,14 +1055,14 @@ func _react(_action: String, _args):
 
 	if(_action == "do_drink"):
 		processTime(3*60)
-		GM.pc.addPain(-100)
-		GM.pc.addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
 
 	if(_action == "do_not_drink"):
 		processTime(3*60)
 
 	if(_action == "blindfolded"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 		setState("challenge_start")
 		return
 
@@ -1082,7 +1082,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "accept_fail"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
 
 	if(_action == "pickWrongAns"):
 		setState("c_failed")
@@ -1090,7 +1090,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "won_remove_blindfold"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
 
 	if(_action == "after_questions_end"):
 		addMessage("Sex scenes with Eliza are now unlocked for successfully answering all her questions!")

@@ -31,7 +31,7 @@ func _run():
 		saynn("[say=tavi]Just playing with my pet~[/say]")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("One of her paws slides down to your {pc.cock} and starts teasing the tip. She then wraps her digits around your shaft and gives it a few strokes, helping you to get hard. You don’t wanna stop her..")
 
 		# (else if has vagina)
@@ -53,7 +53,7 @@ func _run():
 		saynn("The tall kitty purrs into your ear and lightly tugs on it with her teeth. She seems to be enjoying playing with you.")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Her paw has a grasp on your {pc.cock}, her big finger keeps rubbing the shaft to keep you hard.")
 
 		# (else)
@@ -69,7 +69,7 @@ func _run():
 		saynn("[say=tavi]Aww~. Really though?[/say]")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Her big thumb switches from rubbing the shaft to teasing the tip, going over exactly the spot where you pee from. It’s like she is.. tickling you there. You can’t help but to start squirming in her hands, the more she does it, the more your urge builds up. Tavi notices your reactions and purrs more deeply, she keeps rubbing your peehole non-stop until you start moaning.")
 
 		# (else)
@@ -86,9 +86,9 @@ func _run():
 		saynn("Your embarrassed gaze directed away, there is only so much teasing you can endure so you decide to let go..")
 
 		# (if has penis)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You let out a passionate moan before a stream of piss emerges from your cock. Tavi quickly moves away her thumb but she keeps her other digits wrapped around your chastity cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You let out a passionate moan before a stream of piss emerges from your cock. Tavi quickly moves away her thumb but she keeps her other digits wrapped around your member.")
 
 		# (else)
@@ -120,9 +120,9 @@ func _run():
 		saynn("You grunt a lot but you don’t leak a single drop. Tavi sees the efforts you went through and sighs. She stops teasing you.")
 
 		# (if dick)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Instead she switches to teasing. Her paw tugs and pulls on your {pc.cock} until it’s getting more hard under the chastity.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Instead she switches to stroking you off. Her paw slides along your {pc.cock} until it’s fully hard again.")
 
 		# (if else)
@@ -132,9 +132,9 @@ func _run():
 		saynn("[say=tavi]Awww. But I bet you would enjoy it.[/say]")
 
 		# (if dick)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You begin moaning for her. Tavi quickly reaches the full pace, she strokes and tugs on your cage so fast you think you won’t last for much longer. But just when you think you will go over your peak, Tavi suddenly stops, cutting off the supply of instant pleasure and causing you to squirm in desperation. Tavi welcomes it, she holds you still, hand on your cage, stroking it so slowly that it feels like a torture.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You begin moaning for her. Tavi quickly reaches the full pace, she strokes you so fast you think you won’t last for much longer. But just when you think you will go over your peak, Tavi suddenly stops, cutting off the supply of instant pleasure and causing you to squirm in desperation. Tavi welcomes it, she holds you still, hand on your cock, stroking you so slowly that it feels like a torture.")
 
 		# (else)
@@ -160,7 +160,7 @@ func _run():
 		saynn("[say=tavi]Well it’s a shame that you’re stuck with me then, pet~.[/say]")
 
 		# (if dick)
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("She begins stroking you off. Her paw slides along your {pc.cock}, catching any precum and spreading it along the full length.")
 
 		# (if else)
@@ -170,7 +170,7 @@ func _run():
 		saynn("[say=tavi]Because I can be mean when I don’t get what I want~.[/say]")
 
 		# (if dick)
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You can’t hold your moans from escaping. Tavi quickly reaches the full pace, she strokes you so fast you think you won’t last for much longer. But just when you think you will go over your peak, Tavi suddenly stops, cutting off the supply of instant pleasure and causing you to squirm in desperation. Tavi welcomes it, she holds you still, hand on your cock, stroking you so slowly that it feels like a torture.")
 
 		# (else)
@@ -196,14 +196,14 @@ func _react(_action: String, _args):
 		processTime(randi_range(5, 20)*60)
 	
 	if(_action == "let_it_happen"):
-		GM.pc.orgasmFrom("tavi")
-		GM.pc.addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("tavi")
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
 		
 	if(_action == "try_to_hold_it"):
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		
 	if(_action in ["no", "try_to_hold_it"]):
-		GM.pc.addLust(50)
+		ServiceLocator.safe_get_service(&"Player").addLust(50)
 	
 	if(_action == "endthescene"):
 		endScene()

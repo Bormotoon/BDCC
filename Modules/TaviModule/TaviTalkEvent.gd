@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "mining_taviroom")
 
 func run(_triggerID, _args):
-	if(!GM.main.getModuleFlag("TaviModule", "Tavi_IntroducedTo")):
+	if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IntroducedTo")):
 		return
 	
 	if(checkCharacterBusy("TaviBusy", "Seems like Tavi is not here", "Tavi")):

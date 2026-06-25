@@ -50,7 +50,7 @@ func _react(_action: String, _args):
 		var upgradeInfo = _args[1]
 		var curLevel:int = getFlag("SlaveAuctionModule."+upgradeID, 0)
 		var credsToRemove:int = upgradeInfo["prices"][curLevel]
-		GM.pc.addCredits(-credsToRemove)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-credsToRemove)
 		
 		getModule("SlaveAuctionModule").doBuyUpgrade(upgradeID)
 		addMessage("You bought the upgrade!")

@@ -486,7 +486,7 @@ func _run():
 		saynn("[say=alexrynard]Listen..[/say]")
 
 		# (if has reachable pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You cut him off by straddling his body, letting your {pc.pussyStretch} pussy rub against his length while the guy squirms ever so slightly underneath you.")
 
 		# (else)
@@ -535,11 +535,11 @@ func _run():
 		saynn("One of your hands jumps on the foxy’s shoulder while the second one helps guide his red veiny shaft towards your slit. You make him find your pussy hole before you proceed to lower yourself. No rush at all, foxy is busy staring at your {pc.masc} body while his dick spreads your pussy wide open. You envelop him enough to make you bite your lip.")
 
 		# (if chastity)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own dick is trying to get hard too but the cage keeps your erection nicely contained. It provides you with some extra sensations of pressure.")
 
 		# (elif has dick)
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.dick} is hard as a rock too, leaking pre onto the guy’s uniform.")
 
 		saynn("[say=pc]There we go~. Look, it wasn’t so bad.[/say]")
@@ -590,11 +590,11 @@ func _run():
 			saynn("And soon enough, his fat knot spreads your pussy enough to slip inside, putting an end to your bouncy adventures and forcing you to be his knot bitch. The guy grunts as your pussy squeezes his member so much that he gets pushed over the edge fast. His cock throbs, the tip is pressed against the womb entering as it starts painting the insides with white thick seed. Your own body joins this experience, you’re arching your back and moaning while your babymaker is getting stuffed full, your pulsating slit milking him hard.")
 
 		# (if chastity)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your dick throbs behind the cage too, barely managing to shoot some {pc.cum} through it, the thing is just too limiting, causing painful sensations even. But that’s what makes it fun.")
 
 		# (else if has dick)
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your dick throbs too, shooting out some thick strings of {pc.cum} that land on the guy’s belly, leaving a mess.")
 
 		saynn("[say=pc]Oh yeah~. I almost expected more resistance from you.[/say]")
@@ -634,11 +634,11 @@ func _run():
 		saynn("One of your hands jumps on the foxy’s shoulder while the second one helps guide his red veiny shaft towards your rear hole. You make him find your tailhole before you proceed to lower yourself. No rush at all, foxy is busy staring at your {pc.masc} body while his dick stretches your star wide open. You envelop him enough to make you bite your lip.")
 
 		# (if chastity)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own dick is trying to get hard too but the cage keeps your erection nicely contained. It provides you with some extra sensations of pressure.")
 
 		# (elif has dick)
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.dick} is hard as a rock too, leaking pre onto the guy’s uniform.")
 
 		saynn("[say=pc]There we go~. Look, it wasn’t so bad.[/say]")
@@ -683,11 +683,11 @@ func _run():
 			saynn("And soon enough, his fat knot spreads your star enough to slip inside, putting an end to your bouncy adventures and forcing you to be his knot bitch. The guy grunts as your anus squeezes his member so much that he gets pushed over the edge fast. His cock throbs, the tip is shoved deep inside as it starts painting the insides with white thick seed. Your own body joins this experience, you’re arching your back and moaning while your nethers are getting stuffed full, your pulsating fuckhole milking him hard.")
 
 		# (if chastity)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your dick throbs behind the cage too, barely managing to shoot some {pc.cum} through it, the thing is just too limiting, causing painful sensations even. But that’s what makes it fun.")
 
 		# (else if has dick)
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your dick throbs too, shooting out some thick strings of {pc.cum} that land on the guy’s belly, leaving a mess.")
 
 		saynn("[say=pc]Oh yeah~. I almost expected more resistance from you.[/say]")
@@ -752,24 +752,24 @@ func _react(_action: String, _args):
 	
 	if(_action == "force_knot_in"):
 		if(!usedCondom):
-			GM.pc.cummedInVaginaBy("alexrynard")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("alexrynard")
 			setFlag("AcePregExpac.Alex_CameInside", true)
 		else:
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
-		GM.pc.gotVaginaFuckedBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 	
 	if(_action == "force_knot_in1"):
 		if(!usedCondom):
-			GM.pc.cummedInAnusBy("alexrynard")
-			if(GM.pc.hasWombIn(BodypartSlot.Anus)):
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("alexrynard")
+			if(ServiceLocator.safe_get_service(&"Player").hasWombIn(BodypartSlot.Anus)):
 				setFlag("AcePregExpac.Alex_CameInside", true)
 		else:
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
-		GM.pc.gotAnusFuckedBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50)
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50)
 	
 	if(_action == "fight_foxy"):
 		runScene("FightScene", ["alexrynard"], "alexfight")
@@ -777,25 +777,25 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "startstocks"):
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		#runScene("StocksPunishmentScene")
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 	
 	if(_action == "follow"):
-		runScene("ParadedOnALeashScene", ["alexrynard", GM.pc.getLocation(), "main_punishment_spot", [
+		runScene("ParadedOnALeashScene", ["alexrynard", ServiceLocator.safe_get_service(&"Player").getLocation(), "main_punishment_spot", [
 		]])
 	
 	if(_action in ["ow", "seduce", "chokeout"]):
-		GM.pc.addPain(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(100)
 
 	if(_action in ["secure_loosely", "secure_tightly", "ow", "seduce", "more_pressure"]):
-		GM.pc.removeAllRestraints()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
 
 	if(_action == "attack"):
-		GM.pc.freeArmsDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeArmsDeleteAll()
 
 	if(_action == "endthescene"):
 		endScene()
@@ -819,8 +819,8 @@ func _react_scene_end(_tag, _result):
 		else:
 			setState("if_lost")
 			addExperienceToPlayer(20)
-			GM.pc.removeAllRestraints()
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
+			ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
 
 
 func saveData():

@@ -72,7 +72,7 @@ func _run():
 	if(state == "continue"):
 		setLocationName("Padded cell")
 		aimCamera("medical_paddedcell_player")
-		GM.pc.setLocation("medical_paddedcell_player")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_paddedcell_player")
 		playAnimation(StageScene.Solo, "kneel")
 		
 		saynn("You open your eyes.. Everything is so hazy.. You’re on the floor. But the floor is.. so soft..")
@@ -118,7 +118,7 @@ func _run():
 	if(state == "sleep"):
 		saynn("You get some good sleep. You open your eyes and realize that this wasn't a dream. You can't pinch your skin with that straitjacket on but everything is real, you're indeed stuck in a padded cell..")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence")
 		
 		addButton("Continue", "What next..", "startmental")
 		
@@ -138,7 +138,7 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "sleep"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	setState(_action)

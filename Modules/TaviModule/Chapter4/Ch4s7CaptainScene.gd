@@ -7,7 +7,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		GM.pc.setLocation("solitary_cell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("solitary_cell")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="tavi", npcAction="kneel", bodyState={naked=true}, npcBodyState={naked=true}})
 		aimCameraAndSetLocName("solitary_cell")
 		addCharacter("tavi", ["naked"])
@@ -286,11 +286,11 @@ func _run():
 		addButton("Continue", "See what happens next", "skar_raises_horse")
 	if(state == "skar_raises_horse"):
 		playAnimation(StageScene.WoodenHorseDuo, "idle", {npc="tavi", bodyState={naked=true}, npcBodyState={naked=true}})
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The triangle-shaped seat gets pressed against your sensitive lady parts. You can still just about reach the floor but you really have to put effort into standing on your toes. The moment you slip up, the sharp edge begins to put stress on your pussy lips, spreading them and then digging into the sensitive part.")
 
 		else:
-			saynn("The triangle-shaped seat gets pressed against your taint. You don't possess a pussy but it still provides enough discomfort for you"+str(" and your {pc.penis}" if GM.pc.hasPenis() else "")+". You can still just about reach the floor but you really have to put effort into standing on your toes. The moment you slip up, the sharp edge begins to put stress on your taint, bringing pain.")
+			saynn("The triangle-shaped seat gets pressed against your taint. You don't possess a pussy but it still provides enough discomfort for you"+str(" and your {pc.penis}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+". You can still just about reach the floor but you really have to put effort into standing on your toes. The moment you slip up, the sharp edge begins to put stress on your taint, bringing pain.")
 
 		saynn("You look at Tavi, she has to suffer a similar fate, her {tavi.breasts} bob slightly as her green glowing petals are being pressured by the wooden horse. She stares at you with her eyes full of hope.")
 
@@ -305,7 +305,7 @@ func _run():
 		addButton("Continue", "See what happens next", "skar_tortures")
 	if(state == "skar_tortures"):
 		playAnimation(StageScene.WoodenHorseDuo, "lightstruggle", {npc="tavi", bodyState={naked=true}, npcBodyState={naked=true}})
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The sharp edge digs into your pussy more. Fuck, you almost can't escape it anymore. You try to struggle but that just makes things worse, any motion causes you to lose touch with the ground and begin to put your full weight on the frame. You're getting somewhat wet from the little stimulation that you're getting but that doesn't help much, the discomfort is rising.")
 
 		else:
@@ -320,7 +320,7 @@ func _run():
 		addButton("Continue", "See what happens next", "more_torture")
 	if(state == "more_torture"):
 		playAnimation(StageScene.WoodenHorseDuo, "struggle", {npc="tavi", npcAction="lightstruggle", bodyState={naked=true}, npcBodyState={naked=true}})
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You throw your head back and let out a stifled noise as your pussy gets put under a lot of stress. You can't sit still, it's impossible, your body tries to struggle but that only leads to your pussy sliding over the sharp edge and getting stimulated more. And all the chains means you can't escape this precarious situation so easily, you're forced to endure the pain.")
 
 		else:
@@ -350,7 +350,7 @@ func _run():
 
 		saynn("Skar is leaning against the wall with his hands crossed, not paying too much attention. Now would be the best time to escape.. Or give up completely.")
 
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You gotta do it fast though.. Your pussy is beginning to feel irritated too.")
 
 		else:
@@ -359,37 +359,37 @@ func _run():
 		addButton("Continue", "See what happens next", "woodenhorse_loop")
 	if(state == "woodenhorse_loop"):
 		playAnimation(StageScene.WoodenHorseDuo, "lightstruggle", {npc="tavi", npcAction="lightstruggle", bodyState={naked=true}, npcBodyState={naked=true}})
-		var pcPain = GM.pc.getPainLevel()
+		var pcPain = ServiceLocator.safe_get_service(&"Player").getPainLevel()
 		if (pcPain <= 0.2):
-			if (GM.pc.hasVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("You feel your weight working against you, your sensitive slit is being put under a lot of pressure, causing discomfort. At least you can still kinda endure it. But for how much longer no one knows.")
 
 			else:
 				saynn("You feel your weight working against you, your taint area is being put under a lot of pressure, causing discomfort. At least you can still kinda endure it. But for how much longer no one knows.")
 
 		elif (pcPain <= 0.4):
-			if (GM.pc.hasVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("The discomfort is quickly rising, even the most simple motions echo back with your pussy getting more sore. You're enduring it as best as you can. Tavi is holding on too but you can hear her hissing occasionally.")
 
 			else:
 				saynn("The discomfort is quickly rising, even the most simple motions echo back with your crotch getting more sore. You're enduring it as best as you can. Tavi is holding on too but you can hear her hissing occasionally.")
 
 		elif (pcPain <= 0.6):
-			if (GM.pc.hasVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("It might seem like your pussy is getting stimulated while you fidget back and forth on that torture device but in reality the pain and discomfort are overpowerting any pleasure by a long shot. Random noises like cries and pleading escape from your mouth. Your slit looks quite irritated.")
 
 			else:
 				saynn("It might seem like your crotch area is getting stimulated while you fidget back and forth on that torture device but in reality the pain and discomfort are overpowerting any pleasure by a long shot. Random noises like cries and pleading escape from your mouth. The skin on your taint looks quite irritated.")
 
 		elif (pcPain <= 0.8):
-			if (GM.pc.hasVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("This is getting too much for you real fast. The constant pain that's coming from your pussy causes you to start arching your back which in turn brings more awful sensations. If you weren't begging before, you feel like you will start doing that soon. Tavi is not doing any better, her pussy slit got so irritated that it drips green glowing blood onto the frame.")
 
 			else:
 				saynn("This is getting too much for you real fast. The constant pain that's coming from your taint causes you to start arching your back which in turn brings more awful sensations. If you weren't begging before, you feel like you will start doing that soon. Tavi is not doing any better, her pussy slit got so irritated that it drips green glowing blood onto the frame.")
 
 		else:
-			if (GM.pc.hasVagina()):
+			if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 				saynn("The pain is almost unbearable, it's so bad that you can't even rest anymore. But at least you feel like it won't get any worse from now on. You grit your teeth while your pussy lips basically get cut by the sharp edge of that wooden horse. Tavi's eyes roll up while she grits her teeth too, she has given up resisting a long time ago, just counting seconds, hoping that this torture will end soon.")
 
 			else:
@@ -399,11 +399,11 @@ func _run():
 			addButton("Rest", "Try to rest and get some stamina back", "do_rest")
 		else:
 			addDisabledButton("Rest", "Too painful!")
-		if (GM.pc.getStamina() > 0):
+		if (ServiceLocator.safe_get_service(&"Player").getStamina() > 0):
 			addButton("Struggle", "Resist your restraints", "do_struggle")
 		else:
 			addDisabledButton("Struggle", "You don't have any strength left to struggle")
-		if (!GM.pc.hasBoundArms() && !GM.pc.hasBoundLegs()):
+		if (!ServiceLocator.safe_get_service(&"Player").hasBoundArms() && !ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 			addButton("Escape", "You can try to escape!", "do_escape")
 		else:
 			addDisabledButton("Escape", "Your must free your arms and legs")
@@ -478,7 +478,7 @@ func _run():
 		addButton("Continue", "See what happens next", "tavi_pc_escape")
 	if(state == "tavi_pc_escape"):
 		aimCameraAndSetLocName("hall_ne_corner")
-		GM.pc.setLocation("hall_ne_corner")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_ne_corner")
 		playAnimation(StageScene.Hug, "hug", {npc="tavi"})
 		removeCharacter("skar")
 		saynn("You and Tavi follow a series of corridors, looking for an exit out of this section of the station. Most of the doors don't open for you because you obviously lack access. After a few close ones where you almost got caught, you two stumble upon a catwalk that hangs over the main hall.")
@@ -657,7 +657,7 @@ func _run():
 		setFlag("TaviModule.Ch4TortureEnd", "gaveup")
 		saynn("This is too much. But it seems both you and Tavi have lost the will to struggle.")
 
-		if (GM.pc.hasVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your sensitive pussy lips and clit are both irritated to the point of this being extremely painful. What felt kinda kinky at first is now a torture. Desperate, you hump the contraption, spreading your pussy juices over it.")
 
 		else:
@@ -701,7 +701,7 @@ func _run():
 	if(state == "skar_lets_you_go"):
 		playAnimation(StageScene.Hug, "hug", {npc="tavi"})
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		removeCharacter("skar")
 		saynn("Skar helps you get down and then uncuffs you. As much as you would love to punch him, you know that you will instantly lose and probably serve another hour as a wooden horse rider.")
 
@@ -762,9 +762,9 @@ func _react(_action: String, _args):
 	if(_action == "skar_prepares"):
 		getCharacter("tavi").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 		getCharacter("tavi").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
-		GM.pc.removeAllRestraints()
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
 
 	if(_action == "skar_tortures"):
 		processTime(20*60)
@@ -773,8 +773,8 @@ func _react(_action: String, _args):
 		processTime(60*5)
 
 	if(_action == "do_rest"):
-		GM.pc.addPain(20)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		processTime(5*60)
 
 	if(_action == "do_struggle"):
@@ -783,7 +783,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "do_escape"):
-		GM.pc.addPain(-GM.pc.getPain())
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
 
 	if(_action == "fight_skar"):
 		runScene("FightScene", ["skar"], "skarfight")
@@ -802,14 +802,14 @@ func _react(_action: String, _args):
 
 	if(_action == "torture_happens"):
 		processTime(60*60)
-		GM.pc.doPainfullyStretchHole(BodypartSlot.Vagina)
+		ServiceLocator.safe_get_service(&"Player").doPainfullyStretchHole(BodypartSlot.Vagina)
 
 	if(_action == "torture_ends"):
 		processTime(60*90)
 
 	if(_action == "skar_lets_you_go"):
 		getCharacter("tavi").removeAllRestraints()
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 		addExperienceToPlayer(100)
 		addMessage("Task updated")
 		setFlag("TaviModule.Ch4ServedPunishment", true)
@@ -819,11 +819,11 @@ func _react(_action: String, _args):
 func _react_scene_end(_tag, _result):
 	if(_tag == "struggle"):
 		processTime(5*60)
-		GM.pc.addPain(20)
-		if(!skar_added_blindfold && GM.pc.getPainLevel() >= 0.5):
+		ServiceLocator.safe_get_service(&"Player").addPain(20)
+		if(!skar_added_blindfold && ServiceLocator.safe_get_service(&"Player").getPainLevel() >= 0.5):
 			skar_added_blindfold = true
 			addMessage("Skar notices you struggling against restraints and blindfolds you!")
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 		else:
 			addMessage("The wooden horse brings more pain to you")
 		setState("woodenhorse_loop")
@@ -840,10 +840,10 @@ func _react_scene_end(_tag, _result):
 		else:
 			setState("if_lost")
 			addExperienceToPlayer(20)
-			GM.pc.removeAllRestraints()
+			ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 			setFlag("TaviModule.Ch4TortureEnd", "lost")
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
-			GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
 
 func saveData():
 	var data = super.saveData()

@@ -30,9 +30,9 @@ func _react(_action: String, _args):
 		return
 		
 	if(_action == "tp_to"):
-		GM.pc.setLocation(_args[0])
+		ServiceLocator.safe_get_service(&"Player").setLocation(_args[0])
 		aimCameraAndSetLocName(_args[0])
-		GM.pc.addStamina(-20)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-20)
 		addMessage("Climbing took some of your stamina")
 	
 	setState(_action)

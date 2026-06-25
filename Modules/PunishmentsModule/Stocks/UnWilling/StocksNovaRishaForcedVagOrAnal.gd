@@ -34,7 +34,7 @@ func _run():
 		saynn("Risha asserts herself first.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("[say=risha]The cunt is mine.[/say]")
 
 		# (else)
@@ -55,7 +55,7 @@ func _run():
 
 		saynn("[say=nova]Open your mouth, cutie, don’t make me force it open~.[/say]")
 
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			addButton("Open mouth", "Accept your faith, maybe you will like it", "vaginal")
 		else:
 			addButton("Open mouth", "Accept your faith, maybe you will like it", "anal")
@@ -91,7 +91,7 @@ func _run():
 		saynn("It only takes a few more seconds before you feel your first orgasm overwhelming you. You squirm and struggle against the stocks, your legs shake and wanna give up but Risha holds your ass nice and stuffed while still pushing you through your orgasm, overstimulating you. You’re forced to deepthroat Nova’s cock so you’re experiencing a slight lack of oxygen, it amplifies each orgasmic wave, sending your mind somewhere high, your eyes roll up, you’re being fucked silly.")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} shoots its whole load and creates a mess underneath you.")
 
 		saynn("[say=nova]Oh fuck, {pc.his} throat is milking my cock, I can’t-[/say]")
@@ -139,13 +139,13 @@ func _run():
 		saynn("You can barely follow the conversation when your fuck holes are being used at the same time, you let out muffled noises and drool a lot while you’re getting face-fucked by Nova and butt-fucked by Risha, you feel yourself quickly closing in on your peak.")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Risha’s barbed cock smashes your prostate each time she thrusts inside you, causing your {pc.cock} to leak a bit of your {pc.cum} every time.")
 
 		saynn("It only takes a few more seconds before you feel your first orgasm overwhelming you. You squirm and struggle against the stocks, your legs shake and wanna give up but Risha holds your ass nice and stuffed while still pushing you through your orgasm, overstimulating you. You’re forced to deepthroat Nova’s cock so you’re experiencing a slight lack of oxygen, it amplifies each orgasmic wave, sending your mind somewhere high, your eyes roll up, you’re being fucked silly.")
 
 		# (if has penis)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} shoots its whole load and creates a mess underneath you.")
 
 		saynn("[say=nova]Oh fuck, {pc.his} throat is milking my cock, I can’t-[/say]")
@@ -187,30 +187,30 @@ func _react(_action: String, _args):
 		processTime(randi_range(40, 60)*60)
 	
 	if(_action == "vaginal"):
-		GM.pc.gotVaginaFuckedBy("risha")
-		GM.pc.cummedInVaginaBy("risha")
-		GM.pc.gotThroatFuckedBy("nova")
-		GM.pc.cummedInMouthBy("nova")
-		GM.pc.cummedOnBy("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40, "rishanova_fuck")
-		GM.pc.orgasmFrom("risha")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("risha")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("nova")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "rishanova_fuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
 		
 	if(_action == "anal"):
-		GM.pc.gotAnusFuckedBy("risha")
-		GM.pc.cummedInAnusBy("risha")
-		GM.pc.gotThroatFuckedBy("nova")
-		GM.pc.cummedInMouthBy("nova")
-		GM.pc.cummedOnBy("nova")
-		GM.pc.addSkillExperience(Skill.SexSlave, 40, "rishanova_fuck")
-		GM.pc.orgasmFrom("risha")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("risha")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("risha")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("nova")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("nova")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("nova")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 40, "rishanova_fuck")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("risha")
 		
 	if(_action == "continue"):
-		GM.pc.addTallymarkFace()
-		GM.pc.addTallymarkCrotch()
+		ServiceLocator.safe_get_service(&"Player").addTallymarkFace()
+		ServiceLocator.safe_get_service(&"Player").addTallymarkCrotch()
 			
 		if(RNG.chance(60)):
 			var zone = BodyWritingsZone.getRandomZone()
-			GM.pc.addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
+			ServiceLocator.safe_get_service(&"Player").addBodywriting(zone, BodyWritings.getRandomWritingIDForZone(zone))
 			addMessage("Risha also left a memento on your "+BodyWritingsZone.getZoneVisibleName(zone)+"..")
 
 	if(_action == "endthescene"):

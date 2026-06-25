@@ -28,7 +28,7 @@ func onButton(_method, _args):
 		
 		if(loot.has("items") && loot["items"].size() > 0):
 			runScene("LootingScene", [loot])
-			GM.main.addMessage("You found some drugs to steal")
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You found some drugs to steal")
 		else:
-			GM.main.addMessage("You didn't find anything")
-			GM.main.reRun()
+			ServiceLocator.safe_get_service(&"MainScene").addMessage("You didn't find anything")
+			ServiceLocator.safe_get_service(&"MainScene").reRun()

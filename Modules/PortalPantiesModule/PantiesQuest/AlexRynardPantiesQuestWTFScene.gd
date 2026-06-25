@@ -35,7 +35,7 @@ func _run():
 
 	if(state == "what"):
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("[say=pc]What do you mean, where is my fucking pussy?![/say]")
 
 		# (else)

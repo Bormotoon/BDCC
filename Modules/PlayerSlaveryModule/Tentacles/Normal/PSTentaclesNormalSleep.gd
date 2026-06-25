@@ -6,18 +6,18 @@ func _init():
 	sceneID = "PSTentaclesNormalSleep"
 
 func _reactInit():
-	addCharacter(GM.main.PS.getTentaclesCharID())
+	addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID())
 
 func resolveCustomCharacterName(_charID):
 	if(_charID == "ten"):
-		return GM.main.PS.getTentaclesCharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getTentaclesCharID()
 	if(_charID == "sci1"):
-		return GM.main.PS.getScientist1CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID()
 	if(_charID == "sci2"):
-		return GM.main.PS.getScientist2CharID()
+		return ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()
 
 func _run():
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(state == ""):
 		aimCameraAndSetLocName(_tentacles.getMonsterLoc())
@@ -56,7 +56,7 @@ func _run():
 		addButton("Bed", "Get into the bed", "goBed")
 	if(state == "goBed"):
 		aimCameraAndSetLocName(_tentacles.LOC_BED)
-		GM.pc.setLocation(_tentacles.LOC_BED)
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_BED)
 		_tentacles.setMonsterLoc(_tentacles.LOC_MIDDLE)
 		if (biggestStat == _tentacles.STAT_ANGER):
 			playAnimation(StageScene.Sleeping, "sleep", {pc="pc"})
@@ -97,10 +97,10 @@ func _run():
 	if(state == "talk_sci"):
 		_tentacles.tpScientistsWindow()
 		aimCameraAndSetLocName(_tentacles.LOC_IMPORTANT)
-		GM.pc.setLocation(_tentacles.LOC_IMPORTANT)
-		addCharacter(GM.main.PS.getScientist1CharID())
-		addCharacter(GM.main.PS.getScientist2CharID())
-		playAnimation(StageScene.Duo, "stand", {pc=GM.main.PS.getScientist1CharID(), npc=GM.main.PS.getScientist2CharID()})
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_IMPORTANT)
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		addCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
+		playAnimation(StageScene.Duo, "stand", {pc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID(), npc=ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID()})
 		saynn("You approach the window and see the two scientists. Their bodies are outlined by the harsh, cold lights. The guy holds a steaming mug and the girl is clutching a tablet to her chest. They're classy as always.")
 
 		saynn("The intercom kicks in with a sharp pop.")
@@ -198,9 +198,9 @@ func _run():
 		addButton("Continue", "See what happens next", "grabsSyr")
 	if(state == "grabsSyr"):
 		aimCameraAndSetLocName(_tentacles.LOC_DOOR)
-		GM.pc.setLocation(_tentacles.LOC_DOOR)
-		removeCharacter(GM.main.PS.getScientist1CharID())
-		removeCharacter(GM.main.PS.getScientist2CharID())
+		ServiceLocator.safe_get_service(&"Player").setLocation(_tentacles.LOC_DOOR)
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist1CharID())
+		removeCharacter(ServiceLocator.safe_get_service(&"MainScene").PS.getScientist2CharID())
 		playAnimation(StageScene.Solo, "stand")
 		saynn("You approach the opened case and grab the auto-injector syringe. The yellow fluid inside is glowing faintly.")
 		
@@ -223,14 +223,14 @@ func _run():
 		addButton("No", "Maybe there is something else you can do..", "postpone")
 		
 func _react(_action: String, _args):
-	var _tentacles:PlayerSlaveryTentacles = GM.main.PS
+	var _tentacles:PlayerSlaveryTentacles = ServiceLocator.safe_get_service(&"MainScene").PS
 
 	if(_action == "endthescene"):
 		endScene()
 		return
 
 	if(_action == "doSleep"):
-		GM.main.startNewDay()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
 		_tentacles.doNewDay()
 
 	if(_action == "doItNow"):

@@ -9,7 +9,7 @@ func _run():
 	
 	if(state == ""):
 		aimCameraAndSetLocName("medical_confessionary")
-		GM.pc.setLocation("medical_confessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_confessionary")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="eliza", bodyState={naked=true}})
 		addCharacter("eliza")
 		
@@ -125,7 +125,7 @@ func _run():
 		saynn("You arch your back and let out more passionate noises while your caged dick starts to leak {pc.cum}, a few weak strings shoot out of it. Eliza sees that you’re cumming and holds the mug under your cage, purring while collecting your seed. Each thrust of the dildo forces more and more of your {pc.cum} out of your balls, you can’t stop squirming and panting heavily while the machine milks your prostate hard.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your totally neglected pussy drips with juices as well, maybe you don’t need it too.")
 
 		saynn("[say=eliza]See~. I knew you got it in you. Big enough cock and you’re cumming hands-free on me~. Enjoy the new possibilities.[/say]")
@@ -233,7 +233,7 @@ func _run():
 
 	if(state == "continue4"):
 		aimCameraAndSetLocName("medical_nearconfessionary")
-		GM.pc.setLocation("medical_nearconfessionary")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nearconfessionary")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
 		saynn("You walk out into the medical corridor and look around. The afterglow is still so strong.. You feel like you’ve run a marathon.. but with your ass..")
@@ -251,11 +251,11 @@ func _react(_action: String, _args):
 		processTime(5*60)
 	
 	if(_action == "continue1"):
-		howMuchMilked = GM.pc.milkSeed()
-		GM.pc.orgasmFrom("eliza")
+		howMuchMilked = ServiceLocator.safe_get_service(&"Player").milkSeed()
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("eliza")
 		
 	if(_action == "continue"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 25)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 25)
 	
 	if(_action in ["clench", "let_it_in"]):
 		processTime(5*60)
@@ -266,9 +266,9 @@ func _react(_action: String, _args):
 		setFlag("MedicalModule.Chastity_Event3Choice2", _action)
 
 	if(_action == "drink"):
-		var thebodypart = GM.pc.getBodypart(BodypartSlot.Head)
+		var thebodypart = ServiceLocator.safe_get_service(&"Player").getBodypart(BodypartSlot.Head)
 		if(thebodypart != null):
-			thebodypart.addFluidOrifice(GM.pc.getFluidType(FluidSource.Penis), howMuchMilked, GM.pc.getFluidDNA(FluidSource.Penis))
+			thebodypart.addFluidOrifice(ServiceLocator.safe_get_service(&"Player").getFluidType(FluidSource.Penis), howMuchMilked, ServiceLocator.safe_get_service(&"Player").getFluidDNA(FluidSource.Penis))
 		
 	if(_action == "pick"):
 		setFlag("MedicalModule.Chastity_FirstChosenPerson", _args[0])

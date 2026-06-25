@@ -98,7 +98,7 @@ func _run():
 		addButton("Continue", "See what happens next", "sit_near_pond")
 	if(state == "sit_near_pond"):
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		playAnimation(StageScene.Duo, "sit", {npc="rahi", npcAction="sit"})
 		saynn("You step through the green area and find a little secluded place with a bench and a waterfall over a nice careful pond.")
 
@@ -334,7 +334,7 @@ func _run():
 	if(state == "rahi_near_vendomat"):
 		playAnimation(StageScene.Duo, "stand", {npc="rahi"})
 		aimCameraAndSetLocName("main_hallroom1")
-		GM.pc.setLocation("main_hallroom1")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_hallroom1")
 		saynn("You peek your head from behind the corner and see Rahi approaching the vendomat in the main hall, her paw is sneakily holding some item. The machine beeps as the feline presses that item against the same spot where you put your credits in.")
 
 		saynn("Even from a distance, you notice that the menu that is presented to her is much bigger than usual. Huh. Rahi selects one of the options and waits for the machine to dispense that item for her. To no surprise, it's alcohol, a fresh bottle of space whiskey. A bottle that she already makes some gulps out of and then quickly hides under her shirt.")
@@ -450,7 +450,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 
 	if(_action == "drink_whiskey"):
-		GM.pc.addIntoxication(0.3)
+		ServiceLocator.safe_get_service(&"Player").addIntoxication(0.3)
 
 	if(_action == "see_rahi_steal"):
 		processTime(5*60)
@@ -480,17 +480,17 @@ func _react_scene_end(_tag, _result):
 		if(battlestate == "win"):
 			setState("if_won")
 			addExperienceToPlayer(50)
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("EnergyDrink"))
 			addMessage("You receive 3 energy drinks for free")
 			setFlag("RahiModule.rahi2WonGuard", true)
 		else:
 			setState("if_lost")
 			addExperienceToPlayer(30)
-			GM.pc.doWound(guard_id)
-			GM.pc.addPain(100)
-			GM.pc.addStamina(-GM.pc.getStamina())
+			ServiceLocator.safe_get_service(&"Player").doWound(guard_id)
+			ServiceLocator.safe_get_service(&"Player").addPain(100)
+			ServiceLocator.safe_get_service(&"Player").addStamina(-ServiceLocator.safe_get_service(&"Player").getStamina())
 			setFlag("RahiModule.rahi2WonGuard", false)
 
 func saveData():

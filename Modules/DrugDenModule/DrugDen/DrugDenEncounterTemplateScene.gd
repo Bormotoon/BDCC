@@ -30,8 +30,8 @@ func _react_scene_end(_tag, _result):
 		processTime(10 * 60)
 		var battlestate = _result[0]
 		
-		if(GM.main.DrugDenRun != null):
-			GM.main.DrugDenRun.markEncounterAsCompleted(GM.pc.getLocation())
+		if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun != null):
+			ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.markEncounterAsCompleted(ServiceLocator.safe_get_service(&"Player").getLocation())
 		
 		if(battlestate == "win"):
 			#setState("won_encounter")
@@ -42,7 +42,7 @@ func _react_scene_end(_tag, _result):
 				setState(wonState)
 			addExperienceToPlayer(expWin)
 			
-			if(GM.main.DrugDenRun.shouldShowLevelUpScreen()):
+			if(ServiceLocator.safe_get_service(&"MainScene").DrugDenRun.shouldShowLevelUpScreen()):
 				runScene("DungeonLevelUpScene")
 		else:
 			setState("lost_encounter")
@@ -106,7 +106,7 @@ func encounter_run():
 		addButton("Follow", "See where she will bring you", "encounter_back_to_lobby")
 		
 	if(state == "encounter_back_to_lobby"):
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		aimCameraAndSetLocName("med_lobbymain")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
 		
@@ -123,19 +123,19 @@ func encounter_react(_action: String, _args):
 		runScene("GenericSexScene", [npcID, "pc", SexType.DefaultSex, {SexMod.SubMustGoUnconscious:true, SexMod.DisableDynamicJoiners:true}], "defeated_sex")
 		return true
 	if(_action == "encounter_endrun"):
-		GM.main.processTime(2*60*60)
-		GM.pc.setLocation("medical_hospitalwards")
-		GM.main.stopDungeonRun()
-		GM.pc.addPain(-GM.pc.getPain())
-		GM.pc.addLust(-GM.pc.getLust())
-		GM.pc.addStamina(GM.pc.getMaxStamina())
+		ServiceLocator.safe_get_service(&"MainScene").processTime(2*60*60)
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_hospitalwards")
+		ServiceLocator.safe_get_service(&"MainScene").stopDungeonRun()
+		ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
+		ServiceLocator.safe_get_service(&"Player").addLust(-ServiceLocator.safe_get_service(&"Player").getLust())
+		ServiceLocator.safe_get_service(&"Player").addStamina(ServiceLocator.safe_get_service(&"Player").getMaxStamina())
 		setState("encounter_medical")
 		return true
 	if(_action == "encounter_back_to_lobby"):
 		setState("encounter_back_to_lobby")
 		return true
 	if(_action == "encounter_endthescene_rushback"):
-		GM.pc.setLocation("yard_deadend2")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_deadend2")
 		endScene()
 		return true
 	

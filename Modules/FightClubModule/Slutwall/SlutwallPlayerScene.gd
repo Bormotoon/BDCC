@@ -58,7 +58,7 @@ func _react(_action: String, _args):
 			return
 		queueSize -= 1
 		
-		GM.pc.lustStateFullyUndress()
+		ServiceLocator.safe_get_service(&"Player").lustStateFullyUndress()
 		var npcID = NpcFinder.grabNpcIDFromPoolOrGenerate(CharacterPool.Inmates, [], InmateGenerator.new(), {})
 		runScene("GenericSexScene", [npcID, "pc", SexType.SlutwallSex, {SexMod.DisableDynamicJoiners:true}], "generic_sex_scene")
 		return
@@ -68,7 +68,7 @@ func _react(_action: String, _args):
 func _react_scene_end(_tag, _result):
 	if(_tag == "generic_sex_scene"):
 		if(RNG.chance(20)):
-			GM.pc.addCredits(1)
+			ServiceLocator.safe_get_service(&"Player").addCredits(1)
 			addMessage("Someone decided to put 1 credit into the tip box after using you")
 
 func saveData():

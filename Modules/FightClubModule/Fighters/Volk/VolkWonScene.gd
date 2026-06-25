@@ -19,7 +19,7 @@ func _run():
 
 		addButton("Let him be", "You won and that all that matters", "let_him_be")
 		addButton("Weapon play", "Let him taste his own medicine", "weapon_play")
-		GM.ES.triggerRun("ArenaFighterPCWon", ["volk"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCWon", ["volk"])
 
 	if(state == "let_him_be"):
 		saynn("You raise your foot and then kick his shiv away so he won’t use it against you.")

@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, "StocksEscape")
 
 func react(_triggerID, _args):
-	if(GM.main.getModuleFlag("TaviModule", "Tavi_IntroducedTo") && !GM.main.getModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer")):
+	if(ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IntroducedTo") && !ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("TaviModule", "Tavi_IsAngryAtPlayer")):
 		runScene("TaviStocksEscape")
 		return true
 

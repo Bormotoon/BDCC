@@ -8,14 +8,14 @@ func _init():
 	sceneID = "NurseryTalkScene"
 
 func _reactInit():
-	if(GM.ES.triggerReact(Trigger.TalkingToNPC, ["nurse"])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToNPC, ["nurse"])):
 		endScene()
 		return
 		
-	if(GM.pc.hasPerk(Perk.FertilityProudMom) && !getFlag("MedicalModule.Nursery_hadFreeAppleFromPerkToday", false)):
+	if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.FertilityProudMom) && !getFlag("MedicalModule.Nursery_hadFreeAppleFromPerkToday", false)):
 		var theApple = GlobalRegistry.createItem("appleitem")
 		theApple.setIsLegal(true)
-		GM.pc.getInventory().addItem(theApple)
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(theApple)
 		addMessage("You recieved an apple")
 		setFlag("MedicalModule.Nursery_hadFreeAppleFromPerkToday", true)
 		receivedApple = true
@@ -26,8 +26,8 @@ func _run():
 		addCharacter("nurse")
 		
 	if(state == ""):
-		if(!GM.main.getModuleFlag("MedicalModule", "Nursery_Introduced")):
-			GM.main.setModuleFlag("MedicalModule", "Nursery_Introduced", true)
+		if(!ServiceLocator.safe_get_service(&"MainScene").getModuleFlag("MedicalModule", "Nursery_Introduced")):
+			ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("MedicalModule", "Nursery_Introduced", true)
 			
 #			saynn("You approach the nurse and try to get her attention. She drags her gaze away from the screen and looks at you.")
 			
@@ -39,22 +39,22 @@ func _run():
 			saynn("[say=nurse]This is a nursery, inmate. A place for the prison’s mothers.[/say]")
 			saynn("It’s only then the nurse decides to look you over. Making brief eye contact.")
 
-			if(GM.pc.isHeavilyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 				saynn("She then eyes you out and notices your pregnant belly.")
 				saynn("[say=nurse]Yeah, you’ll need to come here soon enough.[/say]")
-				if(GM.pc.getInmateType() == InmateType.HighSec):
+				if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 					saynn("[say=nurse]And, please do me a favor and don’t smash the place like the other Red Block inmates. Please and thank you.[/say]")
-			elif(GM.pc.isVisiblyPregnant()):
+			elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("She then eyes you out and notices your pregnant belly.")
 				
 				saynn("[say=nurse]You’re too late for birth control and you’re too early to deliver. You’ll need to see me sometime later.[/say]")
-				if(GM.pc.getInmateType() == InmateType.HighSec):
+				if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 					saynn("[say=nurse]And, please do me a favor and don’t smash the place like the other Red Block inmates. Please and thank you.[/say]")
 
-			if(GM.pc.isReadyToGiveBirth()):
+			if(ServiceLocator.safe_get_service(&"Player").isReadyToGiveBirth()):
 				saynn("She then eyes you out and notices your pregnant belly.")
 				saynn("[say=nurse]You look ready to drop already, if you wanna get that over with just let me know.[/say]")
-				if(GM.pc.getInmateType() == InmateType.HighSec):
+				if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 					saynn("[say=nurse]And, please do me a favor and don’t smash the place like the other Red Block inmates. Please and thank you.[/say]")
 			saynn("Well then. You look around. It looks more like a lobby, a few benches are placed near the white walls. You notice a few pictures there and there, all of them clearly drawn by someone young. There are two other doors, apart from the one that you walked in through.")
 
@@ -66,14 +66,14 @@ func _run():
 				saynn("[say=nurse]Oh hey, your name is on my nice list, I try to make sure that every mom on there gets some kind of benefit in this place, take this.[/say]")
 				saynn("She pulls a fresh apple from under her desk somewhere and hands it off to you.")
 			
-			elif(GM.pc.isReadyToGiveBirth()):
+			elif(ServiceLocator.safe_get_service(&"Player").isReadyToGiveBirth()):
 				saynn("[say=nurse]You look ready to drop, wanna get that over with?[/say]")
 			
-			elif(GM.pc.isHeavilyPregnant()):
+			elif(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 				saynn("[say=nurse]Came to give birth?[/say]")
 			
 			# (if ready to give birth)
-			elif(GM.pc.isVisiblyPregnant()):
+			elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("[say=nurse]If you want help with your pregnancy, let me know.[/say]")
 			
 			# (else)
@@ -90,8 +90,8 @@ func _run():
 			else:
 				addButton("Database", "Take a look at your children", "database")
 		
-		if(GM.pc.isPregnant(true, false) && GM.pc.isVisiblyPregnant()):
-			if(!GM.pc.isReadyToGiveBirth()):
+		if(ServiceLocator.safe_get_service(&"Player").isPregnant(true, false) && ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
+			if(!ServiceLocator.safe_get_service(&"Player").isReadyToGiveBirth()):
 				addButton("Induce birth", "Ask to speed up the process", "induce_birth")
 				addDisabledButton("Give birth", "Too early for this")
 			else:
@@ -101,13 +101,13 @@ func _run():
 			addDisabledButton("Induce birth", "You need to be pregnant to do that")
 			addDisabledButton("Give birth", "You need to be pregnant to do that")
 		
-		if(GM.pc.getInventory().hasAnyOffspringEggs()):
+		if(ServiceLocator.safe_get_service(&"Player").getInventory().hasAnyOffspringEggs()):
 			addButton("Give eggs", "Give away all your offspring eggs so that they can be added into the database.", "give_eggs")
 		else:
 			addDisabledButton("Give eggs", "You don't have any offspring eggs.")
 		
 		addButton("Leave", "Time to go", "endthescene")
-		GM.ES.triggerRun(Trigger.TalkingToNPC, ["nurse"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.TalkingToNPC, ["nurse"])
 
 	if(state == "how_works"):
 		setModuleFlag("MedicalModule", "Nursery_AskedHowWorks", true)
@@ -152,7 +152,7 @@ func _run():
 		saynn("[say=nurse]Namely, it should have massively boosted physical protection of your womb and any offspring you make, to the point anything in your womb will survive anything this place will throw at you.[/say]")
 		saynn("[say=nurse]And secondly, it will have altered how your offspring develops, progressing at a rate set by a Corporate Medical Officer. And as much as Corporate is full of idiots, they’re smart enough to not let inmates give birth at random. Once someone starts feeling false contractions, they’ll have to come here to get induced.[/say]")
 		
-		if(GM.pc.hasPerk(Perk.StartNoHybrids)):
+		if(ServiceLocator.safe_get_service(&"Player").hasPerk(Perk.StartNoHybrids)):
 			saynn("[say=nurse]You’re also one of the lucky ones whose reproductive system had a reaction to the drug, so now you can never have hybrid offspring.[/say]")
 
 		saynn("The nurse pushes you away and returns to her normal voice.")
@@ -185,16 +185,16 @@ func _run():
 		saynn("You ask the nurse to show you the database records. She quickly punches some buttons and turns the screen towards you.")
 		
 		if(OPTIONS.getMaxKeepPCKids() > 0 || !OPTIONS.shouldOptimizeKids()):
-			if(GM.CS.getChildren().size() == 0):
+			if(ServiceLocator.safe_get_service(&"ChildSystem").getChildren().size() == 0):
 				sayn(" - Nothing found, get to breeding!")
 			else:
 				saynn("- Total records found "+str(calculateAmount(true))+":")
 				# (Your children here)
 				
-				var pcChilds := GM.CS.getChildrenRelatedTo("pc")
+				var pcChilds := ServiceLocator.safe_get_service(&"ChildSystem").getChildrenRelatedTo("pc")
 				outputChildrenRecords(pcChilds)
 			
-		var archivedAmount:int = GM.CS.getArchiveChildCountMotherOrFather("pc")
+		var archivedAmount:int = ServiceLocator.safe_get_service(&"ChildSystem").getArchiveChildCountMotherOrFather("pc")
 		if(archivedAmount <= 0 && !(OPTIONS.getMaxKeepPCKids() > 0 || !OPTIONS.shouldOptimizeKids())):
 			sayn(" - Nothing found, get to breeding!")
 		elif(archivedAmount > 0):
@@ -203,7 +203,7 @@ func _run():
 			
 			var resultTable:String = "[font=res://Fonts/normalconsolefont.tres][table=3][cell]Mother[/cell][cell]Father[/cell][cell]Amount[/cell]"
 			
-			for recordKey in GM.CS.archive:
+			for recordKey in ServiceLocator.safe_get_service(&"ChildSystem").archive:
 				var splitData:Array = recordKey.split(";")
 				if(splitData.size() < 2):
 					continue
@@ -215,7 +215,7 @@ func _run():
 					var fatherChar = getCharacter(fatherID)
 					var motherName:String = motherChar.getName() if motherChar != null else "unknown"
 					var fatherName:String = fatherChar.getName() if fatherChar != null else "unknown"
-					var kidAmount:int = GM.CS.archive[recordKey]
+					var kidAmount:int = ServiceLocator.safe_get_service(&"ChildSystem").archive[recordKey]
 					
 					resultTable += "[cell]"+motherName+"[/cell][cell]"+fatherName+"[/cell][cell]"+str(kidAmount)+"[/cell]"
 					
@@ -227,17 +227,17 @@ func _run():
 			sayn("")
 			saynn("- Unrelated records found "+str(other)+":")
 		
-			var theOtherChilds := GM.CS.getChildrenNotRelatedTo("pc")
+			var theOtherChilds := ServiceLocator.safe_get_service(&"ChildSystem").getChildrenNotRelatedTo("pc")
 			outputChildrenRecords(theOtherChilds)
 			
-		var archivedNPCAmount:int = GM.CS.getArchiveChildCountNonPC()
+		var archivedNPCAmount:int = ServiceLocator.safe_get_service(&"ChildSystem").getArchiveChildCountNonPC()
 		if(archivedNPCAmount > 0):
 			sayn("")
 			sayn("Unrelated archived records ("+str(archivedNPCAmount)+"):")
 			
 			var resultTable:String = "[font=res://Fonts/normalconsolefont.tres][table=3][cell]Mother[/cell][cell]Father[/cell][cell]Amount[/cell]"
 			
-			for recordKey in GM.CS.archive:
+			for recordKey in ServiceLocator.safe_get_service(&"ChildSystem").archive:
 				var splitData:Array = recordKey.split(";")
 				if(splitData.size() < 2):
 					continue
@@ -249,7 +249,7 @@ func _run():
 					var fatherChar = getCharacter(fatherID)
 					var motherName:String = motherChar.getName() if motherChar != null else "unknown"
 					var fatherName:String = fatherChar.getName() if fatherChar != null else "unknown"
-					var kidAmount:int = GM.CS.archive[recordKey]
+					var kidAmount:int = ServiceLocator.safe_get_service(&"ChildSystem").archive[recordKey]
 					
 					resultTable += "[cell]"+motherName+"[/cell][cell]"+fatherName+"[/cell][cell]"+str(kidAmount)+"[/cell]"
 					
@@ -293,7 +293,7 @@ func _run():
 		playAnimation(StageScene.GivingBirth, "idle", {bodyState={naked=true}})
 		saynn("You sleep in the patient’s bed. It’s not the comfiest but it’s better than nothing.")
 
-		saynn("Welcome to day "+str(GM.main.getDays())+" of your sentence.")
+		saynn("Welcome to day "+str(ServiceLocator.safe_get_service(&"MainScene").getDays())+" of your sentence.")
 
 		saynn("As you open your eyes.. you see your own huge belly. Your eyes widen as you give it a explorative touch, and you blink in surprise when you feel it, amazed at just how fast this must have happened. There is no denying it, you are ready to give birth. You can barely sit down.")
 
@@ -323,7 +323,7 @@ func _run():
 
 		saynn("The main nurse gets the birthing process started as soon as it’s confirmed you’re on the appropriate painkillers, letting things get going as the last preperations are made and the majority of the other nurses leave again.")
 		
-		saynn("You’re content to just let them do their work while you lay there and take deep breaths while your belly has its first cramps." + (" Someone asks if they need to use the heavy restraints on you but someone else dismisses them." if(GM.pc.getInmateType() == InmateType.HighSec) else "") )
+		saynn("You’re content to just let them do their work while you lay there and take deep breaths while your belly has its first cramps." + (" Someone asks if they need to use the heavy restraints on you but someone else dismisses them." if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec) else "") )
 		
 		saynn("Once your waters break everyone gets settled in. You follow the instructions the main delivery nurse gives you as nature takes its course. And ’Nature’ means incredible pain and discomfort.")
 		
@@ -359,7 +359,7 @@ func _run():
 func calculateAmount(pcKids:bool = true) -> int:
 	var amount:int = 0
 	
-	for ch in GM.CS.getChildren():
+	for ch in ServiceLocator.safe_get_service(&"ChildSystem").getChildren():
 		var child: Child = ch
 		if(pcKids && child.fatherID != "pc" && child.motherID != "pc"):
 			continue
@@ -369,17 +369,17 @@ func calculateAmount(pcKids:bool = true) -> int:
 	return amount
 
 func outputChildrenRecords(_childs:Array):
-	sayn(GM.CS.getChildBigReportString(_childs))
+	sayn(ServiceLocator.safe_get_service(&"ChildSystem").getChildBigReportString(_childs))
 
 func _react(_action: String, _args):
 	if(_action == "sleep"):
-		GM.main.startNewDay()
-		if(GM.pc.getMenstrualCycle() != null):
-			GM.pc.getMenstrualCycle().speedUpPregnancy()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		if(ServiceLocator.safe_get_service(&"Player").getMenstrualCycle() != null):
+			ServiceLocator.safe_get_service(&"Player").getMenstrualCycle().speedUpPregnancy()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 	
 	if(_action == "startbirth"):
-		var bornChildren = GM.pc.giveBirth()
+		var bornChildren = ServiceLocator.safe_get_service(&"Player").giveBirth()
 		bornChildAmount = bornChildren.size()
 		
 		bornChildString = ""
@@ -398,7 +398,7 @@ func _react(_action: String, _args):
 	
 	if(_action == "give_eggs"):
 		processTime(10*60)
-		var theEggs:Array = GM.pc.getInventory().getOffspringEggs()
+		var theEggs:Array = ServiceLocator.safe_get_service(&"Player").getInventory().getOffspringEggs()
 		var allNewChilds:Array = []
 		
 		var pcFatherAm:int = 0
@@ -416,16 +416,16 @@ func _react(_action: String, _args):
 			if(!theChilds.is_empty()):
 				allNewChilds.append_array(theChilds)
 				addedAm += 1
-			GM.pc.getInventory().removeItem(theEgg)
+			ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(theEgg)
 		
-		bornChildString = GM.CS.getChildBigReportString(allNewChilds)
+		bornChildString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBigReportString(allNewChilds)
 		
 		addMessage(str(addedAm)+" egg"+("s" if addedAm != 1 else "")+" got added to the database!")
 		
 		if(pcFatherAm > 0):
-			GM.pc.addSkillExperience(Skill.Breeder, 10*pcFatherAm)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 10*pcFatherAm)
 		if(pcOtherAm > 0):
-			GM.pc.addSkillExperience(Skill.Fertility, 10*pcOtherAm)
+			ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Fertility, 10*pcOtherAm)
 		#return
 	
 	setState(_action)

@@ -69,9 +69,9 @@ func _react(_action: String, _args):
 
 	if(_action == "kiss_tavi"):
 		processTime(2*60)
-		GM.pc.addLust(-200)
-		GM.pc.addPain(-200)
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").addLust(-200)
+		ServiceLocator.safe_get_service(&"Player").addPain(-200)
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 		addMessage("You feel weak..")
 
 	if(_action == "start_talking"):

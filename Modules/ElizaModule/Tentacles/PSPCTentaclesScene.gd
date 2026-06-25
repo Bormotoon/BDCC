@@ -40,13 +40,13 @@ func _run():
 
 		firstPlay = false
 		addButton("Submit", "(Sex) Submit to the tentacles and let them do whatever they want with you..", "doSubmit")
-		if (GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves).size() <= 0):
+		if (ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves).size() <= 0):
 			addDisabledButton("Offer slave", "You don't have any slaves at the moment..")
 		else:
 			addButton("Offer slave", "(Sex) Offer the tentacles one of your slaves for them to have fun with", "pick_slave_menu")
 		addButton("Mood", "Interact with the tentacles to change their mood", "mood_menu")
 		if (!hasNeuro):
-			if (GM.pc.getInventory().hasItemID("TentNeuroLink")):
+			if (ServiceLocator.safe_get_service(&"Player").getInventory().hasItemID("TentNeuroLink")):
 				addButton("Neuro-Link", "Inject the tentacles with the Neuro-Link chip", "doInjectNeuro")
 			else:
 				addDisabledButton("Neuro-Link", "You need to unlock and create a Neuro-Link chip in the bio-lab first..")
@@ -239,7 +239,7 @@ func addTentacleNameButtons():
 		addButton(theName, "Pick this name!", "pick_name", [theName])
 
 func addSlaveButtons():
-	var slaves = GM.main.getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
+	var slaves = ServiceLocator.safe_get_service(&"MainScene").getDynamicCharacterIDsFromPool(CharacterPool.Slaves)
 	for charID in slaves:
 		var character:DynamicCharacter = getCharacter(charID)
 		var npcSlavery:NpcSlave = character.getNpcSlavery()
@@ -259,7 +259,7 @@ func _react(_action: String, _args):
 	if(_action == "doInjectNeuro"):
 		processTime(20*60)
 		setFlag("ElizaModule.tent_neurolink", true)
-		GM.pc.getInventory().removeXOfOrDestroy("TentNeuroLink", 1)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeXOfOrDestroy("TentNeuroLink", 1)
 		addMessage("You can now choose to control the tentacles before the sex starts!")
 
 	if(_action == "pick_name"):

@@ -176,7 +176,7 @@ func _run():
 
 		addButton("Lab", "Get back to the lab with her", "back_to_the_lab")
 	if(state == "back_to_the_lab"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		playAnimation(StageScene.Duo, "stand", {npc="eliza", npcBodyState={exposedChest=true}})
 		saynn("You bring Eliza back to the lab.")
 
@@ -239,7 +239,7 @@ func _react(_action: String, _args):
 			var theFluids = thePump.getFluids()
 			if(theFluids):
 				theFluids.addFluid("Milk", 8200.0)
-		GM.main.SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
+		ServiceLocator.safe_get_service(&"MainScene").SCI.processMilkCharacterCustom(getCharacter("eliza"), BodypartSlot.Breasts)
 
 	if(_action == "after_milking"):
 		processTime(3*60)

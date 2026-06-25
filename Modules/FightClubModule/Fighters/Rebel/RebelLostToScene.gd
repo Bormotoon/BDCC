@@ -20,7 +20,7 @@ func _run():
 		saynn("The audience blows up with even louder yells and cheering. Seems like she won’t ask for your opinion on the matter. It’s not like you can do anything about that, you’re busy panting and catching your breath.")
 
 		addButton("Get fisted", "See what happens next..", "get_fisted")
-		GM.ES.triggerRun("ArenaFighterPCLost", ["rebel"])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun("ArenaFighterPCLost", ["rebel"])
 
 	if(state == "get_fisted"):
 		playAnimation(StageScene.SexFisting, "tease", {
@@ -33,7 +33,7 @@ func _run():
 		saynn("[say=rebel]No point in running away, sweetheart. It will be very enjoyable. For me at least.[/say]")
 
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("She easily strips you of any clothing that blocks your crotch and then puts you down onto the floor on all fours before forcing you to raise your {pc.thick} ass higher. Rebel directs her attention to the crowd again.")
 
 		# (if naked)
@@ -53,11 +53,11 @@ func _run():
 		saynn("Easy for her to say, she is not the one standing on all fours with her ass being on full display for anyone! She starts easy, thrusting two of her bulky digits down your star. The lube allows them to slide inside mostly without any hassle. She then spreads them, stretching your hole more and causing you to produce a loud moan. Then she adds another finger.. And another.. Four of them are inside you, stretching you out quite a bit. You start squirming and making more noises while the mare slides her palm in and out, any attempts to clench result in her using more strength and quickly overpowering you. The crowd already begs Rebel to shove the whole hand in.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Despite your pussy not receiving any attention, your sensitive folds become more aroused, already dripping some juices onto the floor, your body really seems to enjoy it..")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} is mostly lacking any erection but each time Rebel thrusts her fingers inside you feel your pleasure point being rubbed so well.. You feel like you can get used to that..")
 
 		saynn("[say=rebel]Look at {pc.him} moaning. Time for the main event! Hope you’re ready, slut.[/say]")
@@ -80,13 +80,13 @@ func _run():
 		saynn("But she is relentless, no matter how much you clench, your tailhole slowly opens up and then gets stretched until the fist suddenly slips in! You arch your back and let out a loud passionate moan as your star closes around Rebel’s wrist. Arms and legs are shaking, she didn’t even start moving her arm but you are already moaning like a slut that’s being fucked.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("With that fist up your butt, your pussy looks cute and small in comparison. The overstimulation causes your slit to start squirting all over the floor.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cock} instantly goes as hard as the chastity cage allows and shoots a strong line of your precum.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cock} instantly goes full hard and shoots a strong line of your precum.")
 
 		saynn("[say=rebel]What did ya say, sweetie? All I hear is your ass making wet noises.[/say]")
@@ -94,11 +94,11 @@ func _run():
 		saynn("She starts pulling her hand out but stopping just to ram her fist further and forcing you to squirm harder. Your poor {pc.analStretch} anal ring is stretched beyond limits and now Rebel starts stretching your soft inner walls too, exploring you from the inside. With slow but powerful thrusts, she manages to shove more of her arm in before switching to fist-fucking you. The crowd goes wild seeing you moan with a giant fist up your ass, you can’t endure this for long and cum hard, your tailhole desperately clenches around the arm, sucking it in deeper.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy squirts again and again, the way her fist rubs your g-spot through the inner wall is so pleasurable, almost makes you wish she used her other hand too.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Thick strings of {pc.cum} burst out of your {pc.cock} and mess up the floor, your prostate was rubbed so much that you now experience a wet orgasm.")
 
 		saynn("[say=rebel]Cumming already, sweetie? That’s how a real horse cock will feel.[/say]")
@@ -117,12 +117,12 @@ func _run():
 func _react(_action: String, _args):
 	
 	if(_action == "get_fisted"):
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 40)
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 40)
 	
 	if(_action == "continue"):
-		GM.pc.orgasmFrom("rebel")
-		GM.pc.gotOrificeStretchedWith(BodypartSlot.Anus, 40)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "rebel_getfisted")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rebel")
+		ServiceLocator.safe_get_service(&"Player").gotOrificeStretchedWith(BodypartSlot.Anus, 40)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "rebel_getfisted")
 	
 	if(_action == "endthescene"):
 		endScene()

@@ -71,7 +71,7 @@ func _run():
 		addButton("Continue", "See what happens next", "near_nurse")
 	if(state == "near_nurse"):
 		aimCameraAndSetLocName("medical_nursery")
-		GM.pc.setLocation("medical_nursery")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nursery")
 		addCharacter("nurse")
 		playAnimation(StageScene.Duo, "sit", {pc = "nurse", npc="rahi", npcAction="stand"})
 		saynn("As you step into the lobby, the nurse sees Rahi's big belly and gets up, already knowing what's up.")
@@ -180,7 +180,7 @@ func _run():
 
 		saynn("[say=pc]Yeah, I wanna join the feline behind the window.[/say]")
 
-		if (!GM.pc.isTooLewd()):
+		if (!ServiceLocator.safe_get_service(&"Player").isTooLewd()):
 			saynn("The nurse lazily turns her head, looking at Rahi. Then she looks back at you and quickly scans you with her eyes, probably looking for anything.. inappropriate.")
 
 			saynn("[say=nurse]Sure.[/say]")
@@ -202,7 +202,7 @@ func _run():
 
 		saynn("The nurse lazily scans you with her eyes again.")
 
-		if (!GM.pc.isTooLewd()):
+		if (!ServiceLocator.safe_get_service(&"Player").isTooLewd()):
 			saynn("[say=nurse]Sure, that's better. You have ten minutes.[/say]")
 
 			saynn("She presses a button on her computer that opens one of the locked doors.")
@@ -225,7 +225,7 @@ func _run():
 		addButton("Praise", "Tell Rahi how good of a mommy she is", "praise_rahi")
 		addButton("Cuddle", "Offer your kitty some warm cuddles", "cuddle_rahi")
 		addButton("Story time", "Ask Rahi to tell her kid a bedtime story", "story_time")
-		if (GM.pc.canBeMilked()):
+		if (ServiceLocator.safe_get_service(&"Player").canBeMilked()):
 			addButton("Breastfeed", "Breastfeed the child yourself", "breastfeed_yourself")
 		else:
 			addDisabledButton("Breastfeed", "You're not lactating to be able to breastfeed")
@@ -352,7 +352,7 @@ func _run():
 		removeCharacter("nurse")
 		playAnimation(StageScene.Duo, "stand", {npc="rahi", npcAction="stand"})
 		aimCameraAndSetLocName("med_lobby_start")
-		GM.pc.setLocation("med_lobby_start")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobby_start")
 		saynn("You get up too and follow Rahi back to the lobby. You can't help but notice that kitty is swaying her girly hips more than usual..")
 
 		saynn("You join her near the elevator doors and begin waiting for it to reach your floor, the thing is big and slow..")
@@ -432,7 +432,7 @@ func _run():
 	if(state == "breed_quicklycover"):
 		playAnimation(StageScene.Duo, "stand", {npc="rahi", npcAction="stand"})
 		aimCameraAndSetLocName("hall_mainentrance")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("..revealing you two to the world. Two guards stare at you.")
 
 		saynn("You just stand still. Awkward.. but.. they don't notice anything out of the ordinary. You two managed to put the clothes back on fast enough and take your spots in the middle of the elevator, avoiding real embarrassment.")
@@ -573,7 +573,7 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		var bornChilds = getCharacter("rahi").giveBirth()
 		bornChildAmount = bornChilds.size()
-		bornString = GM.CS.getChildBirthInfoString(bornChilds)
+		bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
 		increaseFlag("RahiModule.Rahi_GaveBirthsNearPC")
 		howManyBirths = getFlag("RahiModule.Rahi_GaveBirthsNearPC", 0)
 
@@ -590,21 +590,21 @@ func _react(_action: String, _args):
 
 	if(_action == "cuddle_rahi"):
 		processTime(5*60)
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 
 	if(_action == "story_time"):
 		processTime(5*60)
 
 	if(_action == "breastfeed_yourself"):
 		processTime(5*60)
-		GM.pc.addSkillExperience(Skill.Milking, 30)
-		GM.pc.milk(0.5)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Milking, 30)
+		ServiceLocator.safe_get_service(&"Player").milk(0.5)
 
 	if(_action == "rahi_last_words"):
 		processTime(3*60)
 
 	if(_action == "lewd_check"):
-		if(GM.pc.hasReachablePenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			if((howManyBirths > 2 && RNG.chance(20)) || howManyBirths == 5):
 				setState("rahi_wants_lewd")
 				return
@@ -617,8 +617,8 @@ func _react(_action: String, _args):
 	if(_action == "breed_cuminside"):
 		processTime(2*60)
 		getCharacter("rahi").cummedInVaginaBy("pc")
-		GM.pc.orgasmFrom("rahi")
-		GM.pc.addSkillExperience(Skill.SexSlave, 50, "rahi_breed")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("rahi")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 50, "rahi_breed")
 
 	setState(_action)
 

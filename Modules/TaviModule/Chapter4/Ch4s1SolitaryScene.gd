@@ -5,7 +5,7 @@ func _init():
 
 func _run():
 	if(state == ""):
-		GM.pc.setLocation("solitary_cell")
+		ServiceLocator.safe_get_service(&"Player").setLocation("solitary_cell")
 		playAnimation(StageScene.HangingDuo, "idle", {npc="tavi", npcAction="kneel", bodyState={naked=true}, npcBodyState={naked=true}})
 		aimCameraAndSetLocName("solitary_cell")
 		addCharacter("tavi", ["naked"])

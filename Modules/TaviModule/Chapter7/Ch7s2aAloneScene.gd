@@ -50,7 +50,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight1_npc")
 	if(state == "lost_first_guards"):
 		playAnimation(StageScene.Solo, "defeat")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("Defeated, you fall to your knees.")
 
@@ -105,7 +105,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight3_risha")
 	if(state == "lost_risha"):
 		playAnimation(StageScene.Duo, "defeat", {npc="risha"})
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("You drop to your knees before Risha. It hurts.")
 
@@ -199,7 +199,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight4_nova")
 	if(state == "lost_nova"):
 		playAnimation(StageScene.Solo, "defeat")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("You drop to your knees, defeated by Nova. She puts her baton away and clips a leash to your collar.")
 
@@ -280,7 +280,7 @@ func _run():
 		addButton("Fight", "Start the fight", "fight5_skar")
 	if(state == "skar_lost"):
 		playAnimation(StageScene.Solo, "defeat")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		aimCameraAndSetLocName("hall_mainentrance")
 		saynn("As you get defeated, Skar grabs you by the collar and drags you away.")
 

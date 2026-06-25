@@ -51,12 +51,12 @@ func _run():
 		saynn("[say=pc]What is happening..[/say]")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The hands don’t react to your speech at all, the new pair of hands seems to be interested in your chastity belt. You look down and notice them straight up phasing through metal but then landing on your pussy lips and giving them a rub.")
 
 		# (else if has cock)
-		elif(GM.pc.hasPenis()):
-			if(GM.pc.isWearingChastityCage()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
+			if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The hands don’t react to your speech at all, the new pair of hands seems to be interested in your chastity belt. You look down and notice them straight up phasing through metal and through your chastity cage before landing on your crotch and stroking your cock a bit. The hands don’t seem to follow the rules of this reality but your dick still does.")
 			else:
 				saynn("The hands don’t react to your speech at all, the new pair of hands seems to be interested in your chastity belt. You look down and notice them straight up phasing through metal but then landing on your crotch and stroking your cock a bit.")
@@ -79,7 +79,7 @@ func _run():
 		saynn("Then you notice a few new ghostly outlines appear but these are different. They look like.. disembodied dicks, hovering near your body. And they don’t seem to be fake strapon ones, they twitch and each have a hanging drop of pre hanging from the tip.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Slight panic settles into you as one of the cocks goes straight through the chastity belt and grinds against your pussy lips with the other one hovering near your lips.")
 
 		# (else)
@@ -91,7 +91,7 @@ func _run():
 		saynn("You try to call for help but your attempts are quickly countered by another set of ghostly hands appearing and covering your mouth. They then slip a few digits past your lips, letting you feel how strange it's cold skin feels. Biting them seems like a dangerous idea, you just let them explore your mouth while you gently suckle on them.")
 
 		# (if has pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("You can’t escape the teasing, many floating hands are keeping you pinned while groping your {pc.breasts}. A few cocks align themselves to your wet pussy, {pc.analStretch} tailhole and open mouth before displacing any digits and sliding inside you, stretching your holes!")
 
 		# (else)
@@ -104,7 +104,7 @@ func _run():
 		# (Dicks fuck you in all the holes while you stroke other ones)
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The floating dicks begin pounding your ass and pussy at a fast rate, never leaving at least one hole empty. The pleasure is too much, your body tries to squirm and struggle but the paws hold you and keep your legs spread for the cocks to fuck you.")
 
 		# (else)
@@ -112,7 +112,7 @@ func _run():
 			saynn("The floating dick begins pounding your ass at a fast rate before another one joins in, alternating with the first and making it so your fuckhole is never empty. The pleasure is too much, your body tries to squirm and struggle but the paws hold you and keep your legs spread for the cocks to fuck you.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own dick is trying to get hard but it can’t pass through metal like the ghost ones, you just feel the pressure rising.")
 
 		saynn("The cock in your mouth is sliding too, brushing against the back of it before going down your throat and fucking your face!")
@@ -127,7 +127,7 @@ func _run():
 		# (too much stimulation so you black out)
 
 		# (if pussy)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("With so many sources of pleasure, you are quickly pushed over the edge, your body creates an arch and shivers as your holes twitch and pulsate around the cocks, trying to milk them. But they don’t stop and keep fucking you through your orgasm, extending it and messing with your mind. The first cock cums down your throat, soon followed by the other two that stuff your ass and babymaker to the brim with some kind of transparent glowing seed that can even be seen shining through your belly.")
 
 		# (else)
@@ -135,9 +135,9 @@ func _run():
 			saynn("With so many sources of pleasure, you are quickly pushed over the edge, your body creates an arch and shivers as your hole twitches and pulsates around the cocks, trying to milk them. But they don’t stop and keep fucking you through your orgasm, extending it and messing with your mind. The first cock cums down your throat, soon followed by the other two that stuff your ass to the brim with some kind of transparent glowing seed that can even be seen shining through your belly.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even though your {pc.cock} is trapped behind the chastity belt and the chastity cage at the same time, it suddenly throbs and wastes its load.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Even though your {pc.cock} is trapped behind the chastity belt, it suddenly throbs and wastes its load.")
 
 		saynn("Then the other cocks cum one by one, shooting strings of that strange glowing goo all over your body and face, leaving quite a mess indeed. Drippy seed leaks out of you, lots of it.")
@@ -186,22 +186,22 @@ func _run():
 func _react(_action: String, _args):
 
 	if(_action == "cum!"):
-		if(GM.pc.hasVagina()):
-			GM.pc.gotVaginaFuckedBy("ghostHands")
-			GM.pc.cummedInVaginaBy("ghostHands")
-			GM.pc.gotAnusFuckedBy("ghostHands")
-			GM.pc.cummedInAnusBy("ghostHands")
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
+			ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("ghostHands")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("ghostHands")
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("ghostHands")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("ghostHands")
 		else:
-			GM.pc.gotAnusFuckedBy("ghostHands")
-			GM.pc.cummedInAnusBy("ghostHands")
-		GM.pc.gotThroatFuckedBy("ghostHands")
-		GM.pc.cummedInMouthBy("ghostHands")
-		GM.pc.orgasmFrom("ghostHands")
-		GM.pc.addSkillExperience(Skill.SexSlave, 10)
+			ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("ghostHands")
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("ghostHands")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("ghostHands")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("ghostHands")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("ghostHands")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 10)
 		
 
 	if(_action == "continue"):
-		#GM.pc.addCredits(1)
+		#ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		#addMessage("You received 1 work credit!")
 		
 		setModuleFlag("MedicalModule", "Mental_ExpGhostHands", Util.maxi(3, getModuleFlag("MedicalModule", "Mental_ExpGhostHands", 0)))

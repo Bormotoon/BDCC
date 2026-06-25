@@ -12,7 +12,7 @@ func _run():
 		addButton("Continue", "See what happens next..", "do_drag_pc_off")
 	
 	if(state == "do_drag_pc_off"):
-		aimCameraAndSetLocName(GM.pc.getLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getLocation())
 		playAnimation(StageScene.Stocks, "idle", {pc="pc"})
 		
 		saynn("After a less-than-comfy sleeping experience, you finally open your eyes.. and realize that you are somewhere else..")
@@ -30,11 +30,11 @@ func _react(_action: String, _args):
 	
 	if(_action == "start_stocks"):
 		endScene()
-		GM.main.IS.startInteraction("InStocks", {inmate="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("InStocks", {inmate="pc"})
 		return
 	
 	if(_action == "do_drag_pc_off"):
-		GM.pc.setLocation("main_punishment_spot")
+		ServiceLocator.safe_get_service(&"Player").setLocation("main_punishment_spot")
 		processTime(randi_range(120, 300)*60)
 
 			
