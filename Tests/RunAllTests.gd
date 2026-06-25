@@ -36,15 +36,12 @@ func _ready() -> void:
 			print("  ERROR: Could not load " + test_path)
 			continue
 		var test_instance = test_script.new()
-		var runner_script = load("res://Tests/TestRunner.gd")
-		var runner = runner_script.new()
-		test_instance.add_child(runner)
 		add_child(test_instance)
 		test_instance.run()
-		total_passed += runner.tests_passed
-		total_failed += runner.tests_failed
-		total_tests += runner.tests_total
-		runner.queue_free()
+		if test_instance.runner != null:
+			total_passed += test_instance.runner.tests_passed
+			total_failed += test_instance.runner.tests_failed
+			total_tests += test_instance.runner.tests_total
 		test_instance.queue_free()
 
 	print("\n" + "=".repeat(50))

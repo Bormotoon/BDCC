@@ -91,6 +91,23 @@ static func pickN(ar, n: int) -> Array:
 		copy.remove_at(idx)
 	return result
 
+## Deterministic pick using a hash (same hash = same result)
+static func pickHashed(ar, thehash: int) -> Variant:
+	if ar is Dictionary:
+		ar = ar.keys()
+	if ar.is_empty():
+		return null
+	thehash = thehash % ar.size()
+	return ar[thehash]
+
+## Random male name from RNGData
+static func randomMaleName() -> String:
+	return pick(RNGData.maleNames)
+
+## Random female name from RNGData
+static func randomFemaleName() -> String:
+	return pick(RNGData.femaleNames)
+
 ## Shuffle array in place
 static func shuffle(ar: Array) -> void:
 	for i in range(ar.size() - 1, 0, -1):

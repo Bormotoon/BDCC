@@ -1,10 +1,11 @@
 extends Node
 
 const TestRunnerScript = preload("res://Tests/TestRunner.gd")
+var runner
 
 func run() -> void:
 	print("\n=== ServiceLocator Tests ===")
-	var runner = TestRunnerScript.new()
+	runner = TestRunnerScript.new()
 	add_child(runner)
 
 	runner.run_test("ServiceLocator is autoloaded", func():
@@ -47,4 +48,3 @@ func run() -> void:
 	)
 
 	print("  Results: " + str(runner.tests_passed) + "/" + str(runner.tests_total) + " passed")
-	runner.queue_free()

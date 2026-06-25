@@ -1,10 +1,11 @@
 extends Node
 
 const TestRunnerScript = preload("res://Tests/TestRunner.gd")
+var runner
 
 func run() -> void:
 	print("\n=== HealthComponent Formula Tests ===")
-	var runner = TestRunnerScript.new()
+	runner = TestRunnerScript.new()
 	add_child(runner)
 
 	runner.run_test("Pain threshold floor at 10", func():
@@ -57,4 +58,3 @@ func run() -> void:
 	)
 
 	print("  Results: " + str(runner.tests_passed) + "/" + str(runner.tests_total) + " passed")
-	runner.queue_free()
