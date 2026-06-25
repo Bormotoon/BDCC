@@ -26,7 +26,7 @@ texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 1, 1, 1022, 62 )
 
-[node name="Flipper" type="Spatial" parent="." index="3"]
+[node name="Flipper" type="Node3D" parent="." index="3"]
 unique_name_in_owner = true
 
 [node name="Chair" type="Sprite3D" parent="Flipper" index="0"]

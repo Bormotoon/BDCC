@@ -152,11 +152,11 @@ region_rect = Rect2( 1, 1, 1022, 62 )
 [node name="Doll3D" parent="." index="1" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30331, -0.120824, 0 )
 
-[node name="EggSpawnerNode" type="Spatial" parent="Doll3D/BoneAttachments/VaginaBoneAttachment" index="5"]
+[node name="EggSpawnerNode" type="Node3D" parent="Doll3D/BoneAttachments/VaginaBoneAttachment" index="5"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.413, -0.316, -0.274 )
 
-[node name="SquirtEggParticles" type="CPUParticles" parent="Doll3D/BoneAttachments/VaginaBoneAttachment" index="6"]
+[node name="SquirtEggParticles" type="CPUParticles3D" parent="Doll3D/BoneAttachments/VaginaBoneAttachment" index="6"]
 unique_name_in_owner = true
 transform = Transform( -0.204462, 0.978875, 0, -0.978875, -0.204462, 0, 0, 0, 1, 0.393339, -0.315288, 0 )
 material_override = SubResource( 469 )

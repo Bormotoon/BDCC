@@ -132,7 +132,7 @@ tree_root = SubResource( 156 )
 anim_player = NodePath("../Doll3D2/DollSkeleton/AnimationPlayer")
 parameters/StateMachine/playback = SubResource( 157 )
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="11"]
+[node name="MeshInstance" type="MeshInstance3D" parent="." index="11"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170876, 5.13041, -0.100623 )
 mesh = SubResource( 14 )
 material/0 = SubResource( 15 )

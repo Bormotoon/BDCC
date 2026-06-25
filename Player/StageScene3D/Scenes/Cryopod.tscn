@@ -67,17 +67,17 @@ region_rect = Rect2( 1, 1, 1022, 62 )
 autoplay = "Idle"
 anims/Idle = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
+[node name="MeshInstance" type="MeshInstance3D" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.05561, -1.657 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="." index="4"]
+[node name="MeshInstance2" type="MeshInstance3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.05561, 2.16063 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
 
-[node name="CPUParticles" type="CPUParticles" parent="." index="5"]
+[node name="CPUParticles" type="CPUParticles3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12165, -2.93472 )
 lifetime = 13.2
 lifetime_randomness = 0.2

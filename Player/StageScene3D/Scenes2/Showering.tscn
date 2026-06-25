@@ -154,7 +154,7 @@ parameters/StateMachine/playback = SubResource( 460 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02365, 5.03947, 0 )
 texture = ExtResource( 5 )
 
-[node name="CPUParticles" type="CPUParticles" parent="." index="5"]
+[node name="CPUParticles" type="CPUParticles3D" parent="." index="5"]
 transform = Transform( 0.98184, -0.189712, 0, 0.189712, 0.98184, 0, 0, 0, 1, -1.70534, 8.69499, 0.355071 )
 material_override = SubResource( 488 )
 amount = 32
