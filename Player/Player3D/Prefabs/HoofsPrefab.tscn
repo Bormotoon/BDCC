@@ -141,13 +141,13 @@ surfaces/0 = {
 "vertex_count": 411
 }
 
-[node name="HoofsPrefab" type="Spatial"]
+[node name="HoofsPrefab" type="Node3D"]
 script = ExtResource( 4 )
 
-[node name="PartState" type="Spatial" parent="."]
+[node name="PartState" type="Node3D" parent="."]
 script = ExtResource( 3 )
 
-[node name="hoofspng001" type="MeshInstance" parent="PartState"]
+[node name="hoofspng001" type="MeshInstance3D" parent="PartState"]
 mesh = SubResource( 46 )
 skin = SubResource( 47 )
 skeleton = NodePath("../../..")
@@ -167,7 +167,7 @@ rot = 60.0
 rotSpread = 10.0
 scale = 0.8
 
-[node name="hoofspng002" type="MeshInstance" parent="PartState"]
+[node name="hoofspng002" type="MeshInstance3D" parent="PartState"]
 mesh = SubResource( 49 )
 skin = SubResource( 47 )
 skeleton = NodePath("../../..")

@@ -190,13 +190,13 @@ surfaces/0 = {
 "vertex_count": 4
 }
 
-[node name="HandsPrefab" type="Spatial"]
+[node name="HandsPrefab" type="Node3D"]
 script = ExtResource( 1 )
 state = "hands"
 
 [node name="PartState" parent="." instance=ExtResource( 2 )]
 
-[node name="handpng" type="MeshInstance" parent="PartState"]
+[node name="handpng" type="MeshInstance3D" parent="PartState"]
 mesh = SubResource( 34 )
 skin = SubResource( 35 )
 skeleton = NodePath("../../..")
@@ -206,7 +206,7 @@ pattern_start = Vector2( 0, 2.5 )
 pattern_size = Vector2( 0.25, 0.5 )
 bodypartSlot = "arms"
 
-[node name="handpng001" type="MeshInstance" parent="PartState"]
+[node name="handpng001" type="MeshInstance3D" parent="PartState"]
 mesh = SubResource( 37 )
 skin = SubResource( 35 )
 skeleton = NodePath("../../..")
@@ -220,7 +220,7 @@ bodypartSlot = "arms"
 visible = false
 stateValue = "fists"
 
-[node name="handpng2" type="MeshInstance" parent="PartState2"]
+[node name="handpng2" type="MeshInstance3D" parent="PartState2"]
 mesh = SubResource( 38 )
 skin = SubResource( 35 )
 skeleton = NodePath("../../..")
@@ -230,7 +230,7 @@ pattern_start = Vector2( 0, 2.5 )
 pattern_size = Vector2( 0.25, 0.5 )
 bodypartSlot = "arms"
 
-[node name="handpng002" type="MeshInstance" parent="PartState2"]
+[node name="handpng002" type="MeshInstance3D" parent="PartState2"]
 mesh = SubResource( 40 )
 skin = SubResource( 35 )
 skeleton = NodePath("../../..")

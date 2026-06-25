@@ -239,7 +239,7 @@ anim_player = NodePath("../Doll3D2/DollSkeleton2/AnimationPlayer")
 parameters/CuffsBlend/blend_amount = 0
 parameters/StateMachine/playback = SubResource( 473 )
 
-[node name="Ropes" type="Spatial" parent="." index="5"]
+[node name="Ropes" type="Node3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.272787, 9.8828, 0.206437 )
 
 [node name="CurveRenderer" type="ImmediateGeometry" parent="Ropes" index="0"]
