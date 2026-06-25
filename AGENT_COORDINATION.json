@@ -44,39 +44,63 @@
         "description": "Миграция .tscn/.tres файлов: ноды, свойства, ресурсы",
         "instructions": "TASK_SCENE_MIGRATION.md"
       },
-      {
-        "id": 4,
-        "name": "Error elimination",
-        "status": "DONE",
-        "description": "Доведение SCRIPT ERROR до 0. Решение циклических зависимостей автозагрузок, reserved keywords, parse errors",
-        "instructions": null,
-        "details": {
-          "current_errors": 0,
-          "peak_errors": 349,
-          "root_cause": "BaseCharacter.gd had duplicate giveBodypart() function (lines 1092 and 1242). GDScript 2.0 rejects duplicate function names, causing 'Could not parse global class' cascade.",
-          "fixed_files": [
-            "Player.gd (super. indentation)",
-            "BaseCharacter.gd (camelCase aliases + removed duplicate giveBodypart)",
-            "ModularDialogue.gd (is BaseCharacter → duck typing)",
-            "DialogueForm.gd (is BaseCharacter → duck typing)",
-            "DialogueFillerAdder.gd (typed return → untyped)",
-            "SexToyManager.gd (typed var → untyped)",
-            "SexToyGameplay.gd (typed var → untyped)",
-            "GameParser.gd (path-based extends → RefCounted)",
-            "PartTrait.gd (reserved 'trait' keyword)",
-            "6 Fillers (Personality typed var → untyped)",
-            "project.godot (uncommented ModularDialogue, reordered autoloads)"
-          ],
-          "commit": "f7e0defb"
-        }
-      },
+    {
+      "id": 4,
+      "name": "Error elimination",
+      "status": "DONE",
+      "description": "Доведение SCRIPT ERROR до 0. Решение циклических зависимостей автозагрузок, reserved keywords, parse errors",
+      "instructions": null,
+      "details": {
+        "current_errors": 0,
+        "peak_errors": 349,
+        "root_cause": "BaseCharacter.gd had duplicate giveBodypart() function (lines 1092 and 1242). GDScript 2.0 rejects duplicate function names, causing 'Could not parse global class' cascade.",
+        "fixed_files": [
+          "Player.gd (super. indentation)",
+          "BaseCharacter.gd (camelCase aliases + removed duplicate giveBodypart)",
+          "ModularDialogue.gd (is BaseCharacter → duck typing)",
+          "DialogueForm.gd (is BaseCharacter → duck typing)",
+          "DialogueFillerAdder.gd (typed return → untyped)",
+          "SexToyManager.gd (typed var → untyped)",
+          "SexToyGameplay.gd (typed var → untyped)",
+          "GameParser.gd (path-based extends → RefCounted)",
+          "PartTrait.gd (reserved 'trait' keyword)",
+          "6 Fillers (Personality typed var → untyped)",
+          "project.godot (uncommented ModularDialogue, reordered autoloads)"
+        ],
+        "commit": "f7e0defb"
+      }
+    },
     {
       "id": 5,
-      "name": "Deep architecture migration",
-      "status": "IN_PROGRESS",
-        "description": "Перенос реальной логики из ~3178 файлов: Modules (870), NpcSlavery (113), Scenes (64), SexEngine, InteractionSystem",
-        "instructions": null
+      "name": "CrotchCode 2.0 (Phase 4)",
+      "status": "DONE",
+      "description": "Визуальное моддинг-API: CrotchScriptBase, CrotchTranspiler, CrotchCompiler, CrotchGraphEditor. Исправлены критические баги: StringName literals, контроль потока, экспорт портов.",
+      "instructions": "Phase 4.md",
+      "details": {
+        "files": [
+          "Systems/CrotchCode/CrotchScriptBase.gd (265 строк — полная реализация)",
+          "Systems/CrotchCode/CrotchTranspiler.gd (326 строк — 170+ блоков, правильный контроль потока)",
+          "Systems/CrotchCode/CrotchCompiler.gd (44 строк — компиляция/исполнение)",
+          "Systems/CrotchCode/CrotchGraphEditor.gd (73 строк — мульти-порт экспорт)"
+        ],
+        "fixes": [
+          "_resolve_value: bare &name → &\"name\" (валидный StringName)",
+          "\"&%s\" → &\"%s\" во всех 14 местах (правильные StringName литералы)",
+          "transpile(): линейный обход → рекурсивный _transpile_blocks с управлением отступами",
+          "FlowIfElse: добавлена генерация else: ветки",
+          "export_to_dictionary(): мульти-порт (then/else/body/next по индексу порта)",
+          "FlowIf/FlowIfElse/FlowWhile: удалена мёртвая then_code переменная"
+        ],
+        "current_errors": 0
       }
+    },
+    {
+      "id": 6,
+      "name": "Deep architecture migration",
+      "status": "PENDING",
+      "description": "Перенос реальной логики из ~3178 файлов: Modules (870), NpcSlavery (113), Scenes (64), SexEngine, InteractionSystem",
+      "instructions": null
+    }
     ]
   },
 
@@ -92,8 +116,8 @@
     },
     "opencode": {
       "role": "Parallel agent",
-      "description": "Вспомогательный агент — scene files, batch операции, верификация, typed annotation cleanup",
-      "current_task": null,
+      "description": "Вспомогательный агент — scene files, batch операции, верификация, typed annotation cleanup, CrotchCode",
+      "current_task": "Phase 4 DONE — CrotchCode 2.0 fully migrated and debugged",
       "scope": {
         "allowed": ["*.tscn", "*.tres", "*.gd"],
         "forbidden": ["project.godot", "MEMORY.md"]
@@ -234,8 +258,155 @@
     {
       "timestamp": "2026-06-25T15:00:00Z",
       "agent": "opencode",
-      "action": "Phase2 (C# Simulation system): filled all placeholders in SimulationBridge.gd with real implementations. _check_add_new_pawns, _get_affection, _get_lust, _score_personality, _get_chars_rep_mult, _try_spawn_pawn, on_pawn_moved meet check all wired to existing systems (GM.main.RS, OPTIONS, GlobalRegistry, CharacterPawn)",
+      "action": "Phase2 (C# Simulation system): filled all placeholders in SimulationBridge.gd with real implementations.",
       "result": "0 SCRIPT ERRORs. Commit e5bf1e8a."
+    },
+    {
+      "timestamp": "2026-06-25T15:30:00Z",
+      "agent": "mimo",
+      "action": "Phase 1 stub completion: BaseCharacter (4 methods), MainScene (2 methods), GameUI (15+ methods) migrated from original Godot 3 code.",
+      "result": "0 SCRIPT ERRORs maintained. Commit d2aa4114."
+    },
+    {
+      "timestamp": "2026-06-25T15:30:00Z",
+      "agent": "mimo",
+      "action": "Phase 1 stub completion: BaseCharacter (4 methods), MainScene (2 methods), GameUI (15+ methods) migrated from original Godot 3 code.",
+      "result": "0 SCRIPT ERRORs maintained. Commit d2aa4114."
+    },
+    {
+      "timestamp": "2026-06-25T16:00:00Z",
+      "agent": "opencode",
+      "action": "Phase 4 (CrotchCode 2.0): исправлены 6 критических багов — StringName literals, рекурсивный трансфайлинг с отступами, else-ветка, мульти-порт экспорт, мёртвый код.",
+      "result": "0 SCRIPT ERRORs. 3 файла изменены (CrotchTranspiler, CrotchGraphEditor, AGENT_COORDINATION)."
     }
-  ]
+  ],
+
+  "phase4_tasks_for_opencode": {
+    "description": "Phase 4 — complete remaining stubs in ~10 files with real logic gaps. Each file needs: (1) read original from git history, (2) migrate real logic, (3) verify with godot --headless --check-only.",
+    "files": [
+      {
+        "id": "P4-1",
+        "file": "Game/InteractionSystem/PawnInteractionBase.gd",
+        "lines": 5,
+        "description": "5 pass stubs in 158-func interaction base class. Likely virtual methods for subclasses.",
+        "priority": "P1",
+        "check": "Verify if stubs are virtual (OK) or need real logic"
+      },
+      {
+        "id": "P4-2",
+        "file": "Game/NpcSlavery/NpcSlave.gd",
+        "lines": 6,
+        "description": "6 pass stubs in 125-func NPC slavery system.",
+        "priority": "P1",
+        "check": "Read original, migrate missing logic"
+      },
+      {
+        "id": "P4-3",
+        "file": "Game/NpcSlavery/NpcSlaveActivityBase.gd",
+        "lines": 8,
+        "description": "8 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-4",
+        "file": "Util/SexToySupport/Backends/LovenseConnect/LovenseConnect.gd",
+        "lines": 5,
+        "description": "5 pass stubs in sex toy backend.",
+        "priority": "P2",
+        "check": "Read original, migrate HTTP/network logic"
+      },
+      {
+        "id": "P4-5",
+        "file": "Game/InteractionSystem/Relationship/SpecialRelationshipBase.gd",
+        "lines": 5,
+        "description": "5 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-6",
+        "file": "Game/DrugDen/DrugDenEventBase.gd",
+        "lines": 5,
+        "description": "5 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-7",
+        "file": "Game/Datapacks/UI/CrotchCode/CodeBlockBase.gd",
+        "lines": 4,
+        "description": "4 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-8",
+        "file": "Inventory/SmartLocks/SmartLockBase.gd",
+        "lines": 4,
+        "description": "4 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-9",
+        "file": "Events/EventBase.gd",
+        "lines": 4,
+        "description": "4 pass stubs — likely base class virtual methods.",
+        "priority": "P2",
+        "check": "Verify if virtual methods (OK)"
+      },
+      {
+        "id": "P4-10",
+        "file": "Player/StageScene3D/BaseStageScene3D.gd",
+        "lines": 4,
+        "description": "4 pass stubs in stage scene base.",
+        "priority": "P2",
+        "check": "Read original, migrate 3D stage logic"
+      }
+    ],
+    "workflow": "For each file: 1. Run `git log --oneline -- <file>` to find migration commit. 2. Run `git show <commit>~1:<file>` to get original. 3. Compare stubs with original implementations. 4. If original had real logic, migrate it. 5. If stubs are virtual methods (base class pattern), mark as OK. 6. Run `godot --headless --check-only` after each file. 7. Commit after each batch of 3-5 files."
+  },
+
+  "phase2_tasks_for_opencode": {
+    "description": "Phase 5 — deep architecture migration of ~3178 files. Priority order:",
+    "tasks": [
+      {
+        "id": "P5-1",
+        "name": "Modules migration (870 files)",
+        "description": "Миграция 22 модулей (AcePregExpac, AlexRynard, Artica, Cellblock, DrugDen, Eliza, FightClub, Gym, Hypnink, Jacki, Kait, Medical, Nova, NpcSlavery, PlayerSlavery, PortalPanties, Punishments, Rahi, SlaveAuction, Socket, SongJoHairs, Tavi). Каждый модуль extending Module base class.",
+        "priority": "P0",
+        "batch_size": "50 files per commit",
+        "instructions": "1. Read original Godot 3 code from git history (commit before batch migration). 2. Migrate API patterns (extends→RefCounted, onready→@onready, connect→signal.connect, etc.). 3. Preserve all game logic 1:1. 4. Commit after each batch of 50 files."
+      },
+      {
+        "id": "P5-2",
+        "name": "NpcSlavery system (113 files)",
+        "description": "Миграция системы NPC slavery — Events, Punishments, Approaches, Soft/Hard slavery.",
+        "priority": "P0",
+        "batch_size": "30 files per commit"
+      },
+      {
+        "id": "P5-3",
+        "name": "SexEngine activities (200+ files)",
+        "description": "Миграция sex activity implementations — each extending SexActivityBase with specific logic.",
+        "priority": "P1",
+        "batch_size": "30 files per commit"
+      },
+      {
+        "id": "P5-4",
+        "name": "Scenes (64 files)",
+        "description": "Миграция game scenes — each extending SceneBase with _run(), _react(), _init_scene().",
+        "priority": "P1",
+        "batch_size": "20 files per commit"
+      },
+      {
+        "id": "P5-5",
+        "name": "Remaining subsystems",
+        "description": "InteractionSystem, Characters, Events, Skills, StatusEffect, Visuals, etc.",
+        "priority": "P2",
+        "batch_size": "50 files per commit"
+      }
+    ]
+  }
 }

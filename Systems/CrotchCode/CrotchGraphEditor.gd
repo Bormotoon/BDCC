@@ -26,21 +26,34 @@ func export_to_dictionary() -> Dictionary:
 			var node_id: String = child.name
 			var block_data: Dictionary = {}
 
-			# Extract block type and data from the GraphNode
 			if child.has_method("get_block_data"):
 				block_data = child.get_block_data()
 
-			# Find connections from this node
-			for connection in get_connection_list():
-				if connection["from"] == node_id:
-					block_data["next_id"] = connection["to"]
-					block_data["next_port"] = connection["from_port"]
-
 			export_data[node_id] = block_data
 
-			# First node is the start node
 			if start_node_id.is_empty():
 				start_node_id = node_id
+
+	# Map connections by output port index
+	for connection in get_connection_list():
+		var from_node: String = connection["from"]
+		var from_port: int = connection["from_port"]
+		var to_node: String = connection["to"]
+
+		if not export_data.has(from_node):
+			continue
+
+		match from_port:
+			0:
+				export_data[from_node]["next_id"] = to_node
+			1:
+				export_data[from_node]["then_id"] = to_node
+			2:
+				export_data[from_node]["else_id"] = to_node
+			3:
+				export_data[from_node]["body_id"] = to_node
+			_:
+				export_data[from_node]["next_id"] = to_node
 
 	return {
 		"blocks": export_data,

@@ -89,45 +89,54 @@ const BLOCK_TYPES: Array[StringName] = [
 
 ## Transpiles a block graph into a complete GDScript string
 func transpile(blocks: Dictionary, start_node_id: String, block_count: int = 0) -> String:
-	var generated_code: String = HEADER % block_count
-	var current_node_id: String = start_node_id
-	var indent: String = "\t"
+	var result: String = HEADER % block_count
+	result += _transpile_blocks(blocks, start_node_id, "\t")
+	return result
 
-	while current_node_id != "" and blocks.has(current_node_id):
-		var block: Dictionary = blocks[current_node_id]
+## Recursively transpiles a chain of blocks with proper indentation
+func _transpile_blocks(blocks: Dictionary, start_id: String, indent: String) -> String:
+	var code: String = ""
+	var current_id: String = start_id
+
+	while current_id != "" and blocks.has(current_id):
+		var block: Dictionary = blocks[current_id]
 		var block_type: String = block.get("type", "")
 
-		var line := _generate_block_code(block)
-		if line != "":
-			generated_code += indent + line + "\n"
+		match block_type:
+			"FlowIf":
+				var condition: String = _resolve_value(block.get("condition", ""))
+				code += indent + "if %s:\n" % condition
+				code += _transpile_blocks(blocks, block.get("then_id", ""), indent + "\t")
+				current_id = block.get("next_id", "")
 
-		# Safety injection for while loops (migrated from original concept)
-		if block_type == "FlowWhile":
-			generated_code += indent + "\tawait cc_wait_seconds(get_tree(), 0.01)\n"
+			"FlowIfElse":
+				var condition: String = _resolve_value(block.get("condition", ""))
+				code += indent + "if %s:\n" % condition
+				code += _transpile_blocks(blocks, block.get("then_id", ""), indent + "\t")
+				code += indent + "else:\n"
+				code += _transpile_blocks(blocks, block.get("else_id", ""), indent + "\t")
+				current_id = block.get("next_id", "")
 
-		current_node_id = block.get("next_id", "")
+			"FlowWhile":
+				var condition: String = _resolve_value(block.get("condition", ""))
+				code += indent + "while %s:\n" % condition
+				code += indent + "\tawait cc_wait_seconds(get_tree(), 0.01)\n"
+				code += _transpile_blocks(blocks, block.get("body_id", ""), indent + "\t")
+				current_id = block.get("next_id", "")
 
-	return generated_code
+			_:
+				var line := _generate_block_code(block)
+				if line != "":
+					code += indent + line + "\n"
+				current_id = block.get("next_id", "")
+
+	return code
 
 ## Translates a single block into a code line
 func _generate_block_code(block: Dictionary) -> String:
 	var block_type: String = block.get("type", "")
 
 	match block_type:
-		# --- Flow control ---
-		"FlowIf":
-			var condition: String = _resolve_value(block.get("condition", ""))
-			var then_code: String = block.get("then_id", "")
-			return "if %s:" % condition
-
-		"FlowIfElse":
-			var condition: String = _resolve_value(block.get("condition", ""))
-			return "if %s:" % condition
-
-		"FlowWhile":
-			var condition: String = _resolve_value(block.get("condition", ""))
-			return "while %s:" % condition
-
 		# --- Math ---
 		"MathPlus":
 			var a: String = _resolve_value(block.get("a", "0"))
@@ -208,54 +217,54 @@ func _generate_block_code(block: Dictionary) -> String:
 		# --- Variables ---
 		"VarGet":
 			var var_id: String = str(block.get("var_id", ""))
-			return 'get_var("&%s")' % var_id
+			return 'get_var(&"%s")' % var_id
 
 		"VarSet":
 			var var_id: String = str(block.get("var_id", ""))
 			var value: String = _resolve_value(block.get("value", "null"))
-			return 'set_var("&%s", %s)' % [var_id, value]
+			return 'set_var(&"%s", %s)' % [var_id, value]
 
 		"VarInc":
 			var var_id: String = str(block.get("var_id", ""))
 			var amount: String = _resolve_value(block.get("amount", "1"))
-			return 'set_var("&%s", get_var("&%s", 0) + %s)' % [var_id, var_id, amount]
+			return 'set_var(&"%s", get_var(&"%s", 0) + %s)' % [var_id, var_id, amount]
 
 		# --- Flags ---
 		"FlagGet":
 			var flag_id: String = str(block.get("flag_id", ""))
-			return 'get_flag_raw("&%s")' % flag_id
+			return 'get_flag_raw(&"%s")' % flag_id
 
 		"FlagSet":
 			var flag_id: String = str(block.get("flag_id", ""))
 			var value: String = _resolve_value(block.get("value", "null"))
-			return 'set_flag_raw("&%s", %s)' % [flag_id, value]
+			return 'set_flag_raw(&"%s", %s)' % [flag_id, value]
 
 		"FlagGlobGet":
 			var flag_id: String = str(block.get("flag_id", ""))
-			return 'get_flag_raw("&%s")' % flag_id
+			return 'get_flag_raw(&"%s")' % flag_id
 
 		"FlagGlobSet":
 			var flag_id: String = str(block.get("flag_id", ""))
 			var value: String = _resolve_value(block.get("value", "null"))
-			return 'set_flag_raw("&%s", %s)' % [flag_id, value]
+			return 'set_flag_raw(&"%s", %s)' % [flag_id, value]
 
 		# --- Inventory ---
 		"InvAddItemID":
 			var char_id: String = _resolve_value(block.get("char_id", "&pc"))
 			var item_id: String = str(block.get("item_id", ""))
 			var amount: int = block.get("amount", 1)
-			return 'inv_add_item(%s, "&%s", %d)' % [char_id, item_id, amount]
+			return 'inv_add_item(%s, &"%s", %d)' % [char_id, item_id, amount]
 
 		"InvRemoveItemID":
 			var char_id: String = _resolve_value(block.get("char_id", "&pc"))
 			var item_id: String = str(block.get("item_id", ""))
 			var amount: int = block.get("amount", 1)
-			return 'inv_remove_item(%s, "&%s", %d)' % [char_id, item_id, amount]
+			return 'inv_remove_item(%s, &"%s", %d)' % [char_id, item_id, amount]
 
 		"InvHasItemID":
 			var char_id: String = _resolve_value(block.get("char_id", "&pc"))
 			var item_id: String = str(block.get("item_id", ""))
-			return 'inv_has_item(%s, "&%s")' % [char_id, item_id]
+			return 'inv_has_item(%s, &"%s")' % [char_id, item_id]
 
 		# --- Character ---
 		"GameAddAtr":
@@ -304,7 +313,7 @@ func _generate_block_code(block: Dictionary) -> String:
 func _resolve_value(value: Variant) -> String:
 	if value is String:
 		if value.begins_with("&"):
-			return value  # StringName literal
+			return '&"%s"' % value.substr(1)  # StringName literal: &"name"
 		if value.begins_with("\""):
 			return value  # String literal
 		# Try to parse as number
@@ -313,5 +322,5 @@ func _resolve_value(value: Variant) -> String:
 		if value.is_valid_float():
 			return value
 		# Variable reference
-		return 'get_var("&%s")' % value
+		return 'get_var(&"%s")' % value
 	return str(value)
