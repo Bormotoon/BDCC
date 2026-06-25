@@ -12,31 +12,31 @@ func _run():
 		
 		saynn("What do you want to tell Alex?")
 		
-		if(GM.pc.isVisiblyPregnant() && (getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
-			if(GM.pc.isPregnantFrom("alexrynard")):
+		if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() && (getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
+			if(ServiceLocator.safe_get_service(&"Player").isPregnantFrom("alexrynard")):
 				addButton("Gonna Be Father", "Tell Alex he is gonna be a father", "alexfatherreveal")
 			else:
 				addDisabledButton("Gonna Be Father", "You aren't pregnant from him")
 #less clutter on the button screen
 		
-		if(GM.pc.isVisiblyPregnant() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
+		if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
 			addButton("Cuddle", "Get some emotional support from Alex", "alexpregcuddle")
-		elif(!GM.pc.isVisiblyPregnant()):
+		elif(!ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			addDisabledButton("Cuddle", "You aren't pregnant")
 		
 		if((!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
 			addButton("Snacks?", "Alex is staff, surely he has something you can eat. However Small it may be.", "AlexSnackStart")
 		
-		if(GM.pc.isLactating() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 0)) && !GM.pc.hasEffect(StatusEffect.SoreNipplesAfterMilking)):
+		if(ServiceLocator.safe_get_service(&"Player").isLactating() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 0)) && !ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.SoreNipplesAfterMilking)):
 			addButton("Milk", "See if Alex can help milk your chest.", "AlexPCMilking")
-		elif(GM.pc.hasEffect(StatusEffect.SoreNipplesAfterMilking)) && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)):
+		elif(ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.SoreNipplesAfterMilking)) && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)):
 			addDisabledButton("Milk", "Your nipples are sore, give them some rest.")
-		elif(!GM.pc.isLactating()) && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)):
+		elif(!ServiceLocator.safe_get_service(&"Player").isLactating()) && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)):
 			addDisabledButton("Milk", "You can't be milked")
 #
-#		if(GM.pc.isReadyToGiveBirth() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
+#		if(ServiceLocator.safe_get_service(&"Player").isReadyToGiveBirth() && (!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
 #			addButton("Birth", "Take Alex to help you give birth", "StartBirthAlex")
-#		elif(!GM.pc.isReadyToGiveBirth() && (getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
+#		elif(!ServiceLocator.safe_get_service(&"Player").isReadyToGiveBirth() && (getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1))):
 #			addDisabledButton("Birth", "You're not ready to give birth.")
 #		else:
 #			addDisabledButton("mod broke", "scripting broke")
@@ -131,7 +131,7 @@ func _run():
 
 		saynn("[say=pc]Can we cuddle up for a moment?[/say]")
 		
-		if (GM.pc.hasEffect(StatusEffect.CoveredInCum)):
+		if (ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.CoveredInCum)):
 			saynn("Alex notices how messy you are and sighs.")
 
 			saynn("[say=alexrynard]Please clean yourself first. You're way too messy.[/say]")
@@ -177,9 +177,9 @@ func _run():
 		
 		saynn("With nothing to bother you and all relaxed like this... time passing, half-asleep already... would be a great time for a nap.")
 		
-		if(RNG.chance(50) && GM.pc.isHeavilyPregnant()):
+		if(RNG.chance(50) && ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("[say=alexrynard]I think i just felt it move...[/say]")
-		elif(GM.pc.isHeavilyPregnant()):
+		elif(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("[say=alexrynard]I don't know how you carry that all day...[/say]")
 		else:
 			saynn("[say=alexrynard]How are you holding up?[/say]")
@@ -222,7 +222,7 @@ func _run():
 		
 		saynn("[say=pc]Kids want better food...[/say]")
 		
-		if(!GM.pc.isVisiblyPregnant()):
+		if(!ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("Alex drags his eyes over your body.")
 			saynn("[say=alexrynard]You're not even pregnant.[/say]")
 			saynn("[say=pc]...Please?[/say]")
@@ -278,7 +278,7 @@ func _run():
 			
 			saynn("[say=alexrynard]Well, I gotta head back. You know the exit and where to find me.[/say]")
 			
-			saynn("The fox heads back out into the hallway while you kinda just lean back in your chair"+str(" holding your pregnant belly" if GM.pc.isVisiblyPregnant() else "")+" with an admittedly dumb smile on your face, the phantom taste of sugar still on your tongue.")
+			saynn("The fox heads back out into the hallway while you kinda just lean back in your chair"+str(" holding your pregnant belly" if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+" with an admittedly dumb smile on your face, the phantom taste of sugar still on your tongue.")
 			
 			saynn("You gotta do something good for that fox when you get the chance...")
 			
@@ -340,7 +340,7 @@ func _run():
 		
 		saynn("When you're ready you stand up from your place at breakroom table and stretch.")
 		
-		if(GM.pc.isHeavilyPregnant()):
+		if(ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant()):
 			saynn("Something shifts inside your pregnant belly. And continues to move around as you work through stretching you back.")
 			
 			saynn("Holding your hands to your stomach you try to get your gravid self into a comfortable position as everything settles back down.")
@@ -349,7 +349,7 @@ func _run():
 			
 			saynn("Right then, back to the daily grind.")
 		
-		elif(GM.pc.isVisiblyPregnant()):
+		elif(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 			saynn("Your hands drift to your rounded out midsection, adjusting it to a more comfortable position.")
 			
 			saynn("It looks like it didn't do much but you feel better at least")
@@ -376,7 +376,7 @@ func _run():
 			
 			saynn("[say=alexrynard]Uh... Sure what is it?[/say]")
 			
-			if(GM.pc.isVisiblyPregnant()):
+			if(ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant()):
 				saynn("[say=pc]I've started lactating from this pregnancy, and my chest is rather sore from it. Do you think you could help me with it?[/say]")
 			else:
 				saynn("[say=pc]I've started lactating and I could use some help dealing with it.[/say]")
@@ -433,7 +433,7 @@ func _react(_action: String, _args):
 		
 	if(_action == "leavebreakroom"):
 		processTime(60*30)
-		GM.pc.setLocation("eng_bay_nearbreakroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_nearbreakroom")
 		endScene()
 		return
 		

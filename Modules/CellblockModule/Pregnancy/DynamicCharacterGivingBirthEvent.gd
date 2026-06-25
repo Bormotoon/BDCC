@@ -12,7 +12,7 @@ func react(_triggerID, _args):
 	if(character == null || !character.isReadyToGiveBirth() || !character.supportsDefaultGiveBirthScene()):
 		return false
 	
-	GM.main.IS.deletePawn(npcID)
+	ServiceLocator.safe_get_service(&"MainScene").IS.deletePawn(npcID)
 	runScene("DynamicCharacterGivingBirthScene", [npcID])
 	return true
 

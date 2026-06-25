@@ -16,6 +16,16 @@ signal bodypart_changed
 signal orifice_become_more_loose(orifice_name: String, new_value: float, old_value: float)
 signal exchanged_cum_during_rubbing(sender_name: String, receiver_name: String)
 
+func _bridge_signals_to_eventbus() -> void:
+	pain_changed.connect(func(nv, ov): EventBus.pain_changed.emit(self, nv, ov))
+	lust_changed.connect(func(nv, ov): EventBus.lust_changed.emit(self, nv, ov))
+	stamina_changed.connect(func(nv, ov): EventBus.stamina_changed.emit(self, nv, ov))
+	level_changed.connect(func(): EventBus.level_changed.emit(self, 0, 0))
+	skill_level_changed.connect(func(sid): EventBus.skill_level_changed.emit(self, sid, 0, 0))
+	bodypart_changed.connect(func(): EventBus.bodypart_changed.emit(self, &"", &"", &""))
+	orifice_become_more_loose.connect(func(name, nv, ov): EventBus.stat_changed.emit(self, &"orifice_" + name, ov, nv))
+	exchanged_cum_during_rubbing.connect(func(s, r): EventBus.sex_event_triggered.emit(&"cum_exchange", [self], &""))
+
 # --- Variables (lines 16-55, typed where possible) ---
 var pain: int = 0
 var lust: int = 0
@@ -97,6 +107,8 @@ func _ready() -> void:
 	skills_holder.stat_changed.connect(_on_stat_change)
 	skills_holder.experience_changed.connect(_on_stat_change)
 	skills_holder.level_changed.connect(_on_level_change)
+
+	_bridge_signals_to_eventbus()
 	skills_holder.skill_level_changed.connect(_on_skill_level_change)
 
 	stamina = get_max_stamina()

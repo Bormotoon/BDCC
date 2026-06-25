@@ -16,7 +16,7 @@ func _run():
 		addButton("Look closer", "Did someone die here?", "look_closer")
 		addButton("Leave", "Time to leave this place!", "leave")
 	if(state == "leave"):
-		GM.pc.setLocation("eng_nearnura")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_nearnura")
 		aimCameraAndSetLocName("eng_nearnura")
 		saynn("You quickly make your way the heck out of that room. Phew.")
 

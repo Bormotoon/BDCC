@@ -16,7 +16,7 @@ func _run():
 
 		saynn("[say=pc]Can we do a trust exercise? The fourth one?[/say]")
 
-		if (GM.pc.hasBoundArms() || GM.pc.hasBlockedHands() || GM.pc.hasBoundLegs() || GM.pc.isBlindfolded() || GM.pc.isGagged() || GM.pc.isWearingPortalPanties()):
+		if (ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundLegs() || ServiceLocator.safe_get_service(&"Player").isBlindfolded() || ServiceLocator.safe_get_service(&"Player").isGagged() || ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 			saynn("Alex notices your restraints and hums")
 
 			saynn("[say=alexrynard]Kinky. But I need your body to be fully free.[/say]")
@@ -24,7 +24,7 @@ func _run():
 			saynn("Huff, what a buzzkill. Looks like you have to struggle out of your restraints first.")
 
 			addButton("Oh well", "Was worth a try", "endthescene")
-		elif (GM.pc.hasEffect(StatusEffect.CoveredInCum)):
+		elif (ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.CoveredInCum)):
 			saynn("Alex notices how messy you are and sighs.")
 
 			saynn("[say=alexrynard]Please clean yourself first. You're way too messy.[/say]")
@@ -206,19 +206,19 @@ func _run():
 
 		saynn("Without much thought, you {pc.undressMessage}, presenting yourself completely naked to him.")
 
-		if (GM.pc.hasSmallBreasts()):
+		if (ServiceLocator.safe_get_service(&"Player").hasSmallBreasts()):
 			saynn("Your chest is not the most 'rich' one but you still puff it out, putting your nipples out on display.")
 
 		else:
-			saynn("You puff your chest out, putting your {pc.breasts} and nipples out on display."+str(" Some of your milk trails down your curves already.. Your tits are full of it." if GM.pc.canBeMilked() else "")+"")
+			saynn("You puff your chest out, putting your {pc.breasts} and nipples out on display."+str(" Some of your milk trails down your curves already.. Your tits are full of it." if ServiceLocator.safe_get_service(&"Player").canBeMilked() else "")+"")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("There is no easy way to take off your chastity cage so you have to just present it to Alex as is.. By now it has become a part of you anyway. The foxy can notice how executing orders makes your locked away member leak some more pre.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("You feel the need to present everything.. so your body is forcibly making your {pc.penis} become harder.. Just so Alex can see it in its full glory.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Both, your {pc.vaginaStretch} pussy and {pc.analStretch} tailhole are out on display. You don't exactly know how he wants to see your holes.. so you settle with just slightly spreading your legs.")
 
 		else:
@@ -246,15 +246,15 @@ func _run():
 
 		saynn("[rainbow freq=0.05 sat=0.5 val=1.0]Sex.. Toy.. Pleasure.. Sextoy.. Serve..[/rainbow]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Instantly, your caged up cock began twitching in its little cage, pressure building up inside of it.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Instantly, your cock has begun twitching and leaking drops of pre onto the floor, pressuring building up inside of it.")
 
 		saynn("All your thoughts become corrupted by those words.. Sex.. Toy.. Serve..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your breathing becomes deeper, waves of warmth spread through your whole body, hitting all your sensitive zones. Heat.. start to irradiate from your pussy.. your wet juices dripping onto the floor.")
 
 		else:
@@ -278,7 +278,7 @@ func _run():
 
 		saynn("Yes.. Yes! Anything for him.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			addButton("Turn around", "Present Alex your pussy", "4_pussyfuck")
 		else:
 			addButton("Turn around", "Present Alex your butt", "4_analfuck")
@@ -314,7 +314,7 @@ func _run():
 
 		saynn("[say=pc]Why not, Sir..[/say]")
 
-		saynn("Is he really that afraid of knocking you up.."+str(" You're obviously pregnant already anyway.." if GM.pc.isVisiblyPregnant() else "")+"")
+		saynn("Is he really that afraid of knocking you up.."+str(" You're obviously pregnant already anyway.." if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+"")
 
 		saynn("[say=alexrynard]Not while you're in this state.[/say]")
 
@@ -344,10 +344,10 @@ func _run():
 
 		saynn("[rainbow freq=0.05 sat=0.5 val=1.0]Fucktoy.. Cocksleeve.. Sex slave..[/rainbow]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own locked away cock is dripping through the little hole in its cage, the way his dick is pushing on your buttons, coupled with the dirty thoughts flashing through your mind.. pure ecstasy..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.penis} is dripping pre at a steady rate, the way his dick is pushing on your buttons, coupled with the dirty thoughts flashing through your mind.. pure ecstasy..")
 
 		saynn("[say=alexrynard]Moan like you mean it, toy.[/say]")
@@ -373,10 +373,10 @@ func _run():
 		else:
 			saynn("Alex welcomes your orgasm with his own, thrusting as deep as your pussy allows, his cock breaking into your womb.. and stuffing it full of his virile seed.. so much that your belly starts looking a little rounder..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("During the orgasm, your locked away cock is throbbing at the same rate as Alex's.. releasing little spurts of spunk through the cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("During the orgasm, your own cock is throbbing at the same rate as Alex's.. releasing long spurts of spunk, creating a mess underneath.")
 
 		saynn("Yes-s! Your whole body is shaking, your legs want to give but Alex helps you not to collapse, your pussy releasing a fountain of juices onto the floor, the hypnovisor rewarding you with warm glowing colors.")
@@ -414,7 +414,7 @@ func _run():
 	if(state == "4_analfuck_fail_pull_condom"):
 		saynn("What little control you still have.. you spend wisely. Just before Alex aligns himself with your needy hole, you reach your hand out and try to pull his condom off.")
 
-		if (GM.pc.hasWombIn(BodypartSlot.Anus)):
+		if (ServiceLocator.safe_get_service(&"Player").hasWombIn(BodypartSlot.Anus)):
 			saynn("[say=pc]Breed.. Please..[/say]")
 
 		else:
@@ -426,11 +426,11 @@ func _run():
 
 		saynn("[say=pc]Why not, Sir..[/say]")
 
-		if (GM.pc.hasWombIn(BodypartSlot.Anus)):
-			saynn("Is he really that afraid of knocking you up.."+str(" You're obviously pregnant already anyway.." if GM.pc.isVisiblyPregnant() else "")+"")
+		if (ServiceLocator.safe_get_service(&"Player").hasWombIn(BodypartSlot.Anus)):
+			saynn("Is he really that afraid of knocking you up.."+str(" You're obviously pregnant already anyway.." if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+"")
 
 		else:
-			saynn("Obviously he can't get your pregnant anyway so why bother with these rubbers.."+str(" And you're somehow pregnant already anyway.." if GM.pc.isVisiblyPregnant() else "")+"")
+			saynn("Obviously he can't get your pregnant anyway so why bother with these rubbers.."+str(" And you're somehow pregnant already anyway.." if ServiceLocator.safe_get_service(&"Player").isVisiblyPregnant() else "")+"")
 
 		saynn("[say=alexrynard]Not while you're in this state.[/say]")
 
@@ -452,7 +452,7 @@ func _run():
 
 		saynn("[say=pc]Ah![/say]")
 
-		if (GM.pc.hasPenis()):
+		if (ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("In one swift motion, his cock slides between your inner walls and smashes into your prostate, pushing you forward.. just for his arms to pull you back moments later.")
 
 		else:
@@ -464,10 +464,10 @@ func _run():
 
 		saynn("[rainbow freq=0.05 sat=0.5 val=1.0]Fucktoy.. Cocksleeve.. Sex slave..[/rainbow]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own locked away cock is dripping through the little hole in its cage, the way his dick is pushing on your buttons, coupled with the dirty thoughts flashing through your mind.. pure ecstasy..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.penis} is dripping pre at a steady rate, the way his dick is pushing on your buttons, coupled with the dirty thoughts flashing through your mind.. pure ecstasy..")
 
 		saynn("[say=alexrynard]Moan like you mean it, toy.[/say]")
@@ -493,10 +493,10 @@ func _run():
 		else:
 			saynn("Alex welcomes your orgasm with his own, thrusting as deep as your ass allows, his cock reaching your deep nethers.. and stuffing you full of his virile seed.. so much that your belly starts looking a little rounder..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your prostate is under constant pressure during the orgasm, your locked away cock is throbbing at the same rate as Alex's.. releasing little spurts of spunk through the cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your prostate is under constant pressure during the orgasm, your own cock is throbbing at the same rate as Alex's.. releasing long spurts of spunk, creating a mess underneath.")
 
 		saynn("Yes-s! Your whole body is shaking, your legs want to give but Alex helps you not to collapse, your tailhole still clenching around the throbbing shaft, your hypnovisor rewarding you with warm glowing colors.")
@@ -1478,12 +1478,12 @@ func _run():
 
 		addButton("Visor", "Turn it off", "hyp_fuck_turnoff_visor")
 func addPumpButtons():
-	var pumps = GM.pc.getInventory().getItemsWithTag(ItemTag.PenisPump)
+	var pumps = ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.PenisPump)
 	for pump in pumps:
 		addButton(pump.getVisibleName(), pump.getVisibleDescription(), "hyp_penispump", [pump])
 
 func addStraponButtons():
-	var strapons = GM.pc.getStrapons()
+	var strapons = ServiceLocator.safe_get_service(&"Player").getStrapons()
 	for strapon in strapons:
 		addButton(strapon.getVisibleName(), strapon.getVisibleDescription(), "hyp_strapon", [strapon])
 
@@ -1503,10 +1503,10 @@ func _react(_action: String, _args):
 		bratCounter += 1
 
 	if(_action == "1"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("HypnovisorDisabled"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("HypnovisorDisabled"))
 
 	if(_action == "2"):
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("HypnovisorMk1"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("HypnovisorMk1"))
 		processTime(10*60)
 
 	if(_action == "3"):
@@ -1522,12 +1522,12 @@ func _react(_action: String, _args):
 
 	if(_action == "4_pussyfuck_fuck_cum"):
 		processTime(10*60)
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.gotVaginaFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("alexrynard")
 		if(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
-			GM.pc.cummedInVaginaBy("alexrynard")
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaBy("alexrynard")
 			setFlag("AcePregExpac.Alex_CameInside", true)
 
 	if(_action == "after_cuddle"):
@@ -1544,17 +1544,17 @@ func _react(_action: String, _args):
 
 	if(_action == "4_analfuck_fuck_cum"):
 		processTime(10*60)
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.gotAnusFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("alexrynard")
 		if(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
-			GM.pc.cummedInAnusBy("alexrynard")
-			if(GM.pc.hasWombIn(BodypartSlot.Anus)):
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("alexrynard")
+			if(ServiceLocator.safe_get_service(&"Player").hasWombIn(BodypartSlot.Anus)):
 				setFlag("AcePregExpac.Alex_CameInside", true)
 
 	if(_action == "novisor"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
 		processTime(20*60)
 
 	if(_action == "hypno_alex"):
@@ -1575,11 +1575,11 @@ func _react(_action: String, _args):
 		processTime(5*60)
 		var strapon = _args[0]
 		pumpID = strapon.uniqueID
-		GM.pc.getInventory().removeItem(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItem(strapon)
 		getCharacter("alexrynard").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "hyp_aftermilk"):
-		GM.pc.addSkillExperience(Skill.Breeder, 20, "penis_pump")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 20, "penis_pump")
 		var pump = getCharacter("alexrynard").getInventory().getItemByUniqueID(pumpID)
 		if(pump!=null):
 			howMuchSeed = getCharacter("alexrynard").getBodypart(BodypartSlot.Penis).getFluids().transferTo(pump, 1.0)
@@ -1588,7 +1588,7 @@ func _react(_action: String, _args):
 		var pump = getCharacter("alexrynard").getInventory().getItemByUniqueID(pumpID)
 		if(pump != null):
 			getCharacter("alexrynard").getInventory().removeEquippedItem(pump)
-			GM.pc.getInventory().addItem(pump)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(pump)
 		getCharacter("alexrynard").resetEquipment()
 
 	if(_action == "hyp_put_on_chastity"):
@@ -1616,19 +1616,19 @@ func _react(_action: String, _args):
 
 	if(_action == "hyp_ride_fuck_cum"):
 		processTime(5*60)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "alex_anal")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "alex_anal")
 		getCharacter("alexrynard").cummedInAnusBy("pc")
 		addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "hyp_ride_fuck_pin"):
 		processTime(16*60)
 
 	if(_action == "hyp_ride_fuck_pin_cum"):
 		processTime(5*60)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "alex_anal2")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "alex_anal2")
 		getCharacter("alexrynard").cummedInAnusBy("pc")
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "hyp_fuck_turnoff_visor"):
 		processTime(20*60)
@@ -1637,7 +1637,7 @@ func _react(_action: String, _args):
 	if(_action == "hyp_strapon"):
 		processTime(3*60)
 		var strapon = _args[0]
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(strapon)
 
 	if(_action == "hyp_strapon_undress"):
 		processTime(5*60)
@@ -1650,22 +1650,22 @@ func _react(_action: String, _args):
 
 	if(_action == "hyp_ride_strapon_cum"):
 		processTime(5*60)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "alex_anal")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "alex_anal")
 		getCharacter("alexrynard").cummedInAnusBy("pc", FluidSource.Strapon)
 		addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "hyp_ride_strapon_pin"):
 		processTime(16*60)
 
 	if(_action == "hyp_ride_strapon_pin_cum"):
 		processTime(5*60)
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "alex_anal2")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "alex_anal2")
 		getCharacter("alexrynard").cummedInAnusBy("pc", FluidSource.Strapon)
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "hyp_ride_strapon_enough"):
-		GM.pc.unequipStrapon()
+		ServiceLocator.safe_get_service(&"Player").unequipStrapon()
 
 	setState(_action)
 

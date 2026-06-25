@@ -163,7 +163,7 @@ func _run():
 		addButton("Follow", "See what happens next", "time3_gofollow")
 	if(state == "time3_gofollow"):
 		aimCameraAndSetLocName("eng_workshop")
-		GM.pc.setLocation("eng_workshop")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_workshop")
 		playAnimation(StageScene.Duo, "stand", {npc="alexrynard"})
 		saynn("Alex brings you to the staff break room. A very familiar room by now.")
 
@@ -435,10 +435,10 @@ func _run():
 
 		saynn("Alex is completely helpless with all the restraints.. but looks like he doesn't mind much. You can see his chest moving slower as you start to accept his member inside you, the tip spreading the slick inner walls and quickly passing your pleasure spot.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your member reacts instantly by getting hard.. well, trying to. There is pressure slowly building in your chastity cage now..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.penis} reacts instantly by getting hard, a lonely tip of your precum shining on its tip.")
 
 		saynn("[say=pc]Yeah.. I can do whatever I want with you, sly fox..[/say]")
@@ -503,10 +503,10 @@ func _run():
 
 		saynn("You throw your head back and produce a long noise of passion, your clenching pussy housing Alex's full length, knot included. The sensations are so strong, you can't stop yourself from gushing transparent fluids all over his chest..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up cock is throbbing too, shooting weak lines of {pc.cum} through the little hole of the cage..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock is throbbing too, shooting strong thick lines of {pc.cum}, your balls quickly getting milked for all their seed..")
 
 		saynn("[say=pc]Ahh-h..[/say]")
@@ -626,10 +626,10 @@ func _run():
 
 		saynn("Alex is completely helpless with all the restraints.. but looks like he doesn't mind much. You can see his chest moving slower as you start to accept his member inside you, the tip spreading the slick inner walls and quickly passing your pleasure spot.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your member reacts instantly by getting hard.. well, trying to. There is pressure slowly building in your chastity cage now as your prostate is being massaged..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own {pc.penis} reacts instantly by getting hard as your prostate is being massaged, a lonely tip of your precum shining on the tip of your member.")
 
 		saynn("[say=pc]Yeah.. I can do whatever I want with you, sly fox..[/say]")
@@ -694,10 +694,10 @@ func _run():
 
 		saynn("You throw your head back and produce a long noise of passion, your clenching ass housing Alex's full length, knot included. The sensations are so strong, you can't stop yourself from squirming around his cock..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up cock is throbbing too, shooting weak lines of {pc.cum} through the little hole of the cage, your prostate beyond stimulated..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your own cock is throbbing too, shooting strong thick lines of {pc.cum}, your balls quickly getting milked for all their seed, your prostate beyond stimulated..")
 
 		saynn("[say=pc]Ahh-h..[/say]")
@@ -888,7 +888,7 @@ func _run():
 		addButton("Follow", "See where Alex brings you", "time5_nearlift")
 	if(state == "time5_nearlift"):
 		aimCameraAndSetLocName("cd_near_elevator")
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		saynn("You and Alex enter the lift. He uses his badge to get access to more floors before selecting the command deck.")
 
 		saynn("[say=pc]Do you really need me though?[/say]")
@@ -1209,7 +1209,7 @@ func _run():
 		addButton("How", "How did Alex manage to persuade him", "time5_how")
 	if(state == "time5_returnback"):
 		aimCameraAndSetLocName("mining_nearentrance")
-		GM.pc.setLocation("mining_nearentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("mining_nearentrance")
 		playAnimation(StageScene.Duo, "walk", {npc="alexrynard", npcAction="walk", flipNPC=true, bodyState={leashedBy="alexrynard"}})
 		saynn("Alex brings you back to the lowest level of the station. And yet, you still feel like you won.")
 
@@ -1758,7 +1758,7 @@ func _run():
 		removeCharacter("alexrynard")
 		playAnimation(StageScene.Solo, "sit")
 		aimCameraAndSetLocName("med_lobbyse")
-		GM.pc.setLocation("med_lobbymain")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbymain")
 		saynn("Next few moments become a blur.. You rush out of the mineshaft and find the first staff member that you can.. You quickly tell them everything that happened.. After that.. You just don't remember it anymore.")
 
 		saynn("You snap out of it only about an hour later. You find yourself sitting on one of the benches in the medical lobby.. You faintly remember the moment when three nurses rushed past you, pushing an emergency medical stretcher past you with unconscious Alex on it..")
@@ -1785,7 +1785,7 @@ func _run():
 	if(state == "time6_eliza_follow"):
 		aimCameraAndSetLocName("med_researchlab")
 		setFlag("AlexRynardModule.ch2GotRektHappened", true)
-		setFlag("AlexRynardModule.ch2GotRektDay", GM.main.getDays())
+		setFlag("AlexRynardModule.ch2GotRektDay", ServiceLocator.safe_get_service(&"MainScene").getDays())
 		saynn("She brings you into one of the labs and points at the sink. You start washing your hands and your face.")
 
 		saynn("[say=eliza]Looks like you and Alex had a very rough day..[/say]")
@@ -1815,10 +1815,10 @@ func _react(_action: String, _args):
 
 	if(_action == "after_work_check"):
 		processTime(randi_range(3,5) * 60 * 60)
-		GM.pc.addCredits(2)
+		ServiceLocator.safe_get_service(&"Player").addCredits(2)
 		addMessage("You received 2 credits")
 		
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("toolate")
 		else:
 			setState("aftersomefixing")
@@ -1832,15 +1832,15 @@ func _react(_action: String, _args):
 	if(_action == "time4_done"):
 		processTime(60*60*2)
 		addExperienceToPlayer(100)
-		GM.pc.addCredits(10)
+		ServiceLocator.safe_get_service(&"Player").addCredits(10)
 		addMessage("You received 10 credits!")
 
 	if(_action == "time3_cel_od"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 		setFlag("AlexRynardModule.ch2PickedRomanticMovie", false)
 
 	if(_action == "time3_qua_her"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 		setFlag("AlexRynardModule.ch2PickedRomanticMovie", true)
 
 	if(_action == "time3_cuddleup"):
@@ -1854,38 +1854,38 @@ func _react(_action: String, _args):
 		getCharacter("alexrynard").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
 
 	if(_action == "time3_lap_bestcondom"):
-		breakChance = GM.pc.useBestCondom()
+		breakChance = ServiceLocator.safe_get_service(&"Player").useBestCondom()
 		usedCondom = true
 		setState("time3_lap_usedcondom")
 		return
 
 	if(_action == "time3_lap_worstcondom"):
-		breakChance = GM.pc.useWorstCondom()
+		breakChance = ServiceLocator.safe_get_service(&"Player").useWorstCondom()
 		usedCondom = true
 		setState("time3_lap_usedcondom")
 		return
 
 	if(_action == "time3_lap_ridepussy_faster"):
-		GM.pc.gotVaginaFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("alexrynard")
 
 	if(_action == "time3_lap_ridepussy_knotcum"):
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.gotVaginaFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotVaginaFuckedBy("alexrynard")
 		if(usedCondom):
-			condomBroke = getCharacter("alexrynard").shouldCondomBreakWhenFucking(GM.pc, breakChance)
+			condomBroke = getCharacter("alexrynard").shouldCondomBreakWhenFucking(ServiceLocator.safe_get_service(&"Player"), breakChance)
 			if(condomBroke):
-				GM.pc.cummedInVaginaByAdvanced("alexrynard", {knotted=true,condomBroke=condomBroke,engulfed=true})
+				ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("alexrynard", {knotted=true,condomBroke=condomBroke,engulfed=true})
 			else:
 				addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
-			GM.pc.cummedInVaginaByAdvanced("alexrynard", {knotted=true,engulfed=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInVaginaByAdvanced("alexrynard", {knotted=true,engulfed=true})
 
 	if(_action == "time3_lap_ridepussy_pullout"):
 		if(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
 			getCharacter("alexrynard").cummedOnBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "endthescene_removecuffs"):
 		getCharacter("alexrynard").removeAllRestraints()
@@ -1893,34 +1893,34 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "time3_lap_rideanal_faster"):
-		GM.pc.gotAnusFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("alexrynard")
 
 	if(_action == "time3_lap_rideanal_knotcum"):
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.gotAnusFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("alexrynard")
 		if(usedCondom):
-			condomBroke = getCharacter("alexrynard").shouldCondomBreakWhenFucking(GM.pc, breakChance)
+			condomBroke = getCharacter("alexrynard").shouldCondomBreakWhenFucking(ServiceLocator.safe_get_service(&"Player"), breakChance)
 			if(condomBroke):
-				GM.pc.cummedInAnusByAdvanced("alexrynard", {knotted=true,condomBroke=condomBroke,engulfed=true})
+				ServiceLocator.safe_get_service(&"Player").cummedInAnusByAdvanced("alexrynard", {knotted=true,condomBroke=condomBroke,engulfed=true})
 			else:
 				addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
-			GM.pc.cummedInAnusByAdvanced("alexrynard", {knotted=true,engulfed=true})
+			ServiceLocator.safe_get_service(&"Player").cummedInAnusByAdvanced("alexrynard", {knotted=true,engulfed=true})
 
 	if(_action == "time3_lap_rideanal_pullout"):
 		if(usedCondom):
 			addFilledCondomToLootIfPerk(getCharacter("alexrynard").createFilledCondom())
 		else:
 			getCharacter("alexrynard").cummedOnBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "time5_nearlift"):
 		processTime(3*60)
 
 	if(_action == "time5_cuffup"):
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("basketmuzzle"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmatewristcuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("inmateanklecuffs"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("basketmuzzle"))
 
 	if(_action == "time5_nearcaptain"):
 		processTime(5*60)
@@ -1929,9 +1929,9 @@ func _react(_action: String, _args):
 		processTime(10*60)
 
 	if(_action == "time5_nocuffs"):
-		GM.pc.freeMouthDeleteAll()
-		GM.pc.freeArmsDeleteAll()
-		GM.pc.freeLegsDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeMouthDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeArmsDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeLegsDeleteAll()
 
 	if(_action == "time6_mine"):
 		processTime(10*60)

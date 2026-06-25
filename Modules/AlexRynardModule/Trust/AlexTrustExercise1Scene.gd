@@ -13,7 +13,7 @@ func _run():
 
 		saynn("[say=pc]I wanna try to do that trust exercise with you.[/say]")
 
-		if (GM.pc.hasBoundArms() || GM.pc.hasBlockedHands() || GM.pc.hasBoundLegs() || GM.pc.isBlindfolded() || GM.pc.isGagged() || GM.pc.isWearingPortalPanties()):
+		if (ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundLegs() || ServiceLocator.safe_get_service(&"Player").isBlindfolded() || ServiceLocator.safe_get_service(&"Player").isGagged() || ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 			saynn("Alex notices your restraints and hums")
 
 			saynn("[say=alexrynard]Kinky. But I need your body to be fully free.[/say]")
@@ -21,7 +21,7 @@ func _run():
 			saynn("Huff, what a buzzkill. Looks like you have to struggle out of your restraints first.")
 
 			addButton("Oh well", "Was worth a try", "endthescene")
-		elif (GM.pc.isFullyNaked()):
+		elif (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Alex sees your naked body and hums.")
 
 			saynn("[say=alexrynard]Please cover up yourself with something first. Clothing will be important for this first one.[/say]")
@@ -29,7 +29,7 @@ func _run():
 			saynn("Huff, what a buzzkill. Looks like you have to be wearing something before asking this.")
 
 			addButton("Oh well", "Was worth a try", "endthescene")
-		elif (GM.pc.hasEffect(StatusEffect.CoveredInCum)):
+		elif (ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.CoveredInCum)):
 			saynn("Alex notices how messy you are and sighs.")
 
 			saynn("[say=alexrynard]Please clean yourself first. You're way too messy.[/say]")
@@ -576,7 +576,7 @@ func _run():
 
 		saynn("You {pc.undressMessage}. Alex's gaze follows the fluid motions of your hands as you do that. When you're done, there is no clothing left on you.. just your bulky metal collar.")
 
-		saynn(""+str("Your {pc.breasts} are now on full display. You're not sure if you're allowed to cover yourself up with your hands.. probably not." if GM.pc.hasNonFlatBreasts() else "Your {pc.breasts} are now visible but that's okay.")+" "+str("Your {pc.penis} is also out, just like your {pc.pussyStretch} pussy." if (GM.pc.hasPenis() && GM.pc.hasVagina()) else "")+""+str("Your {pc.penis} is also out.." if (GM.pc.hasPenis() && !GM.pc.hasVagina()) else "")+""+str("Your {pc.pussyStretch} pussy is also not hidden anymore.." if (!GM.pc.hasPenis() && GM.pc.hasVagina()) else "")+"")
+		saynn(""+str("Your {pc.breasts} are now on full display. You're not sure if you're allowed to cover yourself up with your hands.. probably not." if ServiceLocator.safe_get_service(&"Player").hasNonFlatBreasts() else "Your {pc.breasts} are now visible but that's okay.")+" "+str("Your {pc.penis} is also out, just like your {pc.pussyStretch} pussy." if (ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasVagina()) else "")+""+str("Your {pc.penis} is also out.." if (ServiceLocator.safe_get_service(&"Player").hasPenis() && !ServiceLocator.safe_get_service(&"Player").hasVagina()) else "")+""+str("Your {pc.pussyStretch} pussy is also not hidden anymore.." if (!ServiceLocator.safe_get_service(&"Player").hasPenis() && ServiceLocator.safe_get_service(&"Player").hasVagina()) else "")+"")
 
 		addButton("Continue", "See what happens next", "6")
 	if(state == "6"):
@@ -586,15 +586,15 @@ func _run():
 
 		saynn("Yeah.. you've been naked many times. But this feels different. Alex limits his touches to gentle caressing, his palm landing on your body and carefully tracing its curves, sending shivers throughout..")
 
-		saynn("Occasionally, his fingers pass over your"+str(" rich" if GM.pc.hasBigBreasts() else " modest")+" chest too, his claws finding your perky nips and just slightly poking them.."+str(" Until some {pc.milk} comes out.." if GM.pc.canBeMilked() else "")+"")
+		saynn("Occasionally, his fingers pass over your"+str(" rich" if ServiceLocator.safe_get_service(&"Player").hasBigBreasts() else " modest")+" chest too, his claws finding your perky nips and just slightly poking them.."+str(" Until some {pc.milk} comes out.." if ServiceLocator.safe_get_service(&"Player").canBeMilked() else "")+"")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Obviously, his hands also reach out to play with your chastity cage a bit. His claws catch onto the metal frame.. and tug on it, testing how tightly it sits. One of his paws gently cups your balls.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Obviously, his hands also reach out down to your crotch. His hands slide over the surface of your {pc.penis}, testing how easy it is to cause a reaction. One of his paws gently cups your balls.")
 
-		elif (GM.pc.hasReachableVagina()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Obviously, his hands also reach out down to your crotch. His hands don't dare to get too close, just gently brushing over the inner side of your thighs, caressing them.")
 
 		saynn("[say=alexrynard]Do you like that?[/say]")
@@ -754,7 +754,7 @@ func _run():
 
 		saynn("[say=alexrynard]No, little brat. You're nothing but a slave. Worthless little slave that needs to be shown her place.[/say]")
 
-		saynn("You keep enduring his painful grip even if an occasional groan escapes from your mouth. You feel degraded.. but why does it feel so good to hear these words then?"+str(" Your pussy is soaking wet even though he didn't touch it.." if GM.pc.hasReachableVagina() else "")+""+str(" Your {pc.penis} is rock hard, dripping precum non-stop.." if GM.pc.hasReachablePenis() else "")+"")
+		saynn("You keep enduring his painful grip even if an occasional groan escapes from your mouth. You feel degraded.. but why does it feel so good to hear these words then?"+str(" Your pussy is soaking wet even though he didn't touch it.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str(" Your {pc.penis} is rock hard, dripping precum non-stop.." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+"")
 
 		saynn("[say=alexrynard]That's right, you are mine to play with. Mine to order around.[/say]")
 
@@ -777,7 +777,7 @@ func _run():
 
 		saynn("[say=pc]Yes, Sir! I'm a slave! I'm your slave![/say]")
 
-		saynn("You keep enduring his painful grip even if an occasional groan escapes from your mouth. You feel degraded.. but why does it feel so good to say these words then?"+str(" Your pussy is soaking wet even though he didn't touch it.." if GM.pc.hasReachableVagina() else "")+""+str(" Your {pc.penis} is rock hard, dripping precum non-stop.." if GM.pc.hasReachablePenis() else "")+"")
+		saynn("You keep enduring his painful grip even if an occasional groan escapes from your mouth. You feel degraded.. but why does it feel so good to say these words then?"+str(" Your pussy is soaking wet even though he didn't touch it.." if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "")+""+str(" Your {pc.penis} is rock hard, dripping precum non-stop.." if ServiceLocator.safe_get_service(&"Player").hasReachablePenis() else "")+"")
 
 		saynn("[say=alexrynard]That's right, you are mine to play with. Mine to order around.[/say]")
 
@@ -810,7 +810,7 @@ func _run():
 		saynn("[say=alexrynard]Great. You know how you look right now?[/say]")
 
 		addButton("Whore", "Tell him that you look like a whore", "10_whore")
-		if (GM.pc.getFemininity() >= 50):
+		if (ServiceLocator.safe_get_service(&"Player").getFemininity() >= 50):
 			addButton("Princess", "Tell him that you look like a princess!", "10_brat")
 		else:
 			addButton("Prince", "Tell him that you look like a prince!", "10_brat")
@@ -829,7 +829,7 @@ func _run():
 		saynn("[say=alexrynard]Great. You know how you look right now?[/say]")
 
 		addButton("Whore", "Tell him that you look like a whore", "10_whore")
-		if (GM.pc.getFemininity() >= 50):
+		if (ServiceLocator.safe_get_service(&"Player").getFemininity() >= 50):
 			addButton("Princess", "Tell him that you look like a princess!", "10_brat")
 		else:
 			addButton("Prince", "Tell him that you look like a prince!", "10_brat")
@@ -838,7 +838,7 @@ func _run():
 		playAnimation(StageScene.Hug, "hug", {npc="pc", pc="alexrynard", npcBodyState={naked=true}})
 		saynn("Your body says everything about who you are right now. And yet.. There is still only one correct answer..")
 
-		if (GM.pc.getFemininity() >= 50):
+		if (ServiceLocator.safe_get_service(&"Player").getFemininity() >= 50):
 			saynn("[say=pc]Bitch, I'm a princess.[/say]")
 
 		else:
@@ -854,7 +854,7 @@ func _run():
 
 		saynn("He walks up close again and gives you a tight hug.")
 
-		if (GM.pc.getFemininity() >= 50):
+		if (ServiceLocator.safe_get_service(&"Player").getFemininity() >= 50):
 			saynn("[say=alexrynard]My spoiled little princess~.[/say]")
 
 		else:
@@ -1023,7 +1023,7 @@ func _react(_action: String, _args):
 
 	if(_action == "3_red_hug"):
 		processTime(3*60)
-		GM.pc.addPain(-20)
+		ServiceLocator.safe_get_service(&"Player").addPain(-20)
 		addMessage("Hugs are nice!")
 
 	if(_action == "4_brat"):
@@ -1043,11 +1043,11 @@ func _react(_action: String, _args):
 
 	if(_action == "9_let"):
 		for _i in range(5):
-			GM.pc.addBodywritingRandom()
+			ServiceLocator.safe_get_service(&"Player").addBodywritingRandom()
 
 	if(_action == "9_brat"):
 		for _i in range(8):
-			GM.pc.addBodywritingRandom()
+			ServiceLocator.safe_get_service(&"Player").addBodywritingRandom()
 		getCharacter("alexrynard").addBodywritingRandom()
 		bratCounter += 1
 

@@ -17,5 +17,5 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "start"):
-		GM.main.IS.startInteraction("Prostitution", {main="pc"})
+		ServiceLocator.safe_get_service(&"MainScene").IS.startInteraction("Prostitution", {main="pc"})
 		

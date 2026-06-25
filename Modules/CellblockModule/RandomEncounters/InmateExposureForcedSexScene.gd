@@ -147,7 +147,7 @@ func _run():
 			addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 			addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 			addButton("Inventory", "Look at your inventory", "openinventory")
-			if(GM.pc.getInventory().hasRemovableRestraints()):
+			if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 				addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
 			addButton("Decline", "You’d rather not get fucked", "decline")
 			# (OPTIONS ARE)
@@ -281,19 +281,19 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		
 	if(state == "after_sex"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
 		
 	if(state == "after_sex_won"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
 
 func addWonButton():
 	addButton("Leave", "Just leave before anyone else sees you", "endthescene")
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 
@@ -320,11 +320,11 @@ func _react(_action: String, _args):
 				"BreederPill",
 				"HeatPill",
 			]))
-			GM.pc.getInventory().addItem(item)
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(item)
 			addMessage("You received "+item.getAStackName())
 		if(subOffered == "some credits"):
 			var credAmount = randi_range(2, 5)
-			GM.pc.addCredits(credAmount)
+			ServiceLocator.safe_get_service(&"Player").addCredits(credAmount)
 			addMessage("You received "+str(credAmount)+" credits")
 	
 	if(_action == "openinventory"):
@@ -338,12 +338,12 @@ func _react(_action: String, _args):
 	if(_action == "offer_5_credits"):
 		if(npcVariation == "mean"):
 			if(RNG.chance(50)):
-				GM.pc.addCredits(-5)
+				ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 				bribeSuccess = true
 			else:
 				bribeSuccess = false
 		else:
-			GM.pc.addCredits(-5)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-5)
 			bribeSuccess = true
 
 	if(_action == "decline"):

@@ -57,5 +57,5 @@ func _init():
 	]
 
 func resetFlagsOnNewDay():
-	GM.main.setModuleFlag("CellblockModule", "Cellblock_FreeToPassCheckpoint", false)
-	GM.main.setModuleFlag("CellblockModule", "Cellblock_GreenhouseLooted", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("CellblockModule", "Cellblock_FreeToPassCheckpoint", false)
+	ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("CellblockModule", "Cellblock_GreenhouseLooted", false)

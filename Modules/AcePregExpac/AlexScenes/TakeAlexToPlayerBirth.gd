@@ -101,11 +101,11 @@ extends SceneBase
 #
 #	if(_action == "do_birth"):
 #		processTime(35*60)
-#		var bornChilds = GM.pc.giveBirth()
+#		var bornChilds = ServiceLocator.safe_get_service(&"Player").giveBirth()
 #		bornChildAmount = bornChilds.size()
-##		bornString = GM.CS.getChildBirthInfoString(bornChilds)
+##		bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
 #
-#		GM.pc.addSkillExperience(Skill.Fertility, 150) # 
+#		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Fertility, 150) # 
 #
 #	setState(_action)
 

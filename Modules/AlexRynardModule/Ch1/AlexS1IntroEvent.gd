@@ -50,22 +50,22 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "startIntro"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexS1IntroScene")
 	if(_method == "helpRepair"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexS4FixingDatapadsScene")
 	if(_method == "helpRepair2"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexCh2s1Scene")
 	if(_method == "helpRepair3"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexCh2s3Scene")
 	if(_method == "watchWork"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexS2SittingNearScene")
 	if(_method == "do_trust"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		runScene("AlexTrustExercisesMenuScene")
 
 func eventCheck(_checkID, _args = []):

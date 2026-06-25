@@ -27,15 +27,15 @@ func _run():
 		
 		addButton("Steal more", "Try to escape without being seen", "caughtcheck2")
 		addButton("Don't steal", "Too dangerous", "endthescene")
-		GM.ES.triggerRun(Trigger.CaughtStealingInGreenhouse)
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.CaughtStealingInGreenhouse)
 
 func _react(_action: String, _args):
 	if(_action == "apple"):
-		GM.main.setModuleFlag("CellblockModule", "Cellblock_GreenhouseLooted", true)
+		ServiceLocator.safe_get_service(&"MainScene").setModuleFlag("CellblockModule", "Cellblock_GreenhouseLooted", true)
 		
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
 		if(RNG.chance(50)):
-			GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+			ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
 			addMessage("You stole 2 apples")
 		else:
 			addMessage("You stole an apple")
@@ -44,7 +44,7 @@ func _react(_action: String, _args):
 		processTime(10 * 5)
 		
 		if(RNG.chance(50)):
-			if(GM.ES.triggerReact(Trigger.CaughtStealingInGreenhouse)):
+			if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.CaughtStealingInGreenhouse)):
 				endScene()
 				return
 		
@@ -55,13 +55,13 @@ func _react(_action: String, _args):
 		processTime(10 * 5)
 		
 		if(RNG.chance(75)):
-			if(GM.ES.triggerReact(Trigger.CaughtStealingInGreenhouse)):
+			if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.CaughtStealingInGreenhouse)):
 				endScene()
 				return
 		endScene()
 		
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("appleitem"))
 		addMessage("You stole 2 more apples")
 		
 		addMessage("Seems like you got away safely")

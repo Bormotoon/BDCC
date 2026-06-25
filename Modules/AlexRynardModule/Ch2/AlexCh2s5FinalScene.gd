@@ -238,8 +238,8 @@ func _run():
 
 		addButton("Cell", "Return to your cell", "go_sleep")
 	if(state == "go_sleep"):
-		aimCameraAndSetLocName(GM.pc.getCellLocation())
-		GM.pc.setLocation(GM.pc.getCellLocation())
+		aimCameraAndSetLocName(ServiceLocator.safe_get_service(&"Player").getCellLocation())
+		ServiceLocator.safe_get_service(&"Player").setLocation(ServiceLocator.safe_get_service(&"Player").getCellLocation())
 		playAnimation(StageScene.Sleeping, "sleep")
 		saynn("Somehow, you manage to reach your inmate cell and drop your tired body onto the bed. The whole trip felt like a dream.")
 
@@ -790,7 +790,7 @@ func _run():
 		addButton("Continue", "See what happens next", "after_eliza_talk")
 	if(state == "enough_bus"):
 		aimCameraAndSetLocName("cellblock_nearcells")
-		GM.pc.setLocation("cellblock_nearcells")
+		ServiceLocator.safe_get_service(&"Player").setLocation("cellblock_nearcells")
 		if (didAny):
 			saynn("After tying up most of the loose ends, you and Alex return to the cellblock..")
 
@@ -824,7 +824,7 @@ func _react(_action: String, _args):
 
 	if(_action == "alex_in_room"):
 		processTime(30*60)
-		GM.pc.removeAllRestraints()
+		ServiceLocator.safe_get_service(&"Player").removeAllRestraints()
 
 	if(_action == "alex_gets_healed"):
 		processTime(60*60)
@@ -841,11 +841,11 @@ func _react(_action: String, _args):
 			tellChoice = _args[0]
 
 	if(_action == "go_sleep"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 
 	if(_action == "next_day_alex"):
-		GM.main.startNewDay()
-		GM.pc.afterSleepingInBed()
+		ServiceLocator.safe_get_service(&"MainScene").startNewDay()
+		ServiceLocator.safe_get_service(&"Player").afterSleepingInBed()
 		processTime(5*60*60)
 
 	if(_action == "alex_after_hug"):

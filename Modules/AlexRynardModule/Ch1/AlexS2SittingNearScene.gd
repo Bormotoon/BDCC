@@ -283,7 +283,7 @@ func _run():
 
 		saynn("Foxy puts on some welding goggles and instinctively grabs his trusty welding tool.. before realizing that you are still staring.")
 
-		if (GM.pc.isBlindfolded()):
+		if (ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("[say=alexrynard]Oh, you're blindfolded already. Stay that way.[/say]")
 
 			saynn("Huh?")
@@ -357,7 +357,7 @@ func _run():
 		playAnimation(StageScene.Duo, "sit", {npc="alexrynard", npcAction="sit"})
 		saynn("You sit near Alex. Looks like he is back to repairing the broken devices.")
 
-		if (GM.pc.isBlindfolded()):
+		if (ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("He notices your blindfold.")
 
 			saynn("[say=alexrynard]You're still wearing it?[/say]")
@@ -384,7 +384,7 @@ func _run():
 
 		saynn("[say=alexrynard]There is a toolbox in the staff-only room on one of the work benches. Bring it to me. I will open the door remotely.[/say]")
 
-		if (GM.pc.isBlindfolded()):
+		if (ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("You can't exactly see where you are going.. but you will surely try! As this is your chance to shine.")
 
 		else:
@@ -410,7 +410,7 @@ func _run():
 	if(state == "time8_bringtoolbox"):
 		aimCameraAndSetLocName("eng_workshop")
 		playAnimation(StageScene.Duo, "sit", {npc="alexrynard", npcAction="sit"})
-		if (GM.pc.getStat(Stat.Strength) < 10):
+		if (ServiceLocator.safe_get_service(&"Player").getStat(Stat.Strength) < 10):
 			saynn("Even though the toolbox is heavy, you still manage to bring it back to Alex just fine, thanks to your high strength.")
 
 		else:
@@ -566,7 +566,7 @@ func _react(_action: String, _args):
 	if(_action == "skiphours_check"):
 		processTime(randi_range(6,9) * 60 * 60)
 		
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("toolate")
 		else:
 			setState("aftersomefixing")
@@ -583,7 +583,7 @@ func _react(_action: String, _args):
 
 	if(_action == "time7_letblindfold"):
 		processTime(3*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 
 	if(_action == "time7_noblindfold"):
 		processTime(20*60)
@@ -593,8 +593,8 @@ func _react(_action: String, _args):
 
 	if(_action == "time8_bringtoolbox"):
 		processTime(10*60)
-		if(GM.pc.getStat(Stat.Strength) < 10):
-			GM.pc.addStamina(-50)
+		if(ServiceLocator.safe_get_service(&"Player").getStat(Stat.Strength) < 10):
+			ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "time9_boring"):
 		processTime(20*60)

@@ -238,7 +238,7 @@ func _run():
 		addCharacter("eliza")
 		aimCameraAndSetLocName("medical_firstcorridorcross")
 		playAnimation(StageScene.Duo, "stand", {npc="eliza"})
-		GM.pc.setLocation("med_lobbynw")
+		ServiceLocator.safe_get_service(&"Player").setLocation("med_lobbynw")
 		saynn("You exit the wards and follow the white corridors back to the lobby.. Eliza is nowhere in sight but.. who cares by this point.")
 
 		saynn("Nurses quickly take notice of a free inmate walking around the staff-only area.. but one look is enough to make them get out of the way.")

@@ -155,10 +155,10 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		
 	if(state == "after_sex"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
 		
 	if(state == "after_sex_won"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
 
 	if(state == "sneak_past"):
 		saynn("You managed to sneak past the guard without {npc.him} noticing!")
@@ -315,9 +315,9 @@ func addWonButton(sextext = "Sex!", sexdesc = "Time to fuck them!"):
 	addButtonWithChecks(sextext, sexdesc, "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 	if(_action in ["confront", "startfight"]):
@@ -417,13 +417,13 @@ func _react_scene_end(_tag, _result):
 func getSlipByChance():
 	var baseChance = 60.0
 	
-	if(GM.pc.hasBoundLegs()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBoundLegs()):
 		baseChance *= 0.6
 	
-	if(GM.pc.isBlindfolded()):
+	if(ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 		baseChance *= 0.6
 
-	if(GM.pc.hasBoundArms()):
+	if(ServiceLocator.safe_get_service(&"Player").hasBoundArms()):
 		baseChance *= 0.8
 	
 	return max(5.0, baseChance)

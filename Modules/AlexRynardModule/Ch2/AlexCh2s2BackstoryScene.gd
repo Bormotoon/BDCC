@@ -1894,7 +1894,7 @@ func _run():
 		addCharacter("alexrynard")
 		playAnimation(StageScene.Duo, "sit", {npc="alexrynard", npcAction="sit"})
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		saynn("You blink many times.. and suddenly see the prison again.")
 
 		saynn("[say=alexrynard]That's kind of it.. He paid for my prosthetic spine. Gave me a job. Now I'm here. It's not that bad.[/say]")

@@ -7,7 +7,7 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.TalkingToNPC, ["alexrynard"])
 
 func react(_triggerID, _args):
-	if(!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)) || !GM.pc.isHeavilyPregnant():
+	if(!getModuleFlag("AcePregExpac", "Alex_ToldIsFather", 1)) || !ServiceLocator.safe_get_service(&"Player").isHeavilyPregnant():
 		return false
 	if(!getFlag("AcePregExpac.Alex_CameInside", false)):
 		return false

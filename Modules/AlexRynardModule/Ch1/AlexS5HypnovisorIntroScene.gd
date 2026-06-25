@@ -7,7 +7,7 @@ func _run():
 	if(state == ""):
 		addCharacter("alexrynard")
 		aimCameraAndSetLocName("eng_breakroom")
-		GM.pc.setLocation("eng_bay_corridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_corridor")
 		playAnimation(StageScene.Duo, "walk", {npc="alexrynard", npcAction="walk", flipNPC=true})
 		saynn("The whole space station seems to be sleeping by now. All the lights are dimmed down, offering a moody atmosphere while you follow Alex through the corridors of the engineering block.")
 
@@ -484,16 +484,16 @@ func _react(_action: String, _args):
 
 	if(_action == "wear_disabled_goggles"):
 		processTime(3*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("HypnovisorDisabled"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("HypnovisorDisabled"))
 
 	if(_action == "do_start"):
 		processTime(5*60)
 
 	if(_action == "stage1"):
-		GM.pc.getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("HypnovisorMk1"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipRemoveOther(GlobalRegistry.createItem("HypnovisorMk1"))
 
 	if(_action == "in_trance"):
-		GM.pc.getInventory().clearSlot(InventorySlot.Eyes)
+		ServiceLocator.safe_get_service(&"Player").getInventory().clearSlot(InventorySlot.Eyes)
 		addMessage("You can now buy a Hypnovisor mk1 from Alex")
 
 	setState(_action)

@@ -7,14 +7,14 @@ func registerTriggers(es):
 	es.addTrigger(self, Trigger.EnteringRoom, "eng_robotics")
 
 func react(_triggerID, _args):
-	if(GM.main.getFlag("CellblockModule.FoundNura")):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("CellblockModule.FoundNura")):
 		return false
 	
 	runScene("NuraFirstTimeScene")
 	return true
 
 func run(_triggerID, _args):
-	if(GM.main.getFlag("CellblockModule.FoundNura")):
+	if(ServiceLocator.safe_get_service(&"MainScene").getFlag("CellblockModule.FoundNura")):
 		saynn("Nur-A seems to be around")
 		
 		addButton("Nur-A", "Talk to the android", "nura")

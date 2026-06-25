@@ -213,7 +213,7 @@ func _react(_action: String, _args):
 
 	if(_action == "healcheck"):
 		if(getFlag("CellblockModule.NuraGaveTool")):
-			GM.pc.addPain(-GM.pc.getPain())
+			ServiceLocator.safe_get_service(&"Player").addPain(-ServiceLocator.safe_get_service(&"Player").getPain())
 			setState("heal_success")
 			return
 		else:
@@ -224,15 +224,15 @@ func _react(_action: String, _args):
 		setFlag("CellblockModule.NuraGaveTool", true)
 
 	if(_action == "get_hugged"):
-		GM.pc.addStamina(10)
+		ServiceLocator.safe_get_service(&"Player").addStamina(10)
 
 	if(_action == "start_fake_pussyrubbing"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("nura")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nura")
 
 	if(_action == "do_fake_humps"):
 		processTime(5*60)
-		GM.pc.orgasmFrom("nura")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("nura")
 
 	setState(_action)
 

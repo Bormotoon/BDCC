@@ -223,6 +223,6 @@ func _react(_action: String, _args):
 		processTime(30*60)
 
 	if(_action == "after_nap"):
-		GM.main.processTimeUntil(23*60*60)
+		ServiceLocator.safe_get_service(&"MainScene").processTimeUntil(23*60*60)
 
 	setState(_action)

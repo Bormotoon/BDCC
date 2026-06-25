@@ -13,7 +13,7 @@ func _run():
 
 		saynn("[say=pc]Can we do a trust exercise? Second one?[/say]")
 
-		if (GM.pc.hasBoundArms() || GM.pc.hasBlockedHands() || GM.pc.hasBoundLegs() || GM.pc.isBlindfolded() || GM.pc.isGagged() || GM.pc.isWearingPortalPanties()):
+		if (ServiceLocator.safe_get_service(&"Player").hasBoundArms() || ServiceLocator.safe_get_service(&"Player").hasBlockedHands() || ServiceLocator.safe_get_service(&"Player").hasBoundLegs() || ServiceLocator.safe_get_service(&"Player").isBlindfolded() || ServiceLocator.safe_get_service(&"Player").isGagged() || ServiceLocator.safe_get_service(&"Player").isWearingPortalPanties()):
 			saynn("Alex notices your restraints and hums")
 
 			saynn("[say=alexrynard]Kinky. But I need your body to be fully free.[/say]")
@@ -21,7 +21,7 @@ func _run():
 			saynn("Huff, what a buzzkill. Looks like you have to struggle out of your restraints first.")
 
 			addButton("Oh well", "Was worth a try", "endthescene")
-		elif (GM.pc.isFullyNaked()):
+		elif (ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("Alex sees your naked body and hums.")
 
 			saynn("[say=alexrynard]Please cover up yourself with something first. Clothing will be important for this first one.[/say]")
@@ -29,7 +29,7 @@ func _run():
 			saynn("Huff, what a buzzkill. Looks like you have to be wearing something before asking this.")
 
 			addButton("Oh well", "Was worth a try", "endthescene")
-		elif (GM.pc.hasEffect(StatusEffect.CoveredInCum)):
+		elif (ServiceLocator.safe_get_service(&"Player").hasEffect(StatusEffect.CoveredInCum)):
 			saynn("Alex notices how messy you are and sighs.")
 
 			saynn("[say=alexrynard]Please clean yourself first. You're way too messy.[/say]")
@@ -193,16 +193,16 @@ func _run():
 
 		saynn("You nod and begin to lower yourself onto the sybian.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("It has a small rubber dildo sticking out of it.. so you align your pussy hole with it. The smooth silicone spreads your folds with ease, allowing you to sit on it without much problems. Near the base of that dildo is a ridged little platform that your clit and sensitive folds instantly feel.")
 
 		else:
 			saynn("It has a small rubber dildo sticking out of it.. so you align your tailhole with it. The smooth silicone spreads your {pc.analStretch} star with ease, allowing you to sit on it without much problems. Near the base of that dildo is a ridged little platform that your taint area instantly feels.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even without any direct stimulation, your locked away dick is already putting some pressure on the chastity cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even without any direct stimulation, your {pc.penis} is already slowly getting harder.")
 
 		saynn("[say=alexrynard]Mhm. I'm not gonna tie you up. Or gag you. Not today. If you feel uncomfortable, just get off. Otherwise.. Let's see how much you can handle.[/say]")
@@ -216,16 +216,16 @@ func _run():
 
 		saynn("You carefully position yourself above the sybian.. and begin to lower yourself onto it.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("It has a small rubber dildo sticking out of it.. so you align your pussy hole with it. The smooth silicone spreads your folds with ease, allowing you to sit on it without much problems. Near the base of that dildo is a ridged little platform that your clit and sensitive folds instantly feel.")
 
 		else:
 			saynn("It has a small rubber dildo sticking out of it.. so you align your tailhole with it. The smooth silicone spreads your {pc.analStretch} star with ease, allowing you to sit on it without much problems. Near the base of that dildo is a ridged little platform that your taint area instantly feels.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Even without any direct stimulation, your locked away dick is already putting some pressure on the chastity cage.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Even without any direct stimulation, your {pc.penis} is already slowly getting harder.")
 
 		saynn("[say=alexrynard]Mhm. I'm not gonna tie you up. Or gag you. Not today. If you feel uncomfortable, just get off. Otherwise.. Let's see how much you can handle.[/say]")
@@ -251,7 +251,7 @@ func _run():
 
 		saynn("[say=pc]I will![/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("But before you can do that, the machine under you begins to hum quietly, the little dildo starts vibrating inside your pussy at a low frequency.. enough to reconsider your approach. It feels.. quite pleasantly.. nothing insane but you can for sure feel it.")
 
 		else:
@@ -270,7 +270,7 @@ func _run():
 
 		saynn("Alex holds the remote with one hand while the second one twists one of the knobs by one notch.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The machine under you begins to hum quietly, the little dildo is vibrating inside your pussy at a low frequency. It feels.. quite pleasantly.. nothing insane but you can for sure feel it.")
 
 		else:
@@ -346,7 +346,7 @@ func _run():
 
 		saynn("[say=alexrynard]Oh really?[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Alex twists the knob to its maximum setting! Suddenly, an earthquake starts happening between your legs. You gasp as the dildo in your pussy starts vibrating relentlessly against the inner walls and your little pleasure spot.")
 
 			saynn("[say=pc]Oh fuck! OW![/say]")
@@ -372,7 +372,7 @@ func _run():
 
 		saynn("He wasn't lying though, it starts to feel quite nice when you focus on the vibrations..")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The little ridged platform that your clit is resting on is now shifting back and forth, providing some stimulation. You can't help but to produce your first little moan, your petals getting more wet every second.")
 
 		else:
@@ -380,10 +380,10 @@ func _run():
 
 		saynn("[say=pc]Ah..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up member begins to drip pre through the chastity as the dildo starts vibrating harder against your pleasure spot.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock gets fully hard and starts dripping pre as the dildo starts vibrating harder against your pleasure spot.")
 
 		saynn("Alex is just standing near, his eyes watching you with great interest.")
@@ -399,7 +399,7 @@ func _run():
 
 		saynn("He nods and turns the knob again, causing the seat under you to vibrate a little more eagerly.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Even the little ridged platform that your clit is resting on is now shifting back and forth, providing some stimulation. You can't help but to produce your first little moan, your petals getting more wet every second.")
 
 		else:
@@ -407,10 +407,10 @@ func _run():
 
 		saynn("[say=pc]Ah..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your caged up member begins to drip pre through the chastity as the dildo starts vibrating harder against your pleasure spot.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock gets fully hard and starts dripping pre as the dildo starts vibrating harder against your pleasure spot.")
 
 		saynn("Alex is just standing near, his eyes watching you with great interest.")
@@ -422,7 +422,7 @@ func _run():
 		addButton("RED", "Say this", "5_red")
 	if(state == "6_brat"):
 		playAnimation(StageScene.SybianOral, "ride", {npc="alexrynard", bodyState={naked=true, hard=true}})
-		if (GM.pc.isBlindfolded()):
+		if (ServiceLocator.safe_get_service(&"Player").isBlindfolded()):
 			saynn("Just before he raises the strength, you purposefully start crying. Why? To throw him off, of course! Alex notices your wet blindfold.")
 
 			saynn("[say=alexrynard]Hey, are you okay?[/say]")
@@ -444,7 +444,7 @@ func _run():
 
 		saynn("Almost instantly, you arch your back. The dildo vibrates inside you so hard that you can't help but to start squirming.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You avoid some of it by raising your body slightly.. but Alex notices and pushes you back down.. forcing you to sit on the sybian while it brings immense pleasure to you and your pussy.")
 
 		else:
@@ -452,10 +452,10 @@ func _run():
 
 		saynn("[say=pc]Ah-h..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your cock is pushing more against the chastity cage but the metal is too strong.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock twitches wildly, more precum dripping from it.")
 
 		saynn("Alex seems to be quite intrigued by the noises that you make.")
@@ -473,7 +473,7 @@ func _run():
 
 		saynn("Instantly, you arch your back. The dildo vibrates inside you so hard that you can't help but to start squirming.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("It'd be so easy to get up and make that feeling go away.. but you stay on it and let the machine pleasure you and your pussy.")
 
 		else:
@@ -481,10 +481,10 @@ func _run():
 
 		saynn("[say=pc]Ah-h..[/say]")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your cock is pushing more against the chastity cage but the metal is too strong.")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your cock twitches wildly, more precum dripping from it.")
 
 		saynn("Alex seems to be quite intrigued by the noises that you make.")
@@ -503,7 +503,7 @@ func _run():
 
 		saynn("[say=pc]Nh..[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Fuck. The sybian is relentless, its vibrating parts pushing you further and further into the abyss of pleasure, your pussy dripping juices onto the seat.")
 
 		else:
@@ -513,10 +513,10 @@ func _run():
 
 		saynn("What is he talking about, obviously you're not planning to cum anytime soon.. Even though.. it would be kinda nice. Fuck, you feel it too now. You can't, your body is betraying you, your muscles tensing up, your lips trembling.")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked up cock is desperately pushing against its metal cage, you're so close..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your balls are tensing up, your cock is leaking pre hard, you're so close..")
 
 		addButton("Just cum!", "You're not gonna let him humiliate you!", "8_brat")
@@ -527,7 +527,7 @@ func _run():
 
 		saynn("[say=pc]Ah.. Ahh-h.. Hah-h..[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("The sybian is relentless, its vibrating parts pushing you further and further into the abyss of pleasure, your pussy dripping juices onto the seat. You can feel it building up in you.. a big wave.")
 
 		else:
@@ -537,10 +537,10 @@ func _run():
 
 		saynn("Looks like you have to beg..")
 
-		if (GM.pc.isWearingChastityCage()):
+		if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your locked up cock is desperately pushing against its metal cage, you're so close..")
 
-		elif (GM.pc.hasReachablePenis()):
+		elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("Your balls are tensing up, your cock is leaking pre hard, you're so close..")
 
 		addButton("Just cum!", "You're not gonna let him humiliate you!", "8_brat")
@@ -586,7 +586,7 @@ func _run():
 
 		saynn("[say=alexrynard]I don't hear you.[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Your pussy is twitching and dripping juices a lot.. just a few more seconds and you're gonna.. yes-s..")
 
 		else:
@@ -613,7 +613,7 @@ func _run():
 		playAnimation(StageScene.SybianOral, "hump", {npc="alexrynard", bodyState={naked=true, hard=true}})
 		saynn("Looks like he won't help you.. but he also won't stop you.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("So you do the next best thing.. and begin humping that dildo with your pussy, trying to push yourself a little further. Desperate noises escape from you.. while Alex is just smiling.")
 
 		else:
@@ -628,22 +628,22 @@ func _run():
 		addButton("Faster", "Hump it even faster", "8_brat_cum")
 	if(state == "8_brat_cum"):
 		playAnimation(StageScene.SybianOral, "humpfast", {npc="alexrynard", pcCum=true, bodyState={naked=true, hard=true}})
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Who even cares anymore about how it looks, you're too desperate to stop now. You hump that dildo like your life depends on it.. and soon enough.. your mind gets overwhelmed with a tidal wave of pleasure, your body getting pushed over the edge, your pussy gripping that vibrating dildo and producing a strong fountain of juices.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Even though it's your lady bits that got overstimulated, your poor locked cock is still shooting a few weak spurts of your {pc.cum} through the little hole in the chastity cage, creating a cute mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Even though it's your lady bits that got overstimulated, your {pc.penis} is still throbbing and shooting a few strong spurts of your {pc.cum}, creating a mess on the floor.")
 
 		else:
 			saynn("Who even cares anymore about how it looks, you're too desperate to stop now. You hump that dildo like your life depends on it.. and soon enough.. your mind gets overwhelmed with a tidal wave of pleasure, your body getting pushed over the edge, your ass gripping that vibrating dildo, your pulsing inner walls clenching around it.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The dildo of that sybian isn't the biggest.. but it's actually the perfect length to overstimulate your prostate, your poor locked cock is throbbing and shooting a few weak spurts of your {pc.cum} through the little hole in the chastity cage, creating a cute mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("The dildo of that sybian isn't the biggest.. but it's actually the perfect length to overstimulate your prostate, your {pc.penis} is throbbing and shooting a few strong spurts of your {pc.cum}, creating a mess on the floor.")
 
 		saynn("[say=pc]Nh-h-h!.. Ahh!.. Yes-s-s![/say]")
@@ -687,22 +687,22 @@ func _run():
 
 		saynn("[say=alexrynard]You may.[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("And pretty much instantly, your mind gets overwhelmed with a tidal wave of pleasure, your body getting pushed over the edge, your pussy gripping that vibrating dildo and producing a strong fountain of juices.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Even though it's your lady bits that got overstimulated, your poor locked cock is still shooting a few weak spurts of your {pc.cum} through the little hole in the chastity cage, creating a cute mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Even though it's your lady bits that got overstimulated, your {pc.penis} is still throbbing and shooting a few strong spurts of your {pc.cum}, creating a mess on the floor.")
 
 		else:
 			saynn("And pretty much instantly, your mind gets overwhelmed with a tidal wave of pleasure, your body getting pushed over the edge, your ass gripping that vibrating dildo, your pulsing inner walls clenching around it.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("The dildo of that sybian isn't the biggest.. but it's actually the perfect length to overstimulate your prostate, your poor locked cock is throbbing and shooting a few weak spurts of your {pc.cum} through the little hole in the chastity cage, creating a cute mess on the floor.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("The dildo of that sybian isn't the biggest.. but it's actually the perfect length to overstimulate your prostate, your {pc.penis} is throbbing and shooting a few strong spurts of your {pc.cum}, creating a mess on the floor.")
 
 		saynn("[say=pc]Nh-h-h!.. Ahh!..[/say]")
@@ -777,7 +777,7 @@ func _run():
 
 		saynn("Judging from how Alex is not saying anything after your words.. that might have been a huge mistake. Good.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("You await the inevitable.. and soon enough.. the seat under you begins vibrating again, the dildo stimulating your inner walls and pressing on your g-spot while the ridged little platform is teasing your clit!")
 
 		else:
@@ -806,12 +806,12 @@ func _run():
 
 		saynn("You just had to, there was no other choice.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Alex sighs and just keeps twisting the knob on his remote.. more and more. The hard vibrations start to echo in your mind, your pussy walls keep clenching around the dildo which only make it worse.")
 
 			saynn("[say=pc]Nh-h-h!.. Ah-h-h!..[/say]")
 
-			saynn("Whatever he did to that sybian.. it's too much. You are quickly pushed past your point of no return again, your body arching, your pussy squirting juices"+str(", your {pc.penis} shooting strings of {pc.cum}" if GM.pc.hasPenis() else "")+".")
+			saynn("Whatever he did to that sybian.. it's too much. You are quickly pushed past your point of no return again, your body arching, your pussy squirting juices"+str(", your {pc.penis} shooting strings of {pc.cum}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 			saynn("[say=alexrynard]Think this is it? I got the best motors in it, the ones that airlocks use.[/say]")
 
@@ -821,10 +821,10 @@ func _run():
 
 			saynn("Your eyes want to roll up, your tongue is out and drooling. The pleasure is mind-melting, your poor overstimulated pussy just keeps pulsing and gushing out transparent fluids, less and less each time.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your balls are also drained, your caged up dick is twitching a lot but all it can do is leak more precum.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Your balls are also drained completely, your dick is twitching a lot but all it can do is leak more precum.")
 
 			saynn("Just when you think you got fully numb to it.. another ecstatic wave is shoving you right back into a weird state of bliss and agony. Your muscles hurt, your pussy hurts.. and yet.. feels so fucking good..")
@@ -836,7 +836,7 @@ func _run():
 
 			saynn("[say=pc]Nh-h-h!.. Ah-h-h!..[/say]")
 
-			saynn("Whatever he did to that sybian.. it's too much. You are quickly pushed past your point of no return again, your body arching, your tailhole clenching"+str(", your {pc.penis} shooting strings of {pc.cum}" if GM.pc.hasPenis() else "")+".")
+			saynn("Whatever he did to that sybian.. it's too much. You are quickly pushed past your point of no return again, your body arching, your tailhole clenching"+str(", your {pc.penis} shooting strings of {pc.cum}" if ServiceLocator.safe_get_service(&"Player").hasPenis() else "")+".")
 
 			saynn("[say=alexrynard]Think this is it? I got the best motors in it, the ones that airlocks use.[/say]")
 
@@ -846,10 +846,10 @@ func _run():
 
 			saynn("Your eyes want to roll up, your tongue is out and drooling. The pleasure is mind-melting, your poor overstimulated anus just keeps pulsing and clenching around the dildo.")
 
-			if (GM.pc.isWearingChastityCage()):
+			if (ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 				saynn("Your balls are also drained, your caged up dick is twitching a lot but all it can do is leak more precum.")
 
-			elif (GM.pc.hasReachablePenis()):
+			elif (ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 				saynn("Your balls are also drained completely, your dick is twitching a lot but all it can do is leak more precum.")
 
 			saynn("Just when you think you got fully numb to it.. another ecstatic wave is shoving you right back into a weird state of bliss and agony. Your muscles hurt, your fuckhole hurts.. and yet.. feels so fucking good..")
@@ -898,7 +898,7 @@ func _run():
 
 		saynn("[say=alexrynard]Nah, I should have paid more attention, got you all silly-fucked.[/say]")
 
-		saynn("You chuckle, your breathing slowly calms down.. your "+str("pussy" if GM.pc.hasReachableVagina() else "tailhole")+" doesn't burn as much after that lube anymore.")
+		saynn("You chuckle, your breathing slowly calms down.. your "+str("pussy" if ServiceLocator.safe_get_service(&"Player").hasReachableVagina() else "tailhole")+" doesn't burn as much after that lube anymore.")
 
 		saynn("[say=alexrynard]At least you liked it.[/say]")
 
@@ -976,7 +976,7 @@ func _run():
 
 		saynn("[say=alexrynard]Something for you as well.[/say]")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("His free hand plays with the remote, causing the sybian under you to kick into action again, its little ridged platform is rubbing your clit and sensitive pussy yet again. Such a good motivation to suck him better..")
 
 		else:
@@ -1009,7 +1009,7 @@ func _run():
 
 		saynn("One big thrust and your {pc.throatStretch} throat stretches to accommodate his girth. His cock is creating a bulge on your neck while your lips are pressed against his deflated knot.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("Breathing is.. impossible. You can't even moan. Deepthroating his cock makes your pussy squeeze the vibrating dildo harder.")
 
 		else:
@@ -1035,7 +1035,7 @@ func _run():
 
 		saynn("You can't breathe.. but you have bigger things to worry about. Your body tenses up as a powerful wave washes over it, the sybian pushing you into the abyss of pleasure again.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("All the while Alex's cock starts throbbing and shooting cum directly down your throat, filling your belly. Your nose is pressed into his crotch, your pussy pulsating wildly, releasing a fountain of juices.")
 
 		else:
@@ -1080,7 +1080,7 @@ func _run():
 
 		saynn("His spunk starts landing all over your face, creating a very lewd mess.")
 
-		if (GM.pc.hasReachableVagina()):
+		if (ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("His spunk starts landing all over your face, creating a very lewd mess. At the same time, the vibrating dildo finally brings you to your peak, your pussy starts to pulsate wildly and even releases another fountain of juices!")
 
 		else:
@@ -1122,7 +1122,7 @@ func _react(_action: String, _args):
 
 	if(_action == "4_brat"):
 		bratCounter += 1
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("blindfold"))
 
 	if(_action == "5_brat"):
 		bratCounter += 1
@@ -1140,13 +1140,13 @@ func _react(_action: String, _args):
 		bratCounter += 1
 
 	if(_action == "8_beg"):
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "8_red_cuddle"):
 		processTime(10*60)
 
 	if(_action == "8_brat_cum"):
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "10_end"):
 		processTime(30*60)
@@ -1155,26 +1155,26 @@ func _react(_action: String, _args):
 		bratCounter += 1
 
 	if(_action == "10_extraorgasms"):
-		GM.pc.orgasmFrom("alexrynard")
-		GM.pc.addStamina(-50)
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").addStamina(-50)
 
 	if(_action == "10_toomuch_cuddle"):
-		GM.pc.addStamina(50)
+		ServiceLocator.safe_get_service(&"Player").addStamina(50)
 		processTime(30*60)
 
 	if(_action == "10_bj_deepthroat"):
-		GM.pc.gotThroatFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("alexrynard")
 
 	if(_action == "10_bj_inside"):
 		processTime(30*60)
-		GM.pc.gotThroatFuckedBy("alexrynard")
-		GM.pc.cummedInMouthBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").gotThroatFuckedBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	if(_action == "10_bj_facial"):
 		processTime(30*60)
-		GM.pc.cummedOnBy("alexrynard")
-		GM.pc.orgasmFrom("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("alexrynard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("alexrynard")
 
 	setState(_action)
 

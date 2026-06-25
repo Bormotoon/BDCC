@@ -4,7 +4,7 @@ func _init():
 	sceneID = "TellAlexHeIsFatherScene"
 
 func _run():
-	var isPregFromAlex:bool = GM.pc.isPregnantFrom("alexrynard")
+	var isPregFromAlex:bool = ServiceLocator.safe_get_service(&"Player").isPregnantFrom("alexrynard")
 	
 	if(state == ""):
 		addCharacter("alexrynard")

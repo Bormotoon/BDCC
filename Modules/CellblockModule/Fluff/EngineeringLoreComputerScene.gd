@@ -46,7 +46,7 @@ func _run():
 
 		sayn("- Staff Members: 1800")
 
-		sayn("- Nursery: "+str(120+GM.CS.getChildrenAmountOf("pc")))
+		sayn("- Nursery: "+str(120+ServiceLocator.safe_get_service(&"ChildSystem").getChildrenAmountOf("pc")))
 
 		saynn("- Uranium Supply: Sufficient")
 

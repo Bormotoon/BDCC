@@ -320,20 +320,20 @@ func _react(_action: String, _args):
 	if(_action == "skiphours_check"):
 		processTime(randi_range(6,9) * 60 * 60)
 		
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("toolate")
-			GM.pc.addCredits(1)
+			ServiceLocator.safe_get_service(&"Player").addCredits(1)
 			addMessage("You received 1 credit!")
 		else:
 			setState("aftersomefixing")
 			if(getFlag("AlexRynardModule.ch1CommentedPay")):
-				GM.pc.addCredits(1)
+				ServiceLocator.safe_get_service(&"Player").addCredits(1)
 				addMessage("You received 1 credit!")
 		return
 
 	if(_action == "time3_tie"):
 		processTime(25*60)
-		GM.pc.getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().forceEquipStoreOtherUnlessRestraint(GlobalRegistry.createItem("ZiptiesWrist"))
 
 	if(_action == "time3_alexleaves"):
 		processTime(60*60)
@@ -343,11 +343,11 @@ func _react(_action: String, _args):
 
 	if(_action == "time3_escape"):
 		processTime(10*60)
-		GM.pc.freeArmsDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeArmsDeleteAll()
 
 	if(_action == "time3_bored_return"):
 		processTime(10*60)
-		GM.pc.freeArmsDeleteAll()
+		ServiceLocator.safe_get_service(&"Player").freeArmsDeleteAll()
 
 	if(_action == "time3_escape_return"):
 		processTime(10*60)
@@ -355,7 +355,7 @@ func _react(_action: String, _args):
 	if(_action == "skiphours_special_check"):
 		processTime(randi_range(6,9) * 60 * 60)
 		
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("offer_hypno")
 		else:
 			setState("aftersomefixing")

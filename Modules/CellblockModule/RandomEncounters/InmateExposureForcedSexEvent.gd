@@ -16,7 +16,7 @@ func react(_triggerID, _args):
 	if(idToUse == null || idToUse == ""):
 		return false
 		
-	if(GM.ES.triggerReact(Trigger.TalkingToDynamicNPC, [idToUse])):
+	if(ServiceLocator.safe_get_service(&"EventSystem").triggerReact(Trigger.TalkingToDynamicNPC, [idToUse])):
 		return true
 		
 	runScene("InmateExposureForcedSexScene", [idToUse])

@@ -102,7 +102,7 @@ func _run():
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "help_them"):
 		aimCameraAndSetLocName("medical_nursery")
-		GM.pc.setLocation("medical_nursery")
+		ServiceLocator.safe_get_service(&"Player").setLocation("medical_nursery")
 		saynn("[say=pc]Okay, let's go then.[/say]")
 
 		saynn("You grab {npc.name}'s hand and guide {npc.him} through the corridors of the prison. Eventually you arrive at the nursery lobby.")
@@ -198,7 +198,7 @@ func _react(_action: String, _args):
 		if(npcType=="mean"):
 			if(RNG.chance(50) && !getCharacter(npcID).hasBoundArms()):
 				decidedToHit = true
-				GM.pc.addPain(30)
+				ServiceLocator.safe_get_service(&"Player").addPain(30)
 				addMessage("Ow..")
 
 	if(_action == "before_birth"):
@@ -208,15 +208,15 @@ func _react(_action: String, _args):
 		processTime(35*60)
 		var bornChilds = getCharacter(npcID).giveBirth()
 		bornChildAmount = bornChilds.size()
-		bornString = GM.CS.getChildBirthInfoString(bornChilds)
-		GM.pc.addSkillExperience(Skill.Breeder, 50) # Reward for being near
-		if(GM.main.IS.hasPawn(npcID)):
-			GM.main.IS.stopInteractionsForPawnID(npcID)
-			GM.main.IS.getPawn(npcID).setLocation("medical_nursery")
+		bornString = ServiceLocator.safe_get_service(&"ChildSystem").getChildBirthInfoString(bornChilds)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Breeder, 50) # Reward for being near
+		if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(npcID)):
+			ServiceLocator.safe_get_service(&"MainScene").IS.stopInteractionsForPawnID(npcID)
+			ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(npcID).setLocation("medical_nursery")
 		else:
-			GM.main.IS.spawnPawn(npcID)
-			if(GM.main.IS.hasPawn(npcID)):
-				GM.main.IS.getPawn(npcID).setLocation("medical_nursery")
+			ServiceLocator.safe_get_service(&"MainScene").IS.spawnPawn(npcID)
+			if(ServiceLocator.safe_get_service(&"MainScene").IS.hasPawn(npcID)):
+				ServiceLocator.safe_get_service(&"MainScene").IS.getPawn(npcID).setLocation("medical_nursery")
 
 	setState(_action)
 

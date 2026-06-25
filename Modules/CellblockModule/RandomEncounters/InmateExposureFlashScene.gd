@@ -36,7 +36,7 @@ func _run():
 
 	if(state == ""):
 		# (if naked)
-		if(GM.pc.isFullyNaked()):
+		if(ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn(RNG.pick([
 				"You can’t help but to feel like someone is watching you. You look around a spot one of the inmates checking you out. {npc.His} stare makes you tactically cover your privates a bit.",
 				"You’re completely naked so obviously eyes are gonna be attracted to you. One set in particular is quite curious in your {pc.masc} curves.",
@@ -49,7 +49,7 @@ func _run():
 				"You’re quite exposed so eyes are gonna be attracted to you. One set in particular is quite curious in your {pc.masc} curves.",
 			]))
 
-		var ehibit = GM.pc.getSkillLevel(Skill.Exhibitionism)
+		var ehibit = ServiceLocator.safe_get_service(&"Player").getSkillLevel(Skill.Exhibitionism)
 
 		if(ehibit < 2):
 			saynn("Maybe you can use this opportunity to test yourself..")
@@ -155,7 +155,7 @@ func _run():
 		# (Requires level 1)
 
 		# (if flat tits)
-		if(!GM.pc.hasBigBreasts()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBigBreasts()):
 			saynn("You expose and show off your {pc.breasts}, teasing and caressing the nipples that perk up from the touch. Your chest is not very big but sometimes size doesn’t matter.")
 
 		# (if big tits)
@@ -186,7 +186,7 @@ func _run():
 
 	if(state == "cock"):
 		# (requires level 5)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("You quickly flash your caged up dick and offer any watcher a cheeky smile. The thrill of exposing yourself so boldly feels good.")
 		else:
 			saynn("You quickly flash your {pc.penis} and offer any watcher a cheeky smile. The thrill of exposing yourself so boldly feels good.")
@@ -201,7 +201,7 @@ func _run():
 		saynn("There is nothing better than showing your body off and seeing people’s reaction. You look directly at the inmate while touching yourself.")
 
 		# (if has flat tits)
-		if(!GM.pc.hasBigBreasts()):
+		if(!ServiceLocator.safe_get_service(&"Player").hasBigBreasts()):
 			saynn("You start by flashing your {pc.breasts} and teasing your nipples until they’re nice and hard. Who needs big milkers anyways, they’re too distracting.")
 
 		# (if has big tits)
@@ -209,13 +209,13 @@ func _run():
 			saynn("You start by flashing your {pc.breasts} and squeezing them between your hands. Your nipples quickly get hard poke against your palms while you rub them. You have some great tits that are worth showing off.")
 
 		# (if has pussy)
-		if(GM.pc.hasReachableVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasReachableVagina()):
 			saynn("One of your hands then slips down to your pussy. You keep groping your chest while spreading your folds and showing off the sensitive flesh. Lewd.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("A big smirk shines on your face while you flash your locked up {pc.penis}. Your digits wrap around your chastity cage and give it a slight stroke. You don't get any pleasure from that but it still feels nice.")
-		elif(GM.pc.hasReachablePenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasReachablePenis()):
 			saynn("A big smirk shines on your face while you flash your {pc.penis}. Your digits wrap around your shaft and give it a slight stroke.")
 
 		saynn("You turn around and slide your hands down your {pc.thick} thighs before giving them a smack. Then you spread buttcheeks and show off your {pc.analStretch} tailhole!")
@@ -235,19 +235,19 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		
 	if(state == "after_sex"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
 		
 	if(state == "after_sex_won"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
 
 func addWonButton():
 	addButton("Leave", "Just leave before anyone else sees you", "endthescene")
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 
@@ -289,13 +289,13 @@ func _react(_action: String, _args):
 			attackSuccessful = false
 
 	if(_action == "tits"):
-		GM.pc.addSkillExperience(Skill.Exhibitionism, 10)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 10)
 	if(_action == "ass"):
-		GM.pc.addSkillExperience(Skill.Exhibitionism, 20)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 20)
 	if(_action in ["pussy", "cock"]):
-		GM.pc.addSkillExperience(Skill.Exhibitionism, 30)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 30)
 	if(_action in ["show_yourself_off"]):
-		GM.pc.addSkillExperience(Skill.Exhibitionism, 50)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.Exhibitionism, 50)
 
 	setState(_action)
 

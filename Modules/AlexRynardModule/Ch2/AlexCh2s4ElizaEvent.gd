@@ -8,7 +8,7 @@ func registerTriggers(es):
 	
 func run(_triggerID, _args):
 	if(getFlag("AlexRynardModule.ch2GotRektHappened") && !getFlag("AlexRynardModule.ch2CheckAlexSceneHappened")):
-		if(GM.main.getDays() <= getFlag("AlexRynardModule.ch2GotRektDay", -1)):
+		if(ServiceLocator.safe_get_service(&"MainScene").getDays() <= getFlag("AlexRynardModule.ch2GotRektDay", -1)):
 			addDisabledButton("Alex", "Come back another day to check on Alex")
 		else:
 			addButtonUnlessLate("Alex", "Ask about Alex", "startElizaScene")
@@ -21,11 +21,11 @@ func getPriority():
 
 func onButton(_method, _args):
 	if(_method == "startElizaScene"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		setFlag("AlexRynardModule.ch2CheckAlexSceneHappened", true)
 		runScene("AlexCh2s4ElizaScene")
 
 	if(_method == "startLastScene"):
-		GM.main.endCurrentScene()
+		ServiceLocator.safe_get_service(&"MainScene").endCurrentScene()
 		setFlag("AlexRynardModule.ch2FinalSceneHappened", true)
 		runScene("AlexCh2s5FinalScene")

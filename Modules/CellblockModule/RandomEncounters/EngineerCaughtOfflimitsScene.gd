@@ -293,9 +293,9 @@ func addWonButton():
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 

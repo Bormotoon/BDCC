@@ -27,7 +27,7 @@ func getPriority():
 func onButton(_method, _args):
 	if(_method == "goto"):
 		var thepath = sneakyPaths[_args[0]]
-		GM.pc.setLocation(thepath["newloc"])
-		GM.main.addMessage(thepath["arive"])
-		GM.main.reRun()
+		ServiceLocator.safe_get_service(&"Player").setLocation(thepath["newloc"])
+		ServiceLocator.safe_get_service(&"MainScene").addMessage(thepath["arive"])
+		ServiceLocator.safe_get_service(&"MainScene").reRun()
 		

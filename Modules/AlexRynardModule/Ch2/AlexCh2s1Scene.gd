@@ -246,7 +246,7 @@ func _run():
 	if(state == "time2_breakroom"):
 		playAnimation(StageScene.Duo, "stand", {npc="alexrynard", npcAction="sit"})
 		aimCameraAndSetLocName("eng_breakroom")
-		GM.pc.setLocation("eng_breakroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_breakroom")
 		saynn("You help Alex to walk out of the public workshop and into the main corridor. He reaches for the code panel of the staff-only door.. and then hesitates.")
 
 		saynn("[say=pc]Should I close my eyes?[/say]")
@@ -310,7 +310,7 @@ func _run():
 		addButton("Watch", "Stay and watch him to make sure he is alright", "time2_watch")
 	if(state == "time2_leave"):
 		aimCameraAndSetLocName("eng_bay_nearbreakroom")
-		GM.pc.setLocation("eng_bay_nearbreakroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_nearbreakroom")
 		playAnimation(StageScene.Solo, "stand")
 		removeCharacter("alexrynard")
 		saynn("Well, if he is so sure about himself.. then you should just listen and leave.")
@@ -367,7 +367,7 @@ func _run():
 		addButton("Leave", "See what happens next", "time2_leaveafterwatch")
 	if(state == "time2_leaveafterwatch"):
 		aimCameraAndSetLocName("eng_bay_nearbreakroom")
-		GM.pc.setLocation("eng_bay_nearbreakroom")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_nearbreakroom")
 		playAnimation(StageScene.Solo, "stand")
 		removeCharacter("alexrynard")
 		saynn("You begin to leave but Alex stops you for a second.")
@@ -494,7 +494,7 @@ func _run():
 		removeCharacter("captain")
 		removeCharacter("alexrynard")
 		playAnimation(StageScene.Solo, "stand")
-		GM.pc.setLocation("eng_bay_corridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_corridor")
 		aimCameraAndSetLocName("eng_bay_corridor")
 		saynn("Better leave them to it, who cares about what they will talk about.")
 
@@ -502,7 +502,7 @@ func _run():
 
 		addButton("Continue", "See what happens next", "endthescene")
 	if(state == "time3_eavesdrop"):
-		GM.pc.setLocation("eng_bay_corridor")
+		ServiceLocator.safe_get_service(&"Player").setLocation("eng_bay_corridor")
 		playAnimation(StageScene.Duo, "sit", {npc="captain", pc="alexrynard", npcAction="sit"})
 		saynn("You get up and leave them to it.. kinda. You get out of sight and use one of the walls as cover. Close enough to eavesdrop, far away not to get spotted.. hopefully.")
 
@@ -1204,7 +1204,7 @@ func _run():
 
 		addButton("Alex Rynard", "Grab this patient", "time7_computer_grab_alex")
 		addButton("Eliza Quinn", "Grab this patient", "time7_computer_grab_eliza")
-		addButton(GM.pc.getName(), "Grab this patient", "time7_computer_grab_pc")
+		addButton(ServiceLocator.safe_get_service(&"Player").getName(), "Grab this patient", "time7_computer_grab_pc")
 		addButton("Never mind", "You changed your mind", "time7_computer_mainmenu")
 	if(state == "time7_computer_grab_alex"):
 		playAnimation(StageScene.BDSMMachineFuck, "tease", {pc="alexrynard", noDildos=true})
@@ -1390,7 +1390,7 @@ func _run():
 		addButton("Continue", "See what happens next", "time7_resting_near_water")
 	if(state == "time7_resting_near_water"):
 		aimCameraAndSetLocName("yard_waterfall")
-		GM.pc.setLocation("yard_waterfall")
+		ServiceLocator.safe_get_service(&"Player").setLocation("yard_waterfall")
 		playAnimation(StageScene.Duo, "sit", {npc="alexrynard", npcAction="sit"})
 		saynn("Alex brings you to a secluded spot in the yard, the one with the constantly running waterfall.")
 
@@ -1502,7 +1502,7 @@ func _react(_action: String, _args):
 
 	if(_action == "time1_work"):
 		processTime(6*60*60)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("1 credit added to you")
 
 	if(_action == "time1_agreetoit"):
@@ -1527,7 +1527,7 @@ func _react(_action: String, _args):
 
 	if(_action == "time2_leave"):
 		setFlag("AlexRynardModule.ch2StayedWhenSpineBorked", false)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		addMessage("You received 1 credit")
 
 	if(_action == "time2_watch"):
@@ -1535,7 +1535,7 @@ func _react(_action: String, _args):
 		setFlag("AlexRynardModule.ch2StayedWhenSpineBorked", true)
 
 	if(_action == "time2_leaveafterwatch"):
-		GM.pc.addCredits(2)
+		ServiceLocator.safe_get_service(&"Player").addCredits(2)
 
 	if(_action == "time3_wellenough"):
 		processTime(30*60)
@@ -1547,7 +1547,7 @@ func _react(_action: String, _args):
 
 	if(_action == "time3_caparrives"):
 		processTime(60*60*3)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 	if(_action == "time3_justleave"):
 		setFlag("AlexRynardModule.ch2EavesdroppedCaptain", false)
@@ -1559,13 +1559,13 @@ func _react(_action: String, _args):
 
 	if(_action == "time4_showrepair"):
 		processTime(60*60*3)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 
 	if(_action == "workend_check"):
 		processTime(randi_range(6,9) * 60 * 60)
-		GM.pc.addCredits(1)
+		ServiceLocator.safe_get_service(&"Player").addCredits(1)
 		
-		if(GM.main.isVeryLate()):
+		if(ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 			setState("toolate")
 		else:
 			setState("aftersomefixing")
@@ -1614,19 +1614,19 @@ func _react(_action: String, _args):
 			return
 
 	if(_action == "time7_after_give_pills"):
-		GM.pc.addCredits(20)
+		ServiceLocator.safe_get_service(&"Player").addCredits(20)
 		addMessage("You received 20 credits!")
 
 	if(_action == "time7_after_fuckoffwithpills"):
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
-		GM.pc.getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
+		ServiceLocator.safe_get_service(&"Player").getInventory().addItem(GlobalRegistry.createItem("painkillers"))
 		addMessage("You managed to recover 3x painkillers")
 
 	if(_action == "time7_resting_near_water"):
 		processTime(30*60)
-		GM.pc.addStamina(100)
-		GM.pc.addPain(-100)
+		ServiceLocator.safe_get_service(&"Player").addStamina(100)
+		ServiceLocator.safe_get_service(&"Player").addPain(-100)
 
 	if(_action == "time7_resting_start_backstory"):
 		endScene()

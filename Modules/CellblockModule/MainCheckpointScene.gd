@@ -30,7 +30,7 @@ func _run():
 		saynn("[say=cp_guard]Have to frisk you. Stand against a wall.[/say]")
 
 		# (if not naked)
-		if(!GM.pc.isFullyNaked()):
+		if(!ServiceLocator.safe_get_service(&"Player").isFullyNaked()):
 			saynn("[say=pc]Why?[/say]")
 
 			saynn("[say=cp_guard]To make sure you don’t have anything illegal.[/say]")
@@ -45,7 +45,7 @@ func _run():
 			saynn("[say=cp_guard]Oh yeah? You can’t imagine where inmates hide contraband. Don’t waste my time, slut.[/say]")
 
 		saynn("The guard will check you every time you try to walk past here. What do you wanna do?")
-	elif(state == "" && GM.main.isVeryLate()):
+	elif(state == "" && ServiceLocator.safe_get_service(&"MainScene").isVeryLate()):
 		saynn("The canine guard stops you at the checkpoint.")
 		
 		saynn("[say=cp_guard]You can't use the elevator at this time, go back to your cell, inmate.[/say]")
@@ -88,7 +88,7 @@ func _run():
 		saynn("Then he pulls out some kind of scanner and uses it on you. He probably could have just done that from the start.")
 
 		# (if has something)
-		if(GM.pc.hasIllegalItems()):
+		if(ServiceLocator.safe_get_service(&"Player").hasIllegalItems()):
 			saynn("[say=cp_guard]That’s contraband. Where did you find that, inmate?[/say]")
 
 			saynn("[say=pc]On the floor?[/say]")
@@ -125,15 +125,15 @@ func _run():
 		saynn("You get on your knees before him and pull his half-erected cock out. The shape follows that of any canine, pointy tip, blood-red veiny shaft with a knot on the end. You give the head a smooch and wrap your digits around the thick meat, slightly stroking it to help him get hard. He leans his back against a wall and watches you work.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=cp_guard]You’re awfully slutty for a red. Don’t you dare use your claws, whore.[/say]")
 
 		# (if general)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=cp_guard]Such a slut, you should be in the lilac block, I wouldn’t mind fucking you every once in a while.[/say]")
 
 		# (if pink)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=cp_guard]Glad the sextoys know their place. Keep working.[/say]")
 
 		saynn("His member slowly reaches the maximum length of {cp_guard.penisSizeStr}, very hefty. On its tip you see some precum beginning to gather, you catch it with your hand and spread it along the length down. Your free hand slips into his unzipped pants and gives his balls a small massage. His breathing becomes deeper while you stroke his canine cock, slowly picking up the pace.")
@@ -206,15 +206,15 @@ func _run():
 		saynn("The guard straightens his posture and grabs his weapon.")
 
 		# (if red)
-		if(GM.pc.getInmateType() == InmateType.HighSec):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.HighSec):
 			saynn("[say=cp_guard]Don’t think so, red. I’m not afraid of you.[/say]")
 
 		# (if general)
-		if(GM.pc.getInmateType() == InmateType.General):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.General):
 			saynn("[say=cp_guard]Disobeying inmate, huh. Time to teach you a lesson.[/say]")
 
 		# (if pink)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=cp_guard]This slut has teeth? I will have so much fun with you.[/say]")
 
 		saynn("Seems like it’s a fight.")
@@ -235,7 +235,7 @@ func _run():
 		saynn("[say=cp_guard]You got lucky today, inmate. But don’t think other guards won’t stop you.[/say]")
 
 		# (if pink)
-		if(GM.pc.getInmateType() == InmateType.SexDeviant):
+		if(ServiceLocator.safe_get_service(&"Player").getInmateType() == InmateType.SexDeviant):
 			saynn("[say=cp_guard]Defeated by some sextoy, fuck me.[/say]")
 		
 		addWonButton()
@@ -258,19 +258,19 @@ func _run():
 		saynn("Your hand pulls out his cock and keeps stroking it until he becomes hard. His member has a pointy canine shape with a fat knot at the end and is pretty long, about {cp_guard.penisSizeStr}. The guy smirks and tries to get a hold of your {pc.breasts} but you smack his hand away.")
 
 		# (if canUndress)
-		if(GM.pc.canUndress()):
+		if(ServiceLocator.safe_get_service(&"Player").canUndress()):
 			saynn("You then {pc.undressMessage}. You leave your clothes nearby.")
 
 		saynn("You catch some of his precum with a few digits, then move them to your butt and rub it into your backdoor. Then you grab his cock and guide it towards your rear while slowly lowering yourself onto him. His cock slowly starts to prod and stretch your ring open. A few more attempts and you manage to do it, the tip of his cock is inside you.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own {pc.cock} tries to get hard too without you even touching it but your chastity cage prevents a full blown erection. A lonely drop of pre can be seen shining on on the tip of the cage.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own {pc.cock} gets hard too without you even touching it, a lonely drop of pre can be seen shining on its end.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your slit doesn’t get any attention but it becomes wet just from you feeling so aroused.")
 
 		saynn("[say=cp_guard]Don’t stop now, slut.[/say]")
@@ -278,23 +278,23 @@ func _run():
 		saynn("He puts his hands on your {pc.feminine} hips and pushes you down, helping his cock to slide deeper into you. You let out a cute noise and bite your lips as your ring gets stretched enough to fit about half of his length.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("You can feel how it rubs against something very sensitive inside you, any motion causes your cock to leak with some transparent fluid.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("The cock is so filling that you feel it pushing on your g-spot through the wall that divides your pussy and anus.")
 
 		saynn("You don’t stop, you slowly start riding him, moving your {pc.thick} {pc.feminine} body up down his cock, each time trying to stretch yourself out more, his precum works as a lube and makes riding the guard easier. It feels very pleasurable, you open your mouth and start moaning, your hands land on your chest and start playing with your sensitive nips.")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your own caged up {pc.cockDesc} cock bobs up and down, your little prostate is being massaged so much, you can’t stop leaking.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your own {pc.cockDesc} cock bobs up and down, your little prostate is being massaged so much, you can’t stop leaking.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your pussy drips with female juices, it’s not being directly stimulated but it feels so good anyways.")
 
 		saynn("You push yourself further, getting almost his full size! Your ring got stretched enough and all the precum that he has been pumping into you allows you to start bouncing on his cock faster. You drool and pant, your digits pinch your sensitive nips while you ride him completely hands-free, it feels so great. The guy pants too, his hands pull you up and down, making your motions stronger.")
@@ -304,19 +304,19 @@ func _run():
 		saynn("[say=cp_guard]And you’re not getting off without me stuffing you.[/say]")
 
 		# (if has cock)
-		if(GM.pc.isWearingChastityCage()):
+		if(ServiceLocator.safe_get_service(&"Player").isWearingChastityCage()):
 			saynn("Your {pc.cockSize} toy throbs and becomes rock-hard, putting a serious amount of pressure on your cage. The guard’s cock has been pounding on your prostate so much that you feel like you’re about to go over the edge at any moment.")
-		elif(GM.pc.hasPenis()):
+		elif(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your {pc.cockSize} toy throbs and becomes rock-hard, the guard’s cock has been pounding on your prostate so much that you feel like you’re about to go over the edge at any moment.")
 
 		saynn("You’re close. And so is he. You feel his canine member becoming bigger inside your rectum, his knot inflates with blood and stretches you out even more but doesn’t quite fit. Your moans and pants don’t stop coming out, you press your hands into the guard’s chest and start bringing yourself down onto his cock with extra strength, your anal ring letting more and more of his knot in each time. With one last push you manage to finally squeeze it in, the full size of his fat orb slides inside you, locking you two together. That is what pushes you both over the edge, the guy grunts as his cock starts shooting hot sticky cum inside you, stuffing you. You moan and shiver, your legs shake, your hands hold tightly onto him.")
 
 		# (if has cock)
-		if(GM.pc.hasPenis()):
+		if(ServiceLocator.safe_get_service(&"Player").hasPenis()):
 			saynn("Your little p-spot is smashed, the pressure is enough to make your {pc.cockDesc} cock pulsate and shoot cum too. Not as much but it’s almost a constant stream. You’re riding your own hands-free orgasm and it feels great.")
 
 		# (if has vagina)
-		if(GM.pc.hasVagina()):
+		if(ServiceLocator.safe_get_service(&"Player").hasVagina()):
 			saynn("Your g-spot was rubbed so much through the flesh wall that your pussy starts squirting from over-stimulation. Wow, you managed to get a vaginal orgasm from anal.")
 
 		saynn("You both pant heavily as you come down from your peaks. You look down at your belly and see a bulge on your belly. You try to stand up but realize that you can’t.")
@@ -337,33 +337,33 @@ func addWonButton():
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
 
 func _react(_action: String, _args):
 	if(_action == "get_frisked"):
-		for item in GM.pc.getInventory().getItemsWithTag(ItemTag.Illegal):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.Illegal):
 			addMessage(item.getStackName()+" was taken away")
-		for item in GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.Illegal):
+		for item in ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemsWithTag(ItemTag.Illegal):
 			addMessage(item.getStackName()+" was taken away")
 	
 	if(_action == "friskAndEndthescene"):
-		GM.pc.getInventory().removeItemsList(GM.pc.getInventory().getItemsWithTag(ItemTag.Illegal))
-		GM.pc.getInventory().removeEquippedItemsList(GM.pc.getInventory().getEquippedItemsWithTag(ItemTag.Illegal))
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeItemsList(ServiceLocator.safe_get_service(&"Player").getInventory().getItemsWithTag(ItemTag.Illegal))
+		ServiceLocator.safe_get_service(&"Player").getInventory().removeEquippedItemsList(ServiceLocator.safe_get_service(&"Player").getInventory().getEquippedItemsWithTag(ItemTag.Illegal))
 		
 		endScene()
 		return
 	
 	if(_action == "outside"):
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
 
 	if(_action == "facial"):
-		GM.pc.cummedOnBy("cp_guard", FluidSource.Penis)
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
+		ServiceLocator.safe_get_service(&"Player").cummedOnBy("cp_guard", FluidSource.Penis)
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
 
 	if(_action == "mouth"):
-		GM.pc.cummedInMouthBy("cp_guard")
-		GM.pc.addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
+		ServiceLocator.safe_get_service(&"Player").cummedInMouthBy("cp_guard")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 20, "cpguard_suckcock")
 
 	if(_action == "allowFullAndendthescene"):
 		setModuleFlag("CellblockModule", "Cellblock_FreeToPassCheckpoint", true)
@@ -371,7 +371,7 @@ func _react(_action: String, _args):
 		return
 
 	if(_action == "leaveandendthescene"):
-		GM.pc.setLocation("hall_mainentrance")
+		ServiceLocator.safe_get_service(&"Player").setLocation("hall_mainentrance")
 		endScene()
 		return
 
@@ -385,10 +385,10 @@ func _react(_action: String, _args):
 	if(_action == "catch_anal"):
 		processTime(30 * 60)
 		
-		GM.pc.gotAnusFuckedBy("cp_guard")
-		GM.pc.cummedInAnusBy("cp_guard")
-		GM.pc.orgasmFrom("cp_guard")
-		GM.pc.addSkillExperience(Skill.SexSlave, 30, "cpguard_catchanal")
+		ServiceLocator.safe_get_service(&"Player").gotAnusFuckedBy("cp_guard")
+		ServiceLocator.safe_get_service(&"Player").cummedInAnusBy("cp_guard")
+		ServiceLocator.safe_get_service(&"Player").orgasmFrom("cp_guard")
+		ServiceLocator.safe_get_service(&"Player").addSkillExperience(Skill.SexSlave, 30, "cpguard_catchanal")
 	
 	if(_action == "startsexsubby"):
 		getCharacter("cp_guard").prepareForSexAsDom()
@@ -427,7 +427,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(5)
 			
 			
-			for item in GM.pc.getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
+			for item in ServiceLocator.safe_get_service(&"Player").getInventory().forceRestraintsWithTag(ItemTag.CanBeForcedByGuards, randi_range(1, 2)):
 				addMessage(item.getForcedOnMessage())
 
 func getDevCommentary():

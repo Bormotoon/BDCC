@@ -247,19 +247,19 @@ func _run():
 		addButton("Leave", "Time to go", "endthescene")
 		
 	if(state == "after_sex"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDynamicNPCThatWon, [npcID])
 		
 	if(state == "after_sex_won"):
-		GM.ES.triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
+		ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.AfterSexWithDefeatedDynamicNPC, [npcID])
 
 func addWonButton():
 	addButton("Leave", "Just leave before anyone else sees you", "endthescene")
 	addButtonWithChecks("Sex!", "Time to fuck them!", "startsexasdom", [], [ButtonChecks.CanStartSex])
 	addButton("Submit to", "Let them have it their way with you", "startsexsubby")
 	addButton("Inventory", "Look at your inventory", "openinventory")
-	if(GM.pc.getInventory().hasRemovableRestraints()):
+	if(ServiceLocator.safe_get_service(&"Player").getInventory().hasRemovableRestraints()):
 		addButton("Struggle", "Struggle out of your restraints", "strugglemenu")
-	GM.ES.triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
+	ServiceLocator.safe_get_service(&"EventSystem").triggerRun(Trigger.DefeatedDynamicNPC, [npcID])
 
 func _react(_action: String, _args):
 	if(_action == "how_much"):
@@ -300,14 +300,14 @@ func _react(_action: String, _args):
 		
 		var chanceToScam = max(0.0, meanStat * 50.0) + max(0.0, bratStat * 50.0)
 		if(RNG.chance(chanceToScam)):
-			GM.pc.addCredits(-amountRequested)
+			ServiceLocator.safe_get_service(&"Player").addCredits(-amountRequested)
 			amountStole = amountRequested
 			triedToScam = true
 			setState("agree_mean_sometimes")
 			return
 	
 	if(_action == "paytosub"):
-		GM.pc.addCredits(-amountRequested)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-amountRequested)
 		
 		getCharacter(npcID).prepareForSexAsDom()
 		GlobalRegistry.getCharacter(npcID).addPain(-50)
@@ -315,7 +315,7 @@ func _react(_action: String, _args):
 		return
 	
 	if(_action == "paytodom"):
-		GM.pc.addCredits(-amountRequested)
+		ServiceLocator.safe_get_service(&"Player").addCredits(-amountRequested)
 		
 		runScene("GenericSexScene", ["pc", npcID], "domsex")
 		return
@@ -347,7 +347,7 @@ func _react_scene_end(_tag, _result):
 			addExperienceToPlayer(30)
 			
 			if(triedToScam):
-				GM.pc.addCredits(amountStole)
+				ServiceLocator.safe_get_service(&"Player").addCredits(amountStole)
 				addMessage("You recovered the stolen credits")
 		else:
 			setState("if_lost")
