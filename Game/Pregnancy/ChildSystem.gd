@@ -5,7 +5,7 @@ var children: Array = []
 var archive: Dictionary = {}
 
 func _ready():
-	ServiceLocator.safe_get_service(&"ChildSystem") = self
+	ServiceLocator.register_service(&"ChildSystem", self)
 	name = "ChildSystem"
 
 func addChild(child):

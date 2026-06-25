@@ -97,13 +97,13 @@ func _init() -> void:
 	encounter_settings = EncounterSettings.new()
 
 func _ready() -> void:
-	ServiceLocator.safe_get_service(&"MainScene") = self
+	ServiceLocator.register_service(&"MainScene", self)
 	GM.register_services()
 	create_static_characters()
 
 func _exit_tree() -> void:
 	rollbacker.onDestroy()
-	ServiceLocator.safe_get_service(&"MainScene") = null
+	ServiceLocator.unregister_service(&"MainScene")
 
 # ==========================================
 # PC OVERRIDE (lines 55-86)
@@ -116,7 +116,7 @@ func override_pc() -> void:
 	Util.remove_all_signals(original_pc)
 	var new_pc = overridden_player_scene.new()
 	overriden_pc = new_pc
-	ServiceLocator.safe_get_service(&"Player") = new_pc
+	ServiceLocator.register_service(&"Player", new_pc)
 	_connect_signals_to_pc(new_pc)
 	add_child(new_pc)
 
@@ -126,7 +126,7 @@ func clear_override_pc() -> void:
 		return
 	overriden_pc.queue_free()
 	overriden_pc = null
-	ServiceLocator.safe_get_service(&"Player") = original_pc
+	ServiceLocator.register_service(&"Player", original_pc)
 	_connect_signals_to_pc(original_pc)
 
 func get_current_pc():

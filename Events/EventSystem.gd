@@ -9,7 +9,7 @@ var event_checks: Dictionary = {}
 var datapack_events: Array = []
 
 func _ready() -> void:
-	ServiceLocator.safe_get_service(&"EventSystem") = self
+	ServiceLocator.register_service(&"EventSystem", self)
 	name = "EventSystem"
 	_registerEventTriggers()
 	_registerEvents()

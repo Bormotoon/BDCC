@@ -34,7 +34,7 @@ var lastAimedRoomID:
 	get: return last_aimed_room_id
 
 func _ready() -> void:
-	ServiceLocator.safe_get_service(&"World") = self
+	ServiceLocator.register_service(&"World", self)
 	astar = AStar2D.new()
 	var map_floors = GlobalRegistry.getMapFloors()
 	for map_id in map_floors:
