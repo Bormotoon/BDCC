@@ -1,7 +1,7 @@
 extends Object
 class_name SexEventHelper
 
-static func create(theType:String, theSourceID:String, theTargetID:String, theData = {}) -> SexEvent:
+static func create(theType:String, theSourceID:String, theTargetID:String, theData = {}):
 	var newEvent = SexEvent.new()
 	newEvent.type = theType
 	newEvent.sourceCharID = theSourceID

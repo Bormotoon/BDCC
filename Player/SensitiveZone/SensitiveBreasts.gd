@@ -69,7 +69,7 @@ func isOverstimulationEnabled() -> bool:
 	return true
 
 func generateDataFor(_dynamicCharacter):
-	var fetishHolder:FetishHolder = _dynamicCharacter.getFetishHolder()
+	var fetishHolder = _dynamicCharacter.getFetishHolder()
 	if(fetishHolder == null):
 		return
 	

@@ -1,7 +1,7 @@
 extends RefCounted
 class_name Orifice
 
-var fluids: Fluids = Fluids.new()
+var fluids = Fluids.new()
 
 var looseness: float = 0.0
 
@@ -255,7 +255,7 @@ func generateDataFor(_dynamicCharacter):
 	if(bodypart == null || bodypart.get_ref().character == null):
 		return
 	var character = bodypart.get_ref().getCharacter()
-	var fetishHolder:FetishHolder = character.getFetishHolder()
+	var fetishHolder = character.getFetishHolder()
 	if(fetishHolder == null):
 		return
 	

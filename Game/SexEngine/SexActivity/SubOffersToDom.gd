@@ -49,14 +49,14 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 	for theTag in TagsThatPreventBegging:
 		if(_sexEngine.hasTag(_subInfo.charID, theTag)):
 			return
-	var _subFetishHolder:FetishHolder = _subInfo.getChar().getFetishHolder()
+	var _subFetishHolder = _subInfo.getChar().getFetishHolder()
 	
 	var amountOfGoalsMod:float = 0.02
 	if(_sexEngine.allPossibleGoalsToBeg.size() > 0):
 		amountOfGoalsMod = 1.0 / float(_sexEngine.allPossibleGoalsToBeg.size())
 	
 	for goalID in _sexEngine.allPossibleGoalsToBeg:
-		var theGoalRef:SexGoalBase = GlobalRegistry.getSexGoal(goalID)
+		var theGoalRef = GlobalRegistry.getSexGoal(goalID)
 		if(!theGoalRef):
 			continue
 		if(!theGoalRef.isPossible(_sexEngine, _domInfo, _subInfo, [])):
@@ -82,7 +82,7 @@ func startActivity(_args):
 	var theGoalID:String = _args[0]
 	
 	endActivity()
-	var theGoalRef:SexGoalBase = GlobalRegistry.getSexGoal(theGoalID)
+	var theGoalRef = GlobalRegistry.getSexGoal(theGoalID)
 	if(!theGoalRef):
 		return
 	var theEngine := getSexEngine()
@@ -110,7 +110,7 @@ func startActivity(_args):
 
 func getDomAgreeGoalChance(_sexEngine:SexEngine, _domInfo:SexDomInfo, _subInfo:SexSubInfo, _sexGoal:SexGoalBase) -> float:
 	var theFetishes:Dictionary = _sexGoal.getBegDomFetishes()
-	var _domFetishHolder:FetishHolder = _domInfo.getChar().getFetishHolder()
+	var _domFetishHolder = _domInfo.getChar().getFetishHolder()
 	
 	var minFetishScore:float = 1.0
 	if(theFetishes.is_empty()):

@@ -25,7 +25,7 @@ func initInfo(theCharID, sexengine):
 	sexEngineRef = weakref(sexengine)
 	initFromPersonality()
 	
-func getChar() -> BaseCharacter:
+func getChar():
 	if(charID == null || charID == ""):
 		return null
 	
@@ -190,7 +190,7 @@ func stimulateArousalZone(howmuch: float, bodypartSlot, stimulation:float = 1.0)
 	
 	if(!getChar().hasBodypart(bodypartSlot)):
 		return
-	var sensitiveZone:SensitiveZone = getChar().getBodypart(bodypartSlot).getSensitiveZone()
+	var sensitiveZone = getChar().getBodypart(bodypartSlot).getSensitiveZone()
 	if(sensitiveZone == null):
 		addArousalForeplay(howmuch)
 		return
@@ -266,7 +266,7 @@ func isReadyToPenetrate() -> bool:
 	return getChar().isReadyToPenetrate()
 
 func fetishScore(fetishes = {}, addscore = 0.0):
-	var fetishHolder: FetishHolder = getChar().getFetishHolder()
+	var fetishHolder = getChar().getFetishHolder()
 	
 	var maxPossibleValue = 0.0
 	var result = addscore
@@ -282,7 +282,7 @@ func fetishScore(fetishes = {}, addscore = 0.0):
 	return result
 
 func personalityScore(personalityStats = {}, addscore = 0.0):
-	var personality: Personality = getChar().getPersonality()
+	var personality = getChar().getPersonality()
 	
 	var result = addscore
 	for personalityStatID in personalityStats:
@@ -384,7 +384,7 @@ func combineData(_data1, _data2):
 	return getSexEngine().combineData(_data1, _data2)
 
 func getExtraOutputData(_isDom:bool, _sexEngine):
-	var tfHolder:TFHolder = getChar().getTFHolder()
+	var tfHolder = getChar().getTFHolder()
 	if(tfHolder != null && tfHolder.hasPendingTransformations()):
 		var tfResult:Dictionary = tfHolder.doFirstPendingTransformation({}, true)
 		if(tfResult.has("text") && tfResult["text"] != ""):
@@ -438,9 +438,9 @@ func doFetishChangeCalculation() -> Dictionary:
 	var upFetishes:Array = []
 	var downFetishes:Array = []
 	
-	var fetishHolder:FetishHolder = theChar.getFetishHolder()
-	var personality:Personality = theChar.getPersonality()
-	var buffHolder:BuffsHolder = theChar.getBuffsHolder()
+	var fetishHolder = theChar.getFetishHolder()
+	var personality = theChar.getPersonality()
+	var buffHolder = theChar.getBuffsHolder()
 	
 	var globalScoreMult:float = 1.0
 	if(isDom()): # Doms gain fetishes slower
@@ -454,7 +454,7 @@ func doFetishChangeCalculation() -> Dictionary:
 		satisfactionMod = -1.0+theSatisfaction
 	
 	for fetishID in fetishGain:
-		var theFetish:FetishBase = GlobalRegistry.getFetish(fetishID)
+		var theFetish = GlobalRegistry.getFetish(fetishID)
 		if(!theFetish):
 			continue
 		

@@ -2,7 +2,7 @@ extends RefCounted
 class_name FluidProduction
 
 var bodypart: WeakRef = null
-var fluids: Fluids = Fluids.new()
+var fluids = Fluids.new()
 
 func getFluids():
 	return fluids

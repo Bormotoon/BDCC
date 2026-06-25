@@ -95,8 +95,8 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 	addDrugButtons(possibleCanApplyInfo, _sexEngine, _domInfo, _subInfo, true)
 
 func addDrugButtons(possibleDrugsInfo:Array, _sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo, _isCanApply:bool = false):
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	for itemEntry in possibleDrugsInfo:
 		var itemID = itemEntry["id"]
@@ -257,7 +257,7 @@ func startActivity(_args):
 			if(!pillVariants.is_empty()):
 				var tfNames:Array = []
 				for tfID in pillVariants:
-					var tf:TFBase = GlobalRegistry.getTransformationRef(tfID)
+					var tf = GlobalRegistry.getTransformationRef(tfID)
 					if(tf != null):
 						var pillName:String = tf.getPillName()
 						tfNames.append("a "+pillName)

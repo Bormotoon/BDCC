@@ -83,8 +83,8 @@ func init_processTurn():
 	tick += 1
 
 	if(tick > 1):
-		var theitem:ItemBase = getSub().getInventory().getEquippedItemByID(itemIDToRemove)
-		var itemState:ItemState = theitem.getItemState()
+		var theitem = getSub().getInventory().getEquippedItemByID(itemIDToRemove)
+		var itemState = theitem.getItemState()
 		if(itemState == null):
 			getSub().getInventory().unequipItem(theitem)
 		else:

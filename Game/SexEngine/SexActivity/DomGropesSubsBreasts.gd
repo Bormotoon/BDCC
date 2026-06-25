@@ -110,8 +110,8 @@ func groping_processTurn():
 		sendSexEvent(SexEvent.PainInflicted, DOM_0, SUB_0, {pain=1,isDefense=false,intentional=false})
 	
 	if(RNG.chance(10) && getSub().isLactating() && !getSub().hasEffect(StatusEffect.SoreNipplesAfterMilking)):
-		var breasts:BodypartBreasts = getSub().getBodypart(BodypartSlot.Breasts)
-		var milkProduciton:FluidProduction = breasts.getFluidProduction()
+		var breasts = getSub().getBodypart(BodypartSlot.Breasts)
+		var milkProduciton = breasts.getFluidProduction()
 		if(milkProduciton != null):
 			milkProduciton.fillPercent(RNG.randf_rangeX2(0.05, 0.5))
 			text += RNG.pick([

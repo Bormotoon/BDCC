@@ -13,7 +13,7 @@ func getLowSensitivityRestoreRate() -> float:
 	return 0.4 * (1.0 + max(-1.0, getCustomAttribute(BuffAttribute.SensitivityRestoreAll) + getCustomAttribute(BuffAttribute.SensitivityRestoreVagina)))
 
 func generateDataFor(_dynamicCharacter):
-	var fetishHolder:FetishHolder = _dynamicCharacter.getFetishHolder()
+	var fetishHolder = _dynamicCharacter.getFetishHolder()
 	if(fetishHolder == null):
 		return
 	

@@ -212,7 +212,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			text = RNG.pick([
 				"{dom.You} {dom.youVerb('lean')} to the side a bit and {dom.youVerb('let')} {sub.you} [b]cum all over the floor[/b]. Many "+RNG.pick(["strings of cum", "strands of seed"])+" land on it while {sub.yourHis} cock throbs and cums, leaving quite a mess! But luckily {dom.you} dodged all of it."
 			])
-			var condom:ItemBase = getSub().getWornCondom()
+			var condom = getSub().getWornCondom()
 			if(condom != null):
 				var breakChance:float = condom.getCondomBreakChance()
 				
@@ -256,7 +256,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			text = RNG.pick([
 				"{dom.You} {dom.youVerb('shift')} away a bit and {dom.youVerb('let')} {sub.you} [b]give {dom.youHim} a facial[/b]. Many "+RNG.pick(["strings of cum", "strands of seed"])+" land on {dom.youHim} while {sub.yourHis} cock throbs and cums, leaving quite a mess!"
 			])
-			var condom:ItemBase = getSub().getWornCondom()
+			var condom = getSub().getWornCondom()
 			if(condom != null):
 				var breakChance:float = condom.getCondomBreakChance()
 				
@@ -299,7 +299,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 				"{dom.You} {dom.youVerb('hold')} {dom.yourHis} lips wrapped around {sub.yourHis} "+RNG.pick(["cock", "dick", "shaft"])+" as it starts throbbing and [b]stuffing {dom.your} mouth with "+RNG.pick(["cum", "seed", "semen"])+"[/b]."
 			])
 			
-			var condom:ItemBase = getSub().getWornCondom()
+			var condom = getSub().getWornCondom()
 			if(condom != null):
 				var breakChance = condom.getCondomBreakChance()
 				condomBroke = getSub().shouldCondomBreakWhenFucking(getDom(), breakChance)

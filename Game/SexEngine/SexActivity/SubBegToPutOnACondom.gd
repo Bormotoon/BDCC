@@ -26,8 +26,8 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
-	var dom:BaseCharacter = _domInfo.getChar()
+	var sub = _subInfo.getChar()
+	var dom = _domInfo.getChar()
 	if(dom.getWornCondom() != null):
 		return
 	
@@ -100,7 +100,7 @@ func startActivity(_args):
 					" {dom.You} {dom.youVerb('nod')} and {dom.youVerb('put')} on {sub.yourHis} condom onto {dom.yourHis} cock.",
 				])
 			
-			var condomItem:ItemBase = GlobalRegistry.createItem("UsedCondom")
+			var condomItem = GlobalRegistry.createItem("UsedCondom")
 			getDom().getInventory().forceEquipStoreOther(condomItem)
 			if(getSub().isPlayer() && _args[0] == "offer"):
 				condomItem.breakChance = getSub().useBestCondom()

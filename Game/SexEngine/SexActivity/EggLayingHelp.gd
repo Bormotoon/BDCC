@@ -91,7 +91,7 @@ func getActions(_indx:int):
 
 func doAction(_indx:int, _actionID:String, _action:Dictionary):
 	if(_actionID == "addegg"):
-		var theMenstrualCycle:MenstrualCycle = getSub().getMenstrualCycle()
+		var theMenstrualCycle = getSub().getMenstrualCycle()
 		var theTentacleType:int = RNG.pick([BigEggType.Plant, BigEggType.Latex, BigEggType.Fertilized])
 		var theEggTime:int = 0
 		var theOrifice:int = OrificeType.Vagina
@@ -107,7 +107,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 		
 		if(getDom().isPlayer()):
 			for theEgg in eggsOut:
-				var theEggItem:ItemBase = theEgg.createItem()
+				var theEggItem = theEgg.createItem()
 				if(!theEggItem):
 					continue
 				GM.pc.getInventory().addItem(theEggItem)
@@ -138,7 +138,7 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 		if(!getSub().menstrualCycle.isReadyToLayEggsCanContinue()):
 			shouldDoFlopAnim = true
 			
-		var anEgg:EggLaid = getSub().menstrualCycle.laySingleEgg()
+		var anEgg = getSub().menstrualCycle.laySingleEgg()
 		if(!anEgg):
 			addText("{sub.You} {sub.youVerb('try', 'tries')} to lay an egg but nothing comes out..")
 			moan(SUB_0)
@@ -234,6 +234,6 @@ func loadData(data):
 	eggsOut.clear()
 	var eggData:Array = SAVE.loadVar(data, "eggsOut", [])
 	for theEggEntry in eggData:
-		var theEgg:EggLaid = EggLaid.new()
+		var theEgg = EggLaid.new()
 		theEgg.loadData(theEggEntry)
 		eggsOut.append(theEgg)

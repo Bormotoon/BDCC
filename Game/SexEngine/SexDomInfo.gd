@@ -71,7 +71,7 @@ func get_sadistic_action_store() -> float:
 
 func init_from_personality() -> void:
 	var character = getChar()
-	var personality: Personality = character.getPersonality()
+	var personality = character.getPersonality()
 	var mean := personality.getStat(PersonalityStat.Mean)
 	if mean > 0.0:
 		anger = randf_range(0.0, mean) / 5.0

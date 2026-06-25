@@ -25,13 +25,13 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	var domTakeOffScore = 1.0 - getActivityScoreCustomGoals({SexGoal.SubWearStraponOnDom: 100.0}, _sexEngine, _domInfo, _subInfo)
 	var domSubStraponGoalScore:float = 0.0
 	for domID in _sexEngine.doms:
-		var theDomInfo:SexDomInfo = _sexEngine.doms[domID]
+		var theDomInfo = _sexEngine.doms[domID]
 		if(!theDomInfo.canDoActions()):
 			continue
 		var theDomScore:float = getActivityScoreCustomGoals({SexGoal.SubWearStraponOnSub: 100.0}, _sexEngine, theDomInfo, _subInfo)

@@ -46,7 +46,7 @@ func canStuffEggInto(_targetChar, _bodypart:String) -> bool:
 func doStuffEggInto(_targetChar, _bodypart:String) -> Dictionary:
 	if(!fluidProduction.useEgg()):
 		return {success = false}
-	var targetMenstrualCycle:MenstrualCycle = _targetChar.getMenstrualCycle()
+	var targetMenstrualCycle = _targetChar.getMenstrualCycle()
 	if(!targetMenstrualCycle):
 		return {success = false}
 	

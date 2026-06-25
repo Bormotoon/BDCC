@@ -14,7 +14,7 @@ static func domReactToSubBodypart(bodypart, sex_engine, dom_info, sub_info) -> S
 	var possible: Array = []
 
 	if bodypart is BodypartBreasts:
-		var lust_interests: LustInterests = dom.getLustInterests()
+		var lust_interests = dom.getLustInterests()
 		var likes_big := lust_interests.getTopicValue(InterestTopic.BigBreasts, sub)
 		var likes_lactation := lust_interests.getTopicValue(InterestTopic.LactatingBreasts, sub)
 

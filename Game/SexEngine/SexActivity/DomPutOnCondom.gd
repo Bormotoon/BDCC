@@ -25,8 +25,8 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	if(dom.isPlayer() && !dom.hasCondoms()):
 		return []
@@ -89,7 +89,7 @@ func startActivity(_args):
 	if(getDom().isPlayer()):
 		breakChance = getDom().useBestCondom()
 	
-	var condomItem:ItemBase = GlobalRegistry.createItem("UsedCondom")
+	var condomItem = GlobalRegistry.createItem("UsedCondom")
 	condomItem.breakChance = breakChance
 	
 	endActivity()

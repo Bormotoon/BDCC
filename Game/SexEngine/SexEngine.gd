@@ -7,17 +7,17 @@ var revealedBodyparts: Dictionary = {}
 var doms:Dictionary = {}
 var subs:Dictionary = {}
 var trackedItems:Dictionary = {}
-var inventoryToSaveItemsTo:LightInventory = null
+var inventoryToSaveItemsTo = null
 var participatedDoms:Dictionary = {}
 
 var currentLastActivityID:int = 0
 
 # Result stuff
 var sexEnded:bool = false
-var sexResult:SexEngineResult = SexEngineResult.new()
+var sexResult = SexEngineResult.new()
 
 # Configuration
-var sexType:SexTypeBase
+var sexType
 
 var disabledGoals:Dictionary = {}
 var bondageDisabled:bool = false
@@ -340,13 +340,13 @@ func internal_generateGoalsFor(domID:String, amountToGenerate:int, _minFetishVal
 		return false
 	
 	var generatedAnyGoals:bool = false
-	var personDomInfo:SexDomInfo = doms[domID]
+	var personDomInfo = doms[domID]
 	var possibleGoals:Array = []
 	
 	var breedingGoalsAmount:int = 0
 	var breedingGoals:Array = []
 	
-	var dom:BaseCharacter = personDomInfo.getChar()
+	var dom = personDomInfo.getChar()
 	
 	for subID in subs:
 		var personSubInfo = subs[subID]
@@ -366,7 +366,7 @@ func internal_generateGoalsFor(domID:String, amountToGenerate:int, _minFetishVal
 				if(!checkIfThereAreAnyActivitiesThatSupportGoal(goal[0])):
 					continue
 
-				var sexGoal:SexGoalBase = GlobalRegistry.getSexGoal(goal[0])
+				var sexGoal = GlobalRegistry.getSexGoal(goal[0])
 				var goalData = sexGoal.generateData(self, personDomInfo, personSubInfo)
 				
 				if(sexGoal.isPossible(self, personDomInfo, personSubInfo, goalData) && !sexGoal.isCompleted(self, personDomInfo, personSubInfo, goalData)):
@@ -412,12 +412,12 @@ func checkIfDomsNeedMoreGoals():
 	if(sexEnded):
 		return
 	for domID in doms:
-		var domInfo:SexDomInfo = doms[domID]
+		var domInfo = doms[domID]
 		if(!domInfo.hasGoals() && !domInfo.isDynamicJoiner()):
 			generateGoalsFor(domID, 2)
 
-func doFastSex() -> SexEngineResult:
-	var newResult:SexEngineResult = SexEngineResult.new()
+func doFastSex():
+	var newResult = SexEngineResult.new()
 	newResult.sexType = getSexTypeID()
 	
 	for subID in subs:
@@ -436,16 +436,16 @@ func doFastSex() -> SexEngineResult:
 			var goalSubID = goalInfo[1]
 			var goalData = goalInfo[2]
 			
-			var sexGoal:SexGoalBase = GlobalRegistry.getSexGoal(goalID)
+			var sexGoal = GlobalRegistry.getSexGoal(goalID)
 			if(sexGoal != null):
 				sexGoal.doFastSex(self, domInfo, getSubInfo(goalSubID), goalData)
 				
 	for domID in doms:
-		var newDomResult:SexEngineResultDom = SexEngineResultDom.new()
+		var newDomResult = SexEngineResultDom.new()
 		newDomResult.doFastSex(self, doms[domID])
 		newResult.doms[domID] = newDomResult
 	for subID in subs:
-		var newSubResult:SexEngineResultSub = SexEngineResultSub.new()
+		var newSubResult = SexEngineResultSub.new()
 		newSubResult.doFastSex(self, subs[subID])
 		newResult.subs[subID] = newSubResult
 	
@@ -536,7 +536,7 @@ func progressGoalGeneric(thedominfo, goalid, thesubinfo, args = []):
 		var goalInfo = thedominfo.goals[_i]
 		
 		if(goalInfo[0] == goalid && goalInfo[1] == thesubinfo.charID):
-			var thegoal:SexGoalBase = GlobalRegistry.getSexGoal(goalid)
+			var thegoal = GlobalRegistry.getSexGoal(goalid)
 			thegoal.progressGoal(self, thedominfo, thesubinfo, goalInfo[2], args)
 			return true
 	return false
@@ -568,17 +568,17 @@ func replaceGoal(thedominfo, goalid, thesubinfo, newgoalid, replaceAll = true):
 		return true
 	return false
 
-func getDomInfo(theDomID) -> SexDomInfo:
+func getDomInfo(theDomID):
 	if(!doms.has(theDomID)):
 		return null
 	return doms[theDomID]
 
-func getSubInfo(theSubID) -> SexSubInfo:
+func getSubInfo(theSubID):
 	if(!subs.has(theSubID)):
 		return null
 	return subs[theSubID]
 
-func getCharInfo(_theID:String) -> SexInfoBase:
+func getCharInfo(_theID:String):
 	if(doms.has(_theID)):
 		return doms[_theID]
 	if(subs.has(_theID)):
@@ -606,7 +606,7 @@ func checkFailedAndCompletedGoals():
 			var goalInfo = domInfo.goals[i]
 			var subInfo = getSubInfo(goalInfo[1])
 			
-			var sexGoal:SexGoalBase = GlobalRegistry.getSexGoal(goalInfo[0])
+			var sexGoal = GlobalRegistry.getSexGoal(goalInfo[0])
 			if(sexGoal.isCompleted(self, domInfo, subInfo, goalInfo[2])):
 				Log.verbose("GOAL "+str(sexGoal.getVisibleName())+" "+str(domID)+" "+str(goalInfo[1])+" got completed")
 				domInfo.goals.remove_at(i)
@@ -634,7 +634,7 @@ func processTurn():
 		return
 	
 	for domID in doms:
-		var domInfo:SexDomInfo = doms[domID]
+		var domInfo = doms[domID]
 		
 		if(domInfo.checkIsDown()):
 			addText("{dom.You} can't continue anymore!", domID, domID)
@@ -646,7 +646,7 @@ func processTurn():
 		domInfo.getChar().processSexTurnContex({sexEngine=self,isDom=true})
 		domInfo.processTurn()
 	for subID in subs:
-		var subInfo:SexSubInfo = subs[subID]
+		var subInfo = subs[subID]
 		subInfo.getChar().processSexTurnContex({sexEngine=self,isDom=false})
 		subInfo.processTurn()
 	
@@ -703,7 +703,7 @@ func processAIActions(isDom:bool = true, processPlayerToo:bool = false):
 		peopleToCheck = subs
 	
 	for personID in peopleToCheck:
-		var theinfo:SexInfoBase = peopleToCheck[personID]
+		var theinfo = peopleToCheck[personID]
 		if(!theinfo.canDoActions()):
 			continue
 		if((personID == "pc" || (pcControlsDoms && isDom(personID))) && !processPlayerToo):
@@ -806,7 +806,7 @@ func getActionsForCharID(_charID:String, isForMenu:bool = false) -> Array:
 	var _isSub:bool = isSub(_charID)
 	var _isDom:bool = isDom(_charID)
 	var _isPC:bool = (_charID == "pc") || (_isDom && pcControlsDoms)
-	var _charInfo:SexInfoBase
+	var _charInfo
 	if(_isSub):
 		_charInfo = getSubInfo(_charID)
 	if(_isDom):
@@ -840,7 +840,7 @@ func getActionsForCharID(_charID:String, isForMenu:bool = false) -> Array:
 	
 	if(canCharDoActions):
 		if(!_isPC && !isForMenu && _isDom && (_charInfo is SexDomInfo)):
-			var _theDomInfo:SexDomInfo = _charInfo
+			var _theDomInfo = _charInfo
 			if(_theDomInfo.isDynamicJoiner() && !_theDomInfo.hasGoals()):
 				result.append({
 					id = "dynamicLeave",
@@ -906,9 +906,9 @@ func getActionsForCharID(_charID:String, isForMenu:bool = false) -> Array:
 	var allSexActivities:Dictionary = GlobalRegistry.getSexActivityReferences()
 	
 	for otherCharID in peopleToCheck:
-		var _subInfo:SexSubInfo
-		var _domInfo:SexDomInfo
-		var otherCharInfo:SexInfoBase
+		var _subInfo
+		var _domInfo
+		var otherCharInfo
 		if(_isSub):
 			otherCharInfo = getDomInfo(otherCharID)
 			_subInfo = _charInfo
@@ -1103,8 +1103,8 @@ func hasAnyTag(_info:SexInfoBase, tags:Array) -> bool:
 	return false
 
 func hasActivity(id:String, thedomID:String, thesubID:String) -> bool:
-	var theDomInfo:SexDomInfo = getDomInfo(thedomID)
-	var theSubInfo:SexSubInfo = getSubInfo(thesubID)
+	var theDomInfo = getDomInfo(thedomID)
+	var theSubInfo = getSubInfo(thesubID)
 	if(!theDomInfo || !theSubInfo):
 		return false
 	for activity in activities:
@@ -1164,8 +1164,8 @@ func getRecovarableItemsAfterSex() -> Array:
 	var result:Array = []
 	if(trackedItems.has("pc")):
 		for trackedItem in trackedItems["pc"]:
-			var character:BaseCharacter = GlobalRegistry.getCharacter(trackedItem[0])
-			var item:ItemBase = character.getInventory().getItemByUniqueID(trackedItem[1])
+			var character = GlobalRegistry.getCharacter(trackedItem[0])
+			var item = character.getInventory().getItemByUniqueID(trackedItem[1])
 			if(item == null):
 				continue
 			if(!item.isPersistent() && !item.alwaysRecoveredAfterSex()):
@@ -1180,14 +1180,14 @@ func keepItemsAfterSex(onlyAlwaysKept:bool = false):
 		var newPCTracked = []
 		
 		for trackedItem in trackedItems["pc"]:
-			var character:BaseCharacter = GlobalRegistry.getCharacter(trackedItem[0])
-			var item:ItemBase = character.getInventory().getItemByUniqueID(trackedItem[1])
+			var character = GlobalRegistry.getCharacter(trackedItem[0])
+			var item = character.getInventory().getItemByUniqueID(trackedItem[1])
 			if(item == null):
 				continue
 			if(!item.isPersistent() && (!onlyAlwaysKept || (onlyAlwaysKept && item.alwaysRecoveredAfterSex()))):
 				character.getInventory().removeItem(item)
 				character.getInventory().removeEquippedItem(item)
-				var restraintData:RestraintData = item.getRestraintData()
+				var restraintData = item.getRestraintData()
 				if(restraintData != null):
 					restraintData.onStruggleRemoval()
 			
@@ -1198,7 +1198,7 @@ func keepItemsAfterSex(onlyAlwaysKept:bool = false):
 				
 		trackedItems["pc"] = newPCTracked
 
-func generateSexResult() -> SexEngineResult:
+func generateSexResult():
 	var theResult := SexEngineResult.new()
 	theResult.sexType = getSexTypeID()
 	
@@ -1208,14 +1208,14 @@ func generateSexResult() -> SexEngineResult:
 		if(!domInfo.getIsDown()):
 			theResult.subsWon = false
 		
-		var newDomResult:SexEngineResultDom = SexEngineResultDom.new()
+		var newDomResult = SexEngineResultDom.new()
 		newDomResult.grabInfo(self, domInfo)
 		
 		theResult.doms[domID] = newDomResult
 
 	for subID in subs:
 		var subInfo = subs[subID]
-		var newSubResult:SexEngineResultSub = SexEngineResultSub.new()
+		var newSubResult = SexEngineResultSub.new()
 		newSubResult.grabInfo(self, subInfo)
 		
 		theResult.subs[subID] = newSubResult
@@ -1283,7 +1283,7 @@ func getActivityWithMaxAnimPriorityFor(_charID:String, skipOptional:bool = false
 	#var foundAnimInfo = null
 	var foundActivity = null
 	
-	var foundCharInfo:SexInfoBase = null
+	var foundCharInfo = null
 	var theIsDom:bool = false
 	if(subs.has(_charID)):
 		foundCharInfo = subs[_charID]
@@ -1361,7 +1361,7 @@ func reconsiderPCTarget():
 	if(!isSub("pc") || doms.size() < 2):
 		return
 	var theTargetChar:String = getPCTarget()
-	var theTargetInfo:SexInfoBase = getCharInfo(theTargetChar)
+	var theTargetInfo = getCharInfo(theTargetChar)
 	if(!theTargetInfo):
 		return
 	var domsThatHaveActivitiesWithPC:Array = []
@@ -1383,7 +1383,7 @@ func getBestAnimation():
 	var theTargetChar:String = getPCTarget()
 	if(theTargetChar == ""):
 		return null
-	var theTargetInfo:SexInfoBase
+	var theTargetInfo
 	if(isDom(theTargetChar)):
 		theTargetInfo = doms[theTargetChar]
 	if(isSub(theTargetChar)):
@@ -1424,7 +1424,7 @@ func getBestAnimation():
 		for npcField in fieldsToCheck:
 			if(extraInfoDict.has(npcField)):
 				var theCharID:String = extraInfoDict[npcField]
-				var theInfo:SexInfoBase
+				var theInfo
 				
 				var bodyStateName:String = "bodyState"
 				if(npcField != "pc"):
@@ -1534,7 +1534,7 @@ func saveItemToLoot(theItem):
 	if(inventoryToSaveItemsTo != null):
 		inventoryToSaveItemsTo.addItem(theItem)
 
-func getSexResult() -> SexEngineResult:
+func getSexResult():
 	return sexResult
 
 func isBondageDisabled() -> bool:
@@ -1581,8 +1581,8 @@ func removeDynamicJoiner(_charID:String):
 	if(!doms.has(_charID)):
 		return
 	
-	var theDomInfo:SexDomInfo = doms[_charID]
-	var theCharacter:BaseCharacter = theDomInfo.getChar()
+	var theDomInfo = doms[_charID]
+	var theCharacter = theDomInfo.getChar()
 	
 	var theCurrentResult := generateSexResult() # Temporary sex result at the moment of this joiner quitting
 	
@@ -1620,10 +1620,10 @@ func getChanceForDynamicJoiner(_charID:String) -> float:
 	if(isDom("pc")):
 		result += 40.0
 	
-	var theCharacter:BaseCharacter = GlobalRegistry.getCharacter(_charID)
+	var theCharacter = GlobalRegistry.getCharacter(_charID)
 	if(!theCharacter):
 		return 0.0
-	var thePers:Personality = theCharacter.getPersonality()
+	var thePers = theCharacter.getPersonality()
 	var theMean:float = thePers.getStat(PersonalityStat.Mean)
 	var theDom:float = -thePers.getStat(PersonalityStat.Subby)
 	
@@ -1636,7 +1636,7 @@ func getChanceForDynamicJoiner(_charID:String) -> float:
 			return 0.0
 		result -= affection * 50.0 * (0.2 + max(theMean, -0.2))
 	
-	var thePawn:CharacterPawn = GM.main.IS.getPawn(_charID)
+	var thePawn = GM.main.IS.getPawn(_charID)
 	if(thePawn):
 		result += thePawn.getAngerClamped() * 50.0
 	

@@ -890,7 +890,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 func getJoinActions(_sexInfo:SexInfoBase):
 	if(!(_sexInfo is SexDomInfo)):
 		return
-	#var theChar:BaseCharacter = _sexInfo.getChar()
+	#var theChar = _sexInfo.getChar()
 	
 	if(usedBodypart == S_ANUS && canSwitchTo("ThreeDDS_SpitroastAnal", [DOM_0, _sexInfo], [SUB_0])):
 		addJoinAction(["spitroast"], "+Spitroast", "Join and fuck their mouth!", getJoinActivityScore("ThreeDDS_SpitroastAnal", DOM_1, _sexInfo, getSubInfo()), {A_CATEGORY: ["Fuck"]})

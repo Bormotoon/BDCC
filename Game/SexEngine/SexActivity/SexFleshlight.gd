@@ -28,7 +28,7 @@ func isActivityImpossibleShouldStop() -> bool:
 	if(!getSub().hasReachablePenis()):
 		return true
 	if(targetID != ""):
-		var theChar:BaseCharacter = GlobalRegistry.getCharacter(targetID)
+		var theChar = GlobalRegistry.getCharacter(targetID)
 		if(!theChar):
 			return true
 		if(!theChar.hasBodypart(targetHole)):
@@ -76,7 +76,7 @@ func addTextTarget(_text:String):
 
 func init_processTurn():
 	if(targetID != ""):
-		var theChar:BaseCharacter = GlobalRegistry.getCharacter(targetID)
+		var theChar = GlobalRegistry.getCharacter(targetID)
 		if(!theChar):
 			return
 		if(!theChar.hasBodypart(targetHole)):
@@ -263,14 +263,14 @@ func calculateNpcsWithPortalPanties() -> Array:
 	
 	var staticChars = GM.main.getCharacters()
 	for charID in staticChars:
-		var character:Character = staticChars[charID]
+		var character = staticChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):
 			character.updateNonBattleEffects()
 			result.append(character)
 	
 	var dynamicChars = GM.main.getDynamicCharacters()
 	for charID in dynamicChars:
-		var character:Character = dynamicChars[charID]
+		var character = dynamicChars[charID]
 		if(character.isWearingPortalPanties() || character.isWearingInvisiblePortalPanties()):
 			character.updateNonBattleEffects()
 			result.append(character)
@@ -321,7 +321,7 @@ func getTargetIndx() -> int:
 		return DOM_0
 	if(isSub(targetID)):
 		return SUB_0
-	var tempInfo:SexSubInfo = SexSubInfo.new()
+	var tempInfo = SexSubInfo.new()
 	tempInfo.initInfo(targetID, getSexEngine())
 	subs.append(tempInfo)
 	return SUB_1

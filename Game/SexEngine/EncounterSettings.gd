@@ -48,7 +48,7 @@ func setGenderWeight(gender, weight):
 
 func getSpeciesWeight(speciesID):
 	if(!speciesWeights.has(speciesID)):
-		var species:Species = GlobalRegistry.getSpecies(speciesID)
+		var species = GlobalRegistry.getSpecies(speciesID)
 		if(species == null):
 			return 0.0
 		return species.npcGenerationWeight()

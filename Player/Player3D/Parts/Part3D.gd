@@ -1,6 +1,6 @@
 extends Spatial
 
-var dollSkeleton: DollSkeleton
+var dollSkeleton
 var doll3D
 var attachProxies = []
 var partPickers = {}
@@ -111,8 +111,8 @@ func setColor(newColor):
 func setColorRecursive(newColor, theNode):
 	for mesh in theNode.get_children():
 		if(mesh is MeshInstance && !(mesh is MeshInstanceWithPattern)):
-			var theMat1:SpatialMaterial = mesh.get_surface_material(0)
-			var newMat:SpatialMaterial = theMat1.duplicate()
+			var theMat1 = mesh.get_surface_material(0)
+			var newMat = theMat1.duplicate()
 			newMat.albedo_color = newColor
 			mesh.set_surface_material(0, newMat)
 			

@@ -44,8 +44,8 @@ func getTags(_indx:int) -> Array:
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
 	var actions:Array = []
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	var usableItems:Array = []
 	
@@ -71,7 +71,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		var possibleRestraints = sub.getInventory().getRestraintsThatCanBeForcedDuringSex(itemTagToUse)
 		
 		for possibleRestraintID in possibleRestraints:
-			var item:ItemBase = GlobalRegistry.getItemRef(possibleRestraintID)
+			var item = GlobalRegistry.getItemRef(possibleRestraintID)
 			if(_domInfo.goalsScore({SexGoal.FuckOral: 1.0}, _subInfo.charID) > 0.0 || _domInfo.goalsScore({SexGoal.BreastFeedSub: 1.0}, _subInfo.charID) > 0.0 || _sexEngine.hasTag(_subInfo.charID, SexActivityTag.MouthUsed)):
 				if(item.getClothingSlot() == InventorySlot.Mouth):
 					if(!item.hasBuff(Buff.RingGagBuff)):
@@ -113,7 +113,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		elif(sub.getInventory().hasSlotEquipped(itemSlot) && sub.getInventory().getEquippedItem(itemSlot)!=null && !sub.getInventory().getEquippedItem(itemSlot).isRemoved() && !sub.getInventory().getEquippedItem(itemSlot).isDamaged()):
 			continue
 		else:
-			var restraintData:RestraintData = item.getRestraintData()
+			var restraintData = item.getRestraintData()
 			if(restraintData == null):
 				continue
 			
@@ -133,7 +133,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		for item in allSubRestraints:
 			if(!item.canBeEasilyRemovedByDom()):
 				continue
-			var restraintData:RestraintData = item.getRestraintData()
+			var restraintData = item.getRestraintData()
 			if(restraintData == null):
 				continue
 			
@@ -160,10 +160,10 @@ func startActivity(_args):
 	if(theAction == "rem"):
 		endActivity()
 		var itemUniqueID = _args[1]
-		var item:ItemBase = getSub().getInventory().getItemByUniqueID(itemUniqueID)
+		var item = getSub().getInventory().getItemByUniqueID(itemUniqueID)
 		if(item == null):
 			return
-		var restraintData:RestraintData = item.getRestraintData()
+		var restraintData = item.getRestraintData()
 		if(restraintData == null):
 			return
 		
@@ -191,8 +191,8 @@ func processTurn():
 		setState("aboutToTieUp")
 	elif(getState() == "aboutToTieUp"):
 		#var item = _args[1]
-		var sub:BaseCharacter = getSub()
-		var dom:BaseCharacter = getDom()
+		var sub = getSub()
+		var dom = getDom()
 		var item
 		
 		if(dom.isPlayer()):

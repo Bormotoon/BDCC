@@ -25,8 +25,8 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	var allStraponIds = GlobalRegistry.getItemIDsByTag(ItemTag.Strapon)
 	var putOnDomScore = getActivityScoreCustomGoals({SexGoal.SubWearStraponOnDom: 1.0}, _sexEngine, _domInfo, _subInfo) / float(allStraponIds.size())
@@ -38,7 +38,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 				addStartAction(["dom", straponObject.uniqueID], straponObject.getVisibleName(), straponObject.getVisisbleDescription(), putOnDomScore, {A_CATEGORY: ["Wear", "Strapon"]})
 		else:
 			for straponID in allStraponIds:
-				var straponObject:ItemBase = GlobalRegistry.getItemRef(straponID)
+				var straponObject = GlobalRegistry.getItemRef(straponID)
 				addStartAction(["dom", straponID], straponObject.getVisibleName(), straponObject.getVisisbleDescription(), putOnDomScore, {A_CATEGORY: ["Wear", "Strapon"]})
 	if(sub.canWearStrapon() && sub.getFirstItemThatCoversBodypart(BodypartSlot.Penis) == null):
 		if(dom.isPlayer()):
@@ -46,7 +46,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 				addStartAction(["sub", straponObject.uniqueID], straponObject.getVisibleName(), straponObject.getVisisbleDescription(), putOnSubScore, {A_CATEGORY: ["Wear", "Strapon on sub"]})
 		else:
 			for straponID in allStraponIds:
-				var straponObject:ItemBase = GlobalRegistry.getItemRef(straponID)
+				var straponObject = GlobalRegistry.getItemRef(straponID)
 				addStartAction(["sub", straponID], straponObject.getVisibleName(), straponObject.getVisisbleDescription(), putOnSubScore, {A_CATEGORY: ["Wear", "Strapon on sub"]})
 
 func getTags(_indx:int) -> Array:
@@ -78,7 +78,7 @@ func startActivity(_args):
 	endActivity()
 	
 	if(_args[0] == "dom"):
-		var straponItem:ItemBase
+		var straponItem
 		if(getDom().isPlayer()):
 			straponItem = getDom().getInventory().getItemByUniqueID(_args[1])
 			getSexEngine().addTrackedGear(getDomID(), getDomID(), straponItem.uniqueID)
@@ -92,7 +92,7 @@ func startActivity(_args):
 		return
 	
 	if(_args[0] == "sub"):
-		var straponItem:ItemBase
+		var straponItem
 		if(getDom().isPlayer()):
 			straponItem = getDom().getInventory().getItemByUniqueID(_args[1])
 			getSexEngine().addTrackedGear(getDomID(), getSubID(), straponItem.uniqueID)

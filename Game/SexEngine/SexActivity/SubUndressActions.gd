@@ -27,7 +27,7 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 const bodypartsToExpose:Array = [BodypartSlot.Breasts, BodypartSlot.Penis, BodypartSlot.Vagina, BodypartSlot.Anus]
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
+	var sub = _subInfo.getChar()
 	var handledItems:Dictionary = {}
 	
 	if(sub.hasBoundArms() || sub.hasBlockedHands()):
@@ -48,11 +48,11 @@ func getTags(_indx:int) -> Array:
 	return []
 
 func startActivity(_args):
-	var theitem:ItemBase = _args[0]
+	var theitem = _args[0]
 	if(theitem == null):
 		endActivity()
 		return
-	var itemState:ItemState = theitem.getItemState()
+	var itemState = theitem.getItemState()
 	if(itemState == null):
 		getSub().getInventory().unequipItem(theitem)
 	else:

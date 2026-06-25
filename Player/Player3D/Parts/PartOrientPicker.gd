@@ -3,7 +3,7 @@ class_name PartOrientPicker
 
 @export var invert = false
 
-var _theDoll:Spatial
+var _theDoll
 # stores the doll itself by sarching in loop
 
 var _cachedSide:bool = false

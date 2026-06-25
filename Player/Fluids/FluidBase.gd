@@ -49,6 +49,6 @@ func getFluidTankLimitMod() -> float:
 	return 1.0
 
 func buff(buffid, args = []):
-	var buff: BuffBase = GlobalRegistry.createBuff(buffid)
+	var buff = GlobalRegistry.createBuff(buffid)
 	buff.initBuff(args)
 	return buff

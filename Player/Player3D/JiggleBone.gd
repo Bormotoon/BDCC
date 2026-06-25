@@ -71,12 +71,12 @@ func _physics_process(delta) -> void:
 
 	# See https://godotengine.org/qa/7631/armature-differences-between-bones-custom_pose-transform
 
-	var bone_transf_obj: Transform = skeleton.get_bone_global_pose(bone_id) # Object space bone pose
-	var bone_transf_world: Transform = skeleton.global_transform * bone_transf_obj
+	var bone_transf_obj = skeleton.get_bone_global_pose(bone_id) # Object space bone pose
+	var bone_transf_world = skeleton.global_transform * bone_transf_obj
 
-	var bone_transf_rest_local: Transform = skeleton.get_bone_rest(bone_id)
-	var bone_transf_rest_obj: Transform = skeleton.get_bone_global_pose(bone_id_parent) * bone_transf_rest_local
-	var bone_transf_rest_world: Transform = skeleton.global_transform * bone_transf_rest_obj
+	var bone_transf_rest_local = skeleton.get_bone_rest(bone_id)
+	var bone_transf_rest_obj = skeleton.get_bone_global_pose(bone_id_parent) * bone_transf_rest_local
+	var bone_transf_rest_world = skeleton.global_transform * bone_transf_rest_obj
 
 	if(easingIn > 0):
 		easingIn -= 1
@@ -144,7 +144,7 @@ func _physics_process(delta) -> void:
 
 	# Bring the axis to object space, WITHOUT translation (so only the BASIS is used) since vectors shouldn't be translated
 	var bone_rotate_axis_obj: Vector3 = bone_transf_obj.basis.xform(bone_rotate_axis).normalized()
-	var bone_new_transf_obj: Transform = Transform(bone_transf_obj.basis.rotated(bone_rotate_axis_obj, bone_rotate_angle), bone_transf_obj.origin)
+	var bone_new_transf_obj = Transform(bone_transf_obj.basis.rotated(bone_rotate_axis_obj, bone_rotate_angle), bone_transf_obj.origin)
 
 	#if(true):
 	#	return

@@ -27,9 +27,9 @@ var intoxicationTolerance: float = 0.0
 
 # lust combat stuff
 var lustCombatState
-var reputation:Reputation
+var reputation
 
-var tfHolder:TFHolder
+var tfHolder
 
 var dynamicPersonality: bool = false
 
@@ -57,7 +57,7 @@ func _ready():
 	
 	getInventory().clear()
 	giveBodypart(GlobalRegistry.createBodypart("digilegs"))
-	var mybreasts: BodypartBreasts = GlobalRegistry.createBodypart("humanbreasts")
+	var mybreasts = GlobalRegistry.createBodypart("humanbreasts")
 	mybreasts.size = BreastsSize.C
 	giveBodypart(mybreasts)
 	giveBodypart(GlobalRegistry.createBodypart("baldhair"))
@@ -127,7 +127,7 @@ func isInSecludedLocation() -> bool:
 		return true
 	if(GM.world == null):
 		return false
-	var cell:GameRoom = GM.world.getRoomByID(location)
+	var cell = GM.world.getRoomByID(location)
 	if(cell == null):
 		return false
 	if(cell.population > 0):
@@ -137,7 +137,7 @@ func isInSecludedLocation() -> bool:
 func getLocationPopulation():
 	if(GM.world == null):
 		return []
-	var cell:GameRoom = GM.world.getRoomByID(location)
+	var cell = GM.world.getRoomByID(location)
 	if(cell == null):
 		return []
 	return cell.getPopulation()
@@ -563,14 +563,14 @@ func getFightState(_battleName):
 
 func getBodypartTooltipName(_bodypartSlot):
 	if(hasBodypart(_bodypartSlot)):
-		var bodypart: Bodypart = getBodypart(_bodypartSlot)
+		var bodypart = getBodypart(_bodypartSlot)
 		return bodypart.getName()
 	
 	return "error"
 
 func getBodypartTooltipInfo(_bodypartSlot):
 	if(hasBodypart(_bodypartSlot)):
-		var bodypart: Bodypart = getBodypart(_bodypartSlot)
+		var bodypart = getBodypart(_bodypartSlot)
 		return bodypart.getTooltipInfo()
 	
 	return "error"
@@ -785,7 +785,7 @@ func calculateBestRestraintLevel():
 	var restraintsCount = 0
 	var levelsTotal = 0
 	for item in getInventory().getEquppedRestraints():
-		var restraintData: RestraintData = item.getRestraintData()
+		var restraintData = item.getRestraintData()
 		
 		if(!restraintData.canStruggle()):
 			continue

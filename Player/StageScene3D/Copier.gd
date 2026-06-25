@@ -24,7 +24,7 @@ func calculateDifferences(doll):
 	for boneID in range(skeleton.get_bone_count()):
 		var boneName = skeleton.get_bone_name(boneID)
 		
-		var pose:Transform = skeleton.get_bone_pose(boneID)
+		var pose = skeleton.get_bone_pose(boneID)
 		if(pose != ini):
 			var stuff = {}
 			if(pose.origin != ini.origin && pose.origin.length()>0.001):

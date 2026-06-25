@@ -47,7 +47,7 @@ func get_goals(_sex_engine, _sub, min_value: float = 0.0) -> Array:
 	for fetish_id in GlobalRegistry.getFetishes():
 		var interest_value: float = fetish_map.get(fetish_id, 0.0)
 		if interest_value >= min_value:
-			var fetish: FetishBase = GlobalRegistry.getFetish(fetish_id)
+			var fetish = GlobalRegistry.getFetish(fetish_id)
 			var goals = fetish.getGoals(_sex_engine, self, get_character(), _sub)
 			for goal in goals:
 				result.append([goal, maxf(0.1, interest_value)])
@@ -58,7 +58,7 @@ func remove_impossible_fetishes() -> void:
 	if the_character == null:
 		return
 	for fetish_id in fetish_map.keys():
-		var fetish: FetishBase = GlobalRegistry.getFetish(fetish_id)
+		var fetish = GlobalRegistry.getFetish(fetish_id)
 		if not fetish.isPossibleFor(the_character):
 			fetish_map.erase(fetish_id)
 

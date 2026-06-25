@@ -31,13 +31,13 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
 	var bodypartsToExpose:Array = [BodypartSlot.Breasts, BodypartSlot.Penis, BodypartSlot.Vagina, BodypartSlot.Anus]
-	var dom:BaseCharacter = _domInfo.getChar()
+	var dom = _domInfo.getChar()
 	var handledItems:Dictionary = {}
 	
 	var theScore:float = getActivityScore(_sexEngine, _domInfo, _subInfo)
 	
 	for bodypartToExpose in bodypartsToExpose:
-		var firstItem:ItemBase = dom.getFirstItemThatCoversBodypart(bodypartToExpose)
+		var firstItem = dom.getFirstItemThatCoversBodypart(bodypartToExpose)
 		if(firstItem == null || handledItems.has(firstItem) || firstItem.isRestraint()):
 			continue
 		
@@ -45,8 +45,8 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		addStartAction([firstItem], "Take off "+str(firstItem.getCasualName()), "Take off a certain item from yourself", theScore)
 
 func startActivity(_args):
-	var theitem:ItemBase = _args[0]
-	var itemState:ItemState = theitem.getItemState()
+	var theitem = _args[0]
+	var itemState = theitem.getItemState()
 	if(itemState == null):
 		getDom().getInventory().unequipItem(theitem)
 	else:

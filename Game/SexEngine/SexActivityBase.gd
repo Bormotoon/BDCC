@@ -59,12 +59,12 @@ var activity_category: Array = []
 
 # --- Core accessors ---
 
-func get_dom_or_sub_info(indx: int) -> SexInfoBase:
+func get_dom_or_sub_info(indx: int):
 	if indx >= 0:
 		return get_dom_info(indx)
 	return get_sub_info(-indx - 1)
 
-func get_dom_or_sub(indx: int) -> BaseCharacter:
+func get_dom_or_sub(indx: int):
 	if indx >= 0:
 		return get_dom(indx)
 	return get_sub(-indx - 1)
@@ -86,7 +86,7 @@ func un_clamp_value(val: float, border: float) -> float:
 
 ## Line 80-95: exposeToFetish with fetish score calculation
 func expose_to_fetish(indx_target: int, fetish_id: String, intensity: int, indx_exposer: int) -> void:
-	var info1: SexInfoBase = get_dom_or_sub_info(indx_target)
+	var info1 = get_dom_or_sub_info(indx_target)
 	var fetish_score: float = info1.fetishScore({fetish_id: 1.0}) if fetish_id != "" else 1.0
 	fetish_score = un_clamp_value(fetish_score, 0.2)
 	if info1 is SexSubInfo:
@@ -203,16 +203,16 @@ func is_wearing_condom(_indx: int) -> bool:
 func get_removable_restraints_amount(_indx: int) -> int:
 	return 0
 
-func get_dom_info(_indx: int) -> SexDomInfo:
+func get_dom_info(_indx: int):
 	return null
 
-func get_sub_info(_indx: int) -> SexSubInfo:
+func get_sub_info(_indx: int):
 	return null
 
-func get_dom(_indx: int) -> BaseCharacter:
+func get_dom(_indx: int):
 	return null
 
-func get_sub(_indx: int) -> BaseCharacter:
+func get_sub(_indx: int):
 	return null
 
 func get_dom_id(_indx: int) -> String:
@@ -221,5 +221,5 @@ func get_dom_id(_indx: int) -> String:
 func get_sub_id(_indx: int) -> String:
 	return ""
 
-func get_dom_or_sub_info_by_index(_indx: int) -> SexInfoBase:
+func get_dom_or_sub_info_by_index(_indx: int):
 	return null

@@ -19,7 +19,7 @@ func getExtraSensGainModifier() -> float:
 	return 0.4
 
 func generateDataFor(_dynamicCharacter):
-	var fetishHolder:FetishHolder = _dynamicCharacter.getFetishHolder()
+	var fetishHolder = _dynamicCharacter.getFetishHolder()
 	if(fetishHolder == null):
 		return
 	

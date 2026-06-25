@@ -29,8 +29,8 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
-	#var dom:BaseCharacter = _domInfo.getChar()
+	var sub = _subInfo.getChar()
+	#var dom = _domInfo.getChar()
 	
 	if(!_sexEngine.hasTag(_subInfo.charID, SexActivityTag.PreventsSubTeasing) && !_sexEngine.hasTag(_subInfo.charID, SexActivityTag.HavingSex) && !_sexEngine.hasTag(_subInfo.charID, SexActivityTag.VaginaPenetrated)&& !_sexEngine.hasTag(_subInfo.charID, SexActivityTag.AnusPenetrated) && !_sexEngine.hasTag(_subInfo.charID, SexActivityTag.MouthUsed)):
 		var teaseScore:float = _subInfo.getComplyScore() * 0.1 + _subInfo.getResistScore() * 0.05 + max(0.0, _subInfo.personalityScore({PersonalityStat.Impatient: 0.1}))

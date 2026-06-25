@@ -89,7 +89,7 @@ func isActivityImpossibleShouldStop() -> bool:
 func isAllowedAsRole(_sexEngine, _indx:int, _sexInfo:SexInfoBase, skipTagsCheck:bool, _args:Array) -> bool:
 	var _usedBodypart:String = _args[0]
 	var _usedBodypart2:String = _args[1]
-	var theChar:BaseCharacter = _sexInfo.getChar()
+	var theChar = _sexInfo.getChar()
 	
 	if(_indx == DOM_0):
 		if(!theChar.hasReachablePenis() && !theChar.isWearingStrapon()):

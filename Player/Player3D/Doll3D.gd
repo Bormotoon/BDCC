@@ -206,7 +206,7 @@ func addPartUnlessSame(slot, partPath):
 		partPath = partPath[0]
 	
 	if(parts.has(slot)):
-		var oldpart: Spatial = parts[slot]
+		var oldpart = parts[slot]
 		if(oldpart.scene_file_path == partPath):
 			if(callbackObj != null && callbackObj.has_method("onDollUpdate")):
 				callbackObj.onDollUpdate(self, slot, oldpart)
@@ -350,7 +350,7 @@ func setBoneScaleVector(boneName: String, boneScale: Vector3):
 	var boneId = skeleton.find_bone(boneName)
 	if(boneId < 0):
 		return
-	var newTransform:Transform = Transform.IDENTITY
+	var newTransform = Transform.IDENTITY
 	newTransform = newTransform.scaled(boneScale)
 	
 	skeleton.set_bone_custom_pose(boneId, newTransform)
@@ -360,7 +360,7 @@ func setBoneScale(boneName: String, boneScale: float):
 	var boneId = skeleton.find_bone(boneName)
 	if(boneId < 0):
 		return
-	var newTransform:Transform = Transform.IDENTITY
+	var newTransform = Transform.IDENTITY
 	newTransform = newTransform.scaled(Vector3(boneScale,boneScale,boneScale))
 	
 	skeleton.set_bone_custom_pose(boneId, newTransform)
@@ -370,7 +370,7 @@ func setBoneScaleAndOffset(boneName: String, boneScale: float, offset: Vector3, 
 	var boneId = skeleton.find_bone(boneName)
 	if(boneId < 0):
 		return
-	var newTransform:Transform = Transform.IDENTITY
+	var newTransform = Transform.IDENTITY
 	newTransform = newTransform.scaled(Vector3(boneScale,boneScale,boneScale if scaleOnZ else 1.0))
 	newTransform = newTransform.translated(offset)
 	
@@ -381,7 +381,7 @@ func setBoneScale3AndOffset(boneName: String, boneScale: Vector3, offset: Vector
 	var boneId = skeleton.find_bone(boneName)
 	if(boneId < 0):
 		return
-	var newTransform:Transform = Transform.IDENTITY
+	var newTransform = Transform.IDENTITY
 	newTransform = newTransform.scaled(boneScale)
 	newTransform = newTransform.translated(offset)
 	
@@ -392,7 +392,7 @@ func setBoneOffset(boneName: String, offset: Vector3):
 	var boneId = skeleton.find_bone(boneName)
 	if(boneId < 0):
 		return
-	var newTransform:Transform = Transform.IDENTITY
+	var newTransform = Transform.IDENTITY
 	newTransform = newTransform.translated(offset)
 	
 	skeleton.set_bone_custom_pose(boneId, newTransform)
@@ -451,7 +451,7 @@ func _on_Doll3DTooltip_mouseEntered(_dollTooltip, bodypartID):
 		if(character == null):
 			return
 		
-		var bodypart:Bodypart = character.getBodypart(bodypartID)
+		var bodypart = character.getBodypart(bodypartID)
 		if(bodypart == null):
 			return
 			
@@ -464,7 +464,7 @@ func _on_Doll3DTooltip_mouseExited(_dollTooltip, bodypartID):
 		if(character == null):
 			return
 		
-		var bodypart:Bodypart = character.getBodypart(bodypartID)
+		var bodypart = character.getBodypart(bodypartID)
 		if(bodypart == null):
 			return
 		GlobalTooltip.hideTooltip(_dollTooltip)
@@ -912,7 +912,7 @@ func calculateDifferences():
 	for boneID in range(skeleton.get_bone_count()):
 		var boneName = skeleton.get_bone_name(boneID)
 		
-		var pose:Transform = skeleton.get_bone_pose(boneID)
+		var pose = skeleton.get_bone_pose(boneID)
 		if(pose != ini):
 			var stuff = {}
 			if(pose.origin != ini.origin && pose.origin.length()>0.001):
@@ -928,7 +928,7 @@ func calculateDifferences():
 func applyData(data):
 	var skeleton:Skeleton = getDollSkeleton().getSkeleton()
 	
-	var ini:Transform = Transform.IDENTITY
+	var ini = Transform.IDENTITY
 	
 	for boneIndex in range(skeleton.get_bone_count()):
 		var theboneID = skeleton.get_bone_name(boneIndex)
@@ -945,7 +945,7 @@ func applyData(data):
 			else:
 				p = Vector3(0.0,0.0,0.0)
 			var b:Basis = Basis(Vector3(a[0], a[1], a[2]))
-			var t:Transform = Transform(b, Vector3(p[0], p[1], p[2]))
+			var t = Transform(b, Vector3(p[0], p[1], p[2]))
 			skeleton.set_bone_pose(boneIndex, t)
 		else:
 			skeleton.set_bone_pose(boneIndex, ini)

@@ -9,9 +9,9 @@ var author:String
 
 var needsProcessing:bool = false
 
-var orifice: Orifice = null
-var fluidProduction: FluidProduction = null
-var sensitiveZone: SensitiveZone = null
+var orifice = null
+var fluidProduction = null
+var sensitiveZone = null
 var character: WeakRef = null
 
 var pickedSkin = null

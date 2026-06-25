@@ -21,7 +21,7 @@ func getStimulationGainModifier() -> float:
 	return 1.0 / (1.0 + max(-0.9, getCustomAttribute(BuffAttribute.OverstimulationThresholdAll) + getCustomAttribute(BuffAttribute.OverstimulationThresholdAnus)))
 
 func generateDataFor(_dynamicCharacter):
-	var fetishHolder:FetishHolder = _dynamicCharacter.getFetishHolder()
+	var fetishHolder = _dynamicCharacter.getFetishHolder()
 	if(fetishHolder == null):
 		return
 	

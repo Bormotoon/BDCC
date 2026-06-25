@@ -21,12 +21,12 @@ func hasSub(_subID:String) -> bool:
 func hasDom(_domID:String) -> bool:
 	return doms.has(_domID)
 
-func getSub(_subID:String) -> SexEngineResultSub:
+func getSub(_subID:String):
 	if(!subs.has(_subID)):
 		return null
 	return subs[_subID]
 
-func getDom(_domID:String) -> SexEngineResultDom:
+func getDom(_domID:String):
 	if(!doms.has(_domID)):
 		return null
 	return doms[_domID]
@@ -133,12 +133,12 @@ func loadData(_data:Dictionary):
 	subs.clear()
 	
 	for domID in domsData:
-		var newDomResult:SexEngineResultDom = SexEngineResultDom.new()
+		var newDomResult = SexEngineResultDom.new()
 		newDomResult.id = domID
 		newDomResult.loadData(SAVE.loadVar(domsData, domID, {}))
 		doms[domID] = newDomResult
 	for subID in subsData:
-		var newSubResult:SexEngineResultSub = SexEngineResultSub.new()
+		var newSubResult = SexEngineResultSub.new()
 		newSubResult.id = subID
 		newSubResult.loadData(SAVE.loadVar(subsData, subID, {}))
 		subs[subID] = newSubResult

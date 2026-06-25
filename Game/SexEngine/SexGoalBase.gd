@@ -37,7 +37,7 @@ func do_fast_sex(_sex_engine, _dom_info, _sub_info, _data) -> void:
 	pass
 
 func send_sex_event(_sex_engine, type, _source_info, _target_info, data: Dictionary = {}) -> void:
-	var new_event: SexEvent = SexEvent.new()
+	var new_event = SexEvent.new()
 	new_event.type = type
 	new_event.sourceCharID = _source_info.charID
 	new_event.targetCharID = _target_info.charID

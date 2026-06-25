@@ -12,7 +12,7 @@ var obey_mode: bool = false
 
 func init_from_personality() -> void:
 	var character = getChar()
-	var personality: Personality = character.getPersonality()
+	var personality = character.getPersonality()
 	var bratiness := personality.getStat(PersonalityStat.Brat)
 	if bratiness > 0.0:
 		resistance = randf_range(0.0, bratiness)

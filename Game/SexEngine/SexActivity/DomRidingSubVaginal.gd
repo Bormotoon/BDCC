@@ -503,7 +503,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			" Waves after waves of sticky "+RNG.pick(["cum", "seed", "jizz", "semen"])+" flow into {dom.yourHis} "+wombText+".",
 		])
 		
-		var condom:ItemBase = getSub().getWornCondom()
+		var condom = getSub().getWornCondom()
 		if(condom != null):
 			var breakChance = condom.getCondomBreakChance()
 			condomBroke = getSub().shouldCondomBreakWhenFucking(getDom(), breakChance)
@@ -559,7 +559,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 		])
 		state = ""
 		
-		var condom:ItemBase = getSub().getWornCondom()
+		var condom = getSub().getWornCondom()
 		if(condom != null):
 			var breakChance = condom.getCondomBreakChance()
 			
@@ -747,7 +747,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			])
 		
 		var condomBroke = false
-		var condom:ItemBase = getSub().getWornCondom()
+		var condom = getSub().getWornCondom()
 		if(condom != null):
 			var breakChance = condom.getCondomBreakChance()
 			condomBroke = getSub().shouldCondomBreakWhenFucking(getDom(), breakChance)
@@ -868,7 +868,7 @@ func getOrgasmHandlePriority(_indx:int) -> int:
 func getJoinActions(_sexInfo:SexInfoBase):
 	if(!(_sexInfo is SexDomInfo)):
 		return
-	#var theChar:BaseCharacter = _sexInfo.getChar()
+	#var theChar = _sexInfo.getChar()
 	
 	if(canSwitchTo("ThreeDDS_Train", [_sexInfo, DOM_0], [SUB_0], [S_VAGINA, usedBodypart])):
 		addJoinAction(["trainVag"], "+Train (vag)", "Join and fuck the sub's pussy at the same time!", getJoinActivityScore("ThreeDDS_Train", DOM_0, _sexInfo, getSubInfo(), [S_VAGINA]), {A_CATEGORY: ["Fuck"]})

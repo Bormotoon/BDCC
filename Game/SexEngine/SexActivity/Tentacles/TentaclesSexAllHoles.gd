@@ -42,7 +42,7 @@ func isActivityImpossibleShouldStop() -> bool:
 	return false
 
 func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
+	var sub = _subInfo.getChar()
 	#if(!sub.hasReachableVagina()):
 	#	return false
 	if(!sub.hasReachableAnus()):
@@ -50,7 +50,7 @@ func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: Sex
 	if(sub.isOralBlocked()):
 		return false
 	
-	#var dom:BaseCharacter = _domInfo.getChar()
+	#var dom = _domInfo.getChar()
 	#if(!dom.hasReachablePenis() && !dom.isWearingStrapon()):
 	#	return false
 	
@@ -237,7 +237,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			addText("[b]The tentacles cum![/b]")
 			var possible:Array = [
 			]
-			var theSub:BaseCharacter = getSub()
+			var theSub = getSub()
 			var hasEggs:bool = theSub.hasEggsIn(BodypartSlot.Vagina, true) || theSub.hasEggsIn(BodypartSlot.Anus, true) || theSub.hasEggsIn(BodypartSlot.Head, true)
 			if(getSub().hasReachableVagina()):
 				getDom().fillBalls(randf_range(0.9, 1.0))

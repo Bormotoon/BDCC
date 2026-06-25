@@ -71,7 +71,7 @@ func isActivityImpossibleShouldStop() -> bool:
 	return false
 
 func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
+	var sub = _subInfo.getChar()
 	if(fuckHole == S_ANUS && !sub.hasReachableAnus()):
 		return false
 	if(fuckHole == S_VAGINA && !sub.hasReachableVagina()):
@@ -236,7 +236,7 @@ func doAction(_indx:int, _id:String, _action:Dictionary):
 			addText("[b]The tentacles cum![/b]")
 			var possible:Array = [
 			]
-			var theSub:BaseCharacter = getSub()
+			var theSub = getSub()
 			var hasEggs:bool = theSub.hasEggsIn(fuckHole, true)
 			getDom().fillBalls(randf_range(0.9, 1.0))
 			cumInsideNoText(DOM_0, SUB_0, fuckHole)

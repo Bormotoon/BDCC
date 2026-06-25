@@ -55,11 +55,11 @@ func isActivityImpossibleShouldStop() -> bool:
 	return false
 
 func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
+	var sub = _subInfo.getChar()
 	if(!sub.hasReachableAnus()):
 		return false
 	
-	var dom:BaseCharacter = _domInfo.getChar()
+	var dom = _domInfo.getChar()
 	if(!dom.hasReachablePenis() && !dom.isWearingStrapon()):
 		return false
 	
@@ -175,7 +175,7 @@ func getOtherFocus() -> int:
 		return SUB_1
 	return SUB_0
 
-func getOtherChar() -> BaseCharacter:
+func getOtherChar():
 	return getDomOrSub(getOtherFocus())
 
 func processTurn():

@@ -96,7 +96,7 @@ func hasFluidTypeWithCharID(fluidType, charID):
 	for fluidData in contents:
 		if(fluidData["fluidType"] == fluidType):
 			if(fluidData["fluidDNA"] != null):
-				var theFluidDna:FluidDNA = fluidData["fluidDNA"]
+				var theFluidDna = fluidData["fluidDNA"]
 				if(theFluidDna.getCharacterID() == charID):
 					return true
 	return false
@@ -373,7 +373,7 @@ func hasVirileFluids() -> bool:
 		if(!fluidDNA):
 			continue
 		var fluidType:String = fluidData["fluidType"]
-		var theFluid:FluidBase = GlobalRegistry.getFluid(fluidType)
+		var theFluid = GlobalRegistry.getFluid(fluidType)
 		if(!theFluid):
 			continue
 		

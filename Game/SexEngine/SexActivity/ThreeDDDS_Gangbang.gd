@@ -58,7 +58,7 @@ func isActivityImpossibleShouldStop() -> bool:
 	return false
 
 func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var sub:BaseCharacter = _subInfo.getChar()
+	var sub = _subInfo.getChar()
 	if(!sub.hasReachableVagina()):
 		return false
 	if(!sub.hasReachableAnus()):
@@ -66,7 +66,7 @@ func canStartActivity(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: Sex
 	if(sub.isOralBlocked()):
 		return false
 	
-	var dom:BaseCharacter = _domInfo.getChar()
+	var dom = _domInfo.getChar()
 	if(!dom.hasReachablePenis() && !dom.isWearingStrapon()):
 		return false
 	
@@ -87,7 +87,7 @@ func getTags(_indx:int) -> Array:
 	return []
 
 func isAllowedAsRole(_sexEngine, _indx:int, _sexInfo:SexInfoBase, skipTagsCheck:bool, _args:Array) -> bool:
-	var theChar:BaseCharacter = _sexInfo.getChar()
+	var theChar = _sexInfo.getChar()
 	
 	if(_indx == DOM_0 || _indx == DOM_1 || _indx == DOM_2):
 		if(!theChar.hasReachablePenis() && !theChar.isWearingStrapon()):

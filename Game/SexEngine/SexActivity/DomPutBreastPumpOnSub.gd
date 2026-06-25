@@ -29,8 +29,8 @@ func getActivityBaseScore(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo:
 	return 0.0
 
 func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexSubInfo):
-	var dom:BaseCharacter = _domInfo.getChar()
-	var sub:BaseCharacter = _subInfo.getChar()
+	var dom = _domInfo.getChar()
+	var sub = _subInfo.getChar()
 	
 	var allPumpsIDs:Array = GlobalRegistry.getItemIDsByTag(ItemTag.BreastPumpUsableByNPC)
 	
@@ -44,7 +44,7 @@ func getStartActions(_sexEngine: SexEngine, _domInfo: SexDomInfo, _subInfo: SexS
 		else:
 			var theActivityScore:float = getActivityScore(_sexEngine, _domInfo, _subInfo)
 			for pumpNewID in allPumpsIDs:
-				var pumpObject:ItemBase = GlobalRegistry.getItemRef(pumpNewID)
+				var pumpObject = GlobalRegistry.getItemRef(pumpNewID)
 				
 				addStartAction(["sub", pumpNewID], pumpObject.getVisibleName(), pumpObject.getVisisbleDescription(), theActivityScore, {A_CATEGORY: ["Breasts", "Breast Pump on sub"]})
 
@@ -55,7 +55,7 @@ func getTags(_indx:int) -> Array:
 	
 func startActivity(_args):
 	if(_args[0] == "sub"):
-		var pumpItem:ItemBase
+		var pumpItem
 		if(getDom().isPlayer()):
 			pumpItem = getDom().getInventory().getItemByUniqueID(_args[1])
 			getSexEngine().addTrackedGear(getDomID(), getSubID(), pumpItem.uniqueID)

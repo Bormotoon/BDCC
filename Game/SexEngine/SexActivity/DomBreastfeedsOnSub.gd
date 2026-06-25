@@ -107,9 +107,9 @@ func processTurn():
 
 func feeding_processTurn():
 	gropeAmount += 1
-	var breasts:BodypartBreasts = getSub().getBodypart(BodypartSlot.Breasts)
-	var milkProduciton:FluidProduction = breasts.getFluidProduction()
-	var fluids:Fluids = breasts.getFluids()
+	var breasts = getSub().getBodypart(BodypartSlot.Breasts)
+	var milkProduciton = breasts.getFluidProduction()
+	var fluids = breasts.getFluids()
 	
 	if(milkProduciton.getFluidAmount() < 5.0):
 		var text:String
@@ -239,10 +239,10 @@ func getActions(_indx:int):
 		if(getState() == "feeding"):
 			addAction("knead", (0.5 / float(Util.maxi(1, kneadBonus+1))), "Knead breasts", "Knead their breasts to increase the flow")
 		
-		var breasts:BodypartBreasts = getSub().getBodypart(BodypartSlot.Breasts)
+		var breasts = getSub().getBodypart(BodypartSlot.Breasts)
 		var stopScore:float = 1.0
 		if(breasts):
-			var milkProduciton:FluidProduction = breasts.getFluidProduction()
+			var milkProduciton = breasts.getFluidProduction()
 			stopScore = (0.35 if ((gropeAmount > 5 && milkProduciton.getFluidAmount() < 5.0) || gropeAmount > 20) else 0.0)
 			
 		addAction("stop", stopScore, "Stop feeding", "Enough feeding")
@@ -277,8 +277,8 @@ func doAction(_indx:int, _actionID:String, _action:Dictionary):
 				])
 				
 			if(RNG.chance(10) && getSub().isLactating() && !getSub().hasEffect(StatusEffect.SoreNipplesAfterMilking)):
-				var breasts:BodypartBreasts = getSub().getBodypart(BodypartSlot.Breasts)
-				var milkProduciton:FluidProduction = breasts.getFluidProduction()
+				var breasts = getSub().getBodypart(BodypartSlot.Breasts)
+				var milkProduciton = breasts.getFluidProduction()
 				if(milkProduciton != null):
 					milkProduciton.fillPercent(RNG.randf_rangeX2(0.05, 0.5))
 					addTextPick([

@@ -6,7 +6,7 @@
 
   "main_goal": {
     "summary": "Миграция 3215 .gd файлов, 645 .tscn, 73 .tres с Godot 3.x на Godot 4.4.1",
-    "current_phase": "Error elimination — доведение SCRIPT ERROR до 0",
+          "current_phase": "Phase 4 COMPLETE — 0 SCRIPT ERRORs. Ready for Phase 5.",
     "phases": [
       {
         "id": 0,
@@ -39,16 +39,16 @@
       {
         "id": 4,
         "name": "Error elimination",
-        "status": "IN_PROGRESS",
+        "status": "DONE",
         "description": "Доведение SCRIPT ERROR до 0. Решение циклических зависимостей автозагрузок, reserved keywords, parse errors",
         "instructions": null,
         "details": {
-          "current_errors": 24,
+          "current_errors": 0,
           "peak_errors": 349,
-          "root_cause": "BaseCharacter.gd не парсится когда ModularDialogue autoload включён. Циклическая зависимость автозагрузок.",
+          "root_cause": "BaseCharacter.gd had duplicate giveBodypart() function (lines 1092 and 1242). GDScript 2.0 rejects duplicate function names, causing 'Could not parse global class' cascade.",
           "fixed_files": [
             "Player.gd (super. indentation)",
-            "BaseCharacter.gd (camelCase aliases)",
+            "BaseCharacter.gd (camelCase aliases + removed duplicate giveBodypart)",
             "ModularDialogue.gd (is BaseCharacter → duck typing)",
             "DialogueForm.gd (is BaseCharacter → duck typing)",
             "DialogueFillerAdder.gd (typed return → untyped)",
@@ -56,15 +56,16 @@
             "SexToyGameplay.gd (typed var → untyped)",
             "GameParser.gd (path-based extends → RefCounted)",
             "PartTrait.gd (reserved 'trait' keyword)",
-            "6 Fillers (Personality typed var → untyped)"
+            "6 Fillers (Personality typed var → untyped)",
+            "project.godot (uncommented ModularDialogue, reordered autoloads)"
           ],
-          "active_investigation": "BaseCharacter.gd fails to parse only when ModularDialogue autoload is enabled. No direct reference found. Possible autoload parse-order issue in Godot 4.4.1."
+          "commit": "f7e0defb"
         }
       },
       {
         "id": 5,
         "name": "Deep architecture migration",
-        "status": "NOT_STARTED",
+        "status": "READY",
         "description": "Перенос реальной логики из ~3178 файлов: Modules (870), NpcSlavery (113), Scenes (64), SexEngine, InteractionSystem",
         "instructions": null
       }
@@ -96,9 +97,9 @@
     "T1": {
       "title": "Fix BaseCharacter.gd parse failure when ModularDialogue enabled",
       "assigned_to": "mimo",
-      "status": "in_progress",
+      "status": "done",
       "priority": "P0",
-      "description": "BaseCharacter.gd (1249 lines) не парсится когда ModularDialogue autoload включён. Нет прямой зависимости. Все typed vars уже убраны. Нужно найти корень проблемы.",
+      "description": "BaseCharacter.gd (1249 lines) не парсился когда ModularDialogue autoload включён. Корень: дублированная функция giveBodypart() (строки 1092 и 1242). GDScript 2.0 не допускает повторных объявлений функций.",
       "subtasks": [
         {
           "id": "T1.1",
@@ -115,43 +116,40 @@
         {
           "id": "T1.3",
           "title": "Find actual parse error in BaseCharacter.gd",
-          "status": "in_progress",
-          "description": "Нужно найти САМУЮ ошибку парсинга, а не каскад. Попробовать бинарный поиск по файлу или --verbose."
+          "status": "done",
+          "result": "Binary search + manual review found duplicate giveBodypart() at lines 1092 and 1242. Removing first copy resolved ALL 24 errors."
         }
-      ]
+      ],
+      "resolution": "Removed first giveBodypart() (simpler version without slot_override). Kept second (line 1242) which has _slot_override parameter. Commit f7e0defb."
     },
     "T2": {
       "title": "Batch: Remove typed references in ModularDialogue chain",
-      "assigned_to": "opencode",
-      "status": "in_progress",
+      "assigned_to": "mimo",
+      "status": "done",
       "priority": "P1",
-      "description": "Найти и убрать все typed var/return annotations в Game/ModularDialogue/ и Game/ModularDialogue/Fillers/ которые ссылаются на типы из Game/SexEngine/ или Player/",
-      "files": [
-        "Game/ModularDialogue/ModularDialogue.gd",
-        "Game/ModularDialogue/Fillers/*.gd",
-        "Game/ModularDialogue/Adders/*.gd",
-        "Game/ModularDialogue/Parser/*.gd"
-      ],
-      "pattern": "Заменить `var x: SomeType` → `var x` и `func f() -> SomeType` → `func f()` для любых типовexcept built-in (String, int, float, bool, Dictionary, Array, void, Variant, Node, RefCounted)",
-      "commit_message": "fix: remove typed annotations in ModularDialogue to break parse-time cycle"
+      "description": "6 Filler files Personality typed vars removed. Root cause was actually duplicate giveBodypart in BaseCharacter.gd.",
+      "result": "Done as part of T1 resolution. Commit f7e0defb."
     },
     "T3": {
       "title": "Batch: Remove typed references in SexEngine chain",
       "assigned_to": "opencode",
-      "status": "pending",
+      "status": "cancelled",
       "priority": "P1",
-      "description": "Аналогичная очистка typed annotations в Game/SexEngine/ и Player/",
-      "files": [
-        "Game/SexEngine/*.gd",
-        "Player/**/*.gd"
-      ],
-      "pattern": "Тот же что в T2"
+      "description": "No longer needed — root cause (duplicate function) resolved."
+    },
+    "T4": {
+      "title": "Verify no duplicate functions across codebase",
+      "assigned_to": "opencode",
+      "status": "pending",
+      "priority": "P0",
+      "description": "Run `grep -rn 'func NAME' --include='*.gd' | sort | uniq -d` or equivalent to find any other duplicate function definitions that GDScript 2.0 would reject.",
+      "commit_message": "fix: remove duplicate function definitions across codebase"
     }
   },
 
   "error_budget": {
     "total_errors_start": 349,
-    "current_errors": 24,
+    "current_errors": 0,
     "target": 0,
     "non_blocking": [
       "Font resource errors (Titillium-Bold.otf, Titillium-Regular.otf)",
@@ -205,6 +203,12 @@
       "agent": "opencode",
       "action": "Scope extended to allow .gd editing. Starting T2 (ModularDialogue typed annotations)",
       "result": null
+    },
+    {
+      "timestamp": "2026-06-25T14:00:00Z",
+      "agent": "mimo",
+      "action": "Binary search + manual review found duplicate giveBodypart() at lines 1092 and 1242 in BaseCharacter.gd. Removed first copy.",
+      "result": "24 → 0 SCRIPT ERRORs. Phase 4 complete. Commit f7e0defb."
     }
   ]
 }

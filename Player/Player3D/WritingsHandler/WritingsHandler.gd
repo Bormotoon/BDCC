@@ -58,7 +58,7 @@ func doUpdate():
 			if(!_theData.has(dataZone)):
 				continue
 			var dataInfo:Array = _theData[dataZone]
-			var zoneInfo:WritingZoneInfoNode = _zones[zone]
+			var zoneInfo = _zones[zone]
 			if(_isLookingLeft && !zoneInfo.showLeft):
 				continue
 			if(!_isLookingLeft && !zoneInfo.showRight):
