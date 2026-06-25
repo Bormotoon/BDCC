@@ -216,33 +216,82 @@ func set_room_color(id: String, new_color) -> void:
 # CAMERA (stubs — full impl in original)
 # ==========================================
 
-func aim_camera(room_id: String, _instant: bool = false) -> bool:
+func aim_camera(room_id: String, instant: bool = false) -> bool:
+	if not (room_id is String):
+		return false
+	var room = get_room_by_id(room_id)
+	if not room:
+		return false
+	switch_to_floor(room.get_floor_id())
+	camera.global_position = room.global_position
+	if highlighted_room:
+		highlighted_room.set_highlighted(false)
+	highlighted_room = room
+	highlighted_room.set_highlighted(true)
+	last_aimed_room_id = room_id
+	if instant:
+		camera.reset_smoothing()
 	return true
 
 func aim_camera_and_set_loc_name(room_id: String) -> void:
-	pass
+	aim_camera(room_id)
+	set_location_name(room_id)
 
-func set_location_name(_text: String) -> void:
-	pass
+func set_location_name(text: String) -> void:
+	if GM.ui and GM.ui.has_method("set_location_name"):
+		GM.ui.set_location_name(text)
 
-func get_safe_from_pc_random_room(_possible_rooms: Array, _pc_location: String) -> String:
-	return ""
+func get_safe_from_pc_random_room(possible_rooms: Array, pc_location: String) -> String:
+	for room_id in possible_rooms:
+		if room_id != pc_location:
+			return room_id
+	return pc_location
 
 # ==========================================
 # SAVE/LOAD
 # ==========================================
 
 func save_data() -> Dictionary:
-	return {}
+	return {
+		"last_aimed_room_id": last_aimed_room_id,
+		"zoom_x": camera.zoom.x,
+		"zoom_y": camera.zoom.y,
+	}
 
-func load_data(_data: Dictionary) -> void:
-	pass
+func load_data(data: Dictionary) -> void:
+	last_aimed_room_id = SAVE.loadVar(data, "last_aimed_room_id", "")
+	if data.has("zoom_x") and data.has("zoom_y"):
+		camera.zoom = Vector2(SAVE.loadVar(data, "zoom_x", 1.0), SAVE.loadVar(data, "zoom_y", 1.0))
 
-func add_transitions_for_floor(_floor_ids: Array) -> void:
-	add_transitions(_floor_ids)
+func add_transitions_for_floor(floor_ids: Array) -> void:
+	add_transitions(floor_ids)
 
-func update_pawns(_is) -> void:
-	pass
+func update_pawns(interaction_system) -> void:
+	if not interaction_system:
+		return
+	var checked_pawns = pawns.duplicate()
+	for char_id in interaction_system.get_pawns():
+		var pawn = interaction_system.get_pawn(char_id)
+		var loc: String = pawn.get_location()
+		var room = get_room_by_id(loc)
+		if room == null:
+			continue
+		if not pawns.has(char_id):
+			create_world_pawn(char_id, pawn, loc)
+		else:
+			checked_pawns.erase(char_id)
+			var world_pawn = pawns[char_id]
+			update_pawn(world_pawn, pawn)
+	for char_id in checked_pawns:
+		if pawns.has(char_id):
+			var world_pawn = pawns[char_id]
+			world_pawn.queue_free()
+			pawns.erase(char_id)
 
-func get_pawns_near(_room_id: String) -> Array:
-	return []
+func get_pawns_near(room_id: String) -> Array:
+	var result: Array = []
+	for char_id in pawns:
+		var world_pawn = pawns[char_id]
+		if world_pawn and world_pawn.get_location() == room_id:
+			result.append(char_id)
+	return result
