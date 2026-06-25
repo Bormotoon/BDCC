@@ -1012,3 +1012,238 @@ func get_pregnancy_progress_doll() -> float:
 
 func get_pregnancy_litter_size() -> int:
 	return 1
+
+# ==========================================
+# BACKWARD-COMPATIBLE CAMELCASE ALIASES
+# Old code uses camelCase; new internals use snake_case.
+# ==========================================
+
+# Variable aliases
+var initialDodgeChance: float:
+	get: return initial_dodge_chance
+	set(value): initial_dodge_chance = value
+var processingBodyparts: Array:
+	get: return processing_bodyparts
+var pickedSkin: String:
+	get: return picked_skin
+	set(value): picked_skin = value
+var pickedSkinRColor: Color:
+	get: return picked_skin_r_color
+	set(value): picked_skin_r_color = value
+var pickedSkinGColor: Color:
+	get: return picked_skin_g_color
+	set(value): picked_skin_g_color = value
+var pickedSkinBColor: Color:
+	get: return picked_skin_b_color
+	set(value): picked_skin_b_color = value
+var timedBuffs: Array:
+	get: return timed_buffs
+var timedBuffsTurns: Array:
+	get: return timed_buffs_turns
+
+# Method aliases — Stats
+func addPain(_p: int) -> void:
+	add_pain(_p)
+
+func addLust(_l: int) -> void:
+	add_lust(_l)
+
+func addArousal(_a: float) -> void:
+	var initial := arousal
+	arousal = clampf(arousal + _a, 0.0, 1000.0)
+	if initial != arousal:
+		stat_changed.emit()
+
+func addStamina(_s: int) -> void:
+	add_stamina(_s)
+
+func getPain() -> int:
+	return get_pain()
+
+func getLust() -> int:
+	return get_lust()
+
+func getStamina() -> int:
+	return get_stamina()
+
+func getAmbientPain() -> int:
+	return get_ambient_pain()
+
+func getAmbientLust() -> int:
+	return get_ambient_lust()
+
+func getExposure() -> float:
+	return 0.0
+
+# Method aliases — Effects
+func addEffect(effect_id: StringName, args: Array = []) -> bool:
+	return add_effect(effect_id, args)
+
+func removeEffect(effect_id: StringName) -> void:
+	remove_effect(effect_id)
+
+func hasEffect(effect_id: StringName) -> bool:
+	return has_effect(effect_id)
+
+func getEffect(effect_id: StringName):
+	return get_effect(effect_id)
+
+# Method aliases — Bodyparts
+func giveBodypart(bodypart) -> void:
+	if bodypart == null:
+		return
+	var slot = bodypart.getSlot()
+	if slot != null:
+		bodyparts[slot] = bodypart
+		bodypart_storage_node.add_child(bodypart)
+		bodypart_changed.emit()
+
+func hasBodypart(slot) -> bool:
+	return has_bodypart(slot)
+
+func getBodypart(slot):
+	return get_bodypart(slot)
+
+func resetSlots() -> void:
+	_reset_slots()
+
+func bodypartHasTrait(slot, trait_id) -> bool:
+	return bodypart_has_trait(slot, trait_id)
+
+# Method aliases — Inventory
+func getInventory() -> Inventory:
+	return get_inventory()
+
+func getSkillsHolder() -> SkillsHolder:
+	return get_skills_holder()
+
+func getBuffsHolder() -> BuffsHolder:
+	return get_buffs_holder()
+
+func getFetishHolder() -> FetishHolder:
+	return get_fetish_holder()
+
+func getPersonality() -> Personality:
+	return get_personality()
+
+func getLustInterests() -> LustInterests:
+	return get_lust_interests()
+
+# Method aliases — Skills
+func addExperience(new_exp: int) -> void:
+	add_experience(new_exp)
+
+func addSkillExperience(skill_id: StringName, amount: int, activity_id: StringName = &"") -> void:
+	add_skill_experience(skill_id, amount, activity_id)
+
+func hasPerk(perk_id: StringName) -> bool:
+	return has_perk(perk_id)
+
+func getStat(stat_id: StringName):
+	return get_stat(stat_id)
+
+func getSkillLevel(skill_id: StringName) -> int:
+	return get_skill_level(skill_id)
+
+func getLevel() -> int:
+	return get_level()
+
+# Method aliases — Appearance
+func updateAppearance() -> void:
+	update_appearance()
+
+func getSkinData() -> Dictionary:
+	return get_skin_data()
+
+# Method aliases — Combat
+func processBattleTurn() -> void:
+	pass
+
+func beforeFightStarted() -> void:
+	pass
+
+func afterFightEnded() -> void:
+	pass
+
+# Method aliases — Misc
+func processTimedBuffs(_seconds: float) -> void:
+	pass
+
+func saveBuffsData(_additional_data: Dictionary = {}) -> Dictionary:
+	return {}
+
+func loadBuffsData(_data: Dictionary) -> void:
+	pass
+
+func saveStatusEffectsData() -> Dictionary:
+	return {}
+
+func loadStatusEffectsData(_data: Dictionary) -> void:
+	pass
+
+func checkSkins() -> void:
+	pass
+
+func clearTallymarks() -> void:
+	pass
+
+func clearBodywritings() -> void:
+	pass
+
+func clearBodyFluids() -> void:
+	pass
+
+func afterOrgasm() -> void:
+	pass
+
+func loadTFVar(_data, _key: String = "", _default = null):
+	if _data is Dictionary and _key != "":
+		if _data.has(_key):
+			return _data[_key]
+		return _default
+	return _data
+
+func getID() -> String:
+	return str(get_id())
+
+func isPlayer() -> bool:
+	return is_player()
+
+func getPainLevel() -> float:
+	return get_pain_level()
+
+func getLustLevel() -> float:
+	return get_lust_level()
+
+func getMaxStamina() -> int:
+	return get_max_stamina()
+
+func getAttackAccuracy() -> float:
+	return get_attack_accuracy()
+
+func isPregnant() -> bool:
+	return is_heavily_pregnant()
+
+func getPregnancyProgress() -> float:
+	return get_pregnancy_progress_doll()
+
+func isEggStuffedWithOffspring() -> bool:
+	return false
+
+func giveBirth() -> Array:
+	return []
+
+func onSexEvent(_event) -> void:
+	pass
+
+func sendSexEvent(_event) -> void:
+	send_sex_event(_event)
+
+func giveBodypart(bodypart, _slot_override = null) -> void:
+	if bodypart == null:
+		return
+	var slot = _slot_override if _slot_override != null else bodypart.getSlot()
+	if slot != null:
+		bodyparts[slot] = bodypart
+		bodypart_storage_node.add_child(bodypart)
+		bodypart_changed.emit()

@@ -91,19 +91,19 @@ func getID():
 
 func addPain(_p: int):
 	var initialPain := pain
-super.addPain(_p)
+	super.addPain(_p)
 	if(SexToyManager.enabled && initialPain != pain):
 		SexToyManager.sendTrigger(SexToyTrigger.OnPainGain, [pain-initialPain])
 
 func addLust(_l: int):
 	var initialLust := lust
-super.addLust(_l)
+	super.addLust(_l)
 	if(SexToyManager.enabled && initialLust != lust):
 		SexToyManager.sendTrigger(SexToyTrigger.OnLustGain, [lust-initialLust])
 
 func addArousal(adda:float):
 	var initialArousal := arousal
-super.addArousal(adda)
+	super.addArousal(adda)
 	if(SexToyManager.enabled && initialArousal != arousal):
 		SexToyManager.sendTrigger(SexToyTrigger.OnArousalGain, [arousal-initialArousal])
 
@@ -238,7 +238,7 @@ func updateNonBattleEffects():
 		removeEffect(StatusEffect.Exposed)
 
 func processBattleTurn():
-super.processBattleTurn()
+	super.processBattleTurn()
 	skillsHolder.giveSkillExperienceBattleTurn()
 
 	GM.GES.callGameExtenders(ExtendGame.pcProcessBattleTurn, [self])

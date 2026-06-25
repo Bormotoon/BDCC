@@ -135,7 +135,7 @@ func generate(ID:String, _args:Dictionary, _defaultText:String = "") -> String:
 		
 	var overrides:Dictionary = {}
 	for argID in _args:
-		if(_args[argID] is BaseCharacter):
+		if(_args[argID] != null and _args[argID].has_method("getID")):
 			overrides[argID] = _args[argID].getID()
 	
 	var mainRole:String = theForm.mainRole

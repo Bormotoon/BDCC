@@ -251,9 +251,19 @@ static func capitalizeFirstLetter(text: String) -> String:
 		return text
 	return text[0].to_upper() + text.substr(1)
 
-static func tryFixColor(colorString: String) -> Color:
-	var c: Color = Color.html(colorString)
-	return c if c != Color.TRANSPARENT else Color.WHITE
+static func tryFixColor(colorString, useDefault: bool = true) -> Color:
+	if colorString is Color:
+		return colorString
+	if colorString is String and !colorString.is_empty():
+		var c: Color = Color.html(colorString)
+		if c != Color.TRANSPARENT:
+			return c
+	return Color.WHITE if useDefault else Color.TRANSPARENT
+
+static func remapValue(value: float, from_min: float, from_max: float, to_min: float, to_max: float) -> float:
+	if absf(from_max - from_min) < 0.0001:
+		return to_min
+	return lerpf(to_min, to_max, clampf((value - from_min) / (from_max - from_min), 0.0, 1.0))
 
 static func split_on_first(text: String, delimiter: String) -> Array:
 	var idx: int = text.find(delimiter)
