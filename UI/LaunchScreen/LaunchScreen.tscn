@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 [node name="Control" type="Control" parent="VBoxContainer"]
 offset_right = 1280.0
 offset_bottom = 5.0
-rect_min_size = Vector2( 0, 5 )
+custom_minimum_size = Vector2( 0, 5 )
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 offset_top = 9.0
@@ -196,7 +196,7 @@ size_flags_vertical = 3
 offset_top = 594.0
 offset_right = 851.0
 offset_bottom = 644.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 offset_right = 30.0
@@ -304,7 +304,7 @@ offset_left = 490.0
 offset_top = 353.0
 offset_right = 790.0
 offset_bottom = 367.0
-rect_min_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2( 300, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BusyPanel/CenterContainer/PanelContainer"]
 offset_left = 7.0

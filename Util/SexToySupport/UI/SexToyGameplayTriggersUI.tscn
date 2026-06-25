@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 [node name="Control" type="Control" parent="VBoxContainer"]
 offset_right = 1272.0
 offset_bottom = 10.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2( 0, 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 offset_top = 14.0
@@ -170,7 +170,7 @@ offset_bottom = 204.0
 offset_top = 318.0
 offset_right = 976.0
 offset_bottom = 368.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "Add new effect"
 
 [node name="InfoAcceptDialog" type="AcceptDialog" parent="."]

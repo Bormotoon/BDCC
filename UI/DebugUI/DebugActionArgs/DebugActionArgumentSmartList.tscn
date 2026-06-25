@@ -30,7 +30,7 @@ size_flags_horizontal = 3
 offset_top = 24.0
 offset_right = 1208.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

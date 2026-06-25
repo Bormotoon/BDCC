@@ -30,7 +30,7 @@ text = "Load"
 offset_left = 1107.0
 offset_right = 1159.0
 offset_bottom = 26.0
-hint_tooltip = "Export the savefile. Useful for transfering your savefile from the web version into the standalone one or just to backup your save"
+tooltip_text = "Export the savefile. Useful for transfering your savefile from the web version into the standalone one or just to backup your save"
 text = "Export"
 
 [node name="DeleteButton" type="Button" parent="."]

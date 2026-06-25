@@ -54,7 +54,7 @@ size_flags_vertical = 3
 offset_top = 694.0
 offset_right = 638.0
 offset_bottom = 720.0
-hint_tooltip = "Read likes/dislikes from text"
+tooltip_text = "Read likes/dislikes from text"
 text = "Text->List"
 
 [connection signal="onCurrentValueChange" from="HBoxContainer/VBoxContainer/ScrollContainer/Options/NpcLikesLineUI" to="." method="_on_NpcLikesLineUI_onCurrentValueChange"]

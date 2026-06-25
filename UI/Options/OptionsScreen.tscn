@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
 offset_right = 1280.0
 offset_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2( 0, 20 )
 
 [node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer"]
 offset_top = 24.0
@@ -33,7 +33,7 @@ offset_bottom = 64.0
 unique_name_in_owner = true
 offset_right = 334.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Gameplay"
 
@@ -42,7 +42,7 @@ unique_name_in_owner = true
 offset_left = 338.0
 offset_right = 636.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Game"
 
@@ -51,7 +51,7 @@ unique_name_in_owner = true
 offset_left = 640.0
 offset_right = 951.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Display"
 
@@ -60,7 +60,7 @@ unique_name_in_owner = true
 offset_left = 955.0
 offset_right = 1280.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Interface"
 
@@ -126,7 +126,7 @@ offset_bottom = 110.0
 offset_top = 620.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="CloseButton" parent="VBoxContainer/GridContainer" instance=ExtResource( 6 )]

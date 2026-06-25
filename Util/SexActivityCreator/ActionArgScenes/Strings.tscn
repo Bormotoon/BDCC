@@ -4,7 +4,7 @@
 [ext_resource path="res://Util/SexActivityCreator/ActionArgScenes/Strings.gd" type="Script" id=2]
 
 [node name="Strings" instance=ExtResource( 1 )]
-rect_min_size = Vector2( 0, 200 )
+custom_minimum_size = Vector2( 0, 200 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="." index="0"]

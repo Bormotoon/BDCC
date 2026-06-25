@@ -162,7 +162,7 @@ unique_name_in_owner = true
 offset_top = 1.0
 offset_right = 130.0
 offset_bottom = 15.0
-rect_min_size = Vector2( 130, 0 )
+custom_minimum_size = Vector2( 130, 0 )
 text = "Intensity 100%"
 
 [node name="IntensitySlider" type="HSlider" parent="SexToyEffectVBox/SimpleEffect/HBoxContainer"]
@@ -185,7 +185,7 @@ unique_name_in_owner = true
 offset_top = 1.0
 offset_right = 130.0
 offset_bottom = 15.0
-rect_min_size = Vector2( 130, 0 )
+custom_minimum_size = Vector2( 130, 0 )
 text = "For 5.5 seconds"
 
 [node name="TimeSlider" type="HSlider" parent="SexToyEffectVBox/SimpleEffect/HBoxContainer2"]
@@ -216,7 +216,7 @@ unique_name_in_owner = true
 offset_top = 18.0
 offset_right = 972.0
 offset_bottom = 68.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 script = ExtResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SexToyEffectVBox/CurveEffect"]

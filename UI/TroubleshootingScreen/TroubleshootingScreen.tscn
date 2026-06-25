@@ -30,7 +30,7 @@ offset_bottom = 493.0
 [node name="DebugInfoButton" type="Button" parent="MainHBox/CenterContainer/VBoxContainer"]
 offset_right = 149.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 size_flags_vertical = 3
 text = "DEBUG INFO"
 
@@ -38,7 +38,7 @@ text = "DEBUG INFO"
 offset_top = 54.0
 offset_right = 149.0
 offset_bottom = 104.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 size_flags_vertical = 3
 text = "View log"
 
@@ -46,7 +46,7 @@ text = "View log"
 offset_top = 108.0
 offset_right = 149.0
 offset_bottom = 158.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 size_flags_vertical = 3
 text = "Manage files"
 
@@ -54,7 +54,7 @@ text = "Manage files"
 offset_top = 162.0
 offset_right = 149.0
 offset_bottom = 212.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 size_flags_vertical = 3
 text = "Reset render settings"
 
@@ -62,7 +62,7 @@ text = "Reset render settings"
 offset_top = 216.0
 offset_right = 149.0
 offset_bottom = 266.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 size_flags_vertical = 3
 text = "Close"
 
@@ -89,14 +89,14 @@ unique_name_in_owner = true
 offset_top = 602.0
 offset_right = 1266.0
 offset_bottom = 652.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "SAVE TO FILE"
 
 [node name="CloseDebugButton" type="Button" parent="DebugPanelContainer/VBoxContainer"]
 offset_top = 656.0
 offset_right = 1266.0
 offset_bottom = 706.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "Close"
 
 [node name="ViewLogsContainer" type="PanelContainer" parent="."]
@@ -120,7 +120,7 @@ size_flags_stretch_ratio = 0.35
 [node name="CloseLogsButton" type="Button" parent="ViewLogsContainer/VBoxContainer/VBoxContainer"]
 offset_right = 327.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "CLOSE"
 
 [node name="LogsItemList" type="ItemList" parent="ViewLogsContainer/VBoxContainer/VBoxContainer"]
@@ -177,7 +177,7 @@ size_flags_horizontal = 3
 [node name="CloseFilesButton" type="Button" parent="ManageFilesContainer/VBoxContainer/VBoxContainer2"]
 offset_right = 631.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "CLOSE"
 
 [node name="FileInfoLabel" type="RichTextLabel" parent="ManageFilesContainer/VBoxContainer/VBoxContainer2"]
@@ -191,7 +191,7 @@ size_flags_vertical = 3
 offset_top = 532.0
 offset_right = 631.0
 offset_bottom = 582.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "Edit file contents"
 clip_text = true
 
@@ -204,7 +204,7 @@ offset_bottom = 590.0
 offset_top = 594.0
 offset_right = 631.0
 offset_bottom = 644.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 text = "Export file to
 documents folder"
 clip_text = true
@@ -218,7 +218,7 @@ offset_bottom = 652.0
 offset_top = 656.0
 offset_right = 631.0
 offset_bottom = 706.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 custom_colors/font_color = Color( 1, 0.0941176, 0.0941176, 1 )
 text = "DELETE FILE"
 
@@ -242,7 +242,7 @@ offset_bottom = 40.0
 unique_name_in_owner = true
 offset_right = 100.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 100, 40 )
+custom_minimum_size = Vector2( 100, 40 )
 text = "SAVE"
 
 [node name="CancelFileEditButton" type="Button" parent="EditFileContainer/VBoxContainer/HBoxContainer"]
@@ -250,7 +250,7 @@ unique_name_in_owner = true
 offset_left = 104.0
 offset_right = 204.0
 offset_bottom = 40.0
-rect_min_size = Vector2( 100, 40 )
+custom_minimum_size = Vector2( 100, 40 )
 text = "CANCEL"
 
 [node name="FileTextEdit" type="TextEdit" parent="EditFileContainer/VBoxContainer"]
@@ -290,7 +290,7 @@ clip_text = true
 offset_top = 107.0
 offset_right = 377.0
 offset_bottom = 147.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 text = "OK"
 
 [connection signal="pressed" from="MainHBox/CenterContainer/VBoxContainer/DebugInfoButton" to="." method="_on_DebugInfoButton_pressed"]

@@ -8,8 +8,8 @@
 [node name="StatusEffectsPanel" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 11 )
-rect_clip_content = true
+custom_minimum_size = Vector2( 0, 11 )
+clip_contents = true
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 

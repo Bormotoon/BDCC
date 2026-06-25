@@ -65,7 +65,7 @@ anchor_bottom = 1.0
 unique_name_in_owner = true
 offset_right = 260.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 260, 0 )
+custom_minimum_size = Vector2( 260, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 custom_styles/panel = SubResource( 1 )
@@ -122,7 +122,7 @@ __meta__ = {
 [node name="SaveButton" type="Button" parent="MainHBox/Panel2/MarginContainer/VBoxContainer/HBoxContainer2"]
 offset_right = 116.0
 offset_bottom = 26.0
-hint_tooltip = "Save the game"
+tooltip_text = "Save the game"
 size_flags_horizontal = 3
 text = "Quick save"
 
@@ -130,7 +130,7 @@ text = "Quick save"
 offset_left = 120.0
 offset_right = 236.0
 offset_bottom = 26.0
-hint_tooltip = "Load the saved game"
+tooltip_text = "Load the saved game"
 size_flags_horizontal = 3
 text = "Quick load"
 
@@ -143,7 +143,7 @@ offset_bottom = 696.0
 [node name="PrevPageButton" type="Button" parent="MainHBox/Panel2/MarginContainer/VBoxContainer/HBoxContainer"]
 offset_right = 116.0
 offset_bottom = 26.0
-hint_tooltip = "Flip to the previous page of options"
+tooltip_text = "Flip to the previous page of options"
 size_flags_horizontal = 3
 disabled = true
 text = "<- Page"
@@ -155,7 +155,7 @@ __meta__ = {
 offset_left = 120.0
 offset_right = 236.0
 offset_bottom = 26.0
-hint_tooltip = "Flip to the next page of options"
+tooltip_text = "Flip to the next page of options"
 size_flags_horizontal = 3
 disabled = true
 text = "Page ->"
@@ -167,7 +167,7 @@ __meta__ = {
 offset_left = 264.0
 offset_right = 269.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 5, 0 )
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="CenterAreaVBox" type="VBoxContainer" parent="MainHBox"]
 unique_name_in_owner = true
@@ -227,7 +227,7 @@ fit_content_height = true
 offset_top = 240.0
 offset_right = 754.0
 offset_bottom = 309.0
-rect_min_size = Vector2( 0, 69 )
+custom_minimum_size = Vector2( 0, 69 )
 
 [node name="Panel" type="PanelContainer" parent="MainHBox/CenterAreaVBox/MainVBox/ScrollContainer/VBoxContainer"]
 offset_top = 319.0
@@ -292,7 +292,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -200.0
 offset_bottom = 73.0
-rect_min_size = Vector2( 200, 0 )
+custom_minimum_size = Vector2( 200, 0 )
 
 [node name="VerticalGithubReleaseLabel" type="Label" parent="MainHBox/CenterAreaVBox/MainVBox/ScrollContainer/VBoxContainer/Spacer2/VerticalGithubReleaseBox"]
 unique_name_in_owner = true
@@ -306,14 +306,14 @@ autowrap = true
 offset_top = 47.0
 offset_right = 200.0
 offset_bottom = 87.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 text = "Github Releases"
 
 [node name="GridContainer" type="GridContainer" parent="MainHBox/CenterAreaVBox/MainVBox"]
 offset_top = 620.0
 offset_right = 754.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="ResumeButton" parent="MainHBox/CenterAreaVBox/MainVBox/GridContainer" instance=ExtResource( 11 )]
@@ -483,7 +483,7 @@ size_flags_vertical = 3
 offset_top = 620.0
 offset_right = 754.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 columns = 5
 
 [node name="DevClose" parent="MainHBox/CenterAreaVBox/DevToolsScreen/GridContainer" instance=ExtResource( 11 )]
@@ -546,7 +546,7 @@ offset_left = 135.0
 offset_top = 30.0
 offset_right = 311.0
 offset_bottom = 56.0
-hint_tooltip = "Provides an easier way to code sex activities"
+tooltip_text = "Provides an easier way to code sex activities"
 size_flags_horizontal = 3
 text = "Sex Activity Creator"
 
@@ -621,20 +621,20 @@ visible = false
 offset_top = 660.0
 offset_right = 754.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 0, 60 )
+custom_minimum_size = Vector2( 0, 60 )
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="MainHBox"]
 offset_left = 1031.0
 offset_right = 1036.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 5, 0 )
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="Panel" type="Panel" parent="MainHBox"]
 unique_name_in_owner = true
 offset_left = 1040.0
 offset_right = 1280.0
 offset_bottom = 720.0
-rect_min_size = Vector2( 240, 0 )
+custom_minimum_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 custom_styles/panel = SubResource( 2 )
@@ -678,7 +678,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 offset_right = 216.0
 offset_bottom = 619.0
-rect_min_size = Vector2( 0, 500 )
+custom_minimum_size = Vector2( 0, 500 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
 bbcode_enabled = true

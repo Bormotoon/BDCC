@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 [node name="Control" type="Control" parent="TabContainer/Toy Settings/VBoxContainer"]
 offset_right = 1272.0
 offset_bottom = 10.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2( 0, 10 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Toy Settings/VBoxContainer"]
 offset_top = 14.0

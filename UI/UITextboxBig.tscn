@@ -5,5 +5,5 @@
 [node name="UITextboxBig" type="TextEdit"]
 offset_right = 710.0
 offset_bottom = 30.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 script = ExtResource( 1 )

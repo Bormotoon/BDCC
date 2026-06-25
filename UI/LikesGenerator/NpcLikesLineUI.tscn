@@ -39,7 +39,7 @@ text = "--"
 offset_left = 1090.0
 offset_right = 1107.0
 offset_bottom = 20.0
-rect_pivot_offset = Vector2( 35.9107, -79.9766 )
+pivot_offset = Vector2( 35.9107, -79.9766 )
 text = "-"
 
 [node name="Button5" type="Button" parent="."]

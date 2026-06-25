@@ -65,7 +65,7 @@ text = "Skill visible desc"
 offset_top = 56.0
 offset_right = 1266.0
 offset_bottom = 66.0
-rect_min_size = Vector2( 0, 10 )
+custom_minimum_size = Vector2( 0, 10 )
 mouse_filter = 1
 
 [node name="PerksLabel" type="Label" parent="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer"]
@@ -124,7 +124,7 @@ text = "Select a perk on the left"
 offset_top = 18.0
 offset_right = 624.0
 offset_bottom = 23.0
-rect_min_size = Vector2( 0, 5 )
+custom_minimum_size = Vector2( 0, 5 )
 
 [node name="PerkDescLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 offset_top = 27.0
@@ -140,7 +140,7 @@ fit_content_height = true
 offset_top = 46.0
 offset_right = 624.0
 offset_bottom = 51.0
-rect_min_size = Vector2( 0, 5 )
+custom_minimum_size = Vector2( 0, 5 )
 
 [node name="PerkRequirementsLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 offset_top = 55.0
@@ -156,7 +156,7 @@ fit_content_height = true
 offset_top = 74.0
 offset_right = 624.0
 offset_bottom = 114.0
-rect_min_size = Vector2( 0, 40 )
+custom_minimum_size = Vector2( 0, 40 )
 
 [node name="UnlockPerkButton" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer"]
 offset_right = 310.0

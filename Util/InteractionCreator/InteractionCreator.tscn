@@ -158,7 +158,7 @@ text = "^"
 offset_top = 52.0
 offset_right = 1015.0
 offset_bottom = 152.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 
 [node name="RemoveActionButton" type="Button" parent="VBoxContainer/TabContainer/States/HBoxContainer/ScrollContainer/VBoxContainer/VBoxContainer"]
 offset_top = 156.0
@@ -228,7 +228,7 @@ text = "^"
 offset_top = 52.0
 offset_right = 253.0
 offset_bottom = 636.0
-rect_min_size = Vector2( 0, 100 )
+custom_minimum_size = Vector2( 0, 100 )
 size_flags_vertical = 3
 
 [node name="RemoveIntButton" type="Button" parent="VBoxContainer/TabContainer/Interruptions/HBoxContainer/VBoxContainer"]

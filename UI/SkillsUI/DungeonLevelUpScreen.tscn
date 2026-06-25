@@ -56,7 +56,7 @@ unique_name_in_owner = true
 offset_left = 514.0
 offset_right = 752.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="StatButton" type="Button" parent="VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/StatList"]
 offset_right = 112.0
@@ -97,7 +97,7 @@ unique_name_in_owner = true
 offset_left = 533.0
 offset_right = 733.0
 offset_bottom = 64.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="PerkButton" parent="VBoxContainer/PerksPanel/VBoxContainer/CenterContainer/PerkList" instance=ExtResource( 2 )]
 
@@ -135,7 +135,7 @@ offset_bottom = 74.0
 offset_left = 533.0
 offset_right = 733.0
 offset_bottom = 50.0
-rect_min_size = Vector2( 200, 50 )
+custom_minimum_size = Vector2( 200, 50 )
 text = "Confirm"
 
 [connection signal="pressed" from="VBoxContainer/PanelContainer4/VBoxContainer/CenterContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
