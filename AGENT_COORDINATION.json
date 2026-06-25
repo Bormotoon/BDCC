@@ -1,0 +1,210 @@
+{
+  "project": "BDCC — Godot 3→4 Migration",
+  "version": "1.0.0",
+  "created": "2026-06-25",
+  "description": "Полная миграция текстового sci-fi 게임а Broken Dreams Correctional Center с Godot 3.x на Godot 4.4.1. Репозиторий: github.com/Alexofp/BDCC",
+
+  "main_goal": {
+    "summary": "Миграция 3215 .gd файлов, 645 .tscn, 73 .tres с Godot 3.x на Godot 4.4.1",
+    "current_phase": "Error elimination — доведение SCRIPT ERROR до 0",
+    "phases": [
+      {
+        "id": 0,
+        "name": "Foundation",
+        "status": "DONE",
+        "description": "Создание базовой архитектуры: ServiceLocator, EventBus, Component base, RegistryManager",
+        "instructions": null
+      },
+      {
+        "id": 1,
+        "name": "Core scripts migration",
+        "status": "DONE",
+        "description": "Миграция ключевых файлов: BaseCharacter, MainScene, SceneBase, GameUI, Module, ItemBase, Inventory",
+        "instructions": null
+      },
+      {
+        "id": 2,
+        "name": "Batch API fixes",
+        "status": "DONE",
+        "description": "5 проходов batch-миграции API: extends, onready, export, yield, connect, emit_signal, etc.",
+        "instructions": null
+      },
+      {
+        "id": 3,
+        "name": "Scene files migration",
+        "status": "DONE",
+        "description": "Миграция .tscn/.tres файлов: ноды, свойства, ресурсы",
+        "instructions": "TASK_SCENE_MIGRATION.md"
+      },
+      {
+        "id": 4,
+        "name": "Error elimination",
+        "status": "IN_PROGRESS",
+        "description": "Доведение SCRIPT ERROR до 0. Решение циклических зависимостей автозагрузок, reserved keywords, parse errors",
+        "instructions": null,
+        "details": {
+          "current_errors": 24,
+          "peak_errors": 349,
+          "root_cause": "BaseCharacter.gd не парсится когда ModularDialogue autoload включён. Циклическая зависимость автозагрузок.",
+          "fixed_files": [
+            "Player.gd (super. indentation)",
+            "BaseCharacter.gd (camelCase aliases)",
+            "ModularDialogue.gd (is BaseCharacter → duck typing)",
+            "DialogueForm.gd (is BaseCharacter → duck typing)",
+            "DialogueFillerAdder.gd (typed return → untyped)",
+            "SexToyManager.gd (typed var → untyped)",
+            "SexToyGameplay.gd (typed var → untyped)",
+            "GameParser.gd (path-based extends → RefCounted)",
+            "PartTrait.gd (reserved 'trait' keyword)",
+            "6 Fillers (Personality typed var → untyped)"
+          ],
+          "active_investigation": "BaseCharacter.gd fails to parse only when ModularDialogue autoload is enabled. No direct reference found. Possible autoload parse-order issue in Godot 4.4.1."
+        }
+      },
+      {
+        "id": 5,
+        "name": "Deep architecture migration",
+        "status": "NOT_STARTED",
+        "description": "Перенос реальной логики из ~3178 файлов: Modules (870), NpcSlavery (113), Scenes (64), SexEngine, InteractionSystem",
+        "instructions": null
+      }
+    ]
+  },
+
+  "agents": {
+    "mimo": {
+      "role": "Lead agent",
+      "description": "Основной агент — GDScript миграция, циклические зависимости, архитектурные решения",
+      "current_task": "T1",
+      "scope": {
+        "allowed": ["*.gd", "project.godot", "MEMORY.md", "MIGRATION_CHECKLIST.md"],
+        "forbidden": ["*.tscn", "*.tres"]
+      }
+    },
+    "opencode": {
+      "role": "Parallel agent",
+      "description": "Вспомогательный агент — scene files, batch операции, верификация, typed annotation cleanup",
+      "current_task": "T2",
+      "scope": {
+        "allowed": ["*.tscn", "*.tres", "*.gd"],
+        "forbidden": ["project.godot", "MEMORY.md"]
+      }
+    }
+  },
+
+  "task_board": {
+    "T1": {
+      "title": "Fix BaseCharacter.gd parse failure when ModularDialogue enabled",
+      "assigned_to": "mimo",
+      "status": "in_progress",
+      "priority": "P0",
+      "description": "BaseCharacter.gd (1249 lines) не парсится когда ModularDialogue autoload включён. Нет прямой зависимости. Все typed vars уже убраны. Нужно найти корень проблемы.",
+      "subtasks": [
+        {
+          "id": "T1.1",
+          "title": "Check if issue is Godot 4 cache corruption",
+          "status": "done",
+          "result": "Удаление .godot/ не помогло — проблема в коде, не в кэше"
+        },
+        {
+          "id": "T1.2",
+          "title": "Remove typed vars from BaseCharacter",
+          "status": "done",
+          "result": "24 errors remain — typed vars не были корнем"
+        },
+        {
+          "id": "T1.3",
+          "title": "Find actual parse error in BaseCharacter.gd",
+          "status": "in_progress",
+          "description": "Нужно найти САМУЮ ошибку парсинга, а не каскад. Попробовать бинарный поиск по файлу или --verbose."
+        }
+      ]
+    },
+    "T2": {
+      "title": "Batch: Remove typed references in ModularDialogue chain",
+      "assigned_to": "opencode",
+      "status": "in_progress",
+      "priority": "P1",
+      "description": "Найти и убрать все typed var/return annotations в Game/ModularDialogue/ и Game/ModularDialogue/Fillers/ которые ссылаются на типы из Game/SexEngine/ или Player/",
+      "files": [
+        "Game/ModularDialogue/ModularDialogue.gd",
+        "Game/ModularDialogue/Fillers/*.gd",
+        "Game/ModularDialogue/Adders/*.gd",
+        "Game/ModularDialogue/Parser/*.gd"
+      ],
+      "pattern": "Заменить `var x: SomeType` → `var x` и `func f() -> SomeType` → `func f()` для любых типовexcept built-in (String, int, float, bool, Dictionary, Array, void, Variant, Node, RefCounted)",
+      "commit_message": "fix: remove typed annotations in ModularDialogue to break parse-time cycle"
+    },
+    "T3": {
+      "title": "Batch: Remove typed references in SexEngine chain",
+      "assigned_to": "opencode",
+      "status": "pending",
+      "priority": "P1",
+      "description": "Аналогичная очистка typed annotations в Game/SexEngine/ и Player/",
+      "files": [
+        "Game/SexEngine/*.gd",
+        "Player/**/*.gd"
+      ],
+      "pattern": "Тот же что в T2"
+    }
+  },
+
+  "error_budget": {
+    "total_errors_start": 349,
+    "current_errors": 24,
+    "target": 0,
+    "non_blocking": [
+      "Font resource errors (Titillium-Bold.otf, Titillium-Regular.otf)",
+      "TooltipDisplay.tscn missing",
+      "LaunchScreen/ModBrowser scene load errors"
+    ]
+  },
+
+  "conventions": {
+    "git": {
+      "commit_format": "type: description",
+      "types": ["fix", "feat", "refactor", "chore"],
+      "branch": "main"
+    },
+    "code": {
+      "indentation": "tabs",
+      "no_comments": true,
+      "gdscript_version": "2.0",
+      "typed_params": true,
+      "typed_vars": "only in non-autoload files"
+    },
+    "coordination": {
+      "file_lock": "agents must NOT edit the same file simultaneously",
+      "conflict_resolution": "edit files in your allowed scope only",
+      "commit_frequency": "after every logical batch of changes",
+      "report_after": "each task completion"
+    }
+  },
+
+  "log": [
+    {
+      "timestamp": "2026-06-25T12:00:00Z",
+      "agent": "mimo",
+      "action": "Applied 4 circular dependency fixes (DialogueForm, DialogueFillerAdder, SexToyManager, SexToyGameplay)",
+      "result": "Errors 30 → 24. All 24 trace to BaseCharacter parse failure when ModularDialogue enabled."
+    },
+    {
+      "timestamp": "2026-06-25T12:30:00Z",
+      "agent": "opencode",
+      "action": "Completed TASK_SCENE_MIGRATION.md — full .tscn/.tres migration",
+      "result": "645 .tscn + 73 .tres migrated. No new errors introduced."
+    },
+    {
+      "timestamp": "2026-06-25T13:00:00Z",
+      "agent": "mimo",
+      "action": "Untyped vars in BaseCharacter.gd, deleted .godot cache, 6 Filler files",
+      "result": "Still 24 errors. Root cause not yet found."
+    },
+    {
+      "timestamp": "2026-06-25T13:30:00Z",
+      "agent": "opencode",
+      "action": "Scope extended to allow .gd editing. Starting T2 (ModularDialogue typed annotations)",
+      "result": null
+    }
+  ]
+}

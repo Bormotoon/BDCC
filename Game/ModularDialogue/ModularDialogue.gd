@@ -6,8 +6,8 @@ var adders:Dictionary = {}
 
 var addersCooldown:Dictionary = {}
 
-var gameParser:GameParser = GameParser.new()
-var dialogueParser:DialogueParser = DialogueParser.new()
+var gameParser = GameParser.new()
+var dialogueParser = DialogueParser.new()
 
 const WORDS_SLUT = [
 	"slut",
@@ -62,7 +62,7 @@ func generate(ID:String, _args:Dictionary, _defaultText:String = "") -> String:
 			return "[color=red]"+ID+" MISSING[/color]"
 		return _defaultText
 	
-	var theForm:DialogueForm = forms[ID]
+	var theForm = forms[ID]
 	var checkData:Array = theForm.checkArgs(_args)
 	if(!checkData[0]):
 		Log.err(checkData[1])
@@ -120,7 +120,7 @@ func generate(ID:String, _args:Dictionary, _defaultText:String = "") -> String:
 			possibleAdders.append(adder)
 		
 		if(possibleAdders.size() > 0):
-			var randomAdder:DialogueFillerAdder = RNG.pick(possibleAdders)
+			var randomAdder = RNG.pick(possibleAdders)
 			var randomTextsToAdd:Array = randomAdder.getTextsFinal(ID, _args)
 			var isPrefix:bool = randomAdder.isPrefix(ID)
 			addersCooldown[randomAdder] = randi_range(5, 15)
@@ -166,7 +166,7 @@ func registerFormBank(theFormBank:DialogueFormBank):
 	for formID in toRegister:
 		var formData = toRegister[formID]
 		
-		var newForm:DialogueForm = DialogueForm.new()
+		var newForm = DialogueForm.new()
 		newForm.id = formID
 		newForm.defaultLine = formData["text"]
 		newForm.requiredArgs = formData["args"] if formData.has("args") else {}
