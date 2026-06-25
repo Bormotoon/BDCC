@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Inventory/UnriggedModels/Collar/collar.png" type="Texture" id=1]
 
-[node name="CollarModel" type="Spatial"]
+[node name="CollarModel" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.0372997, 0, 0.0324069 )

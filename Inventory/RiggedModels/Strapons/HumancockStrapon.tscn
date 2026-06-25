@@ -257,13 +257,13 @@ albedo_texture = ExtResource( 3 )
 
 [node name="HumancockStrapon" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 18 )
 
-[node name="PenisRigged" type="MeshInstance" parent="." index="1"]
+[node name="PenisRigged" type="MeshInstance3D" parent="." index="1"]
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 21 )

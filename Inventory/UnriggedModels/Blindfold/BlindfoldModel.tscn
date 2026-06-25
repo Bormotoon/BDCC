@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Inventory/UnriggedModels/Blindfold/blindfold.png" type="Texture" id=1]
 
-[node name="BlindfoldModel" type="Spatial"]
+[node name="BlindfoldModel" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 texture = ExtResource( 1 )

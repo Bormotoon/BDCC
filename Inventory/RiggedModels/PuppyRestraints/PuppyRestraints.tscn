@@ -179,22 +179,22 @@ surfaces/0 = {
 
 [node name="PuppyRestraints" instance=ExtResource( 2 )]
 
-[node name="armpuppybinder" type="MeshInstance" parent="." index="0"]
+[node name="armpuppybinder" type="MeshInstance3D" parent="." index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = SubResource( 7 )
 
-[node name="armpuppybinder001" type="MeshInstance" parent="." index="1"]
+[node name="armpuppybinder001" type="MeshInstance3D" parent="." index="1"]
 mesh = SubResource( 4 )
 skin = SubResource( 3 )
 material/0 = SubResource( 7 )
 
-[node name="armpuppybinder002" type="MeshInstance" parent="." index="2"]
+[node name="armpuppybinder002" type="MeshInstance3D" parent="." index="2"]
 mesh = SubResource( 5 )
 skin = SubResource( 3 )
 material/0 = SubResource( 7 )
 
-[node name="armpuppybinder003" type="MeshInstance" parent="." index="3"]
+[node name="armpuppybinder003" type="MeshInstance3D" parent="." index="3"]
 mesh = SubResource( 6 )
 skin = SubResource( 3 )
 material/0 = SubResource( 7 )

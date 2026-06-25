@@ -378,7 +378,7 @@ surfaces/0 = {
 [node name="RopeHarness" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
@@ -390,26 +390,26 @@ state = "ropeharness"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 5 )]
 stateValue = "hanged"
 
-[node name="forearmpng" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="forearmpng" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
 mesh = SubResource( 67 )
 skin = SubResource( 68 )
 material/0 = SubResource( 75 )
 
-[node name="forearmpng001" type="MeshInstance" parent="PartStatePicker/PartState" index="1"]
+[node name="forearmpng001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
 mesh = SubResource( 70 )
 skin = SubResource( 68 )
 material/0 = SubResource( 75 )
 
-[node name="digilegpng" type="MeshInstance" parent="PartStatePicker/PartState" index="2"]
+[node name="digilegpng" type="MeshInstance3D" parent="PartStatePicker/PartState" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
 mesh = SubResource( 71 )
 skin = SubResource( 72 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 76 )
 
-[node name="digilegpng001" type="MeshInstance" parent="PartStatePicker/PartState" index="3"]
+[node name="digilegpng001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04 )
 mesh = SubResource( 74 )
 skin = SubResource( 72 )

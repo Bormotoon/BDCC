@@ -192,19 +192,19 @@ tracks/0/keys = {
 
 [node name="ShockCage" instance=ExtResource( 2 )]
 
-[node name="PenisRigged3" type="MeshInstance" parent="." index="0"]
+[node name="PenisRigged3" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.008 )
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 19 )
 
-[node name="PenisRigged" type="MeshInstance" parent="." index="1"]
+[node name="PenisRigged" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.004 )
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 17 )
 
-[node name="PenisRigged2" type="MeshInstance" parent="." index="2"]
+[node name="PenisRigged2" type="MeshInstance3D" parent="." index="2"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 18 )
