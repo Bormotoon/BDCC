@@ -7,7 +7,7 @@ class_name QuestSystem
 var quests: Dictionary = {}
 
 func _ready() -> void:
-	ServiceLocator.safe_get_service(&"QuestSystem") = self
+	ServiceLocator.register_service(&"QuestSystem", self)
 	name = "QuestSystem"
 	registerQuests()
 

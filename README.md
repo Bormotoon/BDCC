@@ -11,14 +11,19 @@ This game is influenced a lot by other erotic text rpg games like Trials in the 
 
 ### [Support me on Subscribestar.adult](https://subscribestar.adult/rahi)
 
-Uses the latest version of Godot 3.X engine
+Uses the latest version of Godot 4.4 engine
 
 # How to start contributing
 - Clone this repo using git or by downloading the [source code](https://github.com/Alexofp/BDCC/archive/refs/heads/main.zip)
-- Download the latest version of [Godot engine 3.X](https://godotengine.org/). Godot 4.0 is not supported
+- Download the latest version of [Godot 4.4 engine](https://godotengine.org/)
 - Open the godot engine and click Import Project. Point to the project.godot file.
 - The editor will open up. You can start tinkering.
 - To run the game press F5 or the play icon in the corner
+
+### Running tests
+```
+godot --headless --path . res://Tests/RunAllTests.tscn
+```
 
 ### [Modding wiki](../../wiki)
 

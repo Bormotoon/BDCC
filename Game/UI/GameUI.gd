@@ -54,11 +54,11 @@ var say_parser: SayParser
 var is_in_big_answers_mode: bool = false
 
 func _exit_tree() -> void:
-	ServiceLocator.safe_get_service(&"UI") = null
+	ServiceLocator.unregister_service(&"UI")
 	OPTIONS.set_supports_vertical(true)
 
 func _ready() -> void:
-	ServiceLocator.safe_get_service(&"UI") = self
+	ServiceLocator.register_service(&"UI", self)
 
 	if not OPTIONS.is_debug_panel_enabled():
 		debug_panel_button.visible = false
