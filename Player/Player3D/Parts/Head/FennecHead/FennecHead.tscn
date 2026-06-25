@@ -245,7 +245,7 @@ state = "mouth"
 
 [node name="PartState" parent="PartStatePicker2" index="0" instance=ExtResource( 4 )]
 
-[node name="catheadpng" type="MeshInstance" parent="PartStatePicker2/PartState" index="0"]
+[node name="catheadpng" type="MeshInstance3D" parent="PartStatePicker2/PartState" index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("../../..")
@@ -284,7 +284,7 @@ maxWritings = 1
 visible = false
 stateValue = "ballgag"
 
-[node name="catheadpng" type="MeshInstance" parent="PartStatePicker2/PartState2" index="0"]
+[node name="catheadpng" type="MeshInstance3D" parent="PartStatePicker2/PartState2" index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("../../..")
@@ -325,7 +325,7 @@ maxWritings = 1
 visible = false
 stateValue = "ringgag"
 
-[node name="catheadpng" type="MeshInstance" parent="PartStatePicker2/PartState3" index="0"]
+[node name="catheadpng" type="MeshInstance3D" parent="PartStatePicker2/PartState3" index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("../../..")
@@ -366,7 +366,7 @@ maxWritings = 1
 visible = false
 stateValue = "open"
 
-[node name="catheadpng" type="MeshInstance" parent="PartStatePicker2/PartState4" index="0"]
+[node name="catheadpng" type="MeshInstance3D" parent="PartStatePicker2/PartState4" index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("../../..")
@@ -411,7 +411,7 @@ state = "muzzle"
 visible = false
 stateValue = "muzzled"
 
-[node name="muzzle" type="MeshInstance" parent="PartStatePicker/PartState2" index="0"]
+[node name="muzzle" type="MeshInstance3D" parent="PartStatePicker/PartState2" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0473862, 0.0483999, 0.01 )
 mesh = SubResource( 10 )
 skin = SubResource( 12 )

@@ -415,7 +415,7 @@ state = "cock"
 
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 5 )]
 
-[node name="PenisRigged" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="PenisRigged" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 7 )
@@ -427,7 +427,7 @@ customSkinPattern = ExtResource( 11 )
 visible = false
 stateValue = "condom"
 
-[node name="PenisRigged" type="MeshInstance" parent="PartStatePicker/PartState4" index="0"]
+[node name="PenisRigged" type="MeshInstance3D" parent="PartStatePicker/PartState4" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 21 )
@@ -441,7 +441,7 @@ customAlbedo = ExtResource( 3 )
 visible = false
 stateValue = "limp"
 
-[node name="PenisRigged2" type="MeshInstance" parent="PartStatePicker/PartState2" index="0"]
+[node name="PenisRigged2" type="MeshInstance3D" parent="PartStatePicker/PartState2" index="0"]
 mesh = SubResource( 23 )
 skin = SubResource( 24 )
 skeleton = NodePath("../../PartState")
@@ -455,7 +455,7 @@ custonSkinVariant = "limp"
 visible = false
 stateValue = "caged"
 
-[node name="PenisRigged4" type="MeshInstance" parent="PartStatePicker/PartState3" index="0"]
+[node name="PenisRigged4" type="MeshInstance3D" parent="PartStatePicker/PartState3" index="0"]
 mesh = SubResource( 23 )
 skin = SubResource( 24 )
 skeleton = NodePath("../../PartState")
@@ -465,7 +465,7 @@ bodypartSlot = "penis"
 customSkinPattern = ExtResource( 9 )
 custonSkinVariant = "limp"
 
-[node name="Cage" type="MeshInstance" parent="PartStatePicker/PartState3" index="1"]
+[node name="Cage" type="MeshInstance3D" parent="PartStatePicker/PartState3" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 26 )
 skin = SubResource( 27 )

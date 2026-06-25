@@ -384,7 +384,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="CaninePenis" instance=ExtResource( 1 )]
 
-[node name="penisCaninepng" type="MeshInstance" parent="." index="0"]
+[node name="penisCaninepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0 )
 visible = false
 mesh = SubResource( 2 )
@@ -395,7 +395,7 @@ state = "cock"
 
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 5 )]
 
-[node name="PenisRigged" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="PenisRigged" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 4 )
@@ -407,7 +407,7 @@ customSkinPattern = ExtResource( 9 )
 visible = false
 stateValue = "condom"
 
-[node name="PenisRigged" type="MeshInstance" parent="PartStatePicker/PartState4" index="0"]
+[node name="PenisRigged" type="MeshInstance3D" parent="PartStatePicker/PartState4" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 material/0 = SubResource( 19 )
@@ -421,7 +421,7 @@ customAlbedo = ExtResource( 2 )
 visible = false
 stateValue = "limp"
 
-[node name="PenisRigged2" type="MeshInstance" parent="PartStatePicker/PartState2" index="0"]
+[node name="PenisRigged2" type="MeshInstance3D" parent="PartStatePicker/PartState2" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 skeleton = NodePath("../../PartState")
@@ -435,7 +435,7 @@ custonSkinVariant = "limp"
 visible = false
 stateValue = "caged"
 
-[node name="PenisRigged4" type="MeshInstance" parent="PartStatePicker/PartState3" index="0"]
+[node name="PenisRigged4" type="MeshInstance3D" parent="PartStatePicker/PartState3" index="0"]
 mesh = SubResource( 15 )
 skin = SubResource( 16 )
 skeleton = NodePath("../../PartState")
@@ -445,7 +445,7 @@ bodypartSlot = "penis"
 customSkinPattern = ExtResource( 11 )
 custonSkinVariant = "limp"
 
-[node name="Cage" type="MeshInstance" parent="PartStatePicker/PartState3" index="1"]
+[node name="Cage" type="MeshInstance3D" parent="PartStatePicker/PartState3" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 17 )
 skin = SubResource( 18 )

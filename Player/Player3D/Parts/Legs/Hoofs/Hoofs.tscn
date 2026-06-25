@@ -133,7 +133,7 @@ surfaces/0 = {
 
 [node name="Hoofs" instance=ExtResource( 1 )]
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="0"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="0"]
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 42 )
@@ -162,7 +162,7 @@ rotSpread = 5.0
 scale = 0.7
 squish = Vector2( 0.8, 1 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="1"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="1"]
 mesh = SubResource( 45 )
 skin = SubResource( 44 )
 material/0 = SubResource( 42 )

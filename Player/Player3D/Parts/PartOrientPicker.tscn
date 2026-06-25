@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Player/Player3D/Parts/PartOrientPicker.gd" type="Script" id=1]
 
-[node name="PartOrientPicker" type="Spatial"]
+[node name="PartOrientPicker" type="Node3D"]
 script = ExtResource( 1 )

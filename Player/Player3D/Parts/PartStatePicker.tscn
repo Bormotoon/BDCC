@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Player/Player3D/Parts/PartStatePicker.gd" type="Script" id=1]
 
-[node name="PartStatePicker" type="Spatial"]
+[node name="PartStatePicker" type="Node3D"]
 script = ExtResource( 1 )

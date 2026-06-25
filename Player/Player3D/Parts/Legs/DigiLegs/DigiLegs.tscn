@@ -251,7 +251,7 @@ surfaces/0 = {
 
 [node name="HumanLegs" instance=ExtResource( 1 )]
 
-[node name="digilegpng" type="MeshInstance" parent="." index="0"]
+[node name="digilegpng" type="MeshInstance3D" parent="." index="0"]
 mesh = SubResource( 38 )
 skin = SubResource( 39 )
 material/0 = SubResource( 59 )
@@ -270,7 +270,7 @@ rot = 60.0
 rotSpread = 10.0
 scale = 0.8
 
-[node name="digilegpng001" type="MeshInstance" parent="." index="1"]
+[node name="digilegpng001" type="MeshInstance3D" parent="." index="1"]
 mesh = SubResource( 40 )
 skin = SubResource( 39 )
 material/0 = SubResource( 59 )
@@ -289,7 +289,7 @@ rot = 60.0
 rotSpread = 10.0
 scale = 0.8
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="2"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="2"]
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 94 )
@@ -318,7 +318,7 @@ rotSpread = 5.0
 scale = 0.7
 squish = Vector2( 0.8, 1 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="3"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="3"]
 mesh = SubResource( 45 )
 skin = SubResource( 44 )
 material/0 = SubResource( 94 )
