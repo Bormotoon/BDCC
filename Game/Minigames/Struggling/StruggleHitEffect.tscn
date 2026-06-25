@@ -75,7 +75,7 @@ tracks/2/keys = {
 z_index = 1
 script = ExtResource( 2 )
 
-[node name="StrugglingGameIcons" type="Sprite" parent="."]
+[node name="StrugglingGameIcons" type="Sprite2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 3
