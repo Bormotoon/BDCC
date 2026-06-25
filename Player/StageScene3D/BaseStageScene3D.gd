@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name BaseStageScene3D
 
 var id = "error"

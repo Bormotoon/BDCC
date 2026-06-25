@@ -246,11 +246,11 @@ func _handle_get_toys_response(response:Dictionary):
 		toys_dict = toys_field
 	else:
 		var parsed_toys := JSON.parse_string(str(toys_field))
-		if parsed_toys.error != OK or not (parsed_toys.result is Dictionary):
+		if parsed_toys == null or not (parsed_toys is Dictionary):
 			logError("Could not parse toys payload: " + str(toys_field))
 			setToys([])
 			return
-		toys_dict = parsed_toys.result
+		toys_dict = parsed_toys
 
 	var theNewToys:Array = []
 
