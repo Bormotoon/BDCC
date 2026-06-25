@@ -51,6 +51,8 @@ func updateEnabled():
 		backends[backendID].updateEnabled()
 
 func addBackend(_backend):
+	if not _backend or not "id" in _backend:
+		return
 	add_child(_backend)
 	backends[_backend.id] = _backend
 

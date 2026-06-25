@@ -67,7 +67,7 @@ func _ready():
 func onEnabled():
 	var theToys:Array = []
 	for theGroup in SexToyGroup.ALL:
-		var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
+		var newToy = load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 		newToy.setBackend(id, "some", "", str(theGroup + 1))
 		var toyData:Dictionary = {}
 		newToy.backendData = toyData
@@ -123,7 +123,7 @@ func _process(_delta:float):
 		add_child(newHttpRequest)
 		newHttpRequest.request_completed.connect(deleteRequestAfterDone.bind([newHttpRequest]))
 		newHttpRequest.request(
-			"https://webhook.xtoys.app/"+webhookID, ["Content-Type: application/json"], true, HTTPClient.METHOD_POST,
+			"https://webhook.xtoys.app/"+webhookID, ["Content-Type: application/json"], HTTPClient.METHOD_POST,
 			JSON.stringify(_data)
 		)
 		if(DEBUG_XTOYSAPP):

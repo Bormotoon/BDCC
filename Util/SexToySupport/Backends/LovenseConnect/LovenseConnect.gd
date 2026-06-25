@@ -181,8 +181,7 @@ func _send_local_command(payload:Dictionary) -> bool:
 	if DEBUG_LOVENSE:
 		logDebug("SENDING   " + str(body))
 
-	var validate_domain := useHttps
-	var err := req.request(getCommandUrl(), headers, validate_domain, HTTPClient.METHOD_POST, body)
+	var err := req.request(getCommandUrl(), headers, HTTPClient.METHOD_POST, body)
 	if err != OK:
 		req.queue_free()
 		connectionStatus = STATUS_DISCONNECTED
@@ -202,7 +201,7 @@ func _on_local_request_completed(result:int, response_code:int, _headers:Array, 
 
 	var text := body.get_string_from_utf8()
 
-	var parsed := JSON.parse_string(text)
+	var parsed = JSON.parse_string(text)
 	if(parsed == null):
 		connectionStatus = STATUS_DISCONNECTED
 		logError("Invalid JSON response")
@@ -245,7 +244,7 @@ func _handle_get_toys_response(response:Dictionary):
 	if toys_field is Dictionary:
 		toys_dict = toys_field
 	else:
-		var parsed_toys := JSON.parse_string(str(toys_field))
+		var parsed_toys = JSON.parse_string(str(toys_field))
 		if parsed_toys == null or not (parsed_toys is Dictionary):
 			logError("Could not parse toys payload: " + str(toys_field))
 			setToys([])
@@ -269,7 +268,7 @@ func _handle_get_toys_response(response:Dictionary):
 		var _group:int = 0
 		var _i:int = 0
 #		for theFeature in theDBToyInfo["features"]: # Didn't really work sadly
-#			var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
+#			var newToy = load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 #			newToy.setBackend(id, str(theToyKey), theReportedName, str(_i))
 #			newToy.name = theFinalName+" ("+theFeature["name"]+")"
 #			newToy.group = _group
@@ -308,7 +307,7 @@ func _handle_get_toys_response(response:Dictionary):
 			else:
 				continue
 			
-			var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
+			var newToy = load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 			newToy.setBackend(id, str(theToyKey), theReportedName, str(_i))
 			newToy.name = theFinalName+" ("+theFullFunction+")"
 			newToy.group = _group

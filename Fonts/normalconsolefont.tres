@@ -4,4 +4,4 @@
 
 [resource]
 size = 18
-font_data = ExtResource( 1 )
+base_font = ExtResource( 1 )

@@ -223,6 +223,9 @@ func should_show_map_art() -> bool:
 func should_show_scene_creator() -> bool:
 	return show_scene_creator
 
+func shouldShowModdedLauncher() -> bool:
+	return false
+
 func get_gender_override_name(the_gender, default_value: String) -> String:
 	if not gender_names_overrides.has(the_gender) or gender_names_overrides[the_gender] == "":
 		return default_value
@@ -240,6 +243,9 @@ func apply_ui_scale() -> void:
 
 func set_supports_vertical(supports: bool) -> void:
 	current_supports_vertical = supports
+
+func setSupportsVertical(supports: bool) -> void:
+	set_supports_vertical(supports)
 
 func is_ui_layout_right_handed() -> bool:
 	return ui_layout_right_handed

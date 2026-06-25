@@ -290,6 +290,9 @@ func load_var(data, key: String, null_value = null):
 		return null_value
 	return data[key]
 
+func loadVar(data, key: String, null_value = null):
+	return load_var(data, key, null_value)
+
 ## Line 366-369: deleteSave
 func delete_save(path: String) -> void:
 	var dir := DirAccess.open("user://saves/")

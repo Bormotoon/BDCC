@@ -45,7 +45,7 @@ func setRelationShipData(newAff:float, newLust:float):
 func setSpecialRelationship(_name:String, _color:Color):
 	relationship_name.visible = true
 	relationship_name.text = "("+_name+")"
-	relationship_name["custom_colors/font_color"] = _color
+	relationship_name.add_theme_color_override("font_color", _color)
 
 func setNpcID(ID: String):
 	if(ID == ""):

@@ -51,7 +51,7 @@ func _ready():
 
 	if(GlobalRegistry.doesLoadLockFileExist()): # Game crashed during loading last time
 		SHOW_THIS_SCREEN_ANYWAY = true
-		debug_button["custom_colors/font_color"] = Color.YELLOW
+		debug_button.add_theme_color_override("font_color", Color.YELLOW)
 	
 	if(OS.get_name() == "Android" || SHOW_THIS_SCREEN_ANYWAY):
 		build_pck_button.visible = true
@@ -118,12 +118,11 @@ func saveOrderIntoFile(saveData):
 	save_game.close()
 
 func loadOrderFromFile() -> Array:
-	var save_game = FileAccess.open("", FileAccess.READ)
-	if not save_game.file_exists(modOrderPath):
+	if not FileAccess.file_exists(modOrderPath):
 		print("LaunchScreen: No mod order is found")
 		return []
 	
-	save_game.open(modOrderPath, FileAccess.READ)
+	var save_game = FileAccess.open(modOrderPath, FileAccess.READ)
 	#var saveData = JSON.parse_string(save_game.get_as_text())
 	var jsonResult = JSON.parse_string(save_game.get_as_text())
 	if(jsonResult == null):

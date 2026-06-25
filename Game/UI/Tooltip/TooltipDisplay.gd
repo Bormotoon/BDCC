@@ -1,8 +1,11 @@
 extends MarginContainer
 
+var _is_active := false
 var is_active := false:
 	set(value):
-		set_is_active(value)
+		_is_active = value
+		is_active = value
+		set_process(_is_active)
 var showBelow = false
 
 @onready var _title := $VBoxContainer/Title
@@ -13,7 +16,7 @@ var _tween: Tween
 
 func _ready() -> void:
 	modulate = Color.TRANSPARENT
-	set_is_active(false)
+	_apply_active(false)
 
 
 func _process(_delta: float) -> void:
@@ -35,8 +38,12 @@ func setIsWide(newWide: bool):
 		custom_minimum_size.x = 250
 
 func set_is_active(value: bool, delayShow = false):
+	_apply_active(value, delayShow)
+
+func _apply_active(value: bool, delayShow = false):
+	_is_active = value
 	is_active = value
-	set_process(is_active)
+	set_process(_is_active)
 
 	if is_active:
 		if(delayShow):

@@ -17,7 +17,7 @@ const DEBUG_BUTTPLUGIO := false
 const DEFAULT_WEBSOCKET_URL := "127.0.0.1:12345"
 
 var websocketURL:String = DEFAULT_WEBSOCKET_URL
-var _client = WebSocketClient.new()
+var _client = WebSocketPeer.new()
 var connectionStatus:int = STATUS_DISCONNECTED
 var messageID:int = 1
 
@@ -76,14 +76,6 @@ func applySetting(_varid:String, _value):
 
 func _ready():
 	set_process(false)
-	# Connect base signals to get notified of connection open, close, and errors.
-	_client.connection_closed.connect(onSocketClosed)
-	_client.connection_error.connect(onSocketFailedToConnect)
-	_client.connection_established.connect(onSocketConnected)
-	# This signal is emitted when not using the Multiplayer API every time
-	# a full packet is received.
-	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
-	_client.data_received.connect(onButtplugIOData)
 	
 	#connectToServer()
 
@@ -110,18 +102,18 @@ func connectToServer() -> bool:
 		set_process(false)
 		return false
 	# buttplug uses text frames
-	_client.get_peer(1).set_write_mode(WebSocketPeer.WRITE_MODE_TEXT)
+	_client.write_mode = WebSocketPeer.WRITE_MODE_TEXT
 	return true
 
 func disconnectFromServer():
 	if(connectionStatus == STATUS_DISCONNECTED):
 		return
-	_client.disconnect_from_host()
+	_client.close()
 	connectionStatus = STATUS_DISCONNECTED
 
 func onButtplugIOData():
-	var msg = _client.get_peer(1).get_packet().get_string_from_utf8()
-	var theJson := JSON.parse_string(msg)
+	var msg = _client.get_packet().get_string_from_utf8()
+	var theJson = JSON.parse_string(msg)
 	if(theJson == null):
 		onError("JSON parse error")
 		return
@@ -200,7 +192,7 @@ func processButtplugIOMessage(_message:Dictionary):
 					
 					var _minMaxValues:Array = theOutput[theVibrateType].get("Value", [0, 1])
 					
-					var newToy := load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
+					var newToy = load("res://Util/SexToySupport/Util/SexToyVibrator.gd").new()
 					newToy.setBackend(id, _deviceName, _featureDesc, "vib"+featureStrIndx)
 					newToy.name = _deviceName
 					if(_featureDesc.is_empty()):
@@ -247,12 +239,12 @@ func onSocketFailedToConnect():
 	connectionStatus = STATUS_DISCONNECTED
 	if(DEBUG_BUTTPLUGIO):
 		logError("Failed to connect")
-	_client.disconnect_from_host()
+	_client.close()
 
 
 func onSocketClosed(_clean:bool):
 	connectionStatus = STATUS_DISCONNECTED
-	_client.disconnect_from_host()
+	_client.close()
 	if(DEBUG_BUTTPLUGIO):
 		logDebug("Socket closed. Clean="+str(_clean))
 
@@ -265,7 +257,7 @@ func sendToButtplugIO(command:String, body:Dictionary = {}):
 	if(DEBUG_BUTTPLUGIO):
 		logDebug("SENDING   "+str(msg))
 	var buffer = msg.to_utf8()
-	_client.get_peer(1).put_packet(buffer)
+	_client.put_packet(buffer)
 
 func startScan():
 	sendToButtplugIO("StartScanning", {})
@@ -281,6 +273,18 @@ func scanForDevices():
 
 func _process(_delta:float):
 	_client.poll() # Must be called every frame for a WebSocket
+	
+	# Check connection status after polling
+	if _client.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		if connectionStatus != STATUS_CONNECTED:
+			connectionStatus = STATUS_CONNECTED
+			onSocketConnected("")
+		while _client.get_available_packet_count() > 0:
+			onButtplugIOData()
+	elif _client.get_ready_state() == WebSocketPeer.STATE_CLOSED:
+		if connectionStatus != STATUS_DISCONNECTED:
+			connectionStatus = STATUS_DISCONNECTED
+			onSocketClosed(_client.get_close_code() == 1000)
 	
 	if(scanTimer > 0.0):
 		scanTimer -= _delta

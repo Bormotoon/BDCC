@@ -25,7 +25,7 @@ func updateEntry():
 		label.text += " (disabled)"
 		theTextColor = theTextColor.darkened(0.3)
 		
-	label["custom_colors/font_color"] = theTextColor
+	label.add_theme_color_override("font_color", theTextColor)
 
 func makeActive():
 	$Panel.visible = true

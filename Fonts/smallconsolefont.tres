@@ -3,4 +3,4 @@
 [ext_resource path="res://Fonts/FreeMono.otf" type="FontFile" id=1]
 
 [resource]
-font_data = ExtResource( 1 )
+base_font = ExtResource( 1 )
