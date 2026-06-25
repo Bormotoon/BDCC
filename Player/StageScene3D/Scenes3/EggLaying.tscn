@@ -137,7 +137,7 @@ node_connections = [ "CuffsBlend", 0, "StateMachine", "CuffsBlend", 1, "Animatio
 friction = 0.91
 
 [sub_resource type="BoxShape" id=467]
-extents = Vector3( 4.86804, 1, 8.13402 )
+size = Vector3( 4.86804, 1, 8.13402 )
 
 [node name="EggLaying" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.573566, 0.388868, 0 )
