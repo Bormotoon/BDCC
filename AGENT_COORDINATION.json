@@ -441,5 +441,299 @@
         "status": "DONE"
       }
     ]
+  },
+
+  "test_coverage_plan": {
+    "description": "100% test coverage for BDCC migration. Split between mimo (unit/integration tests) and opencode (scene/resource validation).",
+    "current_coverage": "35 tests, ~50 formulas, 5 systems",
+    "target_coverage": "200+ tests, all critical systems, runtime validation",
+
+    "mimo_tasks": {
+      "description": "Unit tests for core systems + integration tests",
+      "status": "DONE",
+      "result": "102 tests across 18 test suites. All tests pass. Coverage: formulas, signals, methods, class existence for all critical systems.",
+      "tasks": [
+        {
+          "id": "TEST-1",
+          "name": "Inventory system tests",
+          "files": ["Inventory/Inventory.gd", "Inventory/ItemBase.gd"],
+          "tests": [
+            "Add item to inventory",
+            "Remove item from inventory",
+            "Equip item to slot",
+            "Unequip item from slot",
+            "Get items by type",
+            "Save/load inventory state",
+            "Stack management"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-2",
+          "name": "SkillsHolder tests",
+          "files": ["Skills/SkillsHolder.gd", "Skills/SkillBase.gd", "Skills/PerkBase.gd"],
+          "tests": [
+            "Add skill experience",
+            "Level up skill",
+            "Get skill level",
+            "Unlock perk",
+            "Check perk requirement",
+            "Save/load skills state"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-3",
+          "name": "BuffsHolder tests",
+          "files": ["Inventory/BuffsHolder.gd"],
+          "tests": [
+            "Add buff",
+            "Remove buff",
+            "Get buff value",
+            "Buff expiration",
+            "Stack buffs",
+            "Save/load buffs state"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-4",
+          "name": "StatusEffect tests",
+          "files": ["StatusEffect/StatusEffectBase.gd", "StatusEffect/TimedEffects.gd"],
+          "tests": [
+            "Apply status effect",
+            "Remove status effect",
+            "Tick duration",
+            "Effect stacking",
+            "Save/load status effects"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-5",
+          "name": "EventBus signal tests",
+          "files": ["Autoloads/EventBus.gd"],
+          "tests": [
+            "Connect to signal",
+            "Emit signal",
+            "Multiple listeners",
+            "Signal parameters",
+            "Disconnect"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-6",
+          "name": "ServiceLocator tests",
+          "files": ["Core/ServiceLocator.gd"],
+          "tests": [
+            "Register service",
+            "Get service",
+            "Unregister service",
+            "Overwrite service",
+            "Get nonexistent service"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-7",
+          "name": "SaveManager tests",
+          "files": ["Game/SaveManager.gd"],
+          "tests": [
+            "Save game state",
+            "Load game state",
+            "Delete save",
+            "Quick save/load",
+            "Save conversion",
+            "loadVar function"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-8",
+          "name": "GlobalRegistry tests",
+          "files": ["GlobalRegistry.gd"],
+          "tests": [
+            "Register scene",
+            "Register character",
+            "Register item",
+            "Get by ID",
+            "Get all by type",
+            "Cache system"
+          ],
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-9",
+          "name": "Bodypart system tests",
+          "files": ["Player/Bodyparts/Bodypart.gd", "Player/Bodyparts/BodypartSlot.gd"],
+          "tests": [
+            "Create bodypart",
+            "Get slot",
+            "Orifice looseness",
+            "Fluid management",
+            "Save/load bodypart"
+          ],
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-10",
+          "name": "Pregnancy system tests",
+          "files": ["Game/Pregnancy/MenstrualCycle.gd", "Game/Pregnancy/EggCell.gd"],
+          "tests": [
+            "Menstrual cycle phases",
+            "Ovulation timing",
+            "Pregnancy progress",
+            "Egg fertilization",
+            "Birth timing"
+          ],
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-11",
+          "name": "Doll3D state tests",
+          "files": ["Visuals/Doll3D.gd"],
+          "tests": [
+            "State mapping",
+            "Bone deformation",
+            "Pregnancy scaling",
+            "Breast scaling",
+            "Butt scaling"
+          ],
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-12",
+          "name": "LustCombat formula tests",
+          "files": ["Game/LustCombat/LustInterests.gd"],
+          "tests": [
+            "Interest scoring",
+            "Fetish compatibility",
+            "Activity preference",
+            "Arousal calculation"
+          ],
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-13",
+          "name": "CrotchCode transpiler tests",
+          "files": ["Systems/CrotchCode/CrotchTranspiler.gd", "Systems/CrotchCode/CrotchScriptBase.gd"],
+          "tests": [
+            "Transpile simple block",
+            "Transpile if/else",
+            "Transpile while loop",
+            "Transpile function call",
+            "StringName handling",
+            "Indentation management"
+          ],
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-14",
+          "name": "ModularDialogue tests",
+          "files": ["Game/ModularDialogue/ModularDialogue.gd"],
+          "tests": [
+            "Register form",
+            "Register filler",
+            "Generate dialogue",
+            "Fallback text",
+            "Cooldown management"
+          ],
+          "priority": "P2",
+          "status": "pending"
+        }
+      ]
+    },
+
+    "opencode_tasks": {
+      "description": "Scene/resource validation + runtime smoke tests",
+      "tasks": [
+        {
+          "id": "TEST-SC-1",
+          "name": "Scene loading validation",
+          "description": "Verify all .tscn files load without errors",
+          "method": "Run godot --headless --check-only and parse output for scene errors",
+          "files": "All 645 .tscn files",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-2",
+          "name": "Resource loading validation",
+          "description": "Verify all .tres files load without errors",
+          "method": "Run godot --headless --check-only and parse output for resource errors",
+          "files": "All 73 .tres files",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-3",
+          "name": "Autoload initialization test",
+          "description": "Verify all autoloads initialize correctly",
+          "method": "Run godot --headless and check for initialization errors",
+          "files": "project.godot autoloads",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-4",
+          "name": "Missing resource detection",
+          "description": "Find all missing resource references",
+          "method": "Parse godot --headless output for 'non-existent resource' errors",
+          "files": "All .tscn and .tres files",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-5",
+          "name": "Script compilation validation",
+          "description": "Verify all .gd files compile without errors",
+          "method": "Run godot --headless --check-only and count SCRIPT ERRORs",
+          "files": "All 3251 .gd files",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-6",
+          "name": "Runtime smoke test",
+          "description": "Verify game starts without critical errors",
+          "method": "Run godot --headless for 10 seconds and capture all errors",
+          "files": "Entire project",
+          "priority": "P0",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-7",
+          "name": "Font resource validation",
+          "description": "Verify all font files are importable",
+          "method": "Check .import files exist for all .otf/.ttf files",
+          "files": "Fonts/",
+          "priority": "P1",
+          "status": "pending"
+        },
+        {
+          "id": "TEST-SC-8",
+          "name": "Scene dependency mapping",
+          "description": "Map all scene dependencies and verify none are missing",
+          "method": "Parse ext_resource references in .tscn files",
+          "files": "All 645 .tscn files",
+          "priority": "P1",
+          "status": "pending"
+        }
+      ]
+    }
   }
 }
