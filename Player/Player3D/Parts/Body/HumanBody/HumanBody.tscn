@@ -193,7 +193,7 @@ scale = 0.8
 squish = Vector2( 0.6, 1 )
 maxWritings = 1
 
-[node name="bodywidepng4" type="MeshInstance" parent="." index="3"]
+[node name="bodywidepng4" type="MeshInstance3D" parent="." index="3"]
 visible = false
 mesh = SubResource( 16 )
 skin = SubResource( 17 )

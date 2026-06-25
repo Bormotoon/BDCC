@@ -229,18 +229,18 @@ bind/27/pose = Transform( 0.127554, -0.991832, 5.86852e-07, -0.991832, -0.127554
 
 [node name="BreastsScaleable" instance=ExtResource( 1 )]
 
-[node name="breastsScalable" type="MeshInstance" parent="." index="0"]
+[node name="breastsScalable" type="MeshInstance3D" parent="." index="0"]
 visible = false
 mesh = SubResource( 8 )
 skin = SubResource( 9 )
 
-[node name="breastsScalable001" type="MeshInstance" parent="." index="1"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="." index="1"]
 visible = false
 mesh = SubResource( 10 )
 skin = SubResource( 11 )
 material/0 = SubResource( 103 )
 
-[node name="breastsScalable002" type="MeshInstance" parent="." index="2"]
+[node name="breastsScalable002" type="MeshInstance3D" parent="." index="2"]
 mesh = SubResource( 10 )
 skin = SubResource( 11 )
 material/0 = SubResource( 103 )

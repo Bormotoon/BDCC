@@ -214,7 +214,7 @@ state = "armalpha"
 
 [node name="PartState" parent="PartStatePicker3" index="0" instance=ExtResource( 7 )]
 
-[node name="armpng" type="MeshInstance" parent="PartStatePicker3/PartState" index="0"]
+[node name="armpng" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="0"]
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 skeleton = NodePath("../../..")
@@ -234,7 +234,7 @@ rot = 90.0
 rotSpread = 10.0
 squish = Vector2( 1, 0.9 )
 
-[node name="armpng001" type="MeshInstance" parent="PartStatePicker3/PartState" index="1"]
+[node name="armpng001" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="1"]
 mesh = SubResource( 21 )
 skin = SubResource( 20 )
 skeleton = NodePath("../../..")
@@ -254,7 +254,7 @@ rot = 90.0
 rotSpread = 10.0
 squish = Vector2( 1, 0.9 )
 
-[node name="forearmpng" type="MeshInstance" parent="PartStatePicker3/PartState" index="2"]
+[node name="forearmpng" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="2"]
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
 skeleton = NodePath("../../..")
@@ -274,7 +274,7 @@ rot = -55.0
 rotSpread = 5.0
 squish = Vector2( 1, 0.7 )
 
-[node name="forearmpng001" type="MeshInstance" parent="PartStatePicker3/PartState" index="3"]
+[node name="forearmpng001" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="3"]
 mesh = SubResource( 23 )
 skin = SubResource( 20 )
 skeleton = NodePath("../../..")
@@ -326,14 +326,14 @@ state = "gloves"
 visible = false
 stateValue = "mittens"
 
-[node name="handpng2" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="handpng2" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0264019 )
 mesh = SubResource( 27 )
 skin = SubResource( 20 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 26 )
 
-[node name="handpng002" type="MeshInstance" parent="PartStatePicker/PartState" index="1"]
+[node name="handpng002" type="MeshInstance3D" parent="PartStatePicker/PartState" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.026 )
 mesh = SubResource( 29 )
 skin = SubResource( 20 )

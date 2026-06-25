@@ -111,7 +111,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="ManeHair" instance=ExtResource( 1 )]
 
-[node name="headwolfpng2" type="MeshInstance" parent="." index="0"]
+[node name="headwolfpng2" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.028 )
 mesh = SubResource( 9 )
 skin = SubResource( 10 )

@@ -136,7 +136,7 @@ albedo_texture = ExtResource( 4 )
 
 [node name="CanineEars3" instance=ExtResource( 1 )]
 
-[node name="EarsLayer" type="MeshInstance" parent="." index="0"]
+[node name="EarsLayer" type="MeshInstance3D" parent="." index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = SubResource( 4 )

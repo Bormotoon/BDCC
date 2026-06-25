@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Player/Player3D/Doll3DTooltip.gd" type="Script" id=1]
 
-[node name="Doll3DTooltip" type="Spatial"]
+[node name="Doll3DTooltip" type="Node3D"]
 script = ExtResource( 1 )
