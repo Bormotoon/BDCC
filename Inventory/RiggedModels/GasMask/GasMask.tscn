@@ -109,7 +109,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="GasMask" instance=ExtResource( 1 )]
 
-[node name="catheadpng" type="MeshInstance" parent="." index="0"]
+[node name="catheadpng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0112295 )
 mesh = SubResource( 2 )
 skin = SubResource( 3 )

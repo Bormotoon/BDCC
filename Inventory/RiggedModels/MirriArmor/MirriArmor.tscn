@@ -1200,52 +1200,52 @@ albedo_texture = ExtResource( 18 )
 
 [node name="MirriArmor" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 99 )
 
-[node name="armpng" type="MeshInstance" parent="." index="1"]
+[node name="armpng" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 109 )
 
-[node name="armpng001" type="MeshInstance" parent="." index="2"]
+[node name="armpng001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
 material/0 = SubResource( 109 )
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="3"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 107 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="4"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 46 )
 skin = SubResource( 44 )
 material/0 = SubResource( 107 )
 
-[node name="forearmpng" type="MeshInstance" parent="." index="5"]
+[node name="forearmpng" type="MeshInstance3D" parent="." index="5"]
 mesh = SubResource( 55 )
 skin = SubResource( 56 )
 material/0 = SubResource( 110 )
 
-[node name="forearmpng001" type="MeshInstance" parent="." index="6"]
+[node name="forearmpng001" type="MeshInstance3D" parent="." index="6"]
 mesh = SubResource( 58 )
 skin = SubResource( 56 )
 material/0 = SubResource( 110 )
 
-[node name="digilegpng" type="MeshInstance" parent="." index="7"]
+[node name="digilegpng" type="MeshInstance3D" parent="." index="7"]
 mesh = SubResource( 60 )
 skin = SubResource( 61 )
 material/0 = SubResource( 108 )
 
-[node name="digilegpng001" type="MeshInstance" parent="." index="8"]
+[node name="digilegpng001" type="MeshInstance3D" parent="." index="8"]
 mesh = SubResource( 63 )
 skin = SubResource( 61 )
 material/0 = SubResource( 108 )
@@ -1255,13 +1255,13 @@ state = "hands"
 
 [node name="PartState" parent="PartStatePicker3" index="0" instance=ExtResource( 10 )]
 
-[node name="handpng" type="MeshInstance" parent="PartStatePicker3/PartState" index="0"]
+[node name="handpng" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="0"]
 mesh = SubResource( 79 )
 skin = SubResource( 80 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 111 )
 
-[node name="handpng001" type="MeshInstance" parent="PartStatePicker3/PartState" index="1"]
+[node name="handpng001" type="MeshInstance3D" parent="PartStatePicker3/PartState" index="1"]
 mesh = SubResource( 82 )
 skin = SubResource( 80 )
 skeleton = NodePath("../../..")
@@ -1271,19 +1271,19 @@ material/0 = SubResource( 111 )
 visible = false
 stateValue = "fists"
 
-[node name="handpng2" type="MeshInstance" parent="PartStatePicker3/PartState2" index="0"]
+[node name="handpng2" type="MeshInstance3D" parent="PartStatePicker3/PartState2" index="0"]
 mesh = SubResource( 83 )
 skin = SubResource( 80 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 112 )
 
-[node name="handpng002" type="MeshInstance" parent="PartStatePicker3/PartState2" index="1"]
+[node name="handpng002" type="MeshInstance3D" parent="PartStatePicker3/PartState2" index="1"]
 mesh = SubResource( 85 )
 skin = SubResource( 80 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 112 )
 
-[node name="legupDeformable2" type="MeshInstance" parent="." index="10"]
+[node name="legupDeformable2" type="MeshInstance3D" parent="." index="10"]
 mesh = SubResource( 95 )
 skin = SubResource( 96 )
 material/0 = SubResource( 97 )
@@ -1292,7 +1292,7 @@ pattern_start = Vector2( 0, 4 )
 pattern_size = Vector2( 0.5, 1 )
 bodypartSlot = "legs"
 
-[node name="legupDeformable002" type="MeshInstance" parent="." index="11"]
+[node name="legupDeformable002" type="MeshInstance3D" parent="." index="11"]
 mesh = SubResource( 98 )
 skin = SubResource( 96 )
 material/0 = SubResource( 97 )
@@ -1307,14 +1307,14 @@ state = "breasts"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 10 )]
 stateValue = "nonflat"
 
-[node name="breastsScalable001" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.03 )
 mesh = SubResource( 100 )
 skin = SubResource( 101 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 102 )
 
-[node name="breastsScalable002" type="MeshInstance" parent="PartStatePicker/PartState" index="1"]
+[node name="breastsScalable002" type="MeshInstance3D" parent="PartStatePicker/PartState" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.025 )
 mesh = SubResource( 104 )
 skin = SubResource( 105 )

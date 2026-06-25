@@ -264,19 +264,19 @@ surfaces/0 = {
 [node name="Briefs" instance=ExtResource( 2 )]
 script = ExtResource( 4 )
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 47 )
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="1"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.005 )
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 48 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="2"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.005 )
 mesh = SubResource( 46 )
 skin = SubResource( 44 )

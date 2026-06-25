@@ -491,19 +491,19 @@ surfaces/0 = {
 
 [node name="Leotard" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 86 )
 
-[node name="armpng" type="MeshInstance" parent="." index="1"]
+[node name="armpng" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 87 )
 
-[node name="armpng001" type="MeshInstance" parent="." index="2"]
+[node name="armpng001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
@@ -515,19 +515,19 @@ state = "breasts"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 10 )]
 stateValue = "nonflat"
 
-[node name="breastsScalable001" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 48 )
 skin = SubResource( 49 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 88 )
 
-[node name="forearmpng" type="MeshInstance" parent="." index="4"]
+[node name="forearmpng" type="MeshInstance3D" parent="." index="4"]
 mesh = SubResource( 55 )
 skin = SubResource( 56 )
 material/0 = SubResource( 89 )
 
-[node name="forearmpng001" type="MeshInstance" parent="." index="5"]
+[node name="forearmpng001" type="MeshInstance3D" parent="." index="5"]
 mesh = SubResource( 58 )
 skin = SubResource( 56 )
 material/0 = SubResource( 89 )

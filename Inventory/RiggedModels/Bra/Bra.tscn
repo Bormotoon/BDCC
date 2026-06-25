@@ -256,7 +256,7 @@ albedo_texture = ExtResource( 3 )
 [node name="Bra" instance=ExtResource( 5 )]
 script = ExtResource( 7 )
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
@@ -268,7 +268,7 @@ state = "breasts"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 6 )]
 stateValue = "nonflat"
 
-[node name="breastsScalable001" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035 )
 mesh = SubResource( 48 )
 skin = SubResource( 49 )

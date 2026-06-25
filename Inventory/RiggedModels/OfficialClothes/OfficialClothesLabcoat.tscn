@@ -1201,31 +1201,31 @@ surfaces/0 = {
 
 [node name="OfficialClothesLabcoat" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 80 )
 
-[node name="armpng" type="MeshInstance" parent="." index="1"]
+[node name="armpng" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 51 )
 
-[node name="armpng001" type="MeshInstance" parent="." index="2"]
+[node name="armpng001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
 material/0 = SubResource( 51 )
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="3"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 52 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="4"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 46 )
 skin = SubResource( 44 )
@@ -1237,19 +1237,19 @@ state = "breasts"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 10 )]
 stateValue = "nonflat"
 
-[node name="breastsScalable001" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 48 )
 skin = SubResource( 49 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 53 )
 
-[node name="forearmpng" type="MeshInstance" parent="." index="6"]
+[node name="forearmpng" type="MeshInstance3D" parent="." index="6"]
 mesh = SubResource( 55 )
 skin = SubResource( 56 )
 material/0 = SubResource( 57 )
 
-[node name="forearmpng001" type="MeshInstance" parent="." index="7"]
+[node name="forearmpng001" type="MeshInstance3D" parent="." index="7"]
 mesh = SubResource( 58 )
 skin = SubResource( 56 )
 material/0 = SubResource( 57 )
@@ -1260,13 +1260,13 @@ state = "legstype"
 [node name="PartState" parent="PartStatePicker2" index="0" instance=ExtResource( 10 )]
 visible = false
 
-[node name="digilegpng" type="MeshInstance" parent="PartStatePicker2/PartState" index="0"]
+[node name="digilegpng" type="MeshInstance3D" parent="PartStatePicker2/PartState" index="0"]
 mesh = SubResource( 60 )
 skin = SubResource( 61 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 62 )
 
-[node name="digilegpng001" type="MeshInstance" parent="PartStatePicker2/PartState" index="1"]
+[node name="digilegpng001" type="MeshInstance3D" parent="PartStatePicker2/PartState" index="1"]
 mesh = SubResource( 63 )
 skin = SubResource( 61 )
 skeleton = NodePath("../../..")
@@ -1275,47 +1275,47 @@ material/0 = SubResource( 62 )
 [node name="PartState2" parent="PartStatePicker2" index="1" instance=ExtResource( 10 )]
 stateValue = "planti"
 
-[node name="footpng" type="MeshInstance" parent="PartStatePicker2/PartState2" index="0"]
+[node name="footpng" type="MeshInstance3D" parent="PartStatePicker2/PartState2" index="0"]
 mesh = SubResource( 64 )
 skin = SubResource( 65 )
 material/0 = SubResource( 66 )
 
-[node name="footpng001" type="MeshInstance" parent="PartStatePicker2/PartState2" index="1"]
+[node name="footpng001" type="MeshInstance3D" parent="PartStatePicker2/PartState2" index="1"]
 mesh = SubResource( 67 )
 skin = SubResource( 65 )
 material/0 = SubResource( 66 )
 
-[node name="legdownpng" type="MeshInstance" parent="PartStatePicker2/PartState2" index="2"]
+[node name="legdownpng" type="MeshInstance3D" parent="PartStatePicker2/PartState2" index="2"]
 mesh = SubResource( 68 )
 skin = SubResource( 65 )
 material/0 = SubResource( 69 )
 
-[node name="legdownpng001" type="MeshInstance" parent="PartStatePicker2/PartState2" index="3"]
+[node name="legdownpng001" type="MeshInstance3D" parent="PartStatePicker2/PartState2" index="3"]
 mesh = SubResource( 70 )
 skin = SubResource( 65 )
 material/0 = SubResource( 69 )
 
 [node name="HandsPrefab" parent="." index="9" instance=ExtResource( 19 )]
 
-[node name="Labcoat" type="MeshInstance" parent="." index="10"]
+[node name="Labcoat" type="MeshInstance3D" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.019 )
 mesh = SubResource( 71 )
 skin = SubResource( 72 )
 material/0 = SubResource( 73 )
 
-[node name="Labcoat2" type="MeshInstance" parent="." index="11"]
+[node name="Labcoat2" type="MeshInstance3D" parent="." index="11"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0356045 )
 mesh = SubResource( 74 )
 skin = SubResource( 72 )
 material/0 = SubResource( 73 )
 
-[node name="armpng2" type="MeshInstance" parent="." index="12"]
+[node name="armpng2" type="MeshInstance3D" parent="." index="12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0512292 )
 mesh = SubResource( 76 )
 skin = SubResource( 77 )
 material/0 = SubResource( 78 )
 
-[node name="armpng002" type="MeshInstance" parent="." index="13"]
+[node name="armpng002" type="MeshInstance3D" parent="." index="13"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0512292 )
 mesh = SubResource( 79 )
 skin = SubResource( 77 )

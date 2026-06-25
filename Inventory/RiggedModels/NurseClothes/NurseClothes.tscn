@@ -505,31 +505,31 @@ albedo_texture = ExtResource( 6 )
 
 [node name="NurseClothes" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 50 )
 
-[node name="armpng" type="MeshInstance" parent="." index="1"]
+[node name="armpng" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 51 )
 
-[node name="armpng001" type="MeshInstance" parent="." index="2"]
+[node name="armpng001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
 material/0 = SubResource( 51 )
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="3"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 52 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="4"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 mesh = SubResource( 46 )
 skin = SubResource( 44 )
@@ -541,7 +541,7 @@ state = "breasts"
 [node name="PartState" parent="PartStatePicker" index="0" instance=ExtResource( 10 )]
 stateValue = "nonflat"
 
-[node name="breastsScalable001" type="MeshInstance" parent="PartStatePicker/PartState" index="0"]
+[node name="breastsScalable001" type="MeshInstance3D" parent="PartStatePicker/PartState" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07 )
 mesh = SubResource( 48 )
 skin = SubResource( 49 )

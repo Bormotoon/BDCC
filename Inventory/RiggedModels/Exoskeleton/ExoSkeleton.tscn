@@ -758,70 +758,70 @@ surfaces/0 = {
 
 [node name="ExoSkeleton" instance=ExtResource( 2 )]
 
-[node name="bodywidepng" type="MeshInstance" parent="." index="0"]
+[node name="bodywidepng" type="MeshInstance3D" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.317592 )
 mesh = SubResource( 16 )
 skin = SubResource( 17 )
 material/0 = SubResource( 54 )
 
-[node name="armpng" type="MeshInstance" parent="." index="1"]
+[node name="armpng" type="MeshInstance3D" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0215342 )
 mesh = SubResource( 19 )
 skin = SubResource( 20 )
 material/0 = SubResource( 55 )
 
-[node name="armpng001" type="MeshInstance" parent="." index="2"]
+[node name="armpng001" type="MeshInstance3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0215342 )
 mesh = SubResource( 22 )
 skin = SubResource( 20 )
 material/0 = SubResource( 55 )
 
-[node name="legupDeformable" type="MeshInstance" parent="." index="3"]
+[node name="legupDeformable" type="MeshInstance3D" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.050453 )
 mesh = SubResource( 43 )
 skin = SubResource( 44 )
 material/0 = SubResource( 65 )
 
-[node name="legupDeformable001" type="MeshInstance" parent="." index="4"]
+[node name="legupDeformable001" type="MeshInstance3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.050453 )
 mesh = SubResource( 46 )
 skin = SubResource( 44 )
 material/0 = SubResource( 65 )
 
-[node name="handpng" type="MeshInstance" parent="." index="5"]
+[node name="handpng" type="MeshInstance3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0322485 )
 mesh = SubResource( 56 )
 skin = SubResource( 57 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 58 )
 
-[node name="handpng001" type="MeshInstance" parent="." index="6"]
+[node name="handpng001" type="MeshInstance3D" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0322485 )
 mesh = SubResource( 59 )
 skin = SubResource( 57 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 58 )
 
-[node name="forearmpng" type="MeshInstance" parent="." index="7"]
+[node name="forearmpng" type="MeshInstance3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0322485 )
 mesh = SubResource( 62 )
 skin = SubResource( 63 )
 material/0 = SubResource( 60 )
 
-[node name="forearmpng001" type="MeshInstance" parent="." index="8"]
+[node name="forearmpng001" type="MeshInstance3D" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0322485 )
 mesh = SubResource( 64 )
 skin = SubResource( 63 )
 material/0 = SubResource( 60 )
 
-[node name="digilegpng" type="MeshInstance" parent="." index="9"]
+[node name="digilegpng" type="MeshInstance3D" parent="." index="9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0220373 )
 mesh = SubResource( 67 )
 skin = SubResource( 68 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 69 )
 
-[node name="digilegpng001" type="MeshInstance" parent="." index="10"]
+[node name="digilegpng001" type="MeshInstance3D" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0220373 )
 mesh = SubResource( 70 )
 skin = SubResource( 68 )
