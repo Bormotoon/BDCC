@@ -260,7 +260,7 @@ offset_right = 1266.0
 offset_bottom = 706.0
 size_flags_vertical = 3
 
-[node name="AlertWindowDialog" type="WindowDialog" parent="."]
+[node name="AlertWindowDialog" type="Window" parent="."]
 unique_name_in_owner = true
 visible = true
 anchor_left = 0.5
