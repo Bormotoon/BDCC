@@ -128,7 +128,9 @@ func on_pawn_moved(char_id: StringName, old_loc: StringName, new_loc: StringName
 		var other_pawn = pawns.get(other_pawn_id, {})
 		if other_pawn.is_empty():
 			continue
-		# Simplified meet check - real code calls pawnType.onPawnMeetWith
+		if not other_pawn.is_empty() and other_pawn.get("is_active", false):
+			if GM and GM.main and GM.main.IS:
+				GM.main.IS.checkOnMeetInteractions(char_id, other_pawn_id, true)
 		break
 
 func get_pawn(char_id: StringName) -> Dictionary:
@@ -334,12 +336,55 @@ func start_interaction(interaction_id: StringName, participants: Dictionary, con
 	interactions.append(new_interaction)
 
 func _check_add_new_pawns() -> void:
-	# Placeholder — real logic checks pawn distribution and spawns if needed
-	pass
+	if GM and GM.main:
+		if GM.main.has_method("getTime"):
+			var time_sec = GM.main.getTime()
+			if time_sec >= 19 * 3600:
+				return
+		if GM.main.has_method("is_in_dungeon") and GM.main.is_in_dungeon():
+			return
+
+	var max_pawns: int = _get_max_pawn_count()
+	var cur_pawns: int = pawns.size()
+	if cur_pawns >= max_pawns or max_pawns <= 0:
+		return
+
+	var fullness: float = float(cur_pawns) / float(max_pawns)
+	var chance: float = (1.0 - fullness) * 10.0
+	if not RNG.chance(chance):
+		return
+
+	_try_spawn_pawn()
 
 func _get_max_pawn_count() -> int:
-	# Placeholder — real logic reads OPTIONS.getSandboxPawnCount()
+	if OPTIONS and OPTIONS.has_method("get_sandbox_pawn_count"):
+		return OPTIONS.get_sandbox_pawn_count()
 	return 30
+
+func _try_spawn_pawn() -> bool:
+	var pawn_types: Array = []
+	if GM and GM.main and GM.main.has_method("getPawnDistribution"):
+		var dist = GM.main.getPawnDistribution()
+		pawn_types = dist.keys()
+	elif GM and GM.main and GM.main.IS:
+		if GM.main.IS.has("pawnDistribution"):
+			pawn_types = GM.main.IS.pawnDistribution.keys()
+	if pawn_types.is_empty():
+		return false
+
+	var picked_type = RNG.pick(pawn_types)
+	var pawn_type = GlobalRegistry.getPawnType(picked_type) if GlobalRegistry.has_method("getPawnType") else null
+	if pawn_type == null:
+		return false
+
+	var picked_char_id = pawn_type.tryPickCharacterID() if pawn_type.has_method("tryPickCharacterID") else ""
+	if picked_char_id.is_empty():
+		picked_char_id = pawn_type.generateCharacterID() if pawn_type.has_method("generateCharacterID") else ""
+	if picked_char_id.is_empty():
+		return false
+
+	var new_pawn = spawn_pawn(picked_char_id, &"", picked_type)
+	return not new_pawn.is_empty()
 
 # ==========================================
 # COMBAT HELPERS (CharacterPawn lines 473-500)
@@ -397,16 +442,55 @@ func affect_affection(char_id: StringName, other_char_id: StringName, how_much: 
 		EventBus.npc_relationship_changed.emit(char_id, other_char_id, &"affection", how_much * mult)
 
 func _get_affection(char_id: StringName, other_char_id: StringName) -> float:
-	return 0.0 # Placeholder — connected to RelationshipSystem
+	if GM and GM.main and GM.main.RS:
+		return GM.main.RS.getAffection(char_id, other_char_id)
+	return 0.0
 
 func _get_lust(char_id: StringName, other_char_id: StringName) -> float:
+	if GM and GM.main and GM.main.RS:
+		return GM.main.RS.getLust(char_id, other_char_id)
 	return 0.0
 
 func _score_personality(char_id: StringName, stat: StringName) -> float:
+	var character = GlobalRegistry.getCharacter(char_id)
+	if character == null:
+		return 0.0
+	if character.has_method("getPersonality"):
+		var personality = character.getPersonality()
+		if personality and personality.has_method("personality_score"):
+			return personality.personality_score({stat: 1.0})
+	if character.has_method("get_personality"):
+		var personality = character.get_personality()
+		if personality and personality.has_method("personality_score"):
+			return personality.personality_score({stat: 1.0})
 	return 0.0
 
 func _get_chars_rep_mult(char1_id: StringName, char2_id: StringName) -> float:
-	# Line 340-363: reputation multiplier based on character types
+	var character1 = GlobalRegistry.getCharacter(char1_id)
+	var character2 = GlobalRegistry.getCharacter(char2_id)
+	if character1 == null or character2 == null:
+		return 1.0
+
+	if not character1.has_method("isPlayer") or not character2.has_method("isPlayer"):
+		return 1.0
+	if not character1.isPlayer() and not character2.isPlayer():
+		return 1.0
+
+	var reputation
+	if character1.isPlayer():
+		reputation = character1.getReputation() if character1.has_method("getReputation") else null
+		if reputation:
+			if character2.has_method("isInmate") and character2.isInmate():
+				return reputation.getGenericRepMult("Inmates", 1.0)
+			else:
+				return reputation.getGenericRepMult("Staff", 1.0)
+	else:
+		reputation = character2.getReputation() if character2.has_method("getReputation") else null
+		if reputation:
+			if character1.has_method("isInmate") and character1.isInmate():
+				return reputation.getGenericRepMult("Inmates", 1.0)
+			else:
+				return reputation.getGenericRepMult("Staff", 1.0)
 	return 1.0
 
 # ==========================================
