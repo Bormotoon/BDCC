@@ -106,7 +106,7 @@ func getFormIDs() -> Array:
 
 func canBeUsed(_id:String, _args:Dictionary, _form) -> bool:
 	var guard = getChar(_args, _form.mainRole)
-	var personality:Personality = guard.getPersonality()
+	var personality = guard.getPersonality()
 	var subby = personality.getStat(PersonalityStat.Subby)
 	#var subby = personality.getStat(PersonalityStat.Subby)
 	

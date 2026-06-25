@@ -1089,15 +1089,6 @@ func getEffect(effect_id: StringName):
 	return get_effect(effect_id)
 
 # Method aliases — Bodyparts
-func giveBodypart(bodypart) -> void:
-	if bodypart == null:
-		return
-	var slot = bodypart.getSlot()
-	if slot != null:
-		bodyparts[slot] = bodypart
-		bodypart_storage_node.add_child(bodypart)
-		bodypart_changed.emit()
-
 func hasBodypart(slot) -> bool:
 	return has_bodypart(slot)
 

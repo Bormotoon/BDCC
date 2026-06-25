@@ -34,8 +34,8 @@ SAVE="*res://Game/SaveManager.gd"
 GlobalTooltip="*res://Game/UI/Tooltip/TooltipSystem.tscn"
 AutoTranslation="*res://Util/AutoTranslation/AutoTranslation.gd"
 CrotchFavBlocks="*res://Game/Datapacks/UI/CrotchCode/Util/CrotchFavBlocks.gd"
-ModularDialogue="*res://Game/ModularDialogue/ModularDialogue.gd"
 SexToyManager="*res://Util/SexToySupport/SexToyManager.gd"
+ModularDialogue="*res://Game/ModularDialogue/ModularDialogue.gd"
 
 [debug]
 
